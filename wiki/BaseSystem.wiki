@@ -22,6 +22,8 @@
   * wait thread 
   * manager thread
   
+== thread & task ==
+  * lock-free task queue 를 활용한 task synchronization 
 
 == base ==
   * O(1) timer
