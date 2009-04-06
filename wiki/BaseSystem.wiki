@@ -42,5 +42,7 @@
   * CachePackage
   * CacheServer
   * CPServer, CPClient, CPProcessor (CPInterface Factory)
+  * Synchronization of game state between worldservers 
+    * CacheServer -> CPServer-> CPClient 의 observer pattern 을 활용한 data sync 방식 설명
   * CPInterface
   * CPRollbackContext, CPUpdateContext
