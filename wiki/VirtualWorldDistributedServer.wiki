@@ -1,0 +1,9 @@
+
+= 단일 월드 서버 구성 =
+  * WorldServer
+  * CacheServer
+  * DB Server
+  * AdminServer
+  * WorldCoordinator 
+    * locating
+    * load balancing
