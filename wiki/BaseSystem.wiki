@@ -1,4 +1,3 @@
-
 == DataStructure ==
   * lock-free stack
   * lock-free queue
@@ -10,7 +9,7 @@
 == Memory ==
   * memory allocator
   * thread local slab memory memory allocator (class base TLS)
-  * buffer
+  * buffer (fixed size buffer unit)
 
 == ObjectBase ==
   * Object (ObjectBase)
@@ -18,12 +17,15 @@
 
 == Proactor (IOCP) ==
   * message post & receiver
-  * io thread
-  * wait thread
+  * io thread 
+  * worker thread
+  * wait thread 
+  * manager thread
+  
 
 == base ==
   * O(1) timer
-  * Log system
+  * Log system 
   * Exception handler
   
   
