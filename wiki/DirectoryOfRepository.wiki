@@ -1,8 +1,12 @@
 = 개요 =
  * 제안해주세요..일단은 아래처럼
+ * 디렉토리는 항상 소문자로 한다. 
 
 = 구성 =
  * trunk/src
  * trunk/doc
  * trunk/testcase
  * trunk/vendor
+
+== trunk/src ==
+  
