@@ -1,9 +1,8 @@
-
 = 단일 월드 서버 구성 =
-  * WorldServer
-  * CacheServer
-  * DB Server
+ * no single point of failure , decentralized server
+  * WorldServer (Scalable)
+  * CacheServer with partitioned DB Server (Scalable)
   * AdminServer
-  * WorldCoordinator 
+  * WorldCoordinator (Scalable)
     * locating
-    * load balancing
+    * dynamic load balancing
