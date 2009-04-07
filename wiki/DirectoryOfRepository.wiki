@@ -9,4 +9,12 @@
  * trunk/vendor
 
 == trunk/src ==
+ * Core ; namespace EarlGrey
+   1. BaseSystem
+ * SmartDB
+ * SmartDBArtifact
+ * ScriptEngine
+ * WorldInstanceService ; dll
+   1.  WorldInstance Session 관리
+ * WorldInstanceLauncher
   
