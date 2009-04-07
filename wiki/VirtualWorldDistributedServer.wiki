@@ -2,7 +2,8 @@
  * no single point of failure , decentralized server
   * WorldServer (Scalable)
   * CacheServer with partitioned DB Server (Scalable)
-  * AdminServer
+  * AdminServer (분산서버 관리)
+    * node 관리
   * WorldCoordinator (Scalable)
     * locating
     * dynamic load balancing
