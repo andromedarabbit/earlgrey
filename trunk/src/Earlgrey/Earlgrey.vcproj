@@ -295,6 +295,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\LockfreeStack.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -330,6 +334,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\src\Uncopyable.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -341,11 +349,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\LockfreeStack.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\stdafx.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Uncopyable.h"
 				>
 			</File>
 		</Filter>
