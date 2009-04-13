@@ -1,0 +1,95 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Import Project="..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\MSBuild.Community.Tasks.Targets"/>
+
+<Import Project="msbuild.xml"/>
+
+<!-- 서브버전 -->
+<PropertyGroup>
+	<SvnUsername>계정 이름</SvnUsername>
+	<SvnPassword>암호</SvnPassword>
+	<SvnLocalRootPath>..</SvnLocalRootPath>
+</PropertyGroup>
+
+<!-- 공유 라이브러리의 로컬 경로 -->
+<ItemGroup>
+	<SharedLibrary Include="Item">
+		<LocalPath>..\vendor\gtest-1.3.0</LocalPath>
+		<EscapedLocalPath>gtest</EscapedLocalPath>
+	</SharedLibrary>
+	<SharedLibrary Include="Item">
+		<LocalPath>..\Earlgrey</LocalPath>
+		<EscapedLocalPath>earlgrey</EscapedLocalPath>
+	</SharedLibrary>
+</ItemGroup>
+
+<!-- Build할까? Rebuild할까? -->
+<Target Name="DetermineBuildConditionForCI">
+	<!-- 
+		일반 빌드인지 CC.NET가 명령한 ForceBuild인지에 알아낸다.
+		ForceBuild라면 Rebuild한다.
+	-->
+	<CreateProperty
+		Value="Build" Condition = " '$(CCNetBuildCondition)'=='IfModificationExists' ">
+		<Output
+			TaskParameter="Value"
+			PropertyName="BuildConditionForCI" />
+	</CreateProperty>
+	<CreateProperty
+		Value="Rebuild" Condition = " '$(CCNetBuildCondition)'!='IfModificationExists' ">
+		<Output
+			TaskParameter="Value"
+			PropertyName="BuildConditionForCI" />
+	</CreateProperty>
+	
+	<Message Text="CCNetBuildCondition = '$(CCNetBuildCondition)'" />
+	
+	<!-- 일반 빌드로 판명됐을지라도, 공유 라이브러리가 변경되었으면 Rebuild한다. -->
+	<SvnInfo Username="$(SvnUsername)"
+		Password="$(SvnPassword)" 
+		LocalPath="%(SharedLibrary.LocalPath)">
+		<Output	TaskParameter="Revision" ItemName="LocalRevisionFor%(SharedLibrary.EscapedLocalPath)" />
+		<Output TaskParameter="RepositoryPath" ItemName="RepositoryPathFor%(SharedLibrary.EscapedLocalPath)" />
+	</SvnInfo>
+	
+	<Message Text="Local revision for local path '%(SharedLibrary.LocalPath)': @(LocalRevisionFor%(SharedLibrary.EscapedLocalPath))" />
+	<Message Text="Repository path for local path '%(SharedLibrary.LocalPath)': @(RepositoryPathFor%(SharedLibrary.EscapedLocalPath))" />
+	
+	<SvnInfo Username="$(SvnUsername)"
+		Password="$(SvnPassword)" 
+		RepositoryPath="@(RepositoryPathFor%(SharedLibrary.EscapedLocalPath))" >
+		<Output	TaskParameter="Revision" ItemName="RepositoryRevisionFor%(SharedLibrary.EscapedLocalPath)" />
+	</SvnInfo>
+	
+	<Message Text="Remote revision for repository path 'RepositoryRevisionFor%(SharedLibrary.EscapedLocalPath)': @(RepositoryRevisionFor%(SharedLibrary.EscapedLocalPath))" />
+	
+	<CreateProperty
+		Value="Rebuild" Condition = " '@(LocalRevisionFor%(SharedLibrary.EscapedLocalPath))' != '@(RepositoryRevisionFor%(SharedLibrary.EscapedLocalPath))' ">
+		<Output
+			TaskParameter="Value"
+			PropertyName="BuildConditionForCI" />
+	</CreateProperty>
+	
+	<Message Text="BuildConditionForCI = $(BuildConditionForCI)" Importance="high"/>
+</Target>
+	
+
+<Target Name="SrcUpdate">
+	<SvnUpdate Username="$(SvnUsername)"
+		Password="$(SvnPassword)" 
+		LocalPath="$(SvnLocalRootPath)">
+	</SvnUpdate>
+</Target>
+
+<Target Name="CleanForCI" DependsOnTargets="Clean">
+	<Message Text="타겟: CleanForCI" />
+</Target>
+
+<Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate ">
+	<Message Text="CI용 빌드 타겟: $(BuildConditionForCI)" />
+	
+	<CallTarget Targets="$(BuildConditionForCI)" />
+</Target>
+
+</Project>
+	
