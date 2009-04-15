@@ -1,0 +1,25 @@
+<cruisecontrol xmlns:cb="urn:ccnet.config.builder">
+	<!-- This is your CruiseControl.NET Server Configuration file. Add your projects below! -->
+	
+	<project name="Earlgrey">
+		<sourcecontrol type="svn">
+			<executable>C:\Program Files\SlikSvn\bin\svn.exe</executable>
+			<autoGetSource>false</autoGetSource>
+			<timeout units="minutes">5</timeout>
+			<username>kaistizen</username>
+			<password>tJ8mW8Tc5HJ7</password>
+		</sourcecontrol>
+
+		<tasks>
+			<msbuild>
+				<executable>MSBuild_x64.bat</executable>
+				<workingDirectory>C:\src\</workingDirectory>
+				<projectFile>msbuild-ci.xml</projectFile>
+				<buildArgs>/noconsolelogger /v:m</buildArgs>
+				<targets>BuildForCI</targets>
+				<timeout>12000</timeout>
+				<logger>ThoughtWorks.CruiseControl.MsBuild.XmlLogger,C:\Program Files (x86)\CruiseControl.NET\server\ThoughtWorks.CruiseControl.MSBuild.dll</logger>
+			</msbuild>
+		</tasks>
+	</project>
+</cruisecontrol>
