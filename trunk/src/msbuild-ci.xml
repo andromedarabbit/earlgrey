@@ -6,8 +6,8 @@
 
 <!-- 서브버전 -->
 <PropertyGroup>
-	<SvnUsername>계정 이름</SvnUsername>
-	<SvnPassword>암호</SvnPassword>
+	<SvnUsername>kaistizen</SvnUsername>
+	<SvnPassword>tJ8mW8Tc5HJ7</SvnPassword>
 	<SvnLocalRootPath>..</SvnLocalRootPath>
 </PropertyGroup>
 
@@ -18,7 +18,7 @@
 		<EscapedLocalPath>gtest</EscapedLocalPath>
 	</SharedLibrary>
 	<SharedLibrary Include="Item">
-		<LocalPath>..\Earlgrey</LocalPath>
+		<LocalPath>.\Earlgrey</LocalPath>
 		<EscapedLocalPath>earlgrey</EscapedLocalPath>
 	</SharedLibrary>
 </ItemGroup>
