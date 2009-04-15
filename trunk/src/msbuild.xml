@@ -21,6 +21,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
 	<BuildCondition>$(Configuration)|$(Platform)</BuildCondition>
 	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
+	<BinDir>$(OutputDir)\Bin</BinDir>
+	<ObjDir>$(OutputDir)\Obj</ObjDir>
 </PropertyGroup>
 
 <!-- 특별한 문자열 -->  
@@ -41,6 +43,19 @@
 	</ProjectReferences>
 </ItemGroup>
 		
+<!-- 단위 테스트 바이너리 -->
+<ItemGroup>
+	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Test.exe">
+	</UnitTestBinaries>
+</ItemGroup>
+
+
+<Target Name="CleanUnitTestArtifacts">
+	<Message Text="타겟: CleanUnitTestArtifacts" />
+	
+	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" IgnoreExitCode="true" />
+</Target>
+
 <Target Name="Clean">  
     <Message Text="타겟: Clean" />  
        
@@ -58,6 +73,12 @@
 <Target Name="Rebuild" DependsOnTargets="Clean; Build">
 	<Message Text="타겟: Rebuild" />
 </Target>
+
+<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
+	<Message Text="타겟: TestAlone" />
+	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;" WorkingDirectory="$(BinDir)" />
+</Target>
+
 </Project>
 
 		

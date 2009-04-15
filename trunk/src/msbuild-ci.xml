@@ -81,7 +81,7 @@
 	</SvnUpdate>
 </Target>
 
-<Target Name="CleanForCI" DependsOnTargets="Clean">
+<Target Name="CleanForCI" DependsOnTargets="Clean;">
 	<Message Text="타겟: CleanForCI" />
 </Target>
 
@@ -89,6 +89,7 @@
 	<Message Text="CI용 빌드 타겟: $(BuildConditionForCI)" />
 	
 	<CallTarget Targets="$(BuildConditionForCI)" />
+	<CallTarget Targets="TestAlone" />
 </Target>
 
 </Project>
