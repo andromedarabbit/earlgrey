@@ -1,4 +1,3 @@
-# 64ºñÆ®¿ë
 @echo off
 SET PATHSAVED=%PATH% > _temp.txt
 call "%VS90COMNTOOLS%\..\..\VC\vcvarsall.bat" x64 >> _temp.txt
