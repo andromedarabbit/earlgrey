@@ -49,8 +49,8 @@ namespace Earlgrey {
 	public:
 		struct Cell
 		{
-			struct Cell*    next;
-			T                value;
+			struct Cell*	next;
+			T				value;
 		};
 
 	private:
@@ -59,13 +59,11 @@ namespace Earlgrey {
 			struct
 			{
 				struct Cell*	p;
-				size_t			count;
+				size_t			count;	//!< just pop count (not push count)
 			} val;
 
 			LONGLONG val64;
 		};
-
-
 
 	public:
 		explicit LockfreeStack32()
@@ -77,17 +75,24 @@ namespace Earlgrey {
 		{
 		}
 
+		//! normal push operation of stack
 		void push(T value)
 		{
 			struct Cell* cell = new struct Cell;
 			cell->value = value;
 			cell->next = 0;
 
+			// We don't have to increase the pop count.
 			do {
 				cell->next = _head.val.p;
 			} while(!CAS( (volatile LONG*)&_head.val.p, (LONG)cell->next, (LONG)cell ));
 		}
 
+		//! normal pop operation of stack
+		/*!
+			\param value is an output parameter, if pop() return false, pop() won't set any value.
+			\return if stack is empty, then return false, otherwise return true
+		*/
 		bool pop(T& value)
 		{
 			union LIFO head, next;

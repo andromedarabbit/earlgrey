@@ -343,7 +343,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\LockFreeTest.cpp"
+				RelativePath=".\src\LockFreeTest.cpp"
 				>
 			</File>
 			<File
@@ -393,7 +393,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\LockFreeTest.h"
+				RelativePath=".\inc\LockFreeTest.h"
 				>
 			</File>
 			<File
