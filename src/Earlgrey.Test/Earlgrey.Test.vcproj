@@ -22,7 +22,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -97,7 +97,7 @@
 		<Configuration
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			>
@@ -173,7 +173,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -252,7 +252,7 @@
 		<Configuration
 			Name="Release|x64"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -392,10 +392,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\inc\LockFreeTest.h"
-				>
-			</File>
 			<File
 				RelativePath=".\inc\SampleTest.h"
 				>

@@ -22,3 +22,6 @@
 #include <gtest/gtest.h>
 
 #pragma warning( pop )
+
+
+#include "Uncopyable.h"
