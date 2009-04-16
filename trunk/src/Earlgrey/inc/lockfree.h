@@ -44,7 +44,7 @@ namespace Earlgrey {
 
 
 	template<typename T>
-	class LockfreeStack32
+	class LockfreeStack32 : private Uncopyable
 	{
 	public:
 		struct Cell
@@ -90,7 +90,7 @@ namespace Earlgrey {
 
 		//! normal pop operation of stack
 		/*!
-			\param value is an output parameter, if pop() return false, pop() won't set any value.
+			\param value is an output parameter, if pop() returns false, pop() won't set any value.
 			\return if stack is empty, then return false, otherwise return true
 		*/
 		bool pop(T& value)
