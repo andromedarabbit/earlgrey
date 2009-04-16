@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -120,7 +120,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -199,7 +199,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -279,7 +279,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -343,6 +343,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\LockFreeTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\SampleTest.cpp"
 				>
 			</File>
@@ -388,6 +392,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\LockFreeTest.h"
+				>
+			</File>
 			<File
 				RelativePath=".\inc\SampleTest.h"
 				>

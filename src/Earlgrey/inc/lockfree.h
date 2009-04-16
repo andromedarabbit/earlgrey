@@ -1,127 +1,115 @@
 #pragma once
 #include <Windows.h>
-//#include <process.h>
-//#include <crtdbg.h>
 
-inline BOOL CAS(volatile LONG *Dest, LONG Compare, LONG Exchange)
-{
-	return InterlockedCompareExchange( Dest, Exchange, Compare ) == static_cast<LONG>(Compare);
-}
+namespace Earlgrey {
 
-inline BOOL CAS64(volatile LONGLONG *Dest, LONGLONG Compare, LONGLONG Exchange)
-{   
-#ifdef _WIN64
-	return InterlockedCompareExchange64((volatile LONGLONG*)Dest, Exchange, Compare) == static_cast<LONGLONG>(Compare);
-#else
-	BOOL Return = TRUE;
-	__asm
-	{       
-		push ecx
-		push ebx
-		push eax
-		push edx
-		push edi
-
-		mov edx, dword ptr [Compare] + 4
-		mov eax, dword ptr [Compare]
-		mov ecx, dword ptr [Exchange] + 4
-		mov ebx, dword ptr [Exchange]
-		mov edi, Dest
-		//    Compare (EDX:EAX) with operand, if equal (ECX:EBX) is stored
-		lock cmpxchg8b qword ptr [edi]
-		pop edi
-		pop edx
-		pop eax
-		pop ebx
-		pop ecx
-		je    success
-		mov dword ptr [Return], 0       
-success:
+	inline BOOL CAS(volatile LONG *Dest, LONG Compare, LONG Exchange)
+	{
+		return InterlockedCompareExchange( Dest, Exchange, Compare ) == static_cast<LONG>(Compare);
 	}
-	return Return;
-#endif
-}
+
+	inline BOOL CAS64(volatile LONGLONG *Dest, LONGLONG Compare, LONGLONG Exchange)
+	{   
+	//#ifdef _WIN64
+		return InterlockedCompareExchange64((volatile LONGLONG*)Dest, Exchange, Compare) == static_cast<LONGLONG>(Compare);
+	//#else
+	//	BOOL Return = TRUE;
+	//	__asm
+	//	{       
+	//		push ecx
+	//		push ebx
+	//		push eax
+	//		push edx
+	//		push edi
+
+	//		mov edx, dword ptr [Compare] + 4
+	//		mov eax, dword ptr [Compare]
+	//		mov ecx, dword ptr [Exchange] + 4
+	//		mov ebx, dword ptr [Exchange]
+	//		mov edi, Dest
+	//		//    Compare (EDX:EAX) with operand, if equal (ECX:EBX) is stored
+	//		lock cmpxchg8b qword ptr [edi]
+	//		pop edi
+	//		pop edx
+	//		pop eax
+	//		pop ebx
+	//		pop ecx
+	//		je    success
+	//		mov dword ptr [Return], 0       
+	//success:
+	//	}
+	//	return Return;
+	//#endif
+	}
 
 
-template<typename T>
-class LockfreeStack
-{
-public:
-	struct Cell
+	template<typename T>
+	class LockfreeStack32
 	{
-		struct Cell*    next;
-		T                value;
-	};
-
-private:
-	union LIFO
-	{
-		struct
+	public:
+		struct Cell
 		{
-			struct Cell*    p;
-			size_t            count;
-		} val;
+			struct Cell*    next;
+			T                value;
+		};
 
-		LONGLONG val64;
-	};
-
-
-
-public:
-	LockfreeStack()
-	{
-		_Top.val64 = 0L;
-	}
-
-	~LockfreeStack()
-	{
-	}
-
-	void Push(T value)
-	{
-		struct Cell* cell = new struct Cell;
-		cell->value = value;
-		cell->next = 0;
-
-		for (;;)
+	private:
+		union LIFO
 		{
-			cell->next = _Top.val.p;
-			if (CAS( (volatile LONG*)&_Top.val.p, (LONG)cell->next, (LONG)cell ))
+			struct
 			{
-				break;
-			}
-		}
-	}
+				struct Cell*	p;
+				size_t			count;
+			} val;
 
-	T Pop()
-	{
-		union LIFO head;
+			LONGLONG val64;
+		};
 
-		for (;;)
+
+
+	public:
+		explicit LockfreeStack32()
 		{
-			head.val64 = _Top.val64;
-
-			if (!head.val.p)
-				return NULL;
-
-			union LIFO next;
-			next.val.p = head.val.p->next;
-			next.val.count = head.val.count + 1;
-
-			if (CAS64( (volatile LONGLONG*)&_Top.val64, head.val64, next.val64 ))
-			{
-				break;
-			}
+			_head.val64 = 0L;
 		}
 
-		//_ASSERT(_Top.val.count < 10000000);
+		~LockfreeStack32()
+		{
+		}
 
-		T ret = head.val.p->value;
-		delete head.val.p;
+		void push(T value)
+		{
+			struct Cell* cell = new struct Cell;
+			cell->value = value;
+			cell->next = 0;
 
-		return ret;
-	}
+			do {
+				cell->next = _head.val.p;
+			} while(!CAS( (volatile LONG*)&_head.val.p, (LONG)cell->next, (LONG)cell ));
+		}
 
-private:
-	volatile union LIFO _Top;
-};
+		bool pop(T& value)
+		{
+			union LIFO head, next;
+			head.val64 = _head.val64;
+
+			while(head.val.p) {
+				next.val.p = head.val.p->next;
+				next.val.count = head.val.count + 1;
+				
+				if (CAS64( (volatile LONGLONG*)&_head.val64, head.val64, next.val64 ))
+				{
+					value = head.val.p->value;
+					delete head.val.p;
+					return true;
+				}
+				head.val64 = _head.val64;
+			}
+			return false;
+		}
+
+	private:
+		volatile union LIFO _head;
+	};
+
+}
