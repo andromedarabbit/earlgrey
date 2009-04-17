@@ -3,89 +3,114 @@
 
 namespace Earlgrey {
 
-	inline BOOL CAS(volatile LONG *Dest, LONG Compare, LONG Exchange)
-	{
-		return InterlockedCompareExchange( Dest, Exchange, Compare ) == static_cast<LONG>(Compare);
-	}
-
 	inline BOOL CAS64(volatile LONGLONG *Dest, LONGLONG Compare, LONGLONG Exchange)
 	{   
-	//#ifdef _WIN64
 		return InterlockedCompareExchange64((volatile LONGLONG*)Dest, Exchange, Compare) == static_cast<LONGLONG>(Compare);
-	//#else
-	//	BOOL Return = TRUE;
-	//	__asm
-	//	{       
-	//		push ecx
-	//		push ebx
-	//		push eax
-	//		push edx
-	//		push edi
-
-	//		mov edx, dword ptr [Compare] + 4
-	//		mov eax, dword ptr [Compare]
-	//		mov ecx, dword ptr [Exchange] + 4
-	//		mov ebx, dword ptr [Exchange]
-	//		mov edi, Dest
-	//		//    Compare (EDX:EAX) with operand, if equal (ECX:EBX) is stored
-	//		lock cmpxchg8b qword ptr [edi]
-	//		pop edi
-	//		pop edx
-	//		pop eax
-	//		pop ebx
-	//		pop ecx
-	//		je    success
-	//		mov dword ptr [Return], 0       
-	//success:
-	//	}
-	//	return Return;
-	//#endif
 	}
 
-
 	template<typename T>
-	class LockfreeStack32 : private Uncopyable
+	class LockfreeStack : private Uncopyable
 	{
-	public:
+	private:
 		struct Cell
 		{
+			Cell(struct Cell* next, T value)
+			{
+				this->next = next;
+				this->value = value;
+			}
+
 			struct Cell*	next;
 			T				value;
 		};
 
-	private:
+		// http://msdn.microsoft.com/en-us/library/aa366778.aspx
+		// assume that user-mode virtual address space is 7TB (using just low 42 bits),
+		// we won't use high 20 bits (more precisely 22 bits).
+		// So, we use high 20 bits as the counter;
+		static const ULONGLONG maskOfCounter64 = 0xfffff00000000000;
+		static const ULONGLONG maskOfPointer64 = 0x00000fffffffffff;
+
 		union LIFO
 		{
-			struct
-			{
-				struct Cell*	p;
-				size_t			count;	//!< just pop count (not push count)
+			volatile ULONGLONG val64;
+
+#ifdef _WIN64
+			struct {
+				ULONGLONG p : 44;		// low 44 bits for pointer
+				ULONGLONG count : 20;	// high 20 bits for counter
 			} val;
 
-			LONGLONG val64;
+			struct Cell* p()
+			{
+				return reinterpret_cast<struct Cell*>( val.p );
+			}
+
+			void p(struct Cell* pointer)
+			{
+				_ASSERTE((reinterpret_cast<ULONGLONG>(pointer) & maskOfCounter64) == 0);
+				val.p = reinterpret_cast<ULONGLONG>(pointer);
+			}
+
+			ULONG count()
+			{
+				return (ULONG)val.count;
+			}
+
+			void count(ULONG count)
+			{
+				val.count = count;
+			}
+#else
+			struct {
+				struct Cell* p;
+				ULONG count;
+			} val;
+
+			struct Cell* p()
+			{
+				return val.p;
+			}
+
+			void p(struct Cell* pointer)
+			{
+				val.p = pointer;
+			}
+
+			ULONG count()
+			{
+				return val.count;
+			}
+
+			void count(ULONG count)
+			{
+				val.count = count;
+			}
+#endif
 		};
 
 	public:
-		explicit LockfreeStack32()
+		explicit LockfreeStack()
 		{
 			_head.val64 = 0L;
 		}
 
-		~LockfreeStack32()
+		~LockfreeStack()
 		{
 		}
 
 		//! normal push operation of stack
 		void push(T value)
 		{
-			struct Cell* cell = new struct Cell;
-			cell->value = value;
-			cell->next = 0;
+			struct Cell* cell = new struct Cell( 0, value );
+			union LIFO head, newItem;
+			newItem.p( cell );
 
-			// We don't have to increase the pop count.
 			do {
-				cell->next = _head.val.p;
-			} while(!CAS( (volatile LONG*)&_head.val.p, (LONG)cell->next, (LONG)cell ));
+				head = _head;
+				newItem.p()->next = _head.p();
+				newItem.count( _head.count() + 1 );
+			} while(!CAS64( (volatile LONGLONG*)&_head.val64, (LONGLONG)head.val64, (LONGLONG)newItem.val64 ));
 		}
 
 		//! normal pop operation of stack
@@ -99,13 +124,13 @@ namespace Earlgrey {
 			head.val64 = _head.val64;
 
 			while(head.val.p) {
-				next.val.p = head.val.p->next;
-				next.val.count = head.val.count + 1;
+				next.p( head.p()->next );
+				next.count( head.count() + 1 );
 				
 				if (CAS64( (volatile LONGLONG*)&_head.val64, head.val64, next.val64 ))
 				{
-					value = head.val.p->value;
-					delete head.val.p;
+					value = head.p()->value;
+					delete head.p();
 					return true;
 				}
 				head.val64 = _head.val64;
@@ -114,7 +139,7 @@ namespace Earlgrey {
 		}
 
 	private:
-		volatile union LIFO _head;
+		union LIFO _head;
 	};
 
 }

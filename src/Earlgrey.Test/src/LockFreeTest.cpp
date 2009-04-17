@@ -7,7 +7,7 @@ namespace Earlgrey
 	{
 		TEST(LockFreeTest, StackTest)
 		{
-			LockfreeStack32<int> stack;
+			LockfreeStack<int> stack;
 			int value = 0;
 
 			EXPECT_FALSE(stack.pop( value ));
