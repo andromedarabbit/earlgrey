@@ -338,6 +338,38 @@
 				RelativePath=".\src\Uncopyable.cpp"
 				>
 			</File>
+			<Filter
+				Name="ExternalLib"
+				>
+				<File
+					RelativePath=".\src\LokiSingleton.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\LokiThreads.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Thread"
+				>
+				<File
+					RelativePath=".\src\NoLock.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath=".\src\SystemInfo.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Diagnostics"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -364,15 +396,47 @@
 				RelativePath=".\inc\Uncopyable.h"
 				>
 			</File>
+			<Filter
+				Name="ExternalLib"
+				>
+				<File
+					RelativePath=".\inc\LokiExport.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LokiSingleton.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LokiThreads.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Thread"
+				>
+				<File
+					RelativePath=".\inc\NoLock.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Util"
+				>
+				<File
+					RelativePath=".\inc\SystemInfo.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Diagnostics"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-		</Filter>
-		<Filter
-			Name="util"
 			>
 		</Filter>
 		<File
