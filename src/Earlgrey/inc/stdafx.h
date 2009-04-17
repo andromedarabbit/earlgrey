@@ -9,8 +9,9 @@
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 
-
+#include <stdlib.h>
+#include <stdio.h>
 
 // TODO: reference additional headers your program requires here
-#include "Uncopyable.h"
-#include <Windows.h>
+
+#include "Earlgrey.h"
