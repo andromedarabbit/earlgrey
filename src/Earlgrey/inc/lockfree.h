@@ -142,4 +142,26 @@ namespace Earlgrey {
 		union LIFO _head;
 	};
 
+
+	template<typename T>
+	class LockfreeQueue : private Uncopyable
+	{
+	public:
+		explicit LockfreeQueue()
+		{
+
+		}
+
+		void enqueue(T value)
+		{
+			value;
+		}
+
+		bool dequeue(T& value)
+		{
+			value;
+			return false;
+		}
+	};
+
 }
