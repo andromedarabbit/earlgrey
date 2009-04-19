@@ -419,6 +419,10 @@
 			<Filter
 				Name="Diagnostics"
 				>
+				<File
+					RelativePath=".\inc\StaticAssert.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

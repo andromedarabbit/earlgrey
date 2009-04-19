@@ -351,6 +351,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\StaticAssertTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -392,10 +396,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath=".\inc\SampleTest.h"
-				>
-			</File>
 			<File
 				RelativePath=".\inc\stdafx.h"
 				>
