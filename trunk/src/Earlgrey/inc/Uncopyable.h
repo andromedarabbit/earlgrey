@@ -1,6 +1,7 @@
 #pragma once
 
-namespace Earlgrey {
+namespace Earlgrey 
+{
 
 	//! \ref Effective C++ 3th Edition Chapter 2
 	class Uncopyable
@@ -11,7 +12,7 @@ namespace Earlgrey {
 
 	private:
 		Uncopyable(const Uncopyable&); // 하지만 복사는 방지합니다.
-		Uncopyable& operator = (const Uncopyable&);
+		const Uncopyable& operator = (const Uncopyable&);
 
 	};
 

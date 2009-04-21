@@ -351,7 +351,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Util"
+				Name="System"
 				>
 				<File
 					RelativePath=".\src\SystemInfo.cpp"
@@ -360,6 +360,14 @@
 			</Filter>
 			<Filter
 				Name="Diagnostics"
+				>
+				<File
+					RelativePath=".\src\MiniDump.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Memory"
 				>
 			</Filter>
 		</Filter>
@@ -409,18 +417,50 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Util"
+				Name="Diagnostics"
 				>
 				<File
-					RelativePath=".\inc\SystemInfo.h"
+					RelativePath=".\inc\MiniDump.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StaticAssert.h"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="Diagnostics"
+				Name="Memory"
+				>
+			</Filter>
+			<Filter
+				Name="System"
 				>
 				<File
-					RelativePath=".\inc\StaticAssert.h"
+					RelativePath=".\inc\DateTime.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\lockfree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LockfreePointer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SystemInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TimeSpan.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="PAL"
+				>
+				<File
+					RelativePath=".\inc\PAL_Windows.h"
 					>
 				</File>
 			</Filter>
@@ -430,26 +470,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</Filter>
-		<Filter
-			Name="System"
-			>
-			<File
-				RelativePath=".\inc\lockfree.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\LockfreePointer.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="PAL"
-			>
-			<File
-				RelativePath=".\inc\PAL_Windows.h"
-				>
-			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
