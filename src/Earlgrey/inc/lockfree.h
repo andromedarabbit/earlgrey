@@ -202,7 +202,7 @@ namespace Earlgrey {
 #ifdef _WIN64
 							if (CAS64( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.p(), (LONGLONG) newCell.p() ))
 #else
-							if (CAS( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.p(), (LONGLONG) newCell.p() ))
+							if (CAS( (volatile LONG*) &(_tail.p()->next), (LONG) next.p(), (LONG) newCell.p() ))
 #endif
 							{
 								newCell.count( tail.count() + 1 );
