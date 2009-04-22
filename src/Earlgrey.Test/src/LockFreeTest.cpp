@@ -7,7 +7,7 @@ namespace Earlgrey
 	{
 		TEST(LockFreeTest, StackTest)
 		{
-			LockfreeStack<int> stack;
+			Lockfree::Stack<int> stack;
 			int value = 0;
 
 			EXPECT_FALSE(stack.pop( value ));
@@ -24,13 +24,19 @@ namespace Earlgrey
 
 		TEST(LockFreeTest, QueueTest)
 		{
-			LockfreeQueue<int> queue;
+			Lockfree::Queue<int> queue;
 			int value = 0;
 
 			EXPECT_FALSE(queue.dequeue( value ));
 
 			queue.enqueue(10);
+			queue.enqueue(1);
 
+			EXPECT_TRUE(queue.dequeue( value ));
+			EXPECT_TRUE(value == 10);
+			EXPECT_TRUE(queue.dequeue( value ));
+			EXPECT_TRUE(value == 1);
+			EXPECT_FALSE(queue.dequeue( value ));
 		}
 	}
 }
