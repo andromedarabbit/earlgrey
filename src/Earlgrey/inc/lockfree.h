@@ -1,5 +1,6 @@
 #pragma once
 #include <Windows.h>
+#include "Uncopyable.h"
 
 namespace Earlgrey {
 
@@ -12,6 +13,7 @@ namespace Earlgrey {
 	{   
 		return InterlockedCompareExchange64((volatile LONGLONG*)Dest, Exchange, Compare) == static_cast<LONGLONG>(Compare);
 	}
+
 
 	namespace Lockfree {
 
@@ -195,28 +197,28 @@ namespace Earlgrey {
 					tail = _tail;
 					next.p( tail.p()->next );
 
-					if (tail.val64 == _tail.val64)
+					if (tail.val64 != _tail.val64)
+						continue;
+
+					if (NULL == next.p())
 					{
-						if (NULL == next.p())
-						{
 #ifdef _WIN64
-							if (CAS64( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.p(), (LONGLONG) newCell.p() ))
+						if (CAS64( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.p(), (LONGLONG) newCell.p() ))
 #else
-							if (CAS( (volatile LONG*) &(_tail.p()->next), (LONG) next.p(), (LONG) newCell.p() ))
+						if (CAS( (volatile LONG*) &(_tail.p()->next), (LONG) next.p(), (LONG) newCell.p() ))
 #endif
-							{
-								newCell.count( tail.count() + 1 );
-								CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, newCell.val64 );
-								break;
-							}
-						}
-						else
 						{
-							// If _tail.next has been changed but _tail has not been changed, 
-							// change _tail into next-cell which is a new cell
-							next.count( tail.count() + 1 );
-							CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, next.val64 );
+							newCell.count( tail.count() + 1 );
+							CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, newCell.val64 );
+							break;
 						}
+					}
+					else
+					{
+						// If _tail.next has been changed but _tail has not been changed, 
+						// change _tail into next-cell which is a new cell
+						next.count( tail.count() + 1 );
+						CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, next.val64 );
 					}
 				}
 			}
@@ -247,5 +249,6 @@ namespace Earlgrey {
 				}
 			}
 		};
+
 	} // end of Lockfree namespace
 }

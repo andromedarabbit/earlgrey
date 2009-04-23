@@ -1,5 +1,7 @@
 #include "stdafx.h"
-#include "lockfree.h"
+#include "taskqueue.h"
+#include <iostream>
+
 
 namespace Earlgrey
 {
@@ -37,6 +39,29 @@ namespace Earlgrey
 			EXPECT_TRUE(queue.dequeue( value ));
 			EXPECT_TRUE(value == 1);
 			EXPECT_FALSE(queue.dequeue( value ));
+		}
+
+		int intval_for_taskq = 0;
+
+		DECLARE_TASK1(SampleTask, int);
+		DEFINE_TASK1(SampleTask, int, val)
+		{
+			intval_for_taskq = val;
+		}
+
+		DECLARE_TASK0(NoParamTask);
+		DEFINE_TASK0(NoParamTask)
+		{
+			intval_for_taskq = 100;
+		}
+
+		TEST(LockFreeTest, TaskQueueTest)
+		{
+			Lockfree::TaskQueue taskq;
+			taskq.execute(new SampleTask( 10 ));
+			EXPECT_TRUE( intval_for_taskq == 10 );
+			taskq.execute(new NoParamTask());
+			EXPECT_TRUE( intval_for_taskq == 100 );
 		}
 	}
 }
