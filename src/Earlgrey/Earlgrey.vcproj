@@ -385,6 +385,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\StlCustom.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\targetver.h"
 				>
 			</File>
