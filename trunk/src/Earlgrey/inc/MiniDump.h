@@ -13,6 +13,7 @@
 
 namespace Earlgrey
 {
+	/*
 	class MiniDump : private Uncopyable
 	{
 		friend struct Loki::CreateStatic<MiniDump>;
@@ -69,4 +70,5 @@ namespace Earlgrey
 		Loki::SingletonHolder<MiniDump, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
 		MiniDumpSingleton
 		;
+	*/
 }
