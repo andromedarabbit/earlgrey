@@ -390,6 +390,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\src\TimeSpanTest.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="헤더 파일"
