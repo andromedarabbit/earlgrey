@@ -5,7 +5,8 @@ namespace Earlgrey
 	//! \ref http://kaistizen.net/EE/index.php/imaso/cplusplus_cli_lecture_2009_01/
 	class TimeSpan
 	{
-		friend class NDateTime;
+		friend class DateTime;
+
 	public:
 		typedef signed __int64 TickType;
 
