@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include <iostream>
+#include <sstream>
 
 #include <vector>
 #include <map>
@@ -115,19 +116,41 @@ namespace Earlgrey
 
 	// <string>
 	typedef 
-		std::basic_string<char, std::char_traits<char>, NewAllocator<char>::Type >
-		xstring
-		;
-
-	typedef 
 		std::basic_string<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
 		xwstring
 		;
 
+	typedef 
+		std::basic_string<char, std::char_traits<char>, NewAllocator<char>::Type >
+		xstring
+		;
+
+#ifdef _UNICODE
+typedef xwstring _txstring;
+#else
+typedef	xstring _txstring;
+#endif
+
 	// <iostream>
+	typedef 
+		std::basic_stringbuf<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
+		xwstringbuf
+		;
+
 	typedef 
 		std::basic_stringbuf<char, std::char_traits<char>, NewAllocator<char>::Type > 
 		xstringbuf
+		;
+
+#ifdef _UNICODE
+typedef xwstringbuf _txstringbuf;
+#else
+typedef	xstringbuf _txstringbuf;
+#endif
+
+	typedef 
+		std::basic_istringstream<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
+		xwistringstream
 		;
 
 	typedef 
@@ -135,34 +158,41 @@ namespace Earlgrey
 		xistringstream
 		;
 
+#ifdef _UNICODE
+typedef xwistringstream _txistringstream;
+#else
+typedef xistringstream _txistringstream;
+#endif
+
+	typedef 
+		std::basic_ostringstream<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
+		xwostringstream;
+
 	typedef 
 		std::basic_ostringstream<char, std::char_traits<char>, NewAllocator<char>::Type > 
 		xostringstream
 		;
 
-	typedef 
-		std::basic_stringstream<char, std::char_traits<char>, NewAllocator<char>::Type > 
-		xstringstream
-		;
-	
-	typedef 
-		std::basic_stringbuf<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
-		xwstringbuf
-		;
-	
-	typedef 
-		std::basic_istringstream<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
-		xwistringstream
-		;
+#ifdef _UNICODE
+typedef xwostringstream _txostringstream;
+#else
+typedef	xostringstream _txostringstream;
+#endif
 
-	typedef 
-		std::basic_ostringstream<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
-		xwostringstream
-		;
 
 	typedef 
 		std::basic_stringstream<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
 		xwstringstream
 		;
 
+	typedef 
+		std::basic_stringstream<char, std::char_traits<char>, NewAllocator<char>::Type > 
+		xstringstream
+		;
+
+#ifdef _UNICODE
+typedef xwstringstream _txstringstream;
+#else
+typedef	xstringstream _txstringstream;
+#endif
 }

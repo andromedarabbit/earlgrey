@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TimeSpan.h"
+#include "StlCustom.h"
 
 namespace Earlgrey
 {
@@ -55,6 +56,23 @@ namespace Earlgrey
 			TimeSpan sum = twoMinute - oneMinute;
 
 			ASSERT_EQ( 1, static_cast<int>(sum.TotalMinutes()) );
+		}
+
+		TEST(TimeSpanTest, ToStringWithNoMilliseconds)
+		{
+			TimeSpan interval(MINUTE_TICKS + SECOND_TICKS);
+			_txstring str = interval.ToString();
+
+			ASSERT_STREQ( TEXT("00:01:01"), str.c_str() );
+		}
+
+		TEST(TimeSpanTest, ToString)
+		{
+			TimeSpan interval(MINUTE_TICKS + SECOND_TICKS + MILLISECOND_TICKS);
+			_txstring str = interval.ToString();
+
+			ASSERT_STREQ( TEXT("00:01:01.0010000"), str.c_str() );
+
 		}
 	}
 }
