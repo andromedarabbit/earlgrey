@@ -25,7 +25,7 @@ namespace Earlgrey
 
 			ASSERT_EQ( 1000, interval.TotalMilliseconds() );			
 			ASSERT_EQ( 1, interval.TotalSeconds() );
-			ASSERT_DOUBLE_EQ( 0.0166666666666667, interval.TotalMinutes() );
+			ASSERT_DOUBLE_EQ( 0.01666666666666666, interval.TotalMinutes() );
 		}
 
 		TEST(TimeSpanTest, EqualOperator)

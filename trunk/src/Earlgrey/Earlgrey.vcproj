@@ -354,7 +354,15 @@
 				Name="System"
 				>
 				<File
+					RelativePath=".\src\DateTime.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\SystemInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimeSpan.cpp"
 					>
 				</File>
 			</Filter>
@@ -441,6 +449,14 @@
 				>
 				<File
 					RelativePath=".\inc\DateTime.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\DateTimeKind.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\DayOfWeek.h"
 					>
 				</File>
 				<File
