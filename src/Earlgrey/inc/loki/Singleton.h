@@ -21,7 +21,7 @@
 
 
 #include "LokiExport.h"
-// #include "LokiThreads.h"
+#include "Threads.h"
 #include <algorithm>
 #include <stdexcept>
 #include <cassert>

@@ -1,7 +1,7 @@
 #pragma once 
 #include "Uncopyable.h"
-#include "LokiSingleton.h"
-#include "LokiThreads.h" // for Loki::SingleThreaded
+#include <Loki/Singleton.h>
+#include <Loki/Threads.h> // for Loki::SingleThreaded
 #include "NoLock.h"
 
 #ifndef _WINDOWS_
@@ -66,9 +66,14 @@ namespace Earlgrey
 
 	};
 	
+	*/
+	class MiniDump : private Uncopyable
+	{
+		friend struct Loki::CreateStatic<MiniDump>;
+	};
+
 	typedef 
 		Loki::SingletonHolder<MiniDump, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
 		MiniDumpSingleton
 		;
-	*/
 }
