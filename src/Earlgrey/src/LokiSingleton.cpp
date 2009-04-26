@@ -1,2 +1,2 @@
 #include "stdafx.h"
-#include "LokiSingleton.h"
+#include <Loki/Singleton.h>
