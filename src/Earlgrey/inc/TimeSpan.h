@@ -8,82 +8,119 @@ namespace Earlgrey
 		friend class DateTime;
 
 	public:
-		typedef signed __int64 TickType;
+		typedef INT64 TickType;
 
-		static const TickType TicksPerDay =  864000000000; // 24 * 60 * 60 * 1000 * 1000 * 10
-		static const TickType TicksPerHour = 36000000000; // 60 * 60 * 1000 * 1000 * 10
-		static const TickType TicksPerMinute = 600000000; 
-		static const TickType TicksPerSecond = 10000000;
-		static const TickType TicksPerMillisecond = 10000;
+		static const TickType ZeroTick;
+		static const TickType MaxTicks;
+		static const TickType MinTicks;
+		static const TimeSpan Zero;
+		static const TimeSpan MaxValue;
+		static const TimeSpan MinValue;		
+
+		static const TickType TicksPerDay;
+		static const TickType TicksPerHour;
+		static const TickType TicksPerMinute;
+		static const TickType TicksPerSecond;
+		static const TickType TicksPerMillisecond;
 
 		TimeSpan()
-			: m_Time(0)
+			: m_Ticks(0)
 		{
 		}
 
 		TimeSpan(const TickType ticks)
-			: m_Time(ticks)
+			: m_Ticks(ticks)
 		{
 		}
 
 		TimeSpan(const TimeSpan& other)
-			: m_Time(other.m_Time)
+			: m_Ticks(other.m_Ticks)
 		{
+		}
+
+		TimeSpan(int hours, int minutes, int seconds)
+		{
+			this->m_Ticks = TimeToTicks(hours, minutes, seconds);
+		}
+
+		TimeSpan(int days, int hours, int minutes, int seconds)
+		{
+			this->m_Ticks = TimeToTicks(days, hours, minutes, seconds, 0);			
+		}
+
+		TimeSpan(int days, int hours, int minutes, int seconds, int milliseconds)
+		{
+			this->m_Ticks = TimeToTicks(days, hours, minutes, seconds, milliseconds);			
+		}
+
+		static TimeSpan FromHours(double value)
+		{
+			return Interval(value, MillisPerHour);
+		}
+
+		static TimeSpan FromMilliseconds(double value)
+		{
+			return Interval(value, 1);
+		}
+
+		static TimeSpan FromMinutes(double value)
+		{
+			return Interval(value, MillisPerMinute);
 		}
 
 		inline TickType Ticks() const
 		{
-			return m_Time;
+			return m_Ticks;
 		}
 
 		inline int Days() const
 		{
-			return static_cast<int> (m_Time / TicksPerDay);
+			return static_cast<int> (m_Ticks / TicksPerDay);
 		}
 
 		inline int Hours() const
 		{
-			return static_cast<int> ((m_Time / TicksPerHour) % 24L);
+			return static_cast<int> ((m_Ticks / TicksPerHour) % 24L);
 		}
 
 		inline int Minutes() const
 		{
-			return static_cast<int> ((m_Time / TicksPerMinute) % 60L);
+			return static_cast<int> ((m_Ticks / TicksPerMinute) % 60L);
 		}
 
 		inline int Seconds() const
 		{
-			return static_cast<int> ((m_Time / TicksPerSecond) % 60L);
+			return static_cast<int> ((m_Ticks / TicksPerSecond) % 60L);
 		}
 
 		inline int Milliseconds() const
 		{
-			return static_cast<int> ((m_Time / TicksPerMillisecond) % 1000L);;
+			return static_cast<int> ((m_Ticks / TicksPerMillisecond) % 1000L);;
 		}
 
 		inline double TotalDays() const
 		{
-			return (m_Time * 1.15740740740741E-12);
+			return (m_Ticks * DaysPerTick);
 		}
 
 		inline double TotalHours() const
 		{
-			return (m_Time * 2.77777777777778E-11);
+			return (m_Ticks * HoursPerTick);
 		}
 
 		inline double TotalMinutes() const
 		{
-			return (m_Time * 1.66666666666667E-09);
+			return (m_Ticks * MinutesPerTick);
 		}
 
 		inline double TotalSeconds() const
 		{
-			return (m_Time * 1E-07);
+			return (m_Ticks * SecondsPerTick);
 		}
 
 		inline double TotalMilliseconds() const
 		{
-			double num = m_Time * 0.0001;
+			double num = m_Ticks * 0.0001;
 			if (num > 922337203685477)
 			{
 				return 922337203685477;
@@ -95,88 +132,147 @@ namespace Earlgrey
 			return num;
 		}
 
-		TimeSpan operator+(const TimeSpan& other)
+		TimeSpan Negate() const
 		{
-			return TimeSpan(this->m_Time + other.m_Time);
+			if (this->m_Ticks == MinTicks)
+			{
+				// throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
+			}
+			return TimeSpan(-this->m_Ticks);
 		}
 
-		TimeSpan operator+(const TimeSpan& other) const
+		TimeSpan Add(const TimeSpan& ts) const;
+
+		TimeSpan Subtract(const TimeSpan& ts) const ;
+
+		TimeSpan operator + (const TimeSpan& other)
 		{
-			return TimeSpan(this->m_Time + other.m_Time);
+			return Add(other);
 		}
 
-		TimeSpan operator-(const TimeSpan& other)
+		TimeSpan operator + (const TimeSpan& other) const
 		{
-			return TimeSpan(this->m_Time - other.m_Time);
+			return Add(other);
 		}
 
-		TimeSpan operator-(const TimeSpan& other) const
+		TimeSpan operator - (const TimeSpan& other)
 		{
-			return TimeSpan(this->m_Time - other.m_Time);
+			return Subtract(other);
 		}
 
-		bool operator==(const TimeSpan& other) const
+		TimeSpan operator - (const TimeSpan& other) const
 		{
-			return this->m_Time == other.m_Time;
+			return Subtract(other);
 		}
 
-		bool operator==(const TickType otherTick) const
+		// friend TimeSpan operator - (const TimeSpan& other);
+
+		bool operator == (const TimeSpan& other) const
 		{
-			return this->m_Time == otherTick;
+			return this->m_Ticks == other.m_Ticks;
 		}
 
-		bool operator!=(const TimeSpan& other) const
+		bool operator == (const TickType otherTick) const
 		{
-			return this->m_Time != other.m_Time;
+			return this->m_Ticks == otherTick;
 		}
 
-		bool operator!=(const TickType otherTick) const
+		bool operator != (const TimeSpan& other) const
 		{
-			return this->m_Time != otherTick;
+			return this->m_Ticks != other.m_Ticks;
 		}
 
-		bool operator<=(const TimeSpan& other) const
+		bool operator != (const TickType otherTick) const
 		{
-			return this->m_Time <= other.m_Time;	
+			return this->m_Ticks != otherTick;
 		}
 
-		bool operator<=(const TickType otherTick) const
+		bool operator <= (const TimeSpan& other) const
 		{
-			return this->m_Time <= otherTick;	
+			return this->m_Ticks <= other.m_Ticks;	
 		}
 
-		bool operator>=(const TimeSpan& other) const
+		bool operator <= (const TickType otherTick) const
 		{
-			return this->m_Time >= other.m_Time;
+			return this->m_Ticks <= otherTick;	
 		}
 
-		bool operator<(const TimeSpan& other) const
+		bool operator >= (const TimeSpan& other) const
 		{
-			return this->m_Time < other.m_Time;
+			return this->m_Ticks >= other.m_Ticks;
 		}
 
-		bool operator>(const TimeSpan& other) const
+		bool operator < (const TimeSpan& other) const
 		{
-			return this->m_Time > other.m_Time;
+			return this->m_Ticks < other.m_Ticks;
 		}
 
-		bool operator<(const TickType otherTick) const
+		bool operator > (const TimeSpan& other) const
 		{
-			return this->m_Time < otherTick;
+			return this->m_Ticks > other.m_Ticks;
 		}
 
-		bool operator>(const TickType otherTick) const
+		bool operator < (const TickType otherTick) const
 		{
-			return this->m_Time > otherTick;
+			return this->m_Ticks < otherTick;
 		}
 
-		operator TickType() const
+		bool operator > (const TickType otherTick) const
 		{
-			return m_Time;
+			return this->m_Ticks > otherTick;
 		}
+
+		int CompareTo(const TimeSpan& other) const
+		{
+			TickType num = other.m_Ticks;
+			if (this->m_Ticks > num)
+			{
+				return 1;
+			}
+			if (this->m_Ticks < num)
+			{
+				return -1;
+			}
+			return 0;
+		}
+
+
+
+		private:
+			static TimeSpan Interval(double value, int scale);
+
+			static TickType TimeToTicks(int hour, int minute, int second);
+			static TickType TimeToTicks(int days, int hours, int minutes, int seconds, int milliseconds);
 
 	private:
-		TickType m_Time;
+		static const double MillisecondsPerTick;
+		static const double SecondsPerTick;
+		static const double MinutesPerTick;
+		static const double HoursPerTick;
+		static const double DaysPerTick;
+		static const int MillisPerSecond;
+		static const int MillisPerMinute;
+		static const int MillisPerHour;
+		static const int MillisPerDay;
+		static const INT64 MaxSeconds;
+		static const INT64 MinSeconds;
+		static const INT64 MaxMilliSeconds;
+		static const INT64 MinMilliSeconds;
+
+
+		TickType m_Ticks;
 	};
+
+
+	/*
+	TimeSpan operator - (const TimeSpan& other)
+	{
+		if (other.m_Ticks == TimeSpan::MinTicks)
+		{
+			// throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
+		}
+		return TimeSpan(-other.m_Ticks);
+	}
+	*/
 
 }
