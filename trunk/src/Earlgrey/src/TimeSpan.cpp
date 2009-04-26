@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TimeSpan.h"
+#include <iomanip>
 
 namespace Earlgrey
 {
@@ -48,6 +49,38 @@ namespace Earlgrey
 			// throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
 		}
 		return TimeSpan(ticks);
+	}
+	
+	_txstring TimeSpan::ToString() const 
+	{
+		_txstringstream builder(_txstringstream::out);
+		
+		int num = (int) (this->m_Ticks / 0xc92a69c000L);
+		INT64 num2 = this->m_Ticks % 0xc92a69c000L;
+		if (this->m_Ticks < 0L)
+		{
+			builder << TEXT("-");
+			num = -num;
+			num2 = -num2;
+		}
+		if (num != 0)
+		{
+			builder << num;
+			builder << TEXT(".");
+		}
+		builder << std::setfill(TEXT('0')) << std::setw(2) << (int) ((num2 / TicksPerHour) % 0x18L);
+		builder << TEXT(":");
+		builder << std::setfill(TEXT('0')) << std::setw(2) << (int) ((num2 / TicksPerMinute) % 60L);
+		builder << TEXT(":");
+		builder << std::setfill(TEXT('0')) << std::setw(2) << (int) ((num2 / TicksPerSecond) % 60L);
+		int n = (int) (num2 % TicksPerSecond);
+		if (n != 0)
+		{
+			builder << TEXT(".");
+			builder << std::setfill(TEXT('0')) << std::setw(7) << n;
+		}
+
+		return builder.str();
 	}
 
 

@@ -1,7 +1,10 @@
 #pragma once 
+#include "StlCustom.h"
 
 namespace Earlgrey
 {	
+	// class _txstring;
+
 	//! \ref http://kaistizen.net/EE/index.php/imaso/cplusplus_cli_lecture_2009_01/
 	class TimeSpan
 	{
@@ -236,6 +239,7 @@ namespace Earlgrey
 			return 0;
 		}
 
+		_txstring ToString() const;
 
 
 		private:
