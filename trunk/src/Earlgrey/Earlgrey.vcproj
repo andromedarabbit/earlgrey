@@ -333,14 +333,22 @@
 			<Filter
 				Name="ExternalLib"
 				>
-				<File
-					RelativePath=".\src\LokiSingleton.cpp"
+				<Filter
+					Name="Loki"
 					>
-				</File>
-				<File
-					RelativePath=".\src\LokiThreads.cpp"
+					<File
+						RelativePath=".\src\Loki\Singleton.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Loki\Threads.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="boost"
 					>
-				</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Thread"
