@@ -370,6 +370,10 @@
 				Name="Diagnostics"
 				>
 				<File
+					RelativePath=".\src\EarlgreyAssert.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MiniDump.cpp"
 					>
 				</File>
@@ -407,18 +411,34 @@
 			<Filter
 				Name="ExternalLib"
 				>
-				<File
-					RelativePath=".\inc\LokiExport.h"
+				<Filter
+					Name="boost"
 					>
-				</File>
-				<File
-					RelativePath=".\inc\LokiSingleton.h"
+					<File
+						RelativePath=".\inc\boost\assert.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\boost\current_function.hpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Loki"
 					>
-				</File>
-				<File
-					RelativePath=".\inc\LokiThreads.h"
-					>
-				</File>
+					<File
+						RelativePath=".\inc\loki\LokiExport.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\loki\Singleton.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\loki\Threads.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Thread"
@@ -432,11 +452,19 @@
 				Name="Diagnostics"
 				>
 				<File
+					RelativePath=".\inc\EarlgreyAssert.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\MiniDump.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\StaticAssert.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\UserDefiendCompilerWarningMessage.h"
 					>
 				</File>
 			</Filter>
