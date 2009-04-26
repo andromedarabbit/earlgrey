@@ -131,7 +131,7 @@ typedef xwstring _txstring;
 typedef	xstring _txstring;
 #endif
 
-	// <iostream>
+	// <sstream>
 	typedef 
 		std::basic_stringbuf<wchar_t, std::char_traits<wchar_t>, NewAllocator<wchar_t>::Type > 
 		xwstringbuf
@@ -195,4 +195,37 @@ typedef xwstringstream _txstringstream;
 #else
 typedef	xstringstream _txstringstream;
 #endif
+
+
+	// <iostream>
+#ifdef _UNICODE
+typedef std::wios _tios;
+#else
+typedef	std::ios _tios;
+#endif
+
+#ifdef _UNICODE
+typedef std::wstreambuf _tstreambuf;
+#else
+typedef	std::streambuf _tstreambuf;
+#endif
+
+#ifdef _UNICODE
+typedef std::wistream _tistream;
+#else
+typedef	std::istream _tistream;
+#endif
+
+#ifdef _UNICODE
+typedef std::wostream _tostream;
+#else
+typedef	std::ostream _tostream;
+#endif
+
+#ifdef _UNICODE
+typedef std::wiostream _tiostream;
+#else
+typedef	std::iostream _tiostream;
+#endif
+
 }
