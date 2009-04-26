@@ -336,14 +336,6 @@
 				<Filter
 					Name="Loki"
 					>
-					<File
-						RelativePath=".\src\Loki\Singleton.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\Loki\Threads.cpp"
-						>
-					</File>
 				</Filter>
 				<Filter
 					Name="boost"
