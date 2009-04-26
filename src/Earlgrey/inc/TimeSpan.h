@@ -9,6 +9,8 @@ namespace Earlgrey
 	class TimeSpan
 	{
 		friend class DateTime;
+		friend _tostream& operator << (_tostream& stream, const TimeSpan& obj);
+		// friend _tistream& operator >> (_tistream& stream, TimeSpan& obj);
 
 	public:
 		typedef INT64 TickType;
@@ -279,4 +281,7 @@ namespace Earlgrey
 	}
 	*/
 
+	_tostream& operator << (_tostream& stream, const TimeSpan& obj);
+	// _tistream& operator >> (_tistream& stream, TimeSpan& obj);
 }
+
