@@ -309,4 +309,16 @@ namespace Earlgrey
 		}
 		return TimeSpan::TimeToTicks(hour, minute, second);
 	}
+
+	_txstring DateTime::ToString() const
+	{
+		// TODO: 구현하자.
+		return TEXT("");
+	}
+
+	_tostream& operator << (_tostream &os, const DateTime &obj)
+	{
+		os << obj.ToString();
+		return os;
+	}
 }
