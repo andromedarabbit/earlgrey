@@ -386,6 +386,10 @@
 				Name="Memory"
 				>
 			</Filter>
+			<Filter
+				Name="Log"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -523,6 +527,10 @@
 					RelativePath=".\inc\PAL_Windows.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="Log"
+				>
 			</Filter>
 		</Filter>
 		<Filter

@@ -85,7 +85,7 @@ namespace Earlgrey
 
 
 
-	TimeSpan TimeSpan::Interval(double value, int scale)
+	TimeSpan TimeSpan::Interval(double hours, int scale)
 	{
 		/*
 		if (double.IsNaN(value))
@@ -93,8 +93,8 @@ namespace Earlgrey
 		// throw new ArgumentException(Environment.GetResourceString("Arg_CannotBeNaN"));
 		}
 		*/
-		double num = value * scale;
-		double num2 = num + ((value >= 0.0) ? 0.5 : -0.5);
+		double num = hours * scale;
+		double num2 = num + ((hours >= 0.0) ? 0.5 : -0.5);
 		if ((num2 > 922337203685477) || (num2 < -922337203685477))
 		{
 			// throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
