@@ -28,12 +28,12 @@ namespace Earlgrey
 		static const TickType TicksPerSecond;
 		static const TickType TicksPerMillisecond;
 
-		TimeSpan()
+		explicit TimeSpan()
 			: m_Ticks(0)
 		{
 		}
 
-		TimeSpan(const TickType ticks)
+		explicit TimeSpan(const TickType ticks)
 			: m_Ticks(ticks)
 		{
 		}
@@ -43,12 +43,12 @@ namespace Earlgrey
 		{
 		}
 
-		TimeSpan(int hours, int minutes, int seconds)
+		explicit TimeSpan(int hours, int minutes, int seconds)
 		{
 			this->m_Ticks = TimeToTicks(hours, minutes, seconds);
 		}
 
-		TimeSpan(int days, int hours, int minutes, int seconds)
+		explicit TimeSpan(int days, int hours, int minutes, int seconds)
 		{
 			this->m_Ticks = TimeToTicks(days, hours, minutes, seconds, 0);			
 		}
@@ -58,9 +58,9 @@ namespace Earlgrey
 			this->m_Ticks = TimeToTicks(days, hours, minutes, seconds, milliseconds);			
 		}
 
-		static TimeSpan FromHours(double value)
+		static TimeSpan FromHours(double hours)
 		{
-			return Interval(value, MillisPerHour);
+			return Interval(hours, MillisPerHour);
 		}
 
 		static TimeSpan FromMilliseconds(double value)

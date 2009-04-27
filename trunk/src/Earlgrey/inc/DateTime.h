@@ -19,7 +19,7 @@ namespace Earlgrey
 		static const DateTime MinValue;		
 
 
-		/* explicit */ DateTime(INT64 ticks)
+		explicit DateTime(INT64 ticks)
 		{
 			if ((ticks < MinTicks) || (ticks > MaxTicks))
 			{
@@ -28,19 +28,19 @@ namespace Earlgrey
 			this->dateData = static_cast<UINT64>( ticks );
 		}
 
-		DateTime(const UINT64 dateData)
+		explicit DateTime(const UINT64 dateData)
 		{
 			this->dateData = dateData;
 		}
 
-		DateTime(INT64 ticks, E_DateTimeKind kind);
+		explicit DateTime(INT64 ticks, E_DateTimeKind kind);
 
-		DateTime(int year, int month, int day)
+		explicit DateTime(int year, int month, int day)
 		{
 			this->dateData = static_cast<UINT64>( DateToTicks(year, month, day) );
 		}
 
-		DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, E_DateTimeKind kind);
+		explicit DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, E_DateTimeKind kind);
 
 
 		DateTime Add(const TimeSpan& interval) const;
