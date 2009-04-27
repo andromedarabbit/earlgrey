@@ -1,14 +1,17 @@
 #pragma once 
-
+#include "StlCustom.h"
 
 namespace Earlgrey
 {
-	class TimeSpan;
+	class TimeSpan;		 
 	enum E_DayOfWeek;
 	enum E_DateTimeKind;
 
 	class DateTime
 	{
+		friend _tostream& operator << (_tostream& stream, const DateTime& obj);
+		
+
 	public:
 		static const INT64 MaxTicks;
 		static const INT64 MinTicks;
@@ -31,6 +34,11 @@ namespace Earlgrey
 		}
 
 		DateTime(INT64 ticks, E_DateTimeKind kind);
+
+		DateTime(int year, int month, int day)
+		{
+			this->dateData = static_cast<UINT64>( DateToTicks(year, month, day) );
+		}
 
 		DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, E_DateTimeKind kind);
 
@@ -217,6 +225,7 @@ namespace Earlgrey
 		}
 
 
+		_txstring ToString() const;
 
 	private:
 		static DateTime FromFileTime(const FILETIME& fileTime);
@@ -260,4 +269,6 @@ namespace Earlgrey
 		UINT64 dateData;
 
 	};
+
+	_tostream& operator << (_tostream &os, const DateTime &obj);
 }
