@@ -377,6 +377,10 @@
 					RelativePath=".\src\MiniDump.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\RuntimeCheck.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Memory"
@@ -457,6 +461,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\MiniDump.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\RuntimeCheck.h"
 					>
 				</File>
 				<File
