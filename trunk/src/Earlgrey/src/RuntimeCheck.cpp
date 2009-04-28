@@ -142,7 +142,6 @@ extern "C" _RTC_error_fnW _CRT_RTC_INITW(void *, void **, int , int , int )
 #endif
 
 
-}
-
 #endif /* rtcsamp.cpp */
 
+}
