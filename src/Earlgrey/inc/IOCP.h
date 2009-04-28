@@ -2,7 +2,4 @@
 
 namespace Earlgrey
 {
-	class Proactor
-	{
-	};
 }

@@ -394,6 +394,10 @@
 				Name="Network"
 				>
 				<File
+					RelativePath=".\src\IOCP.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Proactor.cpp"
 					>
 				</File>
@@ -547,6 +551,10 @@
 			<Filter
 				Name="Network"
 				>
+				<File
+					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
 					>
