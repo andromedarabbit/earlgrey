@@ -16,7 +16,7 @@ namespace Earlgrey
 {
 
 void
-DoInitialization()
+DoRtcInitialization()
 {
 #ifdef __MSVC_RUNTIME_CHECKS
 #	ifdef NOCRT
@@ -33,7 +33,7 @@ DoInitialization()
 }
 
 void
-DoTermination()
+DoRtcTermination()
 {
 	// Do any other termination work here
 #if defined(__MSVC_RUNTIME_CHECKS) && defined(NOCRT)

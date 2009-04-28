@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "AppInfo.h"
+#include "AppInitializer.h"
 #include "SingleInstance.h"
 #include "StlCustom.h" 
 #include "RuntimeCheck.h"
