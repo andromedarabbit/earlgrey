@@ -1,5 +1,6 @@
 #pragma 
 #include "Uncopyable.h"
+#include "Log.h"
 
 namespace Earlgrey
 {
@@ -36,21 +37,10 @@ namespace Earlgrey
 			{
 				// \todo 뭔가 오류 처리가 필요하다.
 				DWORD errCode = GetLastError();
-				LPVOID lpMsgBuf;
 
-				FormatMessage(
-					FORMAT_MESSAGE_ALLOCATE_BUFFER |
-					FORMAT_MESSAGE_FROM_SYSTEM |
-					FORMAT_MESSAGE_IGNORE_INSERTS
-					, NULL
-					, errCode
-					, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // Default language
-					, (LPTSTR) &lpMsgBuf
-					, NULL
-					, NULL
-					);
-
-				LocalFree( lpMsgBuf );
+				_txstring errMsg = Log::LastErrorMessage(errCode);
+				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
+				
 				return FALSE;
 			}
 
