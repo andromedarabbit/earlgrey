@@ -12,6 +12,9 @@
 #include "stdafx.h"
 #include "RuntimeCheck.h"
 
+namespace Earlgrey
+{
+
 void
 DoInitialization()
 {
@@ -137,6 +140,9 @@ extern "C" _RTC_error_fnW _CRT_RTC_INITW(void *, void **, int , int , int )
 	return &Catch_RTC_Failure;
 }
 #endif
+
+
+}
 
 #endif /* rtcsamp.cpp */
 
