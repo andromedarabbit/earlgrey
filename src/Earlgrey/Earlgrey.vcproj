@@ -406,6 +406,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="BaseSystem"
+				>
+				<File
+					RelativePath=".\src\AppInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SingleInstance.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -524,6 +536,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\SingleInstance.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\SystemInfo.h"
 					>
 				</File>
@@ -548,7 +564,7 @@
 				Name="Log"
 				>
 			</Filter>
-			<Filter
+			<Filter				Name="BaseSystem"				>				<File					RelativePath=".\inc\AppInfo.h"					>				</File>				<File					RelativePath=".\inc\AppType.h"					>				</File>			</Filter>			<Filter
 				Name="Network"
 				>
 				<File
@@ -561,6 +577,18 @@
 				</File>
 				<File
 					RelativePath=".\inc\Socket.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="BaseSystem"
+				>
+				<File
+					RelativePath=".\inc\AppInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\AppType.h"
 					>
 				</File>
 			</Filter>

@@ -35,7 +35,7 @@ namespace Earlgrey
 	};
 
 	// <map>
-	template<typename Key, typename T, typename Compare = less<Key> >
+	template<typename Key, typename T, typename Compare = std::less<Key> >
 	struct xmap
 	{ 
 		typedef 
@@ -43,7 +43,7 @@ namespace Earlgrey
 			Type; 
 	};
 
-	template<typename Key, typename T, typename Compare = less<Key> >
+	template<typename Key, typename T, typename Compare = std::less<Key> >
 	struct xmultimap
 	{
 		typedef 
@@ -52,7 +52,7 @@ namespace Earlgrey
 	};
 
 	// <set>
-	template<typename Key, typename Compare = less<Key> >
+	template<typename Key, typename Compare = std::less<Key> >
 	struct xset
 	{
 		typedef 
@@ -61,7 +61,7 @@ namespace Earlgrey
 	};
 
 
-	template<typename Key, typename Compare = less<Key> >
+	template<typename Key, typename Compare = std::less<Key> >
 	struct xmultiset
 	{
 		typedef 
