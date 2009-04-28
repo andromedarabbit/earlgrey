@@ -354,11 +354,23 @@
 				Name="System"
 				>
 				<File
+					RelativePath=".\src\AppInfo.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\AppInitializer.cpp"
 					>
 				</File>
 				<File
+					RelativePath=".\src\AppType.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\DateTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessInitializer.cpp"
 					>
 				</File>
 				<File
@@ -426,6 +438,10 @@
 			</File>
 			<File
 				RelativePath=".\inc\EarlgreyPrivate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Macros.h"
 				>
 			</File>
 			<File
@@ -545,6 +561,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\LockfreePointer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ProcessInitializer.h"
 					>
 				</File>
 				<File
