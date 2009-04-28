@@ -20,23 +20,26 @@
 #include <strsafe.h>
 #endif
 
-// 예제용으로 있떤 함수는 제거한다.
-/*
-extern int GetVal(void);
-extern void doSomething(short val);
-extern void LoseInfoInIntToShortCast(void);
-extern void thrashVar(int *i);
-extern void TrashStackVariable(void);
-extern void UseUninitializedVariable(void);
-*/
-extern void DoInitialization(void);
-extern void DoTermination(void);
+namespace Earlgrey
+{
+	// 예제용으로 있떤 함수는 제거한다.
+	/*
+	extern int GetVal(void);
+	extern void doSomething(short val);
+	extern void LoseInfoInIntToShortCast(void);
+	extern void thrashVar(int *i);
+	extern void TrashStackVariable(void);
+	extern void UseUninitializedVariable(void);
+	*/
+	extern void DoInitialization(void);
+	extern void DoTermination(void);
 
-#ifdef __MSVC_RUNTIME_CHECKS
-#ifdef NOCRT
-extern wchar_t *IntToString(int i);
-#endif
-extern int Catch_RTC_Failure(int errType, const wchar_t *file, int line, const wchar_t *module, const wchar_t *format, ...);
-#endif
+	#ifdef __MSVC_RUNTIME_CHECKS
+	#ifdef NOCRT
+	extern wchar_t *IntToString(int i);
+	#endif
+	extern int Catch_RTC_Failure(int errType, const wchar_t *file, int line, const wchar_t *module, const wchar_t *format, ...);
+	#endif
+}
 
 #endif // _rtcsample_h
