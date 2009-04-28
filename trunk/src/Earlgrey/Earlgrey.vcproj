@@ -429,6 +429,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\EarlgreyPrivate.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\stdafx.h"
 				>
 			</File>
@@ -564,7 +568,19 @@
 				Name="Log"
 				>
 			</Filter>
-			<Filter				Name="BaseSystem"				>				<File					RelativePath=".\inc\AppInfo.h"					>				</File>				<File					RelativePath=".\inc\AppType.h"					>				</File>			</Filter>			<Filter
+			<Filter
+				Name="BaseSystem"
+				>
+				<File
+					RelativePath=".\inc\AppInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\AppType.h"
+					>
+				</File>
+			</Filter>
+			<Filter
 				Name="Network"
 				>
 				<File
