@@ -1,7 +1,7 @@
 #pragma  once
 
-#include "LockfreePointer.h"
-#include "Lockfree.h"
+//#include "LockfreePointer.h"
+//#include "Lockfree.h"
 
 namespace Earlgrey
 {

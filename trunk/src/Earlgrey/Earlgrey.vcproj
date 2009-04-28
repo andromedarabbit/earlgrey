@@ -394,6 +394,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Log.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\MiniDump.cpp"
 					>
 				</File>
@@ -404,10 +408,6 @@
 			</Filter>
 			<Filter
 				Name="Memory"
-				>
-			</Filter>
-			<Filter
-				Name="Log"
 				>
 			</Filter>
 			<Filter
@@ -508,6 +508,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Log.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\MiniDump.h"
 					>
 				</File>
@@ -591,10 +595,6 @@
 					RelativePath=".\inc\PAL_Windows.h"
 					>
 				</File>
-			</Filter>
-			<Filter
-				Name="Log"
-				>
 			</Filter>
 			<Filter
 				Name="Network"

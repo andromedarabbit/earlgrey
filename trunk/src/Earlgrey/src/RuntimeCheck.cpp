@@ -18,7 +18,7 @@ namespace Earlgrey
 void
 DoRtcInitialization()
 {
-#ifdef __MSVC_RUNTIME_CHECKS
+#ifdef __MSVC_RUNTIME_CHECKS // Defined when one of the /RTC compiler options is specified.
 #	ifdef NOCRT
 	_RTC_Initialize();
 #	else
