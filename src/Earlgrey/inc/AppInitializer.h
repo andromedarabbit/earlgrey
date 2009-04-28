@@ -11,9 +11,7 @@ namespace Earlgrey
 	{
 	public: // Methods
 		explicit AppInfo()
-			: m_CurrentAppType(
-				static_cast<AppType::E_Type>(0)
-			)
+			: m_CurrentAppType(AppType::E_APPTYPE_NONE)
 		{
 		}
 

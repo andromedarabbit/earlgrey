@@ -67,6 +67,9 @@ namespace Earlgrey
 	};
 	
 	*/
+
+
+	//! \todo 코드 짜자!
 	class MiniDump : private Uncopyable
 	{
 		friend struct Loki::CreateStatic<MiniDump>;

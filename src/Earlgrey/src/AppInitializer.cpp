@@ -3,6 +3,7 @@
 #include "SingleInstance.h"
 #include "StlCustom.h" 
 #include "RuntimeCheck.h"
+#include "ProcessInitializer.h"
 
 namespace Earlgrey
 {
@@ -15,6 +16,11 @@ namespace Earlgrey
 		// RuntimeCheck 활성화
 		// \todo DoRtcTermination 은 어디서, 언제 부르나?
 		DoRtcInitialization(); 
+
+		// 프로세스 우선순위
+		ProcessInitializer processInitializer;
+		if( !processInitializer.Run() )
+			return FALSE;
 
 		return TRUE;
 	}
