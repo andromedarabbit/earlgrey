@@ -390,6 +390,18 @@
 				Name="Log"
 				>
 			</Filter>
+			<Filter
+				Name="Network"
+				>
+				<File
+					RelativePath=".\src\Proactor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Socket.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -531,6 +543,18 @@
 			<Filter
 				Name="Log"
 				>
+			</Filter>
+			<Filter
+				Name="Network"
+				>
+				<File
+					RelativePath=".\inc\Proactor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Socket.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
