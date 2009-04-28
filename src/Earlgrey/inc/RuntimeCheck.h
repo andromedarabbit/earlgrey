@@ -31,8 +31,8 @@ namespace Earlgrey
 	extern void TrashStackVariable(void);
 	extern void UseUninitializedVariable(void);
 	*/
-	extern void DoInitialization(void);
-	extern void DoTermination(void);
+	extern void DoRtcInitialization(void);
+	extern void DoRtcTermination(void);
 
 	#ifdef __MSVC_RUNTIME_CHECKS
 	#ifdef NOCRT
