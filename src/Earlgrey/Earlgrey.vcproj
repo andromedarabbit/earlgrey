@@ -355,46 +355,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="System"
-				>
-				<File
-					RelativePath=".\src\AppInfo.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\AppInitializer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\AppType.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\DateTime.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Path.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\ProcessInitializer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\SingleInstance.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\SystemInfo.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\TimeSpan.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Diagnostics"
 				>
 				<File
@@ -433,6 +393,46 @@
 					RelativePath=".\src\Socket.cpp"
 					>
 				</File>
+				<Filter
+					Name="System"
+					>
+					<File
+						RelativePath=".\src\AppInfo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\AppInitializer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\AppType.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\DateTime.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Path.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ProcessInitializer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SingleInstance.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\SystemInfo.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\TimeSpan.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
