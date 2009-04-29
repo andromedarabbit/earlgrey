@@ -8,6 +8,7 @@ namespace Earlgrey
 {
 	namespace Test
 	{		
+		/*
 // \todo 임시 조치
 #ifdef _DEBUG
 #ifndef _WIN64
@@ -31,20 +32,19 @@ namespace Earlgrey
 			ASSERT_STREQ(expected.c_str(), directory.c_str());
 		}
 
-		/*
-		TEST(PathTest, GetDirectoryName3)
-		{
-			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
-			_txstring directory = Path::GetDirectoryName(fullPath);
+		//TEST(PathTest, GetDirectoryName3)
+		//{
+		//	_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
+		//	_txstring directory = Path::GetDirectoryName(fullPath);
 
-			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug");
-			ASSERT_STRNEQ(expected.c_str(), directory.c_str());
-		}
-		*/
+		//	_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug");
+		//	ASSERT_STRNEQ(expected.c_str(), directory.c_str());
+		//}
+		
 
 		TEST(PathTest, Exists)
 		{
-			// _txstring fullPath = TEXT("..\\bin\\");
+			// _txstring fullPath = PathTEXT("..\\bin\\");
 			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\");
 						
 			ASSERT_TRUE(Path::Exists(fullPath));
@@ -61,5 +61,6 @@ namespace Earlgrey
 
 #endif
 #endif
+		*/
 	}
 }
