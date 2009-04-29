@@ -393,46 +393,46 @@
 					RelativePath=".\src\Socket.cpp"
 					>
 				</File>
-				<Filter
-					Name="System"
+			</Filter>
+			<Filter
+				Name="System"
+				>
+				<File
+					RelativePath=".\src\AppInfo.cpp"
 					>
-					<File
-						RelativePath=".\src\AppInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\AppInitializer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\AppType.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\DateTime.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\Path.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\ProcessInitializer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\SingleInstance.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\SystemInfo.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\TimeSpan.cpp"
-						>
-					</File>
-				</Filter>
+				</File>
+				<File
+					RelativePath=".\src\AppInitializer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\AppType.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DateTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Path.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessInitializer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SingleInstance.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SystemInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimeSpan.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -565,6 +565,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\DayOfWeek.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\FileInfo.h"
 					>
 				</File>
 				<File

@@ -8,6 +8,8 @@ namespace Earlgrey
 {
 	namespace Test
 	{		
+#if _DEBUG && WIN32 // \todo 임시 조치
+
 		TEST(PathTest, GetDirectoryName)
 		{
 			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\EarlgreyTest.exe");
@@ -54,6 +56,6 @@ namespace Earlgrey
 			ASSERT_FALSE(Path::Exists(fullPath));
 		}
 
-
+#endif
 	}
 }
