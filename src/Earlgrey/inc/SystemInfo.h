@@ -45,7 +45,7 @@ namespace Earlgrey
 		}
 
 		//! \note GetModuleFileNameEx 함수를 쓰려면 프로젝트 추가 종속성에 Psapi.lib 를 추가해야 한다.
-		_txstring BaseDirectory() const;
+		static _txstring BaseDirectory();
 
 	};
 }

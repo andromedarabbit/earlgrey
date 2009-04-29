@@ -6,7 +6,7 @@
 
 namespace Earlgrey
 {
-	_txstring SystemInfo::BaseDirectory() const
+	_txstring SystemInfo::BaseDirectory()
 	{
 		TCHAR modName[MAX_PATH];
 		if(GetModuleFileNameEx(GetCurrentProcess(), NULL, modName, _countof(modName)) == 0)
