@@ -414,6 +414,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\File.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Path.cpp"
 					>
 				</File>
@@ -568,7 +572,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\FileInfo.h"
+					RelativePath=".\inc\File.h"
 					>
 				</File>
 				<File
