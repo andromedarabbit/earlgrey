@@ -430,6 +430,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\StringHelper.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\SystemInfo.cpp"
 					>
 				</File>
@@ -593,6 +597,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\SingleInstance.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StringHelper.h"
 					>
 				</File>
 				<File
