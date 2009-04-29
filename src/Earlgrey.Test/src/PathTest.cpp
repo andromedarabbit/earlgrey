@@ -9,11 +9,6 @@ namespace Earlgrey
 {
 	namespace Test
 	{		
-//// \todo 임시 조치
-//#ifdef _DEBUG
-//#ifndef _WIN64
-
-
 		TEST(PathTest, Combine)
 		{
 			_txstring path1 = TEXT("c:\\windows\\somewhere\\");
@@ -91,10 +86,8 @@ namespace Earlgrey
 			ASSERT_TRUE(Path::IsPathRooted(fileName));
 			ASSERT_TRUE(Path::IsPathRooted(uncPath));
 			ASSERT_FALSE(Path::IsPathRooted(relativePath));
-
 		}
-//#endif
-//#endif
+
 	}
 }
 
