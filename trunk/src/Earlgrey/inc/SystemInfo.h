@@ -1,8 +1,6 @@
 #pragma once
 #include "Uncopyable.h"
-
 #include "StlCustom.h"
-#include <psapi.h>
 
 namespace Earlgrey
 {
@@ -47,25 +45,7 @@ namespace Earlgrey
 		}
 
 		//! \note GetModuleFileNameEx 함수를 쓰려면 프로젝트 추가 종속성에 Psapi.lib 를 추가해야 한다.
-		_txstring BaseDirectory() const
-		{
-			TCHAR modName[MAX_PATH];
-			if(GetModuleFileNameEx(GetCurrentProcess(), NULL, modName, _countof(modName)) == 0)
-			{
-				// \todo 오류 처리 - GetLastError
-
-			}
-
-			_txstring directory = modName;
-
-			std::size_t found = directory.rfind(TEXT('\\'));
-			if (found != _txstring::npos)
-			{
-				directory = directory.substr(0, found);
-			}
-
-			return directory;
-		}
+		_txstring BaseDirectory() const;
 
 	};
 }

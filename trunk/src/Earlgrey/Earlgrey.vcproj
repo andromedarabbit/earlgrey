@@ -374,6 +374,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Path.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ProcessInitializer.cpp"
 					>
 				</File>
@@ -569,6 +573,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\LockfreePointer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Path.h"
 					>
 				</File>
 				<File
