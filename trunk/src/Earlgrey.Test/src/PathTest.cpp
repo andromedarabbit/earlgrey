@@ -8,7 +8,10 @@ namespace Earlgrey
 {
 	namespace Test
 	{		
-#if _DEBUG && WIN32 // \todo 임시 조치
+// \todo 임시 조치
+#ifdef _DEBUG
+#ifndef _WIN64
+
 
 		TEST(PathTest, GetDirectoryName)
 		{
@@ -56,6 +59,7 @@ namespace Earlgrey
 			ASSERT_FALSE(Path::Exists(fullPath));
 		}
 
+#endif
 #endif
 	}
 }
