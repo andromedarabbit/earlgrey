@@ -1,4 +1,4 @@
-#pragma 
+#pragma once
 #include "Uncopyable.h"
 #include "Log.h"
 
@@ -6,6 +6,7 @@ namespace Earlgrey
 {
 	class ProcessInitializer : private Uncopyable
 	{
+	private:
 		/*
 		#define NORMAL_PRIORITY_CLASS             0x00000020
 		#define IDLE_PRIORITY_CLASS               0x00000040
@@ -27,13 +28,17 @@ namespace Earlgrey
 
 	public:
 		explicit ProcessInitializer()
-			// : m_CurrentProrityClass(DEFAULT_PRIORITY_CLASS)
 		{
 		}
 
 		BOOL Run()
 		{
-			if( SetPriorityClass(GetCurrentProcess(), DEFAULT_PRIORITY_CLASS) != 0)
+			return Run(DEFAULT_PRIORITY_CLASS);
+		}
+
+		BOOL Run(const DWORD priorityClass)
+		{
+			if( SetPriorityClass(GetCurrentProcess(), priorityClass) != 0)
 			{
 				// \todo 뭔가 오류 처리가 필요하다.
 				DWORD errCode = GetLastError();
@@ -54,6 +59,12 @@ namespace Earlgrey
 			if( priorityClass != 0)
 			{
 				// \todo 뭔가 오류 처리가 필요하다.
+				DWORD errCode = GetLastError();
+
+				_txstring errMsg = Log::LastErrorMessage(errCode);
+				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
+
+				// 예외 발생....
 			}
 			return priorityClass;
 		}

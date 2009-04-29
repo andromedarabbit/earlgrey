@@ -67,6 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="Psapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -133,6 +134,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="Psapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -200,6 +202,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="Psapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -268,6 +271,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="Psapi.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
