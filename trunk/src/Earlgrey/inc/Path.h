@@ -13,6 +13,7 @@ namespace Earlgrey
 	public:
 		static BOOL Exists(const _txstring& path);
 		
+		static _txstring GetDirectoryName(const _txstring& fullPath, BOOL strict);
 		static _txstring GetDirectoryName(const _txstring& fullPath);
 
 	};

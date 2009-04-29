@@ -6,11 +6,15 @@
 #include <sys/stat.h>   // For stat().
 #include <errno.h>
 
+#include "EarlgreyAssert.h"
+
 namespace Earlgrey
 {
 	//! \todo 작업 중
 	BOOL Path::Exists(const _txstring& path)
 	{
+		EARLGREY_ASSERT(path.length() > 0);
+
 		if( _taccess( path.c_str(), 00 ) != 0 ) // Check existence only.
 			return FALSE;
 		
@@ -35,11 +39,8 @@ namespace Earlgrey
 			{
 			}
 
-			if(errCode == EINVAL) // invalid parameters
-			{
-			}
+			EARLGREY_ASSERT(errCode != EINVAL); // invalid parameters
 
-			DBG_UNREFERENCED_LOCAL_VARIABLE(errCode);
 			return FALSE;
 		}
 
@@ -52,10 +53,15 @@ namespace Earlgrey
 		return FALSE;		
 	}
 
-
-	_txstring Path::GetDirectoryName(const _txstring& fullPath)
+	//! \todo strict == TRUE 일 때 
+	_txstring Path::GetDirectoryName(const _txstring& fullPath, BOOL strict)
 	{
 		EARLGREY_ASSERT(fullPath.length() > 0);
+
+		if(strict)
+		{
+		}
+
 		// if(fullPath[fullPath.length() - 1] != TEXT('\\'))
 		// return fullPath;
 
@@ -65,5 +71,10 @@ namespace Earlgrey
 			return fullPath.substr(0, found);
 		}
 		return fullPath;
+	}
+
+	_txstring Path::GetDirectoryName(const _txstring& fullPath)
+	{
+		return GetDirectoryName(fullPath, FALSE);
 	}
 }
