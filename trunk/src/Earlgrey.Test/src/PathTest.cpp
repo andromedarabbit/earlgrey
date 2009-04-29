@@ -26,18 +26,34 @@ namespace Earlgrey
 			ASSERT_STREQ(expected.c_str(), directory.c_str());
 		}
 
-
-		//! \note 아직 이 테스트 케이스는 지원하지 않는다.
 		/*
 		TEST(PathTest, GetDirectoryName3)
 		{
 			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
 			_txstring directory = Path::GetDirectoryName(fullPath);
 
-			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
-			ASSERT_STREQ(expected.c_str(), directory.c_str());
+			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug");
+			ASSERT_STRNEQ(expected.c_str(), directory.c_str());
 		}
 		*/
+
+		TEST(PathTest, Exists)
+		{
+			// _txstring fullPath = TEXT("..\\bin\\");
+			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\");
+						
+			ASSERT_TRUE(Path::Exists(fullPath));
+		}
+
+
+		TEST(PathTest, NotExists)
+		{
+			// _txstring fullPath = TEXT("..\\bin\\");
+			_txstring fullPath = TEXT("c:\\somewhereovertherainbow");
+
+			ASSERT_FALSE(Path::Exists(fullPath));
+		}
+
 
 	}
 }
