@@ -20,7 +20,7 @@ namespace Earlgrey
 			// 나온 값이 bin으로 끝나는지 확인한다.
 			_txstring suffix = directory.substr(directory.length() - 3, 3);
 			const TCHAR * const expected = TEXT("bin");
-			ASSERT_TRUE(StringHelper::EndsWith(suffix, expected));
+			ASSERT_TRUE(StringHelper::EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected));
 		}
 		
 	}
