@@ -1,16 +1,20 @@
 #include "stdafx.h"
 #include "EarlgreyAssert.h"
 
-//! \note 임시 코드
-#include <iostream>
+#include <iostream> //! \note 임시 코드
 
-namespace boost
+namespace Earlgrey
 {
 	//! \note 임시 코드
 	//! \ref http://www.codeproject.com/KB/debug/DebugBreakAnyway.aspx
-	void assertion_failed(char const * expr, char const * function, char const * file, long line)
+	void assertion_failed(TCHAR const * expr, TCHAR const * function, TCHAR const * file, long line)
 	{
-		std::wcout << expr << function << file << line << std::endl;
+		// \note 유니코드란 가정이라 버그라 봐야 하지만 어차피 임시 코드이니 놔둔다.
+		std::wcout 
+			<< expr << std::endl 
+			<< function << std::endl
+			<< file << std::endl
+			<< line << std::endl; 
 
 		::DebugBreak();
 		// *((volatile INT *)0x1) = 1;
