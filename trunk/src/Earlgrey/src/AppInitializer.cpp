@@ -4,6 +4,7 @@
 #include "StlCustom.h" 
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
+#include "Socket.h"
 
 namespace Earlgrey
 {
@@ -20,6 +21,10 @@ namespace Earlgrey
 		// 프로세스 우선순위
 		ProcessInitializer processInitializer;
 		if( !processInitializer.Run() )
+			return FALSE;
+
+		// 네트워크 초기화
+		if( !Socket::InitializeSubSystem() )
 			return FALSE;
 
 		return TRUE;

@@ -4,6 +4,7 @@
 
 namespace Earlgrey
 {
+	//! \todo in place 메서드가 많지 않다. 필요하면 더 구현하자.
 	class StringHelper : private Uncopyable
 	{
 	private: // Fields

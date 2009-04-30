@@ -442,6 +442,10 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="RTTI"
+				>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -632,6 +636,10 @@
 				Name="Network"
 				>
 				<File
+					RelativePath=".\inc\Dns.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\IOCP.h"
 					>
 				</File>
@@ -643,6 +651,10 @@
 					RelativePath=".\inc\Socket.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="RTTI"
+				>
 			</Filter>
 		</Filter>
 		<Filter
