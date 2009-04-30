@@ -403,6 +403,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\StringHelperTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\SystemInfoTest.cpp"
 				>
 			</File>
