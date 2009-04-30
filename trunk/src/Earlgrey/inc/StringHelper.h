@@ -21,13 +21,23 @@ namespace Earlgrey
 			if(strLength < prefixLength)
 				return FALSE;
 
-			return comparison.Equals(str, strLength, prefix, prefixLength);
+			return comparison.Equals(
+				str
+				, static_cast<int>(strLength)
+				, prefix
+				, static_cast<int>(prefixLength)
+				);
 		}
 
 		template<E_StringComparison flag>
 		static BOOL StartsWith(const _txstring& str, const _txstring& prefix)
 		{
-			return StartsWith<flag>(str.c_str(), str.length(), prefix.c_str(), prefix.length());
+			return StartsWith<flag>(
+				str.c_str()
+				, str.length()
+				, prefix.c_str()
+				, prefix.length()
+				);
 		}
 
 		static BOOL StartsWith(const _txstring& str, const _txstring& prefix);
@@ -51,7 +61,12 @@ namespace Earlgrey
 		template<E_StringComparison flag>
 		static BOOL EndsWith(const _txstring& str, const _txstring& suffix)
 		{
-			return EndsWith<flag>(str.c_str(), str.length(), suffix.c_str(), suffix.length());
+			return EndsWith<flag>(
+				str.c_str()
+				, str.length()
+				, suffix.c_str()
+				, suffix.length()
+				);
 		}
 
 		static BOOL EndsWith(const _txstring& str, const _txstring& suffix);
