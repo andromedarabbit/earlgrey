@@ -1,60 +1,60 @@
 #pragma once
-#include "Uncopyable.h"
+#include "StlCustom.h"
+#include "StringComparison.hpp"
 
 namespace Earlgrey
 {
-	enum E_StringComparion
-	{
-		STRCMP_CURRENT_CULTURE
-		, STRCMP_CURRENT_CULTURE_IGNORECASE
-		// , InvariantCulture
-		// , InvariantCultureIgnoreCase
-		, STRCMP_ORDINAL
-		, STRCMP_ORDINAL_IGNORECASE
-	};
-
-	template<E_StringComparion flag>
-	struct StringComparion
-	{
-		enum { value = flag };
-
-		DWORD ComparisonFlags() const;
-	};
-
-	template<>
-	struct StringComparion<STRCMP_CURRENT_CULTURE>
-	{
-		enum { value = STRCMP_CURRENT_CULTURE };
-
-		DWORD ComparisonFlags() const
-		{
-			return 0;
-		}
-
-
-	};
-
 	class StringHelper : private Uncopyable
 	{
 	private:
 		explicit StringHelper(); // 구현 안 함
 
 	public:
-			/*
-		static BOOL StartsWith(const _txstring& obj, const TCHAR * const value, StringComparison comparison)
+
+		template<E_StringComparison flag>
+		static BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)
 		{
-			DWORD cmpFlags;
+			StringComparison<flag> comparison;
+			if(prefix == 0)
+				return TRUE;
 
-			// switch(comparison == 
+			if(strLength < prefixLength)
+				return FALSE;
 
-
-			return FALSE;
+			return comparison.Equals(str, strLength, prefix, prefixLength);
 		}
 
-		static BOOL StartsWith(const _txstring& obj, const TCHAR * const value)
+		template<E_StringComparison flag>
+		static BOOL StartsWith(const _txstring& str, const _txstring& prefix)
 		{
-			return StartsWith(obj, value, CurrentCulture);
+			return StartsWith<flag>(str.c_str(), str.length(), prefix.c_str(), prefix.length());
 		}
-*/
+
+		static BOOL StartsWith(const _txstring& str, const _txstring& prefix);
+
+
+
+		template<E_StringComparison flag>
+		static BOOL EndsWith(const TCHAR * str, const size_t strLength, const TCHAR * suffix, const size_t suffixLength)
+		{
+			StringComparison<flag> comparison;
+			if(suffixLength == 0)
+				return TRUE;
+
+			if(strLength < suffixLength)
+				return FALSE;
+
+			const TCHAR * strSuffix = str + (strLength - suffixLength);
+			return comparison.Equals(strSuffix, suffix);
+		}
+
+		template<E_StringComparison flag>
+		static BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+		{
+			return EndsWith<flag>(str.c_str(), str.length(), suffix.c_str(), suffix.length());
+		}
+
+		static BOOL EndsWith(const _txstring& str, const _txstring& suffix);
+
 	};
 }
