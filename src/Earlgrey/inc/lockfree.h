@@ -4,6 +4,8 @@
 
 namespace Earlgrey {
 
+	namespace Thread {
+
 	inline BOOL CAS(volatile LONG *Dest, LONG Compare, LONG Exchange)
 	{   
 		return InterlockedCompareExchange((volatile LONG*)Dest, Exchange, Compare) == static_cast<LONG>(Compare);
@@ -70,12 +72,12 @@ namespace Earlgrey {
 				val.p = reinterpret_cast<ULONGLONG>(pointer);
 			}
 
-			ULONG count()
+			ULONG Count()
 			{
 				return (ULONG)val.count;
 			}
 
-			void count(ULONG count)
+			void Count(ULONG count)
 			{
 				val.count = count;
 			}
@@ -95,12 +97,12 @@ namespace Earlgrey {
 				val.p = pointer;
 			}
 
-			ULONG count()
+			ULONG Count()
 			{
 				return val.count;
 			}
 
-			void count(ULONG count)
+			void Count(ULONG count)
 			{
 				val.count = count;
 			}
@@ -128,7 +130,7 @@ namespace Earlgrey {
 			}
 
 			//! normal push operation of stack
-			void push(T value)
+			void Push(T value)
 			{
 				CellType* cell = new CellType( 0, value );
 				PointerType head, newItem;
@@ -137,7 +139,7 @@ namespace Earlgrey {
 				do {
 					head = _head;
 					newItem.p()->next = _head.p();
-					newItem.count( _head.count() + 1 );
+					newItem.Count( _head.Count() + 1 );
 				} while(!CAS64( (volatile LONGLONG*)&_head.val64, (LONGLONG)head.val64, (LONGLONG)newItem.val64 ));
 			}
 
@@ -146,14 +148,14 @@ namespace Earlgrey {
 				\param value is an output parameter, if pop() returns false, pop() won't set any value.
 				\return if stack is empty, then return false, otherwise return true
 			*/
-			bool pop(T& value)
+			bool Pop(T& value)
 			{
 				PointerType head, next;
 				head.val64 = _head.val64;
 
 				while(head.val.p) {
 					next.p( head.p()->next );
-					next.count( head.count() + 1 );
+					next.Count( head.Count() + 1 );
 					
 					if (CAS64( (volatile LONGLONG*)&_head.val64, head.val64, next.val64 ))
 					{
@@ -183,11 +185,11 @@ namespace Earlgrey {
 			explicit Queue()
 			{
 				_head.p( new CellType() );
-				_head.count( 0 );
+				_head.Count( 0 );
 				_tail = _head;
 			}
 
-			void enqueue(T value)
+			void Enqueue(T value)
 			{
 				PointerType tail, next, newCell;
 				newCell.p( new CellType( value ) );
@@ -208,7 +210,7 @@ namespace Earlgrey {
 						if (CAS( (volatile LONG*) &(_tail.p()->next), (LONG) next.p(), (LONG) newCell.p() ))
 #endif
 						{
-							newCell.count( tail.count() + 1 );
+							newCell.Count( tail.Count() + 1 );
 							CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, newCell.val64 );
 							break;
 						}
@@ -217,13 +219,13 @@ namespace Earlgrey {
 					{
 						// If _tail.next has been changed but _tail has not been changed, 
 						// change _tail into next-cell which is a new cell
-						next.count( tail.count() + 1 );
+						next.Count( tail.Count() + 1 );
 						CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, next.val64 );
 					}
 				}
 			}
 
-			bool dequeue(T& value)
+			bool Dequeue(T& value)
 			{
 				for (;;)
 				{
@@ -240,7 +242,7 @@ namespace Earlgrey {
 
 					value = next.p()->value;
 
-					next.count( head.count() + 1 );
+					next.Count( head.Count() + 1 );
 					if (CAS64( (volatile LONGLONG*) &_head.val64, head.val64, next.val64 ))
 					{
 						delete head.p();
@@ -249,6 +251,6 @@ namespace Earlgrey {
 				}
 			}
 		};
-
 	} // end of Lockfree namespace
+	} // end of Thread namespace
 }

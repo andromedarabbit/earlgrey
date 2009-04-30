@@ -2,33 +2,33 @@
 #include "lockfree.h"
 
 namespace Earlgrey {
-
+	namespace Thread {
 	namespace Lockfree {
 
 		class ITaskBase
 		{
 		public:
-			virtual void run() = 0;
-			virtual void destory() = 0;
+			virtual void Run() = 0;
+			virtual void Destory() = 0;
 		};
 
 		template<typename T>
 		class Task0 : public ITaskBase
 		{
 		public:
-			void run()
+			void Run()
 			{
-				runUserDefinedFunction();
-				destory();
+				UserDefinedFunction();
+				Destory();
 			}
 
 		protected:
-			void destory()
+			void Destory()
 			{
 				delete (T*)this;
 			}
 
-			virtual void runUserDefinedFunction() = 0;
+			virtual void UserDefinedFunction() = 0;
 		};
 
 		template<typename T, typename P1>
@@ -37,94 +37,159 @@ namespace Earlgrey {
 		public:
 			Task1(P1 p1) : _p1(p1) {}
 
-			void run()
+			void Run()
 			{
-				runUserDefinedFunction( _p1 );
-				destory();
+				UserDefinedFunction( _p1 );
+				Destory();
 			}
 
 		protected:
-			void destory()
+			void Destory()
 			{
 				delete (T*)this;
 			}
 
-			virtual void runUserDefinedFunction(P1 p1) = 0;
+			virtual void UserDefinedFunction(P1 p1) = 0;
 
 		private:
 			P1 _p1;
 		};
 
-#define DECLARE_TASK0(name) \
-		class name : public Earlgrey::Lockfree::Task0<name>	\
+#define DECLARE_TASK0(TaskName) \
+		class TaskName : public Earlgrey::Thread::Lockfree::Task0<TaskName>	\
 		{	\
 		public:	\
-		name() : Earlgrey::Lockfree::Task0<name>() {}	\
+		TaskName() : Earlgrey::Thread::Lockfree::Task0<TaskName>() {}	\
 		private:	\
-		void runUserDefinedFunction();	\
+		void UserDefinedFunction();	\
 		};
 
-#define DEFINE_TASK0(name)	\
-	void name::runUserDefinedFunction()
+#define DEFINE_TASK(TaskName) \
+	void TaskName::UserDefinedFunction
  
-#define DECLARE_TASK1(name, __ptype1) \
-		class name : public Earlgrey::Lockfree::Task1<name, __ptype1>	\
+#define DECLARE_TASK1(TaskName, __ptype1) \
+		class TaskName : public Earlgrey::Thread::Lockfree::Task1<TaskName, __ptype1>	\
 		{	\
 		public:	\
-			name(__ptype1 p1) : Earlgrey::Lockfree::Task1<name, __ptype1>( p1 ) {}	\
+			TaskName(__ptype1 p1) : Earlgrey::Thread::Lockfree::Task1<TaskName, __ptype1>( p1 ) {}	\
 		private:	\
-			void runUserDefinedFunction(__ptype1 p1);	\
+			void UserDefinedFunction(__ptype1 p1);	\
 		};
 
-#define DEFINE_TASK1(name, __ptype1, var1)	\
-		void name::runUserDefinedFunction(__ptype1 var1)
 
-
-		class TaskQueue : private Uncopyable
+		template<typename TaskType>
+		class TaskQueueBase : private Uncopyable
 		{
 		public:
-			explicit TaskQueue() : _count(0) 
+			explicit TaskQueueBase() : _count(0) 
 			{
 			}
 
-			void execute(ITaskBase* task)
+			virtual ~TaskQueueBase() 
+			{
+				// \todo erase all items from queue
+			}
+
+			void Post(TaskType* task)
 			{
 				if (CAS( &_count, 0L, 1L ))
 				{
-					task->run();
+					Execute( task );
 
 					if (InterlockedDecrement( &_count ) == 0)
 						return;
 				}
 				else
 				{
-					_q.enqueue( task );
+					_q.Enqueue( task );
 
 					// if there is a thread processing, don't do anything.
 					if (InterlockedIncrement( &_count ) > 1)
 						return;
 				}
-				executeAllTasksInQueue();
+				ExecuteAllTasksInQueue();
 			}
 
 		protected:
-			void executeAllTasksInQueue()
+			virtual void Execute(TaskType*) = 0;
+
+			void ExecuteAllTasksInQueue()
 			{
 				_ASSERTE( _count > 0 );
-				ITaskBase* queuedTask = NULL;
+				TaskType* queuedTask = NULL;
 				do {
-					bool isEmpty = _q.dequeue( queuedTask );
+					bool isEmpty = _q.Dequeue( queuedTask );
 					_ASSERTE( !isEmpty );
 					if (!isEmpty)
 					{
-						queuedTask->run();
+						Execute( queuedTask );
 					}
 				} while(InterlockedDecrement( &_count ));
 			}
 
 		protected:
-			Queue<ITaskBase*> _q;
+			Queue<TaskType*> _q;
 			volatile LONG _count;
 		};
+
+		class SimpleTaskQueue : public TaskQueueBase<ITaskBase>
+		{
+		private:
+			void Execute(ITaskBase* task)
+			{
+				task->Run();
+			}
+		};
+
+		class IQueueableMethod : public ITaskBase
+		{
+		public:
+			virtual void Execute(class TaskQueueClassBase*) = 0;
+		};
+
+		class TaskQueueClassBase : public TaskQueueBase<IQueueableMethod>
+		{
+		public:
+			TaskQueueClassBase() {}
+			virtual ~TaskQueueClassBase() {}
+		private:
+			void Execute(IQueueableMethod* method)
+			{
+				method->Execute( this );
+			}
+		};
+
+#define DECLARE_METHOD(MethodName)	\
+		template<typename TaskQueueType>	\
+		class MethodName##_Queueable : public IQueueableMethod	\
+		{	\
+		public:	\
+			void Execute(TaskQueueClassBase* taskQueue)	\
+			{	\
+				TaskQueueType* myClass = (TaskQueueType*) taskQueue;	\
+				myClass->MethodName();	\
+				delete this;	\
+			}	\
+		};	\
+		private:	\
+		void MethodName();
+
+		//template<typename TaskQueueType, typename P1>
+		//class Method1 : public IQueueableMethod
+		//{
+		//public:
+		//	void Execute(TaskQueueClassBase* taskQueue)
+		//	{
+		//		TaskQueueType* myClass = (TaskQueueType*) taskQueue;
+		//		myClass->Method1( p1 );
+		//		delete this;
+		//	}
+
+		//private:
+		//	P1 p1;
+		//};
+
+
 	} // end of Lockfree namespace
+	} // end of Thread namespace
 }
