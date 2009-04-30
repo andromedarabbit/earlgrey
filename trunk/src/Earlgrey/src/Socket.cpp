@@ -15,8 +15,8 @@ namespace Earlgrey
 
 		err = WSAStartup( wVersionRequested, &wsaData );
 		if ( err != 0 ) {
-			/* Tell the user that we could not find a usable */
-			/* WinSock DLL.                                  */
+			// Tell the user that we could not find a usable Winsock DLL.
+			// 소켓 시스템 초기화가 실패했으니 WSAGetLastError 도 동작하지 않는다.
 			// \todo 오류 처리
 			switch(err)
 			{
@@ -36,6 +36,7 @@ namespace Earlgrey
 				break;
 
 			default:
+				// \todo 오류 메시지를 넣는 ASSERT, VERIFY가 있으면 좋겠다.
 				EARLGREY_VERIFY(TRUE);
 				break;
 			}
