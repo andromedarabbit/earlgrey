@@ -6,10 +6,34 @@ namespace Earlgrey
 {
 	class StringHelper : private Uncopyable
 	{
+	private: // Fields
+		static const int TrimBoth = 2;
+		static const int TrimHead = 0;
+		static const int TrimTail = 1;
+
 	private:
 		explicit StringHelper(); // 구현 안 함
 
-	public:
+		static _txstring TrimHelper(const _txstring& str, const _txstring& trimChars, int trimType);
+
+	public: // Fields
+		// static const TCHAR WhitespaceChars[];
+		static const _txstring WhitespaceChars;
+	
+	public: // Methods
+		static _txstring Trim(const _txstring& str);
+		static _txstring Trim(const _txstring& str, const _txstring& trimChars);
+
+		static _txstring TrimStart(const _txstring& str);
+		static _txstring TrimStart(const _txstring& str, const _txstring& trimChars);
+
+		static _txstring TrimEnd(const _txstring& str);
+		static _txstring TrimEnd(const _txstring& str, const _txstring& trimChars);
+
+
+
+
+
 
 		template<E_StringComparison flag>
 		static BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)

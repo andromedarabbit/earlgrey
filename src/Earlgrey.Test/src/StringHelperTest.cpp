@@ -5,6 +5,39 @@ namespace Earlgrey
 {
 	namespace Test
 	{
+		TEST(StringHelperTest, TrimStart1)
+		{
+			_txstring str = TEXT("		가나다라 마바사\r\n");
+			str = StringHelper::TrimStart(str);
+
+			_txstring expected = TEXT("가나다라 마바사\r\n");
+
+			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, TrimEnd1)
+		{
+			_txstring str = TEXT("		가나다라 마바사\r\n");
+			str = StringHelper::TrimEnd(str);
+
+			_txstring expected = TEXT("		가나다라 마바사");
+
+			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, Trim1)
+		{
+			_txstring str = TEXT("		가나다라 마바사\r\n");
+			str = StringHelper::Trim(str);
+
+			_txstring expected = TEXT("가나다라 마바사");
+
+			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
 		TEST(StringHelperTest, EndsWith1) 
 		{
 			_txstring str = TEXT("가나다라마바사");
