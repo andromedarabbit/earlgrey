@@ -30,10 +30,15 @@ namespace Earlgrey
 		static _txstring TrimEnd(const _txstring& str);
 		static _txstring TrimEnd(const _txstring& str, const _txstring& trimChars);
 
+		static void ToLower(_txstring* strPtr);
+		static void ToLower(_txstring* strPtr, _locale_t locale);
+		static _txstring ToLower(_txstring str);
+		static _txstring ToLower(_txstring str, _locale_t locale);
 
-
-
-
+		static void ToUpper(_txstring* strPtr);
+		static void ToUpper(_txstring* strPtr, _locale_t locale);
+		static _txstring ToUpper(_txstring str);
+		static _txstring ToUpper(_txstring str, _locale_t locale);
 
 		template<E_StringComparison flag>
 		static BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)

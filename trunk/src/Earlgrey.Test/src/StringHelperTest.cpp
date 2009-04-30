@@ -34,7 +34,6 @@ namespace Earlgrey
 
 			_txstring expected = TEXT("		가나다라 마바사");
 
-			// ASSERT_TRUE(StringHelper::
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
@@ -48,7 +47,6 @@ namespace Earlgrey
 			
 			_txstring expected = TEXT("		가나다라 마");
 
-			// ASSERT_TRUE(StringHelper::
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
@@ -59,7 +57,6 @@ namespace Earlgrey
 
 			_txstring expected = TEXT("가나다라 마바사");
 
-			// ASSERT_TRUE(StringHelper::
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
@@ -72,8 +69,51 @@ namespace Earlgrey
 
 			_txstring expected = TEXT("다라 마");
 
-			// ASSERT_TRUE(StringHelper::
 			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, ToLowerInPlace1)
+		{
+			_txstring str = TEXT("AbCd사바나가EfGh");
+
+			StringHelper::ToLower(&str);
+
+			_txstring expected = TEXT("abcd사바나가efgh");
+
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, ToLowerWithCopy1)
+		{
+			_txstring str = TEXT("AbCd사바나가EfGh");
+
+			_txstring newStr = StringHelper::ToLower(str);
+
+			_txstring expected = TEXT("abcd사바나가efgh");
+
+			ASSERT_STREQ(expected.c_str(), newStr.c_str());
+		}
+
+		TEST(StringHelperTest, ToUpperInPlace1)
+		{
+			_txstring str = TEXT("AbCd사바나가EfGh");
+
+			StringHelper::ToUpper(&str);
+
+			_txstring expected = TEXT("ABCD사바나가EFGH");
+
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, ToUpperWithCopy1)
+		{
+			_txstring str = TEXT("AbCd사바나가EfGh");
+
+			_txstring newStr = StringHelper::ToUpper(str);
+
+			_txstring expected = TEXT("ABCD사바나가EFGH");
+
+			ASSERT_STREQ(expected.c_str(), newStr.c_str());
 		}
 
 		TEST(StringHelperTest, EndsWith1) 
