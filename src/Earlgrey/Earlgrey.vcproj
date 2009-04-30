@@ -484,18 +484,6 @@
 				Name="ExternalLib"
 				>
 				<Filter
-					Name="boost"
-					>
-					<File
-						RelativePath=".\inc\boost\assert.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\inc\boost\current_function.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
 					Name="Loki"
 					>
 					<File
