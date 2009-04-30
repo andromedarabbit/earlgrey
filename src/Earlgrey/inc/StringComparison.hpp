@@ -24,6 +24,9 @@ namespace Earlgrey
 	public:
 		enum { value = flag };
 
+		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const;
+		int Compare(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const;
+
 		BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const;
 
 		BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const;
@@ -45,12 +48,7 @@ namespace Earlgrey
 			return 0;
 		}
 
-		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
-		{
-			return Equals(str1, -1, str2, -1);
-		}
-
-		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
 			int retValue = CompareString(Locale(), ComparisonFlags(), str1, cchCount1, str2, cchCount2);
 			if(retValue == 0)
@@ -58,7 +56,22 @@ namespace Earlgrey
 				//! \todo 오류 처리
 				// GetLastError - ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
 			}
-			return retValue == CSTR_EQUAL;
+			return retValue;
+		}
+
+		int Compare(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Compare(str1, -1, str2, -1);
+		}
+
+		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Equals(str1, -1, str2, -1);
+		}
+
+		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		{
+			return Compare(str1, cchCount1, str2, cchCount2) == CSTR_EQUAL;
 		}
 	};
 
@@ -78,12 +91,7 @@ namespace Earlgrey
 			return NORM_IGNORECASE;
 		}
 
-		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
-		{
-			return Equals(str1, -1, str2, -1);
-		}
-
-		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
 			int retValue = CompareString(Locale(), ComparisonFlags(), str1, cchCount1, str2, cchCount2);
 			if(retValue == 0)
@@ -91,7 +99,22 @@ namespace Earlgrey
 				//! \todo 오류 처리
 				// GetLastError - ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
 			}
-			return retValue == CSTR_EQUAL;
+			return retValue;
+		}
+
+		int Compare(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Compare(str1, -1, str2, -1);
+		}
+
+		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Equals(str1, -1, str2, -1);
+		}
+
+		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		{
+			return Compare(str1, cchCount1, str2, cchCount2) == CSTR_EQUAL;
 		}
 	};
 
@@ -101,13 +124,7 @@ namespace Earlgrey
 	public:
 		enum { value = STRCMP_ORDINAL };
 
-		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
-		{
-			// CompareStringOrdinal 함수는 비스타부터 지원하므로 lstrcmp를 쓴다.
-			return lstrcmp(str1, str2) == 0;
-		}
-
-		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
 			int cchCount = std::min(cchCount1, cchCount2);
 			if(cchCount == 0)
@@ -115,8 +132,27 @@ namespace Earlgrey
 
 			_txstring newStr1(str1, cchCount);
 			_txstring newStr2(str2, cchCount);
-			
-			return lstrcmp(newStr1.c_str(), newStr2.c_str()) == 0;
+
+			// CompareStringOrdinal 함수는 비스타부터 지원하므로 lstrcmp를 쓴다.
+			int retValue = lstrcmp(newStr1.c_str(), newStr2.c_str());
+			return retValue + CSTR_EQUAL;
+		}
+
+		int Compare(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			// CompareStringOrdinal 함수는 비스타부터 지원하므로 lstrcmp를 쓴다.
+			int retValue = lstrcmp(str1, str2);
+			return retValue + CSTR_EQUAL;
+		}
+
+		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Compare(str1, str2) == CSTR_EQUAL;
+		}
+
+		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		{
+			return Compare(str1, cchCount1, str2, cchCount2) == CSTR_EQUAL;
 		}
 
 	};
@@ -127,12 +163,7 @@ namespace Earlgrey
 	public:
 		enum { value = STRCMP_ORDINAL_IGNORECASE };
 
-		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
-		{
-			return lstrcmpi(str1, str2) == 0;
-		}
-
-		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
 			int cchCount = std::min(cchCount1, cchCount2);
 			if(cchCount == 0)
@@ -141,7 +172,26 @@ namespace Earlgrey
 			_txstring newStr1(str1, cchCount);
 			_txstring newStr2(str2, cchCount);
 
-			return lstrcmpi(newStr1.c_str(), newStr2.c_str()) == 0;
+			// CompareStringOrdinal 함수는 비스타부터 지원하므로 lstrcmpi를 쓴다.
+			int retValue = lstrcmpi(newStr1.c_str(), newStr2.c_str());
+			return retValue + CSTR_EQUAL;
+		}
+
+		int Compare(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			// CompareStringOrdinal 함수는 비스타부터 지원하므로 lstrcmpi를 쓴다.
+			int retValue = lstrcmpi(str1, str2);
+			return retValue + CSTR_EQUAL;
+		}
+
+		inline BOOL Equals(__nullterminated const TCHAR * str1, __nullterminated const TCHAR * str2) const
+		{
+			return Compare(str1, str2) == CSTR_EQUAL;
+		}
+
+		inline BOOL Equals(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
+		{
+			return Compare(str1, cchCount1, str2, cchCount2) == CSTR_EQUAL;
 		}
 	};
 }

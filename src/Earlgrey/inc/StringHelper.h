@@ -71,5 +71,7 @@ namespace Earlgrey
 
 		static BOOL EndsWith(const _txstring& str, const _txstring& suffix);
 
+
+
 	};
 }
