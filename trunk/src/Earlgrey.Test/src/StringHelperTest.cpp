@@ -12,7 +12,18 @@ namespace Earlgrey
 
 			_txstring expected = TEXT("가나다라 마바사\r\n");
 
-			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, TrimStart2)
+		{
+			_txstring trimChars = TEXT("가다");
+
+			_txstring str = TEXT("가나다라 마바사\r\n");
+			str = StringHelper::TrimStart(str, trimChars);
+
+			_txstring expected = TEXT("나다라 마바사\r\n");
+
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
@@ -27,12 +38,39 @@ namespace Earlgrey
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
+
+		TEST(StringHelperTest, TrimEnd2)
+		{
+			_txstring trimChars = TEXT("\r사바\n");
+
+			_txstring str = TEXT("		가나다라 마바사\r\n");
+			str = StringHelper::TrimEnd(str, trimChars);
+			
+			_txstring expected = TEXT("		가나다라 마");
+
+			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
 		TEST(StringHelperTest, Trim1)
 		{
 			_txstring str = TEXT("		가나다라 마바사\r\n");
 			str = StringHelper::Trim(str);
 
 			_txstring expected = TEXT("가나다라 마바사");
+
+			// ASSERT_TRUE(StringHelper::
+			ASSERT_STREQ(expected.c_str(), str.c_str());
+		}
+
+		TEST(StringHelperTest, Trim2)
+		{
+			_txstring trimChars = TEXT("사바나가");
+
+			_txstring str = TEXT("가나다라 마바사");
+			str = StringHelper::Trim(str, trimChars);
+
+			_txstring expected = TEXT("다라 마");
 
 			// ASSERT_TRUE(StringHelper::
 			ASSERT_STREQ(expected.c_str(), str.c_str());
