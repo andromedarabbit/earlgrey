@@ -7,14 +7,17 @@ namespace Earlgrey
 	class StringHelper : private Uncopyable
 	{
 	private: // Fields
-		static const int TrimBoth = 2;
-		static const int TrimHead = 0;
-		static const int TrimTail = 1;
+		enum E_TrimType
+		{
+			TrimHead = 0
+			, TrimTail = 1
+			, TrimBoth = 2
+		};
 
 	private:
 		explicit StringHelper(); // 구현 안 함
 
-		static _txstring TrimHelper(const _txstring& str, const _txstring& trimChars, int trimType);
+		static _txstring TrimHelper(const _txstring& str, const _txstring& trimChars, E_TrimType trimType);
 
 	public: // Fields
 		// static const TCHAR WhitespaceChars[];
