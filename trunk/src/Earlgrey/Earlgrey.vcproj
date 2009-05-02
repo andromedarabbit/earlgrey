@@ -341,10 +341,6 @@
 					Name="Loki"
 					>
 				</Filter>
-				<Filter
-					Name="boost"
-					>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Thread"
@@ -383,6 +379,10 @@
 				>
 				<File
 					RelativePath=".\src\IOCP.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\NetworkBuffer.cpp"
 					>
 				</File>
 				<File
@@ -462,6 +462,10 @@
 			</File>
 			<File
 				RelativePath=".\inc\Macros.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Math.h"
 				>
 			</File>
 			<File
@@ -629,6 +633,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkBuffer.h"
 					>
 				</File>
 				<File
