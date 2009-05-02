@@ -355,6 +355,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MacrosTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\PathTest.cpp"
 				>
 			</File>
