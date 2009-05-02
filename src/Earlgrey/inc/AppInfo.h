@@ -12,7 +12,7 @@ namespace Earlgrey
 	public: // Methods
 		explicit AppInitializer()
 			: m_CurrentAppType(
-			static_cast<AppType::E_Type>(0)
+			static_cast<AppType::E_Type>(AppType::E_APPTYPE_NONE)
 			)
 		{
 		}
