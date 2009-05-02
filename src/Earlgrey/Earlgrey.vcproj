@@ -543,6 +543,14 @@
 			<Filter
 				Name="Memory"
 				>
+				<File
+					RelativePath=".\inc\CircularBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlCustomAllocator.hpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="System"

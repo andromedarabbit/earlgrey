@@ -1,6 +1,7 @@
 #pragma once 
+#include "StlCustomAllocator.hpp"
+
 #include <string>
-#include <memory>
 #include <iostream>
 #include <sstream>
 
@@ -20,7 +21,7 @@ namespace Earlgrey
 	struct NewAllocator
 	{
 		typedef 
-			std::allocator<T> 
+			StlCustomAllocator<T> 
 			Type;
 	};
 
