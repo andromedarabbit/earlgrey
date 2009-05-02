@@ -5,8 +5,6 @@ namespace Earlgrey
 {
 	//! \note 아직까진 std::allocator<T> 구현 그대로이다.
 
-	// using namespace std;
-
 	// TEMPLATE CLASS StlCustomAllocator
 	template<class _Ty>
 	class StlCustomAllocator
