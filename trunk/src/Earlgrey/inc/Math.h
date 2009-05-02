@@ -19,14 +19,6 @@ namespace Earlgrey
 			return index;
 		}
 
-		/*
-		inline unsigned long Log2(unsigned long n)
-		EARLGREY_ASSERT(n > 0);
-
-		unsigned long index;
-		EARLGREY_VERIFY(_BitScanReverse(&index, n));
-		return index;*/
-
 		template<typename DoubleType>
 		inline DoubleType Log2Ex(DoubleType n)
 		{
