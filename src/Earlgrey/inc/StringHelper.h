@@ -4,7 +4,7 @@
 
 namespace Earlgrey
 {
-	//! \todo in place 메서드가 많지 않다. 필요하면 더 구현하자.
+	//! \todo _locale_t는 c에서 쓰는 거라... LCID로 대체가능하면 좋겠다.	//! \todo in place 메서드가 많지 않다. 필요하면 더 구현하자.
 	class StringHelper : private Uncopyable
 	{
 	private: // Fields
