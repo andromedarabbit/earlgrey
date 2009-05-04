@@ -457,15 +457,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\EarlgreyMath.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\EarlgreyPrivate.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\Macros.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\EarlgreyMath.h"
 				>
 			</File>
 			<File
@@ -536,7 +536,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\UserDefiendCompilerWarningMessage.h"
+					RelativePath=".\inc\UserDefinedCompilerMessage.h"
 					>
 				</File>
 			</Filter>
