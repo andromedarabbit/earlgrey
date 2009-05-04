@@ -363,7 +363,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\MathTest.cpp"
+				RelativePath=".\src\EarlgreyMathTest.cpp"
 				>
 			</File>
 			<File

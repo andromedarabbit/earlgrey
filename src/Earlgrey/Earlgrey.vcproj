@@ -465,7 +465,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\inc\Math.h"
+				RelativePath=".\inc\EarlgreyMath.h"
 				>
 			</File>
 			<File

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Math.h"
+#include "EarlgreyMath.h"
 
 #undef min
 #undef max
@@ -8,7 +8,7 @@ namespace Earlgrey
 {
 	namespace Test
 	{		
-		TEST(MathTest, Log2ByUsingIntrinsicFunction)
+		TEST(EarlgreyMathTest, Log2ByUsingIntrinsicFunction)
 		{
 			unsigned long n1 = 64;
 			ASSERT_EQ(6, Earlgrey::Math::Log2(n1));
@@ -26,7 +26,7 @@ namespace Earlgrey
 			ASSERT_EQ(1, Earlgrey::Math::Log2(n5));
 		}
 
-		TEST(MathTest, Log2Ex)
+		TEST(EarlgreyMathTest, Log2Ex)
 		{
 			double n1 = 64;
 			INT64 retValue1 = static_cast<INT64>(Earlgrey::Math::Log2Ex(n1));
@@ -49,7 +49,7 @@ namespace Earlgrey
 			ASSERT_EQ(1, retValue5);
 		}
 
-		TEST(MathTest, Log2Ex2)
+		TEST(EarlgreyMathTest, Log2Ex2)
 		{
 			const unsigned long n1 = 64;
 			ASSERT_EQ(6, Earlgrey::Math::Log2Static<n1>());
