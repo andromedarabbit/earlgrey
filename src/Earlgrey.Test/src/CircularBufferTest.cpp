@@ -6,7 +6,7 @@ namespace Earlgrey
 {
 	namespace Test
 	{
-
+		/*
 		TEST(AssertTest, False)
 		{
 			circular_buffer<int> cb(5);
@@ -16,7 +16,7 @@ namespace Earlgrey
 			ASSERT_TRUE(cb.empty());
 			ASSERT_GT(0, cb.max_size());
 		}
-
+		*/
 	}
 }
 
