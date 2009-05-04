@@ -9,13 +9,14 @@ namespace Earlgrey
 {
 	namespace Math
 	{
+		
+
 		template<typename IntType>
 		inline IntType Log2(IntType n) // For double, long double, float
 		{
 			// 내장 함수를 사용하는 프로그램은 함수 호출의 오버헤드가 없기 때문에 빠르게 실행되지만
 			// 추가 코드를 만들기 때문에 프로그램이 커질 수 있습니다.
 			EARLGREY_ASSERT(n > 0);
-
 			unsigned long index;
 			EARLGREY_VERIFY(_BitScanReverse(&index, n));
 			return index;
@@ -49,7 +50,8 @@ namespace Earlgrey
 			return 0UL;
 		}
 
-		// x의 N 승
+		//! x의 N 승
+		//! \ref http://cd-docdb.fnal.gov/cgi-bin/RetrieveFile?docid=360&extension=ppt
 		template< unsigned N >  
 		inline double PowStatic( double x )  
 		{

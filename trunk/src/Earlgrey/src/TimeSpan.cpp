@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TimeSpan.h"
 #include <iomanip>
+#include <float.h> // isnan()
 
 namespace Earlgrey
 {
@@ -87,12 +88,12 @@ namespace Earlgrey
 
 	TimeSpan TimeSpan::Interval(double hours, int scale)
 	{
-		/*
-		if (double.IsNaN(value))
+		// if (double.IsNaN(value))
+		if(_isnan(hours))
 		{
 		// throw new ArgumentException(Environment.GetResourceString("Arg_CannotBeNaN"));
 		}
-		*/
+	
 		double num = hours * scale;
 		double num2 = num + ((hours >= 0.0) ? 0.5 : -0.5);
 		if ((num2 > 922337203685477) || (num2 < -922337203685477))
