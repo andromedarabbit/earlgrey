@@ -141,10 +141,10 @@ namespace Earlgrey {
 			}
 		};
 
-		class IQueueableMethod : public ITaskBase
+		class IQueueableMethod 
 		{
 		public:
-			virtual void Execute(class TaskQueueClassBase*) = 0;
+			virtual void Execute(class TaskQueueClassBase* taskQueue) = 0;
 		};
 
 		class TaskQueueClassBase : public TaskQueueBase<IQueueableMethod>
@@ -159,35 +159,27 @@ namespace Earlgrey {
 			}
 		};
 
+#define DECLARE_QUEUEABLE_CLASS(ClassName)	\
+	typedef ClassName* QueueableClassPointerType
+
 #define DECLARE_METHOD(MethodName)	\
-		template<typename TaskQueueType>	\
 		class MethodName##_Queueable : public IQueueableMethod	\
 		{	\
 		public:	\
 			void Execute(TaskQueueClassBase* taskQueue)	\
 			{	\
-				TaskQueueType* myClass = (TaskQueueType*) taskQueue;	\
-				myClass->MethodName();	\
+				QueueableClassPointerType queueableClass = (QueueableClassPointerType) taskQueue;	\
+				queueableClass->Raw##MethodName();	\
 				delete this;	\
 			}	\
 		};	\
-		private:	\
-		void MethodName();
+		void MethodName()	\
+		{	\
+			Post( new MethodName##_Queueable() );	\
+		}	\
+		public:	\
+		void Raw##MethodName();
 
-		//template<typename TaskQueueType, typename P1>
-		//class Method1 : public IQueueableMethod
-		//{
-		//public:
-		//	void Execute(TaskQueueClassBase* taskQueue)
-		//	{
-		//		TaskQueueType* myClass = (TaskQueueType*) taskQueue;
-		//		myClass->Method1( p1 );
-		//		delete this;
-		//	}
-
-		//private:
-		//	P1 p1;
-		//};
 
 
 	} // end of Lockfree namespace

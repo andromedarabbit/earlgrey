@@ -56,13 +56,41 @@ namespace Earlgrey
 			intval_for_taskq = 100;
 		}
 
+		class TestTaskQueueClass : public TaskQueueClassBase
+		{
+			DECLARE_QUEUEABLE_CLASS( TestTaskQueueClass );
+		public:
+			TestTaskQueueClass() : _test(0) {}
+			DECLARE_METHOD(Set1);
+			DECLARE_METHOD(Set10);
+		public:
+			int _test;
+		};
+
+		void TestTaskQueueClass::RawSet1()
+		{
+			_test = 1;
+		}
+
+		void TestTaskQueueClass::RawSet10()
+		{
+			_test = 10;
+		}
+
 		TEST(LockFreeTest, TaskQueueTest)
 		{
+			// 아래 테스트는 단일 스레드에서 테스트하는 코드이므로 깨지면 안된다.
 			SimpleTaskQueue taskq;
 			taskq.Post(new SampleTask( 10 ));
 			EXPECT_TRUE( intval_for_taskq == 10 );
 			taskq.Post(new NoParamTask());
 			EXPECT_TRUE( intval_for_taskq == 100 );
+
+			TestTaskQueueClass* myQueueableClass = new TestTaskQueueClass();
+			myQueueableClass->Set1();
+			EXPECT_TRUE( myQueueableClass->_test == 1 );
+			myQueueableClass->Set10();
+			EXPECT_TRUE( myQueueableClass->_test == 10 );
 		}
 	}
 }
