@@ -92,21 +92,30 @@ namespace Earlgrey {
 
 			void Post(TaskType* task)
 			{
+				// Is there any thread in process?
 				if (CAS( &_count, 0L, 1L ))
 				{
 					Execute( task );
 
+					// there is no thread in process, then return.
 					if (InterlockedDecrement( &_count ) == 0)
 						return;
+
+					// if not, execute all task in queue.
+					// other threads MUST have enqueued their tasks.
 				}
 				else
 				{
 					_q.Enqueue( task );
 
-					// if there is a thread processing, don't do anything.
+					// if there is a thread in process, don't do anything.
 					if (InterlockedIncrement( &_count ) > 1)
 						return;
+
+					// if not, execute the task that this thread has just enqueued.
+					// Because there is no thread that can execute the task.
 				}
+				
 				ExecuteAllTasksInQueue();
 			}
 
@@ -119,7 +128,7 @@ namespace Earlgrey {
 				TaskType* queuedTask = NULL;
 				do {
 					bool isEmpty = _q.Dequeue( queuedTask );
-					_ASSERTE( !isEmpty );
+					_ASSERTE( !isEmpty );	// if empty, it's critical error, because _count is not matched.
 					if (!isEmpty)
 					{
 						Execute( queuedTask );
@@ -128,8 +137,8 @@ namespace Earlgrey {
 			}
 
 		protected:
-			Queue<TaskType*> _q;
-			volatile LONG _count;
+			Queue<TaskType*> _q;		//!< lockfree queue
+			volatile LONG _count;		//!< the number of tasks in queue
 		};
 
 		class SimpleTaskQueue : public TaskQueueBase<ITaskBase>
