@@ -9,79 +9,73 @@
 
 namespace Earlgrey
 {
-	// template <typename T, typename A = StlCustomAllocator<T> > //< See note below
-	template <typename T, typename A = std::allocator<T> > //< See note below
-	class circular_buffer : private Uncopyable
+	
+	/// Boost 라이브러리의 구현과 거의 같은 걸로 보임.
+	//! \ref http://goodliffe.blogspot.com/2008/11/c-stl-like-circular-buffer-part-11.html
+	template <typename T, typename A = std::allocator<T> >
+	class circular_buffer
 	{
 	public:
-		typedef T                                        value_type;
-		typedef A                                        allocator_type;
-		typedef circular_buffer<T,A>                     self_type;
-		typedef typename allocator_type::difference_type difference_type;
-		typedef typename allocator_type::reference       reference;
-		typedef typename allocator_type::const_reference const_reference;
-		typedef typename allocator_type::pointer         pointer;
-		typedef typename allocator_type::const_pointer   const_pointer;
-	
-		typedef size_t size_type;
+		typedef T                                            value_type;
+		typedef A                                            allocator_type;
+		typedef typename allocator_type::size_type           size_type;
+		typedef typename allocator_type::difference_type     difference_type;
+		typedef typename allocator_type::reference           reference;
+		typedef typename allocator_type::const_reference     const_reference;
+		typedef typename allocator_type::pointer             pointer;
+		typedef typename allocator_type::const_pointer       const_pointer;
+		class                                                iterator;
 
-
-	public:
-		explicit circular_buffer(size_t capacity, const allocator_type &allocator = allocator_type());
-
+		explicit circular_buffer(size_type capacity,
+			const allocator_type &a = allocator_type());
 		~circular_buffer();
+		allocator_type get_allocator() const;
 
-		inline allocator_type get_allocator() const;
+		size_type size() const;
+		size_type max_size() const;
+		bool      empty() const;
 
-		inline size_type size() const
-		{
-			if(empty())
-				return 0;
-
-			return (m_back > m_front ? m_back : m_back+m_capacity) - m_front;
-		}
-
-		inline size_type max_size() const;
-		
-		inline bool empty() const
-		{
-			return !m_front;
-		}
-
-		inline bool full() const 
-		{ 
-			return capacity() == size(); 
-		}
-
-		inline size_type capacity() const
-		{
-			return m_capacity;
-		}
+		size_type capacity() const;
 
 		reference       front();
 		const_reference front() const;
+		reference       back();
+		const_reference back() const;
+		reference       operator[](size_type n);
+		const_reference operator[](size_type n) const;
+		reference       at(size_type n);
+		const_reference at(size_type n) const;
 
-		bool push_back(const value_type &value);
+		iterator begin();
+		iterator end();
+
+		bool push_back(const value_type &);
 		void pop_front();
-
 		void clear();
 
 	private:
+		size_type       m_capacity;
+		allocator_type  m_allocator;
+		pointer         m_buffer;
+		pointer         m_front;
+		pointer         m_back; // points to next unused item
+
+		typedef circular_buffer<T> class_type;
+
+		circular_buffer(const class_type &);
+		class_type &operator=(const class_type &);
+
 		value_type *wrap(value_type *ptr) const
 		{
-			assert(ptr < m_buffer + m_capacity*2);
+			EARLGREY_ASSERT(ptr < m_buffer + m_capacity*2);
+			EARLGREY_ASSERT(ptr > m_buffer - m_capacity);
 			if (ptr >= m_buffer+m_capacity)
 				return ptr-m_capacity;
+			else if (ptr < m_buffer)
+				return ptr+m_capacity;
 			else
 				return ptr;
 		}
-
-	private:		
-		size_type      m_capacity;
-		allocator_type m_allocator;
-		pointer        m_buffer;
-		pointer        m_front;
-		pointer        m_back;
 	};
 
 	template <typename T, typename A>
@@ -94,50 +88,64 @@ namespace Earlgrey
 		m_front(0),
 		m_back(m_buffer)
 	{
+		EARLGREY_ASSERT(capacity > 0);
 	}
 
 	template <typename T, typename A>
 	inline
 		circular_buffer<T,A>::~circular_buffer()
 	{
-		clear(); // Delete all objects before deallocating the buffer
+		clear(); // deallocates all objects
 		m_allocator.deallocate(m_buffer, m_capacity);
 	}
 
 	template <typename T, typename A>
-	typename circular_buffer<T,A>::allocator_type
-		inline
+	inline
+		typename circular_buffer<T,A>::allocator_type
 		circular_buffer<T,A>::get_allocator() const
 	{
 		return m_allocator;
+	}
+
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::size_type circular_buffer<T,A>::capacity() const
+	{
+		return m_capacity;
+	}
+
+	template <typename T, typename A>
+	inline
+		bool circular_buffer<T,A>::empty() const
+	{
+		return !m_front;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::size_type circular_buffer<T,A>::size() const
+	{
+		return !m_front ? 0
+			: (m_back > m_front ? m_back : m_back+m_capacity) - m_front;
 	}
 
 	template <typename T, typename A>
 	inline
 		typename circular_buffer<T,A>::size_type circular_buffer<T,A>::max_size() const
 	{
-		// This is clearly more elegant than the previous implementation!
 		return m_allocator.max_size();
 	}
 
-	// This version of push_back must constuct and detroy objects in m_buffer
-	// using m_allocators methods, rather than traditional construction, copying,
-	// assignment.
 	template <typename T, typename A>
 	inline
 		bool circular_buffer<T,A>::push_back(const value_type &value)
 	{
-		// If the buffer is full, and data will fall off the back of the
-		// buffer - so we must destroy the stale object first.
-		// This is an implementation choice, we could instead use operator= on
-		// the value_type to replace the item. However, that would require
-		// value_type to provide a copy assignment operator.
 		if (m_front && m_front == m_back)
 			m_allocator.destroy(m_back);
 
 		m_allocator.construct(m_back, value);
 
-		// The rest of push_back is as it was before
 		value_type *const next = wrap(m_back+1);
 		if (!m_front)
 		{
@@ -161,9 +169,41 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
+		typename circular_buffer<T,A>::reference circular_buffer<T,A>::front()
+	{
+		EARLGREY_ASSERT(m_front);
+		return *m_front;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::const_reference circular_buffer<T,A>::front() const
+	{
+		EARLGREY_ASSERT(m_front);
+		return *m_front;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::reference circular_buffer<T,A>::back()
+	{
+		EARLGREY_ASSERT(m_front);
+		return *wrap(m_back-1);
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::const_reference circular_buffer<T,A>::back() const
+	{
+		EARLGREY_ASSERT(m_front);
+		return *wrap(m_back-1);
+	}
+
+	template <typename T, typename A>
+	inline
 		void circular_buffer<T,A>::pop_front()
 	{
-		assert(m_front);
+		EARLGREY_ASSERT(m_front);
 
 		m_allocator.destroy(m_front);
 		value_type *const next = wrap(m_front+1);
@@ -187,5 +227,101 @@ namespace Earlgrey
 			while (m_front != m_back);
 		}
 		m_front = 0;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::reference circular_buffer<T,A>::operator[]
+	(size_type n)
+	{
+		return *wrap(m_front+n);
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::const_reference circular_buffer<T,A>::operator[]
+	(size_type n) const
+	{
+		return *wrap(m_front+n);
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::reference circular_buffer<T,A>::at(size_type n)
+	{
+		if (n >= size()) throw std::out_of_range("Parameter out of range");
+		return (*this)[n];
+	}
+
+	template <typename T, typename A>
+	inline
+		typename circular_buffer<T,A>::const_reference circular_buffer<T,A>::at
+		(size_type n) const
+	{
+		if (n >= size()) throw std::out_of_range("Parameter out of range");
+		return (*this)[n];
+	}
+
+	template <typename T, typename A>
+	class circular_buffer<T,A>::iterator
+		: public std::iterator<std::random_access_iterator_tag,
+		value_type,
+		size_type,
+		pointer,
+		reference>
+	{
+	public:
+		typedef circular_buffer<T>             parent_type;
+		typedef typename parent_type::iterator self_type;
+
+		iterator(parent_type &parent, size_type index)
+			: parent(parent), index(index) {}
+
+		self_type &operator++()
+		{
+			++index;
+			return *this;
+		}
+		self_type operator++(int) // postincrement
+		{
+			self_type old(*this);
+			operator++();
+			return old;
+		}
+		self_type &operator--()
+		{
+			--index;
+			return *this;
+		}
+		self_type operator--(int) // postdecrement
+		{
+			self_type old(*this);
+			operator--();
+			return old;
+		}
+
+		reference operator*() { return parent[index]; }
+		pointer operator->()  { return &(parent[index]); }
+
+		bool operator==(const self_type &other) const
+		{ return &parent == &other.parent && index == other.index; }
+		bool operator!=(const self_type &other) const
+		{ return !(other == *this); }
+
+	private:
+		parent_type &parent;
+		size_type    index;
+	};
+
+	template <typename T, typename A>
+	typename circular_buffer<T,A>::iterator circular_buffer<T,A>::begin()
+	{
+		return iterator(*this, 0);
+	}
+
+	template <typename T, typename A>
+	typename circular_buffer<T,A>::iterator circular_buffer<T,A>::end()
+	{
+		return iterator(*this, size());
 	}
 }
