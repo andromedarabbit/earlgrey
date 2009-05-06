@@ -4,7 +4,131 @@
 
 namespace Earlgrey
 {
-	BOOL Socket::InitializeSubSystem()
+	BOOL SocketInterface::Initialize()
+	{
+		INT ZeroInt; 
+		ZeroInt = 0;
+		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&ZeroInt, sizeof(ZeroInt));
+
+		ZeroInt = 0;
+		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&ZeroInt, sizeof(ZeroInt));
+
+		if (!GProactor.RegisterHandler( (HANDLE)_Handle, static_cast<void*>(this)))
+		{
+			Close();
+			return FALSE;
+		}
+
+		//_PacketBuffer->Initialize();
+		return TRUE;
+	}
+
+	void SocketInterface::Close()
+	{
+		SOCKET OldSocket = (SOCKET)AtomicExch(_Handle, INVALID_SOCKET);
+
+		LINGER Linger;
+		Linger.l_onoff = 1;
+		Linger.l_linger = 0;
+		setsockopt(OldSocket, SOL_SOCKET, SO_LINGER, (const char*)&Linger, sizeof(Linger));
+		closesocket(OldSocket);
+	}
+
+	BOOL SocketInterface::Send()
+	{
+		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
+		DWORD	SentBytes;		
+		INT Error = ::WSASend(	
+			_Handle,		//	Socket Handle
+			SocketBuffer,		//	Buffer
+			_PacketBuffer->GetBufferNum(),	//	Buffer Count
+			&SentBytes,			//	Sent Bytes
+			0,					//	Flag
+			&_OverlappedSend,		//	Overlapped Pointer
+			NULL
+			);
+
+		if (Error != 0) 
+		{ 
+			if (Error != ERROR_IO_PENDING) 
+			{
+				if (Error == WSAECONNRESET || Error == WSAEINVAL)
+				{
+				}
+				else
+				{
+				}
+				return FALSE;
+			} 
+		}
+		return TRUE;
+
+	}
+
+	BOOL SocketInterface::Receive()
+	{
+		WSABUF* SocketBuffers = 0; //_PacketBuffer->GetSockRecvBuffer()
+		DWORD ReceivedBytes;
+		DWORD Flags = 0;
+
+		INT ReceiveResult = ::WSARecv(
+			_Handle,
+			SocketBuffers,
+			1,
+			&ReceivedBytes,
+			&Flags,
+			&_OverlappedRead,
+			NULL);
+
+		if (ReceiveResult != 0)
+		{
+			INT Error = GetLastError();
+			if(Error != ERROR_IO_PENDING)
+			{			
+				return Error;
+			}
+		}
+		return 0;
+
+	}
+
+	void SocketInterface::IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped)
+	{
+		if (!InSuccess)
+		{
+			if (InOverlapped == &_OverlappedRead)	
+				Close();		
+		}
+		else if (InOverlapped == &_OverlappedRead)
+		{
+			//	Receive IO Completed
+			ReceiveCompleted(InTransferred);
+		}
+		else if (InOverlapped == &_OverlappedSend)
+		{
+			//	Send IO Completed
+			SendCompleted(InTransferred);
+		}
+		else if (InOverlapped == NULL)
+		{
+		}
+		else
+		{
+		}
+	}
+
+	void SocketInterface::SendCompleted(DWORD )
+	{
+	}
+
+	void SocketInterface::ReceiveCompleted(DWORD )
+	{
+		OnReceived();
+	}
+
+
+
+	BOOL SocketSubsystem::InitializeSubSystem()
 	{
 		// MSDN 라이브러리의 예제를 참고했다.
 		WORD wVersionRequested;

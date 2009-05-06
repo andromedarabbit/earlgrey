@@ -1,24 +1,53 @@
 #pragma once 
+#include "Proactor.h"
+#include "NetworkBuffer.h"
 
 namespace Earlgrey
 {
-	class Socket
+	class SocketInterface : public IOHandler
 	{
 	public:
-		explicit Socket();
-		virtual ~Socket();
+		explicit SocketInterface();
+		virtual ~SocketInterface();
+		
+		BOOL Initialize();
+		void Close();
+
+		virtual void OnConnected();
+		virtual void OnDisconnected();
+		virtual void OnReceived();
+
+		BOOL Send();
+		BOOL Receive();
+
+		virtual void IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped);
+
+	private:
+		void ReceiveCompleted(DWORD InTransferred);
+		void SendCompleted(DWORD InTransferred);
+
+		SOCKET				_Handle;
+		OVERLAPPED			_OverlappedRead;
+		OVERLAPPED			_OverlappedSend;
+
+		NetworkBuffer*		_PacketBuffer;
+	};
+
+	class SocketSubsystem
+	{
+	public:
 
 		// \note 이 함수는 다른 클래스에 넣는 편이 나을까?
 		// \note 초기화가 있으면 종료도 있어야 하나? - WSACleanup
 		static BOOL InitializeSubSystem();
-		
-
-		virtual void OnConnected();
-		virtual void OnDisconnected();
-
-	private:
-		SOCKET				_Handle;
-		OVERLAPPED			_OverlappedRead;
-		OVERLAPPED			_OverlappedSend;
+		INT GetLastErrorCode()
+		{
+			return WSAGetLastError();
+		}
+		const TCHAR* GetSocketError(INT Code = -1);
+	
+		/*INT GetHostByName(ANSICHAR* HostName, FInternetIpAddr& Addr);
+		BOOL GetHostName(String& HostName);
+		BOOL GetLocalHostAddr(FInternetIpAddr& HostAddr);*/
 	};
 }
