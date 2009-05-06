@@ -61,8 +61,9 @@ namespace Earlgrey
 			DECLARE_QUEUEABLE_CLASS( TestTaskQueueClass );
 		public:
 			TestTaskQueueClass() : _test(0) {}
-			DECLARE_METHOD(Set1);
-			DECLARE_METHOD(Set10);
+			DECLARE_METHOD0(Set1);
+			DECLARE_METHOD0(Set10);
+			DECLARE_METHOD2(AddTwoValues, int, int);
 		public:
 			int _test;
 		};
@@ -75,6 +76,11 @@ namespace Earlgrey
 		void TestTaskQueueClass::RawSet10()
 		{
 			_test = 10;
+		}
+
+		void TestTaskQueueClass::RawAddTwoValues(int a, int b)
+		{
+			_test = a + b;
 		}
 
 		TEST(LockFreeTest, TaskQueueTest)
@@ -91,6 +97,8 @@ namespace Earlgrey
 			EXPECT_TRUE( myQueueableClass->_test == 1 );
 			myQueueableClass->Set10();
 			EXPECT_TRUE( myQueueableClass->_test == 10 );
+			myQueueableClass->AddTwoValues( 10, 100 );
+			EXPECT_TRUE( myQueueableClass->_test == 110 );
 		}
 	}
 }
