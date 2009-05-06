@@ -24,7 +24,7 @@ namespace Earlgrey
 			return FALSE;
 
 		// 네트워크 초기화
-		if( !Socket::InitializeSubSystem() )
+		if( !SocketSubsystem::InitializeSubSystem() )
 			return FALSE;
 
 		return TRUE;
