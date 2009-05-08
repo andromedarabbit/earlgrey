@@ -51,9 +51,14 @@ namespace Earlgrey
 
 		_thread = reinterpret_cast<HANDLE>( _beginthreadex( NULL, stackSize, _ThreadProc, this, 0, &threadId ) );
 		EARLGREY_VERIFY( _thread != (HANDLE)-1L );
+		if (_thread == (HANDLE)-1L)
+		{
+			// thread creation error
+			return FALSE;
+		}
 
 		SetThreadName( threadId, threadName );
-		
+
 		return TRUE;
 	}
 }
