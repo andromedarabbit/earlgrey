@@ -30,5 +30,6 @@ namespace Earlgrey
 		HANDLE _IOCompletionPort;
 	};
 
-	WinProactor GProactor;//! todo
+	//! \note 빌드가 깨져서 관련 코드를 주석 처리함.
+	// WinProactor GProactor;//! todo
 }
