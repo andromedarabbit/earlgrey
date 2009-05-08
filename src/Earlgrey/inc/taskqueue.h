@@ -1,8 +1,8 @@
 #pragma once
-#include "lockfree.h"
+#include "LockfreeQueue.hpp"
 
 namespace Earlgrey {
-	namespace Thread {
+	namespace Algorithm {
 	namespace Lockfree {
 
 		class ITaskBase
@@ -56,10 +56,10 @@ namespace Earlgrey {
 		};
 
 #define DECLARE_TASK0(TaskName) \
-		class TaskName : public Earlgrey::Thread::Lockfree::Task0<TaskName>	\
+		class TaskName : public Earlgrey::Algorithm::Lockfree::Task0<TaskName>	\
 		{	\
 		public:	\
-		explicit TaskName() : Earlgrey::Thread::Lockfree::Task0<TaskName>() {}	\
+		explicit TaskName() : Earlgrey::Algorithm::Lockfree::Task0<TaskName>() {}	\
 		private:	\
 		void UserDefinedFunction();	\
 		};
@@ -68,10 +68,10 @@ namespace Earlgrey {
 	void TaskName::UserDefinedFunction
  
 #define DECLARE_TASK1(TaskName, __ptype1) \
-		class TaskName : public Earlgrey::Thread::Lockfree::Task1<TaskName, __ptype1>	\
+		class TaskName : public Earlgrey::Algorithm::Lockfree::Task1<TaskName, __ptype1>	\
 		{	\
 		public:	\
-			explicit TaskName(__ptype1 p1) : Earlgrey::Thread::Lockfree::Task1<TaskName, __ptype1>( p1 ) {}	\
+			explicit TaskName(__ptype1 p1) : Earlgrey::Algorithm::Lockfree::Task1<TaskName, __ptype1>( p1 ) {}	\
 		private:	\
 			void UserDefinedFunction(__ptype1 p1);	\
 		};
@@ -196,7 +196,7 @@ namespace Earlgrey {
 		public:	\
 		void MethodName ArgDecl	\
 		{	\
-			if (Earlgrey::Thread::CAS( &_count, 0L, 1L ))	{	\
+			if (Earlgrey::Algorithm::CAS( &_count, 0L, 1L ))	{	\
 				Raw##MethodName PassArgs;	\
 				if (InterlockedDecrement( &_count ) == 0) return;	\
 			} else {	\

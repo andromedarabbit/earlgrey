@@ -584,14 +584,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\lockfree.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\LockfreePointer.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\Path.h"
 					>
 				</File>
@@ -613,10 +605,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\SystemInfo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\taskqueue.h"
 					>
 				</File>
 				<File
@@ -659,6 +647,30 @@
 			<Filter
 				Name="RTTI"
 				>
+			</Filter>
+			<Filter
+				Name="Algorithm"
+				>
+				<File
+					RelativePath=".\inc\lockfree.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LockfreePointer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LockfreeQueue.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LockfreeStack.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\taskqueue.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

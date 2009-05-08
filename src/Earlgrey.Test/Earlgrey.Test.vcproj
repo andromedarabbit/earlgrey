@@ -359,7 +359,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\LockFreeTest.cpp"
+				RelativePath=".\src\LockfreeQueueTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\LockfreeStackTest.cpp"
 				>
 			</File>
 			<File
@@ -424,6 +428,10 @@
 			</File>
 			<File
 				RelativePath=".\src\SystemInfoTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TaskQueueTest.cpp"
 				>
 			</File>
 			<File
