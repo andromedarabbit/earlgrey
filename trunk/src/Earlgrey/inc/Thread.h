@@ -30,7 +30,7 @@ namespace Earlgrey
 		explicit Thread();
 
 	public:	
-		BOOL Create(IRunnable* runnable, LPCSTR threadName, DWORD stackSize);
+		BOOL Create(IRunnable* runnable, LPCSTR threadName, DWORD stackSize = 0);
 
 		//
 		// Usage: SetThreadName (-1, "MainThread");
@@ -40,6 +40,7 @@ namespace Earlgrey
 	private:
 		static unsigned int __stdcall _ThreadProc(LPVOID p);
 		DWORD Run();
+		void ResetRunnableObject();
 
 	private:
 		HANDLE _thread;
