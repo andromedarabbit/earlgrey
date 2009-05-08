@@ -13,11 +13,14 @@ namespace Earlgrey
 		ZeroInt = 0;
 		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&ZeroInt, sizeof(ZeroInt));
 
+		// \note 빌드가 깨져서 주석 처리함
+		/*
 		if (!GProactor.RegisterHandler( (HANDLE)_Handle, static_cast<void*>(this)))
 		{
 			Close();
 			return FALSE;
 		}
+		*/
 
 		//_PacketBuffer->Initialize();
 		return TRUE;
