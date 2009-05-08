@@ -435,7 +435,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ThreadTest.cpp"
+				RelativePath=".\src\ThreadTest.cpp"
 				>
 			</File>
 			<File
