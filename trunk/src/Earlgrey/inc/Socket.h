@@ -7,30 +7,36 @@ namespace Earlgrey
 	class SocketInterface : public IOHandler
 	{
 	public:
-		explicit SocketInterface();
+		explicit SocketInterface(SOCKET Socket)
+		{
+			_Handle = Socket;
+			Initialize();
+		};
+
 		virtual ~SocketInterface();
 		
 		BOOL Initialize();
 		void Close();
-
-		virtual void OnConnected();
-		virtual void OnDisconnected();
-		virtual void OnReceived();
-
 		BOOL Send();
 		BOOL Receive();
 
+		//SocketInterface
+		virtual void OnConnected();
+		virtual void OnDisconnected();
+		virtual void OnReceived(DWORD InTransferred);
+
+		//IOHandler
 		virtual void IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped);
 
 	private:
 		void ReceiveCompleted(DWORD InTransferred);
 		void SendCompleted(DWORD InTransferred);
 
-		SOCKET				_Handle;
-		OVERLAPPED			_OverlappedRead;
-		OVERLAPPED			_OverlappedSend;
+		SOCKET _Handle;
+		OVERLAPPED _OverlappedRead;
+		OVERLAPPED _OverlappedSend;
 
-		NetworkBuffer*		_PacketBuffer;
+		NetworkBuffer* _PacketBuffer;
 	};
 
 	class SocketSubsystem

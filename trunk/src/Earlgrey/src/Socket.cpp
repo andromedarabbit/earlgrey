@@ -6,24 +6,24 @@ namespace Earlgrey
 {
 	BOOL SocketInterface::Initialize()
 	{
-		INT ZeroInt; 
-		ZeroInt = 0;
-		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&ZeroInt, sizeof(ZeroInt));
+		INT Zero = 0; 
+		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
 
-		ZeroInt = 0;
-		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&ZeroInt, sizeof(ZeroInt));
+		Zero = 0;
+		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
 
-		// \note 빌드가 깨져서 주석 처리함
-		/*
-		if (!GProactor.RegisterHandler( (HANDLE)_Handle, static_cast<void*>(this)))
+		//_PacketBuffer->Initialize(); //! todo
+
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)_Handle, static_cast<void*>(this)))
 		{
-			Close();
+			if (_Handle != INVALID_SOCKET)
+			{
+				closesocket(_Handle);
+			}
 			return FALSE;
 		}
-		*/
 
-		//_PacketBuffer->Initialize();
-		return TRUE;
+		return Receive();
 	}
 
 	void SocketInterface::Close()
@@ -41,19 +41,12 @@ namespace Earlgrey
 	{
 		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
 		DWORD	SentBytes;		
-		INT Error = ::WSASend(	
-			_Handle,		//	Socket Handle
-			SocketBuffer,		//	Buffer
-			_PacketBuffer->GetBufferNum(),	//	Buffer Count
-			&SentBytes,			//	Sent Bytes
-			0,					//	Flag
-			&_OverlappedSend,		//	Overlapped Pointer
-			NULL
-			);
+		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
+			&SentBytes, 0, &_OverlappedSend, NULL);
 
 		if (Error != 0) 
 		{ 
-			if (Error != ERROR_IO_PENDING) 
+			if (Error != WSA_IO_PENDING) 
 			{
 				if (Error == WSAECONNRESET || Error == WSAEINVAL)
 				{
@@ -74,25 +67,19 @@ namespace Earlgrey
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
-		INT ReceiveResult = ::WSARecv(
-			_Handle,
-			SocketBuffers,
-			1,
-			&ReceivedBytes,
-			&Flags,
-			&_OverlappedRead,
-			NULL);
+		int ret=WSARecv(_Handle, SocketBuffers, 1,
+			&ReceivedBytes, &Flags, &_OverlappedRead, NULL);
 
-		if (ReceiveResult != 0)
+		if(SOCKET_ERROR == ret)
 		{
-			INT Error = GetLastError();
-			if(Error != ERROR_IO_PENDING)
+			int ErrCode = WSAGetLastError();
+			if(ErrCode != WSA_IO_PENDING)
 			{			
-				return Error;
+				return FALSE;
 			}
 		}
-		return 0;
 
+		return TRUE;
 	}
 
 	void SocketInterface::IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped)
@@ -120,13 +107,13 @@ namespace Earlgrey
 		}
 	}
 
-	void SocketInterface::SendCompleted(DWORD )
+	void SocketInterface::SendCompleted(DWORD /*InTransferred*/)
 	{
 	}
 
-	void SocketInterface::ReceiveCompleted(DWORD )
+	void SocketInterface::ReceiveCompleted(DWORD InTransferred)
 	{
-		OnReceived();
+		OnReceived(InTransferred);
 	}
 
 
