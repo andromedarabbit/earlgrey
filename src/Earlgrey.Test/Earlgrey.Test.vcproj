@@ -435,6 +435,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ThreadTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\TimeSpanTest.cpp"
 				>
 			</File>

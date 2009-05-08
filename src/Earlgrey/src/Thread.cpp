@@ -34,12 +34,21 @@ namespace Earlgrey
 		return exitCode;
 	}
 
+	void Thread::ResetRunnableObject()
+	{
+		delete _runnable;
+		_runnable = NULL;
+	}
+
+
 	DWORD Thread::Run()
 	{
 		EARLGREY_VERIFY( _runnable );
 		EARLGREY_VERIFY( _runnable->Init() );
 		DWORD exitCode = _runnable->Run();
 		_runnable->Exit();
+
+		ResetRunnableObject();
 
 		return exitCode;
 	}
