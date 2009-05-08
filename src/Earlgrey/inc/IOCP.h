@@ -2,4 +2,8 @@
 
 namespace Earlgrey
 {
+	class Server
+	{
+		void CreateServer();
+	};
 }

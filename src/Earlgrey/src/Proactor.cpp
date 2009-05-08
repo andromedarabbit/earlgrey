@@ -5,7 +5,7 @@ namespace Earlgrey
 {
 	BOOL WinProactor::Initialize()
 	{
-		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE,	NULL, 0, 0);
+		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
 		return TRUE;
 	}
 
@@ -25,29 +25,25 @@ namespace Earlgrey
 		return PostQueuedCompletionStatus( _IOCompletionPort, Transferred, Key, Overlapped );
 	}
 
-	BOOL WinProactor::Get()
+	BOOL WinProactor::Dispatcher()
 	{
-		BOOL			WaitMilliSecond = 50;
-		DWORD			Transferred = 0;;
-		LPOVERLAPPED	Overlapped;
-		ULONG_PTR		Handler = 0;
-
-		BOOL IOSuccess = GetQueuedCompletionStatus( 
-								_IOCompletionPort, 
-								&Transferred,
-								(PULONG_PTR)&Handler,
-								&Overlapped,
-								WaitMilliSecond
-								);
-
-		if (!Handler || !IOSuccess)
+		for(;;)
 		{
-			//error 출력
-			return FALSE;
+			BOOL			WaitMilliSecond = 50;
+			DWORD			Transferred = 0;;
+			LPOVERLAPPED	Overlapped;
+			ULONG_PTR		Handler = 0;
+
+			BOOL IOSuccess = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, &Handler, &Overlapped, WaitMilliSecond);
+
+			//EARLGREY_ASSERT(Handler);
+			if (!Handler || !IOSuccess)
+			{
+				//error 출력
+			}
+
+			(reinterpret_cast<IOHandler*>(Handler))->IODone(IOSuccess, Transferred, Overlapped);
 		}
-
-		//(static_cast<IOHandler*>(Handler))->IODone(IOSuccess, Transferred, Overlapped);
-
 		return TRUE;
 	}
 }
