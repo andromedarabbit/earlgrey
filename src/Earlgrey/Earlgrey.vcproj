@@ -438,6 +438,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Thread.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\TimeSpan.cpp"
 					>
 				</File>
@@ -605,6 +609,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\SystemInfo.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Thread.h"
 					>
 				</File>
 				<File
