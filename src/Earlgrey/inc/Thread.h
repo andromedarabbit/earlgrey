@@ -3,6 +3,14 @@
 
 namespace Earlgrey
 {
+	class IRunnable
+	{
+	public:
+		virtual BOOL Init() = 0;
+		virtual DWORD Run() = 0;
+		virtual void Stop() = 0;
+		virtual void Exit() = 0;
+	};
 
 	class Thread : private Uncopyable
 	{
@@ -18,17 +26,23 @@ namespace Earlgrey
 			DWORD dwFlags; // Reserved for future use, must be zero.
 		} THREADNAME_INFO;
 
-	private:
-		explicit Thread(); // 일단 static 클래스로 해 놓았다.
+	public:
+		explicit Thread();
 
 	public:	
+		BOOL Create(IRunnable* runnable, LPCSTR threadName, DWORD stackSize);
 
 		//
 		// Usage: SetThreadName (-1, "MainThread");
 		//
 		static void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName);
-		
+
+	private:
+		static unsigned int __stdcall _ThreadProc(LPVOID p);
+		DWORD Run();
+
+	private:
+		HANDLE _thread;
+		IRunnable* _runnable;
 	};
-
-
 }
