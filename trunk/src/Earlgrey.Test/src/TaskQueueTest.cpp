@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "taskqueue.h"
+#include "SyncdMethod.hpp"
 #include "EarlgreyAssert.h"
 
 #include <functional>
@@ -48,77 +49,6 @@ namespace Earlgrey
 			intval_for_taskq = 100;
 		}
 
-
-		template<typename TaskQueueT, class _Fty>
-		class SyncdMethod
-		{
-		public:
-			SyncdMethod(TaskQueueT* task, std::tr1::function<_Fty> func)
-				: m_Task(task)
-				, m_Function( func )
-			{
-				EARLGREY_ASSERT(m_Task != NULL);
-
-			}
-
-			SyncdMethod& operator = (const SyncdMethod& obj)
-			{
-				return SyncdMethod(obj.m_Task, obj.m_Function);
-
-			}
-
-			class Set1_Queueable : public IQueueableMethod   
-			{
-			public:   
-				Set1_Queueable(std::tr1::function<_Fty> function)
-					: m_Function(function)
-				{
-				}
-
-				/*
-				void Execute(TaskQueueClassBase* taskQueue)   
-				{   
-					TaskQueueT* queueableClass = (TaskQueueT*) taskQueue;   
-					DBG_UNREFERENCED_LOCAL_VARIABLE(queueableClass);
-					// queueableClass->RT(*fp)();   
-					m_Function();
-					delete this;   
-				} 
-				*/
-
-				void Execute()
-				{
-					m_Function();
-					delete this; // TODO: auto_ptr 로 해결하기
-				}
-
-			private:   
-				std::tr1::function<_Fty> m_Function;
-			};   
-
-			void Execute()
-			{
-				if (Earlgrey::Algorithm::CAS( &m_Task->_count, 0L, 1L ))
-				{
-					m_Function();
-					if (InterlockedDecrement( &m_Task->_count ) == 0)
-						return;   
-				}
-				else
-				{   
-					m_Task->_q.Enqueue( new Set1_Queueable(m_Function) );   
-					if (InterlockedIncrement( &m_Task->_count ) > 1)
-						return;   
-				}   
-				m_Task->ExecuteAllTasksInQueue();
-				
-			}
-
-		private:
-			TaskQueueT* m_Task;
-			std::tr1::function<_Fty> m_Function;
-
-		};
 
 
 		class TestTaskQueueClass : public TaskQueueClassBase
