@@ -390,10 +390,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\Server.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Socket.cpp"
 					>
 				</File>
@@ -508,6 +504,22 @@
 					</File>
 					<File
 						RelativePath=".\inc\loki\Threads.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="tmplbook"
+					>
+					<File
+						RelativePath=".\inc\tmplbook\funcptr.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\tmplbook\functionptr.hpp"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\tmplbook\functionptrt.hpp"
 						>
 					</File>
 				</Filter>
@@ -649,10 +661,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\Server.h"
 					>
 				</File>
 				<File

@@ -27,6 +27,7 @@ namespace Earlgrey
 
 	BOOL WinProactor::Dispatcher()
 	{
+		/*
 		for(;;)
 		{
 			BOOL			WaitMilliSecond = 50;
@@ -44,6 +45,7 @@ namespace Earlgrey
 
 			(reinterpret_cast<IOHandler*>(Handler))->IODone(IOSuccess, Transferred, Overlapped);
 		}
+		*/
 		return TRUE;
 	}
 }

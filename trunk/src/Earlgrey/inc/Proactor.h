@@ -36,7 +36,7 @@ namespace Earlgrey
 	};
 
 	typedef
-		Loki::SingletonHolder<WinProactor, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
+		Loki::SingletonHolder<WinProactor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
 			ProactorSingleton
 			;
 }
