@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "taskqueue.h"
-#include <iostream>
+#include "EarlgreyAssert.h"
+
+#include <functional>
+
 
 using namespace Earlgrey::Algorithm::Lockfree;
 
@@ -10,26 +13,174 @@ namespace Earlgrey
 	{
 		int intval_for_taskq = 0;
 
-		DECLARE_TASK1(SampleTask, int);
-		DEFINE_TASK(SampleTask)(int val)
+		// DECLARE_TASK1(SampleTask, int);
+		class SampleTask : public Earlgrey::Algorithm::Lockfree::Task1<SampleTask, int>   
+		{   
+		public:   
+			explicit SampleTask(int p1) : Earlgrey::Algorithm::Lockfree::Task1<SampleTask, int>( p1 )
+			{
+			}   
+
+		private:   
+			void UserDefinedFunction(int p1);   
+		};
+
+		void SampleTask::UserDefinedFunction(int val)
 		{
 			intval_for_taskq = val;
 		}
 
-		DECLARE_TASK0(NoParamTask);
-		DEFINE_TASK(NoParamTask)()
+
+
+		class NoParamTask : public Earlgrey::Algorithm::Lockfree::Task0<NoParamTask>
+		{   
+		public:
+			explicit NoParamTask() 
+			{
+			}   
+
+		private:   
+			void UserDefinedFunction();
+		};
+
+		void NoParamTask::UserDefinedFunction()
 		{
 			intval_for_taskq = 100;
 		}
 
+
+		template<typename TaskQueueT, class _Fty>
+		class SyncdMethod
+		{
+		public:
+			SyncdMethod(TaskQueueT* task, std::tr1::function<_Fty> func)
+				: m_Task(task)
+				, m_Function( func )
+			{
+				EARLGREY_ASSERT(m_Task != NULL);
+
+			}
+
+			SyncdMethod& operator = (const SyncdMethod& obj)
+			{
+				return SyncdMethod(obj.m_Task, obj.m_Function);
+
+			}
+
+			class Set1_Queueable : public IQueueableMethod   
+			{
+			public:   
+				Set1_Queueable(std::tr1::function<_Fty> function)
+					: m_Function(function)
+				{
+				}
+
+				/*
+				void Execute(TaskQueueClassBase* taskQueue)   
+				{   
+					TaskQueueT* queueableClass = (TaskQueueT*) taskQueue;   
+					DBG_UNREFERENCED_LOCAL_VARIABLE(queueableClass);
+					// queueableClass->RT(*fp)();   
+					m_Function();
+					delete this;   
+				} 
+				*/
+
+				void Execute()
+				{
+					m_Function();
+					delete this; // TODO: auto_ptr 로 해결하기
+				}
+
+			private:   
+				std::tr1::function<_Fty> m_Function;
+			};   
+
+			void Execute()
+			{
+				if (Earlgrey::Algorithm::CAS( &m_Task->_count, 0L, 1L ))
+				{
+					m_Function();
+					if (InterlockedDecrement( &m_Task->_count ) == 0)
+						return;   
+				}
+				else
+				{   
+					m_Task->_q.Enqueue( new Set1_Queueable(m_Function) );   
+					if (InterlockedIncrement( &m_Task->_count ) > 1)
+						return;   
+				}   
+				m_Task->ExecuteAllTasksInQueue();
+				
+			}
+
+		private:
+			TaskQueueT* m_Task;
+			std::tr1::function<_Fty> m_Function;
+
+		};
+
+
 		class TestTaskQueueClass : public TaskQueueClassBase
 		{
-			DECLARE_QUEUEABLE_CLASS( TestTaskQueueClass );
+			friend class SyncdMethod<TestTaskQueueClass, void()>;
+
 		public:
-			TestTaskQueueClass() : _test(0) {}
-			DECLARE_METHOD0(Set1);
-			DECLARE_METHOD0(Set10);
-			DECLARE_METHOD2(AddTwoValues, int, int);
+			explicit TestTaskQueueClass() : _test(0) 
+			{
+			}
+		
+		public:   			
+			
+			void Set1 ()   
+			{   
+				/*
+				if (Earlgrey::Algorithm::CAS( &_count, 0L, 1L ))
+				{
+					RawSet1();
+					if (InterlockedDecrement( &_count ) == 0)
+						return;   
+				}
+				else
+				{   
+					_q.Enqueue( new Set1_Queueable() );   
+					if (InterlockedIncrement( &_count ) > 1)
+						return;   
+				}   
+				ExecuteAllTasksInQueue();   
+				*/
+
+				std::tr1::function<void()> f 
+					= std::tr1::bind(&TestTaskQueueClass::RawSet1, this);
+
+				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
+				method.Execute();
+			}
+
+			void Set10 ()   
+			{   
+				std::tr1::function<void()> f 
+					= std::tr1::bind(&TestTaskQueueClass::RawSet10, this);
+
+				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
+				method.Execute();
+			}
+
+
+			void AddTwoValues (int a, int b)   
+			{   
+				std::tr1::function<void()> f 
+					= std::tr1::bind(&TestTaskQueueClass::RawAddTwoValues, this, a, b);
+
+				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
+				method.Execute();
+			}
+
+		private:   
+			void RawSet1();
+			void RawSet10();
+			void RawAddTwoValues(int a, int b);
+
 		public:
 			int _test;
 		};
