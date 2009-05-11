@@ -28,7 +28,7 @@ namespace Earlgrey
 		SOCKADDR_IN Address;
 		Address.sin_family = AF_INET;
 		Address.sin_addr.s_addr = htonl(INADDR_ANY);
-		Address.sin_port = htons(Port);
+		Address.sin_port = htons((u_short)Port);
 
 		BOOL OptionValue = TRUE;
 		setsockopt(_ServerSocket, 
@@ -73,12 +73,12 @@ namespace Earlgrey
 
 		if (ClientSocket == INVALID_SOCKET)
 		{
-			INT Error = WSAGetLastError();
+			//INT Error = WSAGetLastError();
 			//log
 			return;
 		}
 
-		SocketInterface* Socket = new SocketInterface(ClientSocket);
+		//SocketInterface* Socket = new SocketInterface(ClientSocket);
 
 		return;
 	}
