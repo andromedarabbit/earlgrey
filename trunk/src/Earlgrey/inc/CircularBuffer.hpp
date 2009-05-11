@@ -2,7 +2,8 @@
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 #include "StlCustomAllocator.hpp"
-#include <memory> // std::autoptr
+#include "BasicBufferIterator.hpp"
+// #include <memory> // std::autoptr
 
 #undef min
 #undef max
@@ -24,7 +25,10 @@ namespace Earlgrey
 		typedef typename allocator_type::const_reference     const_reference;
 		typedef typename allocator_type::pointer             pointer;
 		typedef typename allocator_type::const_pointer       const_pointer;
-		class                                                iterator;
+		// class                                                iterator;
+		typedef 
+			typename basic_buffer_iterator< circular_buffer<T, A> > 
+			iterator;
 
 		explicit circular_buffer(size_type capacity,
 			const allocator_type &a = allocator_type());
@@ -262,6 +266,7 @@ namespace Earlgrey
 		return (*this)[n];
 	}
 
+	/*
 	template <typename T, typename A>
 	class circular_buffer<T,A>::iterator
 		: public std::iterator<std::random_access_iterator_tag,
@@ -276,6 +281,12 @@ namespace Earlgrey
 
 		iterator(parent_type &parent, size_type index)
 			: parent(parent), index(index) {}
+
+		iterator& operator = (const iterator& obj)			
+		{
+			parent = obj.parent;
+			index = obj.index;
+		}
 
 		self_type &operator++()
 		{
@@ -312,6 +323,7 @@ namespace Earlgrey
 		parent_type &parent;
 		size_type    index;
 	};
+	*/
 
 	template <typename T, typename A>
 	typename circular_buffer<T,A>::iterator circular_buffer<T,A>::begin()

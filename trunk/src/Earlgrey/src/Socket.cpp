@@ -41,8 +41,8 @@ namespace Earlgrey
 	{
 		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
 		DWORD	SentBytes;		
-		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
-			&SentBytes, 0, &_OverlappedSend, NULL);
+		// INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(), &SentBytes, 0, &_OverlappedSend, NULL);
+		INT Error = ::WSASend(_Handle, SocketBuffer, 0, &SentBytes, 0, &_OverlappedSend, NULL); //! todo
 
 		if (Error != 0) 
 		{ 

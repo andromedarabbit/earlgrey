@@ -382,10 +382,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\NetworkBuffer.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Proactor.cpp"
 					>
 				</File>
@@ -511,22 +507,6 @@
 						>
 					</File>
 				</Filter>
-				<Filter
-					Name="tmplbook"
-					>
-					<File
-						RelativePath=".\inc\tmplbook\funcptr.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\inc\tmplbook\functionptr.hpp"
-						>
-					</File>
-					<File
-						RelativePath=".\inc\tmplbook\functionptrt.hpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
 				Name="Thread"
@@ -567,6 +547,14 @@
 			<Filter
 				Name="Memory"
 				>
+				<File
+					RelativePath=".\inc\BasicBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\BasicBufferIterator.hpp"
+					>
+				</File>
 				<File
 					RelativePath=".\inc\CircularBuffer.hpp"
 					>
@@ -657,10 +645,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\NetworkBuffer.h"
 					>
 				</File>
 				<File
