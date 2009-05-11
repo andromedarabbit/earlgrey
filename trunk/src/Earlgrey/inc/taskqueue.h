@@ -1,5 +1,6 @@
 #pragma once
 #include "LockfreeQueue.hpp"
+#include "SyncdMethod.hpp"
 
 namespace Earlgrey {
 	namespace Algorithm {
@@ -74,7 +75,7 @@ namespace Earlgrey {
 				// Is there any thread in process?
 				if (CAS( &_count, 0L, 1L ))
 				{
-					Execute( task );
+					ExecuteTask( task );
 
 					// there is no thread in process, then return.
 					if (InterlockedDecrement( &_count ) == 0)
@@ -100,7 +101,7 @@ namespace Earlgrey {
 
 		protected:
 			//! template method for executing a task
-			virtual void Execute(TaskType*) = 0;
+			virtual void ExecuteTask(TaskType*) = 0;
 
 			void ExecuteAllTasksInQueue()
 			{
@@ -111,7 +112,7 @@ namespace Earlgrey {
 					_ASSERTE( !isEmpty );	// if empty, it's critical error, because _count is not matched.
 					if (!isEmpty)
 					{
-						Execute( queuedTask );
+						ExecuteTask( queuedTask );
 					}
 				} while(InterlockedDecrement( &_count ));
 			}
@@ -124,30 +125,109 @@ namespace Earlgrey {
 		class SimpleTaskQueue : public TaskQueueBase<ITaskBase>
 		{
 		private:
-			void Execute(ITaskBase* task)
+			void ExecuteTask(ITaskBase* task)
 			{
 				task->Run();
 			}
 		};
 
-		class IQueueableMethod 
-		{
-		public:
-			//! This is a hook method will be called when a task is dequeued.
-			// virtual void Execute(class TaskQueueClassBase* taskQueue) = 0;
-			virtual void Execute() = 0;
-		};
-
 		class TaskQueueClassBase : public TaskQueueBase<IQueueableMethod>
 		{
+			friend class SyncdMethod<TaskQueueClassBase, void()>;
 		public:
 			explicit TaskQueueClassBase() {}
 			virtual ~TaskQueueClassBase() {}
 		private:
-			void Execute(IQueueableMethod* method)
+			void ExecuteTask(IQueueableMethod* method)
 			{
 				method->Execute();
 			}
+
+			template<typename T>
+			void _execute(std::tr1::function<void()>& f, T* subthis)
+			{
+				SyncdMethod<T, void()> method(subthis, f);
+				method.Execute();
+			}
+			
+		protected:
+			template<typename T>
+			void call(void (T::*func)(), T* subthis)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis);
+				_execute<T>( f, subthis );
+			}
+
+			template<typename T, typename T1>
+			void call(void (T::*func)(T1), T* subthis, T1 t1)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1);
+				_execute<T>( f, subthis );
+			}
+
+			template<typename T, typename T1, typename T2>
+			void call(void (T::*func)(T1,T2), T* subthis, T1 t1, T2 t2)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3>
+			void call(void (T::*func)(T1,T2,T3), T* subthis, T1 t1, T2 t2, T3 t3)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4>
+			void call(void (T::*func)(T1,T2,T3,T4), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5>
+			void call(void (T::*func)(T1,T2,T3,T4,T5), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+			void call(void (T::*func)(T1,T2,T3,T4,T5,T6), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5, t6);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+			void call(void (T::*func)(T1,T2,T3,T4,T5,T6,T7), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5, t6, t7);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
+			void call(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5, t6, t7, t8);
+				_execute<T>( f, subthis );			
+			}
+
+			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
+			void call(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8,T9), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+				_execute<T>( f, subthis );			
+			}
+
+			// 아래 함수는 bind()가 12개의 파라미터를 지원하지 않아서, 사용할 경우 컴파일 에러가 발생한다.
+			/*template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T0>
+			void call(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8,T9,T0), T* subthis, T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T0 t0)
+			{
+				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3, t4, t5, t6, t7, t8, t9, t0);
+				_execute<T>( f, subthis );			
+			}*/
 		};
 
 

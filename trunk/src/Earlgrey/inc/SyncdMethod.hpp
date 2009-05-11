@@ -8,7 +8,13 @@ namespace Earlgrey
 	{
 		namespace Lockfree
 		{
-			class IQueueableMethod;
+			class IQueueableMethod 
+			{
+			public:
+				//! This is a hook method will be called when a task is dequeued.
+				// virtual void Execute(class TaskQueueClassBase* taskQueue) = 0;
+				virtual void Execute() = 0;
+			};
 
 
 			template<typename TaskQueueT, class _Fty>
