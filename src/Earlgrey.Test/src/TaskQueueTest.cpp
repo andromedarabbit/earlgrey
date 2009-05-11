@@ -61,55 +61,31 @@ namespace Earlgrey
 			}
 		
 		public:   			
-			
 			void Set1 ()   
 			{   
-				/*
-				if (Earlgrey::Algorithm::CAS( &_count, 0L, 1L ))
-				{
-					RawSet1();
-					if (InterlockedDecrement( &_count ) == 0)
-						return;   
-				}
-				else
-				{   
-					_q.Enqueue( new Set1_Queueable() );   
-					if (InterlockedIncrement( &_count ) > 1)
-						return;   
-				}   
-				ExecuteAllTasksInQueue();   
-				*/
-
-				std::tr1::function<void()> f 
-					= std::tr1::bind(&TestTaskQueueClass::RawSet1, this);
-
-				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
-				method.Execute();
+				call( &TestTaskQueueClass::RawSet1, this );
 			}
 
 			void Set10 ()   
 			{   
-				std::tr1::function<void()> f 
-					= std::tr1::bind(&TestTaskQueueClass::RawSet10, this);
-
-				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
-				method.Execute();
+				call( &TestTaskQueueClass::RawSet10, this );
 			}
-
 
 			void AddTwoValues (int a, int b)   
 			{   
-				std::tr1::function<void()> f 
-					= std::tr1::bind(&TestTaskQueueClass::RawAddTwoValues, this, a, b);
+				call( &TestTaskQueueClass::RawAddTwoValues, this, a, b );
+			}
 
-				SyncdMethod<TestTaskQueueClass, void()> method(this, f);
-				method.Execute();
+			void SumOfTen(int n1, int n2, int n3, int n4, int n5, int n6, int n7, int n8, int n9)
+			{
+				call( &TestTaskQueueClass::RawSumOfTen, this, n1, n2, n3, n4, n5, n6, n7, n8, n9 );
 			}
 
 		private:   
 			void RawSet1();
 			void RawSet10();
 			void RawAddTwoValues(int a, int b);
+			void RawSumOfTen(int n1, int n2, int n3, int n4, int n5, int n6, int n7, int n8, int n9);
 
 		public:
 			int _test;
@@ -130,6 +106,11 @@ namespace Earlgrey
 			_test = a + b;
 		}
 
+		void TestTaskQueueClass::RawSumOfTen(int n1, int n2, int n3, int n4, int n5, int n6, int n7, int n8, int n9)
+		{
+			_test = n1 + n2 + n3 + n4 + n5 + n6 + n7 + n8 + n9;
+		}
+
 		TEST(TaskQueueTest, Simple)
 		{
 			// 아래 테스트는 단일 스레드에서 테스트하는 코드이므로 깨지면 안된다.
@@ -146,6 +127,8 @@ namespace Earlgrey
 			EXPECT_TRUE( myQueueableClass->_test == 10 );
 			myQueueableClass->AddTwoValues( 10, 100 );
 			EXPECT_TRUE( myQueueableClass->_test == 110 );
+			myQueueableClass->SumOfTen( 1, 2, 3, 4, 5, 6, 7, 8, 9 );
+			EXPECT_TRUE( myQueueableClass->_test == 45 );
 		}
 	}
 }
