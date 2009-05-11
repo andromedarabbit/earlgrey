@@ -43,7 +43,7 @@ namespace Earlgrey {
 			// http://msdn.microsoft.com/en-us/library/aa366778.aspx
 			// assume that user-mode virtual address space is 7TB (using just low 42 bits),
 			// we won't use high 20 bits (more precisely 22 bits).
-			// So, we use high 20 bits as the counter;
+			// So, we use high 20 bits as a counter;
 			static const ULONGLONG maskOfCounter64 = 0xfffff00000000000;
 			static const ULONGLONG maskOfPointer64 = 0x00000fffffffffff;
 

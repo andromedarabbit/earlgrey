@@ -688,10 +688,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\SyncdMethod.hpp"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\taskqueue.h"
 					>
 				</File>
