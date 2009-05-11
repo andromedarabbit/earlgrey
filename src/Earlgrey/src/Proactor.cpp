@@ -9,7 +9,7 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL WinProactor::RegisterHandler(HANDLE FileHandle, const void* CompleteHandler)
+	BOOL WinProactor::RegisterHandler(HANDLE FileHandle, CompletionHandler* CompleteHandler)
 	{
 		HANDLE ReturnHandle = CreateIoCompletionPort(FileHandle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
 		if (!ReturnHandle)
@@ -27,25 +27,35 @@ namespace Earlgrey
 
 	BOOL WinProactor::Dispatcher()
 	{
-		/*
-		for(;;)
+	
+		BOOL			WaitMilliSecond = 50;
+		DWORD			Transferred = 0;;
+		LPOVERLAPPED	Overlapped;
+		CompletionHandler*		Handler = 0;//handler 바로 호출하면 안되나???
+
+		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, WaitMilliSecond);
+
+		//EARLGREY_ASSERT(Overlapped);
+		if (!Handler || !Overlapped)
 		{
-			BOOL			WaitMilliSecond = 50;
-			DWORD			Transferred = 0;;
-			LPOVERLAPPED	Overlapped;
-			ULONG_PTR		Handler = 0;
-
-			BOOL IOSuccess = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, &Handler, &Overlapped, WaitMilliSecond);
-
-			//EARLGREY_ASSERT(Handler);
-			if (!Handler || !IOSuccess)
-			{
-				//error 출력
-			}
-
-			(reinterpret_cast<IOHandler*>(Handler))->IODone(IOSuccess, Transferred, Overlapped);
+			//error 출력
+			return FALSE;
 		}
-		*/
+
+		AsyncResult* IOResult = static_cast<AsyncResult*>(Overlapped);
+		IOResult->Status(Result);
+		if(!Result)
+		{
+			IOResult->Failed();
+		}
+		else
+		{
+			IOResult->TransferredBytes(Transferred);
+			IOResult->Completed();
+		}
+
+		delete IOResult;
+
 		return TRUE;
 	}
 }

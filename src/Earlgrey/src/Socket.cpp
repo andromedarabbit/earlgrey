@@ -4,45 +4,76 @@
 
 namespace Earlgrey
 {
-	BOOL SocketInterface::Initialize()
+
+	BOOL AsyncStream::Open(SOCKET Socket, CompletionHandler* InHandler)
 	{
+		Handle = Socket;
+		Handler = InHandler;
+
 		INT Zero = 0; 
-		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
+		setsockopt(Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
 
 		Zero = 0;
-		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
+		setsockopt(Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
 
 		//_PacketBuffer->Initialize(); //! todo
 
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)_Handle, static_cast<void*>(this)))
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)Handle, InHandler))
 		{
-			if (_Handle != INVALID_SOCKET)
+			if (Handle != INVALID_SOCKET)
 			{
-				closesocket(_Handle);
+				closesocket(Handle);
 			}
 			return FALSE;
 		}
 
-		return Receive();
+		return AsyncRead();
 	}
 
-	void SocketInterface::Close()
+	void AsyncStream::Close()
 	{
-		SOCKET OldSocket = (SOCKET)AtomicExch(_Handle, INVALID_SOCKET);
+		SOCKET OldSocket = (SOCKET)AtomicExch(Handle, INVALID_SOCKET);
 
 		LINGER Linger;
 		Linger.l_onoff = 1;
 		Linger.l_linger = 0;
 		setsockopt(OldSocket, SOL_SOCKET, SO_LINGER, (const char*)&Linger, sizeof(Linger));
 		closesocket(OldSocket);
+
+		//_PacketBuffer->
 	}
 
-	BOOL SocketInterface::Send()
+
+	BOOL AsyncStream::AsyncRead()
+	{
+		WSABUF* SocketBuffers = 0; //_PacketBuffer->GetSockRecvBuffer()
+		OVERLAPPED* Overlapped = new AsyncReadResult(Handler);
+		DWORD ReceivedBytes;
+		DWORD Flags = 0;
+
+		int ret=WSARecv(Handle, SocketBuffers, 1,
+			&ReceivedBytes, &Flags, Overlapped, NULL);
+
+		if(SOCKET_ERROR == ret)
+		{
+			int ErrCode = WSAGetLastError();
+			if(ErrCode != WSA_IO_PENDING)
+			{			
+				return FALSE;
+			}
+		}
+
+		return TRUE;
+	}
+	
+	BOOL AsyncStream::AsyncWrite()
 	{
 		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
 		DWORD	SentBytes;		
-		// INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(), &SentBytes, 0, &_OverlappedSend, NULL);
-		INT Error = ::WSASend(_Handle, SocketBuffer, 0, &SentBytes, 0, &_OverlappedSend, NULL); //! todo
+		OVERLAPPED* Overlapped = new AsyncWriteResult(Handler);
+
+		INT Error = ::WSASend(Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
+			&SentBytes, 0, Overlapped, NULL);
 
 		if (Error != 0) 
 		{ 
@@ -58,64 +89,7 @@ namespace Earlgrey
 			} 
 		}
 		return TRUE;
-
 	}
-
-	BOOL SocketInterface::Receive()
-	{
-		WSABUF* SocketBuffers = 0; //_PacketBuffer->GetSockRecvBuffer()
-		DWORD ReceivedBytes;
-		DWORD Flags = 0;
-
-		int ret=WSARecv(_Handle, SocketBuffers, 1,
-			&ReceivedBytes, &Flags, &_OverlappedRead, NULL);
-
-		if(SOCKET_ERROR == ret)
-		{
-			int ErrCode = WSAGetLastError();
-			if(ErrCode != WSA_IO_PENDING)
-			{			
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
-	void SocketInterface::IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped)
-	{
-		if (!InSuccess)
-		{
-			if (InOverlapped == &_OverlappedRead)	
-				Close();		
-		}
-		else if (InOverlapped == &_OverlappedRead)
-		{
-			//	Receive IO Completed
-			ReceiveCompleted(InTransferred);
-		}
-		else if (InOverlapped == &_OverlappedSend)
-		{
-			//	Send IO Completed
-			SendCompleted(InTransferred);
-		}
-		else if (InOverlapped == NULL)
-		{
-		}
-		else
-		{
-		}
-	}
-
-	void SocketInterface::SendCompleted(DWORD /*InTransferred*/)
-	{
-	}
-
-	void SocketInterface::ReceiveCompleted(DWORD InTransferred)
-	{
-		OnReceived(InTransferred);
-	}
-
 
 
 	BOOL SocketSubsystem::InitializeSubSystem()
