@@ -556,6 +556,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\ChainBuffer.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\CircularBuffer.hpp"
 					>
 				</File>

@@ -2,12 +2,13 @@
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 
+#include "StlCustomAllocator.hpp"
 #include "BasicBufferIterator.hpp"
 
 namespace Earlgrey
 {
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
-	template <typename T, typename A = std::allocator<T> >
+	template <typename T, typename A = StlCustomAllocator<T> >
 	class basic_buffer
 	{
 	public:	
@@ -31,7 +32,7 @@ namespace Earlgrey
 		typedef basic_buffer<T, A>&                         buffer_reference;
 		typedef const basic_buffer<T, A>&                   buffer_const_reference;
 		*/
-		static const size_type DEFAULT_INITIAL_BUFFERSIZE = 32;
+		static const size_type DEFAULT_INITIAL_BUFFERSIZE = 16;
 
 		explicit basic_buffer(size_type initialCapacity = DEFAULT_INITIAL_BUFFERSIZE, const allocator_type &a = allocator_type());
 		~basic_buffer();
@@ -157,12 +158,15 @@ namespace Earlgrey
 	inline
 		typename basic_buffer<T,A>::reference basic_buffer<T,A>::operator[] (size_type n)
 	{
+		if (n >= size()) throw std::out_of_range("Parameter out of range");
 		return *(m_buffer + n);
 	}
+
 	template <typename T, typename A>
 	inline
 		typename basic_buffer<T,A>::const_reference basic_buffer<T,A>::operator[]	(size_type n) const
 	{
+		if (n >= size()) throw std::out_of_range("Parameter out of range");
 		return *(m_buffer + n);
 	}
 
@@ -171,7 +175,6 @@ namespace Earlgrey
 	inline
 		typename basic_buffer<T,A>::reference basic_buffer<T,A>::at(size_type n)
 	{
-		if (n >= size()) throw std::out_of_range("Parameter out of range");
 		return (*this)[n];
 	}
 
@@ -180,7 +183,6 @@ namespace Earlgrey
 		typename basic_buffer<T,A>::const_reference basic_buffer<T,A>::at
 		(size_type n) const
 	{
-		if (n >= size()) throw std::out_of_range("Parameter out of range");
 		return (*this)[n];
 	}
 
@@ -188,7 +190,7 @@ namespace Earlgrey
 	inline
 		void basic_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
-		if (m_size + length >= back()) throw std::out_of_range("Parameter out of range");		
+		if (m_size + length > capacity()) throw std::out_of_range("Parameter out of range");		
 		
 		memcpy( m_buffer, ptr, length * sizeof(T) );
 		m_size += length;
@@ -210,7 +212,7 @@ namespace Earlgrey
 	inline
 		bool basic_buffer<T,A>::empty() const
 	{
-		return m_size == 0;
+		return size() == 0;
 	}
 
 	template <typename T, typename A>
