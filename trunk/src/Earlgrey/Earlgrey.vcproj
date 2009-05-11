@@ -378,15 +378,15 @@
 				Name="Network"
 				>
 				<File
+					RelativePath=".\src\Acceptor.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IOCP.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\Proactor.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Server.cpp"
 					>
 				</File>
 				<File
@@ -644,6 +644,10 @@
 				Name="Network"
 				>
 				<File
+					RelativePath=".\inc\Acceptor.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Dns.h"
 					>
 				</File>
@@ -653,10 +657,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\Server.h"
 					>
 				</File>
 				<File

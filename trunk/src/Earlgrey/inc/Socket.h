@@ -1,42 +1,27 @@
 #pragma once 
 #include "Proactor.h"
-// #include "NetworkBuffer.h"
+#include "NetworkBuffer.h"
 
 namespace Earlgrey
 {
-	class SocketInterface : public IOHandler
+
+	class AsyncStream
 	{
 	public:
-		explicit SocketInterface(SOCKET Socket)
-		{
-			_Handle = Socket;
-			Initialize();
-		};
+		explicit AsyncStream() {};		
+		virtual ~AsyncStream() {};
 
-		virtual ~SocketInterface();
-		
-		BOOL Initialize();
+		BOOL Open(SOCKET Socket, CompletionHandler* InHandler);
 		void Close();
-		BOOL Send();
-		BOOL Receive();
 
-		//SocketInterface
-		virtual void OnConnected();
-		virtual void OnDisconnected();
-		virtual void OnReceived(DWORD InTransferred);
-
-		//IOHandler
-		virtual void IODone(BOOL InSuccess, DWORD InTransferred, LPOVERLAPPED InOverlapped);
+		BOOL AsyncRead();
+		BOOL AsyncWrite();
 
 	private:
-		void ReceiveCompleted(DWORD InTransferred);
-		void SendCompleted(DWORD InTransferred);
-
-		SOCKET _Handle;
-		OVERLAPPED _OverlappedRead;
-		OVERLAPPED _OverlappedSend;
-
 		NetworkBuffer* _PacketBuffer;
+		CompletionHandler* Handler;
+		SOCKET Handle;
+
 	};
 
 	class SocketSubsystem
