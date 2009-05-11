@@ -390,6 +390,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Server.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Socket.cpp"
 					>
 				</File>
@@ -661,6 +665,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Server.h"
 					>
 				</File>
 				<File
