@@ -7,6 +7,8 @@
 
 #include <list>
 
+#undef max
+
 namespace Earlgrey
 {
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
@@ -151,9 +153,17 @@ namespace Earlgrey
 		buffer_list_type::iterator it = m_buffer_list.begin();
 		for(; it != m_buffer_list.end(); it++)
 		{
-			pos -= (*it)->size();
+			size_type cur_size = (*it)->size();
+			if(pos < cur_size)
+			{
+				buffer_pointer found = (*it);
+				return (*found)[pos];
+			}
+
+			pos = pos - cur_size;
 		}
 
+		it--;
 		buffer_pointer found = (*it);
 		return (*found)[pos];
 	}
@@ -196,13 +206,11 @@ namespace Earlgrey
 	inline
 		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
-		// if (size() + length >= back()) throw std::out_of_range("Parameter out of range");		
-
-		// buffer_list_type::iterator it = m_buffer_list.end();
 		buffer_pointer lastBuffer = m_buffer_list.back();
 		if(lastBuffer->capacity()  - lastBuffer->size() < length)
 		{
-			lastBuffer = new buffer_type(size() * 2, m_allocator);
+			size_type buffer_size = std::max(length, size() * 2);
+			lastBuffer = new buffer_type(buffer_size, m_allocator);
 			m_buffer_list.push_back(lastBuffer);
 		}
 
