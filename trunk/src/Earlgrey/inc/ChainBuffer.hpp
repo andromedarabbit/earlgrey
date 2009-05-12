@@ -16,7 +16,7 @@ namespace Earlgrey
 	//! \todo max_size() 구현하기
 	template <
 		typename T
-		, typename A = StlCustomAllocator<T>
+		, typename A = StlDefaultAllocator<T>::Type
 	>
 	class chain_buffer  : private Uncopyable
 	{
@@ -25,7 +25,7 @@ namespace Earlgrey
 			typename basic_buffer_iterator< chain_buffer<T, A> > 
 			iterator;
 		
-		typedef basic_buffer<T, StlCustomAllocator<T> >     buffer_type;
+		typedef basic_buffer<T, A >                         buffer_type;
 		typedef buffer_type*                                buffer_pointer;
 		typedef const buffer_type*                          buffer_const_pointer;
 		typedef buffer_type&                                buffer_reference;

@@ -13,7 +13,7 @@ namespace Earlgrey
 	
 	/// Boost 라이브러리의 구현과 거의 같은 걸로 보임.
 	//! \ref http://goodliffe.blogspot.com/2008/11/c-stl-like-circular-buffer-part-11.html
-	template <typename T, typename A = StlCustomAllocator<T> >
+	template <typename T, typename A = StlDefaultAllocator<T>::Type >
 	class circular_buffer : private Uncopyable
 	{
 	public:
@@ -64,7 +64,7 @@ namespace Earlgrey
 		pointer         m_front;
 		pointer         m_back; // points to next unused item
 
-		typedef circular_buffer<T> class_type;
+		typedef circular_buffer<T, A> class_type;
 
 		circular_buffer(const class_type &);
 		class_type &operator=(const class_type &);
