@@ -266,65 +266,6 @@ namespace Earlgrey
 		return (*this)[n];
 	}
 
-	/*
-	template <typename T, typename A>
-	class circular_buffer<T,A>::iterator
-		: public std::iterator<std::random_access_iterator_tag,
-		value_type,
-		size_type,
-		pointer,
-		reference>
-	{
-	public:
-		typedef circular_buffer<T>             parent_type;
-		typedef typename parent_type::iterator self_type;
-
-		iterator(parent_type &parent, size_type index)
-			: parent(parent), index(index) {}
-
-		iterator& operator = (const iterator& obj)			
-		{
-			parent = obj.parent;
-			index = obj.index;
-		}
-
-		self_type &operator++()
-		{
-			++index;
-			return *this;
-		}
-		self_type operator++(int) // postincrement
-		{
-			self_type old(*this);
-			operator++();
-			return old;
-		}
-		self_type &operator--()
-		{
-			--index;
-			return *this;
-		}
-		self_type operator--(int) // postdecrement
-		{
-			self_type old(*this);
-			operator--();
-			return old;
-		}
-
-		reference operator*() { return parent[index]; }
-		pointer operator->()  { return &(parent[index]); }
-
-		bool operator==(const self_type &other) const
-		{ return &parent == &other.parent && index == other.index; }
-		bool operator!=(const self_type &other) const
-		{ return !(other == *this); }
-
-	private:
-		parent_type &parent;
-		size_type    index;
-	};
-	*/
-
 	template <typename T, typename A>
 	typename circular_buffer<T,A>::iterator circular_buffer<T,A>::begin()
 	{
