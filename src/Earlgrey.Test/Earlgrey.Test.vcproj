@@ -387,6 +387,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\StackAllocatorTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\StaticAssertTest.cpp"
 				>
 			</File>
@@ -425,6 +429,10 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\StlStackAllocatorTest.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\src\StringHelperTest.cpp"
