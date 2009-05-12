@@ -386,6 +386,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\NetworkBuffer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Proactor.cpp"
 					>
 				</File>
@@ -564,7 +568,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\StackAllocator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\StlCustomAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlStackAllocator.hpp"
 					>
 				</File>
 			</Filter>
@@ -653,6 +665,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkBuffer.h"
 					>
 				</File>
 				<File

@@ -12,13 +12,13 @@
 namespace Earlgrey
 {
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
+	//! \todo resize() 구현하기
+	//! \todo max_size() 구현하기
 	template <
 		typename T
-		// , typename A = StlCustomAllocator< basic_buffer<T, StlCustomAllocator<T> > > 
-		// , typename A = basic_buffer<T, StlCustomAllocator<T> > 
 		, typename A = StlCustomAllocator<T>
 	>
-	class chain_buffer
+	class chain_buffer  : private Uncopyable
 	{
 	public:	
 		typedef 
