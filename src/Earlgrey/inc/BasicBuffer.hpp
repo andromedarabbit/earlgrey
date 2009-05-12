@@ -8,7 +8,7 @@
 namespace Earlgrey
 {
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
-	template <typename T, typename A = StlCustomAllocator<T> >
+	template <typename T, typename A = StlDefaultAllocator<T>::Type >
 	class basic_buffer : private Uncopyable
 	{
 	public:	
