@@ -14,7 +14,9 @@ namespace Earlgrey
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
 	template <
 		typename T
-		, typename A = StlCustomAllocator< basic_buffer<T, StlCustomAllocator<T> > > 
+		// , typename A = StlCustomAllocator< basic_buffer<T, StlCustomAllocator<T> > > 
+		// , typename A = basic_buffer<T, StlCustomAllocator<T> > 
+		, typename A = StlCustomAllocator<T>
 	>
 	class chain_buffer
 	{
@@ -38,6 +40,9 @@ namespace Earlgrey
 		typedef typename buffer_type::value_type            value_type;
 
 		typedef std::list<buffer_pointer, A>                buffer_list_type;
+		typedef 
+			typename allocator_type::rebind<buffer_type>::other 
+			buffer_allocator_type;
 		
 		static const size_type DEFAULT_INITIAL_BUFFERSIZE = 16;
 
@@ -69,10 +74,29 @@ namespace Earlgrey
 		iterator end();
 
 	private:
+		buffer_pointer new_buffer(size_type initial_capacity);
+
+	private:
 		allocator_type m_allocator;	
 		buffer_list_type m_buffer_list;
+		buffer_allocator_type m_buffer_allocator;
 	};
 
+	//! \note 생성자 호출시 m_buffer_allocator.construct() 를 이용하는 게 표준이다. 
+	// 하지만 construct()는 복사 생성자를 호출하기 때문에 직접 생성자를 호출하는 방식을 택했다.
+	template <typename T, typename A>
+	inline 
+		typename chain_buffer<T,A>::buffer_pointer chain_buffer<T,A>::new_buffer(
+			size_type initial_capacity
+			)
+	{
+		// 메모리 할당
+		buffer_pointer newBuffer = m_buffer_allocator.allocate(1);
+		
+		// 생성자 호출
+		newBuffer->buffer_type::basic_buffer(initial_capacity, m_allocator);
+		return newBuffer;
+	}
 
 	template <typename T, typename A>
 	inline
@@ -80,7 +104,7 @@ namespace Earlgrey
 		: m_allocator(allocator)
 	{
 		EARLGREY_ASSERT(initial_capacity > 0);
-		m_buffer_list.push_back(new buffer_type(initial_capacity, m_allocator));
+		m_buffer_list.push_back( new_buffer(initial_capacity) );
 	}
 
 	template <typename T, typename A>
@@ -207,10 +231,11 @@ namespace Earlgrey
 		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
 		buffer_pointer lastBuffer = m_buffer_list.back();
+		
 		if(lastBuffer->capacity()  - lastBuffer->size() < length)
 		{
 			size_type buffer_size = std::max(length, size() * 2);
-			lastBuffer = new buffer_type(buffer_size, m_allocator);
+			lastBuffer = new_buffer(buffer_size);
 			m_buffer_list.push_back(lastBuffer);
 		}
 
@@ -223,9 +248,11 @@ namespace Earlgrey
 	{
 		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
 		{
-			delete *it;
+			// delete *it;
+			m_buffer_allocator.destroy(*it);
+			m_buffer_allocator.deallocate(*it, 1);
 		}
-
+		
 		m_buffer_list.clear();
 	}
 
