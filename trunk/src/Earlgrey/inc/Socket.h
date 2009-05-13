@@ -11,17 +11,16 @@ namespace Earlgrey
 		explicit AsyncStream() {};		
 		virtual ~AsyncStream() {};
 
-		BOOL Open(SOCKET Socket, CompletionHandler* InHandler);
+		BOOL Open(SOCKET Socket, CompletionHandler* Handler);
 		void Close();
 
-		BOOL AsyncRead();
+		BOOL AsyncRead(); 
 		BOOL AsyncWrite();
 
 	private:
 		NetworkBuffer* _PacketBuffer;
-		CompletionHandler* Handler;
-		SOCKET Handle;
-
+		CompletionHandler* _Handler;
+		SOCKET _Handle;
 	};
 
 	class SocketSubsystem

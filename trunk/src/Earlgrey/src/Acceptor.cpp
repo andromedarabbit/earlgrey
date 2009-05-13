@@ -81,8 +81,8 @@ namespace Earlgrey
 			return;
 		}
 
-		ConnectionHandler* Conn = new ConnectionHandler((HANDLE)ClientSocket);
-		Conn;
+		/*ConnectionHandler* Conn = new CompletionHandler((HANDLE)ClientSocket);
+		Conn;*/
 
 		return;
 	}

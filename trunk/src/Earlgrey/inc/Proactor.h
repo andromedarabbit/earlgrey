@@ -10,6 +10,8 @@ namespace Earlgrey
 {
 	class NetworkBuffer;
 
+	typedef DWORD TimeValueType;
+
 	typedef enum IOCP_EVENT_TYPE
 	{
 		READ_EVENT,
@@ -21,21 +23,27 @@ namespace Earlgrey
 	class Proactor
 	{
 	public:
-		virtual BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped) = 0;
-		virtual BOOL Dispatcher() = 0;
-		virtual BOOL RegisterHandler(HANDLE FileHandle, CompletionHandler* CompleteHandler) = 0;
+		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
+
+		//virtual BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped) = 0;
+		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
 	};
 
 	class WinProactor 
 		: public Proactor
 	{
 	public:
+		enum {
+			DefaultTimeout = INFINITE
+		};
+
 		BOOL Initialize();
 		
+		BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped);//iocp post
+		BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
+
 		//Proactor Pattern Interface
-		virtual BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped);//iocp post
-		virtual BOOL Dispatcher();
-		virtual BOOL RegisterHandler(HANDLE FileHandle, CompletionHandler* CompleteHandler);
+		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
 		
 		HANDLE _IOCompletionPort;
 	};
@@ -53,7 +61,7 @@ namespace Earlgrey
 		explicit CompletionHandler() {};
 		virtual ~CompletionHandler() {};
 
-		virtual void EventHandler(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* InOverlapped) = 0; 
+		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* InOverlapped) = 0; 
 		virtual HANDLE GetHandle() = 0;
 	};
 
@@ -95,7 +103,7 @@ namespace Earlgrey
 
 		virtual void Completed()
 		{
-			Handler_->EventHandler(Handler_->GetHandle(), WRITE_EVENT, this);
+			Handler_->HandleEvent(Handler_->GetHandle(), WRITE_EVENT, this);
 		}
 
 		virtual void Failed()
@@ -123,7 +131,7 @@ namespace Earlgrey
 
 		virtual void Completed()
 		{
-			Handler_->EventHandler(Handler_->GetHandle(), READ_EVENT, this);
+			Handler_->HandleEvent(Handler_->GetHandle(), READ_EVENT, this);
 		}
 
 		virtual void Failed()
