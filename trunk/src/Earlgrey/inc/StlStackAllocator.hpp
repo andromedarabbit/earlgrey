@@ -1,13 +1,11 @@
 #pragma once
-#include "EarlgreyAssert.h"
+// #include "EarlgreyAssert.h"
+#include "StackAllocator.h"
 
-#include <memory>
 
 namespace Earlgrey
 {
-	//! \note 아직까진 std::allocator<T> 구현 그대로이다.
-
-	// TEMPLATE CLASS StackAllocator
+	// TEMPLATE CLASS StlStackAllocator
 	template<class _Ty>
 	class StlStackAllocator
 		: public std::_Allocator_base<_Ty>
@@ -43,19 +41,6 @@ namespace Earlgrey
 		{	// construct default allocator (do nothing)
 		}
 
-		/*
-		//! \note 왜 _aligned_malloc 를 쓰는가?
-		StlStackAllocator(_SIZT bytes) _THROW0()
-			: m_buffer_begin(_aligned_malloc(bytes, DEFAULT_ALIGNMENT))
-			, m_buffer_end(m_buffer_begin + bytes)
-		{
-			EARLGREY_ASSERT(bytes > 0);
-			EARLGREY_ASSERT(m_buffer != NULL);
-
-
-		}
-		*/
-
 		StlStackAllocator(const StlStackAllocator<_Ty>&) _THROW0()
 		{	// construct by copying (do nothing)
 			
@@ -72,14 +57,19 @@ namespace Earlgrey
 			return (*this);
 		}
 
-		void deallocate(pointer _Ptr, size_type)
+		void deallocate(pointer _Ptr, size_type _Count)
 		{	// deallocate object at _Ptr, ignore size
+			
 			::operator delete(_Ptr);
+			UNREFERENCED_PARAMETER(_Count);
+			// gStackAllocator::Instance().free(_Ptr);
 		}
 
 		pointer allocate(size_type _Count)
 		{	// allocate array of _Count elements
+			
 			return (std::_Allocate(_Count, (pointer)0));
+			// return (pointer)gStackAllocator::Instance().malloc(_Count * sizeof (_Ty));
 		}
 
 		pointer allocate(size_type _Count, const void _FARQ *)
@@ -102,10 +92,6 @@ namespace Earlgrey
 			_SIZT _Count = (_SIZT)(-1) / sizeof (_Ty);
 			return (0 < _Count ? _Count : 1);
 		}
-
-	private:
-		BYTE* m_buffer_begin;
-		BYTE* m_buffer_end;
 	};
 
 	// allocator TEMPLATE OPERATORS

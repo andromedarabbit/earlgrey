@@ -451,6 +451,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ThreadLocalTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ThreadTest.cpp"
 				>
 			</File>
