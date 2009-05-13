@@ -1,7 +1,8 @@
 #pragma once
 
-#ifndef __cplusplus_cli
-// #pragma unmanaged
+#ifdef __cplusplus_cli
+#pragma unmanaged
+#endif
 
 namespace Earlgrey
 {
@@ -71,7 +72,7 @@ namespace Earlgrey
 			this->t = value;
 		}
 
-		// explicit
+		explicit
 			ThreadLocal()
 		{
 			this->threadLocalIndex = ::TlsAlloc();
@@ -88,16 +89,11 @@ namespace Earlgrey
 			return GetValue();
 		}
 
-		/*
-		inline T operator *()
-		{
-			return this->GetValue();
-		}
-		*/
-
 		inline bool operator !()
 		{
-			return GetValue() != NULL;
+			T* currentPointer = this->GetPointer();
+			return currentPointer == NULL 
+				|| *currentPointer != NULL;
 		}
 
 		inline T& operator->()
@@ -112,5 +108,4 @@ namespace Earlgrey
 		}
 	};
 
-#endif // end of __cplusplus_cli
 }
