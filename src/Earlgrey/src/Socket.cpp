@@ -5,24 +5,24 @@
 namespace Earlgrey
 {
 
-	BOOL AsyncStream::Open(SOCKET Socket, CompletionHandler* InHandler)
+	BOOL AsyncStream::Open(SOCKET Socket, CompletionHandler* Handler)
 	{
-		Handle = Socket;
-		Handler = InHandler;
+		_Handle = Socket;
+		_Handler = Handler;
 
 		INT Zero = 0; 
-		setsockopt(Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
+		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
 
 		Zero = 0;
-		setsockopt(Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
+		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
 
 		//_PacketBuffer->Initialize(); //! todo
 
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)Handle, InHandler))
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)_Handle, Handler))
 		{
-			if (Handle != INVALID_SOCKET)
+			if (_Handle != INVALID_SOCKET)
 			{
-				closesocket(Handle);
+				closesocket(_Handle);
 			}
 			return FALSE;
 		}
@@ -32,7 +32,7 @@ namespace Earlgrey
 
 	void AsyncStream::Close()
 	{
-		SOCKET OldSocket = (SOCKET)AtomicExch(Handle, INVALID_SOCKET);
+		SOCKET OldSocket = (SOCKET)AtomicExch(_Handle, INVALID_SOCKET);
 
 		LINGER Linger;
 		Linger.l_onoff = 1;
@@ -47,11 +47,11 @@ namespace Earlgrey
 	BOOL AsyncStream::AsyncRead()
 	{
 		WSABUF* SocketBuffers = 0; //_PacketBuffer->GetSockRecvBuffer()
-		OVERLAPPED* Overlapped = new AsyncReadResult(Handler);
+		OVERLAPPED* Overlapped = new AsyncReadResult(_Handler);
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
-		int ret=WSARecv(Handle, SocketBuffers, 1,
+		int ret=WSARecv(_Handle, SocketBuffers, 1,
 			&ReceivedBytes, &Flags, Overlapped, NULL);
 
 		if(SOCKET_ERROR == ret)
@@ -70,9 +70,9 @@ namespace Earlgrey
 	{
 		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
 		DWORD	SentBytes;		
-		OVERLAPPED* Overlapped = new AsyncWriteResult(Handler);
+		OVERLAPPED* Overlapped = new AsyncWriteResult(_Handler);
 
-		INT Error = ::WSASend(Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
+		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
 			&SentBytes, 0, Overlapped, NULL);
 
 		if (Error != 0) 

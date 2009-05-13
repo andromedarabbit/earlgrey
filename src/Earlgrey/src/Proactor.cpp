@@ -9,9 +9,9 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL WinProactor::RegisterHandler(HANDLE FileHandle, CompletionHandler* CompleteHandler)
+	BOOL WinProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
-		HANDLE ReturnHandle = CreateIoCompletionPort(FileHandle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
+		HANDLE ReturnHandle = CreateIoCompletionPort(Handle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
 		if (!ReturnHandle)
 		{
 			//error
@@ -25,15 +25,13 @@ namespace Earlgrey
 		return PostQueuedCompletionStatus( _IOCompletionPort, Transferred, Key, Overlapped );
 	}
 
-	BOOL WinProactor::Dispatcher()
+	BOOL WinProactor::HandleEvent(TimeValueType WaitTime)
 	{
-	
-		BOOL			WaitMilliSecond = 50;
-		DWORD			Transferred = 0;;
-		LPOVERLAPPED	Overlapped;
-		CompletionHandler*		Handler = 0;//handler 바로 호출하면 안되나???
+		DWORD				Transferred = 0;;
+		LPOVERLAPPED		Overlapped;
+		CompletionHandler*	Handler = 0;//handler 바로 호출하면 안되나???
 
-		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, WaitMilliSecond);
+		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, WaitTime);
 
 		//EARLGREY_ASSERT(Overlapped);
 		if (!Handler || !Overlapped)
@@ -46,6 +44,7 @@ namespace Earlgrey
 		IOResult->Status(Result);
 		if(!Result)
 		{
+			IOResult->Error( GetLastError() );
 			IOResult->Failed();
 		}
 		else
