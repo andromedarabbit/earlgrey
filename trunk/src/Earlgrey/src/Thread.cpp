@@ -5,16 +5,17 @@
 
 namespace Earlgrey
 {
-	Thread::Thread() : _thread(NULL), _runnable(NULL) 
+	Thread::Thread() : _thread(NULL), _threadId(0)
 	{
 	}
 
-	void Thread::SetThreadName( DWORD dwThreadID, LPCSTR szThreadName)
+	void Thread::SetName(LPCSTR threadName)
 	{
+		EARLGREY_ASSERT( _threadId != 0 );
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
-		info.szName = szThreadName;
-		info.dwThreadID = dwThreadID;
+		info.szName = threadName;
+		info.dwThreadID = _threadId;
 		info.dwFlags = 0;
 
 		__try
@@ -34,31 +35,20 @@ namespace Earlgrey
 		return exitCode;
 	}
 
-	void Thread::ResetRunnableObject()
-	{
-		delete _runnable;
-		_runnable = NULL;
-	}
-
-
 	DWORD Thread::Run()
 	{
 		EARLGREY_VERIFY( _runnable );
 		EARLGREY_VERIFY( _runnable->Init() );
 		DWORD exitCode = _runnable->Run();
 		_runnable->Exit();
-
-		ResetRunnableObject();
-
 		return exitCode;
 	}
 
-	BOOL Thread::Create(IRunnable* runnable, LPCSTR threadName, DWORD stackSize)
+	BOOL Thread::Create(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, unsigned int initFlag, DWORD stackSize)
 	{
-		unsigned int threadId = 0;
 		_runnable = runnable;
 
-		_thread = reinterpret_cast<HANDLE>( _beginthreadex( NULL, stackSize, _ThreadProc, this, 0, &threadId ) );
+		_thread = reinterpret_cast<HANDLE>( _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId ) );
 		EARLGREY_VERIFY( _thread != (HANDLE)-1L );
 		if (_thread == (HANDLE)-1L)
 		{
@@ -66,8 +56,24 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		SetThreadName( threadId, threadName );
+		SetName( threadName );
 
 		return TRUE;
+	}
+
+	Thread* Thread::CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
+	{
+		EARLGREY_ASSERT( runnable );
+		Thread* thread = new Thread();
+		EARLGREY_ASSERT( thread );
+		if (thread)
+			thread->Create( runnable, threadName, Thread::Running, stackSize );
+
+		return thread;
+	}
+
+	void Thread::SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor)
+	{
+		SetProcessAffinityMask( _thread, 1 << (indexOfProcessor % countOfProcessor) );
 	}
 }

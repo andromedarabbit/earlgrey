@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <crtdbg.h>
+#include <memory>
+#include <windows.h>
 
 // TODO: reference additional headers your program requires here
 
