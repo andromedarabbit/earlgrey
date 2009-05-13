@@ -491,6 +491,10 @@
 			<Filter
 				Name="ExternalLib"
 				>
+				<File
+					RelativePath=".\inc\ThreadLocalSingleton.hpp"
+					>
+				</File>
 				<Filter
 					Name="Loki"
 					>
@@ -633,6 +637,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Thread.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadLocal.hpp"
 					>
 				</File>
 				<File
