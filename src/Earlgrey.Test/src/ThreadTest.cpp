@@ -18,8 +18,7 @@ namespace Earlgrey { namespace Test
 
 	TEST(ThreadTest, Thread)
 	{
-		Thread* myThread = new Thread();
-		EXPECT_TRUE( myThread->Create( new TestRunnable(), "testRunnable" ) );
+		EXPECT_TRUE( NULL != Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new TestRunnable())), "testRunnable" ) );
 	}
 }
 }

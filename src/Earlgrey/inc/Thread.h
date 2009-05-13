@@ -14,7 +14,7 @@ namespace Earlgrey
 
 	class Thread : private Uncopyable
 	{
-	private:	
+	private:
 		// #define MS_VC_EXCEPTION 0x406D1388
 		static const int MS_VC_EXCEPTION = 0x406D1388;
 
@@ -27,23 +27,35 @@ namespace Earlgrey
 		} THREADNAME_INFO;
 
 	public:
+		enum {
+			Running = 0,
+			Suspended = CREATE_SUSPENDED
+		};
 		explicit Thread();
 
-	public:	
-		BOOL Create(IRunnable* runnable, LPCSTR threadName, DWORD stackSize = 0);
+	public:
+		static Thread* CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
 
-		//
-		// Usage: SetThreadName (-1, "MainThread");
-		//
-		static void SetThreadName( DWORD dwThreadID, LPCSTR szThreadName);
+	public:	
+		BOOL Create(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, unsigned int initFlag = Running, DWORD stackSize = 0);
+		void SetName(LPCSTR threadName);
+		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
+
+		//! \todo 요 함수는 나중에 적당한 곳에 옮겨야함...
+		static DWORD GetProcessorCount()
+		{	
+			SYSTEM_INFO sysinfo;
+			GetSystemInfo(&sysinfo);
+			return sysinfo.dwNumberOfProcessors;	
+		}
 
 	private:
 		static unsigned int __stdcall _ThreadProc(LPVOID p);
 		DWORD Run();
-		void ResetRunnableObject();
 
 	private:
 		HANDLE _thread;
-		IRunnable* _runnable;
+		unsigned int _threadId;
+		std::tr1::shared_ptr<IRunnable> _runnable;
 	};
 }

@@ -29,18 +29,20 @@ namespace Earlgrey
 	{
 		DWORD				Transferred = 0;;
 		LPOVERLAPPED		Overlapped;
-		CompletionHandler*	Handler = 0;//handler 바로 호출하면 안되나???
+		CompletionHandler*	Handler = NULL;
 
 		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, WaitTime);
 
-		//EARLGREY_ASSERT(Overlapped);
-		if (!Handler || !Overlapped)
+		// MSDN 참조
+		if (!Result && !Overlapped)
 		{
-			//error 출력
+			//! \todo error handle; report error message
 			return FALSE;
 		}
 
-		AsyncResult* IOResult = static_cast<AsyncResult*>(Overlapped);
+		EARLGREY_ASSERT( Overlapped );
+
+		std::auto_ptr<AsyncResult> IOResult( static_cast<AsyncResult*>(Overlapped) );
 		IOResult->Status(Result);
 		if(!Result)
 		{
@@ -53,8 +55,6 @@ namespace Earlgrey
 			IOResult->Completed();
 		}
 
-		delete IOResult;
-
-		return TRUE;
+		return Result;
 	}
 }
