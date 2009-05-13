@@ -60,16 +60,18 @@ namespace Earlgrey
 		void deallocate(pointer _Ptr, size_type _Count)
 		{	// deallocate object at _Ptr, ignore size
 			
-			::operator delete(_Ptr);
+			// ::operator delete(_Ptr);
 			UNREFERENCED_PARAMETER(_Count);
-			// gStackAllocator::Instance().free(_Ptr);
+			gStackAllocator::Instance().free(_Ptr);
 		}
 
 		pointer allocate(size_type _Count)
 		{	// allocate array of _Count elements
 			
-			return (std::_Allocate(_Count, (pointer)0));
-			// return (pointer)gStackAllocator::Instance().malloc(_Count * sizeof (_Ty));
+			// return (std::_Allocate(_Count, (pointer)0));
+			return static_cast<pointer>(
+				gStackAllocator::Instance().malloc(_Count * sizeof (_Ty))
+				);
 		}
 
 		pointer allocate(size_type _Count, const void _FARQ *)

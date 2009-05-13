@@ -54,9 +54,11 @@ namespace Earlgrey
 		template <class T>
 		struct CreateUsingNew
 		{
+			enum { DEFAULT_STACK_BYTES = 1024 * 1024 };
+
 			static StackAllocator* Create()
 			{ 
-				return new StackAllocator(1024); 
+				return new StackAllocator(DEFAULT_STACK_BYTES); 
 			}
 
 			static void Destroy(StackAllocator* p)
