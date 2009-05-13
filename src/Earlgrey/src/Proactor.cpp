@@ -36,8 +36,8 @@ namespace Earlgrey
 		// MSDN ÂüÁ¶
 		if (!Result && !Overlapped)
 		{
-			//! \todo error handle; report error message
-			return FALSE;
+			// timeout!!, not error.
+			return TRUE;
 		}
 
 		EARLGREY_ASSERT( Overlapped );
