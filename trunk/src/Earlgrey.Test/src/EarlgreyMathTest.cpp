@@ -1,14 +1,11 @@
 #include "stdafx.h"
 #include "EarlgreyMath.h"
-
-#undef min
-#undef max
+#include "Macros.h"
 
 namespace Earlgrey
 {
 	namespace Test
 	{	
-		// ASSERT_THROW(const_cb.at(0), std::out_of_range);
 		TEST(EarlgreyMathTest, NumericCast) 
 		{
 			struct Mock
@@ -42,7 +39,7 @@ namespace Earlgrey
 			unsigned long n3 = 1025;
 			ASSERT_EQ(10, Earlgrey::Math::Log2(n3));
 
-			unsigned long n4 = std::numeric_limits<unsigned long>::max();
+			unsigned long n4 = std::numeric_limits<unsigned long>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION ();
 			ASSERT_EQ(31, Earlgrey::Math::Log2(n4));
 
 			unsigned long n5 = 3;
@@ -63,7 +60,7 @@ namespace Earlgrey
 			INT64 retValue3 = static_cast<INT64>(Earlgrey::Math::Log2Ex(n3));
 			ASSERT_EQ(10, retValue3);
 
-			long double n4 = std::numeric_limits<unsigned long>::max();
+			long double n4 = std::numeric_limits<unsigned long>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION ();
 			INT64 retValue4 = static_cast<INT64>(Earlgrey::Math::Log2Ex(n4));
 			ASSERT_EQ(31, retValue4);
 
@@ -84,7 +81,7 @@ namespace Earlgrey
 			ASSERT_EQ(10, Earlgrey::Math::Log2Static<n3>());
 
 			const unsigned long n4 = ULONG_MAX;
-			ASSERT_EQ(n4, std::numeric_limits<unsigned long>::max());
+			ASSERT_EQ(n4, (std::numeric_limits<unsigned long>::max)());
 			ASSERT_EQ(31, Earlgrey::Math::Log2Static<n4>());			
 
 			const unsigned long n5 = 3;

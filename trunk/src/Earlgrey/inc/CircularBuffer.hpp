@@ -5,8 +5,6 @@
 #include "BasicBufferIterator.hpp"
 // #include <memory> // std::autoptr
 
-#undef min
-#undef max
 
 namespace Earlgrey
 {

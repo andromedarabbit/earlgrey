@@ -1,8 +1,5 @@
 #include "stdafx.h"
-// #include "StlStackAllocator.h"
 #include "StackAllocator.h"
-
-#undef max
 
 namespace Earlgrey
 {
@@ -24,7 +21,7 @@ namespace Earlgrey
 				ASSERT_EQ(0, charArray[0]);
 				ASSERT_EQ(0, charArray[count - 1]);
 
-				const char expectedChar = std::numeric_limits<char>::max();
+				const char expectedChar = std::numeric_limits<char>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION ();
 
 				memset(charArray, expectedChar, count);
 

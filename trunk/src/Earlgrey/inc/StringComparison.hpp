@@ -1,10 +1,7 @@
 #pragma once
 #include "Uncopyable.h"
 #include "StlCustom.h"
-
-#ifdef min
-#undef min // std::min 을 쓰려면 WinDef.h 에 정의된 매크로를 없애야 한다.
-#endif
+#include "Macros.h"
 
 namespace Earlgrey
 {
@@ -126,7 +123,7 @@ namespace Earlgrey
 
 		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
-			int cchCount = std::min(cchCount1, cchCount2);
+			int cchCount = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (cchCount1, cchCount2);
 			if(cchCount == 0)
 				return TRUE;
 
@@ -165,7 +162,7 @@ namespace Earlgrey
 
 		int Compare(const TCHAR * str1, int cchCount1, const TCHAR * str2, int cchCount2) const
 		{
-			int cchCount = std::min(cchCount1, cchCount2);
+			int cchCount = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (cchCount1, cchCount2);
 			if(cchCount == 0)
 				return TRUE;
 

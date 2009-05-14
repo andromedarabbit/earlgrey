@@ -1,13 +1,12 @@
 #pragma once 
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
+#include "Macros.h"
 
 #include "StlCustomAllocator.hpp"
 #include "BasicBuffer.hpp"
 
 #include <list>
-
-#undef max
 
 namespace Earlgrey
 {
@@ -234,7 +233,7 @@ namespace Earlgrey
 		
 		if(lastBuffer->capacity()  - lastBuffer->size() < length)
 		{
-			size_type buffer_size = std::max(length, size() * 2);
+			size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
 			lastBuffer = new_buffer(buffer_size);
 			m_buffer_list.push_back(lastBuffer);
 		}
