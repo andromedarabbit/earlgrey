@@ -17,7 +17,7 @@ namespace Earlgrey
 	};
 
 	template <class Host, class MutexPolicy = LOKI_DEFAULT_MUTEX>
-	class ThreadLocalModel
+	class ThreadLocalThreaded
 	{
 	public:
 		/// \struct Lock
@@ -25,8 +25,8 @@ namespace Earlgrey
 		struct Lock
 		{
 			Lock() {}
-			explicit Lock(const ThreadLocalModel&) {}
-			explicit Lock(const ThreadLocalModel*) {}
+			explicit Lock(const ThreadLocalThreaded&) {}
+			explicit Lock(const ThreadLocalThreaded*) {}
 		};
 
 		typedef ThreadLocal<Host> VolatileType;

@@ -1,5 +1,5 @@
 #pragma once
-#include "StlStackAllocator.hpp"
+// #include "StlStackAllocator.hpp"
 
 namespace Earlgrey
 {
@@ -9,7 +9,8 @@ namespace Earlgrey
 	struct StlDefaultAllocator
 	{
 		typedef 
-			StlStackAllocator<T> 
+			std::allocator<T> 
+			// StlStackAllocator<T>
 			Type;
 	};
 }

@@ -38,22 +38,26 @@ namespace Earlgrey
 		}
 
 		StlStackAllocator() _THROW0()
+			: m_allocator()
 		{	// construct default allocator (do nothing)
 		}
 
-		StlStackAllocator(const StlStackAllocator<_Ty>&) _THROW0()
+		StlStackAllocator(const StlStackAllocator<_Ty>& stlStackAllocator) _THROW0()
+			: m_allocator(stlStackAllocator.m_allocator)
 		{	// construct by copying (do nothing)
 			
 		}
 
 		template<class _Other>
-		StlStackAllocator(const StlStackAllocator<_Other>&) _THROW0()
+		StlStackAllocator(const StlStackAllocator<_Other>& stlStackAllocator) _THROW0()
+			: m_allocator(stlStackAllocator.stack_allocator())
 		{	// construct from a related allocator (do nothing)
 		}
 
 		template<class _Other>
-		StlStackAllocator<_Ty>& operator=(const StlStackAllocator<_Other>&)
+		StlStackAllocator<_Ty>& operator=(const StlStackAllocator<_Other>& stlStackAllocator)
 		{	// assign from a related allocator (do nothing)
+			m_allocator = stlStackAllocator.stack_allocator();
 			return (*this);
 		}
 
@@ -62,15 +66,21 @@ namespace Earlgrey
 			
 			// ::operator delete(_Ptr);
 			UNREFERENCED_PARAMETER(_Count);
-			gStackAllocator::Instance().free(_Ptr);
+			// gStackAllocator::Instance().free(_Ptr);
+			m_allocator.free(_Ptr);
 		}
 
 		pointer allocate(size_type _Count)
 		{	// allocate array of _Count elements
 			
 			// return (std::_Allocate(_Count, (pointer)0));
+			/*
 			return static_cast<pointer>(
 				gStackAllocator::Instance().malloc(_Count * sizeof (_Ty))
+				);
+			*/
+			return static_cast<pointer>(
+				m_allocator.malloc(_Count * sizeof (_Ty))
 				);
 		}
 
@@ -94,6 +104,14 @@ namespace Earlgrey
 			_SIZT _Count = (_SIZT)(-1) / sizeof (_Ty);
 			return (0 < _Count ? _Count : 1);
 		}
+
+		const StackAllocator& stack_allocator() const
+		{
+			return m_allocator;
+		}
+
+	private:
+		StackAllocator m_allocator;
 	};
 
 	// allocator TEMPLATE OPERATORS

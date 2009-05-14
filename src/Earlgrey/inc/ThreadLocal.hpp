@@ -93,7 +93,7 @@ namespace Earlgrey
 		{
 			T* currentPointer = this->GetPointer();
 			return currentPointer == NULL 
-				|| *currentPointer != NULL;
+				|| *currentPointer == NULL;
 		}
 
 		inline T& operator->()
