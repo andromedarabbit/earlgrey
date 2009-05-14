@@ -1,4 +1,5 @@
 #pragma once
+#include "StaticAssert.h"
 
 #define EARLGREY_ENABLE_ASSERT_HANDLER 
 

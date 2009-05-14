@@ -28,6 +28,36 @@ namespace Earlgrey
 
 		}
 
+
+		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatch1) 
+		{
+			short source = 1;
+			unsigned short target = Earlgrey::Math::numeric_cast<unsigned short>(source);
+			ASSERT_EQ( static_cast<unsigned short>(1), target);
+		}
+
+
+		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatch2) 
+		{
+			unsigned short source = 1;
+			short target = Earlgrey::Math::numeric_cast<short>(source);
+			ASSERT_EQ( static_cast<short>(1), target);
+		}
+
+		//TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize1) 
+		//{
+		//	DWORD source = 1;
+		//	int target = Earlgrey::Math::numeric_cast<int>(source);
+		//	ASSERT_EQ( static_cast<int>(1), target);
+		//}
+
+		//TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize2) 
+		//{
+		//	int source = 1;
+		//	DWORD target = Earlgrey::Math::numeric_cast<DWORD>(source);
+		//	ASSERT_EQ( static_cast<DWORD>(1), target);
+		//}
+
 		TEST(EarlgreyMathTest, Log2ByUsingIntrinsicFunction)
 		{
 			unsigned long n1 = 64;
