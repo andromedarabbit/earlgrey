@@ -1,94 +1,62 @@
 #pragma once
 #include "Uncopyable.h"
-#include "EarlgreyAssert.h"
-// #include "Singleton.h"
-#include "ThreadLocalSingleton.hpp"
-
-#include <memory>
+#include "StackMemoryManager.h"
 
 namespace Earlgrey
 {
+	//! \todo 힙에 할당 못하게 해야 한다. Effective C++ 2권.
 	class StackAllocator : private Uncopyable
 	{
-		// friend struct Loki::CreateUsingNew<StackAllocator>;
-	
 	public:
-		typedef size_t    size_type;
-		typedef ptrdiff_t difference_type;
-		
-		typedef BYTE              value_type;
-		typedef BYTE*             pointer;
-		typedef const BYTE*       const_pointer;
-		typedef BYTE&             reference;
-		typedef const BYTE&       const_reference;
-		
-		static const size_type DEFAULT_ALIGNMENT = 64;
+		typedef StackMemoryManager::size_type size_type;
 
-		inline size_type capacity() const
+		explicit StackAllocator()
+			: m_stack_pos(gStackMemoryManager::Instance().m_current_pos)
 		{
-			return m_buffer_end - m_buffer_begin;
+			gStackMemoryManager::Instance().Mark();
 		}
 
-		inline void * malloc(size_type size, size_type alignment = DEFAULT_ALIGNMENT)
+		StackAllocator(const StackAllocator& allocator)
+			: m_stack_pos(gStackMemoryManager::Instance().m_current_pos)
 		{
-			EARLGREY_ASSERT(size > 0);
-			EARLGREY_ASSERT(alignment <= DEFAULT_ALIGNMENT);
-			EARLGREY_ASSERT( (alignment & (alignment - 1)) == 0 );
+			UNREFERENCED_PARAMETER(allocator);
+			EARLGREY_ASSERT(allocator.m_stack_pos <= this->m_stack_pos);
+			gStackMemoryManager::Instance().Mark();
+		}
 
-			m_current_pos = (m_current_pos + (alignment - 1)) & ~(alignment-1);
-			pointer memblock = (BYTE*) (m_buffer_begin + m_current_pos);
-			m_current_pos += size;
-			
-			EARLGREY_ASSERT(memblock + m_current_pos < m_buffer_end);
+		/*
+		StackAllocator& operator = (const StackAllocator& allocator)
+		{
+			m_stack_pos = allocator.m_stack_pos;
+			return (*this);
+		}
+		*/
 
-			return memblock;
+		~StackAllocator()
+		{
+			Pop();
+		}
+
+		inline void * malloc(size_type size, size_type alignment = StackMemoryManager::DEFAULT_ALIGNMENT)
+		{
+			return gStackMemoryManager::Instance().malloc(size, alignment);			
 		}
 
 		inline void free(void * memblock)
 		{
-			UNREFERENCED_PARAMETER(memblock);
-			// do nothing
-		}
-
-		// \todo 임시 코드
-		template <class T>
-		struct CreateUsingNew
-		{
-			enum { DEFAULT_STACK_BYTES = 1024 * 1024 };
-
-			static StackAllocator* Create()
-			{ 
-				return new StackAllocator(DEFAULT_STACK_BYTES); 
-			}
-
-			static void Destroy(StackAllocator* p)
-			{ 
-				delete p; 
-			}
-		};
-
-	private:
-		explicit StackAllocator(size_type bytes)
-			: m_buffer_begin( static_cast<pointer>(_aligned_malloc(bytes, DEFAULT_ALIGNMENT)) )
-			, m_buffer_end(m_buffer_begin + bytes)
-			, m_current_pos(0)
-		{
-			EARLGREY_ASSERT(bytes > 0);
-			EARLGREY_ASSERT(m_buffer_begin != 0);
-			EARLGREY_ASSERT(m_buffer_begin < m_buffer_end);
-
+			gStackMemoryManager::Instance().free(memblock);
 		}
 
 	private:
-		pointer m_buffer_begin;
-		pointer m_buffer_end;
-		size_type m_current_pos;
+		inline void Pop()
+		{
+			gStackMemoryManager::Instance().Unmark(m_stack_pos);
+		}
 
+	private:
+		size_type m_stack_pos;
 	};
 
-	
-	typedef 
-		Loki::SingletonHolder<StackAllocator, StackAllocator::CreateUsingNew, ThreadLocalLifetime, ThreadLocalModel> 
-		gStackAllocator;
-
+	// #define EARLGREY_ALLOA(bytes) \
+	//	Earlgrey::StackAllocator stackAlloc; 
 }

@@ -519,6 +519,14 @@
 					RelativePath=".\inc\NoLock.h"
 					>
 				</File>
+				<File
+					RelativePath=".\inc\Thread.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadLocal.hpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"
@@ -569,6 +577,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\StackAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StackMemoryManager.h"
 					>
 				</File>
 				<File
@@ -633,14 +645,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\SystemInfo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\Thread.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\ThreadLocal.hpp"
 					>
 				</File>
 				<File
