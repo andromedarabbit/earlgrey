@@ -21,7 +21,7 @@ namespace Earlgrey
 				ASSERT_EQ(0, charArray[0]);
 				ASSERT_EQ(0, charArray[count - 1]);
 
-				const char expectedChar = std::numeric_limits<char>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION ();
+				const char expectedChar = std::numeric_limits<char>::max();
 
 				memset(charArray, expectedChar, count);
 

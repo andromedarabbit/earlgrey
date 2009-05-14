@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.3.0\include&quot;;..\Earlgrey\inc;..\Earlgrey\inc\boost"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
