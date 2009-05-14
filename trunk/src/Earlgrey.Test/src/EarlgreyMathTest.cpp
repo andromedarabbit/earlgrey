@@ -7,7 +7,30 @@
 namespace Earlgrey
 {
 	namespace Test
-	{		
+	{	
+		// ASSERT_THROW(const_cb.at(0), std::out_of_range);
+		TEST(EarlgreyMathTest, NumericCast) 
+		{
+			struct Mock
+			{
+				static void Overflow()
+				{
+					INT16 i = Earlgrey::Math::numeric_cast<INT16>(INT_MAX);
+					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
+				}
+
+				static void Underflow()
+				{
+					INT16 i = Earlgrey::Math::numeric_cast<INT16>(INT_MIN);
+					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
+				}
+			};
+			
+			ASSERT_THROW(Mock::Overflow(),  std::overflow_error);
+			ASSERT_THROW(Mock::Underflow(),  std::underflow_error);
+
+		}
+
 		TEST(EarlgreyMathTest, Log2ByUsingIntrinsicFunction)
 		{
 			unsigned long n1 = 64;

@@ -5,10 +5,32 @@
 
 #pragma intrinsic(_BitScanReverse)
 
+
+#undef max
+#undef min
+
+
 namespace Earlgrey
 {
 	namespace Math
 	{
+		//! \note boost의 numeric_cast와 교체하기 쉽게 이름을 똑같이 지었다.
+		//! \todo boost처럼 NaN, Infinite 등을 모두 고려하면 좋겠다.
+		template<typename Target, typename Source>
+		inline Target numeric_cast(Source no) 
+		{
+			if(no > std::numeric_limits<Target>::max())
+			{
+				throw std::overflow_error("bad numeric conversion: overflow");
+			}
+
+			if(no < std::numeric_limits<Target>::min())
+			{
+				throw std::underflow_error("bad numeric conversion: underflow");
+			}
+
+			return static_cast<Target>( no );
+		}
 		
 
 		template<typename IntType>
