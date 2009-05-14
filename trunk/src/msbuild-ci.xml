@@ -7,7 +7,7 @@
 <!-- 서브버전 -->
 <PropertyGroup>
 	<SvnUsername>kaistizen</SvnUsername>
-	<SvnPassword>tJ8mW8Tc5HJ7</SvnPassword>
+	<SvnPassword></SvnPassword>
 	<SvnLocalRootPath>..</SvnLocalRootPath>
 </PropertyGroup>
 
