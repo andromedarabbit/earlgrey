@@ -27,7 +27,7 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		return AsyncRead();
+		return TRUE;
 	}
 
 	void AsyncStream::Close()
@@ -43,6 +43,10 @@ namespace Earlgrey
 		//_PacketBuffer->
 	}
 
+	BOOL AsyncStream::Post()
+	{
+		return ProactorSingleton::Instance().PostEvent( _Handler, new AsyncWriteResult(_Handler) );
+	}
 
 	BOOL AsyncStream::AsyncRead()
 	{
@@ -72,7 +76,7 @@ namespace Earlgrey
 		DWORD	SentBytes;		
 		OVERLAPPED* Overlapped = new AsyncWriteResult(_Handler);
 
-		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferNum(),
+		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferSize(),
 			&SentBytes, 0, Overlapped, NULL);
 
 		if (Error != 0) 

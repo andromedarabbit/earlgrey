@@ -9,6 +9,7 @@
 namespace Earlgrey
 {
 	class NetworkBuffer;
+	class AsyncResult;
 
 	typedef DWORD TimeValueType;
 
@@ -24,8 +25,6 @@ namespace Earlgrey
 	{
 	public:
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
-
-		//virtual BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped) = 0;
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
 	};
 
@@ -39,11 +38,11 @@ namespace Earlgrey
 
 		BOOL Initialize();
 		
-		BOOL Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped);//iocp post
-		BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
-
 		//Proactor Pattern Interface
 		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
+		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
+
+		BOOL PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream);
 		
 		HANDLE _IOCompletionPort;
 	};
@@ -61,7 +60,7 @@ namespace Earlgrey
 		explicit CompletionHandler() {};
 		virtual ~CompletionHandler() {};
 
-		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* InOverlapped) = 0; 
+		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result) = 0; 
 		virtual HANDLE GetHandle() = 0;
 	};
 
@@ -89,6 +88,15 @@ namespace Earlgrey
 		DWORD Error_;
 		DWORD Status_;
 		CompletionHandler* Handler_;
+	};
+
+	class WaitEventHandler
+	{
+	public:
+		explicit WaitEventHandler() {};
+		virtual ~WaitEventHandler() {};
+
+		virtual void HandleEvent();
 	};
 
 	class AsyncWriteResult

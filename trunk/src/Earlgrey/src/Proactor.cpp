@@ -20,9 +20,9 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL WinProactor::Post(DWORD Transferred, DWORD_PTR Key, LPOVERLAPPED Overlapped)
+	BOOL WinProactor::PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream)
 	{
-		return PostQueuedCompletionStatus( _IOCompletionPort, Transferred, Key, Overlapped );
+		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)CompleteHandler, ResultStream);
 	}
 
 	BOOL WinProactor::HandleEvent(TimeValueType WaitTime)

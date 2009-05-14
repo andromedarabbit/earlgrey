@@ -14,9 +14,11 @@ namespace Earlgrey
 		BOOL Open(SOCKET Socket, CompletionHandler* Handler);
 		void Close();
 
+		BOOL Post();
 		BOOL AsyncRead(); 
 		BOOL AsyncWrite();
 
+		NetworkBuffer* GetNetworkBuffer() { return _PacketBuffer; }
 	private:
 		NetworkBuffer* _PacketBuffer;
 		CompletionHandler* _Handler;

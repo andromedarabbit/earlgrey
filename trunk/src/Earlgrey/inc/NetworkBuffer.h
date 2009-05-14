@@ -14,7 +14,7 @@ namespace Earlgrey
 		{
 		}
 
-		DWORD GetBufferNum()
+		DWORD GetBufferSize()
 		{
 			return 0;//! todo : socket에서 사용
 		}
