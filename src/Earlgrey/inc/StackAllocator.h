@@ -48,6 +48,11 @@ namespace Earlgrey
 		}
 
 	private:
+		static void * operator new(size_t size); // 힙 생성은 허용하지 않는다.s
+		static void operator delete(void *ptr);
+		static void *operator new[](size_t size);
+		static void operator delete[](void *ptr);
+
 		inline void Pop()
 		{
 			gStackMemoryManager::Instance().Unmark(m_stack_pos);

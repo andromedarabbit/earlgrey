@@ -2,8 +2,6 @@
 #include "Macros.h"
 
 
-#undef max
-
 namespace Earlgrey
 {
 	namespace Test

@@ -1,14 +1,10 @@
 #pragma once
 #include "EarlgreyAssert.h"
+#include "Macros.h"
 #include <math.h> // log()
 #include <intrin.h> // _BitScanReverse
 
 #pragma intrinsic(_BitScanReverse)
-
-
-#undef max
-#undef min
-
 
 namespace Earlgrey
 {
@@ -19,12 +15,12 @@ namespace Earlgrey
 		template<typename Target, typename Source>
 		inline Target numeric_cast(Source no) 
 		{
-			if(no > std::numeric_limits<Target>::max())
+			if(no > std::numeric_limits<Target>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION())
 			{
 				throw std::overflow_error("bad numeric conversion: overflow");
 			}
 
-			if(no < std::numeric_limits<Target>::min())
+			if(no < std::numeric_limits<Target>::min EARLGREY_PREVENT_MACRO_SUBSTITUTION())
 			{
 				throw std::underflow_error("bad numeric conversion: underflow");
 			}

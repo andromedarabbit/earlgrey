@@ -57,3 +57,6 @@ const int dword = BINARY8(1010,0101,1010,0101,1010,0101,1010,0101);
 	HEX_DIGIT(b), HEX_DIGIT(c), HEX_DIGIT(d), HEX_DIGIT(e),    \
 	HEX_DIGIT(f), HEX_DIGIT(g), HEX_DIGIT(h))
 
+
+// from boost library
+#define EARLGREY_PREVENT_MACRO_SUBSTITUTION 
