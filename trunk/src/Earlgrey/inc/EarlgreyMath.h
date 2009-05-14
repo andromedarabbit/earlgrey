@@ -19,6 +19,26 @@ namespace Earlgrey
 				&& std::numeric_limits<Source>::is_integer == true
 				);
 
+/*
+			template<bool condition,class Then,class Else>
+			struct IF 
+			{ 
+				// typedef Then RET; 
+
+
+			};
+
+			template<class Then,class Else>
+			// Specialized template for condition=false
+			struct IF<false,Then,Else> 
+			{ 
+				typedef Else RET; 
+			};
+
+
+			std::numeric_limits<Target>::is_signed() != std::numeric_limits<Source>::is_signed()
+				&& sizeof(Target) == sizeof(Source)
+*/
 			if(no > std::numeric_limits<Target>::max())
 			{
 				throw std::overflow_error("bad numeric conversion: overflow");
