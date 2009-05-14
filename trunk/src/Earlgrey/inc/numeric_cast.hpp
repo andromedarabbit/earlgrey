@@ -2,6 +2,8 @@
 #include "EarlgreyAssert.h"
 #include "if_.hpp"
 
+#include <type_traits> 
+
 namespace Earlgrey
 {
 	namespace Math
@@ -14,11 +16,16 @@ namespace Earlgrey
 			{
 				static Target convert(Source no)
 				{
+					// 같은 타입 간의 변환은 허용하지 않는다.
+					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false); 
+
+					// 크기가 같지만 서로 다른 두 정수 타입이라면 결국 signed/unsigned의 차이가 있다는 뜻이다.
 					EARLGREY_STATIC_ASSERT(
 						std::numeric_limits<Target>::is_integer == true
 						&& std::numeric_limits<Source>::is_integer == true
-						);
+						); 
 					EARLGREY_STATIC_ASSERT(sizeof(Target) == sizeof(Source));
+				
 					EARLGREY_STATIC_ASSERT(std::numeric_limits<Target>::is_signed == false);
 					EARLGREY_STATIC_ASSERT(std::numeric_limits<Source>::is_signed == true);
 
@@ -36,6 +43,7 @@ namespace Earlgrey
 			{
 				static Target convert(Source no)
 				{
+					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
 					EARLGREY_STATIC_ASSERT(
 						std::numeric_limits<Target>::is_integer == true
 						&& std::numeric_limits<Source>::is_integer == true
@@ -71,6 +79,7 @@ namespace Earlgrey
 			{
 				static Target convert(Source no)
 				{
+					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
 					EARLGREY_STATIC_ASSERT(
 						std::numeric_limits<Target>::is_integer == true
 						&& std::numeric_limits<Source>::is_integer == true
@@ -111,6 +120,7 @@ namespace Earlgrey
 		template<typename Target, typename Source>
 		inline Target numeric_cast(Source no) throw(...)
 		{
+			EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
 			EARLGREY_STATIC_ASSERT(
 				std::numeric_limits<Target>::is_integer == true
 				&& std::numeric_limits<Source>::is_integer == true
