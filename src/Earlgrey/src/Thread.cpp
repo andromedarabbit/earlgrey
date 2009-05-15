@@ -76,4 +76,12 @@ namespace Earlgrey
 	{
 		SetProcessAffinityMask( _thread, 1 << (indexOfProcessor % countOfProcessor) );
 	}
+
+	void Thread::SetPriority(INT priority)
+	{
+		EARLGREY_ASSERT(priority >= THREAD_PRIORITY_IDLE &&
+			priority <= THREAD_PRIORITY_TIME_CRITICAL);
+
+		SetThreadPriority(_thread, priority);
+	}
 }

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Socket.h"
-#include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {

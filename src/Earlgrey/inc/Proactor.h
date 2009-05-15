@@ -97,6 +97,8 @@ namespace Earlgrey
 		virtual ~WaitEventHandler() {};
 
 		virtual void HandleEvent();
+
+		BOOL RegisterWaitEvent(WSAEVENT event, WaitEventHandler* handler);
 	};
 
 	class AsyncWriteResult
