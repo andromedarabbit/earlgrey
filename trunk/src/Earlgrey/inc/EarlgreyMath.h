@@ -1,6 +1,7 @@
 #pragma once
 #include "EarlgreyAssert.h"
 #include "numeric_cast.hpp"
+
 #include <math.h> // log()
 #include <intrin.h> // _BitScanReverse
 
@@ -11,23 +12,57 @@ namespace Earlgrey
 	namespace Math
 	{
 		template<typename IntType>
-		inline IntType Log2(IntType n) // For double, long double, float
+		class Log2WithInteger
 		{
-			// 내장 함수를 사용하는 프로그램은 함수 호출의 오버헤드가 없기 때문에 빠르게 실행되지만
-			// 추가 코드를 만들기 때문에 프로그램이 커질 수 있습니다.
-			EARLGREY_ASSERT(n > 0);
-			unsigned long index;
-			EARLGREY_VERIFY(_BitScanReverse(&index, n));
-			return index;
+			template<typename IntType> friend IntType Log2(IntType no);
+
+			static IntType Calculate(IntType n) // For double, long double, float
+			{
+				// 내장 함수를 사용하는 프로그램은 함수 호출의 오버헤드가 없기 때문에 빠르게 실행되지만
+				// 추가 코드를 만들기 때문에 프로그램이 커질 수 있습니다.
+				EARLGREY_ASSERT(n > 0);
+				EARLGREY_STATIC_ASSERT(std::numeric_limits<IntType>::is_integer == true);
+
+				unsigned long index;
+				EARLGREY_VERIFY(_BitScanReverse(&index, n));
+				return index;
+			}
+
+		public:
+			typedef Log2WithInteger type;
+		};
+
+		template<typename FloatType>
+		class Log2WithFloat
+		{
+			template<typename FloatType> friend FloatType Log2(FloatType no);
+	
+			static FloatType Calculate(FloatType n)
+			{
+				EARLGREY_ASSERT(n > 0);
+				EARLGREY_STATIC_ASSERT(std::numeric_limits<FloatType>::is_integer == false);
+
+				const FloatType TWO = 2;
+				return log(n) / log(TWO);
+			}
+
+		public:
+			typedef Log2WithFloat type;
+		};
+
+		template<typename NumericType>
+		inline NumericType Log2(NumericType no) 
+		{
+			typedef
+				typename mpl::if_<
+				std::numeric_limits<NumericType>::is_integer
+				, typename Log2WithInteger<NumericType>::type
+				, typename Log2WithFloat<NumericType>::type
+				>::type 
+				type;
+			return type::Calculate(no);
 		}
 
-		template<typename DoubleType>
-		inline DoubleType Log2Ex(DoubleType n)
-		{
-			EARLGREY_ASSERT(n > 0);
-			const DoubleType TWO = 2;
-			return log(n) / log(TWO);
-		}
 
 
 		//! 컴파일 타임에 계산이 가능하고 제일 빠르다. 단 N은 상수만 허용된다.
