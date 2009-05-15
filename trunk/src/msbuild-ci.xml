@@ -46,7 +46,6 @@
 	
 	<!-- 일반 빌드로 판명됐을지라도, 공유 라이브러리가 변경되었으면 Rebuild한다. -->
 	<SvnInfo Username="$(SvnUsername)"
-		<!-- Password="$(SvnPassword)" -->
 		LocalPath="%(SharedLibrary.LocalPath)">
 		<Output	TaskParameter="Revision" ItemName="LocalRevisionFor%(SharedLibrary.EscapedLocalPath)" />
 		<Output TaskParameter="RepositoryPath" ItemName="RepositoryPathFor%(SharedLibrary.EscapedLocalPath)" />
