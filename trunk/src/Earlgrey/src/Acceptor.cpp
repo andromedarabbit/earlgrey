@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Acceptor.h"
-#include "Socket.h"
 
 namespace Earlgrey
 {
@@ -58,6 +57,7 @@ namespace Earlgrey
 		AcceptorEvent = WSACreateEvent();
 		//! TODO : AcceptorThread¸¸µé±â & AcceptorThread::init(AcceptorEvent, this) 
 		WSAEventSelect(AcceptorSocket, AcceptorEvent, FD_ACCEPT);
+		RegisterWaitEvent(AcceptorEvent, this);
 
 		return TRUE;
 	}

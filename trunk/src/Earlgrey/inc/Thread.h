@@ -40,6 +40,7 @@ namespace Earlgrey
 		BOOL Create(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, unsigned int initFlag = Running, DWORD stackSize = 0);
 		void SetName(LPCSTR threadName);
 		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
+		void SetPriority(INT priority);
 
 		//! \todo 요 함수는 나중에 적당한 곳에 옮겨야함...
 		static DWORD GetProcessorCount()

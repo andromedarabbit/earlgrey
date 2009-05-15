@@ -382,11 +382,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Connector.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IOCP.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\Proactor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ServerInit.cpp"
 					>
 				</File>
 				<File
@@ -672,6 +680,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Connector.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Dns.h"
 					>
 				</File>
@@ -685,6 +697,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ServerInit.h"
 					>
 				</File>
 				<File
