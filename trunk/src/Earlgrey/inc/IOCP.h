@@ -1,13 +1,9 @@
 #pragma once 
 #include "Thread.h"
+#include "Proactor.h"
 
 namespace Earlgrey
 {
-	class Server
-	{
-		void CreateServer();
-	};
-
 	class IOCPRunnable : public IRunnable
 	{
 	public:

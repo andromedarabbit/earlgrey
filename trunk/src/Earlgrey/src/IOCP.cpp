@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "IOCP.h"
-#include "Proactor.h"
 
 namespace Earlgrey
 {
