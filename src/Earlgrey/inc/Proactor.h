@@ -64,6 +64,27 @@ namespace Earlgrey
 		virtual HANDLE GetHandle() = 0;
 	};
 
+	class WaitEventHandler
+	{
+	public:
+		explicit WaitEventHandler() {};
+		virtual ~WaitEventHandler() {};
+
+		virtual void HandleEvent() = 0;
+
+		BOOL RegisterWaitEvent(WSAEVENT /*event*/, WaitEventHandler* /*handler*/)
+		{
+			//lock? serializer?
+			return TRUE;
+		}
+
+		BOOL DeregisterWaitEvent(WSAEVENT /*event*/)
+		{
+			return TRUE;
+		}
+	};
+
+
 	class AsyncResult 
 		: public OVERLAPPED
 	{
@@ -88,17 +109,6 @@ namespace Earlgrey
 		DWORD Error_;
 		DWORD Status_;
 		CompletionHandler* Handler_;
-	};
-
-	class WaitEventHandler
-	{
-	public:
-		explicit WaitEventHandler() {};
-		virtual ~WaitEventHandler() {};
-
-		virtual void HandleEvent();
-
-		BOOL RegisterWaitEvent(WSAEVENT event, WaitEventHandler* handler);
 	};
 
 	class AsyncWriteResult

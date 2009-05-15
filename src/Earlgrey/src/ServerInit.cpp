@@ -1,6 +1,14 @@
 #include "stdafx.h"
 #include "ServerInit.h"
 
+#include "Thread.h"
+
+#include "Socket.h"
+#include "Proactor.h"
+#include "Acceptor.h"
+#include "IOCP.h"
+#include "Connector.h"
+
 namespace Earlgrey
 {
 	void ServerInit()
@@ -30,5 +38,12 @@ namespace Earlgrey
 	{
 		Acceptor* GAcceptor = new Acceptor(Port);
 		GAcceptor->Initialize();
+	}
+
+	void ClientCreate(DWORD Port)
+	{
+		Connector* connector = new Connector();
+		char* ServerIP = "localhost";//! TODO : type and ip
+		connector->Connect(ServerIP, Port);
 	}
 }

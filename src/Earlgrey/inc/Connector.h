@@ -1,7 +1,7 @@
 #pragma once 
-#include "Proactor.h"
+
 #include "Socket.h"
-#include "StlCustom.h"
+#include "Proactor.h"
 #include "Dns.h"
 
 namespace Earlgrey
@@ -20,7 +20,7 @@ namespace Earlgrey
 
 		void Initialize();
 
-		BOOL Connect(const TCHAR* RemoteHostName, const INT Port);
+		BOOL Connect(const char* RemoteHostName, const INT Port);
 		void Disconnect();
 		void Close();
 

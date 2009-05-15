@@ -1,18 +1,10 @@
 #pragma once 
 
-#include <winsock2.h>
+namespace Earlgrey
+{
 
-#include "Thread.h"
-#include "EarlgreyAssert.h"
+	void ServerInit();
+	void ServerCreate(DWORD Port);
+	void ClientCreate(DWORD Port);
 
-#include "StlCustom.h"
-
-#include "NetworkBuffer.h"
-#include "Dns.h"
-
-#include "Socket.h"
-#include "Proactor.h"
-#include "Acceptor.h"
-#include "IOCP.h"
-#include "Connector.h"
-
+}

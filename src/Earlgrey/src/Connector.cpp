@@ -1,9 +1,11 @@
 #include "stdafx.h"
+
 #include "Connector.h"
+#include "Acceptor.h"
 
 namespace Earlgrey
 {
-	BOOL Connector::Connect(const TCHAR* RemoteHostName, const INT Port)
+	BOOL Connector::Connect(const char* RemoteHostName, const INT Port)
 	{
 		//Lock??
 
@@ -26,7 +28,7 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		HOSTENT* HostEnt = gethostbyname((const char*)RemoteHostName);//??
+		HOSTENT* HostEnt = gethostbyname(RemoteHostName);
 		if (!HostEnt)
 		{
 			Close();
@@ -75,6 +77,50 @@ namespace Earlgrey
 		{
 			closesocket(ConnectorSocket);
 			ConnectorSocket = INVALID_SOCKET;
+		}
+	}
+
+	void Connector::HandleEvent(HANDLE /*Handle*/, IOCP_EVENT_TYPE /*Type*/, AsyncResult* /*Result*/)
+	{
+
+	}
+	
+	void Connector::HandleEvent()
+	{
+		//lock?
+
+		WSANETWORKEVENTS	Events;	
+		BOOL				Result = TRUE;
+
+		if (WSAEnumNetworkEvents(ConnectorSocket, ConnectorEvent, &Events))
+		{
+			Result = FALSE;
+		}
+
+		//	UnregisterWait !!!		FConnect wait once !
+		if (ConnectorEvent != WSA_INVALID_EVENT)
+		{
+			DeregisterWaitEvent(ConnectorEvent);
+			ConnectorEvent = WSA_INVALID_EVENT;
+		}
+
+		if (Result)
+		{
+			//	Connect success	
+			ConnectionHandler* Conn = new ConnectionHandler((HANDLE)ConnectorSocket);
+			Conn;
+			if (!Conn)
+			{
+				Close();
+			}
+			else 
+			{
+				ConnectorSocket = INVALID_SOCKET;
+			}
+		}
+		else
+		{
+			Close();
 		}
 	}
 }

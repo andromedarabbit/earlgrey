@@ -351,6 +351,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ConnectTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\DateTimeTest.cpp"
 				>
 			</File>
