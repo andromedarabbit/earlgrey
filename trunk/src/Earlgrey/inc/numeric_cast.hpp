@@ -12,9 +12,9 @@ namespace Earlgrey
 		struct numeric_converter_for_the_same_sizes
 		{
 			template<typename Target, typename Source>
-			struct unsigned_to_signed_converter
+			struct signed_to_unsigned_converter
 			{
-				static Target convert(Source no)
+				__declspec(noinline) static Target convert(Source no)
 				{
 					// 같은 타입 간의 변환은 허용하지 않는다.
 					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false); 
@@ -39,9 +39,9 @@ namespace Earlgrey
 			};
 
 			template<typename Target, typename Source>
-			struct signed_to_unsigned_converter
+			struct unsigned_to_signed_converter
 			{
-				static Target convert(Source no)
+				__declspec(noinline) static Target convert(Source no)
 				{
 					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
 					EARLGREY_STATIC_ASSERT(
@@ -64,7 +64,7 @@ namespace Earlgrey
 
 			typedef
 				typename mpl::if_<
-				std::numeric_limits<Target>::is_signed == true
+				std::numeric_limits<Target>::is_signed == false
 				, signed_to_unsigned_converter<Target, Source>
 				, unsigned_to_signed_converter<Target, Source> 
 				>::type 
@@ -115,6 +115,8 @@ namespace Earlgrey
 				type;
 		};
 
+#pragma warning(push)
+#pragma warning(disable:4702)
 		//! \note boost의 numeric_cast와 교체하기 쉽게 이름을 똑같이 지었다.
 		//! \todo boost처럼 NaN, Infinite 등을 모두 고려하면 좋겠다. 현재는 정수 변환만 고려했다.
 		template<typename Target, typename Source>
@@ -129,7 +131,7 @@ namespace Earlgrey
 			typedef numeric_converter<Target, Source>::type Converter ;
 			return Converter::convert(no);
 		}
-
+#pragma warning(pop)
 
 	}
 }
