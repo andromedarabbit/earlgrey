@@ -588,6 +588,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\MemoryManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryMath.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SinglyList.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\StackAllocator.h"
 					>
 				</File>

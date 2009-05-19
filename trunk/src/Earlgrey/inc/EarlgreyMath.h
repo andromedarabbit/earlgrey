@@ -105,5 +105,17 @@ namespace Earlgrey
 			return 1.;  
 		}
 
+
+		// 현재는 양수일 때만 지원한다.
+		template<typename IntType> 
+		BOOL IsPowerOf2(IntType n)
+		{
+			EARLGREY_ASSERT(n > 0);
+			EARLGREY_STATIC_ASSERT(std::numeric_limits<IntType>::is_integer == true);
+
+			return n == 1 || (n & (n-1)) == 0;
+		}
+
+
 	}
 }

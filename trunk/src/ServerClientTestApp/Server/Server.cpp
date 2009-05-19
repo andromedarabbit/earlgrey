@@ -41,5 +41,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	Thread* WinThread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 
 	WaitForSingleObject(WinThread->GetWindowHandle(), INFINITE );
-	return 0;
+	
+	return EXIT_SUCCESS;
 }
