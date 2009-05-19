@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SinglyLinkedList.h"
+#include "SinglyList.h"
 
 namespace Earlgrey
 {
