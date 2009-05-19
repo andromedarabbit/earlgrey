@@ -12,5 +12,5 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	Earlgrey::ClientCreate(100);
 
-	return 0;
+	return EXIT_SUCCESS;
 }
