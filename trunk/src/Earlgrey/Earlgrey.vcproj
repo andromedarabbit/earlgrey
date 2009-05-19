@@ -373,6 +373,10 @@
 			<Filter
 				Name="Memory"
 				>
+				<File
+					RelativePath=".\src\MemoryBlock.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Network"
@@ -463,6 +467,14 @@
 				>
 				<File
 					RelativePath=".\src\ProcessUtil.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithm"
+				>
+				<File
+					RelativePath=".\src\SinglyLinkedList.cpp"
 					>
 				</File>
 			</Filter>
@@ -593,6 +605,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\CircularBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryBlock.h"
 					>
 				</File>
 				<File
@@ -749,6 +765,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\LockfreeStack.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SinglyLinkedList.h"
 					>
 				</File>
 				<File
