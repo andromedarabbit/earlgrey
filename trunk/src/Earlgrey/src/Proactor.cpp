@@ -105,7 +105,7 @@ namespace Earlgrey
 			EARLGREY_ASSERT( i != _EventHandlerMap.end() );
 			if (i != _EventHandlerMap.end())
 			{
-				_EventHandlerMap[_Events[Index]]->HandleEvent();
+				i->second->HandleEvent();
 			}			
 			Result = TRUE;
 		}
