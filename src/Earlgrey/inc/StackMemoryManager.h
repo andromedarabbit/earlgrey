@@ -1,6 +1,7 @@
 #pragma once
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
+#include "MemoryMath.h"
 #include "ThreadLocalSingleton.hpp"
 
 #include <memory>
@@ -72,10 +73,12 @@ namespace Earlgrey
 		{
 			EARLGREY_ASSERT(size > 0);
 			EARLGREY_ASSERT(alignment <= DEFAULT_ALIGNMENT);
-			EARLGREY_ASSERT( (alignment & (alignment - 1)) == 0 );
+			// EARLGREY_ASSERT( (alignment & (alignment - 1)) == 0 );
+			EARLGREY_ASSERT( Math::IsPowerOf2(alignment) == TRUE );
 			EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
 
-			m_current_pos = (m_current_pos + (alignment - 1)) & ~(alignment-1);
+			// m_current_pos = (m_current_pos + (alignment - 1)) & ~(alignment-1);
+			m_current_pos = Math::NewOffsetForMemoryAligment(m_current_pos, alignment);
 			pointer memblock = (BYTE*) (m_buffer_begin + m_current_pos);
 			m_current_pos += size;
 

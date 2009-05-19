@@ -10,7 +10,7 @@
 namespace Earlgrey
 {
 	namespace Math
-	{
+	{		
 		template<typename IntType>
 		class Log2WithInteger
 		{
@@ -105,17 +105,14 @@ namespace Earlgrey
 			return 1.;  
 		}
 
-
-		// 현재는 양수일 때만 지원한다.
-		template<typename IntType> 
-		BOOL IsPowerOf2(IntType n)
+		//! \note 일단 정수만 지원한다. 1/2, 1/4 이런 값을 검사할 일이 당장 없다.
+		template<typename IntType>
+		inline BOOL IsPowerOf2(IntType n)
 		{
-			EARLGREY_ASSERT(n > 0);
-			EARLGREY_STATIC_ASSERT(std::numeric_limits<IntType>::is_integer == true);
+			EARLGREY_ASSERT(std::numeric_limits<IntType>::is_integer == true);
+			EARLGREY_ASSERT(n >= 0);
 
-			return n == 1 || (n & (n-1)) == 0;
+			return n > 0 && (n & (n-1)) == 0;
 		}
-
-
 	}
 }

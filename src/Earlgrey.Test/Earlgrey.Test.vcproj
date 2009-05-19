@@ -383,6 +383,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MemoryMathTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\PathTest.cpp"
 				>
 			</File>

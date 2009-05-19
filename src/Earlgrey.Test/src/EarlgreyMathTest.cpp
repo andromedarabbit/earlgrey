@@ -127,7 +127,7 @@ namespace Earlgrey
 			ASSERT_EQ(1, retValue5);
 		}
 
-		TEST(EarlgreyMathTest, Log22)
+		TEST(EarlgreyMathTest, Log3)
 		{
 			const unsigned long n1 = 64;
 			ASSERT_EQ(6, Earlgrey::Math::Log2Static<n1>());
@@ -144,6 +144,19 @@ namespace Earlgrey
 
 			const unsigned long n5 = 3;
 			ASSERT_EQ(1, Earlgrey::Math::Log2Static<n5>());
+		}
+
+		TEST(EarlgreyMathTest, IsPowerOf2)
+		{
+			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(0));
+			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1));
+			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(2));
+			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(128));
+			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1024));
+
+			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(3));
+			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(255));
+			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(2049));
 		}
 	}
 }
