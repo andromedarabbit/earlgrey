@@ -78,7 +78,7 @@ namespace Earlgrey
 			EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
 
 			// m_current_pos = (m_current_pos + (alignment - 1)) & ~(alignment-1);
-			m_current_pos = Math::NewOffsetForMemoryAligment(m_current_pos, alignment);
+			m_current_pos = Math::NewMemoryAligmentOffset(m_current_pos, alignment);
 			pointer memblock = (BYTE*) (m_buffer_begin + m_current_pos);
 			m_current_pos += size;
 
