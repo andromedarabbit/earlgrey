@@ -20,9 +20,9 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL WinProactor::DeregisterHandler(HANDLE /*Handle*/)
+	BOOL WinProactor::DeregisterHandler(HANDLE Handle)
 	{
-		return TRUE;
+		return CloseHandle( Handle );
 	}
 
 	BOOL WinProactor::PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream)
@@ -68,22 +68,20 @@ namespace Earlgrey
 	{
 		//lock? serializer?
 
-		Events.push_back((WSAEVENT)Handle);
-		EventHandlers.push_back(static_cast<WaitEventHandler*>(CompleteHandler));
+		_Events.push_back((WSAEVENT)Handle);
+		_EventHandlerMap.insert( std::make_pair((WSAEVENT)Handle, static_cast<WaitEventHandler*>(CompleteHandler)) );
 		return TRUE;
 	}
 
 	BOOL AcceptProactor::DeregisterHandler(HANDLE Handle)
 	{
 		//lock? serializer?
-		for(DWORD i = 0; i < Events.size(); i++)
+		EventVectorType::iterator i = std::find( _Events.begin(), _Events.end(), (WSAEVENT)Handle );
+		if (i != _Events.end()) 
 		{
-			if(Events[i] == Handle)
-			{
-				Events.erase( Events.begin() + i);
-				EventHandlers.erase(EventHandlers.begin() + i);
-			}
+			_Events.erase( i );
 		}
+		_EventHandlerMap.erase( (WSAEVENT)Handle );
 
 		return TRUE;
 	}
@@ -91,11 +89,11 @@ namespace Earlgrey
 	BOOL AcceptProactor::HandleEvent(TimeValueType WaitTime)
 	{
 		BOOL Result = FALSE;
-		DWORD WaitEventNumber = (DWORD)Events.size();
+		DWORD WaitEventNumber = (DWORD)_Events.size();
 
 		DWORD Index	= WaitForMultipleObjects(
 			WaitEventNumber,
-			&Events[0],
+			&_Events[0],
 			FALSE,
 			WaitTime
 			);
@@ -103,11 +101,17 @@ namespace Earlgrey
 		if (WAIT_OBJECT_0 <= Index &&
 			Index < WAIT_OBJECT_0 + WaitEventNumber)
 		{
-			EventHandlers[Index]->HandleEvent();
+			EventHandlerMapType::const_iterator i = _EventHandlerMap.find( _Events[Index] );
+			EARLGREY_ASSERT( i != _EventHandlerMap.end() );
+			if (i != _EventHandlerMap.end())
+			{
+				_EventHandlerMap[_Events[Index]]->HandleEvent();
+			}			
 			Result = TRUE;
 		}
 		else if (Index == WAIT_TIMEOUT)
-		{		
+		{
+			Result = TRUE;
 		}
 		else
 		{

@@ -70,9 +70,13 @@ namespace Earlgrey
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
+		typedef std::map<WSAEVENT, WaitEventHandler*> EventHandlerMapType;
+		typedef std::vector<WSAEVENT> EventVectorType;
+
+
 	private:
-		std::vector<WSAEVENT> Events;//!TODO : 
-		std::vector<WaitEventHandler*> EventHandlers;
+		EventVectorType			_Events;
+		EventHandlerMapType		_EventHandlerMap;
 	};
 
 	typedef
