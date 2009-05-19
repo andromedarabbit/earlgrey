@@ -49,6 +49,7 @@ namespace Earlgrey
 			GetSystemInfo(&sysinfo);
 			return sysinfo.dwNumberOfProcessors;	
 		}
+		HANDLE GetWindowHandle() { return _thread; }
 
 	private:
 		static unsigned int __stdcall _ThreadProc(LPVOID p);

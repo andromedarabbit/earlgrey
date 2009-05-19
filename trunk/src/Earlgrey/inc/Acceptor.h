@@ -6,14 +6,13 @@
 namespace Earlgrey
 {
 	class Acceptor 
-		: public CompletionHandler, WaitEventHandler
+		: public WaitEventHandler
 	{
 	public:
 		explicit Acceptor(DWORD InPort)
-		{
-			Port = InPort;
-			Initialize();
-		};
+			: AcceptorSocket(INVALID_SOCKET),
+			Port(InPort)
+		{};
 
 		virtual ~Acceptor() {};
 
@@ -57,21 +56,4 @@ namespace Earlgrey
 
 	};
 
-	class AcceptorRunnable : public IRunnable
-	{
-	public:
-		explicit AcceptorRunnable() {}
-		virtual ~AcceptorRunnable() {}
-
-		virtual BOOL Init();
-		virtual DWORD Run();
-		virtual void Stop() {}
-		virtual void Exit() {}
-
-		void Init(WSAEVENT event, WaitEventHandler* handler);//! TODO
-
-	private:
-		WSAEVENT				Event;
-		WaitEventHandler*		WaitHandler;
-	};
 }

@@ -7,10 +7,12 @@
 namespace Earlgrey
 {
 	class Connector
-		: public CompletionHandler, WaitEventHandler
+		: public WaitEventHandler
 	{
 	public:
-		explicit Connector() {}
+		explicit Connector()
+			: ConnectorSocket(INVALID_SOCKET)
+		{}
 		virtual ~Connector() {}
 
 		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result);
