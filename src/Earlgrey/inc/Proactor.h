@@ -3,7 +3,7 @@
 #include <Loki/Singleton.h>
 #include <Loki/Threads.h> // for Loki::SingleThreaded
 #include "NoLock.h"
-
+#include "StlCustom.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
@@ -20,30 +20,36 @@ namespace Earlgrey
 	};
 
 	class CompletionHandler;
+	class WaitEventHandler;
 
+	//Windows IOCompletion Port ¿ë
 	class Proactor
 	{
 	public:
+
+		enum {
+			DefaultTimeout = INFINITE
+		};
+
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
+		virtual BOOL DeregisterHandler(HANDLE Handle) = 0;
 	};
 
 	class WinProactor 
 		: public Proactor
 	{
 	public:
-		enum {
-			DefaultTimeout = INFINITE
-		};
-
 		BOOL Initialize();
 		
 		//Proactor Pattern Interface
 		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
+		virtual BOOL DeregisterHandler(HANDLE Handle);
 
 		BOOL PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream);
-		
+
+	private:
 		HANDLE _IOCompletionPort;
 	};
 
@@ -51,6 +57,29 @@ namespace Earlgrey
 		Loki::SingletonHolder<WinProactor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
 			ProactorSingleton
 			;
+
+	// Windows WaitEvent ¿ë
+	class AcceptProactor
+		: public Proactor
+	{
+	public:
+		BOOL Initialize() {}
+
+		//Proactor Pattern Interface
+		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
+		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
+		virtual BOOL DeregisterHandler(HANDLE Handle);
+
+	private:
+		std::vector<WSAEVENT> Events;//!TODO : 
+		std::vector<WaitEventHandler*> EventHandlers;
+	};
+
+	typedef
+		Loki::SingletonHolder<AcceptProactor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
+		AcceptProactorSingleton
+		;
+
 
 	class AsyncResult;
 
@@ -65,23 +94,14 @@ namespace Earlgrey
 	};
 
 	class WaitEventHandler
+		: public CompletionHandler
 	{
 	public:
 		explicit WaitEventHandler() {};
 		virtual ~WaitEventHandler() {};
 
+		virtual void HandleEvent(HANDLE /*Handle*/, IOCP_EVENT_TYPE /*Type*/, AsyncResult* /*Result*/) {}
 		virtual void HandleEvent() = 0;
-
-		BOOL RegisterWaitEvent(WSAEVENT /*event*/, WaitEventHandler* /*handler*/)
-		{
-			//lock? serializer?
-			return TRUE;
-		}
-
-		BOOL DeregisterWaitEvent(WSAEVENT /*event*/)
-		{
-			return TRUE;
-		}
 	};
 
 

@@ -29,15 +29,12 @@ namespace Earlgrey
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
-		// Create Acceptor Thread
-		Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new AcceptorRunnable())), "AcceptorRunnable" );
-
 	}
 
 	void ServerCreate(DWORD Port)
 	{
-		Acceptor* GAcceptor = new Acceptor(Port);
-		GAcceptor->Initialize();
+		Acceptor* acceptor = new Acceptor(Port);
+		acceptor->Initialize();
 	}
 
 	void ClientCreate(DWORD Port)
@@ -45,5 +42,11 @@ namespace Earlgrey
 		Connector* connector = new Connector();
 		char* ServerIP = "localhost";//! TODO : type and ip
 		connector->Connect(ServerIP, Port);
+	}
+
+	void ServerCreated()
+	{
+		// Create Acceptor Thread
+		Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new AcceptorRunnable())), "AcceptorRunnable" );
 	}
 }

@@ -51,7 +51,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(ConnectorEvent);
 		WSAEventSelect(ConnectorSocket, ConnectorEvent, FD_CONNECT);
 
-		//RegisterWaitEvent(ConnectorEvent, this); acceptor thread 로 던지는 게 맞을까?
+		AcceptProactorSingleton::Instance().RegisterHandler(ConnectorEvent, this);
 
 		if (connect(ConnectorSocket, (const sockaddr*) &ServerAddress, sizeof(ServerAddress)) == SOCKET_ERROR)
 		{
@@ -100,7 +100,7 @@ namespace Earlgrey
 		//	UnregisterWait !!!		FConnect wait once !
 		if (ConnectorEvent != WSA_INVALID_EVENT)
 		{
-			DeregisterWaitEvent(ConnectorEvent);
+			AcceptProactorSingleton::Instance().DeregisterHandler(ConnectorEvent);
 			ConnectorEvent = WSA_INVALID_EVENT;
 		}
 

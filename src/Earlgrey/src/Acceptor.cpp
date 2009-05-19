@@ -3,6 +3,8 @@
 
 namespace Earlgrey
 {
+
+
 	/**
 	*/
 	BOOL Acceptor::Initialize()
@@ -36,8 +38,10 @@ namespace Earlgrey
 			(const char*)&OptionValue, 
 			sizeof(OptionValue));
 
-		if (!bind(AcceptorSocket, (const struct sockaddr*) &Address, sizeof(Address)))
+		if (bind(AcceptorSocket, (const struct sockaddr*) &Address, sizeof(Address)) == SOCKET_ERROR)
 		{
+			DWORD a = GetLastError();
+			UNREFERENCED_PARAMETER(a);
 			return FALSE;
 		}
 
@@ -55,9 +59,8 @@ namespace Earlgrey
 		Stream.Open(AcceptorSocket, this); 
 
 		AcceptorEvent = WSACreateEvent();
-		//! TODO : AcceptorThread¸¸µé±â & AcceptorThread::init(AcceptorEvent, this) 
-		WSAEventSelect(AcceptorSocket, AcceptorEvent, FD_ACCEPT);
-		RegisterWaitEvent(AcceptorEvent, this);
+		WSAEventSelect(AcceptorSocket, AcceptorEvent, FD_ACCEPT);		
+		AcceptProactorSingleton::Instance().RegisterHandler(AcceptorEvent, this);
 
 		return TRUE;
 	}
@@ -128,43 +131,4 @@ namespace Earlgrey
 	}
 
 
-	/**
-	*/
-	BOOL AcceptorRunnable::Init()
-	{
-		return TRUE;
-	}
-
-	void AcceptorRunnable::Init(WSAEVENT event, WaitEventHandler* handler)
-	{
-		Event = event;
-		WaitHandler = handler;
-	}
-
-	DWORD AcceptorRunnable::Run()
-	{
-		for(;;)
-		{
-			DWORD WaitMilliSecond = 50;
-
-			DWORD Index	= WaitForMultipleObjects(
-				1,
-				&Event,
-				FALSE,
-				WaitMilliSecond
-				);
-
-			if (Index == WAIT_IO_COMPLETION)
-			{
-				WaitHandler->HandleEvent();
-			}
-			else if (Index == WAIT_TIMEOUT)
-			{		
-			}
-			else
-			{
-			}
-		}
-
-	}
 }
