@@ -458,6 +458,14 @@
 				Name="RTTI"
 				>
 			</Filter>
+			<Filter
+				Name="Utilities"
+				>
+				<File
+					RelativePath=".\src\ProcessUtil.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -753,6 +761,14 @@
 				>
 				<File
 					RelativePath=".\inc\if_.hpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Utilities"
+				>
+				<File
+					RelativePath=".\inc\ProcessUtil.h"
 					>
 				</File>
 			</Filter>

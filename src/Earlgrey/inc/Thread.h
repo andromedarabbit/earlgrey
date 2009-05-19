@@ -42,13 +42,6 @@ namespace Earlgrey
 		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
 		void SetPriority(INT priority);
 
-		//! \todo 요 함수는 나중에 적당한 곳에 옮겨야함...
-		static DWORD GetProcessorCount()
-		{	
-			SYSTEM_INFO sysinfo;
-			GetSystemInfo(&sysinfo);
-			return sysinfo.dwNumberOfProcessors;	
-		}
 		HANDLE GetWindowHandle() { return _thread; }
 
 	private:
