@@ -56,7 +56,10 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		SetName( threadName );
+		if (threadName && strlen(threadName) > 0)
+		{
+			SetName( threadName );
+		}
 
 		return TRUE;
 	}
