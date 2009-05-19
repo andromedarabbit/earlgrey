@@ -343,7 +343,7 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Thread"
+				Name="ProcessThread"
 				>
 				<File
 					RelativePath=".\src\NoLock.cpp"
@@ -426,6 +426,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Environment.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\File.cpp"
 					>
 				</File>
@@ -446,10 +450,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\SystemInfo.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Thread.cpp"
 					>
 				</File>
@@ -461,14 +461,6 @@
 			<Filter
 				Name="RTTI"
 				>
-			</Filter>
-			<Filter
-				Name="Utilities"
-				>
-				<File
-					RelativePath=".\src\ProcessUtil.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Algorithm"
@@ -489,19 +481,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\inc\EarlgreyMath.h"
-				>
-			</File>
-			<File
 				RelativePath=".\inc\EarlgreyPrivate.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\Macros.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\numeric_cast.hpp"
 				>
 			</File>
 			<File
@@ -545,10 +529,14 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Thread"
+				Name="ProcessThread"
 				>
 				<File
 					RelativePath=".\inc\NoLock.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ProcessInitializer.h"
 					>
 				</File>
 				<File
@@ -668,15 +656,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Environment.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\File.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\Path.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\ProcessInitializer.h"
 					>
 				</File>
 				<File
@@ -689,10 +677,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\StringHelper.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\SystemInfo.h"
 					>
 				</File>
 				<File
@@ -785,10 +769,14 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Utilities"
+				Name="Math"
 				>
 				<File
-					RelativePath=".\inc\ProcessUtil.h"
+					RelativePath=".\inc\EarlgreyMath.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\numeric_cast.hpp"
 					>
 				</File>
 			</Filter>

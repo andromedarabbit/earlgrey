@@ -371,6 +371,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\EnvironmentTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LockfreeQueueTest.cpp"
 				>
 			</File>
@@ -448,10 +452,6 @@
 			</File>
 			<File
 				RelativePath=".\src\StringTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SystemInfoTest.cpp"
 				>
 			</File>
 			<File
