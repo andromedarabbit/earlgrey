@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Path.h"
-#include "SystemInfo.h"
+#include "Environment.h"
 #include "StlCustom.h"
 
 using namespace Earlgrey;
@@ -54,7 +54,7 @@ namespace Earlgrey
 
 		TEST(PathTest, Exists)
 		{
-			_txstring fullPath = SystemInfo::BaseDirectory();
+			_txstring fullPath = Environment::BaseDirectory();
 			fullPath = Path::Combine(fullPath, TEXT("..\\bin\\"));
 									
 			ASSERT_TRUE(Path::Exists(fullPath));

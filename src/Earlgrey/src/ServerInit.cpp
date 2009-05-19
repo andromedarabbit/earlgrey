@@ -8,7 +8,7 @@
 #include "Acceptor.h"
 #include "IOCP.h"
 #include "Connector.h"
-#include "ProcessUtil.h"
+#include "Environment.h"
 
 namespace Earlgrey
 {
@@ -21,7 +21,7 @@ namespace Earlgrey
 		SocketSubsystem::InitializeSubSystem();
 
 		// Create IO Thread
-		DWORD IOThreadCount = Utility::GetProcessorCount();
+		DWORD IOThreadCount = Environment::GetProcessorCount();
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{

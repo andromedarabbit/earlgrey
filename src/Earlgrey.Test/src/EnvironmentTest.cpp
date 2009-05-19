@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SystemInfo.h"
+#include "Environment.h"
 #include "StlCustom.h"
 #include "StringHelper.h"
 
@@ -10,12 +10,10 @@ namespace Earlgrey
 	namespace Test
 	{	
 		//! \note 임시 조치
-		TEST(SystemInfoTest, BaseDirectory)
-		{
-			SystemInfo info;
-			
+		TEST(EnvironmentTest, BaseDirectory)
+		{	
 			// 예상값: "c:\workspace\earlgrey\src\Win32-Debug\bin"	
-			_txstring directory = info.BaseDirectory();
+			_txstring directory = Environment::BaseDirectory();
 			
 			// 나온 값이 bin으로 끝나는지 확인한다.
 			_txstring suffix = directory.substr(directory.length() - 3, 3);
