@@ -14,7 +14,7 @@ namespace Earlgrey
 			template<typename Target, typename Source>
 			struct signed_to_unsigned_converter
 			{
-				__declspec(noinline) static Target convert(Source no)
+				static Target convert(Source no)
 				{
 					// 같은 타입 간의 변환은 허용하지 않는다.
 					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false); 
@@ -41,7 +41,7 @@ namespace Earlgrey
 			template<typename Target, typename Source>
 			struct unsigned_to_signed_converter
 			{
-				__declspec(noinline) static Target convert(Source no)
+				static Target convert(Source no)
 				{
 					EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
 					EARLGREY_STATIC_ASSERT(
