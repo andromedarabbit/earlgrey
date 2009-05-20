@@ -101,7 +101,7 @@ namespace Earlgrey
 			const size_type count = NumberOfBlocks();
 			EARLGREY_ASSERT(count > 0);
 
-			for (int i = 0; i < count; i++)
+			for (size_type i = 0; i < count; i++)
 			{
 				MemoryBlock * node = reinterpret_cast<MemoryBlock*>(newChunk + m_BlockSize * i);
 				EARLGREY_ASSERT(node != NULL);
