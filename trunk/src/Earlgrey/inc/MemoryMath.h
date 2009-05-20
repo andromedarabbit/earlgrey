@@ -12,7 +12,10 @@ namespace Earlgrey
 		{
 			EARLGREY_ASSERT(offset >= 0);
 			EARLGREY_ASSERT(std::numeric_limits<IntType>::is_integer == true);
-			return alignment + ((offset - 1) & ~(alignment - 1));
+
+			IntType newOffset = alignment + ((offset - 1) & ~(alignment - 1));
+			EARLGREY_ASSERT(newOffset >= offset);
+			return newOffset;
 		}
 	}
 }
