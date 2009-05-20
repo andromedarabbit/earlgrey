@@ -22,6 +22,11 @@ namespace Earlgrey
 			return this + 1;
 		}
 
+		inline MemoryBlock* GetNext()
+		{
+			return reinterpret_cast<MemoryBlock*>(m_Item.Next);
+		}
+
 		inline size_type BlockSize() const
 		{
 			return m_BlockSize;
@@ -42,13 +47,22 @@ namespace Earlgrey
 			, m_ChunkSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) )
 			// , m_NumberOfBlocks( m_ChunkSize / m_BlockSize )
 		{
-			EARLGREY_ASSERT(chunkSize >= blockSize);
-			EARLGREY_ASSERT(chunkSize > 0 && blockSize > 0);
-			// EARLGREY_ASSERT( Math::IsPowerOf2(blockSize) );
-
-			// 강제할 필요는 없지만, 되도록 매개변수를 던지기 전에 바이트 수를 생각해보면 좋겠다.
-			// EARLGREY_ASSERT( m_ChunkSize % blockSize == 0 ); 
+			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
+			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
+			EARLGREY_ASSERT(NumberOfBlocks() > 0);
 		}
+
+		//! \note 위의 생성자보다 이 생성자가 더 나아보이는데 검토하자.
+		/*
+		explicit SuperMemoryBlock(size_type blockSize, size_type numberOfBlocks)
+			: m_InternalBlockSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT, sizeof(MemoryBlock) + blockSize) )
+			, m_ChunkSize( m_InternalBlockSize * numberOfBlocks)
+		{
+			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
+			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
+			EARLGREY_ASSERT(NumberOfBlocks() > 0);
+		}
+		*/
 
 		inline size_type ChunkSize() const
 		{
@@ -79,7 +93,7 @@ namespace Earlgrey
 		}
 
 	private:
-		void * AllocChunk()
+		inline void * AllocChunk()
 		{
 			size_type bytes = Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_ChunkSize);
 
@@ -94,22 +108,7 @@ namespace Earlgrey
 			return chunk;
 		}
 
-		void CreateFreeNodes()
-		{
-			BYTE * newChunk = static_cast<BYTE*>( AllocChunk() );
-
-			const size_type count = NumberOfBlocks();
-			EARLGREY_ASSERT(count > 0);
-
-			for (size_type i = 0; i < count; i++)
-			{
-				MemoryBlock * node = reinterpret_cast<MemoryBlock*>(newChunk + m_InternalBlockSize * i);
-				EARLGREY_ASSERT(node != NULL);
-				
-				new( reinterpret_cast<void*>(node)) MemoryBlock(m_InternalBlockSize); // 생성자 호출
-				CreateFreeNode(node);
-			}
-		}
+		void CreateFreeNodes();
 
 		inline void CreateFreeNode(MemoryBlock * node)
 		{
