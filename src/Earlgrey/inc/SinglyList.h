@@ -22,7 +22,7 @@ namespace Earlgrey
 	}
 
 
-	inline SinglyListEntry* InterlockedPushEntrySinglyList(__inout SinglyListHead* head)
+	inline SinglyListEntry* InterlockedPopEntrySinglyList(__inout SinglyListHead* head)
 	{
 		// The return value is a pointer to the item removed from the list. If the list is empty, the return value is NULL.
 		return InterlockedPopEntrySList(head);

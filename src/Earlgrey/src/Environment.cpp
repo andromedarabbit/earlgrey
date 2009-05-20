@@ -18,6 +18,7 @@ namespace Earlgrey
 		return sysinfo.dwNumberOfProcessors;	
 	}
 
+	//! \ref http://www.tipssoft.com/bulletin/board.php?bo_table=QnA&wr_id=2395
 	_txstring Environment::BaseDirectory()
 	{
 		const DWORD bufferSize = MAX_PATH + 1;
