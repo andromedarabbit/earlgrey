@@ -151,6 +151,7 @@ namespace Earlgrey
 			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(0));
 			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1));
 			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(2));
+			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(64));
 			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(128));
 			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1024));
 
