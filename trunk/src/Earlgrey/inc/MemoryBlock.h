@@ -44,10 +44,10 @@ namespace Earlgrey
 		{
 			EARLGREY_ASSERT(chunkSize >= blockSize);
 			EARLGREY_ASSERT(chunkSize > 0 && blockSize > 0);
-			EARLGREY_ASSERT( Math::IsPowerOf2(blockSize) );
+			// EARLGREY_ASSERT( Math::IsPowerOf2(blockSize) );
 
 			// 강제할 필요는 없지만, 되도록 매개변수를 던지기 전에 바이트 수를 생각해보면 좋겠다.
-			EARLGREY_ASSERT( m_ChunkSize % blockSize == 0 ); 
+			// EARLGREY_ASSERT( m_ChunkSize % blockSize == 0 ); 
 		}
 
 		inline size_type ChunkSize() const
