@@ -387,6 +387,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MemoryBlockTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MemoryMathTest.cpp"
 				>
 			</File>
