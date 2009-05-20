@@ -21,7 +21,7 @@ namespace Earlgrey
 		SocketSubsystem::InitializeSubSystem();
 
 		// Create IO Thread
-		DWORD IOThreadCount = Environment::GetProcessorCount();
+		DWORD IOThreadCount = Environment::ProcessorCount();
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
