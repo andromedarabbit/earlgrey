@@ -53,7 +53,7 @@
 <Target Name="CleanUnitTestArtifacts">
 	<Message Text="타겟: CleanUnitTestArtifacts" />
 	
-	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" IgnoreExitCode="true" />
+	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" ContinueOnError="true" IgnoreExitCode="true" />
 </Target>
 
 <Target Name="Clean">  
@@ -76,7 +76,7 @@
 
 <Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
 	<Message Text="타겟: TestAlone" />
-	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;" WorkingDirectory="$(BinDir)" ContinueOnError="true" />
+	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;" WorkingDirectory="$(BinDir)" ContinueOnError="true"  IgnoreExitCode="true" />
 </Target>
 
 </Project>
