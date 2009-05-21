@@ -17,9 +17,9 @@ namespace Earlgrey
 			SuperMemoryBlock::size_type blockSize = 64;
 			SuperMemoryBlock superBlock(chunkSize, blockSize);
 
-			ASSERT_EQ(64, superBlock.BlockSize());
-			ASSERT_EQ(4096, superBlock.ChunkSize());
-			ASSERT_GT(64, superBlock.NumberOfBlocks());
+			ASSERT_EQ(static_cast<size_t>(64), superBlock.BlockSize());
+			ASSERT_EQ(static_cast<size_t>(4096), superBlock.ChunkSize());
+			ASSERT_GT(static_cast<size_t>(64), superBlock.NumberOfBlocks());
 		}
 
 		TEST(MemoryBlockTest, ConstructorWithChunkSize2)
@@ -28,9 +28,9 @@ namespace Earlgrey
 			SuperMemoryBlock::size_type blockSize = 63;
 			SuperMemoryBlock superBlock(chunkSize, blockSize);
 
-			ASSERT_EQ(64, superBlock.BlockSize());
-			ASSERT_EQ(4096, superBlock.ChunkSize());
-			ASSERT_GT(64, superBlock.NumberOfBlocks());
+			ASSERT_EQ(static_cast<size_t>(64), superBlock.BlockSize());
+			ASSERT_EQ(static_cast<size_t>(4096), superBlock.ChunkSize());
+			ASSERT_GT(static_cast<size_t>(64), superBlock.NumberOfBlocks());
 		}
 
 		
