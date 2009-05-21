@@ -42,31 +42,41 @@ namespace Earlgrey
 	public:
 		typedef MemoryBlock::size_type size_type; 
 		
+
 		explicit SuperMemoryBlock(size_type chunkSize, size_type blockSize)
 			: m_InternalBlockSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT, sizeof(MemoryBlock) + blockSize) )
 			, m_ChunkSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) )
-			// , m_NumberOfBlocks( m_ChunkSize / m_BlockSize )
+			, m_BlockHead()
 		{
 			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
 			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
 			EARLGREY_ASSERT(NumberOfBlocks() > 0);
 		}
-
-		//! \note 위의 생성자보다 이 생성자가 더 나아보이는데 검토하자.
-		/*
-		explicit SuperMemoryBlock(size_type blockSize, size_type numberOfBlocks)
+		
+		explicit SuperMemoryBlock(size_type blockSize, unsigned short numberOfBlocks)
 			: m_InternalBlockSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT, sizeof(MemoryBlock) + blockSize) )
-			, m_ChunkSize( m_InternalBlockSize * numberOfBlocks)
+			, m_ChunkSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_InternalBlockSize * numberOfBlocks) )
+			, m_BlockHead()
 		{
 			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
 			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
-			EARLGREY_ASSERT(NumberOfBlocks() > 0);
+			EARLGREY_ASSERT(NumberOfBlocks() >= numberOfBlocks);
 		}
-		*/
+		
+
+		inline size_type InternalChunkSize() const
+		{
+			return m_ChunkSize;
+		}
 
 		inline size_type ChunkSize() const
 		{
-			return m_ChunkSize;
+			return BlockSize() * NumberOfBlocks();
+		}
+
+		inline size_type InternalBlockSize() const
+		{
+			return m_InternalBlockSize;
 		}
 
 		inline size_type BlockSize() const
@@ -74,23 +84,25 @@ namespace Earlgrey
 			return m_InternalBlockSize - sizeof(MemoryBlock);
 		}
 
+		// \note 이 값이 의미가 있나? 어차피 Alloc할 때마다 메모리 블록을 빼가는데?
 		inline size_type NumberOfBlocks() const
 		{
 			return m_ChunkSize / m_InternalBlockSize;
 		}
 
+		//! \note Free는 없나?
 		inline MemoryBlock * Alloc()
 		{
 			for(;;)
 			{
-				// MemoryBlock * node = static_cast<MemoryBlock*>(InterlockedPopEntrySinglyList(&m_BlockHead));
-				MemoryBlock * node = reinterpret_cast<MemoryBlock*>(InterlockedPopEntrySinglyList(&m_BlockHead));
-				if(node != NULL)
-					return node;
+				MemoryBlock * block = reinterpret_cast<MemoryBlock*>(InterlockedPopEntrySinglyList(&m_BlockHead));
+				if(block != NULL)
+					return block;
 
 				CreateFreeNodes();
 			}
 		}
+
 
 		static MemoryBlock * AllocLargeObjectHeap(size_type bytes, DWORD alignment = EARLGREY_DEFAULT_PAGE_ALIGNMENT);
 
@@ -120,8 +132,8 @@ namespace Earlgrey
 		
 
 	private:
-		size_type m_ChunkSize;
 		size_type m_InternalBlockSize;
+		size_type m_ChunkSize;
 
 		SinglyListHead m_BlockHead;
 
