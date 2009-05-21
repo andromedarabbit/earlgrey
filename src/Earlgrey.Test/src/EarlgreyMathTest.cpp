@@ -146,6 +146,25 @@ namespace Earlgrey
 			ASSERT_EQ(1, Earlgrey::Math::Log2Static<n5>());
 		}
 
+		TEST(EarlgreyMathTest, PowStatic1)
+		{
+			ASSERT_EQ(1, Earlgrey::Math::PowStatic<0>(0));
+
+			ASSERT_EQ(1, Earlgrey::Math::PowStatic<0>(2));
+			ASSERT_EQ(2, Earlgrey::Math::PowStatic<1>(2));
+			ASSERT_EQ(4, Earlgrey::Math::PowStatic<2>(2));
+			ASSERT_EQ(8, Earlgrey::Math::PowStatic<3>(2));
+			ASSERT_EQ(16, Earlgrey::Math::PowStatic<4>(2));
+			
+			ASSERT_EQ(32768, Earlgrey::Math::PowStatic<15>(2));
+		}
+
+		TEST(EarlgreyMathTest, PowStatic2)
+		{
+			size_t ret = (size_t)Earlgrey::Math::PowStatic<15>(2);
+			ASSERT_EQ(32768, ret);
+		}
+
 		TEST(EarlgreyMathTest, IsPowerOf2)
 		{
 			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(0));
