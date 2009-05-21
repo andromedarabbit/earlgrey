@@ -10,13 +10,17 @@ namespace Earlgrey
 {
 	namespace Test
 	{	
-		void ASSERT_ENDS_WITH(const _txstring& expected, const _txstring& value)
+		inline void ASSERT_ENDS_WITH(const _txstring& expected, const _txstring& value)
 		{
-			size_t suffixLength = expected.length();
+			const size_t valueLength = value.length();
+			const size_t suffixLength = expected.length();			
+
+			ASSERT_GE(valueLength, suffixLength);
 
 			_txstring suffix = value.substr(value.length() - suffixLength, suffixLength);
 
-			ASSERT_TRUE(StringHelper::EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected));
+			BOOL endsWith = StringHelper::EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected);
+			ASSERT_TRUE(endsWith);
 		}
 
 		//! \note 임시 조치
@@ -24,7 +28,7 @@ namespace Earlgrey
 		{	
 			// 예상값: "c:\workspace\earlgrey\src\Win32-Debug\bin"	
 			_txstring directory = Environment::BaseDirectory();
-			
+
 			// 나온 값이 bin으로 끝나는지 확인한다.
 			_txstring expected = TEXT("bin");
 			ASSERT_ENDS_WITH(expected, directory);
@@ -36,7 +40,7 @@ namespace Earlgrey
 			DWORD expected = 1;
 			ASSERT_GE(count, expected);
 		}
-		
+
 		TEST(EnvironmentTest, GetCurrentDirectory)
 		{
 			// 예상값: "c:\workspace\earlgrey\trunk\src\Earlgrey.Test"
