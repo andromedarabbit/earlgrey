@@ -57,7 +57,7 @@ namespace Earlgrey
 		{
 			// ¿¹»ó°ª: "c:\workspace\earlgrey\trunk\src\Earlgrey.Test"
 			_txstring directory = Environment::CurrentDirectory();
-			_txstring expected = TEXT("Earlgrey.Test");
+			_txstring expected = TEXT("src");
 			ASSERT_CONTAINS(directory, expected);
 		}
 
@@ -74,7 +74,7 @@ namespace Earlgrey
 
 			ASSERT_TRUE(Environment::CurrentDirectory(oldDirectory));
 			changedDirectory = Environment::CurrentDirectory();
-			expected = TEXT("Earlgrey.Test");
+			expected = TEXT("src");
 			ASSERT_CONTAINS(changedDirectory, expected);
 		}
 
