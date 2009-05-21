@@ -3,6 +3,17 @@
 
 namespace Earlgrey
 {
+	MemoryBlock * SuperMemoryBlock::AllocLargeObjectHeap(size_type bytes, DWORD alignment)
+	{
+		MemoryBlock * node = static_cast<MemoryBlock*>(
+			_aligned_malloc(sizeof(MemoryBlock) + bytes, alignment)
+			);
+		EARLGREY_ASSERT(node != NULL);
+
+		new( reinterpret_cast<void*>(node)) MemoryBlock(bytes);
+		return node;
+	}
+
 	void SuperMemoryBlock::CreateFreeNodes()
 	{
 		BYTE * newChunk = static_cast<BYTE*>( AllocChunk() );

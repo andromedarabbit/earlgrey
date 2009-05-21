@@ -79,7 +79,7 @@ namespace Earlgrey
 			return m_ChunkSize / m_InternalBlockSize;
 		}
 
-		inline MemoryBlock * Data()
+		inline MemoryBlock * Alloc()
 		{
 			for(;;)
 			{
@@ -91,6 +91,8 @@ namespace Earlgrey
 				CreateFreeNodes();
 			}
 		}
+
+		static MemoryBlock * AllocLargeObjectHeap(size_type bytes, DWORD alignment = EARLGREY_DEFAULT_PAGE_ALIGNMENT);
 
 	private:
 		inline void * AllocChunk()
