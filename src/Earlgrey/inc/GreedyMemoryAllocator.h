@@ -10,15 +10,10 @@ namespace Earlgrey
 {
 
 	//! \todo 클래스 이름을 바꾸면 좋겠다.
-	class MemoryManager : private Uncopyable
+	//! \note Alignment등도 사용자가 바꾸면 좋을까?
+	class GreedyMemoryAllocator : private Uncopyable
 	{
 	public:
-		/*
-		enum 
-		{
-			DEFAULT_NUMBER_OF_MEMORY_BLOCKS_PER_AN_ALLOCATION = 1024;
-		};
-		*/
 		enum
 		{
 			DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC = EARLGREY_DEFAULT_PAGE_ALIGNMENT * 8
@@ -26,7 +21,11 @@ namespace Earlgrey
 
 		typedef SuperMemoryBlock::size_type size_type;
 
-		explicit MemoryManager(size_type minObjectBytes, size_type maxObjectBytes, size_t memoryChunkBytesPerAlloc = DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC)
+		explicit GreedyMemoryAllocator(
+			size_type minObjectBytes
+			, size_type maxObjectBytes
+			, size_type memoryChunkBytesPerAlloc = DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC
+			)
 			: m_MinObjectBytes(minObjectBytes)
 			, m_MaxObjectBytes(maxObjectBytes)
 			, m_SuperMemoryBlocks(NULL)
@@ -42,15 +41,15 @@ namespace Earlgrey
 			m_SuperMemoryBlocks = new SuperMemoryBlock*[numberOfSuperMemoryBlocks];
 			EARLGREY_ASSERT(m_SuperMemoryBlocks != NULL);
 
-			for(size_type i = 1; i <= numberOfSuperMemoryBlocks; i++)
+			for(size_type i = 0; i < numberOfSuperMemoryBlocks; i++)
 			{
-				size_t blockSize = m_MinObjectBytes * i;
+				size_type blockSize = m_MinObjectBytes * (i + 1);
 				m_SuperMemoryBlocks[i] = new SuperMemoryBlock(memoryChunkBytesPerAlloc, blockSize);
 			}
 		}
 
 		//! \todo 블록 해제
-		~MemoryManager()
+		~GreedyMemoryAllocator()
 		{
 			
 		}
@@ -70,7 +69,7 @@ namespace Earlgrey
 			return m_MaxObjectBytes + 1;
 		}
 
-		void * Malloc(size_type bytes)
+		void * Alloc(size_type bytes)
 		{
 			// 상당한 크기의 메모리 블락을 요구하면 alloc을 따로 받는다.
 			// 왜? 단편화 현상을 걱정할 이유가 없으니까!
@@ -80,22 +79,38 @@ namespace Earlgrey
 				return memoryBlock->Data();
 			}
 
-			return NULL;
+			SuperMemoryBlock * superMemoryBlock = FindSuperMemoryBlock(bytes);
+			EARLGREY_ASSERT(superMemoryBlock != NULL);
+
+			return superMemoryBlock->Alloc()->Data();
 		}
 		
 
 		inline void Free(void * ptr)
 		{
-			MemoryBlock *memoryBlock = reinterpret_cast<MemoryBlock*>(ptr) - 1;
+			MemoryBlock * memoryBlock = reinterpret_cast<MemoryBlock*>(ptr) - 1;
 			size_t blockSize = memoryBlock->BlockSize();
-			EARLGREY_ASSERT(blockSize > 0);
-
+			
 			if(blockSize >= MinLargeObjectBytes()) 
 			{
-				_aligned_free(ptr);
+				return SuperMemoryBlock::FreeLargeObjectHeap(memoryBlock);
 			}
+
+			SuperMemoryBlock * superMemoryBlock = FindSuperMemoryBlock(blockSize);
+			EARLGREY_ASSERT(superMemoryBlock != NULL);
+
+			superMemoryBlock->Free(memoryBlock);
 		}
 
+	private:
+		inline SuperMemoryBlock* FindSuperMemoryBlock(size_type bytes)
+		{
+			EARLGREY_ASSERT(bytes > 0);
+
+			// size_type index = Math::NewMemoryAligmentPadding(m_MinObjectBytes, bytes) / m_MinObjectBytes;
+			size_type index = (bytes - 1) / m_MinObjectBytes;
+			return m_SuperMemoryBlocks[index];
+		}
 
 	private:
 		// unsigned short m_LowerLimitN;
@@ -108,5 +123,9 @@ namespace Earlgrey
 
 	};
 
+
+	typedef 
+		Loki::SingletonHolder<GreedyMemoryAllocator, StackMemoryManager::CreateUsingNew, Loki::DefaultLifetime, Loki::SingleThreaded> 
+		gGreedyMemoryManager;
 
 }

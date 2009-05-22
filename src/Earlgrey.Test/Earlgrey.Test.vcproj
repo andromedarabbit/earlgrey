@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\GreedyAllocatorTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LockfreeQueueTest.cpp"
 				>
 			</File>
@@ -388,10 +392,6 @@
 			</File>
 			<File
 				RelativePath=".\src\MemoryBlockTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\MemoryManagerTest.cpp"
 				>
 			</File>
 			<File

@@ -18,10 +18,10 @@ namespace Earlgrey
 					alloc.malloc(size)
 					);
 
-				ASSERT_EQ(0, charArray[0]);
-				ASSERT_EQ(0, charArray[count - 1]);
+				ASSERT_EQ(UINT_MAX, charArray[0]);
+				ASSERT_EQ(UINT_MAX, charArray[count - 1]);
 
-				const char expectedChar = std::numeric_limits<char>::max();
+				const char expectedChar = std::numeric_limits<char>::min();
 
 				memset(charArray, expectedChar, count);
 
@@ -30,7 +30,7 @@ namespace Earlgrey
 			
 			}
 
-			ASSERT_EQ(0, charArray[0]);
+			ASSERT_EQ(UINT_MAX, charArray[0]);
 		}
 #endif
 	}

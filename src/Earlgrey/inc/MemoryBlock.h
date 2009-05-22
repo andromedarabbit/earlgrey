@@ -97,16 +97,41 @@ namespace Earlgrey
 			{
 				MemoryBlock * block = reinterpret_cast<MemoryBlock*>(InterlockedPopEntrySinglyList(&m_BlockHead));
 				if(block != NULL)
+				{
+#ifdef _DEBUG
+					SetDebugBit(block, std::numeric_limits<UINT>::max());
+#endif
 					return block;
+				}
 
 				CreateFreeNodes();
 			}
 		}
 
+		inline void Free(MemoryBlock * block)
+		{
+			EARLGREY_ASSERT(block->BlockSize() == BlockSize());
+
+#ifdef _DEBUG
+			SetDebugBit(block, std::numeric_limits<UINT>::min());
+#endif
+
+			InterlockedPushEntrySinglyList(&m_BlockHead, &block->m_Item);
+		}
 
 		static MemoryBlock * AllocLargeObjectHeap(size_type bytes, DWORD alignment = EARLGREY_DEFAULT_PAGE_ALIGNMENT);
+		static void FreeLargeObjectHeap(MemoryBlock * block);
 
 	private:
+
+#ifdef _DEBUG
+		static void SetDebugBit(MemoryBlock * block, int bits)
+		{
+			const size_type bytes = block->BlockSize();
+			memset(block->Data(), bits, bytes / sizeof(char));
+		}
+#endif
+
 		inline void * AllocChunk()
 		{
 			size_type bytes = Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_ChunkSize);
@@ -126,7 +151,7 @@ namespace Earlgrey
 
 		inline void CreateFreeNode(MemoryBlock * node)
 		{
-			EARLGREY_ASSERT(node->m_BlockSize == m_InternalBlockSize);
+			EARLGREY_ASSERT(node->m_BlockSize == BlockSize());
 			InterlockedPushEntrySinglyList(&m_BlockHead, &node->m_Item);
 		}
 		
