@@ -122,7 +122,6 @@ namespace Earlgrey
 
 
 #ifdef _DEBUG
-
 		inline void SetDebugBit()
 		{
 			pointer empty_space_begin = m_buffer_begin + m_current_pos;
@@ -130,9 +129,10 @@ namespace Earlgrey
 			if(count == 0)
 				return;
 
-			memset(empty_space_begin, 0, count);
+			memset(empty_space_begin, UINT_MAX, count);
 		}
 #endif
+
 	private:
 		enum { BOTTOM_NO_OF_MARKING_COUNT = -1};
 

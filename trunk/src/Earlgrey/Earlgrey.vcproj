@@ -596,15 +596,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\GreedyAllocator.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\MemoryBlock.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\MemoryConfig.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\MemoryManager.h"
 					>
 				</File>
 				<File
@@ -625,6 +625,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\StlCustomAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlGreedyAllocator.hpp"
 					>
 				</File>
 				<File

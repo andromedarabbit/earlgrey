@@ -17,5 +17,15 @@ namespace Earlgrey
 			EARLGREY_ASSERT(newOffset >= offset);
 			return newOffset;
 		}
+		
+		template<typename IntType>
+		inline IntType NewMemoryAligmentPadding(IntType alignment, IntType offset)
+		{
+			IntType newOffset = NewMemoryAligmentOffset(alignment, offset);
+			return newOffset - offset;
+		}
+		
+
+
 	}
 }
