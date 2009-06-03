@@ -9,7 +9,11 @@
 
 #include <stdio.h>
 #include <tchar.h>
+#include <stdlib.h>
+//#include <crtdbg.h>
+#include <memory>
 
-
+#include <Winsock2.h>
+#include <windows.h>
 
 // TODO: reference additional headers your program requires here

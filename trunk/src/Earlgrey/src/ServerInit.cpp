@@ -1,18 +1,12 @@
 #include "stdafx.h"
+
 #include "ServerInit.h"
 
-#include "Thread.h"
-
-#include "Socket.h"
-#include "Proactor.h"
-#include "Acceptor.h"
-#include "IOCP.h"
-#include "Connector.h"
 #include "Environment.h"
 
 namespace Earlgrey
 {
-	void ServerInit()
+	void Init()
 	{
 		// Initialize IOCP
 		ProactorSingleton::Instance().Initialize();
@@ -32,17 +26,17 @@ namespace Earlgrey
 
 	}
 
-	void ServerCreate(DWORD Port)
+	void ServerCreate(DWORD /*Port*/)
 	{
-		Acceptor* acceptor = new Acceptor(Port);
-		acceptor->Initialize();
+		/*Acceptor* acceptor = new Acceptor(Port);
+		acceptor->Initialize();*/
 	}
 
-	void ClientCreate(DWORD Port)
+	void ClientCreate(DWORD /*Port*/)
 	{
-		Connector* connector = new Connector();
-		char* ServerIP = "localhost";//! TODO : type and ip
-		connector->Connect(ServerIP, Port);
+		//Connector* connector = new Connector();
+		//char* ServerIP = "localhost";//! TODO : type and ip
+		//connector->Connect(ServerIP, Port);
 	}
 
 	void ServerCreated()

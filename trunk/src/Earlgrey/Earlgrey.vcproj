@@ -394,6 +394,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\PacketHandler.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Proactor.cpp"
 					>
 				</File>
@@ -721,6 +725,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\NetworkBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\PacketHandler.h"
 					>
 				</File>
 				<File

@@ -4,7 +4,6 @@
 #include <Loki/Threads.h> // for Loki::SingleThreaded
 #include "NoLock.h"
 #include "StlCustom.h"
-#include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
@@ -118,13 +117,14 @@ namespace Earlgrey
 			Handler_ = InHandler;
 		};
 
-		virtual ~AsyncResult() {};
+		~AsyncResult() {};
 
 		virtual void Completed() = 0;
 		virtual void Failed() = 0;
 		virtual void TimeOut() = 0;
 
 		void TransferredBytes(DWORD bytes) { TransferredBytes_ = bytes; };
+		DWORD TransferredBytes() { return TransferredBytes_; }
 		void Status(DWORD status) { Status_ = status; };
 		void Error(DWORD error) { Error_ = error; };
 

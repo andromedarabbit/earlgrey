@@ -1,12 +1,9 @@
 #pragma once 
 
-
-#include "Proactor.h"
-#include "NetworkBuffer.h"
-
 namespace Earlgrey
 {
-
+	class CompletionHandler;
+	class NetworkBuffer;
 	class AsyncStream
 	{
 	public:
