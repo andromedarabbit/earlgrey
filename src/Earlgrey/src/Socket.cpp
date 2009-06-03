@@ -1,4 +1,6 @@
 #include "stdafx.h"
+
+#include "ServerInit.h"
 #include "Socket.h"
 
 namespace Earlgrey
@@ -15,7 +17,8 @@ namespace Earlgrey
 		Zero = 0;
 		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
 
-		//_PacketBuffer->Initialize(); //! todo
+		_PacketBuffer = new NetworkBuffer();
+		_PacketBuffer->Initialize();
 
 		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)_Handle, Handler))
 		{
@@ -39,7 +42,7 @@ namespace Earlgrey
 		setsockopt(OldSocket, SOL_SOCKET, SO_LINGER, (const char*)&Linger, sizeof(Linger));
 		closesocket(OldSocket);
 
-		//_PacketBuffer->
+		delete _PacketBuffer;//TODO
 	}
 
 	BOOL AsyncStream::Post()
@@ -49,19 +52,20 @@ namespace Earlgrey
 
 	BOOL AsyncStream::AsyncRead()
 	{
-		WSABUF* SocketBuffers = 0; //_PacketBuffer->GetSockRecvBuffer()
+		WSABUF* SocketBuffers = _PacketBuffer->GetSockRecvBuffer();
 		OVERLAPPED* Overlapped = new AsyncReadResult(_Handler);
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
-		int ret=WSARecv(_Handle, SocketBuffers, 1,
+		INT ret = ::WSARecv(_Handle, SocketBuffers, 1,
 			&ReceivedBytes, &Flags, Overlapped, NULL);
 
 		if(SOCKET_ERROR == ret)
 		{
-			int ErrCode = WSAGetLastError();
+			INT ErrCode = WSAGetLastError();
 			if(ErrCode != WSA_IO_PENDING)
-			{			
+			{
+				//delete Overlapped;???
 				return FALSE;
 			}
 		}
@@ -71,23 +75,25 @@ namespace Earlgrey
 	
 	BOOL AsyncStream::AsyncWrite()
 	{
-		WSABUF*	SocketBuffer = 0;//= _PacketBuffer->GetSendBuffer(); //! todo
+		WSABUF*	SocketBuffer = _PacketBuffer->GetSockSendBuffer();
 		DWORD	SentBytes;		
 		OVERLAPPED* Overlapped = new AsyncWriteResult(_Handler);
 
-		INT Error = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferSize(),
+		INT ret = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferSize(),
 			&SentBytes, 0, Overlapped, NULL);
 
-		if (Error != 0) 
+		if (SOCKET_ERROR == ret) 
 		{ 
-			if (Error != WSA_IO_PENDING) 
+			INT ErrCode = WSAGetLastError();
+			if (ErrCode != WSA_IO_PENDING) 
 			{
-				if (Error == WSAECONNRESET || Error == WSAEINVAL)
+				if (ErrCode == WSAECONNRESET || ErrCode == WSAEINVAL)
 				{
 				}
 				else
 				{
 				}
+				//delete Overlapped;//???
 				return FALSE;
 			} 
 		}

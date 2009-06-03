@@ -8,7 +8,7 @@ namespace Earlgrey
 	{
 		TEST(ClientCreateTest, ClientCreate)
 		{
-			ServerInit();
+			Init();
 			ServerCreate(100);
 			ClientCreate(100);
 		}

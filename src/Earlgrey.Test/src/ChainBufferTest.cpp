@@ -107,6 +107,17 @@ namespace Earlgrey
 			ASSERT_TRUE(it == buf.end());
 
 		}
+
+		TEST(ChainBufferTest, BasicBufferUse)
+		{
+			chain_buffer<basic_buffer<BYTE>> buf(1024);
+
+			basic_buffer<BYTE> bbuf(1);
+			BYTE tempStr = 'a';
+			bbuf.set(&tempStr , 1);
+
+			buf.set(&bbuf, bbuf.size());
+		}
 	}
 }
 

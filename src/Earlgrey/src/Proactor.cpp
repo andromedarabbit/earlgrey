@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 #include "Proactor.h"
 
 namespace Earlgrey
@@ -90,6 +91,12 @@ namespace Earlgrey
 	{
 		BOOL Result = FALSE;
 		DWORD WaitEventNumber = (DWORD)_Events.size();
+
+		if (WaitEventNumber == 0)
+		{
+			Sleep(WaitTime);			
+			return TRUE;
+		}
 
 		DWORD Index	= WaitForMultipleObjects(
 			WaitEventNumber,

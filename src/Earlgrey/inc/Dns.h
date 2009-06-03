@@ -1,5 +1,7 @@
 #pragma once 
+
 #include "Uncopyable.h"
+#include "ServerInit.h"
 
 namespace Earlgrey
 {

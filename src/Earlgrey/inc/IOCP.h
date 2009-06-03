@@ -1,6 +1,4 @@
 #pragma once 
-#include "Thread.h"
-#include "Proactor.h"
 
 namespace Earlgrey
 {

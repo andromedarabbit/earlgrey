@@ -2,9 +2,7 @@
 //
 
 #include "stdafx.h"
-
 #include "ServerInit.h"
-#include "Thread.h"
 
 using namespace Earlgrey;
 
@@ -29,12 +27,27 @@ public:
 	virtual void Exit() {}
 };
 
+class ServerConnection : public ConnectionHandler
+{
+public:
+	ServerConnection (HANDLE InHandle) 
+		: ConnectionHandler(InHandle)
+	{}
+	virtual ~ServerConnection () {}
+
+	virtual void Connected()
+	{
+		Stream.AsyncRead();
+	}
+};
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	ServerInit();
-	ServerCreate(100);
+	Init();
 
-	ClientCreate(100);
+	//ServerCreate(100);
+	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
+	acceptor->Initialize();
 
 	ServerCreated();
 

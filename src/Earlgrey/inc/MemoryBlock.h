@@ -99,7 +99,7 @@ namespace Earlgrey
 				if(block != NULL)
 				{
 #ifdef _DEBUG
-					SetDebugBit(block, std::numeric_limits<UINT>::max());
+					//SetDebugBit(block, std::numeric_limits<UINT>::max());
 #endif
 					return block;
 				}
@@ -113,7 +113,7 @@ namespace Earlgrey
 			EARLGREY_ASSERT(block->BlockSize() == BlockSize());
 
 #ifdef _DEBUG
-			SetDebugBit(block, std::numeric_limits<UINT>::min());
+			//SetDebugBit(block, std::numeric_limits<UINT>::min());
 #endif
 
 			InterlockedPushEntrySinglyList(&m_BlockHead, &block->m_Item);
