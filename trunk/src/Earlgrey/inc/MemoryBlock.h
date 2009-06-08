@@ -3,6 +3,10 @@
 #include "MemoryMath.h"
 #include "SinglyList.h"
 
+#include "Macros.h"
+// #undef min
+// #undef max 
+
 namespace Earlgrey
 {
 	class DECLSPEC_ALIGN(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT) MemoryBlock
@@ -99,7 +103,7 @@ namespace Earlgrey
 				if(block != NULL)
 				{
 #ifdef _DEBUG
-					//SetDebugBit(block, std::numeric_limits<UINT>::max());
+					SetDebugBit(block, std::numeric_limits<UINT>::max EARLGREY_PREVENT_MACRO_SUBSTITUTION ());
 #endif
 					return block;
 				}
@@ -113,7 +117,7 @@ namespace Earlgrey
 			EARLGREY_ASSERT(block->BlockSize() == BlockSize());
 
 #ifdef _DEBUG
-			//SetDebugBit(block, std::numeric_limits<UINT>::min());
+			SetDebugBit(block, std::numeric_limits<UINT>::min EARLGREY_PREVENT_MACRO_SUBSTITUTION ());
 #endif
 
 			InterlockedPushEntrySinglyList(&m_BlockHead, &block->m_Item);
