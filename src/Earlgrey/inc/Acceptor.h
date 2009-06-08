@@ -86,6 +86,13 @@ namespace Earlgrey
 
 		Stream.Open(AcceptorSocket, this); 
 
+		// AcceptEx를 안 쓰는 이유에 대한 양환씨의 설명.
+		/* 
+			accept 로 사용자처리에 문제가 생길까봐 
+			accept 는 따로 wait thread 가 iocp 와 분리되어 작업하려고 이런 구조를 사용했습니다. 
+			그래서 AcceptEX 를 사용하지 않음.. 64개라서 좀 문제가 될 수 있는게 빈번하게 접속되고 종료되는 경우 connection timeout이 종종 발생.. 
+			backlog 설정해주고 wait thread 는 accept만 하므로 크게 문제는 안되지만..
+			*/
 		AcceptorEvent = WSACreateEvent();
 		WSAEventSelect(AcceptorSocket, AcceptorEvent, FD_ACCEPT);		
 		AcceptProactorSingleton::Instance().RegisterHandler(AcceptorEvent, this);
