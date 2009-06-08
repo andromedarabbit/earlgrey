@@ -14,6 +14,8 @@
 #include <memory>
 
 #include <Winsock2.h>
+
+#define NOMINMAX // min, max 매크로 없애기
 #include <windows.h>
 
 // TODO: reference additional headers your program requires here
