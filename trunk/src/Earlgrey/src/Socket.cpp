@@ -57,13 +57,18 @@ namespace Earlgrey
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
-		INT ret = ::WSARecv(_Handle, SocketBuffers, 1,
-			&ReceivedBytes, &Flags, Overlapped, NULL);
+		INT ret = WSARecv(_Handle, 
+			SocketBuffers, 
+			1,
+			&ReceivedBytes, 
+			&Flags, 
+			Overlapped, 
+			NULL);
 
-		if(SOCKET_ERROR == ret)
+			if(SOCKET_ERROR == ret)
 		{
 			INT ErrCode = WSAGetLastError();
-			if(ErrCode != WSA_IO_PENDING)
+			if(ErrCode != WSA_IO_PENDING && ErrCode != WSAEWOULDBLOCK)
 			{
 				//delete Overlapped;???
 				return FALSE;
@@ -79,8 +84,13 @@ namespace Earlgrey
 		DWORD	SentBytes;		
 		OVERLAPPED* Overlapped = new AsyncWriteResult(_Handler);
 
-		INT ret = ::WSASend(_Handle, SocketBuffer, _PacketBuffer->GetBufferSize(),
-			&SentBytes, 0, Overlapped, NULL);
+		INT ret = WSASend(_Handle, 
+			SocketBuffer, 
+			_PacketBuffer->GetBufferSize(),
+			&SentBytes, 
+			0, 
+			Overlapped, 
+			NULL);
 
 		if (SOCKET_ERROR == ret) 
 		{ 

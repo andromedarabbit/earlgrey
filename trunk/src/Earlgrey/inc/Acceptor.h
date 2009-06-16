@@ -183,6 +183,7 @@ namespace Earlgrey
 
 		// 
 		virtual void Connected() {}
+		virtual void Disconnected() {}
 
 	public://¿”Ω√private:
 		SOCKET Socket;
