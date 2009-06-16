@@ -51,6 +51,7 @@ namespace Earlgrey
 
 		size_type capacity() const;
 		size_type size() const;
+		size_type chain_size() const;
 
 		reference front();
 		const_reference front() const;
@@ -135,6 +136,13 @@ namespace Earlgrey
 			size += (*it)->size();
 		}
 		return size;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename chain_buffer<T,A>::size_type chain_buffer<T,A>::chain_size() const
+	{
+		return m_buffer_list.size();
 	}
 
 	template <typename T, typename A>

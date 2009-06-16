@@ -30,6 +30,9 @@ namespace Earlgrey
 			DefaultTimeout = INFINITE
 		};
 
+		explicit Proactor() {}
+		~Proactor() {}
+
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
 		virtual BOOL DeregisterHandler(HANDLE Handle) = 0;
@@ -39,6 +42,9 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
+		explicit WinProactor() {}
+		virtual ~WinProactor() {}
+
 		BOOL Initialize();
 		
 		//Proactor Pattern Interface
@@ -62,6 +68,9 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
+		explicit AcceptProactor() {};
+		virtual ~AcceptProactor() {};
+
 		BOOL Initialize() {}
 
 		//Proactor Pattern Interface
@@ -90,7 +99,7 @@ namespace Earlgrey
 	{
 	public:
 		explicit CompletionHandler() {};
-		virtual ~CompletionHandler() {};
+		~CompletionHandler() {};
 
 		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result) = 0; 
 		virtual HANDLE GetHandle() = 0;
@@ -113,11 +122,15 @@ namespace Earlgrey
 	{
 	public:
 		explicit AsyncResult(CompletionHandler* InHandler) 
+			: TransferredBytes_(0), Error_(0), Status_(0), Handler_(InHandler)
 		{
-			Handler_ = InHandler;
+			Internal = 0;
+			InternalHigh = 0;
+			Pointer = 0;
+			hEvent = 0;
 		};
 
-		~AsyncResult() {};
+		virtual ~AsyncResult() {};
 
 		virtual void Completed() = 0;
 		virtual void Failed() = 0;

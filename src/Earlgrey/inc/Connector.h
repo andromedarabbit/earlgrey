@@ -77,10 +77,9 @@ namespace Earlgrey
 
 		ConnectorEvent = WSACreateEvent();
 		EARLGREY_ASSERT(ConnectorEvent != WSA_INVALID_EVENT);
-		INT ret = WSAEventSelect(ConnectorSocket, ConnectorEvent, FD_CONNECT);
-		if(ret == SOCKET_ERROR)
+		if(WSAEventSelect(ConnectorSocket, ConnectorEvent, FD_CONNECT) == SOCKET_ERROR)
 		{
-			//ret = WSAGetLastError();
+			Close();
 			return FALSE;
 		}
 

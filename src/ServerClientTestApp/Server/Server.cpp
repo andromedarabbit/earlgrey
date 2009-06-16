@@ -37,7 +37,13 @@ public:
 
 	virtual void Connected()
 	{
+		printf("Server Socket = %d\r\n", Socket);
 		Stream.AsyncRead();
+	}
+
+	virtual void Disconnected()
+	{
+		printf("Server Disconnected %d", Socket);
 	}
 };
 

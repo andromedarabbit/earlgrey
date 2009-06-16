@@ -46,7 +46,7 @@ namespace Earlgrey
 
 		DWORD GetBufferSize()
 		{
-			return (DWORD)_ChainBuffer.size();//TODO:
+			return (DWORD)_ChainBuffer.chain_size();
 		}
 
 		WSABUF* GetSockRecvBuffer()
@@ -87,7 +87,7 @@ namespace Earlgrey
 		//юс╫ц?
 		BYTE* ToString()
 		{
-			return (BYTE*)_ChainBuffer.front().front();
+			return (BYTE*)_ChainBuffer.front().data();
 		}
 
 	private:

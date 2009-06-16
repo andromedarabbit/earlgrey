@@ -7,6 +7,8 @@ namespace Earlgrey
 	BOOL WinProactor::Initialize()
 	{
 		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+		if(_IOCompletionPort == NULL)
+			return FALSE;
 		return TRUE;
 	}
 

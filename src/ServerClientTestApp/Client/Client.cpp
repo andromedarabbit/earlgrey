@@ -37,11 +37,16 @@ public:
 
 	virtual void Connected()
 	{
-		printf("Socket = %d", Socket);
+		printf("Client Socket = %d\r\n", Socket);
 		NetworkBuffer* buf = Stream.GetNetworkBuffer();
 		BYTE str[13] = "hello server";
 		buf->SetValue(&str[0], sizeof(str));
 		Stream.AsyncWrite();
+	}
+
+	virtual void Disconnected()
+	{
+		printf("Client Disconnected = %d", Socket);
 	}
 };
 
@@ -51,7 +56,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	//ClientCreate(100);
 	Connector<ClientConnection>* c = new Connector<ClientConnection>();
-	char* ServerIP = "localhost";//! TODO : type and ip
+	char* ServerIP = "10.21.1.216";//! TODO : type and ip
 	c->Connect(ServerIP, 100);
 
 	ServerCreated();
