@@ -13,6 +13,7 @@ namespace Earlgrey
 	template<int x> struct static_assert_test{};
 }
 
+// 참고: VS2008 에서는 컴파일 에러 보여줄 때 아래 재정의 타입 이름을 안보여줌 (_static_assert_typedefN)
 #define EARLGREY_STATIC_ASSERT(x) \
 	typedef ::Earlgrey::static_assert_test<\
 	sizeof(::Earlgrey::STATIC_ASSERT_FAILURE< (bool)( x ) >)>\
