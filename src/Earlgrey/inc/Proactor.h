@@ -31,7 +31,7 @@ namespace Earlgrey
 		};
 
 		explicit Proactor() {}
-		~Proactor() {}
+		virtual ~Proactor() {}
 
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
@@ -99,7 +99,7 @@ namespace Earlgrey
 	{
 	public:
 		explicit CompletionHandler() {};
-		~CompletionHandler() {};
+		virtual ~CompletionHandler() {};
 
 		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result) = 0; 
 		virtual HANDLE GetHandle() = 0;
@@ -130,7 +130,7 @@ namespace Earlgrey
 			hEvent = 0;
 		};
 
-		virtual ~AsyncResult() {};
+		virtual ~AsyncResult() {}
 
 		virtual void Completed() = 0;
 		virtual void Failed() = 0;
