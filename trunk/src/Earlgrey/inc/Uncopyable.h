@@ -12,7 +12,7 @@ namespace Earlgrey
 
 	private:
 		Uncopyable(const Uncopyable&); // 하지만 복사는 방지합니다.
-		const Uncopyable& operator = (const Uncopyable&);
+		Uncopyable& operator = (const Uncopyable&);
 
 	};
 
