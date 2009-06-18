@@ -12,6 +12,9 @@ namespace Earlgrey
 		virtual DWORD Run();
 		virtual void Stop() {}
 		virtual void Exit() {}
+
+	private:
+		inline void DoRegularTask();
 	};
 
 	class AcceptorRunnable : public IRunnable

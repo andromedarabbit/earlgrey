@@ -349,6 +349,10 @@
 					RelativePath=".\src\NoLock.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\ThreadLocal.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"

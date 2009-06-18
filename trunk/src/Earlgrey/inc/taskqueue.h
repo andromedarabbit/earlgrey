@@ -103,7 +103,7 @@ namespace Earlgrey {
 			void InvokeMethod(void (T::*func)(T1,T2,T3), T* subthis, T1 t1, T2 t2, T3 t3)
 			{
 				std::tr1::function<void()> f = std::tr1::bind(func, subthis, t1, t2, t3);
-				Post( f );			
+				Post( f );
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4>
@@ -226,6 +226,12 @@ namespace Earlgrey {
 				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7, t8, t9);
 				Post( f );
 			}
+		};
+
+		template<typename T>
+		class TaskQueueArray
+		{
+			
 		};
 
 	} // end of Lockfree namespace
