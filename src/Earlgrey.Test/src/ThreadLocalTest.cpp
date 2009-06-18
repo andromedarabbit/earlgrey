@@ -9,8 +9,8 @@ namespace Earlgrey
 		{
 			const int integerValue = 5;
 
-			ThreadLocal<int> tlsInteger(integerValue);
-			int tlsValue1 = tlsInteger.GetValue();
+			ThreadLocalValue<int> tlsInteger(integerValue);
+			int tlsValue1 = tlsInteger.Get();
 
 			ASSERT_EQ(integerValue, tlsValue1);
 
@@ -24,12 +24,13 @@ namespace Earlgrey
 		{
 			int integerValue = 3;
 
-			ThreadLocal<int*> tlsInteger(&integerValue);
-			int* tlsValue1 = tlsInteger.GetValue();
+			ThreadLocalValue<int*> tlsInteger(&integerValue);
+			int* tlsValue1 = tlsInteger.Get();
 
 			ASSERT_EQ(integerValue, *tlsValue1);
 
-			int tlsValue2 = *tlsInteger;;
+			int tlsValue2 = *tlsInteger;
+			
 			ASSERT_EQ(integerValue, tlsValue2);
 		}
 	}

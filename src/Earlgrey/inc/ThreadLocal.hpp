@@ -4,108 +4,152 @@
 #pragma unmanaged
 #endif
 
+#include "EarlgreyAssert.h"
+#include <vector>
+#include <functional>
+#include <algorithm>
+
+
 namespace Earlgrey
 {
 	template <typename T>
 	class ThreadLocal
 	{
 	private:
-		DWORD threadLocalIndex;
+		DWORD	_threadLocalIndex;
+
 		ThreadLocal(ThreadLocal const&);
 
-		T *GetPointer(void)
+		void Allocate()
 		{
-			return static_cast<T*>(::TlsGetValue(this->threadLocalIndex));
+			this->_threadLocalIndex = ::TlsAlloc();
 		}
 
-		void SetPointer(T *value)
+		T* Release()
 		{
-			::TlsSetValue(this->threadLocalIndex, static_cast<void*>(value));
+			T* ret = Get();
+			::TlsFree( _threadLocalIndex );
+			_threadLocalIndex = TLS_OUT_OF_INDEXES;
+			return ret;
 		}
-
-		T t;
 
 	public:
-		void SetValue(const T &value)
+		explicit ThreadLocal(T* pointer = NULL) : _threadLocalIndex(TLS_OUT_OF_INDEXES)
 		{
-			T* currentPointer = this->GetPointer();
-
-			if (currentPointer == NULL)
+			Allocate();
+			if (pointer)
 			{
-				this->SetPointer(new T(value));
+				Set( pointer );
 			}
-			else
-			{
-				*currentPointer = value;
-			}
-		}
-
-		T &GetValue(void)
-		{
-			T* currentPointer = this->GetPointer();
-
-			if (currentPointer == NULL)
-			{
-				// modified
-				this->SetPointer(new T(t));
-			}
-
-			return *this->GetPointer();
-		}
-
-		void DeleteValue()
-		{
-			T* currentPointer = this->GetPointer();
-
-			if (currentPointer != NULL)
-			{
-				delete currentPointer;
-				this->SetPointer(NULL);
-			}
-		}
-
-		// explicit 
-			ThreadLocal(const T& value)
-		{
-			this->threadLocalIndex = ::TlsAlloc();
-			// modified
-			this->t = value;
-		}
-
-		explicit
-			ThreadLocal()
-		{
-			this->threadLocalIndex = ::TlsAlloc();
 		}
 
 		virtual ~ThreadLocal()
 		{
-			this->DeleteValue();
-			::TlsFree(this->threadLocalIndex);
+			Release();
 		}
 
-		inline operator T&()
+		T *Get(void)
 		{
-			return GetValue();
+			if (TLS_OUT_OF_INDEXES == _threadLocalIndex)
+			{
+				// 초기화가 안됐으므로 프로그램을 종료하는 것이 좋다.
+				return NULL;
+			}
+			return static_cast<T*>(::TlsGetValue(this->_threadLocalIndex));
 		}
 
-		inline bool operator !()
+		void Set(T *value)
 		{
-			T* currentPointer = this->GetPointer();
-			return currentPointer == NULL 
-				|| *currentPointer == NULL;
+			EARLGREY_ASSERT( TLS_OUT_OF_INDEXES != _threadLocalIndex );
+			if (TLS_OUT_OF_INDEXES == _threadLocalIndex)
+			{
+				return;
+			}
+			::TlsSetValue(this->_threadLocalIndex, static_cast<void*>(value));
 		}
 
-		inline T& operator->()
+		T* operator->()
 		{
-			return GetValue();
+			return Get();
 		}
 
-		inline ThreadLocal& operator=(const T& Value)
+		T& operator*()
 		{
-			SetValue(Value);
-			return *this;
+			return *Get();
 		}
 	};
 
+	template<typename T>
+	class ThreadLocalValue
+	{
+	public:
+		explicit ThreadLocalValue() {}
+		ThreadLocalValue(const T& value)
+		{
+			Set( value );
+		}
+
+		~ThreadLocalValue()
+		{
+			Free();
+		}
+
+		T* operator->()
+		{
+			T* pointer = _tls.Get();
+			EARLGREY_ASSERT( pointer );
+			return pointer;
+		}
+
+		ThreadLocalValue<T>& operator=(const T& value)
+		{
+			Set( value );
+			return *this;
+		}
+
+		T& Get()
+		{
+			return *_tls.Get();
+		}
+
+		operator T&()
+		{
+			return Get();
+		}
+
+		T* operator&()
+		{
+			return _tls.Get();
+		}
+
+		bool operator !()
+		{
+			return this != NULL;
+		}
+
+	private:
+		ThreadLocalValue(const ThreadLocalValue&);
+
+		T* Allocate(const T& value)
+		{
+			return new T( value );
+		}
+
+		void Free() 
+		{
+			T* value = _tls.Get();
+			if (value)
+			{
+				delete value;
+			}
+		}
+
+		void Set(const T& value)
+		{
+			_tls.Set( Allocate( value ) );
+		}
+
+	private:
+		ThreadLocal<T> _tls;
+	};
 }

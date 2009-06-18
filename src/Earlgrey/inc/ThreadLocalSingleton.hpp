@@ -29,7 +29,7 @@ namespace Earlgrey
 			explicit Lock(const ThreadLocalThreaded*) {}
 		};
 
-		typedef ThreadLocal<Host> VolatileType;
+		typedef ThreadLocalValue<Host> VolatileType;
 
 	
 	};
