@@ -124,7 +124,7 @@ namespace Earlgrey
 
 		bool operator !()
 		{
-			return this != NULL;
+			return Get() == NULL;
 		}
 
 	private:
