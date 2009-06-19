@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Earlgrey
+namespace Earlgrey {
 
 	template<typename T, size_t Size>
 	class Array : private Uncopyable
@@ -9,7 +9,7 @@ namespace Earlgrey
 		explicit Array() {}
 		~Array() {}
 
-		static T& OutOfRange() const
+		static T& OutOfRange()
 		{
 			static T outOfRange;
 			return outOfRange;
@@ -17,7 +17,7 @@ namespace Earlgrey
 
 		const T& operator[](size_t index) const 
 		{
-			EARLGREY_ASSERT( index < Size );
+			//EARLGREY_ASSERT( index < Size );
 			if (index >= Size)
 			{
 				return OutOfRange();
@@ -27,7 +27,7 @@ namespace Earlgrey
 		
 		T& operator[](size_t index)
 		{
-			return const_cast<T&>( static_cast<const T&>( *this )[index] );
+			return const_cast<T&>( static_cast<const Array&>( (*this) )[index] );
 		}
 
 	private:
