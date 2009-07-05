@@ -41,16 +41,26 @@ namespace Earlgrey
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
 			Thread* thread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
+			EARLGREY_ASSERT(thread != NULL);
+			m_IOThreads.push_back(thread);
+
 			thread->SetProcessorAffinity(i, IOThreadCount);
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
 
-
-
 		return TRUE;
 	}
 
+	AppInfo::~AppInfo()
+	{
+		ThreadContainer::iterator it = m_IOThreads.begin();
+		for( ; it != m_IOThreads.end(); it++)
+		{
+			delete *it;
+		}
+		m_IOThreads.clear();
+	}
 
 	BOOL AppInfo::CheckAppInstance(AppType::E_Type appType)
 	{

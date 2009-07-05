@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 // #include <Loki/Singleton.h>
 #include "AppType.h"
 #include "Uncopyable.h"
@@ -6,15 +8,19 @@
 
 namespace Earlgrey
 {
+	class Thread;
 	
 	class AppInfo : private Uncopyable
 	{
+		typedef std::vector<Thread*> ThreadContainer;
 	public: // Methods
 		explicit AppInfo()
 			: m_CurrentAppType(AppType::E_APPTYPE_NONE)
 		{
 		}
 
+		~AppInfo();
+		
 		BOOL InitInstance(AppType::E_Type appType);
 
 	private: // Methods
@@ -30,6 +36,7 @@ namespace Earlgrey
 
 	private: // Fields
 		AppType::E_Type m_CurrentAppType;
+		ThreadContainer m_IOThreads;
 
 	};
 }
