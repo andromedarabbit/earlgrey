@@ -4,6 +4,9 @@
 
 #include <type_traits> 
 
+#undef max
+#undef min
+
 namespace Earlgrey
 {
 	namespace Math

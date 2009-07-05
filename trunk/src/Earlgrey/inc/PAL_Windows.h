@@ -1,11 +1,11 @@
 #pragma  once
 
 // Windows Platform Adaptive Layer
-
 #include <winsock2.h>
+
+#define NOMINMAX // min, max 매크로 없애기
 #include <windows.h>
-//#include <process.h>
-//#include <crtdbg.h>
+
 
 // Atomic Operator
 #define AtomicInc(a)									InterlockedIncrement((volatile long *)(&(a)))

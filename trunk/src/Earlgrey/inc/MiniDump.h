@@ -5,6 +5,7 @@
 #include "NoLock.h"
 
 #ifndef _WINDOWS_
+#define NOMINMAX
 #include <windows.h>
 #endif
 
