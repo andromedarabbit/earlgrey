@@ -14,6 +14,8 @@
 #define _rtcsample_h
 
 #include <rtcapi.h>
+
+#define NOMINMAX
 #include <windows.h>
 
 #ifdef NOCRT

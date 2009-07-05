@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ServerInit.h"
+#include "AppInitializer.h"
 
 using namespace Earlgrey;
 
@@ -49,7 +50,9 @@ public:
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Init();
+	// Init();
+	AppInfo app;
+	app.InitInstance(AppType::E_APPTYPE_NONE);
 
 	//ServerCreate(100);
 	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);

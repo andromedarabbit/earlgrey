@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Macros.h"
 
+#undef min
+#undef max
 
 namespace Earlgrey
 {

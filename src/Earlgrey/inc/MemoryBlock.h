@@ -48,9 +48,15 @@ namespace Earlgrey
 		
 
 		explicit SuperMemoryBlock(size_type chunkSize, size_type blockSize)
-			: m_InternalBlockSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT, sizeof(MemoryBlock) + blockSize) )
-			, m_ChunkSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) )
-			, m_BlockHead()
+			: m_InternalBlockSize( 
+				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
+				, sizeof(MemoryBlock) + blockSize) 
+				)
+			, m_ChunkSize( 
+				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) 
+				)
+			, m_BlockHead(
+				)
 		{
 			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
 			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
@@ -58,9 +64,15 @@ namespace Earlgrey
 		}
 		
 		explicit SuperMemoryBlock(size_type blockSize, unsigned short numberOfBlocks)
-			: m_InternalBlockSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT, sizeof(MemoryBlock) + blockSize) )
-			, m_ChunkSize( Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_InternalBlockSize * numberOfBlocks) )
-			, m_BlockHead()
+			: m_InternalBlockSize( 
+				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
+				, sizeof(MemoryBlock) + blockSize) 
+				)
+			, m_ChunkSize( 
+				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_InternalBlockSize * numberOfBlocks) 
+				)
+			, m_BlockHead(
+				)
 		{
 			EARLGREY_ASSERT(m_ChunkSize >= m_InternalBlockSize);
 			EARLGREY_ASSERT(m_ChunkSize > 0 && m_InternalBlockSize > 0);
