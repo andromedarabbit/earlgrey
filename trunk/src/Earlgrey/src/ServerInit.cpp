@@ -42,6 +42,12 @@ namespace Earlgrey
 	void ServerCreated()
 	{
 		// Create Acceptor Thread
-		Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new AcceptorRunnable())), "AcceptorRunnable" );
+		// \todo 스레드 처리
+		std::tr1::shared_ptr<IRunnable> acceptorThread (
+			new AcceptorRunnable()
+			);
+		Thread* thread = Thread::CreateRunningThread( acceptorThread, "AcceptorRunnable" );
+		DBG_UNREFERENCED_LOCAL_VARIABLE(thread);
+
 	}
 }

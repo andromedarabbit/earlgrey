@@ -28,14 +28,15 @@ namespace Earlgrey
 			return FALSE;
 
 		// 네트워크 초기화
-		// Initialize IOCP
-		if( !ProactorSingleton::Instance().Initialize() )
-			return FALSE;
-
 		if( !SocketSubsystem::InitializeSubSystem() )
 			return FALSE;
 
+		// IOCP 초기화
+		if( !ProactorSingleton::Instance().Initialize() )
+			return FALSE;
+
 		// Create IO Thread
+		// 일단 스레드가 블록되지 않는다고 가정하고 프로세스 개수만큼 스레드를 생성한다. 
 		DWORD IOThreadCount = Environment::ProcessorCount();
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
@@ -47,7 +48,6 @@ namespace Earlgrey
 			thread->SetProcessorAffinity(i, IOThreadCount);
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
-
 
 		return TRUE;
 	}
