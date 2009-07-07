@@ -4,11 +4,12 @@ namespace Earlgrey
 {
 	class CompletionHandler;
 	class NetworkBuffer;
+
 	class AsyncStream
 	{
 	public:
 		explicit AsyncStream() {};		
-		virtual ~AsyncStream() {};
+		virtual ~AsyncStream() {}; //! \todo Close() 안 불러도 되나?
 
 		BOOL Open(SOCKET Socket, CompletionHandler* Handler);
 		void Close();

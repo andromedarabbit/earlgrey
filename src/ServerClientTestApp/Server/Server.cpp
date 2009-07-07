@@ -60,7 +60,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	ServerCreated();
 
-	Thread* WinThread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
+	std::auto_ptr<Thread> WinThread (
+		Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" )
+		);
 
 	WaitForSingleObject(WinThread->GetWindowHandle(), INFINITE );
 	

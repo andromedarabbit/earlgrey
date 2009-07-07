@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "Thread.h"
 #include "EarlgreyAssert.h"
+
 #include <process.h>
+#include <errno.h>
+
 
 namespace Earlgrey
 {
@@ -48,13 +51,34 @@ namespace Earlgrey
 	{
 		_runnable = runnable;
 
-		_thread = reinterpret_cast<HANDLE>( _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId ) );
-		EARLGREY_VERIFY( _thread != (HANDLE)-1L );
-		if (_thread == (HANDLE)-1L)
-		{
-			// thread creation error
+		// 오류 종류에 따라 -1이나 0을 반환한다.
+		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId );		
+		EARLGREY_ASSERT(threadHandle == -1 || threadHandle == 0);
+		
+		// \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
+		if(threadHandle == -1)
+		{			
+			if(errno == EAGAIN) // if there are too many threads
+			{
+			}
+			
+			if(errno == EINVAL) // if the argument is invalid or the stack size is incorrect
+			{
+			}
+
+			if(errno ==  EACCES) // in the case of insufficient resources (such as memory). 
+			{
+			}
+
 			return FALSE;
 		}
+
+		if(threadHandle == 0) // in which case errno and _doserrno are set
+		{
+			return FALSE;
+		}
+
+		_thread = reinterpret_cast<HANDLE>( threadHandle );
 
 		if (threadName && strlen(threadName) > 0)
 		{
@@ -82,9 +106,11 @@ namespace Earlgrey
 
 	void Thread::SetPriority(INT priority)
 	{
-		EARLGREY_ASSERT(priority >= THREAD_PRIORITY_IDLE &&
-			priority <= THREAD_PRIORITY_TIME_CRITICAL);
+		EARLGREY_ASSERT(
+			priority >= THREAD_PRIORITY_IDLE &&
+			priority <= THREAD_PRIORITY_TIME_CRITICAL
+			);
 
-		SetThreadPriority(_thread, priority);
+		EARLGREY_VERIFY( SetThreadPriority(_thread, priority) );
 	}
 }
