@@ -53,7 +53,7 @@ namespace Earlgrey
 
 		// 오류 종류에 따라 -1이나 0을 반환한다.
 		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId );		
-		EARLGREY_ASSERT(threadHandle == -1 || threadHandle == 0);
+		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
 		
 		// \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
 		if(threadHandle == -1)
