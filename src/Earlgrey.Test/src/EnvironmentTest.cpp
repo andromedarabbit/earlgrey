@@ -95,5 +95,12 @@ namespace Earlgrey
 			_txstring name = Environment::UserDomainName();
 			ASSERT_TRUE(name.length() > 0);
 		}
+
+		TEST(EnvironmentTest, OSVersion)
+		{		
+			_txstring name = Environment::OSVersion();
+			ASSERT_TRUE(name.length() > 0);
+		}
+
 	}
 }

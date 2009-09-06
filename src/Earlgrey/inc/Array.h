@@ -2,6 +2,7 @@
 
 namespace Earlgrey {
 
+	//! \note std::tr1 에 동일한 클래스 array가 있습니다. 이 코드는 필요 없겠네요.
 	template<typename T, size_t Size>
 	class Array : private Uncopyable
 	{

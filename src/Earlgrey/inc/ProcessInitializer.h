@@ -31,7 +31,7 @@ namespace Earlgrey
 		{
 		}
 
-		BOOL Run()
+		inline BOOL Run()
 		{
 			return Run(DEFAULT_PRIORITY_CLASS);
 		}
@@ -54,7 +54,6 @@ namespace Earlgrey
 
 		inline DWORD CurrentProrityClass() const
 		{
-			// return m_CurrentProrityClass;
 			DWORD priorityClass = GetPriorityClass(GetCurrentProcess());
 			if( priorityClass != 0)
 			{
@@ -68,8 +67,5 @@ namespace Earlgrey
 			}
 			return priorityClass;
 		}
-
-	private:
-		// DWORD m_CurrentProrityClass;
 	};
 }
