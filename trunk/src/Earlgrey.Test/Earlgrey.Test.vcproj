@@ -403,7 +403,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MiniDumpTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\PathTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\RAIITest.cpp"
 				>
 			</File>
 			<File

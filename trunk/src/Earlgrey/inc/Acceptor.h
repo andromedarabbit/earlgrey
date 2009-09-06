@@ -147,7 +147,7 @@ namespace Earlgrey
 
 				EARLGREY_ASSERT(ClientSocket);
 
-				if (ClientSocket == INVALID_SOCKET)
+				if (ClientSocket == INVALID_SOCKET) // \todo 오류 처리
 				{
 					//DWORD a = GetLastError();
 					return;

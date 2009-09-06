@@ -119,8 +119,10 @@ namespace Earlgrey
 		;
 
 #ifdef _UNICODE
+typedef std::wstring _tstring;
 typedef xwstring _txstring;
 #else
+typedef	std::string _tstring;
 typedef	xstring _txstring;
 #endif
 

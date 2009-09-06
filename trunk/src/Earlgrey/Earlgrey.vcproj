@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib ws2_32.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -202,7 +202,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -271,7 +271,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -359,6 +359,10 @@
 				>
 				<File
 					RelativePath=".\src\EarlgreyAssert.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\GlobalExceptionHandler.cpp"
 					>
 				</File>
 				<File
@@ -564,6 +568,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\GlobalExceptionHandler.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Log.h"
 					>
 				</File>
@@ -577,6 +585,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\StaticAssert.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\UnhandledExceptionHandler.h"
 					>
 				</File>
 				<File
@@ -681,6 +693,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Path.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\RAII.h"
 					>
 				</File>
 				<File

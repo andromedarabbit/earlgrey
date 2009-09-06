@@ -72,7 +72,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			val.p = reinterpret_cast<ULONGLONG>(pointer);
 		}
 
-		ULONG Count()
+		ULONG Count() const
 		{
 			return (ULONG)val.count;
 		}

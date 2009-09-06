@@ -26,8 +26,11 @@ namespace Earlgrey
 		//! 현재 사용자와 관련된 네트워크 도메인 이름을 가져온다.
 		static _txstring UserDomainName(); 
 
-		// \todo 개발할 것?
-		// Version
+		static _txstring OSVersion();
 
+		static BOOL Is_WinXP_SP2_or_Later();
+		static BOOL Is_Win_Server();
+
+		BOOL Is64BitWindows();
 	};
 }
