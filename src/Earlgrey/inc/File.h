@@ -11,6 +11,7 @@ namespace Earlgrey
 
 	public:
 		static BOOL Exists(const _txstring& path);
+		static BOOL Delete(const _txstring& path);
 
 	};
 }

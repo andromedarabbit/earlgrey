@@ -13,6 +13,7 @@
 
 namespace Earlgrey
 {
+	//! \ref http://serious-code.net/moin.cgi/MiniDump
 	class MiniDump : public UnhandledExceptionHandler
 	{
 	public:
@@ -58,11 +59,13 @@ namespace Earlgrey
 		// explicit MiniDump(const TCHAR * const dumpFilePath, size_t pathCount, MINIDUMP_TYPE dumpType);
 		explicit MiniDump(MINIDUMP_TYPE dumpType);
 		explicit MiniDump(const _txstring& dumpFilePath, MINIDUMP_TYPE dumpType);
-		~MiniDump();
+		virtual ~MiniDump();
 		
 		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, _txstring msg);
-		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtr);
+		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);
 
+
+		static _txstring GetFaultReason(PEXCEPTION_POINTERS exPtrs);
 	private: // private methods
 		void Initialize();
 

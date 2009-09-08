@@ -377,6 +377,10 @@
 					RelativePath=".\src\RuntimeCheck.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\StackWriter.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Memory"
@@ -581,6 +585,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\RuntimeCheck.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StackWriter.h"
 					>
 				</File>
 				<File

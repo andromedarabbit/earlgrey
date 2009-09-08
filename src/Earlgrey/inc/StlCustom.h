@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 
 #include <vector>
@@ -217,10 +218,26 @@ typedef std::wostream _tostream;
 typedef	std::ostream _tostream;
 #endif
 
+/*
+namespace std
+{
+	class wfostream;
+	class fostream;
+
+	class wiostream;
+	class iostream;
+}
+*/
 #ifdef _UNICODE
-typedef std::wiostream _tiostream;
+typedef std::wofstream _tofstream;
 #else
-typedef	std::iostream _tiostream;
+typedef	std::ofstream _tofstream;
+#endif
+
+#ifdef _UNICODE
+typedef std::wifstream _tifstream;
+#else
+typedef	std::ifstream _tifstream;
 #endif
 
 }

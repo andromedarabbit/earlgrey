@@ -2,6 +2,7 @@
 #define _EARLGREY_UNHANDLED_EXCEPTION_HANDLER_H__
 
 #include "Uncopyable.h"
+#include <memory>
 
 namespace Earlgrey
 {	
@@ -11,6 +12,10 @@ namespace Earlgrey
 		typedef std::tr1::shared_ptr<UnhandledExceptionHandler> HandlerPtrType;
 
 	public: // public methods
+		virtual ~UnhandledExceptionHandler()
+		{
+		}
+
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtr) = 0;
 	};
 
