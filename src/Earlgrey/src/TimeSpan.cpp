@@ -3,6 +3,8 @@
 #include <iomanip>
 #include <float.h> // isnan()
 
+#include "txsstream.h"
+
 namespace Earlgrey
 {
 	const TimeSpan::TickType TimeSpan::ZeroTick = 0L;

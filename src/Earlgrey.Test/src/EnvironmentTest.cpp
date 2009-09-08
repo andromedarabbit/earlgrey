@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Environment.h"
-#include "StlCustom.h"
 #include "StringHelper.h"
 #include "Path.h"
 

@@ -1,11 +1,11 @@
 #pragma once 
 
-#ifndef _WINDOWS_
-#define NOMINMAX
-#include <windows.h>
-#endif
-
-#include "StlCustom.h"
+//#ifndef _WINDOWS_
+//#define NOMINMAX
+//#include <windows.h>
+//#endif
+#include "EarlgreyAssert.h"
+#include "txstring.h"
 #include "UnhandledExceptionHandler.h"
 
 #include <dbghelp.h>
@@ -24,14 +24,14 @@ namespace Earlgrey
 			_txstring m_Msg;
 
 		public:
-			explicit ExtendedMessage(const MINIDUMP_STREAM_TYPE msgType, const _txstring msg)
+			explicit ExtendedMessage(const MINIDUMP_STREAM_TYPE msgType, const _txstring& msg)
 				: m_MsgType(msgType)
 				, m_Msg(msg)
 			{
 				EARLGREY_ASSERT(msgType > LastReservedStream);
 			}
 
-			ExtendedMessage(const ExtendedMessage& exMsg)
+			explicit ExtendedMessage(const ExtendedMessage& exMsg)
 				: m_MsgType(exMsg.m_MsgType)
 				, m_Msg(exMsg.m_Msg)
 			{
@@ -61,7 +61,7 @@ namespace Earlgrey
 		explicit MiniDump(const _txstring& dumpFilePath, MINIDUMP_TYPE dumpType);
 		virtual ~MiniDump();
 		
-		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, _txstring msg);
+		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg);
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);
 
 

@@ -6,7 +6,7 @@
 #include "..\..\..\vendor\StackWalker\StackWalker.h"
 #endif
 
-#include <StlCustom.h>
+#include <fstream>
 
 using namespace std;
 
@@ -44,6 +44,9 @@ namespace
 #else
 	class MyStackWalker 
 	{
+		explicit MyStackWalker();
+		MyStackWalker& operator = (const MyStackWalker&);
+
 	public:
 		explicit MyStackWalker(ofstream&) 
 		{

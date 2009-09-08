@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "AppInfo.h"
 #include "SingleInstance.h"
-#include "StlCustom.h" 
+#include "txstring.h" 
 #include "RuntimeCheck.h"
 
 namespace Earlgrey

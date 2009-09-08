@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "TimeSpan.h"
-#include "StlCustom.h"
 
 namespace Earlgrey
 {

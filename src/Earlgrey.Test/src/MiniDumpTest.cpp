@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "MiniDump.h"
+
+#include "..\..\..\vendor\StackWalker\StackWalker.h"
 #include "StackWriter.h"
 
 #include "Environment.h"
@@ -15,14 +17,14 @@ namespace Earlgrey
 			const _txstring baseDir = Environment::BaseDirectory();
 			const _txstring dumpFilePath( Path::Combine(baseDir, _T("MiniDumpTest.dmp")) );
 
-			if( File::Exists(dumpFilePath) )
+			if( File::Exists(dumpFilePath.c_str()) )
 			{
 				//! \todo 파일 삭제
 			}
 
 			const MINIDUMP_TYPE dumpType = MiniDumpNormal;
 
-			MiniDump miniDump(dumpFilePath, dumpType);
+			MiniDump miniDump(dumpFilePath.c_str(), dumpType);
 			miniDump.AddExtendedMessage(
 				static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
 				, _T("사용자 정보 1")
@@ -38,12 +40,12 @@ namespace Earlgrey
 			const _txstring baseDir = Environment::BaseDirectory();
 			const _txstring dumpFilePath( Path::Combine(baseDir, _T("MiniDumpTest.txt")) );
 
-			if( File::Exists(dumpFilePath) )
+			if( File::Exists(dumpFilePath.c_str()) )
 			{
 				//! \todo 파일 삭제
 			}
 
-			StackWriter sw(dumpFilePath);
+			StackWriter sw(dumpFilePath.c_str(), StackWalker::OptionsAll);
 			sw.HandleException(exceptionPtr);	
 
 			ASSERT_TRUE( File::Exists(dumpFilePath) );

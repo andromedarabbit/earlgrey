@@ -1,5 +1,4 @@
 #pragma once
-#include "StlCustom.h"
 #include "StringComparison.hpp"
 
 namespace Earlgrey

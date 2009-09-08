@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Path.h"
 #include "Environment.h"
-#include "StlCustom.h"
 
 using namespace Earlgrey;
 
