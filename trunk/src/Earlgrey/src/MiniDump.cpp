@@ -5,12 +5,13 @@
 #include "RAII.h"
 #include "BasicBuffer.hpp"
 #include "DateTime.h"
+#include "Log.h" 
+
+using namespace std;
+using namespace std::tr1;	
 
 namespace Earlgrey
 {
-	using namespace std;
-	using namespace std::tr1;	
-
 	MiniDump::MiniDump(MINIDUMP_TYPE dumpType)
 		: m_DumpType(dumpType)
 		, m_DumpFilePath()
@@ -65,9 +66,9 @@ namespace Earlgrey
 		m_ExtendedMessages.push_back(exMsg);
 	}
 
-	void MiniDump::HandleException(LPEXCEPTION_POINTERS exceptionPtr)
+	void MiniDump::HandleException(LPEXCEPTION_POINTERS exceptionPtrs)
 	{
-		EARLGREY_ASSERT(exceptionPtr != NULL);
+		EARLGREY_ASSERT(exceptionPtrs != NULL);
 		
 		// Open a dump file
 		handle_t fileHandle(
@@ -81,7 +82,7 @@ namespace Earlgrey
 		// Set dump options
 		MINIDUMP_EXCEPTION_INFORMATION dumpExceptionInfo;
 		dumpExceptionInfo.ThreadId = GetCurrentThreadId(); 
-		dumpExceptionInfo.ExceptionPointers	= exceptionPtr;
+		dumpExceptionInfo.ExceptionPointers	= exceptionPtrs;
 		// The memory location to which the value of ExceptionPointers refers. 
 		// If this member is TRUE, the exception pointer is located in the address space of the client, or the process that crashed. 
 		// If this member is FALSE, the exception pointer is located in the address space of the calling program.
@@ -125,5 +126,48 @@ namespace Earlgrey
 		// Dump exception information into the file
 		BOOL dumpSuccessfuly = MiniDumpWriteDump( GetCurrentProcess(), GetCurrentProcessId(), fileHandle.get(), m_DumpType , &dumpExceptionInfo, NULL, NULL );
 		EARLGREY_VERIFY(dumpSuccessfuly);
+	}
+
+	_txstring MiniDump::GetFaultReason(PEXCEPTION_POINTERS exPtrs)
+	{
+		if (::IsBadReadPtr(exPtrs, sizeof(EXCEPTION_POINTERS))) 
+			return _T("bad exception pointers");
+
+		// 간단한 에러 코드라면 그냥 변환할 수 있다.
+		switch (exPtrs->ExceptionRecord->ExceptionCode)
+		{
+		case EXCEPTION_ACCESS_VIOLATION:         return EARLGREY_ENUM_TO_STRING("EXCEPTION_ACCESS_VIOLATION");
+		case EXCEPTION_DATATYPE_MISALIGNMENT:    return EARLGREY_ENUM_TO_STRING("EXCEPTION_DATATYPE_MISALIGNMENT");
+		case EXCEPTION_BREAKPOINT:               return EARLGREY_ENUM_TO_STRING("EXCEPTION_BREAKPOINT");
+		case EXCEPTION_SINGLE_STEP:              return EARLGREY_ENUM_TO_STRING("EXCEPTION_SINGLE_STEP");
+		case EXCEPTION_ARRAY_BOUNDS_EXCEEDED:    return EARLGREY_ENUM_TO_STRING("EXCEPTION_ARRAY_BOUNDS_EXCEEDED");
+		case EXCEPTION_FLT_DENORMAL_OPERAND:     return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_DENORMAL_OPERAND");
+		case EXCEPTION_FLT_DIVIDE_BY_ZERO:       return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_DIVIDE_BY_ZERO");
+		case EXCEPTION_FLT_INEXACT_RESULT:       return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_INEXACT_RESULT");
+		case EXCEPTION_FLT_INVALID_OPERATION:    return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_INVALID_OPERATION");
+		case EXCEPTION_FLT_OVERFLOW:             return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_OVERFLOW");
+		case EXCEPTION_FLT_STACK_CHECK:          return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_STACK_CHECK");
+		case EXCEPTION_FLT_UNDERFLOW:            return EARLGREY_ENUM_TO_STRING("EXCEPTION_FLT_UNDERFLOW");
+		case EXCEPTION_INT_DIVIDE_BY_ZERO:       return EARLGREY_ENUM_TO_STRING("EXCEPTION_INT_DIVIDE_BY_ZERO");
+		case EXCEPTION_INT_OVERFLOW:             return EARLGREY_ENUM_TO_STRING("EXCEPTION_INT_OVERFLOW");
+		case EXCEPTION_PRIV_INSTRUCTION:         return EARLGREY_ENUM_TO_STRING("EXCEPTION_PRIV_INSTRUCTION");
+		case EXCEPTION_IN_PAGE_ERROR:            return EARLGREY_ENUM_TO_STRING("EXCEPTION_IN_PAGE_ERROR");
+		case EXCEPTION_ILLEGAL_INSTRUCTION:      return EARLGREY_ENUM_TO_STRING("EXCEPTION_ILLEGAL_INSTRUCTION");
+		case EXCEPTION_NONCONTINUABLE_EXCEPTION: return EARLGREY_ENUM_TO_STRING("EXCEPTION_NONCONTINUABLE_EXCEPTION");
+		case EXCEPTION_STACK_OVERFLOW:           return EARLGREY_ENUM_TO_STRING("EXCEPTION_STACK_OVERFLOW");
+		case EXCEPTION_INVALID_DISPOSITION:      return EARLGREY_ENUM_TO_STRING("EXCEPTION_INVALID_DISPOSITION");
+		case EXCEPTION_GUARD_PAGE:               return EARLGREY_ENUM_TO_STRING("EXCEPTION_GUARD_PAGE");
+		case EXCEPTION_INVALID_HANDLE:           return EARLGREY_ENUM_TO_STRING("EXCEPTION_INVALID_HANDLE");
+			//case EXCEPTION_POSSIBLE_DEADLOCK:        return EARLGREY_ENUM_TO_STRING("EXCEPTION_POSSIBLE_DEADLOCK");
+		case CONTROL_C_EXIT:                     return EARLGREY_ENUM_TO_STRING("CONTROL_C_EXIT");
+		case 0xE06D7363:                         return _T("Microsoft C++ Exception");
+		default:
+			break;
+		}
+
+		// 뭔가 좀 더 복잡한 에러라면...
+		HMODULE moduleHandle = ::GetModuleHandle(_T("ntdll.dll"));
+		return Log::ErrorMessage(exPtrs->ExceptionRecord->ExceptionCode, moduleHandle);
+		
 	}
 }

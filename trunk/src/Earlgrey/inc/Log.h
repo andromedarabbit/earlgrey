@@ -13,6 +13,7 @@ namespace Earlgrey
 		explicit Log();
 
 	public:
-		static _txstring LastErrorMessage(DWORD lastErrorCode);
+		static _txstring ErrorMessage(DWORD errorCode, HMODULE source);
+		static _txstring ErrorMessage(DWORD errorCode);
 	};
 }

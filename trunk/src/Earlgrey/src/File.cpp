@@ -35,4 +35,19 @@ namespace Earlgrey
 		return FALSE;		
 	}
 
+
+	BOOL File::Delete(const _txstring& path)
+	{
+		EARLGREY_ASSERT(path.length() > 0);
+
+		if( ::DeleteFile(path.c_str()) == 0 ) // zero indicates failure
+		{
+			// TODO 
+			// GetLastError
+			return FALSE;
+		}
+
+		return TRUE;		
+	}
+
 }

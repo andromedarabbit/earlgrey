@@ -2,6 +2,8 @@
 #include "Log.h"
 #include "EarlgreyAssert.h"
 
+// #include "RAII.h"
+/*
 namespace 
 {
 	//! \note 임시 조치
@@ -23,33 +25,44 @@ namespace
 		}
 	};
 }
+*/
+
+using namespace std::tr1;
 
 namespace Earlgrey
 {
-	_txstring Log::LastErrorMessage(DWORD lastErrorCode)
-	{
-		LPTSTR lpMsgBuf = NULL;
-		AutoLocalMemory<LPTSTR> bufferManagement(lpMsgBuf);
 
-		DWORD retValue = FormatMessage (
-			FORMAT_MESSAGE_ALLOCATE_BUFFER |
+
+	_txstring Log::ErrorMessage(DWORD errorCode, HMODULE source)
+	{
+		__declspec(thread) static TCHAR msgBuf[1024 * 2];
+
+		DWORD flags = FORMAT_MESSAGE_ALLOCATE_BUFFER |
 			FORMAT_MESSAGE_FROM_SYSTEM |
 			FORMAT_MESSAGE_IGNORE_INSERTS
-			, NULL
-			, lastErrorCode
+			;
+
+		if(source != NULL)
+			flags = FORMAT_MESSAGE_FROM_HMODULE | flags;
+
+		DWORD retValue = FormatMessage (
+			flags
+			, source
+			, errorCode
 			, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // Default language
-			, (LPTSTR) &lpMsgBuf
-			, NULL
+			, (LPTSTR) msgBuf
+			, _countof(msgBuf) - 1
 			, NULL
 			);
 
 		//! \todo 반환값 처리하기
 		EARLGREY_VERIFY(retValue != 0);
 
-		_txstring msg(lpMsgBuf);
+		return _txstring(msgBuf);
+	}
 
-		// LocalFree( lpMsgBuf );
-
-		return msg;
+	_txstring Log::ErrorMessage(DWORD errorCode)
+	{
+		return ErrorMessage(errorCode, NULL);
 	}
 }

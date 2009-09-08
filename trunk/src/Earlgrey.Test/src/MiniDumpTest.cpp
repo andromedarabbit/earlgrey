@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MiniDump.h"
+#include "StackWriter.h"
 
 #include "Environment.h"
 #include "Path.h"
@@ -21,7 +22,7 @@ namespace Earlgrey
 
 			const MINIDUMP_TYPE dumpType = MiniDumpNormal;
 
-			MiniDump miniDump(dumpFilePath.c_str(), dumpType);
+			MiniDump miniDump(dumpFilePath, dumpType);
 			miniDump.AddExtendedMessage(
 				static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
 				, _T("사용자 정보 1")
@@ -32,12 +33,28 @@ namespace Earlgrey
 			ASSERT_TRUE( File::Exists(dumpFilePath) );
 		}
 
+		void WriteSummary(LPEXCEPTION_POINTERS exceptionPtr)
+		{
+			const _txstring baseDir = Environment::BaseDirectory();
+			const _txstring dumpFilePath( Path::Combine(baseDir, _T("MiniDumpTest.txt")) );
+
+			if( File::Exists(dumpFilePath) )
+			{
+				//! \todo 파일 삭제
+			}
+
+			StackWriter sw(dumpFilePath);
+			sw.HandleException(exceptionPtr);	
+
+			ASSERT_TRUE( File::Exists(dumpFilePath) );
+		}
+
 
 		LONG WINAPI HandleException(LPEXCEPTION_POINTERS exceptionPtr)
 		{
 			Dump(exceptionPtr);						
-			// return EXCEPTION_CONTINUE_EXECUTION; 
-			// return EXCEPTION_CONTINUE_SEARCH;
+			WriteSummary(exceptionPtr);
+			
 			return EXCEPTION_EXECUTE_HANDLER;
 		}
 
