@@ -1,5 +1,5 @@
 #pragma once
-#include "StlCustom.h"
+#include "txstring.h"
 #include "Uncopyable.h"
 
 namespace Earlgrey

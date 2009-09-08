@@ -1,4 +1,5 @@
 #pragma once 
+#include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {

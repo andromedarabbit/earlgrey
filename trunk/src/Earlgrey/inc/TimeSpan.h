@@ -1,5 +1,6 @@
 #pragma once 
-#include "StlCustom.h"
+#include "tiostream.h"
+#include "txstring.h"
 
 namespace Earlgrey
 {	

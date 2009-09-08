@@ -2,8 +2,10 @@
 
 #include <Loki/Singleton.h>
 #include <Loki/Threads.h> // for Loki::SingleThreaded
+#include <vector>
+#include <map>
+
 #include "NoLock.h"
-#include "StlCustom.h"
 
 namespace Earlgrey
 {
@@ -78,8 +80,8 @@ namespace Earlgrey
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
-		typedef std::map<WSAEVENT, WaitEventHandler*> EventHandlerMapType;
-		typedef std::vector<WSAEVENT> EventVectorType;
+		typedef std::map<WSAEVENT, WaitEventHandler*> EventHandlerMapType; // TODO xmap?
+		typedef std::vector<WSAEVENT> EventVectorType; // TODO xvector?
 
 
 	private:

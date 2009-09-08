@@ -7,6 +7,8 @@
 #include "DateTime.h"
 #include "Log.h" 
 
+#include "txsstream.h"
+
 using namespace std;
 using namespace std::tr1;	
 
@@ -58,7 +60,7 @@ namespace Earlgrey
 
 	}
 
-	void MiniDump::AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, _txstring msg)
+	void MiniDump::AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg)
 	{
 		m_MaxMsgLen = std::max(m_MaxMsgLen, msg.length());
 

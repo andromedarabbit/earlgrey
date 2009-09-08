@@ -486,6 +486,14 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="StlCustom"
+				>
+				<File
+					RelativePath=".\src\tiostream.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -506,10 +514,6 @@
 			</File>
 			<File
 				RelativePath=".\inc\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\StlCustom.h"
 				>
 			</File>
 			<File
@@ -829,6 +833,62 @@
 				>
 				<File
 					RelativePath=".\inc\Array.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="StlCustom"
+				>
+				<File
+					RelativePath=".\inc\tios.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\tiostream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\tsstream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\tstring.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\txsstream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\txstring.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xdeque.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xlist.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xmap.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xqueue.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xset.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xstack.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xvector.h"
 					>
 				</File>
 			</Filter>

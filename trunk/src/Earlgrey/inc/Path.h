@@ -1,6 +1,6 @@
 #pragma once
 #include "Uncopyable.h"
-#include "StlCustom.h"
+#include "txstring.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
