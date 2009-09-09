@@ -14,7 +14,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		PointerType _head;
 
 	public:
-		explicit Stack()
+		Stack()
 		{
 			_head.val64 = 0L;
 		}

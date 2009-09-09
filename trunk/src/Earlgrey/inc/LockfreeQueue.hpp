@@ -15,7 +15,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		PointerType _tail;
 
 	public:
-		explicit Queue()
+		Queue()
 		{
 			_head.p( new CellType() );
 			_head.Count( 0 );

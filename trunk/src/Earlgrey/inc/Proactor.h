@@ -32,7 +32,7 @@ namespace Earlgrey
 			DefaultTimeout = INFINITE
 		};
 
-		explicit Proactor() {}
+		Proactor() {}
 		virtual ~Proactor() {}
 
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
@@ -44,7 +44,7 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
-		explicit WinProactor() {}
+		WinProactor() {}
 		virtual ~WinProactor() {}
 
 		BOOL Initialize();
@@ -70,7 +70,7 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
-		explicit AcceptProactor() {};
+		AcceptProactor() {};
 		virtual ~AcceptProactor() {};
 
 		BOOL Initialize() {}
@@ -100,7 +100,7 @@ namespace Earlgrey
 	class CompletionHandler
 	{
 	public:
-		explicit CompletionHandler() {};
+		CompletionHandler() {};
 		virtual ~CompletionHandler() {};
 
 		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result) = 0; 

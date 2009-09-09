@@ -12,6 +12,15 @@ namespace Earlgrey
 	{
 	}
 
+	Thread::~Thread()
+	{
+		if (!IsCreated())
+			return;
+
+		WaitForSingleObject( _thread, WaitTimeForThread );
+		CloseHandle( _thread );
+	}
+
 	void Thread::SetName(LPCSTR threadName)
 	{
 		EARLGREY_ASSERT( _threadId != 0 );
@@ -44,6 +53,9 @@ namespace Earlgrey
 		EARLGREY_VERIFY( _runnable->Init() );
 		DWORD exitCode = _runnable->Run();
 		_runnable->Exit();
+
+		// _endthread()는 thread handle(object)를 close하지만, _endthreadex()는 close하지 않는다. 따라서, CloseHandle()은 따로 호출해야 한다.
+		_endthreadex( 0 );
 		return exitCode;
 	}
 
@@ -55,8 +67,9 @@ namespace Earlgrey
 		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId );		
 		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
 		
-		// \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
-		if(threadHandle == -1)
+		//! \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
+		//! \remark _beginthread와 _beginthreadex는 실패할 경우 리턴하는 값이 다르다. _beginthread returns 1L, _beginthreadex returns 0
+		if(threadHandle == 0)
 		{			
 			if(errno == EAGAIN) // if there are too many threads
 			{
@@ -113,4 +126,6 @@ namespace Earlgrey
 
 		EARLGREY_VERIFY( SetThreadPriority(_thread, priority) );
 	}
+
+	
 }

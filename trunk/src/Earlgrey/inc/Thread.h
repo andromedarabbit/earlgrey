@@ -31,7 +31,13 @@ namespace Earlgrey
 			Running = 0,
 			Suspended = CREATE_SUSPENDED
 		};
-		explicit Thread();
+
+		enum { WaitTimeForThread = 10000 };
+
+		Thread();
+		~Thread();
+
+		bool IsCreated() const { return _thread != NULL; }
 
 	public:
 		static Thread* CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
