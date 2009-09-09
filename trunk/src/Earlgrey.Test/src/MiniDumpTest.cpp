@@ -42,7 +42,8 @@ namespace Earlgrey
 
 			if( File::Exists(dumpFilePath.c_str()) )
 			{
-				//! \todo 파일 삭제
+				// 파일 삭제 안해주면 테스트 성공/실패 반복하므로 여기에서 삭제함.
+				File::Delete( dumpFilePath );
 			}
 
 			StackWriter sw(dumpFilePath.c_str(), StackWalker::OptionsAll);
