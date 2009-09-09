@@ -81,6 +81,8 @@ namespace Earlgrey
 			intval_for_taskq = 100;
 		}
 
+		TaskQueueArray<TestTaskQueueClass> MyTaskQueueArray;
+
 		TEST(TaskQueueTest, Simple)
 		{
 			// 아래 테스트는 단일 스레드에서 테스트하는 코드이므로 깨지면 안된다.
@@ -98,6 +100,11 @@ namespace Earlgrey
 			EXPECT_TRUE( intval_for_taskq == 10 );
 			myQueueableClass->Invoke( Set100 );
 			EXPECT_TRUE( intval_for_taskq == 100 );
+
+			MyTaskQueueArray.Initialize( 100 );
+			int index = MyTaskQueueArray.AllocateIndex();
+			MyTaskQueueArray[index].Set1();
+			EXPECT_TRUE( MyTaskQueueArray[index]._test == 1 );
 		}
 	}
 }

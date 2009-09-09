@@ -1,6 +1,7 @@
 #pragma once
 #include "LockfreeQueue.hpp"
 #include "LockfreeStack.hpp"
+#include "EarlgreyAssert.h"
 
 namespace Earlgrey {
 	namespace Algorithm {
