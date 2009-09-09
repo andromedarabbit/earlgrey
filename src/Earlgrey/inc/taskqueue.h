@@ -1,5 +1,6 @@
 #pragma once
 #include "LockfreeQueue.hpp"
+#include "LockfreeStack.hpp"
 
 namespace Earlgrey {
 	namespace Algorithm {
@@ -8,7 +9,7 @@ namespace Earlgrey {
 		class TaskQueue : private Uncopyable
 		{
 		public:
-			explicit TaskQueue() : _count(0) {}
+			TaskQueue() : _count(0) {}
 			virtual ~TaskQueue() 
 			{
 				// \todo erase all items from queue
@@ -228,10 +229,60 @@ namespace Earlgrey {
 			}
 		};
 
-		template<typename T>
+		template<typename T, typename IndexType = int, IndexType InvalidIndex = static_cast<IndexType>(-1)>
 		class TaskQueueArray
 		{
-			
+		public:
+			typedef T TaskQueueType;
+
+			void Initialize(IndexType Size)
+			{
+				_MaxSize = Size;
+				_TaskQueueArray = new TaskQueueType[Size];
+				_Used = 0;
+				for (IndexType i=0; i < Size; i++)
+				{
+					_IndexStack.Push( i );
+				}
+			}
+
+			void Destroy()
+			{
+				delete[] _TaskQueueArray;
+			}
+
+			LONG GetUsedIndexCount() const { return _Used; }
+			IndexType GetMaxSize() const { return _MaxSize; }
+
+			TaskQueueType& operator[](IndexType Index) const
+			{ 
+				EARLGREY_ASSERT(_TaskQueueArray);
+				EARLGREY_ASSERT(Index < _MaxSize);
+				return _TaskQueueArray[Index]; 
+			}
+
+			IndexType AllocateIndex() 
+			{
+				IndexType i = InvalidIndex;
+				if (_IndexStack.Pop( i ))
+				{
+					InterlockedIncrement( &_Used );
+					return i;
+				}
+				return InvalidIndex;
+			}
+
+			void ReleaseIndex(IndexType Index)
+			{
+				_IndexStack.Push( Index );
+				InterlockedDecrement( &_Used );
+			}
+
+		private:
+			TaskQueueType* _TaskQueueArray;
+			Stack<IndexType> _IndexStack;
+			volatile LONG _Used;	//!< 이 값은 오차가 있을 수 있으므로 주의해서 사용해야 한다.
+			IndexType _MaxSize;
 		};
 
 	} // end of Lockfree namespace

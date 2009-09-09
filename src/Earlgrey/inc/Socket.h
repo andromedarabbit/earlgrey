@@ -8,7 +8,7 @@ namespace Earlgrey
 	class AsyncStream
 	{
 	public:
-		explicit AsyncStream() {};		
+		AsyncStream() {};		
 		virtual ~AsyncStream() {}; //! \todo Close() 안 불러도 되나?
 
 		BOOL Open(SOCKET Socket, CompletionHandler* Handler);

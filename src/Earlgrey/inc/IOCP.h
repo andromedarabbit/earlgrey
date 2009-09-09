@@ -5,7 +5,7 @@ namespace Earlgrey
 	class IOCPRunnable : public IRunnable
 	{
 	public:
-		explicit IOCPRunnable() {}
+		IOCPRunnable() {}
 		virtual ~IOCPRunnable() {}
 
 		virtual BOOL Init();
@@ -20,7 +20,7 @@ namespace Earlgrey
 	class AcceptorRunnable : public IRunnable
 	{
 	public:
-		explicit AcceptorRunnable() {}
+		AcceptorRunnable() {}
 		virtual ~AcceptorRunnable() {}
 
 		virtual BOOL Init();

@@ -83,7 +83,7 @@ namespace Earlgrey
 	class ThreadLocalValue
 	{
 	public:
-		explicit ThreadLocalValue() {}
+		ThreadLocalValue() {}
 		ThreadLocalValue(const T& value)
 		{
 			Set( value );
