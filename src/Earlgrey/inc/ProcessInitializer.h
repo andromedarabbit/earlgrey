@@ -38,7 +38,7 @@ namespace Earlgrey
 
 		BOOL Run(const DWORD priorityClass)
 		{
-			if( SetPriorityClass(GetCurrentProcess(), priorityClass) != 0)
+			if(!SetPriorityClass(GetCurrentProcess(), priorityClass))
 			{
 				// \todo 뭔가 오류 처리가 필요하다.
 				DWORD errCode = GetLastError();
@@ -48,6 +48,8 @@ namespace Earlgrey
 				
 				return FALSE;
 			}
+
+			EARLGREY_ASSERT(GetPriorityClass(GetCurrentProcess()) == priorityClass);
 
 			return TRUE;
 		}

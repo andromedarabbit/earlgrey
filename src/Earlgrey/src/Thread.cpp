@@ -8,6 +8,32 @@
 
 namespace Earlgrey
 {
+	class ThreadHolder
+	{
+		friend class Thread;
+	public:
+		explicit ThreadHolder(Thread* thread)
+			: Thread_(thread)
+		{
+			EARLGREY_ASSERT(Thread_ != NULL);
+		}
+
+	private:
+		static unsigned int __stdcall _ThreadProc(LPVOID p)
+		{
+			// new created thread context
+			ThreadHolder* This = reinterpret_cast<ThreadHolder*>( p );
+			EARLGREY_ASSERT(This->Thread_ != NULL);
+			DWORD exitCode = This->Thread_->Run();
+			delete This;
+			return exitCode;
+		}
+
+	private:
+		std::tr1::shared_ptr<Thread> Thread_;
+
+	};
+
 	Thread::Thread() : _thread(NULL), _threadId(0)
 	{
 	}
@@ -39,14 +65,6 @@ namespace Earlgrey
 		}
 	}
 
-	unsigned int __stdcall Thread::_ThreadProc(LPVOID p)
-	{
-		Thread* This = reinterpret_cast<Thread*>( p );
-		DWORD exitCode = This->Run();
-		delete This;
-		return exitCode;
-	}
-
 	DWORD Thread::Run()
 	{
 		EARLGREY_VERIFY( _runnable );
@@ -59,12 +77,12 @@ namespace Earlgrey
 		return exitCode;
 	}
 
-	BOOL Thread::Create(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, unsigned int initFlag, DWORD stackSize)
+	BOOL Thread::Create(std::tr1::shared_ptr<IRunnable> runnable, ThreadHolder* threadHolder, LPCSTR threadName, unsigned int initFlag, DWORD stackSize)
 	{
 		_runnable = runnable;
 
 		// 오류 종류에 따라 -1이나 0을 반환한다.
-		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, _ThreadProc, this, initFlag, &_threadId );		
+		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, ThreadHolder::_ThreadProc, threadHolder, initFlag, &_threadId );		
 		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
 		
 		//! \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
@@ -101,15 +119,17 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	Thread* Thread::CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
+	std::tr1::shared_ptr<Thread> Thread::CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
 	{
 		EARLGREY_ASSERT( runnable );
 		Thread* thread = new Thread();
-		EARLGREY_ASSERT( thread );
+		EARLGREY_ASSERT(thread);
 		if (thread)
-			thread->Create( runnable, threadName, Thread::Running, stackSize );
+		{
+			thread->Create( runnable,  new ThreadHolder(thread), threadName, Thread::Running, stackSize );
+		}
 
-		return thread;
+		return std::tr1::shared_ptr<Thread>(thread);
 	}
 
 	void Thread::SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor)

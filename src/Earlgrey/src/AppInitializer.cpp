@@ -40,7 +40,7 @@ namespace Earlgrey
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
-			Thread* thread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
+			std::tr1::shared_ptr<Thread> thread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
 			EARLGREY_ASSERT(thread != NULL);
 			m_IOThreads.push_back(thread);
 
@@ -48,16 +48,22 @@ namespace Earlgrey
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
+		for (DWORD i = 0; i < 1; i++) // FIXME: wait thread 갯수 지정하는거 필요
+		{
+
+			std::tr1::shared_ptr<IRunnable> acceptorThread (
+				new AcceptorRunnable()
+				);
+			std::tr1::shared_ptr<Thread> thread = Thread::CreateRunningThread( acceptorThread, "AcceptorRunnable" );
+			m_WaitThreads.push_back(thread);
+
+		}
+
 		return TRUE;
 	}
 
 	AppInfo::~AppInfo()
 	{
-		ThreadContainer::iterator it = m_IOThreads.begin();
-		for( ; it != m_IOThreads.end(); it++)
-		{
-			delete *it;
-		}
 		m_IOThreads.clear();
 	}
 

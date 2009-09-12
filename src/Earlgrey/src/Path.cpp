@@ -30,7 +30,7 @@ namespace Earlgrey
 	}
 
 
-	BOOL Path::IsDirectorySeparator(TCHAR c)
+	BOOL Path::IsDirectorySeparator(const TCHAR c)
 	{
 		if (c != DirectorySeparatorChar)
 		{

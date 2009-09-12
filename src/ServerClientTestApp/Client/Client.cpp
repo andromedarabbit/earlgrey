@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ServerInit.h"
+#include "AppInitializer.h"
 
 using namespace Earlgrey;
 
@@ -52,18 +53,21 @@ public:
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Init();
+	AppInfo Application;
+
+	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_DEFAULT));
 
 	//ClientCreate(100);
 	Connector<ClientConnection>* c = new Connector<ClientConnection>();
-	char* ServerIP = "10.21.1.216";//! TODO : type and ip
-	c->Connect(ServerIP, 100);
+	char* ServerIP = "localhost";//! TODO : type and ip
+	BOOL retValue = c->Connect(ServerIP, 100);
 
-	ServerCreated();
+	EARLGREY_ASSERT(retValue == TRUE);
+	//ServerCreated();
 
-	Thread* WinThread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
+	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 
-	WaitForSingleObject(WinThread->GetWindowHandle(), INFINITE );
+	WinThread->Join();
 
 	return EXIT_SUCCESS;
 }

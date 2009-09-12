@@ -70,7 +70,10 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
-		AcceptProactor() {};
+		AcceptProactor() 
+		{
+			InitializeCriticalSection(&Lock_);
+		};
 		virtual ~AcceptProactor() {};
 
 		BOOL Initialize() {}
@@ -80,11 +83,13 @@ namespace Earlgrey
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
+
+	private:
 		typedef std::map<WSAEVENT, WaitEventHandler*> EventHandlerMapType; // TODO xmap?
 		typedef std::vector<WSAEVENT> EventVectorType; // TODO xvector?
 
 
-	private:
+		CRITICAL_SECTION		Lock_; // TODO shared_ptr ¹× lock wrapper ÇÊ¿ä
 		EventVectorType			_Events;
 		EventHandlerMapType		_EventHandlerMap;
 	};

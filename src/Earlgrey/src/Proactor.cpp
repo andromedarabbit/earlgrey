@@ -73,21 +73,26 @@ namespace Earlgrey
 	BOOL AcceptProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
 		//lock? serializer?
+		EnterCriticalSection(&Lock_);
 
 		_Events.push_back((WSAEVENT)Handle);
 		_EventHandlerMap.insert( std::make_pair((WSAEVENT)Handle, static_cast<WaitEventHandler*>(CompleteHandler)) );
+
+		LeaveCriticalSection(&Lock_);
 		return TRUE;
 	}
 
 	BOOL AcceptProactor::DeregisterHandler(HANDLE Handle)
 	{
-		//lock? serializer?
+		
+		EnterCriticalSection(&Lock_);
 		EventVectorType::iterator i = std::find( _Events.begin(), _Events.end(), (WSAEVENT)Handle );
 		if (i != _Events.end()) 
 		{
 			_Events.erase( i );
 		}
 		_EventHandlerMap.erase( (WSAEVENT)Handle );
+		LeaveCriticalSection(&Lock_);
 
 		return TRUE;
 	}
@@ -102,6 +107,8 @@ namespace Earlgrey
 			Sleep(WaitTime);			
 			return TRUE;
 		}
+
+		EnterCriticalSection(&Lock_);
 
 		DWORD Index	= WaitForMultipleObjects(
 			WaitEventNumber,
@@ -128,6 +135,8 @@ namespace Earlgrey
 		else
 		{
 		}
+
+		LeaveCriticalSection(&Lock_);
 
 		return Result;
 	}

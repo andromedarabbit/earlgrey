@@ -14,6 +14,7 @@ namespace Earlgrey
 
 	class Thread : private Uncopyable
 	{
+		friend class ThreadHolder;
 	private:
 		// #define MS_VC_EXCEPTION 0x406D1388
 		static const int MS_VC_EXCEPTION = 0x406D1388;
@@ -40,18 +41,22 @@ namespace Earlgrey
 		bool IsCreated() const { return _thread != NULL; }
 
 	public:
-		static Thread* CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
+		// Factory 
+		static std::tr1::shared_ptr<Thread> CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
 
 	public:	
-		BOOL Create(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, unsigned int initFlag = Running, DWORD stackSize = 0);
 		void SetName(LPCSTR threadName);
 		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
 		void SetPriority(INT priority);
 
-		HANDLE GetWindowHandle() { return _thread; }
+		HANDLE GetWindowHandle() const { return _thread; }
+		void Join()
+		{
+			WaitForSingleObject(_thread, INFINITE);
+		}
 
 	private:
-		static unsigned int __stdcall _ThreadProc(LPVOID p);
+		BOOL Create(std::tr1::shared_ptr<IRunnable> runnable, class ThreadHolder* threadHolder, LPCSTR threadName, unsigned int initFlag = Running, DWORD stackSize = 0);
 		DWORD Run();
 
 	private:

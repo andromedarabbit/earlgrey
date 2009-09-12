@@ -12,7 +12,7 @@ namespace Earlgrey
 	
 	class AppInfo : private Uncopyable
 	{
-		typedef std::vector<Thread*> ThreadContainer;
+		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;
 	public: // Methods
 		explicit AppInfo()
 			: m_CurrentAppType(AppType::E_APPTYPE_NONE)
@@ -37,6 +37,7 @@ namespace Earlgrey
 	private: // Fields
 		AppType::E_Type m_CurrentAppType;
 		ThreadContainer m_IOThreads;
+		ThreadContainer m_WaitThreads;
 
 	};
 }
