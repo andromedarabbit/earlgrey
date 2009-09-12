@@ -16,5 +16,6 @@ namespace Earlgrey
 	enum AppType::E_Type
 	{
 		E_APPTYPE_NONE = 0
+		, E_APPTYPE_DEFAULT
 	};
 }

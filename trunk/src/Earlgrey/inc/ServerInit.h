@@ -14,7 +14,7 @@
 namespace Earlgrey
 {
 
-	void Init();
+	//void Init();
 	void ServerCreate(DWORD Port);
 	void ClientCreate(DWORD Port);
 	void ServerCreated();

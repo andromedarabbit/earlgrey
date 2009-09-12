@@ -50,21 +50,16 @@ public:
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	// Init();
 	AppInfo app;
-	app.InitInstance(AppType::E_APPTYPE_NONE);
+	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 
-	//ServerCreate(100);
 	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
 	acceptor->Initialize();
 
-	ServerCreated();
+	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateRunningThread( 
+		std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 
-	std::auto_ptr<Thread> WinThread (
-		Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" )
-		);
-
-	WaitForSingleObject(WinThread->GetWindowHandle(), INFINITE );
+	serverThread->Join();
 	
 	return EXIT_SUCCESS;
 }

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "ServerInit.h"
+#include "AppInitializer.h"
 
 namespace Earlgrey
 {
@@ -8,7 +9,8 @@ namespace Earlgrey
 	{
 		TEST(ClientCreateTest, ClientCreate)
 		{
-			Init();
+			AppInfo app;
+			app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 			ServerCreate(100);
 			ClientCreate(100);
 		}

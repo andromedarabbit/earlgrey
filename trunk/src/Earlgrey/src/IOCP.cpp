@@ -31,7 +31,7 @@ namespace Earlgrey
 
 	DWORD AcceptorRunnable::Run()
 	{
-		while( AcceptProactorSingleton::Instance().HandleEvent() )
+		while( AcceptProactorSingleton::Instance().HandleEvent(50 /* 50ms */) )
 		{
 
 		}
