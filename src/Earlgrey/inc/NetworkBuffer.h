@@ -20,7 +20,7 @@ namespace Earlgrey
 		~NetworkBufferBase() {}
 	};*/
 
-	class NetworkBuffer : Uncopyable
+	class NetworkBuffer
 	{
 	public:
 		const static DWORD NETWORK_BUFFER_DEFAULT_SIZE = 1024;
@@ -30,18 +30,24 @@ namespace Earlgrey
 			
 		}
 
+		NetworkBuffer(const NetworkBuffer& rhs)
+		{
+			rhs._ChainBuffer.copy_to( _ChainBuffer );
+		}
+
 		~NetworkBuffer()
 		{
 			_ChainBuffer.clear();
 		}
 
+		NetworkBuffer& operator=(const NetworkBuffer& rhs)
+		{
+			rhs._ChainBuffer.copy_to( _ChainBuffer );
+			return *this;
+		}
+
 		void Initialize()
 		{
-			basic_buffer<BYTE> newBuffer(_ChainBuffer.capacity());
-			//newBuffer.reserve(_ChainBuffer.capacity());
-			BYTE tempStr = 'a';
-			newBuffer.set(&tempStr , 1);
-			_ChainBuffer.set(&newBuffer, 1);
 		}
 
 		DWORD GetBufferSize()
@@ -52,45 +58,52 @@ namespace Earlgrey
 		WSABUF* GetSockRecvBuffer()
 		{
 			WSABUF* SocketBuffer = new WSABUF; //! TODO : shared_ptr?
+			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
 
-			SocketBuffer->buf = (CHAR*)_ChainBuffer.front().data();
-			SocketBuffer->len = (ULONG)_ChainBuffer.front().capacity();
+			SocketBuffer->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
+			SocketBuffer->len = Math::numeric_cast<ULONG>(std::tr1::get<1>( ret ));
 
 			return SocketBuffer;
 		}
 
 		WSABUF* GetSockSendBuffer()
 		{
-			WSABUF* SocketBuffer = new WSABUF;//! TODO : shared_ptr?
+			WSABUF* SocketBuffer = new WSABUF[_ChainBuffer.chain_size()];//! TODO : shared_ptr?
 
-			//chain_buffer<basic_buffer<BYTE>>::iterator it = _ChainBuffer.begin();
+			chain_buffer<BYTE>::desc_vector_type desc_vector;
+			_ChainBuffer.get_descriptions( desc_vector );
+
 			DWORD i = 0;
-			//for(; it != _ChainBuffer.end(); it++)
+			chain_buffer<BYTE>::desc_vector_type::const_iterator it = desc_vector.begin();
+			for(; it != desc_vector.end(); it++, i++)
 			{
-				SocketBuffer[i].buf = (CHAR*)_ChainBuffer.front().data();//(CHAR*)it->front()/*.data()*/;//((*it).data()/*.front()*/);
-				SocketBuffer[i].len = (ULONG)_ChainBuffer.front().size();//(*it).size();
-				i++;
+				SocketBuffer[i].buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( *it ));
+				SocketBuffer[i].len = Math::numeric_cast<ULONG>(std::tr1::get<1>( *it ));
 			}
 
 			return SocketBuffer;
 		}
 
-		BOOL SetValue(BYTE* InValue, DWORD InSize)
+		BOOL SetValue(const BYTE* InValue, DWORD InSize)
 		{
-			basic_buffer<BYTE>* tmp = new basic_buffer<BYTE>(InSize);
-			tmp->set(InValue, InSize);
-			_ChainBuffer.set(tmp, InSize);
-
+			_ChainBuffer.set( InValue, InSize );
 			return TRUE;
 		}
 
-		//임시?
-		BYTE* ToString()
+		BOOL GetValue(DWORD& Offset, BYTE* OutValue, DWORD InSize)
 		{
-			return (BYTE*)_ChainBuffer.front().data();
+			bool result = _ChainBuffer.get( Math::numeric_cast<size_t>(Offset), OutValue, InSize );
+			Offset += InSize;
+			return result;
+		}
+
+		//임시?
+		LPCTSTR ToString()
+		{
+			return _T("");
 		}
 
 	private:
-		chain_buffer<basic_buffer<BYTE>> _ChainBuffer;
+		chain_buffer<BYTE> _ChainBuffer;
 	};
 }

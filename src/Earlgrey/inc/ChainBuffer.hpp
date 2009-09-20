@@ -7,6 +7,7 @@
 #include "BasicBuffer.hpp"
 
 #include <list>
+#include <tuple>
 
 namespace Earlgrey
 {
@@ -42,6 +43,9 @@ namespace Earlgrey
 		typedef 
 			typename allocator_type::rebind<buffer_type>::other 
 			buffer_allocator_type;
+
+		typedef std::tr1::tuple<pointer, size_t>			buffer_node_desc_type;
+		typedef std::vector<buffer_node_desc_type>			desc_vector_type;
 		
 		static const size_type DEFAULT_INITIAL_BUFFERSIZE = 16;
 
@@ -66,6 +70,13 @@ namespace Earlgrey
 		const_reference at(size_type n) const;
 
 		void set(const_pointer ptr, size_type length);
+		void append(const_pointer ptr, size_type length);
+		void copy_to(chain_buffer& rhs) const;
+		bool get(size_type offset, pointer ptr, size_type length);
+		void get_descriptions(desc_vector_type& desc_vector);
+
+		
+		buffer_node_desc_type expand(size_t size);
 
 		void clear();
 		bool empty() const;
@@ -176,27 +187,10 @@ namespace Earlgrey
 	template <typename T, typename A>
 	inline
 		typename chain_buffer<T,A>::reference chain_buffer<T,A>::operator[] (size_type n)
-	{		
-		if (n >= size()) throw std::out_of_range("Parameter out of range");
-
-		size_type pos = n;
-
-		buffer_list_type::iterator it = m_buffer_list.begin();
-		for(; it != m_buffer_list.end(); it++)
-		{
-			size_type cur_size = (*it)->size();
-			if(pos < cur_size)
-			{
-				buffer_pointer found = (*it);
-				return (*found)[pos];
-			}
-
-			pos = pos - cur_size;
-		}
-
-		it--;
-		buffer_pointer found = (*it);
-		return (*found)[pos];
+	{
+		return const_cast<typename chain_buffer<T,A>::reference>(
+				(static_cast<const chain_buffer<T,A>&>(*this))[n]
+			);
 	}
 
 	template <typename T, typename A>
@@ -210,9 +204,17 @@ namespace Earlgrey
 		buffer_list_type::const_iterator it = m_buffer_list.begin();
 		for(; it != m_buffer_list.end(); it++)
 		{
-			pos -= (*it)->size();
+			size_type cur_size = (*it)->size();
+			if(pos < cur_size)
+			{
+				buffer_pointer found = (*it);
+				return (*found)[pos];
+			}
+
+			pos = pos - cur_size;
 		}
 
+		it--;
 		buffer_pointer found = (*it);
 		return (*found)[pos];
 	}
@@ -238,15 +240,34 @@ namespace Earlgrey
 		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
 		buffer_pointer lastBuffer = m_buffer_list.back();
-		
-		if(lastBuffer->capacity()  - lastBuffer->size() < length)
+
+		if(lastBuffer->capacity() - lastBuffer->size() < length)
 		{
 			size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
 			lastBuffer = new_buffer(buffer_size);
 			m_buffer_list.push_back(lastBuffer);
 		}
 
-		lastBuffer->set(ptr, length);
+		lastBuffer->append(ptr, length);
+	}
+
+	template <typename T, typename A>
+	inline
+		void chain_buffer<T,A>::append(const_pointer ptr, size_type length)
+	{
+		set( ptr, length );
+	}
+
+	template <typename T, typename A>
+	inline
+		void chain_buffer<T,A>::copy_to(chain_buffer& rhs) const
+	{
+		rhs.clear();
+
+		for(buffer_list_type::const_iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
+		{
+			rhs.append( (*it)->data(), (*it)->size() );
+		}
 	}
 
 	template <typename T, typename A>
@@ -261,6 +282,50 @@ namespace Earlgrey
 		}
 		
 		m_buffer_list.clear();
+	}
+
+	template <typename T, typename A>
+	inline 
+		bool chain_buffer<T,A>::get(size_type offset, pointer ptr, size_type length)
+	{
+		if (size() < offset + length)
+		{
+			return false;
+		}
+		memcpy_s( ptr, length, &(*this)[offset], length );
+		return true;
+	}
+
+	template <typename T, typename A>
+	inline
+		typename chain_buffer<T,A>::buffer_node_desc_type
+			chain_buffer<T,A>::expand(size_t length)
+	{
+		buffer_pointer lastBuffer = m_buffer_list.back();
+		pointer p = &lastBuffer->at( lastBuffer->size() );
+		size_t bufSize = lastBuffer->capacity() - lastBuffer->size();
+
+		if(bufSize < length)
+		{
+			size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
+			lastBuffer = new_buffer(buffer_size);
+			m_buffer_list.push_back(lastBuffer);
+			p = &lastBuffer->at( 0 );
+			bufSize = lastBuffer->capacity();
+		}
+		return chain_buffer<T,A>::buffer_node_desc_type( p, bufSize );
+	}
+
+	template <typename T, typename A>
+	inline
+		void chain_buffer<T,A>::get_descriptions(typename chain_buffer<T,A>::desc_vector_type& desc_vector)
+	{
+		typedef typename chain_buffer<T,A>::buffer_node_desc_type buffer_node_desc_type;
+
+		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
+		{
+			desc_vector.push_back( buffer_node_desc_type( (*it)->data(), (*it)->size() ) );
+		}
 	}
 
 	template <typename T, typename A>

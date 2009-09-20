@@ -26,15 +26,22 @@ namespace Earlgrey
 			_PacketHandlerTableSize = PacketNodeNum;
 			_PacketHandlerTable = new PacketHandlerNode[_PacketHandlerTableSize];
 		};
-		~PacketHandler() {}
+
+		~PacketHandler() 
+		{
+			delete[] _PacketHandlerTable;
+		}
 
 		void AddPacketHandler(PacketIdType Id, PacketHandlerFunction Handler)
 		{
 			EARLGREY_ASSERT(Id < _PacketHandlerTableSize);
-			_PacketHandlerTable[Id]._Handler = Handler;
+			if (Id < _PacketHandlerTableSize)
+			{
+				_PacketHandlerTable[Id]._Handler = Handler;
+			}
 		}
 		
-		void HandlePacket(ConnectionHandler*, NetworkBuffer*, AsyncResult*);
+		BOOL HandlePacket(PacketIdType Id, ConnectionHandler* Connection, NetworkBuffer* Buffer, AsyncResult* Result);
 
 	private:
 		//xmap<PacketIdType, PacketHandlerFunction> PacketHandlerMap;//그냥 배열로?
