@@ -760,6 +760,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\NetworkStream.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\PacketHandler.h"
 					>
 				</File>
@@ -889,6 +893,14 @@
 				</File>
 				<File
 					RelativePath=".\inc\xvector.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Object"
+				>
+				<File
+					RelativePath=".\inc\SharedObject.h"
 					>
 				</File>
 			</Filter>

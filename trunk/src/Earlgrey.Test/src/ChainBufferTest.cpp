@@ -19,6 +19,12 @@ namespace Earlgrey
 			TCHAR tempStr[5];
 			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
 			buf.set(tempStr + 0, _countof(tempStr));
+
+			// operator[]
+			const TCHAR& thirdChar = buf[2];
+			TCHAR& secondChar = buf[1];
+			ASSERT_EQ(_T('C'), thirdChar);
+			ASSERT_EQ(_T('B'), secondChar);
 			
 			//// front
 			const TCHAR& frontChar = buf.front();

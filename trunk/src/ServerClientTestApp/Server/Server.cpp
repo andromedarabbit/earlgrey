@@ -11,7 +11,7 @@ class WindowsRunnable
 	: public IRunnable
 {
 public:
-	explicit WindowsRunnable() {}
+	WindowsRunnable() {}
 	virtual ~WindowsRunnable() {}
 
 	virtual BOOL Init(){return TRUE;}
@@ -53,6 +53,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	AppInfo app;
 	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 
+	//ServerCreate(100);
 	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
 	acceptor->Initialize();
 

@@ -407,6 +407,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\NetworkStreamTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\PathTest.cpp"
 				>
 			</File>
@@ -416,6 +420,10 @@
 			</File>
 			<File
 				RelativePath=".\src\SampleTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\SharedPtrTest.cpp"
 				>
 			</File>
 			<File

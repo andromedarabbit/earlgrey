@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Proactor.h"
+#include "EarlgreyMath.h"
 
 namespace Earlgrey
 {
@@ -100,7 +101,7 @@ namespace Earlgrey
 	BOOL AcceptProactor::HandleEvent(TimeValueType WaitTime)
 	{
 		BOOL Result = FALSE;
-		DWORD WaitEventNumber = (DWORD)_Events.size();
+		DWORD WaitEventNumber = Math::numeric_cast<DWORD>( _Events.size() );
 
 		if (WaitEventNumber == 0)
 		{

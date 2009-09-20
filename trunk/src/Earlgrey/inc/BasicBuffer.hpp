@@ -57,6 +57,7 @@ namespace Earlgrey
 		const_reference at(size_type n) const;
 
 		void set(const_pointer ptr, size_type length);
+		void append(const_pointer ptr, size_type lenght);
 
 		void clear();
 		bool empty() const;
@@ -192,9 +193,19 @@ namespace Earlgrey
 	inline
 		void basic_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
-		if (m_size + length > capacity()) throw std::out_of_range("Parameter out of range");		
+		if (length > capacity()) throw std::out_of_range("Parameter out of range");		
 		
 		memcpy( m_buffer, ptr, length * sizeof(T) );
+		m_size = length;
+	}
+
+	template <typename T, typename A>
+	inline
+		void basic_buffer<T,A>::append(const_pointer ptr, size_type length)
+	{
+		if (m_size + length > capacity()) throw std::out_of_range("Parameter out of range");
+
+		memcpy( m_buffer + m_size, ptr, length * sizeof(T) );
 		m_size += length;
 	}
 
@@ -245,6 +256,7 @@ namespace Earlgrey
 	{
 		for(size_type i = 0; i < m_size; i++)
 		{
+			// call destructor of T class
 			m_allocator.destroy(m_buffer + i);
 		}
 
