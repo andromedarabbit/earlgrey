@@ -81,7 +81,7 @@ namespace Earlgrey {
 		//! \todo modify to set ANSI characters into NetworkBuffer
 		static void WriteString(NetworkBuffer& Buffer, const _txstring& Str)
 		{
-			Buffer.SetValue( reinterpret_cast<const BYTE*>( Str.c_str() ), Str.length() * sizeof(TCHAR) );
+			Buffer.SetValue( reinterpret_cast<const BYTE*>( Str.c_str() ), Math::numeric_cast<DWORD>(Str.length() * sizeof(TCHAR)) );
 		}
 
 		template<typename T>
