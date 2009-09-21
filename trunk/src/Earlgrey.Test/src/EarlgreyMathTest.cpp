@@ -65,6 +65,13 @@ namespace Earlgrey
 			ASSERT_EQ( static_cast<DWORD>(1), target);
 		}
 
+		TEST(EarlgreyMathTest, NumericCastInTheCaseOfFullySameTypeOnWin32)
+		{
+			size_t source = 1;
+			DWORD target = Earlgrey::Math::numeric_cast<DWORD>(source);
+			ASSERT_EQ( static_cast<DWORD>(1), target );
+		}
+
 		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize3) 
 		{
 			struct Mock
