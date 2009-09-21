@@ -899,10 +899,6 @@
 			<Filter
 				Name="Object"
 				>
-				<File
-					RelativePath=".\inc\SharedObject.h"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
