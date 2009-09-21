@@ -423,6 +423,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\SharedPtrHelperTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\StackAllocatorTest.cpp"
 				>
 			</File>
