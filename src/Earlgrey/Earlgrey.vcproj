@@ -844,6 +844,10 @@
 				Name="StlCustom"
 				>
 				<File
+					RelativePath=".\inc\shared_ptr_helper.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\tios.h"
 					>
 				</File>
