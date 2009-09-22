@@ -106,43 +106,15 @@ namespace Earlgrey
 			typedef default_converter<Target, Source> type;
 		};
 
-		template<typename T, typename U>
-		struct is_same_sign
-		{
-			enum { value = (std::numeric_limits<T>::is_signed && std::numeric_limits<U>::is_signed)
-				|| (!std::numeric_limits<T>::is_signed && !std::numeric_limits<U>::is_signed) };
-		};
-
-		//! \brief We need this, because of DWORD to size_t on Win32
-		template<typename Target, typename Source>
-		struct fully_same_type_converter
-		{
-			static Target convert(Source no)
-			{
-				EARLGREY_STATIC_ASSERT( (std::tr1::is_same<Target, Source>::value) == false);
-				EARLGREY_STATIC_ASSERT(
-					std::numeric_limits<Target>::is_integer == true
-					&& std::numeric_limits<Source>::is_integer == true
-					);
-				EARLGREY_STATIC_ASSERT(sizeof(Target) == sizeof(Source));
-				EARLGREY_STATIC_ASSERT((is_same_sign<Target, Source>::value));
-
-				return static_cast<Target>( no );
-			}
-		};
-
 		template<typename Target, typename Source>
 		struct numeric_converter
 		{
 			typedef
 				typename mpl::if_<
-				(sizeof(Target) == sizeof(Source) && is_same_sign<Target, Source>::value)
-					, fully_same_type_converter<Target, Source>
-					, typename mpl::if_<
 					sizeof(Target) == sizeof(Source)
-						, typename numeric_converter_for_the_same_sizes<Target, Source>::type
-						, typename numeric_converter_for_different_sizes<Target, Source>::type
-					>::type >::type
+					, typename numeric_converter_for_the_same_sizes<Target, Source>::type
+					, typename numeric_converter_for_different_sizes<Target, Source>::type
+				>::type 
 				type;
 		};
 
@@ -168,6 +140,15 @@ namespace Earlgrey
 		{
 			return no;
 		}
+
+#ifdef WIN32
+		template<>
+		inline unsigned long numeric_cast<unsigned long, size_t>(size_t no) throw(...)
+		{
+			return static_cast<unsigned long>( no );
+		}
+#endif
+
 #pragma warning(pop)
 
 	}

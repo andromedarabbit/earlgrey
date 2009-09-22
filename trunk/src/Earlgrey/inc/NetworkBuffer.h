@@ -92,7 +92,7 @@ namespace Earlgrey
 
 		BOOL GetValue(DWORD& Offset, BYTE* OutValue, DWORD InSize)
 		{
-			bool result = _ChainBuffer.get( Math::numeric_cast<size_t>(Offset), OutValue, InSize );
+			bool result = _ChainBuffer.get( static_cast<size_t>(Offset), OutValue, InSize );
 			Offset += InSize;
 			return result;
 		}
