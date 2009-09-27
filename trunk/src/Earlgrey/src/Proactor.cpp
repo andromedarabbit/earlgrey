@@ -10,16 +10,20 @@ namespace Earlgrey
 		// Completion port를 생성한다.
 		// 매개변수 NumberOfConcurrentThreads = 0 : 프로세서당 하나의 스레드가 completion port를 처리한다. 
 		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
-		if(_IOCompletionPort == NULL)
+		if(_IOCompletionPort == NULL) //TODO: 오류 코드는 확인 안 하나?
 			return FALSE;
 		return TRUE;
 	}
 
 	BOOL WinProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
+		// TODO: EARLGREY_ASSERT 적용하기
+
 		// Completion port에 특정 핸들을 적용한다. 
 		HANDLE ReturnHandle = CreateIoCompletionPort(Handle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
-		if (!ReturnHandle)
+		// TODO: NULL? INVALID_HANDLE_VALUE?
+		// TODO: 반환 받은 핸들은 아무짝에 쓸모가 없나? 오류 처리 외엔?
+		if (!ReturnHandle) 
 		{
 			//error
 			return FALSE;
@@ -34,6 +38,7 @@ namespace Earlgrey
 
 	BOOL WinProactor::PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream)
 	{
+		// todo: EARLGREY_ASSERT 적용하기
 		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)CompleteHandler, ResultStream);
 	}
 

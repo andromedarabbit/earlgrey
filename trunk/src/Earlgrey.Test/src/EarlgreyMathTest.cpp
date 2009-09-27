@@ -12,6 +12,43 @@ namespace Earlgrey
 			Earlgrey::Math::numeric_cast<int>(INT_MAX);
 		}
 		*/
+		TEST(TR1, IsSame)
+		{
+			bool isSame = std::tr1::is_same<int, int>::value;
+			ASSERT_TRUE(isSame);
+			isSame = std::tr1::is_same<long, long>::value;
+			ASSERT_TRUE(isSame);
+			isSame = std::tr1::is_same<float, float>::value;
+			ASSERT_TRUE(isSame);
+
+			isSame = std::tr1::is_same<int, float>::value;
+			ASSERT_FALSE(isSame);
+			isSame = std::tr1::is_same<double, float>::value;
+			ASSERT_FALSE(isSame);
+
+			struct IntWrapper
+			{
+				int intMember;
+			};
+
+			isSame = std::tr1::is_same<IntWrapper, int>::value;
+			ASSERT_FALSE(isSame);
+
+			struct AnotherIntWrapper : IntWrapper
+			{
+			};
+
+			isSame = std::tr1::is_same<IntWrapper, AnotherIntWrapper>::value;
+			ASSERT_FALSE(isSame);
+
+			struct JustAnotherIntWrapper
+			{
+				int intMember;
+			};
+
+			isSame = std::tr1::is_same<JustAnotherIntWrapper, AnotherIntWrapper>::value;
+			ASSERT_FALSE(isSame);
+		}
 
 		TEST(EarlgreyMathTest, OverflowAndUnderflow) 
 		{

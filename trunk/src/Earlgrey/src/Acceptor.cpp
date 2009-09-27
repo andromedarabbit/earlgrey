@@ -2,6 +2,7 @@
 
 #include "ServerInit.h"
 #include "Acceptor.h"
+#include "NetworkBuffer.h"
 
 namespace Earlgrey
 {
@@ -10,7 +11,7 @@ namespace Earlgrey
 	*/
 	BOOL ConnectionHandler::Initialize()
 	{
-		Stream.Open(Socket, this);
+		stream_.Open(socket_, this);
 		//Stream.AsyncRead();
 
 		return TRUE;
@@ -18,7 +19,7 @@ namespace Earlgrey
 
 	void ConnectionHandler::HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* InOverlapped)
 	{
-		EARLGREY_ASSERT(Handle == (HANDLE)Socket);
+		EARLGREY_ASSERT(Handle == (HANDLE)socket_);
 		switch(Type)
 		{
 		case READ_EVENT:
@@ -31,7 +32,7 @@ namespace Earlgrey
 			}
 
 			//_PacketHandler->HandlePacket(this, Stream.GetNetworkBuffer(), InOverlapped); //TODO : 
-			NetworkBuffer* buf = Stream.GetNetworkBuffer();
+			NetworkBuffer* buf = stream_.GetNetworkBuffer();
 			
 			printf("Recevied : (%d)bytes, %s\r\n", InOverlapped->TransferredBytes(), buf->ToString());
 			break;
@@ -39,7 +40,7 @@ namespace Earlgrey
 
 		case WRITE_EVENT:
 			//write done process
-			NetworkBuffer* buf = Stream.GetNetworkBuffer();
+			NetworkBuffer* buf = stream_.GetNetworkBuffer();
 			printf("Sent : (%d)bytes, %s\r\n", InOverlapped->TransferredBytes(), buf->ToString());
 			break;
 		}

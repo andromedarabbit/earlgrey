@@ -38,21 +38,24 @@ public:
 
 	virtual void Connected()
 	{
-		printf("Client Socket = %d\r\n", Socket);
-		NetworkBuffer* buf = Stream.GetNetworkBuffer();
+		printf("Client Socket = %d\r\n", Socket());
+		NetworkBuffer* buf = Stream().GetNetworkBuffer();
 		BYTE str[13] = "hello server";
 		buf->SetValue(&str[0], sizeof(str));
-		Stream.AsyncWrite();
+		Stream().AsyncWrite();
 	}
 
 	virtual void Disconnected()
 	{
-		printf("Client Disconnected = %d", Socket);
+		printf("Client Disconnected = %d", Socket());
 	}
 };
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	DBG_UNREFERENCED_PARAMETER(argc);
+	DBG_UNREFERENCED_PARAMETER(argv);
+
 	AppInfo Application;
 
 	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_DEFAULT));

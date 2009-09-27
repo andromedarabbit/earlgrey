@@ -1,14 +1,17 @@
 #pragma once 
 #include "EarlgreyAssert.h"
+#include "AsyncStream.h"
 
 namespace Earlgrey
 {
+	class AsyncStream;
+
 	template <class ConnectionType>
 	class Acceptor 
 		: public WaitEventHandler
 	{
 	public:
-		explicit Acceptor(DWORD InPort)
+		explicit Acceptor(USHORT InPort)
 			: AcceptorSocket(INVALID_SOCKET),
 			Port(InPort)
 		{};
@@ -29,7 +32,7 @@ namespace Earlgrey
 		WSAEVENT AcceptorEvent;
 		AsyncStream Stream;
 
-		DWORD Port;
+		USHORT Port;
 	};
 
 
@@ -52,6 +55,7 @@ namespace Earlgrey
 
 		if (AcceptorSocket == INVALID_SOCKET)
 		{
+			// TODO: WSAGetLastError.
 			return FALSE;
 		}
 
@@ -69,8 +73,9 @@ namespace Earlgrey
 
 		if (bind(AcceptorSocket, (const struct sockaddr*) &Address, sizeof(Address)) == SOCKET_ERROR)
 		{
-			DWORD a = GetLastError();
-			UNREFERENCED_PARAMETER(a);
+			// TODO: error
+			// DWORD a = GetLastError();
+			// UNREFERENCED_PARAMETER(a);
 			return FALSE;
 		}
 
@@ -170,7 +175,7 @@ namespace Earlgrey
 	public:
 		explicit ConnectionHandler(HANDLE InHandle)
 		{
-			Socket = (SOCKET)InHandle;
+			socket_ = (SOCKET)InHandle;
 			Initialize();
 		};
 
@@ -180,15 +185,27 @@ namespace Earlgrey
 
 		// CompletionHandler Interface
 		virtual void  HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result);
-		virtual HANDLE GetHandle() { return (HANDLE)Socket; };
+		virtual HANDLE GetHandle() { return (HANDLE)socket_; };
 
 		// 
 		virtual void Connected() {}
 		virtual void Disconnected() {}
 
-	public://임시private:
-		SOCKET Socket;
-		AsyncStream Stream;
+	protected:
+		inline SOCKET Socket() const
+		{
+			return socket_;
+		}
+
+		inline AsyncStream Stream()
+		{
+			return stream_;
+		}
+
+
+	private://임시private:
+		SOCKET socket_;
+		AsyncStream stream_;
 
 		//PacketHandler _PacketHandler;
 
