@@ -398,6 +398,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\AsyncStream.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Connector.cpp"
 					>
 				</File>
@@ -741,6 +745,10 @@
 				>
 				<File
 					RelativePath=".\inc\Acceptor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\AsyncStream.h"
 					>
 				</File>
 				<File

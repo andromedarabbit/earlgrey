@@ -24,7 +24,7 @@ namespace Earlgrey
 	class WaitEventHandler;
 
 	//Windows IOCompletion Port 용
-	class Proactor
+	class Proactor   
 	{
 	public:
 
@@ -36,6 +36,8 @@ namespace Earlgrey
 		virtual ~Proactor() {}
 
 		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
+
+		//! \todo 이렇게 운영체제 핸들을 드러내놓고 주고 받아도 되나?  
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
 		virtual BOOL DeregisterHandler(HANDLE Handle) = 0;
 	};
@@ -50,7 +52,8 @@ namespace Earlgrey
 		BOOL Initialize();
 		
 		//Proactor Pattern Interface
-		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
+		//! \todo TimeValueType의 단위를 한눈에 알아보기 힘들다. TimeSpan 적용하기
+		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout); 
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
@@ -129,12 +132,15 @@ namespace Earlgrey
 	{
 	public:
 		explicit AsyncResult(CompletionHandler* InHandler) 
-			: TransferredBytes_(0), Error_(0), Status_(0), Handler_(InHandler)
+			: TransferredBytes_(0)
+			, Error_(0)
+			, Status_(0)
+			, Handler_(InHandler)
 		{
 			Internal = 0;
 			InternalHigh = 0;
-			Pointer = 0;
-			hEvent = 0;
+			Pointer = NULL;
+			hEvent = NULL;
 		};
 
 		virtual ~AsyncResult() {}
@@ -143,12 +149,17 @@ namespace Earlgrey
 		virtual void Failed() = 0;
 		virtual void TimeOut() = 0;
 
-		void TransferredBytes(DWORD bytes) { TransferredBytes_ = bytes; };
-		DWORD TransferredBytes() { return TransferredBytes_; }
-		void Status(DWORD status) { Status_ = status; };
-		void Error(DWORD error) { Error_ = error; };
+		inline void TransferredBytes(DWORD bytes) { TransferredBytes_ = bytes; };
+		inline DWORD TransferredBytes() { return TransferredBytes_; }
+		inline void Status(DWORD status) { Status_ = status; };
+		inline void Error(DWORD error) { Error_ = error; };
 
-	protected:
+		inline CompletionHandler* Handler() const
+		{
+			return Handler_;
+		}
+
+	private:
 		DWORD TransferredBytes_;
 		DWORD Error_;
 		DWORD Status_;
@@ -167,7 +178,7 @@ namespace Earlgrey
 
 		virtual void Completed()
 		{
-			Handler_->HandleEvent(Handler_->GetHandle(), WRITE_EVENT, this);
+			Handler()->HandleEvent(Handler()->GetHandle(), WRITE_EVENT, this);
 		}
 
 		virtual void Failed()
@@ -195,7 +206,7 @@ namespace Earlgrey
 
 		virtual void Completed()
 		{
-			Handler_->HandleEvent(Handler_->GetHandle(), READ_EVENT, this);
+			Handler()->HandleEvent(Handler()->GetHandle(), READ_EVENT, this);
 		}
 
 		virtual void Failed()

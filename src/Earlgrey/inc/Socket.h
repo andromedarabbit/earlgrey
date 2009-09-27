@@ -2,29 +2,6 @@
 
 namespace Earlgrey
 {
-	class CompletionHandler;
-	class NetworkBuffer;
-
-	class AsyncStream
-	{
-	public:
-		AsyncStream() {};		
-		virtual ~AsyncStream() {}; //! \todo Close() 안 불러도 되나?
-
-		BOOL Open(SOCKET Socket, CompletionHandler* Handler);
-		void Close();
-
-		BOOL Post();
-		BOOL AsyncRead(); 
-		BOOL AsyncWrite();
-
-		NetworkBuffer* GetNetworkBuffer() { return _PacketBuffer; }
-	private:
-		NetworkBuffer* _PacketBuffer;
-		CompletionHandler* _Handler;
-		SOCKET _Handle;
-	};
-
 	class SocketSubsystem
 	{
 	public:
