@@ -708,6 +708,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\lexical_cast.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Path.h"
 					>
 				</File>
