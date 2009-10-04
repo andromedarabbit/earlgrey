@@ -383,6 +383,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\LexicalCastTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LockfreeQueueTest.cpp"
 				>
 			</File>
