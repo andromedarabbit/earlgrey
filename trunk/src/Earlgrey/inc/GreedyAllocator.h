@@ -133,35 +133,23 @@ namespace Earlgrey
 
 		SuperMemoryBlock ** m_SuperMemoryBlocks;
 
+	public:
+		template <class T> 
+		struct CreateUsingNew
+		{
+			static T* Create()
+			{ 
+				const GreedyAllocator::size_type minObjectBytes = EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT;
+				const GreedyAllocator::size_type maxObjectBytes = EARLGREY_DEFAULT_PAGE_ALIGNMENT;
+				const GreedyAllocator::size_type memoryChunkBytesPerAlloc = GreedyAllocator::DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC;
 
+				return new T(minObjectBytes, maxObjectBytes, memoryChunkBytesPerAlloc);
+			}
+
+			static void Destroy(T* p)
+			{ 
+				delete p; 
+			}
+		};
 	};
-
-
-	template <class T> 
-	struct CreateGreedyAllocatorUsingNew
-	{
-		static T* Create()
-		{ 
-			const GreedyAllocator::size_type minObjectBytes = EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT;
-			const GreedyAllocator::size_type maxObjectBytes = EARLGREY_DEFAULT_PAGE_ALIGNMENT;
-			const GreedyAllocator::size_type memoryChunkBytesPerAlloc = GreedyAllocator::DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC;
-
-
-			return new T(
-				minObjectBytes
-				, maxObjectBytes
-				, memoryChunkBytesPerAlloc  
-				);
-		}
-
-		static void Destroy(T* p)
-		{ 
-			delete p; 
-		}
-	};
-
-	typedef 
-		Loki::SingletonHolder<GreedyAllocator, CreateGreedyAllocatorUsingNew, Loki::DefaultLifetime, Loki::SingleThreaded> 
-		gGreedyAllocator;
-
 }
