@@ -1,5 +1,5 @@
 #pragma once
-#include "MemoryAllocator.h"
+#include "GreedyAllocator.h"
 #include <memory>
 
 namespace Earlgrey
@@ -58,14 +58,14 @@ namespace Earlgrey
 		void deallocate(pointer _Ptr, size_type)
 		{	// deallocate object at _Ptr, ignore size
 			// ::operator delete(_Ptr);
-			gMemoryAllocator::Instance().Free(_Ptr);
+			gGreedyAllocator::Instance().Free(_Ptr);
 		}
 
 		pointer allocate(size_type _Count)
 		{	// allocate array of _Count elements
 			// return (std::_Allocate(_Count, (pointer)0));
 			return static_cast<pointer>( 
-				gMemoryAllocator::Instance().Alloc(_Count * sizeof(_Ty))
+				gGreedyAllocator::Instance().Alloc(_Count * sizeof(_Ty))
 				);
 		}
 

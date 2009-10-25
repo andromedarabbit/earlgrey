@@ -389,10 +389,6 @@
 					RelativePath=".\src\MemoryBlock.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\SlabAllocator.cpp"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="Network"
@@ -640,10 +636,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\MemoryAllocator.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\MemoryBlock.h"
 					>
 				</File>
@@ -657,10 +649,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\SinglyList.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\SlabAllocator.h"
 					>
 				</File>
 				<File
@@ -681,10 +669,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\StlStackAllocator.hpp"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\ThreadLocalAllocator.h"
 					>
 				</File>
 			</Filter>
