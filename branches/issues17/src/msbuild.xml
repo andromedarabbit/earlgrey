@@ -1,0 +1,84 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<!-- 플랫폼 판단 -->
+<Choose> 
+	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v2.0.50727' ">
+		<PropertyGroup>
+			<Is64Bit>true</Is64Bit>
+			<Platform>x64</Platform>
+		</PropertyGroup>
+	</When>
+	<Otherwise>
+		<PropertyGroup>
+			<Is64Bit>false</Is64Bit>
+			<Platform>Win32</Platform>
+		</PropertyGroup>
+	</Otherwise>
+</Choose>
+	
+<PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+	<BuildCondition>$(Configuration)|$(Platform)</BuildCondition>
+	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
+	<BinDir>$(OutputDir)\Bin</BinDir>
+	<ObjDir>$(OutputDir)\Obj</ObjDir>
+</PropertyGroup>
+
+<!-- 특별한 문자열 -->  
+<PropertyGroup>  
+    <Semicolon>%3b</Semicolon>  
+</PropertyGroup>  
+  
+<!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
+<PropertyGroup>  
+    <DevEnv>devenv</DevEnv>  
+</PropertyGroup> 
+
+<!-- 빌드 대상 -->
+<ItemGroup>
+	<ProjectReferences Include="Earlgrey.sln">
+		<Configuration>$(Configuration)</Configuration>
+		<Platform>$(Platform)</Platform>
+	</ProjectReferences>
+</ItemGroup>
+		
+<!-- 단위 테스트 바이너리 -->
+<ItemGroup>
+	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Test.exe">
+	</UnitTestBinaries>
+</ItemGroup>
+
+
+<Target Name="CleanUnitTestArtifacts">
+	<Message Text="타겟: CleanUnitTestArtifacts" />
+	
+	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" ContinueOnError="true" IgnoreExitCode="true" />
+</Target>
+
+<Target Name="Clean">  
+    <Message Text="타겟: Clean" />  
+       
+	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+	<RemoveDir Directories="$(OutputDir)" />  
+</Target>  
+
+<Target Name="Build">
+	<Message Text="타겟: Build " />
+	<Message Text="빌드 조건: '$(BuildCondition)'" Importance="high" />
+	
+	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+</Target>
+
+<Target Name="Rebuild" DependsOnTargets="Clean; Build">
+	<Message Text="타겟: Rebuild" />
+</Target>
+
+<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
+	<Message Text="타겟: TestAlone" />
+	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;" WorkingDirectory="$(BinDir)" ContinueOnError="true"  IgnoreExitCode="true" />
+</Target>
+
+</Project>
+
+		
