@@ -25,17 +25,7 @@ namespace Earlgrey
 			return newOffset - offset;
 		}
 		
-		inline INT SlowGetSystemPageSize()
-		{
-			SYSTEM_INFO SI;
-			GetSystemInfo( &SI );
-			return SI.dwPageSize;
-		}
 
-		inline INT GetSystemPageSize()
-		{
-			static INT PageSize = GetSystemPageSize();
-			return PageSize;
-		}
+
 	}
 }

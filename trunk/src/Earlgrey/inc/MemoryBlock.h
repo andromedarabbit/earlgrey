@@ -179,44 +179,4 @@ namespace Earlgrey
 		SinglyListHead m_BlockHead;
 
 	};
-
-	template<class Allocator>
-	class MemoryAllocatorThreadSafeProxy
-	{
-	public:
-		typedef typename Allocator::size_type size_type;
-
-		explicit MemoryAllocatorThreadSafeProxy()
-		{
-			m_Allocator = Allocator::CreateUsingNew::Create();
-		}
-
-		~MemoryAllocatorThreadSafeProxy()
-		{
-			Allocator::CreateUsingNew::Destroy(m_Allocator);
-			m_Allocator = NULL;
-		}
-
-		void * Alloc(size_type bytes)
-		{
-			return m_Allocator->Alloc(bytes);
-		}
-
-		inline void Free(void * ptr)
-		{
-			m_Allocator->Free(ptr);
-		}
-
-		Allocator* GetRealAllocator() { return m_Allocator; }
-
-		template <class T> 
-		struct CreateUsingNew
-		{
-			static T* Create() { return new T(); }
-			static void Destroy(T* p) { delete p; }
-		};
-
-	private:
-		Allocator* m_Allocator;
-	};
 }
