@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "AppInitializer.h"
-#include "SingleInstance.h"
+#include "SingleAppInstance.h"
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
 #include "Socket.h"

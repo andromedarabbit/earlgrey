@@ -346,7 +346,15 @@
 				Name="ProcessThread"
 				>
 				<File
+					RelativePath=".\src\EarlgreyProcess.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\NoLock.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessModule.cpp"
 					>
 				</File>
 				<File
@@ -359,6 +367,10 @@
 				>
 				<File
 					RelativePath=".\src\EarlgreyAssert.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\EventLog.cpp"
 					>
 				</File>
 				<File
@@ -474,7 +486,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\SingleInstance.cpp"
+					RelativePath=".\src\Registry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SingleAppInstance.cpp"
 					>
 				</File>
 				<File
@@ -556,11 +572,19 @@
 				Name="ProcessThread"
 				>
 				<File
+					RelativePath=".\inc\EarlgreyProcess.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\NoLock.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\ProcessInitializer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ProcessModule.h"
 					>
 				</File>
 				<File
@@ -577,6 +601,10 @@
 				>
 				<File
 					RelativePath=".\inc\EarlgreyAssert.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\EventLog.h"
 					>
 				</File>
 				<File
@@ -720,7 +748,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\SingleInstance.h"
+					RelativePath=".\inc\Registry.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SingleAppInstance.h"
 					>
 				</File>
 				<File

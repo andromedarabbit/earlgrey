@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "SingleInstance.h"
+#include "SingleAppInstance.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
-	BOOL SingleAppInstance::IsRunning(AppType::E_Type appType)
+	BOOL SingleAppInstance::IsRunning(const TCHAR * appName)
 	{
 		EARLGREY_VERIFY(m_ExecutedOnce == FALSE);
 
@@ -12,7 +12,7 @@ namespace Earlgrey
 
 		if(m_Mutex == NULL)
 		{
-			m_Mutex = CreateMutex(NULL, TRUE, AppType::Names[appType]);
+			m_Mutex = CreateMutex(NULL, TRUE, appName);
 			if(m_Mutex == NULL)
 				return FALSE;
 
@@ -24,5 +24,12 @@ namespace Earlgrey
 			return TRUE;
 		}
 		return TRUE;
+
+
+	}
+
+	BOOL SingleAppInstance::IsRunning(AppType::E_Type appType)
+	{
+		return IsRunning(AppType::Names[appType]);
 	}
 }
