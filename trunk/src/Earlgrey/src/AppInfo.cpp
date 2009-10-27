@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "AppInfo.h"
-#include "SingleInstance.h"
+#include "SingleAppInstance.h"
 #include "txstring.h" 
 #include "RuntimeCheck.h"
 

@@ -8,6 +8,7 @@
 #include "Log.h" 
 
 #include "txsstream.h"
+#include "RAII.h"
 
 using namespace std;
 using namespace std::tr1;	

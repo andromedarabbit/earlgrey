@@ -22,5 +22,6 @@ namespace Earlgrey
 
 	extern _tostream &_tcout;
 	extern _tistream &_tcin;
+	extern _tostream &_tcerr;
 
 }

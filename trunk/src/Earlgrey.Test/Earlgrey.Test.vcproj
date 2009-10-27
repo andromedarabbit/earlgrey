@@ -379,6 +379,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\EventLogTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\GreedyAllocatorTest.cpp"
 				>
 			</File>
@@ -506,6 +510,14 @@
 				RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
 				>
 			</File>
+			<Filter
+				Name="Temp"
+				>
+				<File
+					RelativePath=".\src\TempTest.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="헤더 파일"

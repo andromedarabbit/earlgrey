@@ -28,6 +28,7 @@ namespace Earlgrey
 		}
 
 	public:
+		BOOL IsRunning(const TCHAR * appName);
 		BOOL IsRunning(AppType::E_Type appType);
 	};
 
