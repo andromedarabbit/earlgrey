@@ -505,6 +505,18 @@
 					RelativePath=".\src\TimeSpan.cpp"
 					>
 				</File>
+				<Filter
+					Name="Win32Service"
+					>
+					<File
+						RelativePath=".\src\Win32Service.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Win32ServiceInstaller.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="StlCustom"
@@ -767,6 +779,22 @@
 					RelativePath=".\inc\TimeSpan.h"
 					>
 				</File>
+				<Filter
+					Name="Win32Service"
+					>
+					<File
+						RelativePath=".\inc\PowerBroadcastStatus.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\Win32Service.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\Win32ServiceInstaller.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="PAL"
