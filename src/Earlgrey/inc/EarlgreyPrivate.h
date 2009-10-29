@@ -9,4 +9,6 @@
 #include <tchar.h>
 
 
-// 당분간 미리 컴파일된 헤더를 최대한 안 썼으면 좋겠습니다. 
+// 미리 컴파일된 헤더엔 정말 많이 쓰는 헤더만 넣었으면 합니다.
+#include "Uncopyable.h"
+#include "EarlgreyAssert.h"
