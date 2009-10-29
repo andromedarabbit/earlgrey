@@ -36,8 +36,9 @@ namespace Earlgrey
 	_txstring Log::ErrorMessage(DWORD errorCode, HMODULE source)
 	{
 		__declspec(thread) static TCHAR msgBuf[1024 * 2];
+		// msgBuf[0] = NULL;
 
-		DWORD flags = FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		DWORD flags = // FORMAT_MESSAGE_ALLOCATE_BUFFER |
 			FORMAT_MESSAGE_FROM_SYSTEM |
 			FORMAT_MESSAGE_IGNORE_INSERTS
 			;
@@ -54,7 +55,18 @@ namespace Earlgrey
 			, _countof(msgBuf) - 1
 			, NULL
 			);
+/*
+		LPTSTR lpMsgBuf=0;
 
+		FormatMessage (
+			flags
+			, source
+			, errorCode
+			, NULL // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // Default language
+			, (LPTSTR) lpMsgBuf
+			, 0
+			, NULL);
+*/
 		//! \todo 반환값 처리하기
 		EARLGREY_VERIFY(retValue != 0);
 

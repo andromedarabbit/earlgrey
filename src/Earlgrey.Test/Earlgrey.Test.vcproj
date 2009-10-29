@@ -403,6 +403,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\LogTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MacrosTest.cpp"
 				>
 			</File>
