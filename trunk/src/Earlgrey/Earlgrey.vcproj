@@ -466,6 +466,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Console.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\DateTime.cpp"
 					>
 				</File>
@@ -725,6 +729,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\AppType.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Console.h"
 					>
 				</File>
 				<File
