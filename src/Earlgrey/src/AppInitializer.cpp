@@ -40,7 +40,7 @@ namespace Earlgrey
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
-			std::tr1::shared_ptr<Thread> thread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
+			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
 			EARLGREY_ASSERT(thread != NULL);
 			m_IOThreads.push_back(thread);
 
@@ -54,7 +54,7 @@ namespace Earlgrey
 			std::tr1::shared_ptr<IRunnable> acceptorThread (
 				new AcceptorRunnable()
 				);
-			std::tr1::shared_ptr<Thread> thread = Thread::CreateRunningThread( acceptorThread, "AcceptorRunnable" );
+			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable" );
 			m_WaitThreads.push_back(thread);
 
 		}

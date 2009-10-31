@@ -68,7 +68,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	EARLGREY_ASSERT(retValue == TRUE);
 	//ServerCreated();
 
-	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateRunningThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
+	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 
 	WinThread->Join();
 

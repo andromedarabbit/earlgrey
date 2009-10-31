@@ -9,8 +9,8 @@ namespace Earlgrey
 	{
 		TEST(ClientCreateTest, ClientCreate)
 		{
-			AppInfo app;
-			app.InitInstance(AppType::E_APPTYPE_DEFAULT);
+			//AppInfo app;
+			//app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 			ServerCreate(100);
 			ClientCreate(100);
 		}

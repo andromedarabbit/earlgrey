@@ -34,8 +34,10 @@ namespace Earlgrey
 
 	};
 
-	Thread::Thread() : _thread(NULL), _threadId(0)
+	Thread::Thread() : _thread(NULL), _threadId(0), IsRunning_(FALSE)
 	{
+		CreatedLock_ = CreateMutex(NULL, true, NULL);
+		EARLGREY_ASSERT(CreatedLock_ != NULL);
 	}
 
 	Thread::~Thread()
@@ -44,6 +46,7 @@ namespace Earlgrey
 			return;
 
 		WaitForSingleObject( _thread, WaitTimeForThread );
+		CloseHandle(CreatedLock_);
 		CloseHandle( _thread );
 	}
 
@@ -67,9 +70,17 @@ namespace Earlgrey
 
 	DWORD Thread::Run()
 	{
+		
 		EARLGREY_VERIFY( _runnable );
 		EARLGREY_VERIFY( _runnable->Init() );
+
+		IsRunning_ = TRUE;
+
+		ReleaseMutex(CreatedLock_);
+
 		DWORD exitCode = _runnable->Run();
+
+		IsRunning_ = FALSE;
 		_runnable->Exit();
 
 		// _endthread()는 thread handle(object)를 close하지만, _endthreadex()는 close하지 않는다. 따라서, CloseHandle()은 따로 호출해야 한다.
@@ -109,6 +120,8 @@ namespace Earlgrey
 			return FALSE;
 		}
 
+		WaitForSingleObject(CreatedLock_, INFINITE);
+
 		_thread = reinterpret_cast<HANDLE>( threadHandle );
 
 		if (threadName && strlen(threadName) > 0)
@@ -119,7 +132,7 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	std::tr1::shared_ptr<Thread> Thread::CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
+	std::tr1::shared_ptr<Thread> Thread::CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
 	{
 		EARLGREY_ASSERT( runnable );
 		Thread* thread = new Thread();

@@ -42,7 +42,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
 	acceptor->Initialize();
 
-	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateRunningThread( 
+	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateThread( 
 		std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 
 	serverThread->Join();
