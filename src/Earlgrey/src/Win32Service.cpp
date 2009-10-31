@@ -95,7 +95,7 @@ namespace Earlgrey
 			std::tr1::mem_fn(&Win32Service::ServiceCtrl), std::tr1::ref(*this), _1
 			);
 
-		LPHANDLER_FUNCTION serviceCtrlFunc = serviceCtrlBound.target<void (DWORD)>( );
+		LPHANDLER_FUNCTION serviceCtrlFunc = (LPHANDLER_FUNCTION)serviceCtrlBound.target<void (DWORD)>( );
 		EARLGREY_ASSERT(serviceCtrlFunc != NULL);
 
 		m_serviceStatusHandle = ::RegisterServiceCtrlHandler(
@@ -202,7 +202,7 @@ namespace Earlgrey
 			std::tr1::mem_fn(&Win32Service::ServiceMain), std::tr1::ref(service), _1, _2
 			);
 				
-		LPSERVICE_MAIN_FUNCTION serviceMainFunc = serviceMainBound.target<void ( DWORD, LPWSTR * )>( );
+		LPSERVICE_MAIN_FUNCTION serviceMainFunc = (LPSERVICE_MAIN_FUNCTION)serviceMainBound.target<void ( DWORD, LPWSTR * )>( );
 		EARLGREY_ASSERT(serviceMainFunc != NULL);
 
 		SERVICE_TABLE_ENTRY dispatchTable[] =
@@ -228,7 +228,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(dispatchTable != NULL);
 		
 
-		for(int i = 0; i < services.size(); i++)
+		for(size_t i = 0; i < services.size(); i++)
 		{
 			shared_ptr<Win32Service> service( services[i] );
 			EARLGREY_ASSERT(service != NULL);			
@@ -238,7 +238,7 @@ namespace Earlgrey
 				);
 
 			dispatchTable[i].lpServiceName = const_cast<LPTSTR>(service->m_serviceName.c_str());
-			dispatchTable[i].lpServiceProc = serviceMainBound.target<void ( DWORD, LPWSTR * )>( );
+			dispatchTable[i].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)serviceMainBound.target<void ( DWORD, LPWSTR * )>( );
 			EARLGREY_ASSERT(dispatchTable[i].lpServiceProc != NULL);
 		}
 
