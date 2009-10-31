@@ -367,10 +367,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\Earlgrey.Test.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\EarlgreyAssertTest.cpp"
 				>
 			</File>
@@ -550,6 +546,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+		</Filter>
+		<Filter
+			Name="Main"
+			>
+			<File
+				RelativePath=".\src\Earlgrey.Test.cpp"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"

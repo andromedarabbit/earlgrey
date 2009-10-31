@@ -1,5 +1,6 @@
 #pragma once
 #include "Uncopyable.h"
+#include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
@@ -42,16 +43,18 @@ namespace Earlgrey
 
 	public:
 		// Factory 
-		static std::tr1::shared_ptr<Thread> CreateRunningThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
+		static std::tr1::shared_ptr<Thread> CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
 
 	public:	
 		void SetName(LPCSTR threadName);
 		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
 		void SetPriority(INT priority);
 
-		HANDLE GetWindowHandle() const { return _thread; }
+		//HANDLE GetWindowHandle() const { return _thread; }
 		void Join()
 		{
+			EARLGREY_ASSERT(_thread != NULL);
+		
 			WaitForSingleObject(_thread, INFINITE);
 		}
 
@@ -63,5 +66,7 @@ namespace Earlgrey
 		HANDLE _thread;
 		unsigned int _threadId;
 		std::tr1::shared_ptr<IRunnable> _runnable;
+		BOOL IsRunning_; // TODO atomic check ÇÊ¿ä
+		HANDLE	CreatedLock_;
 	};
 }
