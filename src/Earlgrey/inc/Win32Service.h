@@ -22,6 +22,7 @@ namespace Earlgrey {
 			);
 		virtual ~Win32Service();
 
+		// TODO 나중에 돌려놓자
 		// virtual void	OnStart(DWORD argc, LPTSTR * argv) = 0;
 		// virtual void	OnStop() = 0;
 		virtual void	OnStart(DWORD argc, LPTSTR * argv);
