@@ -2,37 +2,10 @@
 //
 
 #include "stdafx.h"
-// #include "ServerInit.h"
-// #include "AppInitializer.h"
-
-// #include "EarlgreyAssert.h"
-// #include "Console.h"
-// #include "tiostream.h"
 #include "ServerService.h"
-
-using namespace Earlgrey;
-
-
-/*
-int _tmain(int argc, _TCHAR* argv[])
-{
-	AppInfo app;
-	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
-
-	//ServerCreate(100);
-	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
-	acceptor->Initialize();
-
-	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateRunningThread( 
-		std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
-
-	serverThread->Join();
-	
-	return EXIT_SUCCESS;
-}
-*/
-// #include "..\..\..\vendor\argstream\\argstream.h"
 #include "tclap/CmdLine.h"
+
+// #include "tclap/SwitchArg.h"
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
 					   HINSTANCE hPrevInstance,
@@ -44,12 +17,45 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
+	using namespace std;
+	using namespace Earlgrey;
 	using namespace TCLAP;
+
+	/*
+	HRSRC hRsrc = ::FindResource(NULL, MAKEINTRESOURCE(VS_VERSION_INFO), RT_VERSION);
+	if (hRsrc != NULL)
+	{
+		HGLOBAL hGlobal = ::LoadResource(NULL, hRsrc);
+		if (hGlobal != NULL)
+		{
+			void* lpData = ::LockResource(hGlobal);
+
+			// Get the info
+			VS_FIXEDFILEINFO* pVerInfo = NULL;
+			UINT uInfoSize;
+			if (::VerQueryValue(lpData, _T("\\"), reinterpret_cast<LPVOID*>(&pVerInfo), &uInfoSize))
+			{
+				// use pVerInfo now
+			}
+
+			::FreeResource(hGlobal);
+		}
+	}
+
+	*/
 
 	try
 	{
 		// tclap 가 유니코드를 지원하지 않으므로 ::GetCommandLineA()를 쓴다.
-		CmdLine cmd(::GetCommandLineA());
+		// CmdLine cmd(::GetCommandLineA());
+		CmdLine cmd("Command description message", ' ', "0.9", true);
+
+		DBG_UNREFERENCED_LOCAL_VARIABLE(cmd);
+		// SwitchArg<string> debugSwitch("d", "debug", "Start as a console application", false, NULL);
+		// cmd.add(debugSwitch)
+		
+
+		
 	}
 	catch ( ArgException& e )
 	{ 

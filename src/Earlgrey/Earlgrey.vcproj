@@ -190,6 +190,7 @@
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
+				CallingConvention="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -374,6 +375,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\FileVersionInfo.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\GlobalExceptionHandler.cpp"
 					>
 				</File>
@@ -549,6 +554,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resource1.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\stdafx.h"
 				>
 			</File>
@@ -621,6 +634,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\EventLog.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\FileVersionInfo.h"
 					>
 				</File>
 				<File
@@ -989,6 +1006,10 @@
 				Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 				UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 				>
+				<File
+					RelativePath=".\EargreyResources.rc"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File
