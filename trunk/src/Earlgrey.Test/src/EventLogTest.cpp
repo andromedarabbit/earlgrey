@@ -6,7 +6,33 @@ namespace Earlgrey
 {
 	namespace Test
 	{
-		TEST(EventLogTest, Exists)
+		class EventLogTest : public ::testing::Test {
+		protected:
+			// You can define per-test set-up and tear-down logic as usual.
+			virtual void SetUp() { 
+				DeleteEventSource();
+			}
+			virtual void TearDown() {
+				DeleteEventSource();				
+			}
+
+			static const TCHAR * source;
+		private:
+			void DeleteEventSource()
+			{
+				try
+				{
+					EventLog::DeleteEventSource( source );
+				}
+				catch(...)
+				{
+				}
+			}
+		};
+
+		const TCHAR * EventLogTest::source = _T("EarlgreyTest");
+
+		TEST_F(EventLogTest, Exists)
 		{
 			ASSERT_TRUE( EventLog::Exists(_T("Application")) );		
 			ASSERT_TRUE( EventLog::Exists(_T("application")) );	 // Case insensitive
@@ -14,7 +40,7 @@ namespace Earlgrey
 			ASSERT_FALSE( EventLog::Exists(_T("None")) );			
 		}
 
-		TEST(EventLogTest, SourceExists)
+		TEST_F(EventLogTest, SourceExists)
 		{
 			ASSERT_TRUE( EventLog::SourceExists(_T("COM")) );
 			ASSERT_TRUE( EventLog::SourceExists(_T("com")) ); // Case insensitive
@@ -22,22 +48,24 @@ namespace Earlgrey
 		}
 
 
-		TEST(EventLogTest, CreateEventSource)
+		TEST_F(EventLogTest, CreateEventSource)
 		{
-			const TCHAR * source = _T("EarlgreyTest");
+			// const TCHAR * source = _T("EarlgreyTest");
 			ASSERT_FALSE( EventLog::SourceExists(source) );
 			EventLog::CreateEventSource(source, _T("Application"));
 			ASSERT_TRUE( EventLog::SourceExists(source) );
 			EventLog::DeleteEventSource(source);
 			ASSERT_FALSE( EventLog::SourceExists(source) );
+
 		}
 
 
-		TEST(EventLogTest, WriteEntryAndClear)
+		TEST_F(EventLogTest, WriteEntryAndClear)
 		{
 			const TCHAR * source = _T("EarlgreyTestSource");	
 			const TCHAR * const log = _T("EarlgreyTestLog");
 
+			ASSERT_FALSE(EventLog::SourceExists(source));
 			if(EventLog::SourceExists(source) == FALSE) {
 				EventLog::CreateEventSource(source, log);
 			}

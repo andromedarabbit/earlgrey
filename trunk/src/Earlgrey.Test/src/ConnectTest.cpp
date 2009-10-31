@@ -5,7 +5,7 @@
 
 namespace Earlgrey
 {
-	namespace Test
+	/*namespace Test
 	{
 		TEST(ClientCreateTest, ClientCreate)
 		{
@@ -14,5 +14,5 @@ namespace Earlgrey
 			ServerCreate(100);
 			ClientCreate(100);
 		}
-	}
+	}*/
 }

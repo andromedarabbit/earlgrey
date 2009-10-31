@@ -359,7 +359,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\DataStructureTest.cpp"
+				RelativePath=".\src\DataStructureTest.cpp"
 				>
 			</File>
 			<File

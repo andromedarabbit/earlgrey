@@ -50,6 +50,17 @@ namespace Earlgrey
 
 	}
 
+	void Win32Service::OnStart(DWORD argc, LPTSTR * argv)
+	{
+		DBG_UNREFERENCED_PARAMETER(argc);
+		DBG_UNREFERENCED_PARAMETER(argv);
+	}
+
+	void Win32Service::OnStop()
+	{
+
+	}
+
 	void Win32Service::OnPause()
 	{
 
@@ -199,7 +210,7 @@ namespace Earlgrey
 			{ const_cast<LPTSTR>(service.m_serviceName.c_str()), serviceMainFunc },
 			{ 0, 0 }
 		};
-
+		
 		BOOL bRet = StartServiceCtrlDispatcher(dispatchTable);
 		if( ! bRet ) {
 			_txstring msg( Log::ErrorMessage(GetLastError()) );

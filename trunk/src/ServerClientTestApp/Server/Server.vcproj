@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -66,7 +66,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -139,7 +139,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -191,7 +191,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -212,7 +212,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -267,7 +267,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -288,7 +288,7 @@
 				Name="VCLinkerTool"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
-				SubSystem="1"
+				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="17"
@@ -325,7 +325,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Server.cpp"
+				RelativePath=".\src\Server.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ServerService.cpp"
 				>
 			</File>
 			<File
@@ -371,11 +375,27 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\..\vendor\argstream\argstream.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\ServerConnection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\ServerService.h"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.h"
 				>
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\WindowsRunnable.h"
 				>
 			</File>
 		</Filter>

@@ -17,16 +17,32 @@ namespace Earlgrey
 		~Console();
 
 		BOOL Open();
-		BOOL Close();
+		void Close();
 
-		void Write(const TCHAR * const msg, DWORD msgLen);
-		void WriteLine(const TCHAR * const msg, DWORD msgLen);
-	public: // class methods
-		// static BOOL ConsoleExists();
+		BOOL RedirectStdIO();
 
+		void Write(const TCHAR * const msg);
+		void Write(const TCHAR * const msg, size_t msgLen);
+		void WriteLine(const TCHAR * const msg);
+		void WriteLine(const TCHAR * const msg, size_t msgLen);
+
+		void WindowTitle(const TCHAR * const msg);
+		_txstring WindowTitle() const;
+	
+	private:
+		// HANDLE GetStdIOHandle(DWORD nStdHandle);
+		void RedirectStdIO(DWORD nStdHandle);
+		HANDLE StdHandle(DWORD nStdHandle);
+
+
+		// static BOOL WINAPI ConsoleCtrlHandler(DWORD ctrlType);
 
 	private:
-		HANDLE m_consoleHandle;
+		HANDLE m_stdoutHandle;
+		HANDLE m_stdinHandle;
+		HANDLE m_stderrHandle;
+
+		BOOL m_closed;
 	};
 
 	//typedef 
