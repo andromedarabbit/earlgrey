@@ -387,6 +387,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\FileVersionInfo.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\GreedyAllocatorTest.cpp"
 				>
 			</File>
