@@ -35,10 +35,12 @@ namespace Earlgrey {
 		virtual BOOL OnPowerEvent(PowerBroadcastStatus powerStatus);
 
 		// BOOL InstallService();
+		virtual LPSERVICE_MAIN_FUNCTION ServiceMainFunc() const;
+		
 
 	public: // class methods
 		static void Run(Win32Service& service);
-		static void Run(xvector< std::tr1::shared_ptr<Win32Service> >::Type& services);
+		// static void Run(xvector< std::tr1::shared_ptr<Win32Service> >::Type& services);
 
 	private:
 		BOOL ReportStatus(
@@ -47,15 +49,28 @@ namespace Earlgrey {
 			, DWORD errExit = 0
 			);
 
+		void Start(DWORD argc, LPTSTR * argv);
+		DWORD ControlHandler(
+			DWORD    dwControl,
+			DWORD    dwEventType,
+			LPVOID   lpEventData
+			);
+
 	private:		// default handlers
 		// The following functions will be used by default.
 		// You can provide other handlers. If so, you have to
 		// overload several of the "virtual"s above.
-		void WINAPI	ServiceCtrl(DWORD ctrlCode);
-		void WINAPI	ServiceMain(DWORD argc, LPTSTR * argv);
+		static DWORD WINAPI ServiceCtrl(
+			DWORD    dwControl,
+			DWORD    dwEventType,
+			LPVOID   lpEventData,
+			LPVOID   lpContext
+			);
+		static void WINAPI	ServiceMain(DWORD argc, LPTSTR * argv);
 		// BOOL WINAPI	ControlHandler(DWORD CtrlType);
 
 	private:
+		static Win32Service* MAIN_SERVICE;
 		// Earlgrey::SingleAppInstance m_singleAppInstance;
 
 		Earlgrey::_txstring m_serviceName;

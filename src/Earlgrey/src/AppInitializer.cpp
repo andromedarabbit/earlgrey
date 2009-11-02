@@ -69,7 +69,7 @@ namespace Earlgrey
 
 	BOOL AppInfo::CheckAppInstance(AppType::E_Type appType)
 	{
-		if( gSingleInstance::Instance().IsRunning(appType) )
+		if( gSingleInstance::Instance().IsRunning(appType) == FALSE )
 		{
 			this->m_CurrentAppType = appType;
 			return TRUE;
