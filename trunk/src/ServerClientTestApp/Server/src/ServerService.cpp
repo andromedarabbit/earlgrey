@@ -68,22 +68,39 @@ void ServerService::OnStop()
 
 }
 
+void ServerService::ProcessUserInput()
+{
+	_tcin.clear();
+
+	_txstring input;
+	std::getline<TCHAR>(_tcin, input);
+
+	OnUserInput(input);
+}
+
+void ServerService::OnUserInput(_txstring& input)
+{
+	DBG_UNREFERENCED_PARAMETER(input);
+}
+
 BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 {
-	_txstring input;
+	ServerService* instance = NULL;
+	instance = static_cast<ServerService*>( Win32Service::MainService() );
+	EARLGREY_ASSERT(instance != NULL);
+
 	switch( ctrlType ) {
 		case CTRL_C_EVENT:
 		case CTRL_BREAK_EVENT:  // use Ctrl+C or Ctrl+Break to simulate			
 			// Process User Input
-			_tcin.clear();
-			std::getline<TCHAR>(_tcin, input);
+			instance->ProcessUserInput();			
 			return TRUE;
 
 		case CTRL_CLOSE_EVENT:
 		case CTRL_LOGOFF_EVENT:
 		case CTRL_SHUTDOWN_EVENT:
 			// _tcout << TEXT("Stopping ") << m_displayName << std::endl;
-			// OnStop();
+			instance->OnStop();
 			exit(EXIT_SUCCESS);
 	}
 	return FALSE;

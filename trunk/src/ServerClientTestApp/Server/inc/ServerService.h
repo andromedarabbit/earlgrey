@@ -1,6 +1,7 @@
 #pragma once
 #include "Win32Service.h"
 #include "Console.h"
+#include "txstring.h"
 
 class ServerService : public Earlgrey::Win32Service
 {
@@ -23,8 +24,13 @@ public:
 	{
 		return __super::ServiceMainFunc();
 	}
+
+	virtual void OnUserInput(Earlgrey::_txstring& input);
+
 private:
 	static BOOL WINAPI ControlHandler(DWORD ctrlType);
+
+	void ProcessUserInput();
 
 private:
 	BOOL m_consoleMode;
