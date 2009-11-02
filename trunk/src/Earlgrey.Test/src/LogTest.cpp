@@ -12,7 +12,7 @@ namespace Earlgrey
 			const DWORD errCode = 5;
 			_txstring msg = Log::ErrorMessage(errCode);
 			
-			ASSERT_GT(msg.length(), 6);
+			ASSERT_GT(msg.length(), static_cast<size_t>(6));
 
 			if(GetSystemDefaultLCID() == 1042) // ÇÑ±¹¾î
 			{
