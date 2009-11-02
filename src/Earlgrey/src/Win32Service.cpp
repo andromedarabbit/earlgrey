@@ -34,6 +34,9 @@ namespace Earlgrey
 		, m_pszStartName(0)
 		, m_pszPassword(0)
 	{
+		EARLGREY_ASSERT(MAIN_SERVICE == NULL);
+		MAIN_SERVICE = this;
+
 		if( gSingleInstance::Instance().IsRunning(serviceName) )
 		{
 			throw std::invalid_argument("Win32 service instance already exists!");
@@ -255,8 +258,6 @@ namespace Earlgrey
 		// Default implementation creates a single threaded service.
 		// Override this method and provide more table entries for
 		// a multithreaded service (one entry for each thread).
-		MAIN_SERVICE = &service;
-
 		LPSERVICE_MAIN_FUNCTION serviceMainFunc = &Win32Service::ServiceMain;
 		EARLGREY_ASSERT(serviceMainFunc != NULL);
 

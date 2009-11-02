@@ -7,7 +7,7 @@
 #include "EarlgreyProcess.h"
 #include "FileVersionInfo.h"
 #include "EarlgreyMath.h"
-#include "ServerHelpVisitor.h"
+// #include "ServerHelpVisitor.h"
 
 // #include <tclap/CmdLine.h>
 

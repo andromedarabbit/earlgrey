@@ -42,6 +42,12 @@ namespace Earlgrey {
 		static void Run(Win32Service& service);
 		// static void Run(xvector< std::tr1::shared_ptr<Win32Service> >::Type& services);
 
+	protected:
+		static Win32Service * MainService() 
+		{
+			return MAIN_SERVICE;
+		}
+
 	private:
 		BOOL ReportStatus(
 			DWORD currentState
