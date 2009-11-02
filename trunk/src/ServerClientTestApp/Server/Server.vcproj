@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -192,7 +192,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -268,7 +268,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;&quot;..\..\..\vendor\tclap-1.2.0\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -329,6 +329,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerHelpVisitor.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ServerService.cpp"
 				>
 			</File>
@@ -375,15 +379,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\..\vendor\argstream\argstream.h"
-				>
-			</File>
-			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\ServerConnection.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\ServerHelpVisitor.h"
 				>
 			</File>
 			<File

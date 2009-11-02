@@ -1,4 +1,5 @@
 #pragma once
+#pragma comment(lib,"version.lib")
 // #include "Uncopyable.h"
 
 #include "txstring.h"

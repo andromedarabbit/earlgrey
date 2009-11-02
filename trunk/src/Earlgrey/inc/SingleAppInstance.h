@@ -1,6 +1,8 @@
 #pragma once
 #include <Loki/Singleton.h>
 #include "AppType.h"
+#include "xmap.h"
+#include "txstring.h"
 
 namespace Earlgrey
 {
@@ -8,28 +10,22 @@ namespace Earlgrey
 	{
 		friend struct Loki::CreateUsingNew<SingleAppInstance>;
 
-	private: // Fields
-		HANDLE m_Mutex;
-		BOOL m_ExecutedOnce;
-
 	private:
 		explicit SingleAppInstance()
-			: m_Mutex(NULL)
-			, m_ExecutedOnce(FALSE)
 		{
 		}
 
-		~SingleAppInstance()
-		{
-			if(m_Mutex != NULL)
-			{
-				ReleaseMutex(m_Mutex);
-			}
-		}
+		~SingleAppInstance();
+		
 
 	public:
 		BOOL IsRunning(const TCHAR * appName);
 		BOOL IsRunning(AppType::E_Type appType);
+
+
+	private:
+		typedef xmap<_txstring, HANDLE>::Type MutexCollectionType;
+		MutexCollectionType m_handles;
 	};
 
 
