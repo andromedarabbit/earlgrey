@@ -329,10 +329,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerHelpVisitor.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ServerService.cpp"
 				>
 			</File>
@@ -384,10 +380,6 @@
 			</File>
 			<File
 				RelativePath=".\inc\ServerConnection.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\ServerHelpVisitor.h"
 				>
 			</File>
 			<File
