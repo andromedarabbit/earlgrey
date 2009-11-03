@@ -68,8 +68,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest9()
         {
-            InputStream target = new InputStream(new Client());
-            ushort Value = 0;
+            InputStream target = new InputStream(new PacketBuffer());
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest8()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             uint Value = 0; // TODO: Initialize to an appropriate value
             uint ValueExpected = 0; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -95,7 +94,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest7()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             long Value = 0; // TODO: Initialize to an appropriate value
             long ValueExpected = 0; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -112,7 +111,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest6()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             short Value = 0; // TODO: Initialize to an appropriate value
             short ValueExpected = 0; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -129,7 +128,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest5()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             int Value = 0; // TODO: Initialize to an appropriate value
             int ValueExpected = 0; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -146,7 +145,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest4()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             char Value = '\0'; // TODO: Initialize to an appropriate value
             char ValueExpected = '\0'; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -163,7 +162,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest3()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             Readable Value = null; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
@@ -178,7 +177,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest2()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             double Value = 0F; // TODO: Initialize to an appropriate value
             double ValueExpected = 0F; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -195,7 +194,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest1()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             ulong Value = 0; // TODO: Initialize to an appropriate value
             ulong ValueExpected = 0; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -212,7 +211,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ReadTest()
         {
-            InputStream target = new InputStream(new Client()); // TODO: Initialize to an appropriate value
+            InputStream target = new InputStream(new PacketBuffer()); // TODO: Initialize to an appropriate value
             float Value = 0F; // TODO: Initialize to an appropriate value
             float ValueExpected = 0F; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
@@ -229,7 +228,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void InputStreamConstructorTest()
         {
-            InputStream target = new InputStream(new Client());
+            InputStream target = new InputStream(new PacketBuffer());
             Assert.Inconclusive("TODO: Implement code to verify target");
         }
     }

@@ -14,6 +14,45 @@ namespace TestCommon.Net
         /// </summary>
         public const int MaxBufferSize = 2048;
 
+        private byte[] _Buffer = null;
+
+        public byte[] Buffer
+        {
+            get { return _Buffer; }
+        }
+
+        public int UsedBufferLength
+        {
+            get;
+            private set;
+        }
+
+        public int ReadOffset
+        {
+            get;
+            private set;
+        }
+
+        public bool IsReadOnly
+        {
+            get;
+            private set;
+        }
+
+        public PacketBuffer(byte[] Buffer, int UsedSize)
+        {
+            Debug.Assert(MaxBufferSize <= UsedSize);
+            _Buffer = Buffer;
+            UsedBufferLength = UsedSize;
+            IsReadOnly = true;
+        }
+
+        public PacketBuffer()
+        {
+            _Buffer = new byte[MaxBufferSize];
+            IsReadOnly = false;
+        }
+
         public bool Append(byte[] Value, int Length)
         {
             return Append(Value, 0, Length);
@@ -21,6 +60,7 @@ namespace TestCommon.Net
 
         public bool Append(byte[] Value, int Offset, int Length)
         {
+            Debug.Assert(IsReadOnly == false);
             Debug.Assert(CanWrite(Length));
             
             if (UsedBufferLength + Length > MaxBufferSize)
@@ -75,25 +115,6 @@ namespace TestCommon.Net
         public bool CanRead(int Length)
         {
             return UsedBufferLength - ReadOffset >= Length;
-        }
-
-        private byte[] _Buffer = new byte[MaxBufferSize];
-
-        public byte[] Buffer
-        {
-            get { return _Buffer; }
-        }
-
-        public int UsedBufferLength
-        {
-            get;
-            private set;
-        }
-
-        public int ReadOffset
-        {
-            get;
-            private set;
         }
     }
 }
