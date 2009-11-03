@@ -47,8 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Net\IActor.cs" />
     <Compile Include="Net\PacketBuffer.cs" />
-    <Compile Include="Net\Client.cs" />
+    <Compile Include="Net\Receiver.cs" />
+    <Compile Include="Net\Sender.cs" />
+    <Compile Include="Net\TcpSocket.cs" />
     <Compile Include="Net\InputStream.cs" />
     <Compile Include="Net\OutputStream.cs" />
     <Compile Include="Net\PacketHandler.cs" />

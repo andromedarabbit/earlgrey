@@ -69,7 +69,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ConnectTest()
         {
-            Client target = new Client();
+            TcpSocket target = new TcpSocket();
             Assert.IsTrue(target.Connect(IPAddress.Loopback, 0));
             target.Close();
         }
@@ -80,7 +80,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void ClientConstructorTest()
         {
-            Client target = new Client();
+            TcpSocket target = new TcpSocket();
             Assert.IsNotNull(target);
         }
     }

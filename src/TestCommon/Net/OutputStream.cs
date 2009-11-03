@@ -12,7 +12,7 @@ namespace TestCommon.Net
 
     public class OutputStream : StreamBase
     {
-        public OutputStream(Client client) : base(client)
+        public OutputStream() : base(new PacketBuffer())
         {
         }
 
@@ -82,9 +82,9 @@ namespace TestCommon.Net
             return _Buffer.Append(EncodedString, EncodedString.Length);
         }
 
-        public bool Flush()
+        public bool Flush(TcpSocket tcpSocket)
         {
-            if (!_Client.Send(_Buffer.Buffer, _Buffer.UsedBufferLength))
+            if (!tcpSocket.Send(_Buffer.Buffer, _Buffer.UsedBufferLength))
             {
                 return false;
             }

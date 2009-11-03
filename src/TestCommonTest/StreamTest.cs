@@ -68,7 +68,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void WriteTest()
         {
-            OutputStream target = new OutputStream(new Client());
+            OutputStream target = new OutputStream();
             Assert.IsTrue(target.Write('a'));
             Assert.IsTrue(target.Write(-123));
             Assert.IsTrue(target.Write((uint)33));
@@ -85,7 +85,7 @@ namespace TestCommonTest
         [TestMethod()]
         public void StreamConstructorTest()
         {
-            OutputStream target = new OutputStream(new Client());
+            OutputStream target = new OutputStream();
             Assert.IsNotNull(target);
         }
     }

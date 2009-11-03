@@ -8,22 +8,13 @@ namespace TestCommon.Net
 {
     public class PacketHandler
     {
-        public UInt32 HeaderSize
+        private static PacketHandler _PacketHandler = new PacketHandler();
+        public static PacketHandler Instance()
         {
-            get { return sizeof(UInt32); }
-        }
-        public UInt32 BodySize
-        {
-            get;
-            private set;
-        }
-        public void ParseHeader(byte[] Buffer, int Size)
-        {
-            Debug.Assert(HeaderSize == Size);
-            BodySize = BitConverter.ToUInt32(Buffer, 0);
+            return _PacketHandler;
         }
 
-        public bool Handle(byte[] Buffer, int Size)
+        public bool Handle(TcpSocket tcpSocket, PacketBuffer Buffer)
         {
             return true;
         }

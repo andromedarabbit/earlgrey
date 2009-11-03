@@ -7,12 +7,11 @@ namespace TestCommon.Net
 {
     public class StreamBase
     {
-        protected PacketBuffer _Buffer = new PacketBuffer();
-        protected Client _Client = null;
-
-        public StreamBase(Client client)
+        public StreamBase(PacketBuffer Buffer)
         {
-            _Client = client;
+            _Buffer = Buffer;
         }
+
+        protected PacketBuffer _Buffer = null;
     }
 }

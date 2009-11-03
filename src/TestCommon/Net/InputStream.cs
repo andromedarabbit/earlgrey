@@ -13,7 +13,7 @@ namespace TestCommon.Net
 
     public class InputStream : StreamBase
     {
-        public InputStream(Client client) : base(client)
+        public InputStream(PacketBuffer Buffer) : base(Buffer)
         {
         }
 
