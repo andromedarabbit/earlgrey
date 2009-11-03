@@ -3,7 +3,9 @@
 
 #include "stdafx.h"
 #include "ServerService.h"
+#include "Win32ServiceInstaller.h"
 #include "txstring.h"
+#include "xvector.h"
 #include "EarlgreyProcess.h"
 #include "FileVersionInfo.h"
 #include "EarlgreyMath.h"
@@ -16,15 +18,21 @@
 #error currently UNICODE should be defined!
 #endif
 
+
+using namespace std;
+using namespace Earlgrey;
+
 namespace 
 {
+	// using namespace std;
+	/*
 	std::string Version()
 	{
 		using namespace Earlgrey;
 
 		// Getting a file version.
 		_txstring executableName = Process::MainModuleFileName();
-		FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
+		FileVersionIngorfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
 		const _txstring fileVersion( versionInfo.FileVersion() );
 		// TODO: numeric_cast에 버그가 있어서 임시로 코드를 바꾼다.
 		// const int fileVersionLength = Math::numeric_cast<int>(fileVersion.length());
@@ -42,6 +50,20 @@ namespace
 		}
 		return std::string(version);
 	}
+	*/
+
+	typedef xvector<xwstring>::Type ArgContainerType;
+
+	void getArgs(ArgContainerType& args) {
+		int argc = 0;
+		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+		// Earlgrey::xvector<std:wstring>::Type args;
+		if (argv) {
+			args.assign(argv, argv + argc);
+			LocalFree(argv);
+		}
+		// return args;
+	}
 }
 
 
@@ -55,9 +77,66 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
-	using namespace std;
-	using namespace Earlgrey;
-	/*
+	
+	enum SERVER_RUN_MODE
+	{
+		SERVER_RUN_MODE_SERVICE
+		, SERVER_RUN_MODE_DEBUG
+		, SERVER_RUN_MODE_INSTALL
+		, SERVER_RUN_MODE_UNINSTALL
+	};
+
+
+	SERVER_RUN_MODE mode = SERVER_RUN_MODE_SERVICE;
+
+	ArgContainerType args;
+	getArgs(args);
+
+	for(ArgContainerType::iterator it = args.begin(); it != args.end(); it++)
+	{
+		xwstring arg = (*it);
+
+		if(arg == _T("-d"))
+			mode = SERVER_RUN_MODE_DEBUG;
+
+		if(arg == _T("-i"))
+			mode = SERVER_RUN_MODE_INSTALL;
+
+		if(arg == _T("-u"))
+			mode = SERVER_RUN_MODE_UNINSTALL;
+	}
+	
+	BOOL debugMode = (mode == SERVER_RUN_MODE_DEBUG);
+	ServerService service(_T("EargreyServer"), _T("얼그레이 서버"), debugMode);
+
+	if(debugMode)
+	{
+		service.OnStart(__argc, __wargv);
+		return EXIT_SUCCESS;
+	}
+
+	if(mode == SERVER_RUN_MODE_INSTALL)
+	{
+		Win32ServiceInstaller installer(service);
+		if(installer.InstallService() == FALSE)
+			return EXIT_FAILURE;
+		return EXIT_SUCCESS;
+	}
+
+	if(mode == SERVER_RUN_MODE_UNINSTALL)
+	{
+		Win32ServiceInstaller installer(service);
+		if(installer.RemoveService() == FALSE)
+			return EXIT_FAILURE;
+		return EXIT_SUCCESS;
+	}
+		
+	Win32Service::Run(service);
+	return EXIT_SUCCESS;
+}
+
+
+/*
 	using namespace TCLAP;
 
 	bool debugMode = false;
@@ -84,17 +163,4 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		std::cout << "ERROR: " << e.error() << " " << e.argId() << std::endl; 
 		return EXIT_FAILURE;
 	}
-	*/
-
-
-	// 임시로 콘솔 모드로 띄운다.
-	bool debugMode = true;	
-	ServerService service(_T("EargreyServer"), _T("얼그레이 서버"), debugMode);
-
-	if(debugMode)
-		service.OnStart(__argc, __wargv);
-	else
-		Win32Service::Run(service);
-
-	return EXIT_SUCCESS;
-}
+*/

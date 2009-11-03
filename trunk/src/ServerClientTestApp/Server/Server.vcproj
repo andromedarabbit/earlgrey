@@ -368,6 +368,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\src\WindowsRunnable.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

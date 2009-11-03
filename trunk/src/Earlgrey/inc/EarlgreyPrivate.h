@@ -10,6 +10,7 @@
 
 
 // 미리 컴파일된 헤더엔 정말 많이 쓰는 헤더만 넣었으면 합니다.
-#define _STDCALL_SUPPORTED
+// #define _STDCALL_SUPPORTED
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
+#include "txstring.h"

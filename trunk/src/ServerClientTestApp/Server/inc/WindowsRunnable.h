@@ -1,24 +1,21 @@
 #pragma once
 #include "Thread.h"
 
+class ServerService;
 
 class WindowsRunnable 
 	: public Earlgrey::IRunnable
 {
 public:
-	WindowsRunnable() {}
-	virtual ~WindowsRunnable() {}
+	explicit WindowsRunnable(std::tr1::shared_ptr<ServerService> service);
 
-	virtual BOOL Init(){return TRUE;}
-	virtual DWORD Run()
-	{
-		MSG msg;
-		while (GetMessage(&msg, NULL, 0, 0))
-		{
+	virtual ~WindowsRunnable();
 
-		}
-		return 0;
-	}
-	virtual void Stop() {}
-	virtual void Exit() {}
+	virtual BOOL Init();
+	virtual DWORD Run();
+	virtual void Stop();
+
+private:
+	std::tr1::shared_ptr<ServerService> m_service;
+	virtual void Exit();
 };

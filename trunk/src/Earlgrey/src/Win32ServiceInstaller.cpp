@@ -182,8 +182,11 @@ namespace Earlgrey
 		if( ControlService(schService, SERVICE_CONTROL_STOP, &m_service.m_serviceStatus) == FALSE ) 
 		{
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("Service couldn't be stopped - ") << Log::ErrorMessage(errCode) << std::endl;
-			return FALSE;
+			if(errCode != ERROR_SERVICE_NOT_ACTIVE)
+			{
+				_tcerr << TEXT("Service couldn't be stopped - ") << Log::ErrorMessage(errCode) << std::endl;
+				return FALSE;
+			}
 		}
 
 		_tcout << TEXT("Stopping ") <<  m_service.m_displayName << _T(".") << std::endl;

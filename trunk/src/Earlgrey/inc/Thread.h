@@ -9,6 +9,7 @@ namespace Earlgrey
 	public:
 		virtual BOOL Init() = 0;
 		virtual DWORD Run() = 0;
+		//! \todo Stop은 언제 쓰나요? 실제로 쓰는 곳이 없네요.
 		virtual void Stop() = 0;
 		virtual void Exit() = 0;
 	};
