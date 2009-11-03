@@ -6,6 +6,7 @@
 #include "ServerConnection.h"
 #include "WindowsRunnable.h"
 #include "AppInitializer.h"
+#include "TimeSpan.h"
 
 using namespace Earlgrey;
 
@@ -18,6 +19,7 @@ ServerService::ServerService(
    : Win32Service(serviceName, displayName)
    , m_console()
    , m_consoleMode(consoleMode)
+   , m_stopHandle(NULL)
 {
 	if(m_consoleMode)
 	{
@@ -46,26 +48,56 @@ ServerService::~ServerService()
 
 }
 
+BOOL ServerService::ReportStatus(
+						  DWORD currentState
+						  , DWORD waitHint
+						  , DWORD errExit
+						  )
+{
+	if(m_consoleMode)
+	{
+		_tcout << _T("[STATUS REPORT] ") << currentState 
+			<< _T(", ") << waitHint
+			<< _T(", ") << errExit
+			<< std::endl;
+		return TRUE;
+	}
+
+	return __super::ReportStatus(currentState, waitHint, errExit);
+}
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 {
+	// ::DebugBreak();
+	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
+	EARLGREY_VERIFY(m_stopHandle);
+
+
 	AppInfo app;
 	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 
-	//ServerCreate(100);
+	//! \todo delete 안 해도 되나?
 	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
 	acceptor->Initialize();
 
-	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateThread( 
-		std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
+	std::tr1::shared_ptr<ServerService> thisService(this);
+	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new WindowsRunnable(thisService) ));
+	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateThread( runnable, "WindowsRunnable" );
 
-	serverThread->Join();
+	EARLGREY_ASSERT(ReportStatus(SERVICE_RUNNING));
+
+	// serverThread->Join();
 
 }
 
 void ServerService::OnStop()
 {
+	TimeSpan interval(0, 0, 11);
+	EARLGREY_VERIFY( 
+		ReportStatus(SERVICE_STOP_PENDING, interval.Milliseconds())
+		);
 
+	EARLGREY_VERIFY(::SetEvent(m_stopHandle));
 }
 
 void ServerService::ProcessUserInput()
@@ -80,7 +112,8 @@ void ServerService::ProcessUserInput()
 
 void ServerService::OnUserInput(_txstring& input)
 {
-	DBG_UNREFERENCED_PARAMETER(input);
+	if(input == _T("stop"))
+		OnStop();
 }
 
 BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)

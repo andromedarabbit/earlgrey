@@ -5,6 +5,8 @@
 
 class ServerService : public Earlgrey::Win32Service
 {
+	friend class WindowsRunnable;
+
 public:
 	explicit ServerService(
 		const TCHAR * serviceName
@@ -27,6 +29,13 @@ public:
 
 	virtual void OnUserInput(Earlgrey::_txstring& input);
 
+protected:
+	virtual BOOL ReportStatus(
+		DWORD currentState
+		, DWORD waitHint = 3000 /* milliseconds */
+		, DWORD errExit = 0
+		);
+
 private:
 	static BOOL WINAPI ControlHandler(DWORD ctrlType);
 
@@ -35,4 +44,5 @@ private:
 private:
 	BOOL m_consoleMode;
 	Earlgrey::Console m_console;
+	HANDLE m_stopHandle;
 };

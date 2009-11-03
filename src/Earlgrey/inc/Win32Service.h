@@ -47,14 +47,14 @@ namespace Earlgrey {
 		{
 			return MAIN_SERVICE;
 		}
-
-	private:
-		BOOL ReportStatus(
+	
+		virtual BOOL ReportStatus(
 			DWORD currentState
 			, DWORD waitHint = 3000 /* milliseconds */
 			, DWORD errExit = 0
 			);
 
+	private:
 		void Start(DWORD argc, LPTSTR * argv);
 		DWORD ControlHandler(
 			DWORD    dwControl,
