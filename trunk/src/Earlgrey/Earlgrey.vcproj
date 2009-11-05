@@ -511,6 +511,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\RegistryKey.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\SingleAppInstance.cpp"
 					>
 				</File>
@@ -794,6 +798,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Registry.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\RegistryKey.h"
 					>
 				</File>
 				<File
