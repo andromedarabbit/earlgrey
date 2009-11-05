@@ -1,22 +1,23 @@
 #pragma once
 #include "Uncopyable.h"
-// #include <Loki/Singleton.h>
-// #include <Loki/Threads.h> // for Loki::SingleThreaded
-// #include "NoLock.h"
 #include "txstring.h"
+
+#include <Loki/Singleton.h>
+#include <Loki/Threads.h> // for Loki::SingleThreaded
+#include "NoLock.h"
 
 namespace Earlgrey
 {
 	//! \ref http://serious-code.net/moin.cgi/WindowsConsoleApp
 	class Console : private Uncopyable
 	{
-		// friend struct Loki::CreateStatic<Console>;
+		friend struct Loki::CreateStatic<Console>;
 
-	public:
 		explicit Console();
 		~Console();
 
-		BOOL Open();
+	public:
+		BOOL Open(BOOL attachExistingConsoleIfPossible = TRUE);
 		void Close();
 
 		BOOL RedirectStdIO();
@@ -42,7 +43,7 @@ namespace Earlgrey
 		BOOL m_closed;
 	};
 
-	//typedef 
-	//	Loki::SingletonHolder<Console, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
-	//	gConsole;
+	typedef 
+		Loki::SingletonHolder<Console, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
+		gConsole;
 }

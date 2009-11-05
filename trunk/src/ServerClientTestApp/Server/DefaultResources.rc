@@ -69,12 +69,12 @@ BEGIN
     BEGIN
         BLOCK "041204b0"
         BEGIN
-            VALUE "FileDescription", "Server Application"
+            VALUE "FileDescription", "얼그레이 예제 서버 응용프로그램입니다."
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "Server"
             VALUE "LegalCopyright", "Copyright (C) 2009"
             VALUE "OriginalFilename", "Server.exe"
-            VALUE "ProductName", "Server Application"
+            VALUE "ProductName", "얼그레이 서버"
             VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END

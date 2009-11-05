@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 한국어 resources
+// Korean resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_KOR)
 #ifdef _WIN32
@@ -69,12 +69,12 @@ BEGIN
     BEGIN
         BLOCK "041204b0"
         BEGIN
-            VALUE "FileDescription", "Earlgrey"
+            VALUE "FileDescription", "FileDescription: Earlgrey"
             VALUE "FileVersion", "1, 0, 0, 1"
             VALUE "InternalName", "Earlgrey"
             VALUE "LegalCopyright", "Copyright (C) 2009"
             VALUE "OriginalFilename", "Earlgrey.Test"
-            VALUE "ProductName", "Earlgrey"
+            VALUE "ProductName", "ProductName: Earlgrey"
             VALUE "ProductVersion", "1, 0, 0, 1"
         END
     END
@@ -84,7 +84,7 @@ BEGIN
     END
 END
 
-#endif    // 한국어 resources
+#endif    // Korean resources
 /////////////////////////////////////////////////////////////////////////////
 
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "Win32Service.h"
-#include "Console.h"
 #include "txstring.h"
 
 class ServerService : public Earlgrey::Win32Service
@@ -43,6 +42,5 @@ private:
 
 private:
 	BOOL m_consoleMode;
-	Earlgrey::Console m_console;
 	HANDLE m_stopHandle;
 };
