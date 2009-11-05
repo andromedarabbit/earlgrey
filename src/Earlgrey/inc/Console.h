@@ -30,12 +30,9 @@ namespace Earlgrey
 		_txstring WindowTitle() const;
 	
 	private:
-		// HANDLE GetStdIOHandle(DWORD nStdHandle);
 		void RedirectStdIO(DWORD nStdHandle);
 		HANDLE StdHandle(DWORD nStdHandle);
 
-
-		// static BOOL WINAPI ConsoleCtrlHandler(DWORD ctrlType);
 
 	private:
 		HANDLE m_stdoutHandle;

@@ -13,6 +13,7 @@ namespace Earlgrey
 		static _txstring MainModuleFileName();
 
 		// static BOOL IsThis
+		static DWORD GetParentProcessID(DWORD pid);
 	};
 
 }

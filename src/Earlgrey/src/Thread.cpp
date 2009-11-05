@@ -45,8 +45,9 @@ namespace Earlgrey
 		if (!IsCreated())
 			return;
 
-		WaitForSingleObject( _thread, WaitTimeForThread );
+		// WaitForSingleObject( _thread, WaitTimeForThread );
 		CloseHandle(CreatedLock_);
+		// SetEvent(_thread);
 		CloseHandle( _thread );
 	}
 
@@ -69,8 +70,7 @@ namespace Earlgrey
 	}
 
 	DWORD Thread::Run()
-	{
-		
+	{		
 		EARLGREY_VERIFY( _runnable );
 		EARLGREY_VERIFY( _runnable->Init() );
 

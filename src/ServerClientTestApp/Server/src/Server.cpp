@@ -12,7 +12,7 @@
 // #include "ServerHelpVisitor.h"
 
 // #include <tclap/CmdLine.h>
-
+#include "tiostream.h"
 
 #ifndef UNICODE
 #error currently UNICODE should be defined!
@@ -104,63 +104,52 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 		if(arg == _T("-u"))
 			mode = SERVER_RUN_MODE_UNINSTALL;
+
+		_tcout << arg << std::endl;
 	}
 	
-	BOOL debugMode = (mode == SERVER_RUN_MODE_DEBUG);
-	ServerService service(_T("EargreyServer"), _T("얼그레이 서버"), debugMode);
+	BOOL needsConsole = (
+		mode == SERVER_RUN_MODE_DEBUG 
+		|| mode == SERVER_RUN_MODE_INSTALL
+		|| mode == SERVER_RUN_MODE_UNINSTALL
+		);
 
-	if(debugMode)
+	ServerService service(_T("EarlgreyServer"), _T("얼그레이 서버"), needsConsole);
+
+	if(mode == SERVER_RUN_MODE_DEBUG)
 	{
 		service.OnStart(__argc, __wargv);
+		_tcout << service.ServiceName() << _T(" ends.") << std::endl;
 		return EXIT_SUCCESS;
 	}
 
+	if(mode == SERVER_RUN_MODE_SERVICE)
+	{
+		Win32Service::Run(service);
+		return EXIT_SUCCESS;
+	}
+
+	Win32ServiceInstaller installer(service);
+	installer.Description(_T("얼그레이 예제 서버입니다."));
+
 	if(mode == SERVER_RUN_MODE_INSTALL)
 	{
-		Win32ServiceInstaller installer(service);
 		if(installer.InstallService() == FALSE)
 			return EXIT_FAILURE;
+
+		_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 설치했습니다.");
 		return EXIT_SUCCESS;
 	}
 
 	if(mode == SERVER_RUN_MODE_UNINSTALL)
 	{
-		Win32ServiceInstaller installer(service);
 		if(installer.RemoveService() == FALSE)
 			return EXIT_FAILURE;
+
+		_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 제거했습니다.");
 		return EXIT_SUCCESS;
 	}
-		
-	Win32Service::Run(service);
-	return EXIT_SUCCESS;
+
+	return EXIT_FAILURE;
 }
 
-
-/*
-	using namespace TCLAP;
-
-	bool debugMode = false;
-	try
-	{
-		// tclap 가 유니코드를 지원하지 않으므로 ::GetCommandLineA()를 쓴다.
-		CmdLine cmd("Command description message", ' ', Version(), false);
-
-		StdOutput output;
-		ServerHelpVisitor helpVisitor( &cmd, &output );
-
-		SwitchArg helpArg("h","help", "Displays usage information and exits.", false, &helpVisitor);
-		cmd.add(helpArg);
-
-		SwitchArg debugArg("d","debug", "Start as a console application.", false);
-		cmd.add(debugArg);
-
-		cmd.parse(__argc, __argv);
-
-		debugMode = debugArg.getValue();
-	}
-	catch ( ArgException& e )
-	{ 
-		std::cout << "ERROR: " << e.error() << " " << e.argId() << std::endl; 
-		return EXIT_FAILURE;
-	}
-*/

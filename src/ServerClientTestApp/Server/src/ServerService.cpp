@@ -24,11 +24,12 @@ ServerService::ServerService(
 	if(m_consoleMode)
 	{
 		EARLGREY_VERIFY(m_console.Open());
-		m_console.WindowTitle(_T("Earlgrey Server"));
-
-		m_console.WriteLine(_T("Console::WriteLine() works!"));
+		m_console.WindowTitle(serviceName);
 
 		m_console.RedirectStdIO();
+		
+		// TODO: 어디선가 오류가 나서 clear를 호출해야 한다. 어딘지 찾아야 한다.
+		_tcout.clear();
 		_tcout << _T("Server started!") << std::endl;
 
 		// 핸들러를 Earlgrey::Console 클래스를 상속 받아 확장하는 식이 나을 것 같다.
@@ -86,7 +87,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 
 	EARLGREY_ASSERT(ReportStatus(SERVICE_RUNNING));
 
-	// serverThread->Join();
+	serverThread->Join();
 
 }
 
@@ -123,12 +124,12 @@ BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 	EARLGREY_ASSERT(instance != NULL);
 
 	switch( ctrlType ) {
-		case CTRL_C_EVENT:
-		case CTRL_BREAK_EVENT:  // use Ctrl+C or Ctrl+Break to simulate			
+		case CTRL_BREAK_EVENT:  // use Ctrl+Break to simulate			
 			// Process User Input
 			instance->ProcessUserInput();			
 			return TRUE;
 
+		case CTRL_C_EVENT:
 		case CTRL_CLOSE_EVENT:
 		case CTRL_LOGOFF_EVENT:
 		case CTRL_SHUTDOWN_EVENT:
