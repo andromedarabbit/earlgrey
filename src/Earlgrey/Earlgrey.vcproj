@@ -570,10 +570,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\resource1.h"
-				>
-			</File>
-			<File
 				RelativePath=".\inc\stdafx.h"
 				>
 			</File>

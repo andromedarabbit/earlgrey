@@ -59,7 +59,7 @@ namespace Earlgrey
 		}
 		catch (std::exception& ex)
 		{
-			_tcerr << TEXT("Couldn't get the executable file name - ")
+			_tcout << TEXT("Couldn't get the executable file name - ")
 				<< ex.what()
 				<< std::endl
 				;
@@ -97,7 +97,7 @@ namespace Earlgrey
 
 		if(scManager == NULL) {
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
+			_tcout << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
 			return FALSE;
 		}
 
@@ -125,7 +125,7 @@ namespace Earlgrey
 
 		if( schService == NULL) {
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("CreateService failed - ") << Log::ErrorMessage(errCode) << std::endl;;
+			_tcout << TEXT("CreateService failed - ") << Log::ErrorMessage(errCode) << std::endl;;
 			return FALSE;
 		}
 
@@ -150,7 +150,7 @@ namespace Earlgrey
 			if( errCode != ERROR_SUCCESS ) {
 				// TODO: Log::ErrorMessage(errCode);
 				// throw std::exception("Creating an event source failed!");
-				_tcerr << "[WARNING] Writing a service description failed!" << std::endl;
+				_tcout << "[WARNING] Writing a service description failed!" << std::endl;
 			}
 		}
 
@@ -202,7 +202,7 @@ namespace Earlgrey
 
 		if(scManager == NULL) {
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
+			_tcout << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
 			return FALSE;
 		}
 
@@ -217,7 +217,7 @@ namespace Earlgrey
 
 		if(scManager == NULL) {
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("OpenService failed - ") << Log::ErrorMessage(errCode) << std::endl;
+			_tcout << TEXT("OpenService failed - ") << Log::ErrorMessage(errCode) << std::endl;
 			return FALSE;
 		}
 
@@ -228,7 +228,7 @@ namespace Earlgrey
 			const DWORD errCode = GetLastError();
 			if(errCode != ERROR_SERVICE_NOT_ACTIVE)
 			{
-				_tcerr << TEXT("Service couldn't be stopped - ") << Log::ErrorMessage(errCode) << std::endl;
+				_tcout << TEXT("Service couldn't be stopped - ") << Log::ErrorMessage(errCode) << std::endl;
 				return FALSE;
 			}
 		}
@@ -254,7 +254,7 @@ namespace Earlgrey
 		if( DeleteService(schService) == FALSE) 
 		{
 			const DWORD errCode = GetLastError();
-			_tcerr << TEXT("DeleteService failed - ") << Log::ErrorMessage(errCode) << std::endl;
+			_tcout << TEXT("DeleteService failed - ") << Log::ErrorMessage(errCode) << std::endl;
 			return FALSE;
 		}
 	

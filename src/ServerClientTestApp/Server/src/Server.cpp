@@ -114,7 +114,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		|| mode == SERVER_RUN_MODE_UNINSTALL
 		);
 
-	ServerService service(_T("EarlgreyServer"), _T("얼그레이 서버"), needsConsole);
+
+
+	_txstring executableName = Process::MainModuleFileName();
+	FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
+	// const _txstring fileVersion( versionInfo.FileVersion() );
+
+	ServerService service(
+		_T("EarlgreyServer")
+		, versionInfo.ProductName().c_str()
+		, needsConsole
+		);
 
 	if(mode == SERVER_RUN_MODE_DEBUG)
 	{
@@ -129,8 +139,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return EXIT_SUCCESS;
 	}
 
+
 	Win32ServiceInstaller installer(service);
-	installer.Description(_T("얼그레이 예제 서버입니다."));
+	installer.Description(versionInfo.FileDescription());
 
 	if(mode == SERVER_RUN_MODE_INSTALL)
 	{

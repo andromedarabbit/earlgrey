@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <io.h>
 
-// #include <iostream>
+#include <iostream>
 
 namespace Earlgrey
 {
@@ -25,13 +25,20 @@ namespace Earlgrey
 		Close();
 	}
 
-	BOOL Console::Open()
+	//! \todo 하드 코딩한 로케일을 어떻게 고쳐야 한다.
+	BOOL Console::Open(BOOL attachExistingConsoleIfPossible)
 	{
-		/// std::wcout.imbue( std::locale("kor") );
-		// _setmode(_fileno(stdout), _O_U16TEXT);
+#ifdef _UNICODE
+		std::wcout.imbue( std::locale("kor") );
+#else
+		std::cout.imbue( std::locale("kor") );
+#endif
 
-		BOOL consoleAttached = ::AttachConsole(ATTACH_PARENT_PROCESS);
-		EARLGREY_ASSERT(consoleAttached);
+		BOOL consoleAttached = FALSE;
+
+		if(attachExistingConsoleIfPossible)
+			consoleAttached = ::AttachConsole(ATTACH_PARENT_PROCESS);
+		
 		if (consoleAttached == FALSE && ::AllocConsole() == FALSE) 
 		{
 			// \todo 뭔가 오류 처리가 필요하다.
@@ -211,6 +218,7 @@ namespace Earlgrey
 
 		FILE * stdFile = GetStdFile(nStdHandle);
 		*stdFile = *fp;
+
 		// TODO: 옵션 바꿔서 버퍼 사용하기
 		setvbuf(stdFile, NULL, _IONBF, 0);
 	}

@@ -7,6 +7,7 @@
 #include "WindowsRunnable.h"
 #include "AppInitializer.h"
 #include "TimeSpan.h"
+#include "Console.h"
 
 using namespace Earlgrey;
 
@@ -17,16 +18,16 @@ ServerService::ServerService(
    , BOOL consoleMode
    )
    : Win32Service(serviceName, displayName)
-   , m_console()
+   // , m_console()
    , m_consoleMode(consoleMode)
    , m_stopHandle(NULL)
 {
 	if(m_consoleMode)
 	{
-		EARLGREY_VERIFY(m_console.Open());
-		m_console.WindowTitle(serviceName);
+		EARLGREY_VERIFY(gConsole::Instance().Open(FALSE));
+		gConsole::Instance().WindowTitle(serviceName);
 
-		m_console.RedirectStdIO();
+		gConsole::Instance().RedirectStdIO();
 		
 		// TODO: 어디선가 오류가 나서 clear를 호출해야 한다. 어딘지 찾아야 한다.
 		_tcout.clear();
@@ -42,9 +43,21 @@ ServerService::ServerService(
 
 ServerService::~ServerService()
 {
+	_tcout << std::endl << std::endl
+		<< _T("Enter to end") << std::endl;
+
+	_txstring lastInput;
+	std::getline<TCHAR>(_tcin, lastInput);
+
+
+	if( SetConsoleCtrlHandler(&ServerService::ControlHandler, FALSE) == FALSE)
+	{
+		// TODO
+	}
+
 	if(m_consoleMode)
 	{
-		m_console.Close();
+		gConsole::Instance().Close();
 	}
 
 }
