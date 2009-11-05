@@ -3,25 +3,49 @@
 namespace Earlgrey
 {
 	class CompletionHandler;
+	class ConnectionHandler;
 	class NetworkBuffer;
+	class Disconnector;
+	class Sender;
+	class Receiver;
 
 	class AsyncStream
 	{
 	public:
-		explicit AsyncStream() {};		
+		explicit AsyncStream() ;		
 		virtual ~AsyncStream() {}; //! \todo Close() 안 불러도 되나?
 
-		BOOL Open(SOCKET Socket, CompletionHandler* Handler); // Socket socket -> HANDLE handle ?
-		void Close();
+		BOOL Accept(USHORT Port); // Socket socket -> HANDLE handle ?
+		BOOL Connect(const char* RemoteHostName, const INT Port);
 
-		BOOL Post();
-		BOOL AsyncRead(); 
-		BOOL AsyncWrite();
+		BOOL Recv(); 
+		BOOL Send();
+		BOOL Disconnect();
+		BOOL Reuse();
+		
+		BOOL Post(CompletionHandler* Handler);
 
 		NetworkBuffer* GetNetworkBuffer() { return _PacketBuffer; }
+		SOCKET GetSocket() const {return _Handle; }
+
+		virtual void Connected(){}//TODO : 버퍼 넘기기
+		virtual void Disconnected(){}
+		virtual void Received(){}
+		virtual void Sent(){}
+
+	protected:
+		inline SOCKET Socket() const
+		{
+			return _Handle;
+		}
 	private:
 		NetworkBuffer* _PacketBuffer;
-		CompletionHandler* _Handler;
 		SOCKET _Handle;
+
+		//Acceptor<ConnectionHandler>* _Acceptor;
+		//Connector<ConnectionHandler>* _Connector;
+		Receiver* _Receiver;
+		Sender* _Sender;
+		Disconnector* _Disconnector;
 	};
 }

@@ -48,7 +48,7 @@ namespace Earlgrey
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
-		for (DWORD i = 0; i < 1; i++) // FIXME: wait thread 갯수 지정하는거 필요
+		/*for (DWORD i = 0; i < 1; i++) // FIXME: wait thread 갯수 지정하는거 필요
 		{
 
 			std::tr1::shared_ptr<IRunnable> acceptorThread (
@@ -57,7 +57,7 @@ namespace Earlgrey
 			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable" );
 			m_WaitThreads.push_back(thread);
 
-		}
+		}*/
 
 		return TRUE;
 	}

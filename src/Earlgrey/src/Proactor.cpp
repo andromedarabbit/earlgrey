@@ -36,10 +36,10 @@ namespace Earlgrey
 		return CloseHandle( Handle );
 	}
 
-	BOOL WinProactor::PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream)
+	BOOL WinProactor::PostEvent(AsyncResult* ResultStream)
 	{
 		// todo: EARLGREY_ASSERT 적용하기
-		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)CompleteHandler, ResultStream);
+		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)ResultStream->Handler(), ResultStream);
 	}
 
 	BOOL WinProactor::HandleEvent(TimeValueType WaitTime)
@@ -76,7 +76,7 @@ namespace Earlgrey
 	}
 
 
-	BOOL AcceptProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
+	/*BOOL AcceptProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
 		//lock? serializer?
 		EnterCriticalSection(&Lock_);
@@ -145,5 +145,5 @@ namespace Earlgrey
 		LeaveCriticalSection(&Lock_);
 
 		return Result;
-	}
+	}*/
 }

@@ -77,8 +77,8 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 
 	//! \todo delete 안 해도 되나?
-	Acceptor<ServerConnection>* acceptor = new Acceptor<ServerConnection>(100);
-	acceptor->Initialize();
+	//ServerConnection* connection = new ServerConnection();
+	//connection->Accept(100);//LINK ERROR 왜 나지?--;
 
 	std::tr1::shared_ptr<ServerService> thisService(this);
 	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new WindowsRunnable(thisService) ));
