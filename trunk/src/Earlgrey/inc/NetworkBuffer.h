@@ -93,7 +93,7 @@ namespace Earlgrey
 
 		DWORD GetBufferCapacity()
 		{
-			return _ChainBuffer.capacity();
+			return (DWORD)_ChainBuffer.capacity();
 		}
 
 		BOOL SetValue(const BYTE* InValue, DWORD InSize)
