@@ -182,6 +182,7 @@ namespace Earlgrey
 		CreateEventSource(source, _T("Application"));
 	}
 
+	//! \todo 내부에서 하는 레지스트리 조작 작업을 클래스 Registry에 위임한다.
 	void EventLog::CreateEventSource(const TCHAR * const source, const TCHAR * const logName)
 	{
 		_txstring mainModuleFileName = Process::MainModuleFileName();

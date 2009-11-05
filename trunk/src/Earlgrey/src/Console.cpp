@@ -2,12 +2,13 @@
 #include "Console.h"
 #include "Environment.h"
 #include "numeric_cast.hpp"
-
+// #include "EarlgreyProcess.h"
 #include "Log.h"
 
 #include <fcntl.h>
 #include <io.h>
 
+// #include <iostream>
 
 namespace Earlgrey
 {
@@ -17,50 +18,7 @@ namespace Earlgrey
 		, m_stderrHandle(INVALID_HANDLE_VALUE)
 		, m_closed(TRUE)
 	{
-		/*
-		using namespace std::tr1::placeholders;
-
-		std::tr1::function<BOOL (DWORD)> consoleCtrlBound = std::tr1::bind(
-				std::tr1::mem_fn(&Console::ConsoleCtrlHandler), std::tr1::ref(*this), _1
-			);
-
-		void * ptr = consoleCtrlBound.target<BOOL (DWORD)>( );;
-		consoleCtrlBound(1);
-		DBG_UNREFERENCED_LOCAL_VARIABLE(ptr);
-		PHANDLER_ROUTINE consoleCtrlFunc = consoleCtrlBound.target<BOOL  (DWORD)>( );
-		EARLGREY_ASSERT(consoleCtrlFunc != NULL);
-
-
-		BOOL (WINAPI Console::*funcPtr)(DWORD) = &Console::ConsoleCtrlHandler;
-		((*this).*funcPtr)(2);
-		consoleCtrlFunc = (PHANDLER_ROUTINE) ((*this).*funcPtr);
-		::SetConsoleCtrlHandler(consoleCtrlFunc, TRUE); // TODO: 나중에 핸들러 제거해야 한다.
-*/
 	}
-/*
-	BOOL WINAPI Console::ConsoleCtrlHandler(DWORD ctrlType)
-	{
-		switch( ctrlType ) {
-			case CTRL_BREAK_EVENT:  // use Ctrl+C or Ctrl+Break to simulate			
-				// gpTheService->OnCtrlBreak();
-				return TRUE;
-
-			case CTRL_C_EVENT:
-			case CTRL_CLOSE_EVENT:
-			case CTRL_LOGOFF_EVENT:
-			case CTRL_SHUTDOWN_EVENT:
-				// _tprintf(TEXT("Stopping %s.\n"), gpTheService->m_lpDisplayName);
-				// gpTheService->Stop();
-				exit(EXIT_SUCCESS);
-			}
-		return FALSE;
-	}*/
-	/*
-	BOOL
-	(WINAPI *PHANDLER_ROUTINE)(
-	DWORD CtrlType
-	);*/
-
 
 	Console::~Console()
 	{
@@ -69,7 +27,12 @@ namespace Earlgrey
 
 	BOOL Console::Open()
 	{
-		if (::AllocConsole() == FALSE) 
+		/// std::wcout.imbue( std::locale("kor") );
+		// _setmode(_fileno(stdout), _O_U16TEXT);
+
+		BOOL consoleAttached = ::AttachConsole(ATTACH_PARENT_PROCESS);
+		EARLGREY_ASSERT(consoleAttached);
+		if (consoleAttached == FALSE && ::AllocConsole() == FALSE) 
 		{
 			// \todo 뭔가 오류 처리가 필요하다.
 			DWORD errCode = GetLastError();
@@ -178,16 +141,16 @@ namespace Earlgrey
 
 	namespace 
 	{
-		const char * GetMode(DWORD nStdHandle)
+		const TCHAR * GetMode(DWORD nStdHandle)
 		{
 			if(nStdHandle == STD_OUTPUT_HANDLE)
-				return "w";
+				return _T("w");
 
 			if(nStdHandle == STD_INPUT_HANDLE)
-				return "r";
+				return _T("r");
 
 			if(nStdHandle == STD_ERROR_HANDLE)
-				return "w";
+				return _T("w");
 
 			// TODO
 			throw std::invalid_argument("");
@@ -237,19 +200,19 @@ namespace Earlgrey
 		int   conHandle = 0;
 		FILE* fp        = NULL;
 
-		const char * mode = GetMode(nStdHandle);
+		const TCHAR * mode = GetMode(nStdHandle);
 
 		stdHandle = PtrToLong(StdHandle(nStdHandle));
 		conHandle = _open_osfhandle(stdHandle, _O_TEXT); // 이 핸들 안 닫아도 되나?
 		EARLGREY_ASSERT(conHandle != -1);
 
-		fp = _fdopen(conHandle, mode);
+		fp = _tfdopen(conHandle, mode);
 		EARLGREY_ASSERT(fp != NULL);
-		
+
 		FILE * stdFile = GetStdFile(nStdHandle);
 		*stdFile = *fp;
+		// TODO: 옵션 바꿔서 버퍼 사용하기
 		setvbuf(stdFile, NULL, _IONBF, 0);
-
 	}
 
 	BOOL Console::RedirectStdIO()
@@ -261,7 +224,11 @@ namespace Earlgrey
 		RedirectStdIO(STD_ERROR_HANDLE);
 
 		// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog point to console as well
-		std::ios::sync_with_stdio();
+#ifdef _UNICODE
+		std::wios::sync_with_stdio(true);
+#else
+		std::ios::sync_with_stdio(true);
+#endif
 
 		return TRUE;
 	}

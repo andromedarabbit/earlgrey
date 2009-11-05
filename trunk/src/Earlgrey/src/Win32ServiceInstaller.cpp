@@ -4,13 +4,31 @@
 #include "EarlgreyProcess.h"
 #include "tiostream.h"
 #include "Log.h"
+#include "Registry.h"
 
 namespace Earlgrey
 {
+	const TCHAR * Win32ServiceInstaller::REGISTRY_SERVICE_ROOT = _T("SYSTEM\\CurrentControlSet\\services");
+
 	Win32ServiceInstaller::Win32ServiceInstaller(Win32Service& service)
 		: m_service(service)
 	{
 
+	}
+
+	void Win32ServiceInstaller::Description(const _txstring& description)
+	{
+		m_description = description;
+	}
+
+	_txstring Win32ServiceInstaller::Description() 
+	{
+		return m_description;
+	}
+
+	const _txstring& Win32ServiceInstaller::Description() const
+	{
+		return m_description;
 	}
 
 	BOOL Win32ServiceInstaller::InstallService() {
@@ -110,6 +128,32 @@ namespace Earlgrey
 			_tcerr << TEXT("CreateService failed - ") << Log::ErrorMessage(errCode) << std::endl;;
 			return FALSE;
 		}
+
+		// Service description 
+		if(m_description.length() > 0)
+		{
+			TCHAR szKey[MAX_PATH];
+			_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_SERVICE_ROOT, m_service.ServiceName().c_str());
+
+			HKEY hKey = Registry::GetKey(szKey, KEY_WRITE);
+			Earlgrey::handle_t regKeyHandle(hKey, &RegCloseKey);
+			
+			LSTATUS errCode = ::RegSetValueEx(
+				hKey,						// handle of key to set value for
+				TEXT("Description"),	// address of value to set
+				0,							// reserved
+				REG_EXPAND_SZ,				// flag for value type
+				(CONST BYTE*)m_description.c_str(),		// address of value data
+				static_cast<DWORD>(m_description.length() * sizeof(TCHAR))	// size of value data
+				);
+
+			if( errCode != ERROR_SUCCESS ) {
+				// TODO: Log::ErrorMessage(errCode);
+				// throw std::exception("Creating an event source failed!");
+				_tcerr << "[WARNING] Writing a service description failed!" << std::endl;
+			}
+		}
+
 
 		_tcout << m_service.m_displayName << TEXT(" installed.") << std::endl;
 

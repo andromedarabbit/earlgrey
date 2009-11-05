@@ -4,7 +4,7 @@
 
 
 WindowsRunnable::WindowsRunnable(std::tr1::shared_ptr<ServerService> service) 
-: m_service(service)
+	: m_service(service)
 {
 	EARLGREY_ASSERT(m_service != NULL);
 }
@@ -20,19 +20,15 @@ BOOL WindowsRunnable::Init()
 
 DWORD WindowsRunnable::Run()
 {
-	/*MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-
-	}*/
 	HANDLE stopHandle = m_service->m_stopHandle;
 	EARLGREY_ASSERT(stopHandle != NULL);
 
-	while (::WaitForSingleObject(stopHandle, 10) != WAIT_OBJECT_0) {
+	while (::WaitForSingleObject(stopHandle, 10) != WAIT_OBJECT_0) 
+	{
 		::Sleep(1000);
 	}
 
-	if( stopHandle )
+	if( stopHandle != NULL )
 	{
 		EARLGREY_VERIFY(::CloseHandle(stopHandle));
 	}

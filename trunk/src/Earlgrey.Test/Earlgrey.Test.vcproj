@@ -375,6 +375,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\EarlgreyProcessTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\EnvironmentTest.cpp"
 				>
 			</File>

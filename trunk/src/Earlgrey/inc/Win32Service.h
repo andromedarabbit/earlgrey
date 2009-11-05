@@ -38,6 +38,11 @@ namespace Earlgrey {
 		virtual LPSERVICE_MAIN_FUNCTION ServiceMainFunc() const;
 		
 
+		inline const _txstring& ServiceName() const
+		{
+			return m_serviceName;
+		}
+
 	public: // class methods
 		static void Run(Win32Service& service);
 		// static void Run(xvector< std::tr1::shared_ptr<Win32Service> >::Type& services);
