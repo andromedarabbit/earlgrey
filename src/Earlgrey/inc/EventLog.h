@@ -2,6 +2,7 @@
 #include "Uncopyable.h"
 #include "txstring.h"
 #include "RAII.h"
+#include "RegistryKey.h"
 
 namespace Earlgrey
 {
@@ -17,7 +18,7 @@ namespace Earlgrey
 			| EVENTLOG_AUDIT_FAILURE
 			;
 
-		static const TCHAR * REGISTRY_EVENTLOG_ROOT; // = _T("SYSTEM\\CurrentControlSet\\Services\\EventLog\\");
+		static const TCHAR * REGISTRY_EVENTLOG_ROOT; 
 
 	public: // instance methods
 		explicit EventLog(const TCHAR * const logName, const TCHAR * const source);
@@ -62,5 +63,6 @@ namespace Earlgrey
 		// Earlgrey::handle_t m_eventSource;
 		Earlgrey::handle_t m_eventSource;
 		PSID m_userSID;			// the current user's security identifier
+		RegistryKey m_localMachineKey;
 	};
 }

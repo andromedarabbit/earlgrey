@@ -439,7 +439,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\SampleTest.cpp"
+				RelativePath=".\src\RegistryKeyTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\RegistryTest.cpp"
 				>
 			</File>
 			<File
@@ -529,6 +533,10 @@
 			<Filter
 				Name="Temp"
 				>
+				<File
+					RelativePath=".\src\SampleTest.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\TempTest.cpp"
 					>

@@ -22,9 +22,8 @@ namespace Earlgrey
 			, &DeregisterEventSource
 			)
 		, m_userSID(NULL) // TODO: get a real user sid
+		, m_localMachineKey(Registry::LocalMachine())
 	{		
-		// m_eventSource = ::RegisterEventSource(0, m_source.c_str());
-		
 		if( m_eventSource == NULL ) {
 			// TODO GetLastError
 			throw std::exception("Registering an event source failed!");
@@ -141,14 +140,18 @@ namespace Earlgrey
 		TCHAR szKey[MAX_PATH];
 		_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName);
 
-		return Registry::KeyExists(szKey);
+		RegistryKey localMachineKey(Registry::LocalMachine());
+		return localMachineKey.KeyExists(szKey);
 	}
 
 	BOOL EventLog::SourceExists(const TCHAR * const source)
 	{
+		RegistryKey localMachineKey(Registry::LocalMachine());
+
 		xvector<_txstring>::Type logNames;
-		if(Registry::GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
+		if(localMachineKey.GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
 			return FALSE;
+
 
 
 		StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> comparer;
@@ -161,7 +164,7 @@ namespace Earlgrey
 			_stprintf_s(logPath, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName.c_str());
 
 			xvector<_txstring>::Type sourceNames;
-			if(Registry::GetSubKeyNames(logPath, sourceNames) == FALSE)
+			if(localMachineKey.GetSubKeyNames(logPath, sourceNames) == FALSE)
 				continue;
 
 			xvector<_txstring>::Type::const_iterator it2 = sourceNames.begin();
@@ -238,7 +241,8 @@ namespace Earlgrey
 		TCHAR szKey[MAX_PATH];
 		_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName);
 
-		if(Registry::DeleteKey(szKey) == FALSE)
+		RegistryKey localMachineKey(Registry::LocalMachine());
+		if(localMachineKey.DeleteSubKeyTree(szKey) == FALSE)
 		{
 			throw std::exception("Deleting an event log failed!");
 		}
@@ -255,7 +259,8 @@ namespace Earlgrey
 		if(eventSourcePath.length() == 0)
 			throw std::exception("The event source couldn't be found!");
 
-		if(Registry::DeleteKey(eventSourcePath.c_str()) == FALSE)
+		RegistryKey localMachineKey(Registry::LocalMachine());
+		if(localMachineKey.DeleteSubKeyTree(eventSourcePath.c_str()) == FALSE)
 		{
 			throw std::exception("Deleting an event log failed!");
 		}
@@ -263,8 +268,10 @@ namespace Earlgrey
 
 	_txstring EventLog::FindEventSource(const TCHAR * const source)
 	{
+		RegistryKey localMachineKey(Registry::LocalMachine());
+
 		xvector<_txstring>::Type logNames;
-		if(Registry::GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
+		if(localMachineKey.GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
 			return FALSE;
 
 
@@ -278,7 +285,7 @@ namespace Earlgrey
 			_stprintf_s(logPath, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName.c_str());
 
 			xvector<_txstring>::Type sourceNames;
-			if(Registry::GetSubKeyNames(logPath, sourceNames) == FALSE)
+			if(localMachineKey.GetSubKeyNames(logPath, sourceNames) == FALSE)
 				continue;
 
 			xvector<_txstring>::Type::const_iterator it2 = sourceNames.begin();

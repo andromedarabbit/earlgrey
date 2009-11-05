@@ -1,11 +1,12 @@
 #pragma once
-// #include "Win32Service.h"
 #include "Uncopyable.h"
 #include "txstring.h"
+#include "RegistryKey.h"
 
 namespace Earlgrey
 {
 	class Win32Service;
+	// class RegistryKey;
 
 	class Win32ServiceInstaller : private Uncopyable
 	{
@@ -23,6 +24,7 @@ namespace Earlgrey
 	private:
 		Win32Service& m_service;
 		_txstring m_description;
+		RegistryKey m_localMachineKey;
 
 	};
 }

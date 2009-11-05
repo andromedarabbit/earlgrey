@@ -12,6 +12,7 @@ namespace Earlgrey
 
 	Win32ServiceInstaller::Win32ServiceInstaller(Win32Service& service)
 		: m_service(service)
+		, m_localMachineKey(Registry::LocalMachine())
 	{
 
 	}
@@ -31,26 +32,8 @@ namespace Earlgrey
 		return m_description;
 	}
 
-	BOOL Win32ServiceInstaller::InstallService() {
-		// TCHAR szPath[1024];
-
-		// SetupConsole();	//!! TCW MOD - have to show the console here for the
-		// diagnostic or error reason: orignal class assumed
-		// that we were using _main for entry (a console app).
-		// This particular usage is a Windows app (no console),
-		// so we need to create it. Using SetupConsole with _main
-		// is ok - does nothing, since you only get one console.
-
-		/*
-		if( GetModuleFileName( 0, szPath, 1023 ) == 0 ) {
-		const DWORD errCode = GetLastError();
-		// TCHAR szErr[256];
-		// _tprintf(TEXT("Unable to install %s - %s\n"), m_displayName.c_str(), GetLastErrorText(szErr, 256));
-		_tprintf(TEXT("Unable to install %s - %s\n"), m_displayName.c_str(), Log::ErrorMessage(errCode));
-		return FALSE;
-		}
-		*/
-
+	BOOL Win32ServiceInstaller::InstallService() 
+	{
 		_txstring serviceExecutable;
 		try
 		{
@@ -65,27 +48,6 @@ namespace Earlgrey
 				;
 			return FALSE;
 		}
-
-		/*
-		if( OsIsWin95() ) {	//!! TCW MOD - code added to install as Win95 service
-		// Create a key for that application and insert values for
-		// "EventMessageFile" and "TypesSupported"
-		HKEY hKey = 0;
-		LONG lRet = ERROR_SUCCESS;
-		if( ::RegCreateKey(HKEY_LOCAL_MACHINE, gszWin95ServKey , &hKey) == ERROR_SUCCESS ) {
-		lRet =	::RegSetValueEx(
-		hKey,				// handle of key to set value for
-		m_lpServiceName,	// address of value to set (NAME OF SERVICE)
-		0,					// reserved
-		REG_EXPAND_SZ,		// flag for value type
-		(CONST BYTE*)szPath,// address of value data
-		static_cast<DWORD>(_tcslen(szPath) + 1)	// size of value data
-		);
-		::RegCloseKey(hKey);
-		bRet=TRUE;
-		}
-		} else {
-		*/
 
 		SC_HANDLE scManager = ::OpenSCManager(
 			NULL,						// machine (NULL == local)
@@ -135,7 +97,7 @@ namespace Earlgrey
 			TCHAR szKey[MAX_PATH];
 			_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_SERVICE_ROOT, m_service.ServiceName().c_str());
 
-			HKEY hKey = Registry::GetKey(szKey, KEY_WRITE);
+			HKEY hKey = m_localMachineKey.GetKey(szKey, KEY_WRITE);
 			Earlgrey::handle_t regKeyHandle(hKey, &RegCloseKey);
 			
 			LSTATUS errCode = ::RegSetValueEx(
