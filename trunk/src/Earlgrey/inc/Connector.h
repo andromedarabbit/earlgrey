@@ -1,13 +1,11 @@
 #pragma once 
 #include "EarlgreyAssert.h"
+#include "AsyncStream.h"
 
 namespace Earlgrey
 {
-	class AsyncStream;
-
-	template <class ConnectionType>
 	class Connector
-		: public WaitEventHandler
+		: public CompletionHandler
 	{
 	public:
 		explicit Connector()
@@ -15,53 +13,83 @@ namespace Earlgrey
 		{}
 		virtual ~Connector() {}
 
-		void Initialize();
+		// CompletionHandler Interface
+		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes);
+		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
 
-		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result);
-		virtual HANDLE GetHandle() {return (HANDLE)ConnectorSocket;}
+		BOOL Register();
+		SOCKET CreateSocket(const char* RemoteHostName, const INT Port);
 
-		virtual void HandleEvent();
-
-		BOOL Connect(const char* RemoteHostName, const INT Port);
-		void Disconnect();
-		void Close();
-
+	private:
+		void Close()
+		{
+			if(ConnectorSocket != INVALID_SOCKET)
+			{
+				closesocket(ConnectorSocket);
+				ConnectorSocket = INVALID_SOCKET;
+			}
+		}
 	private:
 		SOCKET ConnectorSocket;
 		IPAddress ServerAddress;
-		WSAEVENT ConnectorEvent;
-		AsyncStream Stream;
 	};
 
-	template <class ConnectionType>
-	inline BOOL Connector<ConnectionType>::Connect(const char* RemoteHostName, const INT Port)
+	inline BOOL Connector::Register()
 	{
-		//Lock??
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ConnectorSocket, this))
+		{
+			return FALSE;
+		}
 
+		return TRUE;
+	}
+
+	inline void Connector::HandleEvent(AsyncResult* Result, DWORD /*TransferredBytes*/)
+	{
+		//lock?
+
+		if ((Result->Error() == (DWORD)-1) ||
+			(setsockopt( ConnectorSocket, SOL_SOCKET, SO_UPDATE_CONNECT_CONTEXT, NULL, 0) < 0))
+		{
+			return;
+		}
+		else 
+		{
+			Result->Stream()->Connected();
+		}
+	}
+
+	inline void Connector::HandleEventError(AsyncResult* /*Result*/, DWORD /*Error*/)
+	{
+
+	}
+
+	inline SOCKET Connector::CreateSocket(const char* RemoteHostName, const INT Port)
+	{
 		if (ConnectorSocket != INVALID_SOCKET) 
 		{
-			return TRUE;
+			return INVALID_SOCKET;
 		}
 
 		ConnectorSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);	
 
 		if (ConnectorSocket==INVALID_SOCKET)
 		{
-			return FALSE;
+			return INVALID_SOCKET;
 		}
 
 		DWORD	On = 1;
 		if (ioctlsocket(ConnectorSocket, FIONBIO, &On) == SOCKET_ERROR)
 		{
 			Close();
-			return FALSE;
+			return INVALID_SOCKET;
 		}
 
 		HOSTENT* HostEnt = gethostbyname(RemoteHostName);
 		if (!HostEnt)
 		{
 			Close();
-			return FALSE;
+			return INVALID_SOCKET;
 		}
 
 		if (HostEnt->h_addrtype == PF_INET)
@@ -71,110 +99,39 @@ namespace Earlgrey
 		else
 		{
 			Close();
-			return FALSE;
+			return INVALID_SOCKET;
 		}
 
 		ServerAddress.SetPort(Port);	
 
-		ConnectorEvent = WSACreateEvent();
-		EARLGREY_ASSERT(ConnectorEvent != WSA_INVALID_EVENT);
-		if(WSAEventSelect(ConnectorSocket, ConnectorEvent, FD_CONNECT) == SOCKET_ERROR)
-		{
-			Close();
-			return FALSE;
-		}
-
-		AcceptProactorSingleton::Instance().RegisterHandler(ConnectorEvent, this);
-
-		if (connect(ConnectorSocket, (const sockaddr*) &ServerAddress, sizeof(ServerAddress)) == SOCKET_ERROR)
-		{
-			INT Error = WSAGetLastError();
-			if (Error != WSAEWOULDBLOCK)
-			{
-				Close();
-				return FALSE;
-			}
-		}
-
-		return TRUE;
-	}
-
-	template <class ConnectionType>
-	inline void Connector<ConnectionType>::Disconnect()
-	{
-		Close();
-	}
-
-	template <class ConnectionType>
-	inline void Connector<ConnectionType>::Close()
-	{
-		if(ConnectorSocket != INVALID_SOCKET)
+		GUID  guid = WSAID_CONNECTEX;
+		DWORD bytes = 0;
+		LPFN_CONNECTEX lpfnConnectEx;
+		if (!WSAIoctl(ConnectorSocket, SIO_GET_EXTENSION_FUNCTION_POINTER, 
+			(LPVOID)&guid, sizeof(guid), (LPVOID)&lpfnConnectEx, 
+			sizeof(lpfnConnectEx), &bytes, NULL, NULL))
 		{
 			closesocket(ConnectorSocket);
-			ConnectorSocket = INVALID_SOCKET;
 		}
-	}
 
-	template <class ConnectionType>
-	void Connector<ConnectionType>::HandleEvent()
-	{
-		//lock?
-
-		WSANETWORKEVENTS	Events;	
-		BOOL				Result = TRUE;
-
-		INT ret = WSAEnumNetworkEvents(ConnectorSocket, ConnectorEvent, &Events);
-		if ( ret == SOCKET_ERROR )
+		OVERLAPPED* Overlapped = new AsyncResult(this);
+		if ((bind( ConnectorSocket, (LPSOCKADDR)&ServerAddress, sizeof(ServerAddress)) < 0) || 
+			(lpfnConnectEx( ConnectorSocket, 
+			(LPSOCKADDR)&ServerAddress, 
+			sizeof(ServerAddress), 
+			NULL, 
+			0, 
+			NULL, 
+			Overlapped) == FALSE))
+			switch (WSAGetLastError())
 		{
-			Result = FALSE;
+			case ERROR_IO_PENDING: 
+				break;
+			default :
+				return INVALID_SOCKET;
 		}
 
-		if (Result && !(Events.lNetworkEvents & FD_CONNECT))
-		{
-			Result= FALSE;
-		}
+		return ConnectorSocket;
 
-		if (Result && Events.iErrorCode[FD_CONNECT_BIT] != 0)
-		{
-			Result= FALSE;
-		}
-
-		//	UnregisterWait !!!		FConnect wait once !
-		if (Result && ConnectorEvent != WSA_INVALID_EVENT)
-		{
-			AcceptProactorSingleton::Instance().DeregisterHandler(ConnectorEvent);
-			WSACloseEvent(ConnectorEvent);
-			ConnectorEvent = WSA_INVALID_EVENT;
-		}
-
-		if (Result)
-		{
-			//	Connect success	
-			ConnectionHandler* connection = new ConnectionType((HANDLE)ConnectorSocket);
-			connection->Connected();
-			if (!connection)
-			{
-				Close();
-			}
-			else 
-			{
-				ConnectorSocket = INVALID_SOCKET;
-			}
-		}
-		else
-		{
-			Close();
-		}
-	}
-
-	template <class ConnectionType>
-	inline void Connector<ConnectionType>::HandleEvent(HANDLE /*Handle*/, IOCP_EVENT_TYPE Type, AsyncResult* /*Result*/)
-	{
-		switch(Type)
-		{
-		case READ_EVENT:
-		case WRITE_EVENT:
-			break;
-		}
 	}
 }

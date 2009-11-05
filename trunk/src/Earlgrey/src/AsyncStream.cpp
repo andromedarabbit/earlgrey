@@ -5,34 +5,41 @@
 
 namespace Earlgrey
 {
-
-	BOOL AsyncStream::Open(SOCKET Socket, CompletionHandler* Handler)
+	inline AsyncStream::AsyncStream()
 	{
-		_Handle = Socket;
-		_Handler = Handler;
-
-		INT Zero = 0; 
-		setsockopt(_Handle, SOL_SOCKET, SO_RCVBUF, (const char*)&Zero, sizeof(Zero));
-
-		Zero = 0;
-		setsockopt(_Handle, SOL_SOCKET, SO_SNDBUF, (const char*)&Zero, sizeof(Zero));
-
 		_PacketBuffer = new NetworkBuffer();
 		_PacketBuffer->Initialize();
+	}
 
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)_Handle, Handler))
-		{
-			if (_Handle != INVALID_SOCKET) // this line is not needed
-			{
-				closesocket(_Handle);
-			}
+	BOOL AsyncStream::Accept(USHORT Port)
+	{
+		Acceptor* _Acceptor = new Acceptor(Port);//??? construct time and delete time
+		if(!_Acceptor->CreateListenSocket())
 			return FALSE;
-		}
+
+		if((_Handle = _Acceptor->CreateAcceptSocket()) == INVALID_SOCKET)
+			return FALSE;
+
+		if(!_Acceptor->Register())
+			return FALSE;
 
 		return TRUE;
 	}
 
-	void AsyncStream::Close()
+	BOOL AsyncStream::Connect(const char* RemoteHostName, const INT Port)
+		{
+		Connector* _Connector = new Connector();
+
+		if((_Handle = _Connector->CreateSocket(RemoteHostName, Port)) == INVALID_SOCKET)
+			return FALSE;
+
+		if(!_Connector->Register())
+			return FALSE;
+
+		return TRUE;
+	}
+
+	BOOL AsyncStream::Disconnect()
 	{
 		SOCKET OldSocket = (SOCKET)AtomicExch(_Handle, INVALID_SOCKET);
 
@@ -43,17 +50,14 @@ namespace Earlgrey
 		closesocket(OldSocket);
 
 		delete _PacketBuffer;//TODO
+
+		return TRUE;
 	}
 
-	BOOL AsyncStream::Post()
-	{
-		return ProactorSingleton::Instance().PostEvent( _Handler, new AsyncWriteResult(_Handler) );
-	}
-
-	BOOL AsyncStream::AsyncRead()
+	BOOL AsyncStream::Recv()
 	{
 		WSABUF* SocketBuffers = _PacketBuffer->GetSockRecvBuffer();
-		OVERLAPPED* Overlapped = new AsyncReadResult(_Handler);
+		OVERLAPPED* Overlapped = new AsyncResult(_Receiver);
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
@@ -78,11 +82,11 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL AsyncStream::AsyncWrite()
+	BOOL AsyncStream::Send()
 	{
 		WSABUF*	SocketBuffer = _PacketBuffer->GetSockSendBuffer();
 		DWORD	SentBytes;		
-		OVERLAPPED* Overlapped = new AsyncWriteResult(_Handler);
+		OVERLAPPED* Overlapped = new AsyncResult(_Sender);
 
 		INT ret = WSASend(_Handle, 
 			SocketBuffer, 
@@ -109,4 +113,11 @@ namespace Earlgrey
 		}
 		return TRUE;
 	}
+
+	BOOL AsyncStream::Post(CompletionHandler* Handler)
+	{
+		return ProactorSingleton::Instance().PostEvent(new AsyncResult(Handler));
+	}
+
+
 }

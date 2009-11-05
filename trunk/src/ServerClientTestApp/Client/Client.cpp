@@ -28,26 +28,36 @@ public:
 	virtual void Exit() {}
 };
 
-class ClientConnection : public ConnectionHandler
+class ClientConnection : public AsyncStream
 {
 public:
-	ClientConnection(HANDLE InHandle) 
-		: ConnectionHandler(InHandle)
+	ClientConnection() 
+		: AsyncStream()
 	{}
 	virtual ~ClientConnection() {}
 
 	virtual void Connected()
 	{
 		printf("Client Socket = %d\r\n", Socket());
-		NetworkBuffer* buf = Stream().GetNetworkBuffer();
+		NetworkBuffer* buf = GetNetworkBuffer();
 		BYTE str[13] = "hello server";
 		buf->SetValue(&str[0], sizeof(str));
-		Stream().AsyncWrite();
+		Send();
 	}
 
 	virtual void Disconnected()
 	{
 		printf("Client Disconnected = %d", Socket());
+	}
+
+	virtual void Received()
+	{
+
+	}
+
+	virtual void Sent()
+	{
+
 	}
 };
 
@@ -60,13 +70,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_DEFAULT));
 
-	//ClientCreate(100);
-	Connector<ClientConnection>* c = new Connector<ClientConnection>();
-	char* ServerIP = "localhost";//! TODO : type and ip
-	BOOL retValue = c->Connect(ServerIP, 100);
-
-	EARLGREY_ASSERT(retValue == TRUE);
-	//ServerCreated();
+	//ClientConnection* connection = new ClientConnection();
+	//char* ServerIP = "localhost";//! TODO : type and ip
+	//EARLGREY_ASSERT(connection->Connect(ServerIP, 100) == TRUE);
 
 	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 

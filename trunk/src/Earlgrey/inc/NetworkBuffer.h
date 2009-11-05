@@ -50,15 +50,17 @@ namespace Earlgrey
 		{
 		}
 
-		DWORD GetBufferSize()
+		CHAR* GetAcceptBuffer()
 		{
-			return (DWORD)_ChainBuffer.chain_size();
+			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
+
+			return reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
 		}
 
 		WSABUF* GetSockRecvBuffer()
 		{
 			WSABUF* SocketBuffer = new WSABUF; //! TODO : shared_ptr?
-			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
+			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.set( &_ChainBuffer.back() , NETWORK_BUFFER_DEFAULT_SIZE );
 
 			SocketBuffer->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
 			SocketBuffer->len = Math::numeric_cast<ULONG>(std::tr1::get<1>( ret ));
@@ -82,6 +84,16 @@ namespace Earlgrey
 			}
 
 			return SocketBuffer;
+		}
+
+		DWORD GetBufferSize()
+		{
+			return (DWORD)_ChainBuffer.size();
+		}
+
+		DWORD GetBufferCapacity()
+		{
+			return _ChainBuffer.capacity();
 		}
 
 		BOOL SetValue(const BYTE* InValue, DWORD InSize)

@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib mswsock.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -423,6 +423,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Disconnector.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IOCP.cpp"
 					>
 				</File>
@@ -432,6 +436,14 @@
 				</File>
 				<File
 					RelativePath=".\src\Proactor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Receiver.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Sender.cpp"
 					>
 				</File>
 				<File
@@ -845,6 +857,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Disconnector.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Dns.h"
 					>
 				</File>
@@ -866,6 +882,14 @@
 				</File>
 				<File
 					RelativePath=".\inc\Proactor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Receiver.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Sender.h"
 					>
 				</File>
 				<File

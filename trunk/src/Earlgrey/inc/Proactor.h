@@ -21,7 +21,6 @@ namespace Earlgrey
 	};
 
 	class CompletionHandler;
-	class WaitEventHandler;
 
 	//Windows IOCompletion Port ¿ë
 	class Proactor   
@@ -57,7 +56,7 @@ namespace Earlgrey
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
-		BOOL PostEvent(CompletionHandler* CompleteHandler, AsyncResult* ResultStream);
+		BOOL PostEvent(AsyncResult* ResultStream);
 
 	private:
 		HANDLE _IOCompletionPort;
@@ -69,7 +68,7 @@ namespace Earlgrey
 			;
 
 	// Windows WaitEvent ¿ë
-	class AcceptProactor
+	/*class AcceptProactor
 		: public Proactor
 	{
 	public:
@@ -101,31 +100,34 @@ namespace Earlgrey
 		Loki::SingletonHolder<AcceptProactor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
 		AcceptProactorSingleton
 		;
-
+*/
 
 	class AsyncResult;
 
 	class CompletionHandler
 	{
 	public:
-		CompletionHandler() {};
+		explicit CompletionHandler() {};
 		virtual ~CompletionHandler() {};
 
-		virtual void HandleEvent(HANDLE Handle, IOCP_EVENT_TYPE Type, AsyncResult* Result) = 0; 
-		virtual HANDLE GetHandle() = 0;
+		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes) = 0;
+		virtual void HandleEventError(AsyncResult* Result, DWORD Error) = 0;
 	};
 
-	class WaitEventHandler
+	/*class WaitEventHandler
 		: public CompletionHandler
 	{
 	public:
 		explicit WaitEventHandler() {};
 		virtual ~WaitEventHandler() {};
 
-		virtual void HandleEvent(HANDLE /*Handle*/, IOCP_EVENT_TYPE /*Type*/, AsyncResult* /*Result*/) {}
-		virtual void HandleEvent() = 0;
-	};
+		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes) = 0;
+		virtual void HandleEventError(AsyncResult* Result, DWORD Error) = 0;
 
+		virtual void HandleEvent() = 0;
+	};*/
+
+	class AsyncStream;
 
 	class AsyncResult 
 		: public OVERLAPPED
@@ -136,6 +138,7 @@ namespace Earlgrey
 			, Error_(0)
 			, Status_(0)
 			, Handler_(InHandler)
+			, Stream_()
 		{
 			Internal = 0;
 			InternalHigh = 0;
@@ -145,18 +148,34 @@ namespace Earlgrey
 
 		virtual ~AsyncResult() {}
 
-		virtual void Completed() = 0;
-		virtual void Failed() = 0;
-		virtual void TimeOut() = 0;
+		virtual void Completed()
+		{
+			Handler_->HandleEvent(this, TransferredBytes_);
+		}
+
+		virtual void Failed()
+		{
+			Handler_->HandleEventError(this, Error_);
+		}
+
+		virtual void TimeOut()
+		{
+
+		}
 
 		inline void TransferredBytes(DWORD bytes) { TransferredBytes_ = bytes; };
 		inline DWORD TransferredBytes() { return TransferredBytes_; }
 		inline void Status(DWORD status) { Status_ = status; };
 		inline void Error(DWORD error) { Error_ = error; };
+		inline DWORD Error() { return Error_; }
 
 		inline CompletionHandler* Handler() const
-		{
+	{
 			return Handler_;
+		}
+		inline AsyncStream* Stream() const
+		{
+			return Stream_;
 		}
 
 	private:
@@ -164,60 +183,6 @@ namespace Earlgrey
 		DWORD Error_;
 		DWORD Status_;
 		CompletionHandler* Handler_;
-	};
-
-	class AsyncWriteResult
-		: public AsyncResult
-	{
-	public:
-		explicit AsyncWriteResult(CompletionHandler* InHandler)
-			: AsyncResult(InHandler)
-		{};
-
-		virtual ~AsyncWriteResult() {};
-
-		virtual void Completed()
-		{
-			Handler()->HandleEvent(Handler()->GetHandle(), WRITE_EVENT, this);
-		}
-
-		virtual void Failed()
-		{
-			//log
-			return;
-		}
-
-		virtual void TimeOut()
-		{
-
-		}
-
-	};
-
-	class AsyncReadResult
-		: public AsyncResult
-	{
-	public: 
-		explicit AsyncReadResult(CompletionHandler* InHandler)
-			: AsyncResult(InHandler)
-		{};
-
-		virtual ~AsyncReadResult() {};
-
-		virtual void Completed()
-		{
-			Handler()->HandleEvent(Handler()->GetHandle(), READ_EVENT, this);
-		}
-
-		virtual void Failed()
-		{
-			return;
-		}
-
-		virtual void TimeOut()
-		{
-
-		}
-
+		AsyncStream* Stream_;
 	};
 }

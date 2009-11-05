@@ -7,7 +7,11 @@
 #include "Proactor.h"
 #include "Acceptor.h"
 #include "Connector.h"
+#include "Receiver.h"
+#include "Sender.h"
+#include "Disconnector.h"
 #include "IOCP.h"
+#include "AsyncStream.h"
 #include "NetworkBuffer.h"
 #include "PacketHandler.h"
 
