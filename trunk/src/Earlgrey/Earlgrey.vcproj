@@ -958,14 +958,6 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="DataStructure"
-				>
-				<File
-					RelativePath=".\inc\Array.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="StlCustom"
 				>
 				<File
