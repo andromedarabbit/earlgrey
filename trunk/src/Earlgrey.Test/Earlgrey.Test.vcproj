@@ -343,6 +343,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\BinaryReaderTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\BinaryWriterTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ChainBufferTest.cpp"
 				>
 			</File>
