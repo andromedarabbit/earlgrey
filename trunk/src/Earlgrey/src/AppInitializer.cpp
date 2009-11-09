@@ -64,6 +64,12 @@ namespace Earlgrey
 
 	AppInfo::~AppInfo()
 	{
+		for (ThreadContainer::const_iterator i = m_IOThreads.begin();  i != m_IOThreads.end(); i++ ){
+			std::tr1::shared_ptr<Thread> thread = *i;
+
+			thread->Stop();
+			thread->Join();
+		}
 		m_IOThreads.clear();
 	}
 

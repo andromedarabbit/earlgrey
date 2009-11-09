@@ -150,11 +150,13 @@ namespace Earlgrey
 
 		virtual void Completed()
 		{
+			EARLGREY_ASSERT(Handler_ != NULL);
 			Handler_->HandleEvent(this, TransferredBytes_);
 		}
 
 		virtual void Failed()
 		{
+			EARLGREY_ASSERT(Handler_ != NULL);
 			Handler_->HandleEventError(this, Error_);
 		}
 
@@ -179,6 +181,7 @@ namespace Earlgrey
 		}
 
 	private:
+		OVERLAPPED	Overlapped_;
 		DWORD TransferredBytes_;
 		DWORD Error_;
 		DWORD Status_;

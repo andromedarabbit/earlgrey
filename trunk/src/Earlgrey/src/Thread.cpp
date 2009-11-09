@@ -34,10 +34,10 @@ namespace Earlgrey
 
 	};
 
-	Thread::Thread() : _thread(NULL), _threadId(0), IsRunning_(FALSE)
+	Thread::Thread() : ThreadHandle_(NULL), ThreadId_(0), IsRunning_(FALSE)
 	{
 		CreatedLock_ = CreateMutex(NULL, true, NULL);
-		EARLGREY_ASSERT(CreatedLock_ != NULL);
+		EARLGREY_VERIFY(CreatedLock_ != NULL);
 	}
 
 	Thread::~Thread()
@@ -48,16 +48,16 @@ namespace Earlgrey
 		// WaitForSingleObject( _thread, WaitTimeForThread );
 		CloseHandle(CreatedLock_);
 		// SetEvent(_thread);
-		CloseHandle( _thread );
+		CloseHandle( ThreadHandle_ );
 	}
 
 	void Thread::SetName(LPCSTR threadName)
 	{
-		EARLGREY_ASSERT( _threadId != 0 );
+		EARLGREY_ASSERT( ThreadId_ != 0 );
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
 		info.szName = threadName;
-		info.dwThreadID = _threadId;
+		info.dwThreadID = ThreadId_;
 		info.dwFlags = 0;
 
 		__try
@@ -71,17 +71,17 @@ namespace Earlgrey
 
 	DWORD Thread::Run()
 	{		
-		EARLGREY_VERIFY( _runnable );
-		EARLGREY_VERIFY( _runnable->Init() );
+		EARLGREY_VERIFY( NULL != Runnable_ );
+		EARLGREY_VERIFY( Runnable_->Init() );
 
 		IsRunning_ = TRUE;
 
 		ReleaseMutex(CreatedLock_);
 
-		DWORD exitCode = _runnable->Run();
+		DWORD exitCode = Runnable_->Run();
 
 		IsRunning_ = FALSE;
-		_runnable->Exit();
+		Runnable_->Exit();
 
 		// _endthread()는 thread handle(object)를 close하지만, _endthreadex()는 close하지 않는다. 따라서, CloseHandle()은 따로 호출해야 한다.
 		_endthreadex( 0 );
@@ -90,10 +90,10 @@ namespace Earlgrey
 
 	BOOL Thread::Create(std::tr1::shared_ptr<IRunnable> runnable, ThreadHolder* threadHolder, LPCSTR threadName, unsigned int initFlag, DWORD stackSize)
 	{
-		_runnable = runnable;
+		Runnable_ = runnable;
 
 		// 오류 종류에 따라 -1이나 0을 반환한다.
-		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, ThreadHolder::_ThreadProc, threadHolder, initFlag, &_threadId );		
+		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, ThreadHolder::_ThreadProc, threadHolder, initFlag, &ThreadId_ );		
 		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
 		
 		//! \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
@@ -122,7 +122,7 @@ namespace Earlgrey
 
 		WaitForSingleObject(CreatedLock_, INFINITE);
 
-		_thread = reinterpret_cast<HANDLE>( threadHandle );
+		ThreadHandle_ = reinterpret_cast<HANDLE>( threadHandle );
 
 		if (threadName && strlen(threadName) > 0)
 		{
@@ -147,7 +147,7 @@ namespace Earlgrey
 
 	void Thread::SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor)
 	{
-		SetProcessAffinityMask( _thread, 1 << (indexOfProcessor % countOfProcessor) );
+		SetProcessAffinityMask( ThreadHandle_, 1 << (indexOfProcessor % countOfProcessor) );
 	}
 
 	void Thread::SetPriority(INT priority)
@@ -157,7 +157,7 @@ namespace Earlgrey
 			priority <= THREAD_PRIORITY_TIME_CRITICAL
 			);
 
-		EARLGREY_VERIFY( SetThreadPriority(_thread, priority) );
+		EARLGREY_VERIFY( SetThreadPriority(ThreadHandle_, priority) );
 	}
 
 	

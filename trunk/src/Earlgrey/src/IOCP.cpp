@@ -14,8 +14,10 @@ namespace Earlgrey
 
 	DWORD IOCPRunnable::Run()
 	{
-		while( ProactorSingleton::Instance().HandleEvent() )
+		const TimeValueType WaitTime = 10; // msec
+		while( IsRunning)
 		{
+			ProactorSingleton::Instance().HandleEvent(WaitTime);
 
 		}
 		return 0;
