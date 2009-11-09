@@ -31,13 +31,13 @@ namespace Earlgrey
 		{
 			return ReadBytes(&x, sizeof(x));
 		}
-		BOOL ReadBytes(void* buf, UINT32 len);
+		BOOL ReadBytes(void* buf, size_type len);
 
 		inline BOOL ReadChar(CHAR& x)
 		{
 			return ReadBytes(&x, sizeof(CHAR));
 		}
-		inline BOOL ReadChars(CHAR* x, UINT32 len)
+		inline BOOL ReadChars(CHAR* x, size_type len)
 		{
 			const size_type bytes = len * sizeof(CHAR);
 			return ReadBytes(x, bytes);
@@ -48,7 +48,7 @@ namespace Earlgrey
 			return ReadBytes(&x, sizeof(WCHAR));
 		}
 		
-		inline BOOL ReadWChars(WCHAR* x, UINT32 len)
+		inline BOOL ReadWChars(WCHAR* x, size_type len)
 		{
 			const size_type bytes = len * sizeof(WCHAR);
 			return ReadBytes(x, bytes);
@@ -99,7 +99,7 @@ namespace Earlgrey
 			return ReadNumber(x);
 		}
 
-		inline BOOL ReadString(TCHAR* x, UINT32 len)
+		inline BOOL ReadString(TCHAR* x, size_type len)
 		{
 #ifdef _UNICODE 
 			return ReadWChars(x, len);
@@ -137,7 +137,7 @@ namespace Earlgrey
 	}
 
 	template <typename BufferT>
-	BOOL BinaryReader<BufferT>::ReadBytes(void* buf, UINT32 len)
+	BOOL BinaryReader<BufferT>::ReadBytes(void* buf, size_type len)
 	{
 		EARLGREY_ASSERT(buf != NULL);
 		EARLGREY_ASSERT(len > 0);

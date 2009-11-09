@@ -31,75 +31,75 @@ namespace Earlgrey
 		{
 			return WriteBytes(x, sizeof(x));
 		}
-		BOOL WriteBytes(const void* buf, UINT32 len);
+		BOOL WriteBytes(const void* buf, size_type len);
 
 		inline BOOL WriteChar(const CHAR x)
 		{
 			return WriteBytes(&x, sizeof(CHAR));
 		}
-		inline BOOL WriteChars(const CHAR* x, UINT32 len)
+		inline BOOL WriteChars(const CHAR* x, size_type len)
 		{
 			const size_type bytes = len * sizeof(CHAR);
 			return WriteBytes(x, bytes);
 		}
 
-		inline BOOL WriteWChar(const WCHAR& x)
+		inline BOOL WriteWChar(const WCHAR x)
 		{
 			return WriteBytes(&x, sizeof(WCHAR));
 		}
 
-		inline BOOL WriteWChars(const WCHAR* x, UINT32 len)
+		inline BOOL WriteWChars(const WCHAR* x, size_type len)
 		{
 			const size_type bytes = len * sizeof(WCHAR);
 			return WriteBytes(x, bytes);
 		}
 
 
-		inline BOOL WriteDouble(const DOUBLE& x)
+		inline BOOL WriteDouble(const DOUBLE x)
 		{
 			return WriteNumber(x);
 		}
-		inline BOOL WriteFloat(const FLOAT& x)
-		{
-			return WriteNumber(x);
-		}
-
-
-		inline BOOL WriteInt8(const INT8& x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt16(const INT16& x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt32(const INT32& x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt64(const INT64& x)
+		inline BOOL WriteFloat(const FLOAT x)
 		{
 			return WriteNumber(x);
 		}
 
-		inline BOOL WriteUInt8(const UINT8& x)
+
+		inline BOOL WriteInt8(const INT8 x)
 		{
 			return WriteNumber(x);
 		}
-		inline BOOL WriteUInt16(const UINT16& x)
+		inline BOOL WriteInt16(const INT16 x)
 		{
 			return WriteNumber(x);
 		}
-		inline BOOL WriteUInt32(const UINT32& x)
+		inline BOOL WriteInt32(const INT32 x)
 		{
 			return WriteNumber(x);
 		}
-		inline BOOL WriteUInt64(const UINT64& x)
+		inline BOOL WriteInt64(const INT64 x)
 		{
 			return WriteNumber(x);
 		}
 
-		inline BOOL WriteString(const TCHAR* x, UINT32 len)
+		inline BOOL WriteUInt8(const UINT8 x)
+		{
+			return WriteNumber(x);
+		}
+		inline BOOL WriteUInt16(const UINT16 x)
+		{
+			return WriteNumber(x);
+		}
+		inline BOOL WriteUInt32(const UINT32 x)
+		{
+			return WriteNumber(x);
+		}
+		inline BOOL WriteUInt64(const UINT64 x)
+		{
+			return WriteNumber(x);
+		}
+
+		inline BOOL WriteString(const TCHAR* x, size_type len)
 		{
 #ifdef _UNICODE 
 			return WriteWChars(x, len);
@@ -138,7 +138,7 @@ namespace Earlgrey
 
 	//! \todo 일부 버퍼에서 resize를 아직 구현하지 않아서 주석처리한다.
 	template <typename BufferT>
-	BOOL BinaryWriter<BufferT>::WriteBytes(const void* buf, UINT32 len)
+	BOOL BinaryWriter<BufferT>::WriteBytes(const void* buf, size_type len)
 	{
 		EARLGREY_ASSERT(buf != NULL);
 		EARLGREY_ASSERT(len > 0);

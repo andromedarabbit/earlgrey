@@ -7,6 +7,7 @@ namespace Earlgrey
 	class Uncopyable;
 
 	//! \todo 임시 구현
+	//! \ref http://recoverlee.tistory.com/9
 	class Log : private Uncopyable
 	{
 	private:
