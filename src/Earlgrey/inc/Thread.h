@@ -14,6 +14,13 @@ namespace Earlgrey
 		virtual void Exit() = 0;
 	};
 
+	class RunnableBuilder {
+	public:
+		static std::tr1::shared_ptr<IRunnable> NewRunnable(IRunnable* runnable) {
+			return std::tr1::shared_ptr<IRunnable> (runnable);
+		}
+	};
+
 	class Thread : private Uncopyable
 	{
 		friend class ThreadHolder;
@@ -40,7 +47,7 @@ namespace Earlgrey
 		Thread();
 		~Thread();
 
-		bool IsCreated() const { return _thread != NULL; }
+		bool IsCreated() const { return ThreadHandle_ != NULL; }
 
 	public:
 		// Factory 
@@ -51,12 +58,14 @@ namespace Earlgrey
 		void SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor);
 		void SetPriority(INT priority);
 
-		//HANDLE GetWindowHandle() const { return _thread; }
-		void Join()
-		{
-			EARLGREY_ASSERT(_thread != NULL);
+		void Join() {
+			EARLGREY_ASSERT(ThreadHandle_ != NULL);
 		
-			WaitForSingleObject(_thread, INFINITE);
+			WaitForSingleObject(ThreadHandle_, INFINITE);
+		}
+
+		void Stop()  {
+			Runnable_->Stop();
 		}
 
 	private:
@@ -64,10 +73,12 @@ namespace Earlgrey
 		DWORD Run();
 
 	private:
-		HANDLE _thread;
-		unsigned int _threadId;
-		std::tr1::shared_ptr<IRunnable> _runnable;
+		HANDLE	ThreadHandle_;
+		unsigned int ThreadId_;
+		std::tr1::shared_ptr<IRunnable> Runnable_;
 		BOOL IsRunning_; // TODO atomic check ÇÊ¿ä
 		HANDLE	CreatedLock_;
+
+
 	};
 }

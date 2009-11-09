@@ -81,10 +81,12 @@ namespace Earlgrey
 			_txstring fileName = TEXT("C:\\mydir\\myfile.ext");
 			_txstring uncPath = TEXT("\\\\mydir\\sudir\\");
 			_txstring relativePath = TEXT("mydir\\sudir\\");
+			_txstring relativePath2 = TEXT("..\\mydir\\subdir\\");
 
 			ASSERT_TRUE(Path::IsPathRooted(fileName));
 			ASSERT_TRUE(Path::IsPathRooted(uncPath));
 			ASSERT_FALSE(Path::IsPathRooted(relativePath));
+			ASSERT_FALSE(Path::IsPathRooted(relativePath2));
 		}
 
 	}

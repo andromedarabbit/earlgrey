@@ -351,6 +351,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Executor.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\NoLock.cpp"
 					>
 				</File>
@@ -617,6 +621,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Executor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Lock.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Mutex.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\NoLock.h"
 					>
 				</File>
@@ -626,6 +642,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\ProcessModule.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ScopedLock.h"
 					>
 				</File>
 				<File

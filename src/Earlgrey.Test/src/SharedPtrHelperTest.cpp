@@ -5,6 +5,14 @@ namespace Earlgrey
 {
 	namespace Test
 	{
+		using std::tr1::shared_ptr;
+
+		TEST(SharedPtr, Basic)
+		{
+			shared_ptr<int> test = shared_ptr<int> (new int(3));
+
+
+		}
 		TEST(SharedPtrHelperTest, Basic)
 		{
 			class A
