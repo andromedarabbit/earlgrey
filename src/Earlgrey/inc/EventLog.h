@@ -7,6 +7,11 @@
 namespace Earlgrey
 {
 	//! \todo supports remote event log?
+	//! \ref http://www.codeproject.com/KB/system/CEventLog.aspx
+	//! \ref http://www.codeguru.com/cpp/w-p/system/ntservices/article.php/c2809/
+	//! \ref http://www.codeguru.com/cpp/w-p/system/ntservices/article.php/c2847/
+	//! \ref http://msdn.microsoft.com/en-us/library/ms810429.aspx
+	//! \ref http://www.muukka.net/programming/service/
 	class EventLog : private Uncopyable
 	{
 		static const DWORD SUPPORTED_EVENT_TYPES = 

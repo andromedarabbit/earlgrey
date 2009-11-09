@@ -3,7 +3,6 @@
 #include "BinaryReader.hpp"
 #include "BasicBuffer.hpp"
 #include "ChainBuffer.hpp"
-// #include "txstring.h"
 
 namespace Earlgrey
 {
