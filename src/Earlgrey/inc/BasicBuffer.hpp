@@ -57,7 +57,7 @@ namespace Earlgrey
 		const_reference at(size_type n) const;
 
 		void set(const_pointer ptr, size_type length);
-		void append(const_pointer ptr, size_type lenght);
+		void append(const_pointer ptr, size_type length);
 
 		void clear();
 		bool empty() const;
@@ -195,6 +195,7 @@ namespace Earlgrey
 	{
 		if (length > capacity()) throw std::out_of_range("Parameter out of range");		
 		
+		// TODO: _CRT_SECURE_DEPRECATE_MEMORY 를 정의하면 memcpy는 안전하지 못하기 때문에 쓰지 못하게 한다.
 		memcpy( m_buffer, ptr, length * sizeof(T) );
 		m_size = length;
 	}
@@ -213,6 +214,7 @@ namespace Earlgrey
 	inline
 		void basic_buffer<T,A>::reserve(size_type )
 	{
+		throw std::exception("not yet implemented!");
 		// Get current stream positions as offsets.
 		//std::size_t gnext = gptr() - &buffer_[0];
 		//std::size_t pnext = pptr() - &buffer_[0];

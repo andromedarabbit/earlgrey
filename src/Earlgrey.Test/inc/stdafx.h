@@ -29,3 +29,4 @@
 
 
 #include "Uncopyable.h"
+#include "txstring.h"

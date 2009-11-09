@@ -717,6 +717,14 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\BinaryReader.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\BinaryWriter.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\ChainBuffer.hpp"
 					>
 				</File>
