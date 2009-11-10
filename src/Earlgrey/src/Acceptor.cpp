@@ -4,6 +4,8 @@
 #include "Acceptor.h"
 #include "NetworkBuffer.h"
 
+#pragma comment(lib,"Mswsock.lib")
+
 namespace Earlgrey
 {
 

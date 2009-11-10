@@ -67,7 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib mswsock.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -134,7 +134,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib mswsock.lib"
+				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
