@@ -5,7 +5,7 @@
 
 namespace Earlgrey
 {
-	inline AsyncStream::AsyncStream()
+	AsyncStream::AsyncStream()
 	{
 		_PacketBuffer = new NetworkBuffer();
 		_PacketBuffer->Initialize();

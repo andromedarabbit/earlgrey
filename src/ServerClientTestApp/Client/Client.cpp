@@ -70,9 +70,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_DEFAULT));
 
-	//ClientConnection* connection = new ClientConnection();
-	//char* ServerIP = "localhost";//! TODO : type and ip
-	//EARLGREY_ASSERT(connection->Connect(ServerIP, 100) == TRUE);
+	ClientConnection* connection = new ClientConnection();
+	char* ServerIP = "localhost";//! TODO : type and ip
+	EARLGREY_ASSERT(connection->Connect(ServerIP, 100) == TRUE);
 
 	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
 

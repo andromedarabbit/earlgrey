@@ -172,7 +172,7 @@ namespace Earlgrey
 		inline DWORD Error() { return Error_; }
 
 		inline CompletionHandler* Handler() const
-	{
+		{
 			return Handler_;
 		}
 		inline AsyncStream* Stream() const
