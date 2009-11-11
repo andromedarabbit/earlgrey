@@ -429,4 +429,20 @@ namespace Earlgrey
 #endif
 	}
 
+	//! \ref Hard code vol.1
+	BOOL Environment::IsLittleEndian()
+	{
+		union 
+		{
+			unsigned long bits32;
+			unsigned char bytes[4];
+		} theValue;
+
+		theValue.bytes[0] = 0;
+		theValue.bytes[1] = 1;
+		theValue.bytes[2] = 0;
+		theValue.bytes[3] = 0;
+
+		return theValue.bits32 == 256;
+	}
 }

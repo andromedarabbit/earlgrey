@@ -101,5 +101,10 @@ namespace Earlgrey
 			ASSERT_TRUE(name.length() > 0);
 		}
 
+		TEST(EnvironmentTest, IsLittleEndian)
+		{		
+			// currently only supports 80x86 CPUs
+			ASSERT_TRUE(Environment::IsLittleEndian());
+		}
 	}
 }

@@ -31,6 +31,8 @@ namespace Earlgrey
 		static BOOL Is_WinXP_SP2_or_Later();
 		static BOOL Is_Win_Server();
 
-		BOOL Is64BitWindows();
+		static BOOL Is64BitWindows();
+
+		static BOOL IsLittleEndian();
 	};
 }
