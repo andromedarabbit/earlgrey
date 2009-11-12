@@ -36,10 +36,10 @@ namespace Earlgrey
 		return CloseHandle( Handle );
 	}
 
-	BOOL WinProactor::PostEvent(AsyncResult* ResultStream)
+	BOOL WinProactor::PostEvent(AsyncResult* Result)
 	{
 		// todo: EARLGREY_ASSERT 적용하기
-		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)ResultStream->Handler(), ResultStream);
+		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)Result->Handler(), Result);
 	}
 
 	BOOL WinProactor::HandleEvent(TimeValueType WaitTime)
