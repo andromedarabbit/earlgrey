@@ -92,7 +92,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 
 	//! \todo delete 안 해도 되나?
 	ServerConnection* connection = new ServerConnection();
-	connection->Accept(100);//LINK ERROR 왜 나지?--;
+	connection->Accept(100);
 
 	std::tr1::shared_ptr<ServerService> thisService(this);
 	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new WindowsRunnable(thisService) ));

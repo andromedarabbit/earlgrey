@@ -56,7 +56,7 @@ namespace Earlgrey
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
-		BOOL PostEvent(AsyncResult* ResultStream);
+		BOOL PostEvent(AsyncResult* Result);
 
 	private:
 		HANDLE _IOCompletionPort;
@@ -133,12 +133,12 @@ namespace Earlgrey
 		: public OVERLAPPED
 	{
 	public:
-		explicit AsyncResult(CompletionHandler* InHandler) 
+		explicit AsyncResult(CompletionHandler* InHandler, AsyncStream* InStream = NULL) 
 			: TransferredBytes_(0)
 			, Error_(0)
 			, Status_(0)
 			, Handler_(InHandler)
-			, Stream_()
+			, Stream_(InStream)
 		{
 			Internal = 0;
 			InternalHigh = 0;

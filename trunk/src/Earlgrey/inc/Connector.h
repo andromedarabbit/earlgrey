@@ -18,7 +18,7 @@ namespace Earlgrey
 		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
 
 		BOOL Register();
-		SOCKET CreateSocket(const char* RemoteHostName, const INT Port);
+		SOCKET CreateSocket(const char* RemoteHostName, const INT Port, AsyncStream* InStream);
 
 	private:
 		void Close()
@@ -64,7 +64,7 @@ namespace Earlgrey
 
 	}
 
-	inline SOCKET Connector::CreateSocket(const char* RemoteHostName, const INT Port)
+	inline SOCKET Connector::CreateSocket(const char* RemoteHostName, const INT Port, AsyncStream* InStream)
 	{
 		if (ConnectorSocket != INVALID_SOCKET) 
 		{
@@ -114,7 +114,7 @@ namespace Earlgrey
 			closesocket(ConnectorSocket);
 		}
 
-		OVERLAPPED* Overlapped = new AsyncResult(this);
+		OVERLAPPED* Overlapped = new AsyncResult(this, InStream);
 		if ((bind( ConnectorSocket, (LPSOCKADDR)&ServerAddress, sizeof(ServerAddress)) < 0) || 
 			(lpfnConnectEx( ConnectorSocket, 
 			(LPSOCKADDR)&ServerAddress, 

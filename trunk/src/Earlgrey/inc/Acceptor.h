@@ -26,7 +26,7 @@ namespace Earlgrey
 		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
 
 		BOOL CreateListenSocket();
-		SOCKET CreateAcceptSocket();
+		SOCKET CreateAcceptSocket(AsyncStream* InStream);
 
 	private:
 		SOCKET ListenSocket;		
@@ -85,7 +85,7 @@ namespace Earlgrey
 			} 
 		} 
 		
-		CreateAcceptSocket();
+		CreateAcceptSocket(Result->Stream());
 
 		return;
 	}
@@ -157,7 +157,7 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	inline SOCKET Acceptor::CreateAcceptSocket()
+	inline SOCKET Acceptor::CreateAcceptSocket(AsyncStream* InStream)
 	{
 
 		// AcceptEx를 안 쓰는 이유에 대한 양환씨의 설명.
@@ -209,7 +209,7 @@ namespace Earlgrey
 			(const char*)&Zero, 
 			sizeof(Zero));
 
-		AsyncResult* Overlapped = new AsyncResult(this);// TODO : actor 전체에서 overlapped delete 언제?
+		AsyncResult* Overlapped = new AsyncResult(this, InStream);// TODO : actor 전체에서 overlapped delete 언제?
 		NetworkBuffer* Buf = Overlapped->Stream()->GetNetworkBuffer();
 		
 		if( lpfnAcceptEx(ListenSocket, 

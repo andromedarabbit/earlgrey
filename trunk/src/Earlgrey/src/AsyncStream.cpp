@@ -17,7 +17,7 @@ namespace Earlgrey
 		if(!_Acceptor->CreateListenSocket())
 			return FALSE;
 
-		if((_Handle = _Acceptor->CreateAcceptSocket()) == INVALID_SOCKET)
+		if((_Handle = _Acceptor->CreateAcceptSocket(this)) == INVALID_SOCKET)
 			return FALSE;
 
 		if(!_Acceptor->Register())
@@ -30,7 +30,7 @@ namespace Earlgrey
 		{
 		Connector* _Connector = new Connector();
 
-		if((_Handle = _Connector->CreateSocket(RemoteHostName, Port)) == INVALID_SOCKET)
+		if((_Handle = _Connector->CreateSocket(RemoteHostName, Port, this)) == INVALID_SOCKET)
 			return FALSE;
 
 		if(!_Connector->Register())
@@ -57,7 +57,7 @@ namespace Earlgrey
 	BOOL AsyncStream::Recv()
 	{
 		WSABUF* SocketBuffers = _PacketBuffer->GetSockRecvBuffer();
-		OVERLAPPED* Overlapped = new AsyncResult(_Receiver);
+		OVERLAPPED* Overlapped = new AsyncResult(_Receiver, this);
 		DWORD ReceivedBytes;
 		DWORD Flags = 0;
 
@@ -86,7 +86,7 @@ namespace Earlgrey
 	{
 		WSABUF*	SocketBuffer = _PacketBuffer->GetSockSendBuffer();
 		DWORD	SentBytes;		
-		OVERLAPPED* Overlapped = new AsyncResult(_Sender);
+		OVERLAPPED* Overlapped = new AsyncResult(_Sender, this);
 
 		INT ret = WSASend(_Handle, 
 			SocketBuffer, 
@@ -116,7 +116,7 @@ namespace Earlgrey
 
 	BOOL AsyncStream::Post(CompletionHandler* Handler)
 	{
-		return ProactorSingleton::Instance().PostEvent(new AsyncResult(Handler));
+		return ProactorSingleton::Instance().PostEvent(new AsyncResult(Handler, this));
 	}
 
 
