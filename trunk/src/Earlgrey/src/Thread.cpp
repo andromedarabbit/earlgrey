@@ -22,10 +22,9 @@ namespace Earlgrey
 		static unsigned int __stdcall _ThreadProc(LPVOID p)
 		{
 			// new created thread context
-			ThreadHolder* This = reinterpret_cast<ThreadHolder*>( p );
+			std::auto_ptr<ThreadHolder> This = std::auto_ptr<ThreadHolder>( reinterpret_cast<ThreadHolder*>( p ) );
 			EARLGREY_ASSERT(This->Thread_ != NULL);
 			DWORD exitCode = This->Thread_->Run();
-			delete This;
 			return exitCode;
 		}
 
@@ -88,7 +87,12 @@ namespace Earlgrey
 		return exitCode;
 	}
 
-	BOOL Thread::Create(std::tr1::shared_ptr<IRunnable> runnable, ThreadHolder* threadHolder, LPCSTR threadName, unsigned int initFlag, DWORD stackSize)
+	BOOL Thread::Create(
+				std::tr1::shared_ptr<IRunnable>		runnable, 
+				ThreadHolder*						threadHolder, 
+				LPCSTR								threadName, 
+				unsigned int						initFlag, 
+				DWORD								stackSize)
 	{
 		Runnable_ = runnable;
 

@@ -17,7 +17,7 @@ namespace TestCommon.Net
         {
         }
 
-        public bool Read(out Int16 Value)
+        public bool Read(out short Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(Int16)];
@@ -29,7 +29,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out Int32 Value)
+        public bool Read(out int Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(Int32)];
@@ -41,7 +41,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out Int64 Value)
+        public bool Read(out long Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(Int64)];
@@ -53,7 +53,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out UInt16 Value)
+        public bool Read(out ushort Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(UInt16)];
@@ -65,7 +65,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out UInt32 Value)
+        public bool Read(out uint Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(UInt32)];
@@ -77,7 +77,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out UInt64 Value)
+        public bool Read(out ulong Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(UInt64)];
@@ -89,7 +89,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out Single Value)
+        public bool Read(out float Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(Single)];
@@ -101,7 +101,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out Double Value)
+        public bool Read(out double Value)
         {
             Value = 0;
             byte[] buffer = new byte[sizeof(Double)];
@@ -113,7 +113,7 @@ namespace TestCommon.Net
             return true;
         }
 
-        public bool Read(out Char Value)
+        public bool Read(out char Value)
         {
             Value = '\0';
             byte[] buffer = new byte[sizeof(Char)];
@@ -122,6 +122,23 @@ namespace TestCommon.Net
                 return false;
             }
             Value = BitConverter.ToChar(buffer, 0);
+            return true;
+        }
+
+        public bool Read(out string Value)
+        {
+            Value = "";
+            uint stringLength = 0;
+            if (!Read(out stringLength))
+            {
+                return false;
+            }
+            byte[] buffer = new byte[stringLength];
+            if (!_Buffer.Read(buffer, (int)stringLength))
+            {
+                return false;
+            }
+            Value = Encoding.Default.GetString(buffer);
             return true;
         }
 

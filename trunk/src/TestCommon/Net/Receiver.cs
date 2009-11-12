@@ -29,17 +29,25 @@ namespace TestCommon.Net
                 Debug.Assert(tcpSocket.ReadSize == sizeof(UInt32));
                 _DataSize = (int)BitConverter.ToUInt32(tcpSocket.ReadBuffer, 0);
                 tcpSocket.Read(_DataSize);
+                _ReadState = ReadState.Body;
             }
             else
             {
                 Debug.Assert(tcpSocket.ReadSize == _DataSize);
-                PacketHandler.Instance().Handle(tcpSocket, new PacketBuffer(tcpSocket.ReadBuffer, tcpSocket.ReadSize));
+                PacketHandlerManager.Instance.Handle(tcpSocket, new PacketBuffer(tcpSocket.ReadBuffer, tcpSocket.ReadSize));
+                ReadNextPacket(tcpSocket);
             }
         }
 
         public void HandleError(TcpSocket tcpSocket, int ErrorCode, string ErrorMessage)
         {
 
+        }
+
+        private void ReadNextPacket(TcpSocket tcpSocket)
+        {
+            _ReadState = ReadState.Header;
+            tcpSocket.Read(sizeof(UInt32));
         }
     }
 }

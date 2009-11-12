@@ -16,54 +16,59 @@ namespace TestCommon.Net
         {
         }
 
+        public PacketBuffer Buffer
+        {
+            get { return _Buffer; }
+        }
+
         public bool Write(Writable Value)
         {
             return Value.Write(this);
         }
 
-        public bool Write(Char Value)
+        public bool Write(char Value)
         {
             return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Char));
         }
 
-        public bool Write(Double Value)
+        public bool Write(double Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Double));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(double));
         }
 
-        public bool Write(Int16 Value)
+        public bool Write(short Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Int16));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(short));
         }
 
-        public bool Write(Int32 Value)
+        public bool Write(int Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Int32));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(int));
         }
 
-        public bool Write(Int64 Value)
+        public bool Write(long Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Int64));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(long));
         }
 
-        public bool Write(Single Value)
+        public bool Write(float Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(Single));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(float));
         }
 
-        public bool Write(UInt16 Value)
+        public bool Write(ushort Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(UInt16));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(ushort));
         }
 
-        public bool Write(UInt32 Value)
+        public bool Write(uint Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(UInt16));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(uint));
         }
 
-        public bool Write(UInt64 Value)
+        public bool Write(ulong Value)
         {
-            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(UInt16));
+            return _Buffer.Append(BitConverter.GetBytes(Value), sizeof(ulong));
         }
 
         /// <summary>

@@ -39,6 +39,11 @@ namespace TestCommon.Net
             private set;
         }
 
+        public void SetReadOnly()
+        {
+            IsReadOnly = true;
+        }
+
         public PacketBuffer(byte[] Buffer, int UsedSize)
         {
             Debug.Assert(MaxBufferSize <= UsedSize);
@@ -51,6 +56,16 @@ namespace TestCommon.Net
         {
             _Buffer = new byte[MaxBufferSize];
             IsReadOnly = false;
+        }
+
+        public void CopyFrom(PacketBuffer Buffer)
+        {
+            Debug.Assert(UsedBufferLength == 0);
+            if (UsedBufferLength > 0)
+            {
+                throw new Exception("This buffer is being used.");
+            }
+            Append(Buffer.Buffer, Buffer.UsedBufferLength);
         }
 
         public bool Append(byte[] Value, int Length)
