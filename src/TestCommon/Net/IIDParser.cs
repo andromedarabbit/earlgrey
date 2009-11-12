@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace TestCommon
+namespace TestCommon.Net
 {
-    public class TestInvoker
+    public interface IIDParser
     {
-
+        uint GetID(PacketBuffer Buffer);
     }
 }

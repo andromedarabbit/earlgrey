@@ -22,8 +22,6 @@ namespace TestCommon.Net
         private int _SentSize = 0;
         private byte[] _SendBuffer = null;
         
-        private PacketHandler _Handler = new PacketHandler();
-
         private int _ReadSize = 0;
         private int _RequestSizeToRead = 0;
 
