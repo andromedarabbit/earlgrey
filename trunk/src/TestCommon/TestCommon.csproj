@@ -47,7 +47,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\AttributeHelper.cs" />
+    <Compile Include="Components\SetUpAttribute.cs" />
+    <Compile Include="Components\TearDownAttribute.cs" />
+    <Compile Include="Components\TestAttribute.cs" />
+    <Compile Include="Helper\AttributeHelper.cs" />
     <Compile Include="Net\DefaultIDParser.cs" />
     <Compile Include="Net\IActor.cs" />
     <Compile Include="Net\IIDParser.cs" />
@@ -66,8 +69,7 @@
     <Compile Include="Net\StreamBase.cs" />
     <Compile Include="Report\Reporter.cs" />
     <Compile Include="Report\ReportNode.cs" />
-    <Compile Include="Attributes\TestAttribute.cs" />
-    <Compile Include="Invoker\TestInvoker.cs" />
+    <Compile Include="Components\TestFixtureAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

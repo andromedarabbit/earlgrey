@@ -19,6 +19,7 @@ namespace TestCommon.Net
 
         private string _Text = "";
     }
+
     [PacketHandler]
     public class SamplePacketHandler
     {
