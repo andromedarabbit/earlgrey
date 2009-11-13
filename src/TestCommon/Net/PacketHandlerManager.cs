@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using System.Reflection;
-using TestCommon.Attributes;
+using TestCommon.Helper;
 
 namespace TestCommon.Net
 {
@@ -83,6 +83,11 @@ namespace TestCommon.Net
                 return ret;
             }
             return null;
+        }
+
+        public void UnregisterAll()
+        {
+            _HandlerMap.Clear();
         }
 
         private Dictionary<uint, ProtocolReference> _HandlerMap = new Dictionary<uint,ProtocolReference>();
