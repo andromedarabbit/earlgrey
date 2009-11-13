@@ -9,8 +9,7 @@ namespace TestCommon.Net
     {
         public bool Read(InputStream IStream)
         {
-            IStream.Read(out this._Text);
-            return true;
+            return IStream.Read(out this._Text);
         }
         public string Text
         {

@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EchoClient.cs" />
+    <Compile Include="EchoPacketHandler.cs" />
+    <Compile Include="EchoProtocolPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
