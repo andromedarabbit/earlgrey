@@ -32,7 +32,7 @@ namespace Earlgrey
 			virtual void Exit() {}
 
 			static void WaitFor() {
-				DWORD Success = WaitForSingleObject(Waiter_, INFINITE);// wait for 30sec
+				DWORD Success = WaitForSingleObject(Waiter_, INFINITE);
 				EARLGREY_VERIFY(Success == WAIT_OBJECT_0); 
 			}
 
@@ -47,8 +47,6 @@ namespace Earlgrey
 
 		TEST(ExecutorTest, ExecuteBasic) {
 
-			AppInfo app;
-			app.InitInstance(AppType::E_APPTYPE_DEFAULT);
 
 			const long maxCount = 100;
 

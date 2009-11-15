@@ -9,6 +9,35 @@ namespace Earlgrey
 {
 	namespace Test
 	{
+		TEST(LockFreeTest, Pointer) 
+		{
+			int* test = new int(1);
+
+			
+
+			Pointer<int> pointer1;
+
+			int pointerSize = sizeof(Pointer<int>);
+
+			ASSERT_TRUE(pointerSize == 8);
+
+			pointer1.p(test);
+
+			Pointer<int> pointer2;
+
+			pointer2 = pointer1;
+	
+			ASSERT_TRUE(pointer1.p() == pointer2.p());
+			ASSERT_TRUE(pointer1.Count() == pointer2.Count());
+			ASSERT_TRUE(pointer1.val64 == pointer2.val64);
+
+			pointer1.Count(pointer1.Count() + 1);
+			ASSERT_TRUE(pointer1.p() == pointer2.p());
+			ASSERT_TRUE(pointer1.Count() > pointer2.Count());
+			ASSERT_TRUE(pointer1.val64 != pointer2.val64);
+
+		}
+
 		TEST(LockFreeTest, StackTest)
 		{
 			Stack<int> stack;

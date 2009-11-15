@@ -10,7 +10,7 @@ namespace Earlgrey {
 		class TaskQueue : private Uncopyable
 		{
 		public:
-			TaskQueue() : _count(0) {}
+			TaskQueue() : _qlen(0) {}
 			virtual ~TaskQueue() 
 			{
 				// \todo erase all items from queue
@@ -29,16 +29,16 @@ namespace Earlgrey {
 				std::tr1::function<void()> _task;
 			};
 
-		protected:
+		private:
 			void Post(const std::tr1::function<void()>& task)
 			{
 				// Is there any thread in process?
-				if (CAS( &_count, 0L, 1L ))
+				if (CAS( &_qlen, 0L, 1L ))
 				{
 					task();
 
 					// there is no thread in process, then return.
-					if (InterlockedDecrement( &_count ) == 0)
+					if (InterlockedDecrement( &_qlen ) == 0)
 						return;
 
 					// if not, execute all task in queue.
@@ -49,7 +49,7 @@ namespace Earlgrey {
 					_q.Enqueue( new TaskHolder( task ) );
 
 					// if there is a thread in process, don't do anything.
-					if (InterlockedIncrement( &_count ) > 1)
+					if (InterlockedIncrement( &_qlen ) > 1)
 						return;
 
 					// if not, execute the task that this thread has just enqueued.
@@ -59,25 +59,28 @@ namespace Earlgrey {
 				ExecuteAllTasksInQueue();
 			}
 
-		protected:
+		private:
 			void ExecuteAllTasksInQueue()
 			{
-				_ASSERTE( _count > 0 );
+				_ASSERTE( _qlen > 0 );
 				TaskHolder* taskHolder = NULL;
 				do {
-					bool isEmpty = _q.Dequeue( taskHolder );
-					_ASSERTE( !isEmpty );	// if empty, it's critical error, because _count is not matched.
-					if (!isEmpty)
-					{
-						(*taskHolder)();
-						delete taskHolder;
+					for (;;) {
+						taskHolder = NULL;
+						_q.MoveTail();
+						bool isEmpty = _q.Dequeue( taskHolder );
+						if (!isEmpty) break;
 					}
-				} while(InterlockedDecrement( &_count ));
+					_ASSERTE(taskHolder != NULL);
+					
+					(*taskHolder)();
+					delete taskHolder;
+				} while(InterlockedDecrement( &_qlen ));
 			}
 
-		protected:
+		private:
 			Queue<TaskQueue::TaskHolder*> _q;		//!< lockfree queue
-			volatile LONG _count;		//!< the number of tasks in queue
+			volatile LONG _qlen;		//!< the number of tasks in queue
 
 		protected:
 			template<typename T>
