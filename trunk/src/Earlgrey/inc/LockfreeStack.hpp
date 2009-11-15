@@ -26,7 +26,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		//! normal push operation of stack
 		void Push(T value)
 		{
-			CellType* cell = new CellType( 0, value );
+			CellType* cell = new CellType( NULL, value );
 			PointerType head, newItem;
 			newItem.p( cell );
 
@@ -45,7 +45,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		bool Pop(T& value)
 		{
 			PointerType head, next;
-			head.val64 = _head.val64;
+			head = _head;
 
 			while(head.val.p) {
 				next = head.p()->next;
@@ -57,7 +57,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 					delete head.p();
 					return true;
 				}
-				head.val64 = _head.val64;
+				head = _head;
 			}
 			return false;
 		}

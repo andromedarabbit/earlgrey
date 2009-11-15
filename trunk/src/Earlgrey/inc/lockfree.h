@@ -61,8 +61,6 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	template<typename T>
 	union Pointer
 	{
-//		typedef struct Cell<T> CellType;
-
 		ULONGLONG val64;
 
 #ifdef _WIN64
@@ -78,7 +76,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
 		void p(typename T* pointer)
 		{
-			_ASSERTE((reinterpret_cast<ULONGLONG>(pointer) & maskOfCounter64) == 0);
+			EARLGREY_ASSERT((reinterpret_cast<ULONGLONG>(pointer) & maskOfCounter64) == 0);
 			val.p = reinterpret_cast<ULONGLONG>(pointer);
 		}
 
@@ -123,7 +121,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	struct Cell
 	{
 		typedef union Pointer<Cell<T>> PointerType;
-
+		
 		explicit Cell(struct Cell<T>* next, T value)
 		{
 			this->next.p(next);
@@ -138,9 +136,9 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
 		explicit Cell() { this->next.p(NULL); }
 
-		T				value;
 		PointerType		next;
-
+		T				value;
+		
 	};
 
 }}}

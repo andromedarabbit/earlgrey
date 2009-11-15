@@ -182,7 +182,7 @@ namespace Earlgrey
 
 		TEST(TaskQueueTest, MultiThread) {
 
-			const int maxCount = 1000;
+			const int maxCount = 10000;
 
 
 			IncreaseTask *task = new IncreaseTask(maxCount);
