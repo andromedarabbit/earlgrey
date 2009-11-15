@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "taskqueue.h"
 #include "EarlgreyAssert.h"
+#include "AppInitializer.h"
+#include "Executor.h"
 
 #include <functional>
 
@@ -105,6 +107,100 @@ namespace Earlgrey
 			int index = MyTaskQueueArray.AllocateIndex();
 			MyTaskQueueArray[index].Set1();
 			EXPECT_TRUE( MyTaskQueueArray[index]._test == 1 );
+		}
+
+
+		class IncreaseTask : public TaskQueue
+		{
+		public:
+			class TaskRunnable : public IRunnable {
+
+			public:
+				explicit TaskRunnable(IncreaseTask* task) : Task_(task)  {}
+				virtual BOOL Init() { return TRUE;}
+				virtual DWORD Run() {
+					InterlockedIncrement(&Task_->AtomicCount_);
+					
+					Task_->InvokeMethod(&IncreaseTask::Increase, Task_);
+
+					return 0;
+
+				};
+				virtual void Stop() {}
+				virtual void Exit() {}
+			private:
+				IncreaseTask* Task_;
+			};
+		public:
+			explicit IncreaseTask(const int maxCount) 
+				: AtomicCount_(0), Count_(0), EvenCount_(0), OddCount_(0), MaxCount_(maxCount)
+			{
+				Waiter_ = CreateEvent(NULL, TRUE, FALSE, NULL);
+			}
+
+			void Increase() {
+
+				Count_++;
+
+				if (Count_%2) {
+					EvenCount_++;
+				}
+				else {
+					OddCount_++;
+				}
+
+				if (Count_ == MaxCount_ || MaxCount_ < 0) 
+				{ 
+					Done(); 
+					return; 
+				}
+			}
+
+			void Done() {
+				SetEvent(Waiter_);
+
+			}
+
+			void WaitFor() {
+				DWORD Success = WaitForSingleObject(Waiter_, INFINITE);
+				EARLGREY_VERIFY(Success == WAIT_OBJECT_0); 
+			}
+
+			void Report() {
+				printf("Count %d, Even %d, Odd %d\n", Count_, EvenCount_, OddCount_);
+			}
+
+		public:
+			long AtomicCount_;
+			int Count_;
+			int EvenCount_;
+			int OddCount_;
+			int MaxCount_;
+			HANDLE Waiter_;
+		};
+
+
+		TEST(TaskQueueTest, MultiThread) {
+
+			const int maxCount = 1000;
+
+
+			IncreaseTask *task = new IncreaseTask(maxCount);
+
+			ASSERT_EQ(0, maxCount %2); // even count
+
+			for (int i = 0; i < maxCount; i++) {
+				IocpExecutorSingleton::Instance().Execute(RunnableBuilder::NewRunnable(new IncreaseTask::TaskRunnable(task)));
+			}
+
+
+			task->WaitFor();
+			//task->Report();
+
+			ASSERT_EQ(maxCount, task->AtomicCount_);
+			ASSERT_EQ(maxCount, task->Count_);
+
+
 		}
 	}
 }

@@ -48,26 +48,7 @@ success:
 
 namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
-	template<typename T>
-	struct Cell
-	{
-		Cell(struct Cell<T>* next, T value)
-		{
-			this->next = next;
-			this->value = value;
-		}
 
-		Cell(T value)
-		{
-			next = NULL;
-			this->value = value;
-		}
-
-		Cell() { next = NULL; }
-
-		struct Cell<T>*	next;
-		T				value;
-	};
 
 	// http://msdn.microsoft.com/en-us/library/aa366778.aspx
 	// assume that user-mode virtual address space is 7TB (using just low 42 bits),
@@ -80,9 +61,9 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	template<typename T>
 	union Pointer
 	{
-		typedef struct Cell<T> CellType;
+//		typedef struct Cell<T> CellType;
 
-		volatile ULONGLONG val64;
+		ULONGLONG val64;
 
 #ifdef _WIN64
 		struct {
@@ -90,12 +71,12 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			ULONGLONG count : 20;	// high 20 bits for counter
 		} val;
 
-		CellType* p()
+		typename T* p()
 		{
-			return reinterpret_cast<CellType*>( val.p );
+			return reinterpret_cast<T*>( val.p );
 		}
 
-		void p(CellType* pointer)
+		void p(typename T* pointer)
 		{
 			_ASSERTE((reinterpret_cast<ULONGLONG>(pointer) & maskOfCounter64) == 0);
 			val.p = reinterpret_cast<ULONGLONG>(pointer);
@@ -112,16 +93,16 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		}
 #else
 		struct {
-			CellType* p;
+			T* p;
 			ULONG count;
 		} val;
 
-		struct CellType* p()
+		typename T* p()
 		{
 			return val.p;
 		}
 
-		void p(CellType* pointer)
+		void p(typename T* pointer)
 		{
 			val.p = pointer;
 		}
@@ -136,6 +117,30 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			val.count = count;
 		}
 #endif
+	};
+
+	template<typename T>
+	struct Cell
+	{
+		typedef union Pointer<Cell<T>> PointerType;
+
+		explicit Cell(struct Cell<T>* next, T value)
+		{
+			this->next.p(next);
+			this->value = value;
+		}
+
+		explicit Cell(T value)
+		{
+			this->next.p(NULL);
+			this->value = value;
+		}
+
+		explicit Cell() { this->next.p(NULL); }
+
+		T				value;
+		PointerType		next;
+
 	};
 
 }}}

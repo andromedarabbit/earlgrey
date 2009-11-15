@@ -22,7 +22,7 @@ public:
 		{
 
 		}
-		return msg.wParam;
+		return 0;
 	}
 	virtual void Stop() {}
 	virtual void Exit() {}

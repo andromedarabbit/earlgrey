@@ -8,7 +8,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	{
 	public:
 		typedef struct Cell<T> CellType;
-		typedef union Pointer<T> PointerType;
+		typedef union Pointer<CellType> PointerType;
 
 	private:
 		PointerType _head;
@@ -32,7 +32,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
 			do {
 				head = _head;
-				newItem.p()->next = _head.p();
+				newItem.p()->next = _head;
 				newItem.Count( _head.Count() + 1 );
 			} while(!CAS64( (volatile LONGLONG*)&_head.val64, (LONGLONG)head.val64, (LONGLONG)newItem.val64 ));
 		}
@@ -48,7 +48,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			head.val64 = _head.val64;
 
 			while(head.val.p) {
-				next.p( head.p()->next );
+				next = head.p()->next;
 				next.Count( head.Count() + 1 );
 
 				if (CAS64( (volatile LONGLONG*)&_head.val64, head.val64, next.val64 ))
