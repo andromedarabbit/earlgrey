@@ -10,7 +10,7 @@ namespace Earlgrey {
 		class TaskQueue : private Uncopyable
 		{
 		public:
-			TaskQueue() : _qlen(0) {}
+			TaskQueue() : _qlen(0), _IsRunning(0) {}
 			virtual ~TaskQueue() 
 			{
 				// \todo erase all items from queue
@@ -62,25 +62,29 @@ namespace Earlgrey {
 		private:
 			void ExecuteAllTasksInQueue()
 			{
-				_ASSERTE( _qlen > 0 );
-				TaskHolder* taskHolder = NULL;
+				EARLGREY_ASSERT(CAS( &_IsRunning, 0L, 1L ) == 1L);
 				do {
+					EARLGREY_ASSERT( _qlen > 0 );
+					TaskHolder* taskHolder = NULL;
+					EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 1L ) == 1L);
 					for (;;) {
 						taskHolder = NULL;
 						_q.MoveTail();
 						bool isEmpty = _q.Dequeue( taskHolder );
 						if (!isEmpty) break;
 					}
-					_ASSERTE(taskHolder != NULL);
+					EARLGREY_ASSERT(taskHolder != NULL);
 					
 					(*taskHolder)();
 					delete taskHolder;
 				} while(InterlockedDecrement( &_qlen ));
+				EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 0L ) == 0L);
 			}
 
 		private:
 			Queue<TaskQueue::TaskHolder*> _q;		//!< lockfree queue
 			volatile LONG _qlen;		//!< the number of tasks in queue
+			volatile LONG _IsRunning;
 
 		protected:
 			template<typename T>

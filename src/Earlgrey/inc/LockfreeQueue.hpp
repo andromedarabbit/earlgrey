@@ -20,14 +20,21 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		{
 			_head.p( new CellType() );
 			_tail = _head;
+			EARLGREY_ASSERT(_tail.Count() == _head.Count());
+			EARLGREY_ASSERT(_tail.p() == _head.p());
 		}
 
 		void Enqueue(T value)
 		{
-			PointerType tail, next, newCell;
-			newCell.p( new CellType( value ) );
+			PointerType tail, next, newPointer;
 
-			_ASSERTE(newCell.p()->next.p() == NULL);
+			CellType* cell = new CellType(value);
+
+			newPointer.p( cell );
+
+			EARLGREY_ASSERT(newPointer.p() == cell);
+
+			EARLGREY_ASSERT(newPointer.p()->next.p() == NULL);
 
 			for(;;)
 			{
@@ -39,12 +46,14 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
 				if (NULL == next.p())
 				{
-					newCell.Count(next.Count() + 1);
-					if (CAS64( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.val64, (LONGLONG) newCell.val64 ))
+					newPointer.Count(next.Count() + 1);
+					EARLGREY_ASSERT(newPointer.p() == cell);
+					if (CAS64( (volatile LONGLONG*) &(_tail.p()->next), (LONGLONG) next.val64, (LONGLONG) newPointer.val64 ))
 					{
 						PointerType Ptr;
-						Ptr.p(newCell.p());
+						Ptr.p(newPointer.p());
 						Ptr.Count(tail.Count() + 1);
+						EARLGREY_ASSERT(Ptr.p() == cell);
 						CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, Ptr.val64 );
 						break;
 					}
@@ -54,7 +63,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 					// If _tail.next has been changed but _tail has not been changed, 
 					// change _tail into next-cell which is a new cell
 					next.Count( tail.Count() + 1 );
-					_ASSERTE(next.p() == NULL);
+					EARLGREY_ASSERT(next.p() != NULL);
 					CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, next.val64);
 				}
 			}
@@ -65,22 +74,17 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			for (;;)
 			{
 				PointerType head = _head, tail = _tail;
-				PointerType next;
-				next = head.p()->next; // next cell of head is real.
-
-				if (head.val64 != _head.val64)
-					continue;
-
-				if (next.p() == NULL) continue;
+				PointerType next = tail.p()->next;
 
 				if (head.val64 != tail.val64)  return;
 
+				if (next.p() == NULL) continue;
 
 				next.Count(tail.Count() + 1);
 
 				CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, next.val64);
 
-				_ASSERTE(_head.val64 != _tail.val64);
+				EARLGREY_ASSERT(_head.val64 != _tail.val64);
 			}
 
 		}
@@ -97,7 +101,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
 				if (head.val64 == tail.val64)  return false;
 
-				_ASSERTE(next.p() != NULL);
+				EARLGREY_ASSERT(next.p() != NULL);
 
 				value = next.p()->value;
 
