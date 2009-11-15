@@ -60,7 +60,6 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			}
 		}
 
-
 		void MoveTail() 
 		{
 			for (;;)
