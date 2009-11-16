@@ -142,6 +142,10 @@ namespace Earlgrey
 
 				Count_++;
 
+				if (Count_ % 100 == 0) {
+					Sleep(10);
+				}
+
 				if (Count_%2) {
 					EvenCount_++;
 				}
