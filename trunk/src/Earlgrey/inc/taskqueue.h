@@ -16,7 +16,7 @@ namespace Earlgrey {
 				// \todo erase all items from queue
 			}
 
-		protected:
+		private:
 			class TaskHolder
 			{
 			public:
@@ -62,7 +62,7 @@ namespace Earlgrey {
 		private:
 			void ExecuteAllTasksInQueue()
 			{
-				EARLGREY_ASSERT(CAS( &_IsRunning, 0L, 1L ) == 1L);
+				EARLGREY_ASSERT(InterlockedIncrement( &_IsRunning) == 1L);
 				do {
 					EARLGREY_ASSERT( _qlen > 0 );
 					TaskHolder* taskHolder = NULL;
@@ -70,15 +70,15 @@ namespace Earlgrey {
 					for (;;) {
 						taskHolder = NULL;
 						_q.MoveTail();
-						bool isEmpty = _q.Dequeue( taskHolder );
-						if (!isEmpty) break;
+						bool hasTask = _q.Dequeue( taskHolder );
+						if (hasTask) break;
 					}
 					EARLGREY_ASSERT(taskHolder != NULL);
 					
 					(*taskHolder)();
 					delete taskHolder;
 				} while(InterlockedDecrement( &_qlen ));
-				EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 0L ) == 0L);
+				EARLGREY_ASSERT(InterlockedDecrement( &_IsRunning) == 0L);
 			}
 
 		private:

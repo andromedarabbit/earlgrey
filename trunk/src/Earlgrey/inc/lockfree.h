@@ -13,6 +13,8 @@ namespace Earlgrey { namespace Algorithm {
 
 	inline BOOL CAS64(volatile LONGLONG *Dest, LONGLONG Compare, LONGLONG Exchange)
 	{   
+		return InterlockedCompareExchange64(Dest, Exchange, Compare) == Compare;
+#if 0
 #ifdef _WIN64
 		return InterlockedCompareExchange64(Dest, Exchange, Compare) == Compare;
 #else
@@ -43,6 +45,7 @@ success:
 		}
 		return Return;
 #endif
+#endif
 	}
 }}
 
@@ -61,7 +64,20 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	template<typename T>
 	union Pointer
 	{
-		ULONGLONG val64;
+		explicit Pointer() {}
+
+		explicit Pointer(typename T* pointer, ULONG count) {
+
+			p(pointer);
+			Count(count);
+		}
+
+		explicit Pointer(typename T* pointer) {
+			p(pointer);
+			Count(Count() + 1);
+
+		}
+		volatile ULONGLONG val64;
 
 #ifdef _WIN64
 		struct {
@@ -69,23 +85,23 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			ULONGLONG count : 20;	// high 20 bits for counter
 		} val;
 
-		typename T* p()
+		inline typename T* p() const
 		{
 			return reinterpret_cast<T*>( val.p );
 		}
 
-		void p(typename T* pointer)
+		inline void p(typename T* pointer)
 		{
 			EARLGREY_ASSERT((reinterpret_cast<ULONGLONG>(pointer) & maskOfCounter64) == 0);
 			val.p = reinterpret_cast<ULONGLONG>(pointer);
 		}
 
-		ULONG Count() const
+		inline ULONG Count() const
 		{
 			return (ULONG)val.count;
 		}
 
-		void Count(ULONG count)
+		inline void Count(ULONG count)
 		{
 			val.count = count;
 		}
@@ -95,31 +111,52 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 			ULONG count;
 		} val;
 
-		typename T* p()
+		inline typename T* p() const
 		{
-			return val.p;
+			return (T*)val.p;
 		}
 
-		void p(typename T* pointer)
+		inline void p(typename T* pointer)
 		{
 			val.p = pointer;
 		}
 
-		ULONG Count() const
+		inline ULONG Count() const
 		{
-			return val.count;
+			return (ULONG)val.count;
 		}
 
-		void Count(ULONG count)
+		inline void Count(ULONG count)
 		{
 			val.count = count;
 		}
 #endif
+		inline ULONG NextCount() const
+		{
+			return Count() + 1;
+		}
 	};
+
+
+	template<class T>
+	inline bool operator==(const Pointer<T>& A, const Pointer<T>& B)
+	{
+		return A.val64 == B.val64;
+	}
+
+	template<class T>
+	inline bool operator!=(const Pointer<T>& A, const Pointer<T>& B)
+	{
+		return A.val64 != B.val64;
+	}
+
+
 
 	template<typename T>
 	struct Cell
 	{
+		typedef struct Cell<T> CellType;
+
 		typedef union Pointer<Cell<T>> PointerType;
 		
 		explicit Cell(struct Cell<T>* next, T value)
