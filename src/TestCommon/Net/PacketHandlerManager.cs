@@ -28,19 +28,19 @@ namespace TestCommon.Net
         public bool Handle(TcpSocket tcpSocket, PacketBuffer Buffer)
         {
             uint id = _Parser.GetID(Buffer);
-            ProtocolReference protocolReference = null;
-            if (!_HandlerMap.TryGetValue(id, out protocolReference))
+            InvokeInformation invokeInformation = null;
+            if (!_HandlerMap.TryGetValue(id, out invokeInformation))
             {
                 return false;
             }
-            protocolReference.Method.Invoke(protocolReference.Instance, new object[] { new ProtocolParameter(tcpSocket, Buffer) });
+            invokeInformation.Method.Invoke(invokeInformation.Instance, new object[] { new ProtocolParameter(tcpSocket, Buffer) });
             return true;
         }
 
         public static void RegisterHandlers()
         {
             List<Type> handlerAttributes = new List<Type>();
-            AttributeHelper.FindClassesHaveAttribute(typeof(PacketHandlerAttribute), handlerAttributes);
+            AttributeHelper.FindClassesHaveAttributeOnCurrentDomain(typeof(PacketHandlerAttribute), handlerAttributes);
             foreach (Type handlerType in handlerAttributes)
             {
                 RegisterMethodHandlers(handlerType);
@@ -49,25 +49,18 @@ namespace TestCommon.Net
         
         private static void RegisterMethodHandlers(Type handlerType)
         {
-            object handlerObject = Activator.CreateInstance(handlerType);
-            MethodInfo[] handlerMethods = handlerType.GetMethods();
-            foreach (MethodInfo Method in handlerMethods)
-            {
-                object[] attributes = Method.GetCustomAttributes(typeof(ProtocolAttribute), false);
-                if (attributes == null || attributes.Length == 0)
-                {
-                    continue;
-                }
+            List<InvokeInformation> invokeInformations = new List<InvokeInformation>();
+            AttributeHelper.GetInvokeInformations(handlerType, typeof(ProtocolAttribute), invokeInformations);
 
-                ProtocolReference protocolReference = new ProtocolReference(handlerObject, Method);
-                ProtocolAttribute protocolAttribute = (ProtocolAttribute)attributes[0];
-                PacketHandlerManager.Instance.Register(protocolAttribute.ID, protocolReference);
+            foreach (InvokeInformation invokeInformation in invokeInformations)
+            {
+                PacketHandlerManager.Instance.Register(((ProtocolAttribute)invokeInformation.Attributes[0]).ID, invokeInformation);
             }
         }
 
-        private void Register(uint id, ProtocolReference protocolReference)
+        private void Register(uint id, InvokeInformation invokeInformation)
         {
-            _HandlerMap.Add(id, protocolReference);
+            _HandlerMap.Add(id, invokeInformation);
         }
 
         public bool IsExist(uint id)
@@ -75,22 +68,12 @@ namespace TestCommon.Net
             return _HandlerMap.ContainsKey(id);
         }
 
-        private ProtocolReference GetProtocolReference(uint id)
-        {
-            ProtocolReference ret = null;
-            if (_HandlerMap.TryGetValue(id, out ret))
-            {
-                return ret;
-            }
-            return null;
-        }
-
         public void UnregisterAll()
         {
             _HandlerMap.Clear();
         }
 
-        private Dictionary<uint, ProtocolReference> _HandlerMap = new Dictionary<uint,ProtocolReference>();
+        private Dictionary<uint, InvokeInformation> _HandlerMap = new Dictionary<uint, InvokeInformation>();
         private IIDParser _Parser = new DefaultIDParser();
     }
 }
