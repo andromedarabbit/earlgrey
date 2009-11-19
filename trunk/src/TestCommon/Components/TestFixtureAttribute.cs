@@ -14,6 +14,12 @@ namespace TestCommon.Components
             Description = description;
         }
 
+        public TestFixtureAttribute()
+        {
+            Prompt = "> ";
+            Description = "";
+        }
+
         public string Prompt
         {
             get;

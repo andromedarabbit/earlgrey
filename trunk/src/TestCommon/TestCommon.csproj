@@ -51,6 +51,7 @@
     <Compile Include="Components\TearDownAttribute.cs" />
     <Compile Include="Components\TestAttribute.cs" />
     <Compile Include="Helper\AttributeHelper.cs" />
+    <Compile Include="Helper\InvokeInformation.cs" />
     <Compile Include="Net\DefaultIDParser.cs" />
     <Compile Include="Net\IActor.cs" />
     <Compile Include="Net\IIDParser.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="Net\PacketBuffer.cs" />
     <Compile Include="Net\PacketHandlerAttribute.cs" />
     <Compile Include="Net\ProtocolAttribute.cs" />
-    <Compile Include="Net\ProtocolReference.cs" />
     <Compile Include="Net\Receiver.cs" />
     <Compile Include="Net\SamplePacketHandler.cs" />
     <Compile Include="Net\Sender.cs" />
