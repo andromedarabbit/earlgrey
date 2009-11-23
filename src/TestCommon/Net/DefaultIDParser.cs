@@ -10,9 +10,9 @@ namespace TestCommon.Net
         public uint GetID(PacketBuffer Buffer)
         {
             InputStream iStream = new InputStream(Buffer);
-            UInt32 id = 0;
+            uint id = 0;
             iStream.Read(out id);
-            return (uint)id;
+            return id;
         }
     }
 }

@@ -35,6 +35,13 @@ namespace TestCommon.Net
             get { return _ReadSize; }
         }
 
+        public bool IsConnected
+        {
+            get {
+                return _Socket.Connected;
+            }
+        }
+
         public void Initialize(IActor receiver, IActor sender)
         {
             _Receiver = receiver;

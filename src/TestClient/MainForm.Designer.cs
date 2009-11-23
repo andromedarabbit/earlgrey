@@ -73,6 +73,7 @@
             this.ClearButton.TabIndex = 1;
             this.ClearButton.Text = "&CLR";
             this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // OutputBox
             // 
