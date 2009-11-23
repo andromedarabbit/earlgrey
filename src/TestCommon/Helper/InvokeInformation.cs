@@ -8,7 +8,7 @@ namespace TestCommon.Helper
 {
     public class InvokeInformation
     {
-        public InvokeInformation(object instance, object[] attributes, MethodInfo methodInfo)
+        public InvokeInformation(object instance, Attribute[] attributes, MethodInfo methodInfo)
         {
             this.Instance = instance;
             this.Attributes = attributes;
@@ -27,7 +27,7 @@ namespace TestCommon.Helper
             private set;
         }
 
-        public object[] Attributes
+        public Attribute[] Attributes
         {
             get;
             private set;

@@ -17,6 +17,7 @@ namespace EchoText
         [SetUp]
         public bool Initialize()
         {
+            socket.Initialize(new Receiver(), new Sender());
             return true;
         }
 
@@ -32,7 +33,7 @@ namespace EchoText
             string[] addressData = address.Split(new char[] { ' ' });
             if (addressData.Length != 2)
             {
-                Reporter.Log(ReportType.Error, "Address format is wrong '{0}'; USAGE: Connect <address> <port>");
+                Reporter.Log(ReportType.Error, "Address format is wrong '{0}'; USAGE: Connect <address> <port>", address);
                 return false;
             }
 
@@ -44,7 +45,13 @@ namespace EchoText
 
             try
             {
-                if (!socket.Connect(IPAddress.Parse(addressData[0]), int.Parse(addressData[1])))
+                IPAddress[] ipAddresses = Dns.GetHostAddresses(addressData[0]);
+                if (ipAddresses.Length == 0)
+                {
+                    Reporter.Log(ReportType.Error, "Cannot resolve address '{0}'", addressData[0]);
+                    return false;
+                }
+                if (!socket.Connect(ipAddresses[0], int.Parse(addressData[1])))
                 {
                     Reporter.Log(ReportType.Error, "Connection failed");
                     return false;
@@ -55,9 +62,8 @@ namespace EchoText
                 Reporter.Log(ReportType.Error, "Connection failed. Exception:{0}", e.Message);
                 return false;
             }
-            
 
-            Reporter.Log(ReportType.Normal, "connected to IP:{0} port:{1}", addressData[0], addressData[1]);
+            Reporter.Log(ReportType.Normal, "connected to Address:{0} port:{1}", addressData[0], addressData[1]);
 
             return true;
         }

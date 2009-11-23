@@ -71,6 +71,7 @@ namespace TestCommon.Net
 
         public bool Read(int Offset, int Size)
         {
+            Debug.Assert(_Receiver != null);
             try
             {
                 _Socket.BeginReceive(_ReadBuffer, Offset, Size, SocketFlags.None, new AsyncCallback(OnRead), this);
@@ -109,6 +110,7 @@ namespace TestCommon.Net
 
         private bool Send(int Offset, int Size)
         {
+            Debug.Assert(_Sender != null);
             try
             {
                 _Socket.BeginSend(_SendBuffer, Offset, Size, SocketFlags.None, new AsyncCallback(OnWrite), this);

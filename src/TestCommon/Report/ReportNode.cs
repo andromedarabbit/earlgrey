@@ -57,7 +57,7 @@ namespace TestCommon
                     break;
             }
 
-            _RichTextBox.ForeColor = TextColor;
+            _RichTextBox.SelectionColor = TextColor;
             _RichTextBox.AppendText(Text);
             _RichTextBox.ScrollToCaret();
         }

@@ -54,7 +54,7 @@ namespace TestCommon.Helper
             MethodInfo[] methodInfos = objectType.GetMethods();
             foreach (MethodInfo methodInfo in methodInfos)
             {
-                object[] attributes = methodInfo.GetCustomAttributes(attributeType, false);
+                Attribute[] attributes = (Attribute[])methodInfo.GetCustomAttributes(attributeType, false);
                 if (attributes == null || attributes.Length == 0)
                 {
                     continue;
