@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TestCommon;
 
 namespace TestClient
 {
@@ -14,6 +15,7 @@ namespace TestClient
         public TestClient()
         {
             InitializeComponent();
+            Reporter.AddNode(new ReportRichTextBoxControl(OutputBox));
         }
 
         private void Resized()
@@ -27,13 +29,13 @@ namespace TestClient
             {
                 OutputBox.Height = ClientRectangle.Height;
             }
-            
         }
 
         private void InputBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
+                CommandHandler.Instance.OnCommand(InputBox.Text);
                 InputBox.Text = "";
             }
             else if (e.KeyChar == 27 || e.KeyChar == 9)
@@ -41,6 +43,18 @@ namespace TestClient
                 FlowLayoutPane.Hide();
                 Resized();
                 OutputBox.Focus();
+            }
+        }
+
+        private void OutputBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 27)
+            {
+                FlowLayoutPane.Show();
+            }
+            if (FlowLayoutPane.Visible)
+            {
+                InputBox.Focus();
             }
         }
 
@@ -54,16 +68,9 @@ namespace TestClient
             Resized();
         }
 
-        private void OutputBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void ClearButton_Click(object sender, EventArgs e)
         {
-            if (e.KeyChar == 27)
-            {
-                FlowLayoutPane.Show();
-            }
-            if (FlowLayoutPane.Visible)
-            {
-                InputBox.Focus();
-            }            
+            OutputBox.Text = "";
         }
     }
 }

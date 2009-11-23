@@ -19,6 +19,7 @@ namespace TestCommon
     public interface ReportNode
     {
         void Report(ReportType Type, string Text);
+        void Clear();
     }
 
     public class ReportRichTextBoxControl : ReportNode
@@ -34,7 +35,6 @@ namespace TestCommon
             {
                 return;
             }
-            _RichTextBox.Select(_RichTextBox.TextLength, 1);
 
             Color TextColor = Color.DarkGray;
 
@@ -44,7 +44,7 @@ namespace TestCommon
                     TextColor = Color.Red;
                     break;
                 case ReportType.Debug:
-                    TextColor = Color.LightGray;
+                    TextColor = Color.DarkGray;
                     break;
                 case ReportType.System:
                     TextColor = Color.Red;
@@ -52,10 +52,19 @@ namespace TestCommon
                 case ReportType.Result:
                     TextColor = Color.Black;
                     break;
+                case ReportType.Normal:
+                    TextColor = Color.Black;
+                    break;
             }
 
-            _RichTextBox.SelectionColor = TextColor;
-            _RichTextBox.SelectedText = Text;
+            _RichTextBox.ForeColor = TextColor;
+            _RichTextBox.AppendText(Text);
+            _RichTextBox.ScrollToCaret();
+        }
+
+        public void Clear()
+        {
+            _RichTextBox.Text = "";
         }
 
         private System.Windows.Forms.RichTextBox _RichTextBox = null;
@@ -64,6 +73,11 @@ namespace TestCommon
     public class ReportRemoteNode : ReportNode
     {
         public void Report(ReportType Type, string Text)
+        {
+
+        }
+
+        public void Clear()
         {
 
         }

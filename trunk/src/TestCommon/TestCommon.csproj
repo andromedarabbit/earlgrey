@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentController.cs" />
     <Compile Include="Components\SetUpAttribute.cs" />
     <Compile Include="Components\TearDownAttribute.cs" />
     <Compile Include="Components\TestAttribute.cs" />

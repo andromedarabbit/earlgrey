@@ -15,30 +15,51 @@ namespace EchoText
         TcpSocket socket = new TcpSocket();
 
         [SetUp]
-        bool Initialize()
+        public bool Initialize()
         {
-            if (!socket.Connect(IPAddress.Loopback, 8000))
-            {
-                Reporter.Log(ReportType.Error, "Connection failed");
-                return false;
-            }
-
             return true;
         }
 
         [TearDown]
-        void CleanUp()
+        public void CleanUp()
         {
             socket.Close();
         }
 
         [Test(TestType.Interactive)]
-        bool Echo(string test)
+        public bool Connect(string address)
         {
+            string[] addressData = address.Split(new char[] { ' ' });
+            if (addressData.Length != 2)
+            {
+                Reporter.Log(ReportType.Error, "Address format is wrong '{0}'; USAGE: Connect <address> <port>");
+                return false;
+            }
+
+            if (!socket.Connect(IPAddress.Parse(addressData[0]), int.Parse(addressData[1])))
+            {
+                Reporter.Log(ReportType.Error, "Connection failed");
+                return false;
+            }
+
+            Reporter.Log(ReportType.Normal, "connected to IP:{0} port:{1}", addressData[0], addressData[1]);
+
+            return true;
+        }
+
+        [Test(TestType.Interactive)]
+        public bool Echo(string test)
+        {
+            if (!socket.IsConnected)
+            {
+                Reporter.Log(ReportType.Error, "Connection is not established.");
+                return false;
+            }
+
             if (test == "quit")
             {
                 Reporter.Log(ReportType.Normal, "Quit!");
-                return false;
+                return true;
             }
 
             EchoProtocolPacket packet = new EchoProtocolPacket();
