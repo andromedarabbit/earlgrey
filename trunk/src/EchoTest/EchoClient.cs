@@ -36,11 +36,26 @@ namespace EchoText
                 return false;
             }
 
-            if (!socket.Connect(IPAddress.Parse(addressData[0]), int.Parse(addressData[1])))
+            if (socket.IsConnected)
             {
-                Reporter.Log(ReportType.Error, "Connection failed");
+                socket.Close();
+                Reporter.Log(ReportType.Debug, "Close previous connection.");
+            }
+
+            try
+            {
+                if (!socket.Connect(IPAddress.Parse(addressData[0]), int.Parse(addressData[1])))
+                {
+                    Reporter.Log(ReportType.Error, "Connection failed");
+                    return false;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Reporter.Log(ReportType.Error, "Connection failed. Exception:{0}", e.Message);
                 return false;
             }
+            
 
             Reporter.Log(ReportType.Normal, "connected to IP:{0} port:{1}", addressData[0], addressData[1]);
 
