@@ -5,7 +5,7 @@ using System.Text;
 using TestCommon;
 using TestCommon.Net;
 
-namespace EchoText
+namespace EchoTest
 {
     [PacketHandler]
     public class EchoPacketHandler
@@ -19,6 +19,7 @@ namespace EchoText
             EchoProtocolPacket packet = new EchoProtocolPacket();
             IStream.Read(packet);
             Reporter.Log(ReportType.Normal, "ECHO : {0}", packet.Text);
+            EchoClient.StaticAutoResetEvent.Set();
         }
     }
 }
