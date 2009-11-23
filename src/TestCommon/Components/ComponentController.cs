@@ -35,7 +35,20 @@ namespace TestCommon.Components
 
         public void InvokeTearDown()
         {
-            InvokeNoParameterMethod<TearDownAttribute>();
+            if (_DidSetUp)
+            {
+                InvokeNoParameterMethod<TearDownAttribute>();
+            }
+        }
+
+        public void InvokeAutoRunTest()
+        {
+            if (!_DidSetUp)
+            {
+                InvokeSetUp();
+                _DidSetUp = true;
+            }
+            InvokeNoParameterMethod<TestAttribute>();
         }
 
         public void InvokeNoParameterMethod<AttributeType>()
@@ -44,6 +57,10 @@ namespace TestCommon.Components
             {
                 if (invokeInformation.Attributes[0] is AttributeType)
                 {
+                    if (invokeInformation.Method.GetParameters().Length > 0)
+                    {
+                        continue;
+                    }
                     invokeInformation.Method.Invoke(invokeInformation.Instance, null);
                     Reporter.Log(ReportType.Debug, "[{0}] {1}.{2}() has been invoked.", typeof(AttributeType).Name, invokeInformation.Instance.GetType().Name, invokeInformation.Method.Name);
                 }
@@ -123,7 +140,7 @@ namespace TestCommon.Components
             }
             catch (System.Exception e)
             {
-                Reporter.Log(ReportType.Error, "Assembly name is wrong. '{0}'", assembly);
+                Reporter.Log(ReportType.Error, "Assembly name is wrong. '{0}' Exception:{1}", assembly, e.Message);
                 UnloadAssembly();
                 return false;
             }

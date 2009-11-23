@@ -5,7 +5,7 @@ using System.Text;
 using TestCommon;
 using TestCommon.Net;
 
-namespace EchoText
+namespace EchoTest
 {
     public class EchoProtocolPacket : Readable, Writable
     {

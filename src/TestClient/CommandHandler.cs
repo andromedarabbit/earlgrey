@@ -97,5 +97,10 @@ namespace TestClient
             
             ComponentController.Instance.Invoke(className, methodName, parameter);
         }
+
+        private void RunAuto()
+        {
+            ComponentController.Instance.InvokeAutoRunTest();
+        }
     }
 }

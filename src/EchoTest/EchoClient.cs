@@ -3,16 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.Threading;
 using TestCommon.Net;
 using TestCommon;
 using TestCommon.Components;
 
-namespace EchoText
+namespace EchoTest
 {
     [TestFixture("ECHO > ", "Echo Test")]
     public class EchoClient
     {
-        TcpSocket socket = new TcpSocket();
+        private TcpSocket socket = new TcpSocket();
+        private static AutoResetEvent _StaticAutoResetEvent = new AutoResetEvent(false);
+
+        public static AutoResetEvent StaticAutoResetEvent
+        {
+            get { return _StaticAutoResetEvent; }
+        }
 
         [SetUp]
         public bool Initialize()
@@ -25,6 +32,24 @@ namespace EchoText
         public void CleanUp()
         {
             socket.Close();
+        }
+
+        [Test(TestType.AutoRun)]
+        public bool TestEcho1000Times()
+        {
+            if (!Connect("127.0.0.1 8000"))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < 1000; i++)
+            {
+                if (!Echo(i.ToString()))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         [Test(TestType.Interactive)]
@@ -97,7 +122,16 @@ namespace EchoText
                 Reporter.Log(ReportType.Error, "Flushing failed.");
                 return false;
             }
-            return true;
+
+            try
+            {
+                return StaticAutoResetEvent.WaitOne(1000);
+            }
+            catch (System.Exception e)
+            {
+            	Reporter.Log(ReportType.Error, "Error occurred while waiting for echo response. Exception:{0}", e.Message);
+                return false;
+            }
         }
     }
 }

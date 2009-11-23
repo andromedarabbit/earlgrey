@@ -8,8 +8,8 @@
     <ProjectGuid>{95B038F8-244E-441B-86C5-63D2D5AA4696}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EchoText</RootNamespace>
-    <AssemblyName>EchoText</AssemblyName>
+    <RootNamespace>EchoTest</RootNamespace>
+    <AssemblyName>EchoTest</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
