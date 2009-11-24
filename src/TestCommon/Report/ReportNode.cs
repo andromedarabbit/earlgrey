@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
+using System.Diagnostics;
 
 namespace TestCommon
 {
@@ -22,6 +24,28 @@ namespace TestCommon
         void Clear();
     }
 
+    public class ReportFile : ReportNode
+    {
+        public ReportFile(string filename)
+        {
+            _Filename = filename;
+        }
+
+        public void Report(ReportType Type, string Text)
+        {
+            using (StreamWriter writer = File.AppendText(_Filename))
+            {
+                writer.WriteLine(Text);
+            }
+        }
+
+        public void Clear()
+        {
+        }
+
+        private string _Filename = "";
+    }
+
     public class ReportRichTextBoxControl : ReportNode
     {
         public ReportRichTextBoxControl(RichTextBox UserTextBox)
@@ -37,10 +61,10 @@ namespace TestCommon
             }
 
             Color TextColor = Color.DarkGray;
-
             switch(Type)
             {
                 case ReportType.Error:
+                    _RichTextBox.SelectionFont = new Font(_RichTextBox.SelectionFont, FontStyle.Bold);
                     TextColor = Color.Red;
                     break;
                 case ReportType.Debug:
@@ -50,6 +74,7 @@ namespace TestCommon
                     TextColor = Color.Red;
                     break;
                 case ReportType.Result:
+                    _RichTextBox.SelectionFont = new Font(_RichTextBox.SelectionFont, FontStyle.Bold);
                     TextColor = Color.Black;
                     break;
                 case ReportType.Normal:
