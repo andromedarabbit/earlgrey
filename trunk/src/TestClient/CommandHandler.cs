@@ -47,7 +47,7 @@ namespace TestClient
 
         public void ShowFiles()
         {
-            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory());
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll");
             Reporter.Log(ReportType.Normal, "Directory : {0}", Directory.GetCurrentDirectory());
             foreach (string filename in files)
             {

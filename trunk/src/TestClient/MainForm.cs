@@ -16,6 +16,9 @@ namespace TestClient
         {
             InitializeComponent();
             Reporter.AddNode(new ReportRichTextBoxControl(OutputBox));
+
+            string filename = String.Format("TestClient-{0}.log", DateTime.Now.ToString("yyyy-MM-dd HHmmss"));
+            Reporter.AddNode(new ReportFile(filename));
         }
 
         private void Resized()
