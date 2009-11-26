@@ -25,6 +25,7 @@ namespace Earlgrey { namespace Test
 		}
 		DWORD Run() 
 		{
+			CurrentThread = Thread::CurrentThread();
 			Sleep(1000);
 			IsRunned = TRUE;
 			return 0;
@@ -39,22 +40,48 @@ namespace Earlgrey { namespace Test
 	
 
 	public:
+		std::tr1::shared_ptr<Thread> CurrentThread;
 		BOOL IsStarted;
 		BOOL IsRunned;
 		BOOL IsStopped;
 	};
 
+	TEST(Win32CurrentThread, Thread) 
+	{
+		std::tr1::shared_ptr<Thread> currentThread = Thread::CurrentThread();
+
+
+		EXPECT_TRUE(NULL == currentThread); // TODO ; win32 thread 도 thread instance 를 default 로 가져야 함
+
+	}
+
 	TEST(ThreadTest, Thread)
 	{
 
-		shared_ptr<Thread> testThread
-			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread" );
+		TestRunnable* runner1 = new TestRunnable();
+		TestRunnable* runner2 = new TestRunnable();
+
+		shared_ptr<Thread> testThread1
+			= Thread::CreateThread(shared_ptr<TestRunnable>(runner1), "TestThread" );
+
+		shared_ptr<Thread> testThread2
+			= Thread::CreateThread(shared_ptr<TestRunnable>(runner2), "TestThread" );
 
 
-		EXPECT_TRUE( NULL !=  testThread);
-		EXPECT_TRUE(testThread->IsCreated());
+		EXPECT_TRUE( NULL !=  testThread1);
+		EXPECT_TRUE(testThread1->IsCreated());
 
-		testThread->Join();
+		EXPECT_TRUE( NULL !=  testThread2);
+		EXPECT_TRUE(testThread2->IsCreated());
+
+		testThread1->Join();
+		testThread2->Join();
+
+		EXPECT_FALSE(runner1->CurrentThread == runner2->CurrentThread);
+		EXPECT_TRUE(runner1->CurrentThread == testThread1);
+		EXPECT_TRUE(runner2->CurrentThread == testThread2);
+
+
 	}
 
 	TEST(MultipleThreadTest, Thread)
