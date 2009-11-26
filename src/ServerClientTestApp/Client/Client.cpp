@@ -68,7 +68,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	AppInfo Application;
 
-	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_DEFAULT));
+	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_CLIENT));//юс╫ц
 
 	ClientConnection* connection = new ClientConnection();
 	char* ServerIP = "localhost";//! TODO : type and ip

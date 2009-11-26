@@ -5,6 +5,8 @@ namespace Earlgrey
 	class CompletionHandler;
 	class ConnectionHandler;
 	class NetworkBuffer;
+	class Acceptor;
+	class Connector;
 	class Disconnector;
 	class Sender;
 	class Receiver;
@@ -42,8 +44,8 @@ namespace Earlgrey
 		NetworkBuffer* _PacketBuffer;
 		SOCKET _Handle;
 
-		//Acceptor<ConnectionHandler>* _Acceptor;
-		//Connector<ConnectionHandler>* _Connector;
+		Acceptor* _Acceptor;
+		Connector* _Connector;
 		Receiver* _Receiver;
 		Sender* _Sender;
 		Disconnector* _Disconnector;

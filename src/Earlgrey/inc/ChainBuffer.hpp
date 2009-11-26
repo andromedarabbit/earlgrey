@@ -302,7 +302,7 @@ namespace Earlgrey
 			chain_buffer<T,A>::expand(size_t length)
 	{
 		buffer_pointer lastBuffer = m_buffer_list.back();
-		pointer p = &lastBuffer->at( lastBuffer->size() );
+		pointer p = &lastBuffer->at( lastBuffer->size() -1);
 		size_t bufSize = lastBuffer->capacity() - lastBuffer->size();
 
 		if(bufSize < length)

@@ -181,7 +181,7 @@ namespace Earlgrey
 		}
 
 	private:
-		OVERLAPPED	Overlapped_;
+		//OVERLAPPED	Overlapped_;
 		DWORD TransferredBytes_;
 		DWORD Error_;
 		DWORD Status_;

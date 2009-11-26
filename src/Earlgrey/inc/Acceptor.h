@@ -14,6 +14,7 @@ namespace Earlgrey
 	public:
 		explicit Acceptor(USHORT InPort)
 			: ListenSocket(INVALID_SOCKET),
+			AcceptSocket(INVALID_SOCKET),
 			Port(InPort)
 		{};
 
@@ -43,7 +44,15 @@ namespace Earlgrey
 		{
 			if (AcceptSocket != INVALID_SOCKET) // this line is not needed
 			{
-				closesocket(ListenSocket);//AcceptSocket는?
+				closesocket(AcceptSocket);
+			}
+			return FALSE;
+		}
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ListenSocket, this))
+		{
+			if (ListenSocket != INVALID_SOCKET) // this line is not needed
+			{
+				closesocket(ListenSocket);
 			}
 			return FALSE;
 		}
@@ -115,13 +124,22 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		INT Zero = 0; 
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ListenSocket, this))
+		{
+			if (ListenSocket != INVALID_SOCKET) // this line is not needed
+			{
+				closesocket(ListenSocket);
+			}
+			return FALSE;
+		}
+
+		/*INT Zero = 0; 
 		setsockopt(ListenSocket, 
 			SOL_SOCKET, 
 			SO_RCVBUF, 
 			(const char*)&Zero, 
 			sizeof(Zero));
-
+*/
 		BOOL OptionValue = TRUE;
 		setsockopt(ListenSocket, 
 			SOL_SOCKET, 
@@ -137,9 +155,6 @@ namespace Earlgrey
 
 		if (bind(ListenSocket, (const struct sockaddr*) &Address, sizeof(Address)) == SOCKET_ERROR)
 		{
-			// TODO: error
-			// DWORD a = GetLastError();
-			// UNREFERENCED_PARAMETER(a);
 			return FALSE;
 		}
 
@@ -181,7 +196,7 @@ namespace Earlgrey
 		// we pass the pointer to our AcceptEx function. This is used
 		// so that we can call the AcceptEx function directly, rather
 		// than refer to the Mswsock.lib library.
-		WSAIoctl(ListenSocket, 
+		if(WSAIoctl(ListenSocket, 
 			SIO_GET_EXTENSION_FUNCTION_POINTER, 
 			&GuidAcceptEx, 
 			sizeof(GuidAcceptEx),
@@ -189,9 +204,10 @@ namespace Earlgrey
 			sizeof(lpfnAcceptEx), 
 			&dwBytes, 
 			NULL, 
-			NULL);
+			NULL) == SOCKET_ERROR)
+			return INVALID_SOCKET;
 
-		SOCKET AcceptSocket =  WSASocket(AF_INET, 
+		AcceptSocket =  WSASocket(AF_INET, 
 			SOCK_STREAM, 
 			0, 
 			NULL, 
@@ -202,20 +218,20 @@ namespace Earlgrey
 			return INVALID_SOCKET;
 		}
 
-		INT Zero = 0; 
+/*		INT Zero = 0; 
 		setsockopt(AcceptSocket, 
 			SOL_SOCKET, 
 			SO_RCVBUF, 
 			(const char*)&Zero, 
 			sizeof(Zero));
-
+*/
 		AsyncResult* Overlapped = new AsyncResult(this, InStream);// TODO : actor 전체에서 overlapped delete 언제?
-		NetworkBuffer* Buf = Overlapped->Stream()->GetNetworkBuffer();
-		
+		//NetworkBuffer* Buf = Overlapped->Stream()->GetNetworkBuffer();
+		TCHAR buf[1024];
 		if( lpfnAcceptEx(ListenSocket, 
 			AcceptSocket,
-			Buf->GetAcceptBuffer(),
-			Buf->GetBufferCapacity() - ((sizeof(sockaddr_in) + 16) * 2),
+			buf,//Buf->GetAcceptBuffer(),
+			1024-((sizeof(sockaddr_in) + 16) * 2),//Buf->GetAcceptBufferSize() - ((sizeof(sockaddr_in) + 16) * 2),
 			sizeof(sockaddr_in) + 16, 
 			sizeof(sockaddr_in) + 16, 
 			&dwBytes, 
@@ -223,12 +239,21 @@ namespace Earlgrey
 		{
 			switch (WSAGetLastError())
 			{
-			case ERROR_IO_PENDING: 
+			case ERROR_IO_PENDING:
 				break;
 			default : 
 				closesocket(ListenSocket);//해야하나?
 				return INVALID_SOCKET;
 			}
+		}
+
+		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)AcceptSocket, this))
+		{
+			if (AcceptSocket != INVALID_SOCKET) // this line is not needed
+			{
+				closesocket(AcceptSocket);
+			}
+			return FALSE;
 		}
 		return AcceptSocket;
 	}

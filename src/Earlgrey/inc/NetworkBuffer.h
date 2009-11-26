@@ -25,7 +25,7 @@ namespace Earlgrey
 	public:
 		const static DWORD NETWORK_BUFFER_DEFAULT_SIZE = 1024;
 		explicit NetworkBuffer(DWORD DefaultSize = NETWORK_BUFFER_DEFAULT_SIZE)
-			: _ChainBuffer(DefaultSize)
+			: _AcceptBuffer(DefaultSize), _ChainBuffer(DefaultSize)
 		{
 			
 		}
@@ -52,9 +52,14 @@ namespace Earlgrey
 
 		CHAR* GetAcceptBuffer()
 		{
-			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
+			basic_buffer<BYTE>::reference ret = _AcceptBuffer.front();
 
-			return reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
+			return reinterpret_cast<CHAR*>( ret );
+		}
+
+		DWORD GetAcceptBufferSize()
+		{
+			return (DWORD)_AcceptBuffer.capacity();
 		}
 
 		WSABUF* GetSockRecvBuffer()
@@ -116,6 +121,7 @@ namespace Earlgrey
 		}
 
 	private:
+		basic_buffer<BYTE> _AcceptBuffer;
 		chain_buffer<BYTE> _ChainBuffer;
 	};
 }
