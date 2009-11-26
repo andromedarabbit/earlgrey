@@ -33,6 +33,9 @@ namespace Earlgrey
 
 	};
 
+	ThreadLocalValue<std::tr1::shared_ptr<Thread>> Thread::CurrentThread_ = std::tr1::shared_ptr<Thread>();
+	
+
 	Thread::Thread() : ThreadHandle_(NULL), ThreadId_(0), IsRunning_(FALSE)
 	{
 		CreatedLock_ = CreateMutex(NULL, true, NULL);
@@ -69,7 +72,9 @@ namespace Earlgrey
 	}
 
 	DWORD Thread::Run()
-	{		
+	{
+		CurrentThread_ = std::tr1::shared_ptr<Thread>(this);
+
 		EARLGREY_VERIFY( NULL != Runnable_ );
 		EARLGREY_VERIFY( Runnable_->Init() );
 
@@ -147,6 +152,11 @@ namespace Earlgrey
 		}
 
 		return std::tr1::shared_ptr<Thread>(thread);
+	}
+
+	std::tr1::shared_ptr<Thread> Thread::CurrentThread()
+	{
+		return CurrentThread_.Get();
 	}
 
 	void Thread::SetProcessorAffinity(DWORD indexOfProcessor, DWORD countOfProcessor)
