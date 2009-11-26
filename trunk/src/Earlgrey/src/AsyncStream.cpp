@@ -13,22 +13,22 @@ namespace Earlgrey
 
 	BOOL AsyncStream::Accept(USHORT Port)
 	{
-		Acceptor* _Acceptor = new Acceptor(Port);//??? construct time and delete time
+		_Acceptor = new Acceptor(Port);//??? construct time and delete time
 		if(!_Acceptor->CreateListenSocket())
 			return FALSE;
 
 		if((_Handle = _Acceptor->CreateAcceptSocket(this)) == INVALID_SOCKET)
 			return FALSE;
 
-		if(!_Acceptor->Register())
-			return FALSE;
+		/*if(!_Acceptor->Register())
+			return FALSE;*/
 
 		return TRUE;
 	}
 
 	BOOL AsyncStream::Connect(const char* RemoteHostName, const INT Port)
-		{
-		Connector* _Connector = new Connector();
+	{
+		_Connector = new Connector();
 
 		if((_Handle = _Connector->CreateSocket(RemoteHostName, Port, this)) == INVALID_SOCKET)
 			return FALSE;

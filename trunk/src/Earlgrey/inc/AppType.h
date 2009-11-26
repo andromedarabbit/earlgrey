@@ -17,5 +17,6 @@ namespace Earlgrey
 	{
 		E_APPTYPE_NONE = 0
 		, E_APPTYPE_DEFAULT
+		, E_APPTYPE_CLIENT
 	};
 }

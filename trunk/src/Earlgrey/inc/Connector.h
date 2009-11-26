@@ -104,19 +104,30 @@ namespace Earlgrey
 
 		ServerAddress.SetPort(Port);	
 
+		BOOL OptionValue = TRUE;
+		setsockopt(ConnectorSocket, 
+			SOL_SOCKET, 
+			SO_REUSEADDR, 
+			(const char*)&OptionValue, 
+			sizeof(OptionValue));//bind WSAEADDRINUSE 오류때문에
+
 		GUID  guid = WSAID_CONNECTEX;
 		DWORD bytes = 0;
 		LPFN_CONNECTEX lpfnConnectEx;
-		if (!WSAIoctl(ConnectorSocket, SIO_GET_EXTENSION_FUNCTION_POINTER, 
-			(LPVOID)&guid, sizeof(guid), (LPVOID)&lpfnConnectEx, 
-			sizeof(lpfnConnectEx), &bytes, NULL, NULL))
-		{
-			closesocket(ConnectorSocket);
-		}
+		if(WSAIoctl(ConnectorSocket, 
+			SIO_GET_EXTENSION_FUNCTION_POINTER, 
+			(LPVOID)&guid, 
+			sizeof(guid), 
+			(LPVOID)&lpfnConnectEx, 
+			sizeof(lpfnConnectEx), 
+			&bytes, 
+			NULL, 
+			NULL) == SOCKET_ERROR)
+			return INVALID_SOCKET;
 
 		OVERLAPPED* Overlapped = new AsyncResult(this, InStream);
-		if ((bind( ConnectorSocket, (LPSOCKADDR)&ServerAddress, sizeof(ServerAddress)) < 0) || 
-			(lpfnConnectEx( ConnectorSocket, 
+		if (bind(ConnectorSocket, (LPSOCKADDR)&ServerAddress, sizeof(ServerAddress)) < 0 || 
+			(lpfnConnectEx(ConnectorSocket, 
 			(LPSOCKADDR)&ServerAddress, 
 			sizeof(ServerAddress), 
 			NULL, 
@@ -125,7 +136,7 @@ namespace Earlgrey
 			Overlapped) == FALSE))
 			switch (WSAGetLastError())
 		{
-			case ERROR_IO_PENDING: 
+			case ERROR_IO_PENDING:
 				break;
 			default :
 				return INVALID_SOCKET;
