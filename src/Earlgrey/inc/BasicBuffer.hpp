@@ -66,6 +66,8 @@ namespace Earlgrey
 		iterator end();
 
 		void reserve(size_type length);
+		void resize (size_type length, T obj = T());
+
 
 	private:
 		T* m_buffer;		
@@ -212,44 +214,52 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
-		void basic_buffer<T,A>::reserve(size_type )
+		void basic_buffer<T,A>::reserve(size_type length)
 	{
-		throw std::exception("not yet implemented!");
-		// Get current stream positions as offsets.
-		//std::size_t gnext = gptr() - &buffer_[0];
-		//std::size_t pnext = pptr() - &buffer_[0];
-		//std::size_t pend = epptr() - &buffer_[0];
+		// throw std::exception("not yet implemented!");
+		if (length <= capacity())
+			return;
 
-		//// Check if there is already enough space in the put area.
-		//if (n <= pend - pnext)
-		//{
-		//	return;
-		//}
+		T* newBuffer = m_allocator.allocate(length);
+		EARLGREY_ASSERT(newBuffer != NULL);
 
-		//// Shift existing contents of get area to start of buffer.
-		//if (gnext > 0)
-		//{
-		//	pnext -= gnext;
-		//	std::memmove(&buffer_[0], &buffer_[0] + gnext, pnext);
-		//}
+		EARLGREY_ASSERT(memmove_s(newBuffer, length * sizeof(T), m_buffer, m_size * sizeof(T)) == 0);
 
-		//// Ensure buffer is large enough to hold at least the specified size.
-		//if (n > pend - pnext)
-		//{
-		//	if (n <= max_size_ && pnext <= max_size_ - n)
-		//	{
-		//		pend = pnext + n;
-		//		buffer_.resize((std::max<std::size_t>)(pend, 1));
-		//	}
-		//	else
-		//	{
-		//		throw std::length_error("boost::asio::streambuf too long");
-		//	}
-		//}
+		T* oldBuffer = m_buffer;
+		m_buffer = newBuffer;
 
-		//// Update stream positions.
-		//setg(&buffer_[0], &buffer_[0], &buffer_[0] + pnext);
-		//setp(&buffer_[0] + pnext, &buffer_[0] + pend);
+		m_capacity = length;
+
+		m_allocator.deallocate(oldBuffer, capacity());
+	}
+
+
+	template <typename T, typename A> 
+	inline
+		void basic_buffer<T,A>::resize (size_type length, T obj = T())
+	{
+		if(length == capacity())
+			return;
+
+		if (length < capacity())
+		{
+			for(size_type i = length; i < m_size; i++)
+			{
+				// call destructor of T class
+				m_allocator.destroy(m_buffer + i);
+			}
+
+			m_size = length;
+			return;
+		}
+
+		reserve(length);
+		const size_type numberOfNewItems = length - m_size;
+		for(size_type i = 0; i < numberOfNewItems; i++)
+		{
+			append(&obj, 1);
+		}
+		m_size = length;
 	}
 
 	template <typename T, typename A>
