@@ -101,7 +101,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 				EARLGREY_ASSERT(head.p() != _head.p());
 				EARLGREY_ASSERT(head.p() != tail.p());
 
-				//delete head.p();  // FIXME 바로지우면 안됨. 다른 thread 에서 next traverse 에 사용되고 있을 수 있음, memory manager 수정후 
+				delete head.p();  // FIXME 바로지우면 안됨. 다른 thread 에서 next traverse 에 사용되고 있을 수 있음, memory manager 수정후 
 
 				return true;
 			}

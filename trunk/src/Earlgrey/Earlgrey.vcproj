@@ -656,6 +656,10 @@
 					RelativePath=".\inc\ThreadLocal.hpp"
 					>
 				</File>
+				<File
+					RelativePath=".\inc\ThreadMessage.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"

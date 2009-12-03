@@ -38,6 +38,7 @@ namespace Earlgrey
 		AppType::E_Type m_CurrentAppType;
 		ThreadContainer m_IOThreads;
 		ThreadContainer m_WaitThreads;
+		ThreadContainer m_MainThreads;
 
 	};
 }

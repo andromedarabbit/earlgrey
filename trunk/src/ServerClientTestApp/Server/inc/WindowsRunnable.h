@@ -3,6 +3,7 @@
 
 class ServerService;
 
+//! \todo Win32ServiceRunnable로 이름 바꾸기 
 class WindowsRunnable 
 	: public Earlgrey::IRunnable
 {
