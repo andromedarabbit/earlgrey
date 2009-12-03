@@ -141,11 +141,13 @@ namespace Earlgrey
 		return TRUE;
 	}
 
+	
+
 	std::tr1::shared_ptr<Thread> Thread::CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
 	{
 		EARLGREY_ASSERT( runnable );
 		Thread* thread = new Thread();
-		EARLGREY_ASSERT(thread);
+		EARLGREY_VERIFY(NULL != thread);
 		if (thread)
 		{
 			thread->Create( runnable,  new ThreadHolder(thread), threadName, Thread::Running, stackSize );
@@ -153,6 +155,34 @@ namespace Earlgrey
 
 		return std::tr1::shared_ptr<Thread>(thread);
 	}
+
+
+	class MainRunnable : public IRunnable {
+
+		virtual BOOL Init() { return TRUE; };
+		virtual DWORD Run() {
+			return 0;
+		}
+		;
+		virtual void Stop() {};
+		virtual void Exit() {};
+
+	};
+
+	std::tr1::shared_ptr<Thread> Thread::AttachThread(LPCSTR threadName)
+	{
+		Thread* thread = new Thread();
+
+		thread->ThreadId_ =  GetCurrentThreadId();
+		thread->SetName(threadName);
+		thread->Runnable_ = std::tr1::shared_ptr<IRunnable>(new MainRunnable());
+
+		CurrentThread_ = std::tr1::shared_ptr<Thread>(thread);
+
+
+		return CurrentThread_;
+	}
+
 
 	std::tr1::shared_ptr<Thread> Thread::CurrentThread()
 	{

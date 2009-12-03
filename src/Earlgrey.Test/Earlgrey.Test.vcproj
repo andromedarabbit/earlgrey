@@ -455,6 +455,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ServerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\SharedPtrHelperTest.cpp"
 				>
 			</File>
@@ -524,6 +528,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ThreadLocalTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ThreadMessageTest.cpp"
 				>
 			</File>
 			<File

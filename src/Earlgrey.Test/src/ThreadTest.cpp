@@ -51,8 +51,7 @@ namespace Earlgrey { namespace Test
 		std::tr1::shared_ptr<Thread> currentThread = Thread::CurrentThread();
 
 
-		EXPECT_TRUE(NULL == currentThread); // TODO ; win32 thread 도 thread instance 를 default 로 가져야 함
-
+		EXPECT_FALSE(NULL == currentThread);
 	}
 
 	TEST(ThreadTest, Thread)

@@ -53,6 +53,7 @@ namespace Earlgrey
 	public:
 		// Factory 
 		static std::tr1::shared_ptr<Thread> CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
+		static std::tr1::shared_ptr<Thread> AttachThread(LPCSTR threadName);
 
 	public:
 		static std::tr1::shared_ptr<Thread> CurrentThread();
