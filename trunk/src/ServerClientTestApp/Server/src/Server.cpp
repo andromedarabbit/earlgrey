@@ -13,32 +13,40 @@
 #include "tiostream.h"
 #include "StringComparison.hpp"
 
-#ifndef UNICODE
-#error currently UNICODE should be defined!
-#endif
-
-
 using namespace std;
 using namespace Earlgrey;
 
 namespace 
 {
+#ifndef UNICODE
+#error currently UNICODE should be defined!
+#endif
+
 	typedef xvector<xwstring>::Type ArgContainerType;
 
-	void getArgs(ArgContainerType& args) {
+	void getArgs(ArgContainerType& args) 
+	{
 		int argc = 0;
-		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
+		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc); // CommandLineToArgvA is not provided.
 		if (argv) {
 			args.assign(argv, argv + argc);
 			LocalFree(argv);
 		}
 	}
 
-	enum SERVER_RUN_MODE
+	BOOL IsWin32Service()
 	{
-		SERVER_RUN_MODE_INSTALL
-		, SERVER_RUN_MODE_UNINSTALL
-	};
+		const _txstring parentProcessName(Process::GetParentProcessName(GetCurrentProcessId()));
+
+		StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> stringComparer;
+		if(
+			stringComparer.Equals(_T("services.exe"), parentProcessName.c_str())
+			)
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
 
 	DWORD RunAsWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo)
 	{
@@ -67,11 +75,24 @@ namespace
 			, TRUE
 			);
 
-		service.OnStart(__argc, __wargv);
-		_tcout << service.ServiceName() << _T(" ends.") << std::endl;
-		return EXIT_SUCCESS;
+		try
+		{
+			service.OnStart(__argc, __wargv);
+			_tcout << service.ServiceName() << _T(" ends.") << std::endl;
+			return EXIT_SUCCESS;
+		}
+		catch(std::exception&) // 예외 메시지를 어떻게 처리할까?
+		{
+			return EXIT_FAILURE;
+		}
 	}
 
+
+	enum SERVER_RUN_MODE
+	{
+		SERVER_RUN_MODE_INSTALL
+		, SERVER_RUN_MODE_UNINSTALL
+	};
 
 	DWORD InstallWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo, SERVER_RUN_MODE mode)
 	{
@@ -129,17 +150,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 
 	const TCHAR * serviceName = _T("EarlgreyServer");
-
-	const _txstring executableName = Process::MainModuleFileName();
+	const _txstring executableName( Process::MainModuleFileName() );
 	const FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
 
 	// check if it was called by Win32Service daemon
-	const _txstring parentProcessName(Process::GetParentProcessName(GetCurrentProcessId()));
-
-	StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> stringComparer;
-	if(
-		stringComparer.Equals(_T("services.exe"), parentProcessName.c_str())
-		)
+	if(IsWin32Service())
 	{
 		return RunAsWin32Service(serviceName, versionInfo);		
 	}
@@ -150,7 +165,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	for(ArgContainerType::iterator it = args.begin(); it != args.end(); it++)
 	{
-		xwstring arg = (*it);
+		_txstring arg = (*it);
 
 		if(arg == _T("-i"))
 			return InstallWin32Service(serviceName, versionInfo);
