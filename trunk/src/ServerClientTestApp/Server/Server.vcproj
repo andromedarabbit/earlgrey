@@ -369,7 +369,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\WindowsRunnable.cpp"
+				RelativePath=".\src\Win32ServiceRunnable.cpp"
 				>
 			</File>
 		</Filter>
@@ -399,7 +399,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\inc\WindowsRunnable.h"
+				RelativePath=".\inc\Win32ServiceRunnable.h"
 				>
 			</File>
 		</Filter>

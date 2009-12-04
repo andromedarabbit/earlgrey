@@ -363,6 +363,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Thread.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ThreadLocal.cpp"
 					>
 				</File>
@@ -524,10 +528,6 @@
 				</File>
 				<File
 					RelativePath=".\src\StringHelper.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Thread.cpp"
 					>
 				</File>
 				<File

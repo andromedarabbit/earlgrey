@@ -4,7 +4,7 @@
 #include "tiostream.h"
 // #include "ServerInit.h"
 #include "ServerConnection.h"
-#include "WindowsRunnable.h"
+#include "Win32ServiceRunnable.h"
 #include "AppInitializer.h"
 #include "TimeSpan.h"
 #include "Console.h"
