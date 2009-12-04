@@ -9,6 +9,9 @@
 #include "TimeSpan.h"
 #include "Console.h"
 
+// TODO: 테스트용 코드이므로 제거해야 함
+#include "EarlgreyProcess.h"
+
 using namespace Earlgrey;
 
 
@@ -18,7 +21,6 @@ ServerService::ServerService(
    , BOOL consoleMode
    )
    : Win32Service(serviceName, displayName)
-   // , m_console()
    , m_consoleMode(consoleMode)
    , m_stopHandle(NULL)
 {
@@ -38,7 +40,7 @@ ServerService::ServerService(
 		{
 			// TODO
 		}
-	}
+	}	
 }
 
 ServerService::~ServerService()
@@ -82,6 +84,12 @@ BOOL ServerService::ReportStatus(
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 {
+	/*
+	// TODO: 테스트용 코드이므로 제거해야 함
+	_txstring name(Process::GetParentProcessName(GetCurrentProcessId()));
+	WriteEventLog(name.c_str(), EVENTLOG_ERROR_TYPE);
+	*/
+
 	// ::DebugBreak();
 	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	EARLGREY_VERIFY(m_stopHandle);
@@ -95,7 +103,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	connection->Accept(100);
 
 	std::tr1::shared_ptr<ServerService> thisService(this);
-	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new WindowsRunnable(thisService) ));
+	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new Win32ServiceRunnable(thisService) ));
 	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateThread( runnable, "WindowsRunnable" );
 
 	EARLGREY_ASSERT(ReportStatus(SERVICE_RUNNING));

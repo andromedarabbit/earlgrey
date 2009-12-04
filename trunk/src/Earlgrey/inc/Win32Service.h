@@ -59,6 +59,12 @@ namespace Earlgrey {
 			, DWORD errExit = 0
 			);
 
+		void WriteEventLog(
+			const TCHAR * message
+			, WORD eventType = EVENTLOG_INFORMATION_TYPE
+			, DWORD eventID = 0
+			, WORD category = 0 
+			);
 	private:
 		void Start(DWORD argc, LPTSTR * argv);
 		DWORD ControlHandler(

@@ -4,13 +4,13 @@
 class ServerService;
 
 //! \todo Win32ServiceRunnable로 이름 바꾸기 
-class WindowsRunnable 
+class Win32ServiceRunnable 
 	: public Earlgrey::IRunnable
 {
 public:
-	explicit WindowsRunnable(std::tr1::shared_ptr<ServerService> service);
+	explicit Win32ServiceRunnable(std::tr1::shared_ptr<ServerService> service);
 
-	virtual ~WindowsRunnable();
+	virtual ~Win32ServiceRunnable();
 
 	virtual BOOL Init();
 	virtual DWORD Run();
