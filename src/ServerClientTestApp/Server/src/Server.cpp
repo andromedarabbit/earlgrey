@@ -9,10 +9,9 @@
 #include "EarlgreyProcess.h"
 #include "FileVersionInfo.h"
 #include "EarlgreyMath.h"
-// #include "ServerHelpVisitor.h"
 
-// #include <tclap/CmdLine.h>
 #include "tiostream.h"
+#include "StringComparison.hpp"
 
 #ifndef UNICODE
 #error currently UNICODE should be defined!
@@ -24,45 +23,96 @@ using namespace Earlgrey;
 
 namespace 
 {
-	// using namespace std;
-	/*
-	std::string Version()
-	{
-		using namespace Earlgrey;
-
-		// Getting a file version.
-		_txstring executableName = Process::MainModuleFileName();
-		FileVersionIngorfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
-		const _txstring fileVersion( versionInfo.FileVersion() );
-		// TODO: numeric_cast에 버그가 있어서 임시로 코드를 바꾼다.
-		// const int fileVersionLength = Math::numeric_cast<int>(fileVersion.length());
-		const int fileVersionLength = static_cast<int>(fileVersion.length());
-
-		// Convert the file verion to ANSI String
-		char version[128];
-		if( ::WideCharToMultiByte(::GetACP(), 0, fileVersion.c_str(), fileVersionLength + 1, version, sizeof(version), 0, 0) == 0)
-		{ 
-			// GetLastError();
-			// ERROR_INSUFFICIENT_BUFFER 
-			// ERROR_INVALID_FLAGS 
-			// ERROR_INVALID_PARAMETER 
-			throw std::exception("Converting Unicode string to ANSI failed!");
-		}
-		return std::string(version);
-	}
-	*/
-
 	typedef xvector<xwstring>::Type ArgContainerType;
 
 	void getArgs(ArgContainerType& args) {
 		int argc = 0;
 		wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-		// Earlgrey::xvector<std:wstring>::Type args;
 		if (argv) {
 			args.assign(argv, argv + argc);
 			LocalFree(argv);
 		}
-		// return args;
+	}
+
+	enum SERVER_RUN_MODE
+	{
+		SERVER_RUN_MODE_INSTALL
+		, SERVER_RUN_MODE_UNINSTALL
+	};
+
+	DWORD RunAsWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo)
+	{
+		ServerService service(
+			serviceName
+			, versionInfo.ProductName().c_str()
+			, FALSE
+			);
+
+		try
+		{
+			Win32Service::Run(service);
+			return EXIT_SUCCESS;
+		}
+		catch(std::exception&) // 예외 메시지를 어떻게 처리할까?
+		{
+			return EXIT_FAILURE;
+		}
+	}
+
+	DWORD RunAsConsoleApplication(const TCHAR * serviceName, const FileVersionInfo& versionInfo)
+	{
+		ServerService service(
+			serviceName
+			, versionInfo.ProductName().c_str()
+			, TRUE
+			);
+
+		service.OnStart(__argc, __wargv);
+		_tcout << service.ServiceName() << _T(" ends.") << std::endl;
+		return EXIT_SUCCESS;
+	}
+
+
+	DWORD InstallWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo, SERVER_RUN_MODE mode)
+	{
+		ServerService service(
+			serviceName
+			, versionInfo.ProductName().c_str()
+			, TRUE
+			);
+
+		Win32ServiceInstaller installer(service);
+		installer.Description(versionInfo.FileDescription());
+
+		if(mode == SERVER_RUN_MODE_INSTALL)
+		{
+			if(installer.InstallService() == FALSE)
+				return EXIT_FAILURE;
+
+			_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 설치했습니다.");
+			return EXIT_SUCCESS;
+		}
+
+		if(mode == SERVER_RUN_MODE_UNINSTALL)
+		{
+			if(installer.RemoveService() == FALSE)
+				return EXIT_FAILURE;
+
+			_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 제거했습니다.");
+			return EXIT_SUCCESS;
+		}
+
+		throw std::exception("");
+	}
+
+	DWORD InstallWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo)
+	{
+		return InstallWin32Service(serviceName, versionInfo, SERVER_RUN_MODE_INSTALL);
+	}
+
+	DWORD UninstallWin32Service(const TCHAR * serviceName, const FileVersionInfo& versionInfo)
+	{
+		return InstallWin32Service(serviceName, versionInfo, SERVER_RUN_MODE_UNINSTALL);
 	}
 }
 
@@ -77,18 +127,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
-	
-	enum SERVER_RUN_MODE
+
+	const TCHAR * serviceName = _T("EarlgreyServer");
+
+	const _txstring executableName = Process::MainModuleFileName();
+	const FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
+
+	// check if it was called by Win32Service daemon
+	const _txstring parentProcessName(Process::GetParentProcessName(GetCurrentProcessId()));
+
+	StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> stringComparer;
+	if(
+		stringComparer.Equals(_T("services.exe"), parentProcessName.c_str())
+		)
 	{
-		SERVER_RUN_MODE_SERVICE
-		, SERVER_RUN_MODE_DEBUG
-		, SERVER_RUN_MODE_INSTALL
-		, SERVER_RUN_MODE_UNINSTALL
-	};
+		return RunAsWin32Service(serviceName, versionInfo);		
+	}
 
-
-	SERVER_RUN_MODE mode = SERVER_RUN_MODE_SERVICE;
-
+	// Run as a console application
 	ArgContainerType args;
 	getArgs(args);
 
@@ -96,71 +152,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		xwstring arg = (*it);
 
-		if(arg == _T("-d"))
-			mode = SERVER_RUN_MODE_DEBUG;
-
 		if(arg == _T("-i"))
-			mode = SERVER_RUN_MODE_INSTALL;
+			return InstallWin32Service(serviceName, versionInfo);
 
 		if(arg == _T("-u"))
-			mode = SERVER_RUN_MODE_UNINSTALL;
-
-		_tcout << arg << std::endl;
-	}
-	
-	BOOL needsConsole = (
-		mode == SERVER_RUN_MODE_DEBUG 
-		|| mode == SERVER_RUN_MODE_INSTALL
-		|| mode == SERVER_RUN_MODE_UNINSTALL
-		);
-
-
-
-	_txstring executableName = Process::MainModuleFileName();
-	FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
-	// const _txstring fileVersion( versionInfo.FileVersion() );
-
-	ServerService service(
-		_T("EarlgreyServer")
-		, versionInfo.ProductName().c_str()
-		, needsConsole
-		);
-
-	if(mode == SERVER_RUN_MODE_DEBUG)
-	{
-		service.OnStart(__argc, __wargv);
-		_tcout << service.ServiceName() << _T(" ends.") << std::endl;
-		return EXIT_SUCCESS;
+			return UninstallWin32Service(serviceName, versionInfo);
 	}
 
-	if(mode == SERVER_RUN_MODE_SERVICE)
-	{
-		Win32Service::Run(service);
-		return EXIT_SUCCESS;
-	}
-
-
-	Win32ServiceInstaller installer(service);
-	installer.Description(versionInfo.FileDescription());
-
-	if(mode == SERVER_RUN_MODE_INSTALL)
-	{
-		if(installer.InstallService() == FALSE)
-			return EXIT_FAILURE;
-
-		_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 설치했습니다.");
-		return EXIT_SUCCESS;
-	}
-
-	if(mode == SERVER_RUN_MODE_UNINSTALL)
-	{
-		if(installer.RemoveService() == FALSE)
-			return EXIT_FAILURE;
-
-		_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 제거했습니다.");
-		return EXIT_SUCCESS;
-	}
-
-	return EXIT_FAILURE;
+	return RunAsConsoleApplication(serviceName, versionInfo);
 }
 

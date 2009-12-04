@@ -62,10 +62,12 @@ namespace Earlgrey
 
 	_txstring Process::GetParentProcessName(DWORD pid)
 	{
+		DWORD ppid = GetParentProcessID(pid);
+
 		PROCESSENTRY32 pe = { 0 };
 		pe.dwSize = sizeof(PROCESSENTRY32);
 
-		if(GetParentProcessEntry(pid, pe) == FALSE)
+		if(GetParentProcessEntry(ppid, pe) == FALSE)
 			throw std::exception("No parent process found!");
 		return _txstring(pe.szExeFile);
 	}

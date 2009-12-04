@@ -4,7 +4,7 @@
 
 class ServerService : public Earlgrey::Win32Service
 {
-	friend class WindowsRunnable;
+	friend class Win32ServiceRunnable;
 
 public:
 	explicit ServerService(

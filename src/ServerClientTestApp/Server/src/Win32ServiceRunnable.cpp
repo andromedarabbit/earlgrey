@@ -3,22 +3,22 @@
 #include "ServerService.h"
 
 
-WindowsRunnable::WindowsRunnable(std::tr1::shared_ptr<ServerService> service) 
+Win32ServiceRunnable::Win32ServiceRunnable(std::tr1::shared_ptr<ServerService> service) 
 	: m_service(service)
 {
 	EARLGREY_ASSERT(m_service != NULL);
 }
 
-WindowsRunnable::~WindowsRunnable() 
+Win32ServiceRunnable::~Win32ServiceRunnable() 
 {
 }
 
-BOOL WindowsRunnable::Init()
+BOOL Win32ServiceRunnable::Init()
 {
 	return TRUE;
 }
 
-DWORD WindowsRunnable::Run()
+DWORD Win32ServiceRunnable::Run()
 {
 	HANDLE stopHandle = m_service->m_stopHandle;
 	EARLGREY_ASSERT(stopHandle != NULL);
@@ -36,12 +36,12 @@ DWORD WindowsRunnable::Run()
 	return 0;
 }
 
-void WindowsRunnable::Stop()
+void Win32ServiceRunnable::Stop()
 {
 
 }
 
-void WindowsRunnable::Exit()
+void Win32ServiceRunnable::Exit()
 {
 
 }

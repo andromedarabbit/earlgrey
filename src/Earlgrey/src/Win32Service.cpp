@@ -307,4 +307,15 @@ namespace Earlgrey
 		}
 	}*/
 
+	void Win32Service::WriteEventLog(
+		const TCHAR * message
+		, WORD eventType
+		, DWORD eventID
+		, WORD category
+		)
+	{
+		m_eventLog.WriteEntry(message, eventType, eventID, category);
+	}
 }
+
+
