@@ -387,25 +387,29 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\GlobalExceptionHandler.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Log.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\MiniDump.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\RuntimeCheck.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\StackWriter.cpp"
+				<Filter
+					Name="UnhandledExceptionHandler"
 					>
-				</File>
+					<File
+						RelativePath=".\src\GlobalExceptionHandler.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MiniDump.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\StackWriter.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Memory"
@@ -677,15 +681,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\GlobalExceptionHandler.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\Log.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\MiniDump.h"
 					>
 				</File>
 				<File
@@ -693,21 +689,33 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\StackWriter.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\StaticAssert.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\UnhandledExceptionHandler.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\UserDefinedCompilerMessage.h"
 					>
 				</File>
+				<Filter
+					Name="UnhandledExceptionHandler"
+					>
+					<File
+						RelativePath=".\inc\GlobalExceptionHandler.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\MiniDump.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\StackWriter.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\UnhandledExceptionHandler.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Memory"

@@ -2,7 +2,6 @@
 #include "ServerService.h"
 
 #include "tiostream.h"
-// #include "ServerInit.h"
 #include "ServerConnection.h"
 #include "Win32ServiceRunnable.h"
 #include "AppInitializer.h"
@@ -84,19 +83,13 @@ BOOL ServerService::ReportStatus(
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 {
-	/*
-	// TODO: 테스트용 코드이므로 제거해야 함
-	_txstring name(Process::GetParentProcessName(GetCurrentProcessId()));
-	WriteEventLog(name.c_str(), EVENTLOG_ERROR_TYPE);
-	*/
-
-	// ::DebugBreak();
 	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	EARLGREY_VERIFY(m_stopHandle);
 
 
 	AppInfo app;
-	app.InitInstance(AppType::E_APPTYPE_DEFAULT);
+	if(app.InitInstance(AppType::E_APPTYPE_DEFAULT) == FALSE)
+		throw std::exception("Application initialization failed!");
 
 	//! \todo delete 안 해도 되나?
 	ServerConnection* connection = new ServerConnection();
@@ -145,7 +138,7 @@ BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 	EARLGREY_ASSERT(instance != NULL);
 
 	switch( ctrlType ) {
-		case CTRL_BREAK_EVENT:  // use Ctrl+Break to simulate			
+		case CTRL_BREAK_EVENT:  // use Ctrl+Break to simulate
 			// Process User Input
 			instance->ProcessUserInput();			
 			return TRUE;
@@ -154,7 +147,6 @@ BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 		case CTRL_CLOSE_EVENT:
 		case CTRL_LOGOFF_EVENT:
 		case CTRL_SHUTDOWN_EVENT:
-			// _tcout << TEXT("Stopping ") << m_displayName << std::endl;
 			instance->OnStop();
 			exit(EXIT_SUCCESS);
 	}
