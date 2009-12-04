@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "WindowsRunnable.h"
+#include "Win32ServiceRunnable.h"
 #include "ServerService.h"
 
 

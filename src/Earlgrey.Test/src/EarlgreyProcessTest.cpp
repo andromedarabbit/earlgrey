@@ -1,9 +1,18 @@
 #include "stdafx.h"
+#include "EarlgreyProcess.h"
 
 namespace Earlgrey
 {
 	namespace Test
-	{	
+	{
+		TEST(ProcessTest, GetProcessName)
+		{
+			DWORD thisPID = ::GetCurrentProcessId();
+
+			_txstring processName( Process::GetParentProcessName(thisPID) );
+			ASSERT_GT(processName.length(), static_cast<_txstring::size_type>(0));
+		}
+
 		TEST(ProcessTest, GetConsoleProcessList)
 		{
 			const DWORD MAX_COUNT = 256;

@@ -14,6 +14,8 @@ namespace Earlgrey
 
 		// static BOOL IsThis
 		static DWORD GetParentProcessID(DWORD pid);
+		static _txstring GetParentProcessName(DWORD pid);
+
 	};
 
 }
