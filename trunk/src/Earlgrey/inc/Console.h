@@ -1,5 +1,4 @@
 #pragma once
-#include "Uncopyable.h"
 #include "txstring.h"
 
 #include <Loki/Singleton.h>
@@ -8,6 +7,8 @@
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	//! \ref http://serious-code.net/moin.cgi/WindowsConsoleApp
 	//! \ref http://www.anycoding.com/bbs/board.php?bo_table=acProgram_Cpp&wr_id=3773
 	//! \ref http://dslweb.nwnexus.com/~ast/dload/guicon.htm

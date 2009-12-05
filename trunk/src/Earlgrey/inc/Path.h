@@ -1,10 +1,11 @@
 #pragma once
-#include "Uncopyable.h"
 #include "txstring.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	class Path : private Uncopyable
 	{
 	private:

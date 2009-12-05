@@ -5,8 +5,16 @@
 
 namespace Earlgrey
 {
-	/**
-	*/
+	IOCPRunnable::IOCPRunnable() 
+		: m_isRunning(TRUE) 
+	{
+	}
+
+	IOCPRunnable::~IOCPRunnable()
+	{
+
+	}
+
 	BOOL IOCPRunnable::Init()
 	{
 		return TRUE;
@@ -14,12 +22,23 @@ namespace Earlgrey
 
 	DWORD IOCPRunnable::Run()
 	{
-		const TimeValueType WaitTime = 10; // msec
-		while( IsRunning)
+		TimeSpan WaitTime(TimeSpan::FromMilliseconds(10));
+		while( m_isRunning)
 		{
 			ProactorSingleton::Instance().HandleEvent(WaitTime);
 
 		}
 		return 0;
 	}
+
+	void IOCPRunnable::Stop() 
+	{ 
+		m_isRunning = FALSE; 
+	}
+
+	void IOCPRunnable::Exit()
+	{
+
+	}
+
 }

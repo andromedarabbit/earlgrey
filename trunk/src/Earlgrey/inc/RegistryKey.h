@@ -1,10 +1,11 @@
 #pragma once 
-#include "Uncopyable.h"
 #include "xvector.h"
 #include "txstring.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	class RegistryKey : private Uncopyable
 	{
 		friend class Registry;

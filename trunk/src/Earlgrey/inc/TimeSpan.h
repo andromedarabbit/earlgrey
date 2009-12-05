@@ -64,14 +64,19 @@ namespace Earlgrey
 			return Interval(hours, MillisPerHour);
 		}
 
-		static TimeSpan FromMilliseconds(double value)
-		{
-			return Interval(value, 1);
-		}
-
 		static TimeSpan FromMinutes(double value)
 		{
 			return Interval(value, MillisPerMinute);
+		}
+
+		static TimeSpan FromSeconds(double value)
+		{
+			return Interval(value, MillisPerSecond);
+		}
+
+		static TimeSpan FromMilliseconds(double value)
+		{
+			return Interval(value, 1);
 		}
 
 		inline TickType Ticks() const

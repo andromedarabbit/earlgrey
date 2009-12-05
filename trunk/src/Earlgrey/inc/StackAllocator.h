@@ -1,9 +1,10 @@
 #pragma once
-#include "Uncopyable.h"
 #include "StackMemoryManager.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	//! \todo 힙에 할당 못하게 해야 한다. Effective C++ 2권.
 	class StackAllocator : private Uncopyable
 	{

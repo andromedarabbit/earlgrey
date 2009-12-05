@@ -1,10 +1,10 @@
 #pragma once
-#include "Uncopyable.h"
 #include "txstring.h"
 #include "RegistryKey.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
 	class Win32Service;
 	// class RegistryKey;
 

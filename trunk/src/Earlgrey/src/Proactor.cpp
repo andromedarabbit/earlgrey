@@ -5,6 +5,19 @@
 
 namespace Earlgrey
 {
+	BOOL Proactor::HandleEvent(TimeSpan WaitTime)
+	{
+		DWORD milliseconds = 0;
+		if(WaitTime == TimeSpan::MaxValue)
+			milliseconds = INFINITE;
+		else
+			milliseconds = static_cast<DWORD>(WaitTime.TotalMilliseconds());
+
+		return HandleEvent(milliseconds);
+	}
+
+
+
 	BOOL WinProactor::Initialize()
 	{
 		// Completion port를 생성한다.
@@ -17,13 +30,13 @@ namespace Earlgrey
 
 	BOOL WinProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
-		// TODO: EARLGREY_ASSERT 적용하기
+		EARLGREY_ASSERT(Handle != NULL);
+		EARLGREY_ASSERT(CompleteHandler != NULL);
 
 		// Completion port에 특정 핸들을 적용한다. 
-		HANDLE ReturnHandle = CreateIoCompletionPort(Handle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
-		// TODO: NULL? INVALID_HANDLE_VALUE?
 		// TODO: 반환 받은 핸들은 아무짝에 쓸모가 없나? 오류 처리 외엔?
-		if (!ReturnHandle) 
+		HANDLE ReturnHandle = CreateIoCompletionPort(Handle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
+		if (ReturnHandle == NULL) 
 		{
 			//error
 			return FALSE;
@@ -38,17 +51,22 @@ namespace Earlgrey
 
 	BOOL WinProactor::PostEvent(AsyncResult* Result)
 	{
-		// todo: EARLGREY_ASSERT 적용하기
+		EARLGREY_ASSERT(Result != NULL);
 		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)Result->Handler(), Result);
 	}
 
-	BOOL WinProactor::HandleEvent(TimeValueType WaitTime)
+	BOOL WinProactor::HandleEvent(TimeSpan WaitTime)
+	{
+		return __super::HandleEvent(WaitTime);
+	}
+
+	BOOL WinProactor::HandleEvent(DWORD milliseconds)
 	{
 		DWORD				Transferred = 0;;
 		LPOVERLAPPED		Overlapped;
 		CompletionHandler*	Handler = NULL;
-
-		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, WaitTime);
+		
+		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, milliseconds);
 
 		// MSDN 참조
 		if (!Result && !Overlapped)

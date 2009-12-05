@@ -1,15 +1,14 @@
 #pragma once
-#include <vector>
-
-// #include <Loki/Singleton.h>
 #include "AppType.h"
-#include "Uncopyable.h"
 #include "EarlgreyAssert.h"
+
+#include <vector>
 
 namespace Earlgrey
 {
 	class Thread;
-	
+	class Uncopyable;
+
 	class AppInfo : private Uncopyable
 	{
 		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;

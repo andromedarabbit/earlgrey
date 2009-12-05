@@ -6,7 +6,7 @@
 
 #include "txstring.h"
 #include "UnhandledExceptionHandler.h"
-// #include "MiniDump.h"
+#include "..\..\..\vendor\StackWalker\StackWalker.h"
 
 namespace Earlgrey
 {
@@ -15,19 +15,20 @@ namespace Earlgrey
 	class StackWriter : public UnhandledExceptionHandler
 	{
 	private:
-		int m_StackWalkOptions;
+		typedef StackWalker::StackWalkOptions StackWalkOptions;
+		StackWalkOptions m_StackWalkOptions;
 		_txstring m_LogFilePath;
 
 	public:
 		
-		explicit StackWriter(const TCHAR * const logFilePath, int stackWalkOptions)
+		explicit StackWriter(const TCHAR * const logFilePath, StackWalkOptions stackWalkOptions)
 			: m_LogFilePath(logFilePath)
 			, m_StackWalkOptions(stackWalkOptions)
 		{
 
 		}
 
-		explicit StackWriter(const _txstring& logFilePath, int stackWalkOptions)
+		explicit StackWriter(const _txstring& logFilePath, StackWalkOptions stackWalkOptions)
 			: m_LogFilePath(logFilePath)
 			, m_StackWalkOptions(stackWalkOptions)
 		{

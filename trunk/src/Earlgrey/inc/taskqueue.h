@@ -10,7 +10,12 @@ namespace Earlgrey {
 		class TaskQueue : private Uncopyable
 		{
 		public:
-			TaskQueue() : _qlen(0), _IsRunning(0) {}
+			explicit TaskQueue() 
+				: _qlen(0)
+				, _IsRunning(0) 
+			{
+			}
+
 			virtual ~TaskQueue() 
 			{
 				// \todo erase all items from queue

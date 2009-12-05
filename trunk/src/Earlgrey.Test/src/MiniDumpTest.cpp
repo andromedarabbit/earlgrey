@@ -19,7 +19,7 @@ namespace Earlgrey
 
 			if( File::Exists(dumpFilePath.c_str()) )
 			{
-				//! \todo 파일 삭제
+				ASSERT_TRUE(File::Delete(dumpFilePath));
 			}
 
 			const MINIDUMP_TYPE dumpType = MiniDumpNormal;

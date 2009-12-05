@@ -370,6 +370,10 @@
 					RelativePath=".\src\ThreadLocal.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\Timer.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"
@@ -379,15 +383,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\EventLog.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\FileVersionInfo.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Log.cpp"
 					>
 				</File>
 				<File
@@ -407,6 +403,18 @@
 					</File>
 					<File
 						RelativePath=".\src\StackWriter.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Log"
+					>
+					<File
+						RelativePath=".\src\EventLog.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\Log.cpp"
 						>
 					</File>
 				</Filter>
@@ -664,6 +672,18 @@
 					RelativePath=".\inc\ThreadMessage.h"
 					>
 				</File>
+				<File
+					RelativePath=".\inc\Timer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TimerCallback.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TimerManager.h"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"
@@ -673,15 +693,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\EventLog.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\FileVersionInfo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\Log.h"
 					>
 				</File>
 				<File
@@ -713,6 +725,18 @@
 					</File>
 					<File
 						RelativePath=".\inc\UnhandledExceptionHandler.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Log"
+					>
+					<File
+						RelativePath=".\inc\EventLog.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\Log.h"
 						>
 					</File>
 				</Filter>

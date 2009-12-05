@@ -25,7 +25,7 @@ DWORD Win32ServiceRunnable::Run()
 
 	while (::WaitForSingleObject(stopHandle, 10) != WAIT_OBJECT_0) 
 	{
-		::Sleep(1000);
+		::Sleep(10);
 	}
 
 	if( stopHandle != NULL )
