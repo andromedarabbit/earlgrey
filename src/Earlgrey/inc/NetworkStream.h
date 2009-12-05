@@ -1,6 +1,4 @@
 #pragma once
-
-#include "Uncopyable.h"
 #include "numeric_cast.hpp"
 #include "NetworkBuffer.h"
 #include "txstring.h"
@@ -142,6 +140,9 @@ namespace Earlgrey {
 			return TRUE;
 		}
 	};
+
+
+	class Uncopyable;
 
 	template<template<class> class Writer = DefaultWriter> 
 	class NetworkOutputStream : private Uncopyable

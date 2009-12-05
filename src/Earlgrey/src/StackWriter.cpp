@@ -2,17 +2,12 @@
 #include "StackWriter.h"
 #include "File.h"
 
-#ifdef HAS_STACK_WALKER
-#include "..\..\..\vendor\StackWalker\StackWalker.h"
-#endif
-
 #include <fstream>
 
 using namespace std;
 
 namespace
 {
-#ifdef HAS_STACK_WALKER
 	class MyStackWalker : public StackWalker
 	{
 		explicit MyStackWalker();
@@ -41,26 +36,6 @@ namespace
 	private:
 		ofstream& m_Stream;
 	};
-#else
-	class MyStackWalker 
-	{
-		explicit MyStackWalker();
-		MyStackWalker& operator = (const MyStackWalker&);
-
-	public:
-		explicit MyStackWalker(ofstream&) 
-		{
-		}
-
-		explicit MyStackWalker(ofstream&, DWORD, HANDLE) 			
-		{
-		}
-
-		virtual void OnOutput(LPCSTR) 
-		{ 
-		}
-	};
-#endif
 }
 
 namespace Earlgrey

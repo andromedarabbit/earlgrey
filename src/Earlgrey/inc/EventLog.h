@@ -1,5 +1,4 @@
 #pragma once
-#include "Uncopyable.h"
 #include "txstring.h"
 #include "RAII.h"
 #include "RegistryKey.h"

@@ -1,7 +1,7 @@
 #pragma once
 // #include <Loki/Singleton.h>
 #include <AppType.h>
-#include "Uncopyable.h"
+// #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey

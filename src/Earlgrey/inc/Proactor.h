@@ -6,13 +6,12 @@
 #include <map>
 
 #include "NoLock.h"
+#include "TimeSpan.h"
 
 namespace Earlgrey
 {
 	class NetworkBuffer;
 	class AsyncResult;
-
-	typedef DWORD TimeValueType;
 
 	typedef enum IOCP_EVENT_TYPE
 	{
@@ -23,18 +22,15 @@ namespace Earlgrey
 	class CompletionHandler;
 
 	//Windows IOCompletion Port 용
-	class Proactor   
+	class Proactor : private Uncopyable
 	{
 	public:
-
-		enum {
-			DefaultTimeout = INFINITE
-		};
-
-		Proactor() {}
+		explicit Proactor() {}
 		virtual ~Proactor() {}
 
-		virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
+		// virtual BOOL HandleEvent(TimeValueType WaitTime) = 0;
+		virtual BOOL HandleEvent(TimeSpan WaitTime);
+		virtual BOOL HandleEvent(DWORD milliseconds) = 0;
 
 		//! \todo 이렇게 운영체제 핸들을 드러내놓고 주고 받아도 되나?  
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
@@ -50,9 +46,9 @@ namespace Earlgrey
 
 		BOOL Initialize();
 		
-		//Proactor Pattern Interface
-		//! \todo TimeValueType의 단위를 한눈에 알아보기 힘들다. TimeSpan 적용하기
-		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout); 
+		// Proactor Pattern Interface
+		virtual BOOL HandleEvent(TimeSpan WaitTime = TimeSpan::MaxValue);
+		virtual BOOL HandleEvent(DWORD WaitTime = INFINITE); 
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
 		virtual BOOL DeregisterHandler(HANDLE Handle);
 
@@ -104,7 +100,7 @@ namespace Earlgrey
 
 	class AsyncResult;
 
-	class CompletionHandler
+	class CompletionHandler : private Uncopyable
 	{
 	public:
 		explicit CompletionHandler() {};

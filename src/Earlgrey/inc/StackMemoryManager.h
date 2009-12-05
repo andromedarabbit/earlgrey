@@ -1,5 +1,4 @@
 #pragma once
-#include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 #include "MemoryMath.h"
 #include "ThreadLocalSingleton.hpp"
@@ -8,6 +7,8 @@
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	class StackMemoryManager : private Uncopyable
 	{
 		// friend struct Loki::CreateUsingNew<StackMemoryManager>;

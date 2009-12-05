@@ -1,5 +1,4 @@
 #pragma once 
-#include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 #include "Macros.h"
 
@@ -11,6 +10,8 @@
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
 	//! \todo resize() 구현하기
 	//! \todo max_size() 구현하기
@@ -18,7 +19,7 @@ namespace Earlgrey
 		typename T
 		, typename A = StlDefaultAllocator<T>::Type
 	>
-	class chain_buffer  : private Uncopyable
+	class chain_buffer : private Uncopyable
 	{
 	public:	
 		typedef 

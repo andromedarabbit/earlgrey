@@ -34,9 +34,16 @@ namespace Earlgrey {
 	//  Proactor Executor Service
 	// TODO ; ICallable, IFuture 를 구현해보자!!
 
-	class Executor {
-	public:
+	class Executor : private Uncopyable
+	{
+		friend struct Loki::CreateUsingNew<Executor>;
 
+	private:
+		explicit Executor()
+		{
+		}
+
+	public:
 		void Execute(std::tr1::shared_ptr<IRunnable> task) {
 			// TODO ; check TaskCompletionHandler life cycle 
 
@@ -44,7 +51,10 @@ namespace Earlgrey {
 
 		}
 
-		void Shutdown() {}
+		void Shutdown() 
+		{
+		}
+
 	private:
 
 	};

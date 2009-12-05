@@ -38,6 +38,8 @@ namespace Earlgrey
 		} THREADNAME_INFO;
 
 	public:
+		static const unsigned int INVALID_THREAD_ID = 0;
+
 		enum {
 			Running = 0,
 			Suspended = CREATE_SUSPENDED
@@ -45,17 +47,24 @@ namespace Earlgrey
 
 		enum { WaitTimeForThread = 10000 };
 
-		Thread();
+		explicit Thread();
 		~Thread();
 
-		bool IsCreated() const { return ThreadHandle_ != NULL; }
+		inline bool IsCreated() const 
+		{ 
+			return ThreadHandle_ != NULL; 
+		}
+
+		inline unsigned int Id() const 
+		{ 
+			EARLGREY_ASSERT( ThreadId_ != INVALID_THREAD_ID );
+			return ThreadId_; 
+		}
 
 	public:
 		// Factory 
 		static std::tr1::shared_ptr<Thread> CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
 		static std::tr1::shared_ptr<Thread> AttachThread(LPCSTR threadName);
-
-	public:
 		static std::tr1::shared_ptr<Thread> CurrentThread();
 
 	public:	

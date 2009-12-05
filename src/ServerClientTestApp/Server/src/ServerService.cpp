@@ -8,11 +8,72 @@
 #include "TimeSpan.h"
 #include "Console.h"
 
-// TODO: 테스트용 코드이므로 제거해야 함
-#include "EarlgreyProcess.h"
+#include "GlobalExceptionHandler.h"
+#include "MiniDump.h"
+#include "StackWriter.h"
+
+#include "Environment.h"
+#include "Path.h"
+#include "File.h"
 
 using namespace Earlgrey;
 
+namespace 
+{
+	//! ServerService에 멤버 메서드로 넣는 편이 좋겠다. 특히 파일 이름을 하드코딩한 건 문제가 있다.
+	void RegisterMiniDump()
+	{
+		const _txstring baseDir = Environment::BaseDirectory();
+		const _txstring filePath( Path::Combine(baseDir, _T("MiniDump.dmp")) );
+
+		if( File::Exists(filePath) )
+		{
+			EARLGREY_ASSERT( File::Delete(filePath) );
+		}
+
+		const MINIDUMP_TYPE dumpType = MiniDumpNormal;
+
+		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( 
+			new MiniDump(filePath.c_str(), dumpType) 
+			);
+		EARLGREY_ASSERT(miniDump != NULL);
+
+		/*
+		miniDump->AddExtendedMessage(
+			static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
+			, _T("사용자 정보 1")
+			);
+			*/
+
+		GlobalExceptionHandler::Register(miniDump);
+	}
+
+	void RegisterStackWriter()
+	{
+		const _txstring baseDir = Environment::BaseDirectory();
+		const _txstring filePath( Path::Combine(baseDir, _T("StackWriter.txt")) );
+
+		if( File::Exists(filePath) )
+		{
+			EARLGREY_ASSERT( File::Delete(filePath) );
+		}
+
+		std::tr1::shared_ptr<UnhandledExceptionHandler> stackWriter( 
+			new StackWriter(filePath, StackWalker::OptionsAll) 
+			);
+		EARLGREY_ASSERT(stackWriter != NULL);
+
+		GlobalExceptionHandler::Register(stackWriter);
+		
+	}
+
+	void InitializeGlobalExceptionHandlers()
+	{
+		GlobalExceptionHandler::Initialize();
+		RegisterMiniDump();
+		RegisterStackWriter();
+	}
+}
 
 ServerService::ServerService(
    const TCHAR * serviceName
@@ -44,13 +105,6 @@ ServerService::ServerService(
 
 ServerService::~ServerService()
 {
-	_tcout << std::endl << std::endl
-		<< _T("Enter to end") << std::endl;
-
-	_txstring lastInput;
-	std::getline<TCHAR>(_tcin, lastInput);
-
-
 	if( SetConsoleCtrlHandler(&ServerService::ControlHandler, FALSE) == FALSE)
 	{
 		// TODO
@@ -58,6 +112,12 @@ ServerService::~ServerService()
 
 	if(m_consoleMode)
 	{
+		_tcout << std::endl << std::endl
+			<< _T("Enter to end") << std::endl;
+
+		_txstring lastInput;
+		std::getline<TCHAR>(_tcin, lastInput);
+
 		gConsole::Instance().Close();
 	}
 
@@ -83,6 +143,10 @@ BOOL ServerService::ReportStatus(
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 {
+	DBG_UNREFERENCED_PARAMETER(argc);
+	DBG_UNREFERENCED_PARAMETER(argv);
+
+
 	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	EARLGREY_VERIFY(m_stopHandle);
 
@@ -90,6 +154,8 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	AppInfo app;
 	if(app.InitInstance(AppType::E_APPTYPE_DEFAULT) == FALSE)
 		throw std::exception("Application initialization failed!");
+
+	InitializeGlobalExceptionHandlers();
 
 	//! \todo delete 안 해도 되나?
 	ServerConnection* connection = new ServerConnection();

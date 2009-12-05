@@ -36,7 +36,10 @@ namespace Earlgrey
 	ThreadLocalValue<std::tr1::shared_ptr<Thread>> Thread::CurrentThread_ = std::tr1::shared_ptr<Thread>();
 	
 
-	Thread::Thread() : ThreadHandle_(NULL), ThreadId_(0), IsRunning_(FALSE)
+	Thread::Thread() 
+		: ThreadHandle_(NULL)
+		, ThreadId_(INVALID_THREAD_ID)
+		, IsRunning_(FALSE)
 	{
 		CreatedLock_ = CreateMutex(NULL, true, NULL);
 		EARLGREY_VERIFY(CreatedLock_ != NULL);
@@ -55,7 +58,7 @@ namespace Earlgrey
 
 	void Thread::SetName(LPCSTR threadName)
 	{
-		EARLGREY_ASSERT( ThreadId_ != 0 );
+		EARLGREY_ASSERT( ThreadId_ != INVALID_THREAD_ID );
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
 		info.szName = threadName;
@@ -173,7 +176,7 @@ namespace Earlgrey
 	{
 		Thread* thread = new Thread();
 
-		thread->ThreadId_ =  GetCurrentThreadId();
+		thread->ThreadId_ = GetCurrentThreadId();
 		thread->SetName(threadName);
 		thread->Runnable_ = std::tr1::shared_ptr<IRunnable>(new MainRunnable());
 

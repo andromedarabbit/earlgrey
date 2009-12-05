@@ -1,9 +1,10 @@
 #pragma once 
-#include "Uncopyable.h"
 #include "ScopedLock.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	class Lock : private Uncopyable
 	{
 	public:

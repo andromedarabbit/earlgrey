@@ -3,6 +3,8 @@
 
 namespace Earlgrey
 {
+	GlobalExceptionHandler::HandlerCollectionType GlobalExceptionHandler::m_Handlers;
+
 	void GlobalExceptionHandler::Initialize()
 	{
 		// Catches the unhandled exception and handle it!
@@ -15,6 +17,7 @@ namespace Earlgrey
 
 	void GlobalExceptionHandler::Register(HandlerPtrType handler)
 	{
+		EARLGREY_ASSERT(handler != NULL);
 		m_Handlers.push_back(handler);
 	}
 

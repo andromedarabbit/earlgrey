@@ -1,9 +1,10 @@
 #pragma once
-#include "Uncopyable.h"
 #include "Log.h"
 
 namespace Earlgrey
 {
+	class Uncopyable;
+
 	class ProcessInitializer : private Uncopyable
 	{
 	private:
