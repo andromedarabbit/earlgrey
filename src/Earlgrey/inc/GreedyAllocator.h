@@ -23,9 +23,13 @@ namespace Earlgrey
 
 		typedef SuperMemoryBlock::size_type size_type;
 
+		static const GreedyAllocator::size_type minObjectBytes = EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT;
+		static const GreedyAllocator::size_type maxObjectBytes = EARLGREY_DEFAULT_PAGE_ALIGNMENT;
+		static const GreedyAllocator::size_type memoryChunkBytesPerAlloc = GreedyAllocator::DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC;
+
 		explicit GreedyAllocator(
-			size_type minObjectBytes
-			, size_type maxObjectBytes
+			size_type minObjectBytes = EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
+			, size_type maxObjectBytes = EARLGREY_DEFAULT_PAGE_ALIGNMENT
 			, size_type memoryChunkBytesPerAlloc = DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC
 			)
 			: m_MinObjectBytes(minObjectBytes)
@@ -132,36 +136,5 @@ namespace Earlgrey
 		size_type m_MaxObjectBytes;
 
 		SuperMemoryBlock ** m_SuperMemoryBlocks;
-
-
 	};
-
-
-	template <class T> 
-	struct CreateGreedyAllocatorUsingNew
-	{
-		static T* Create()
-		{ 
-			const GreedyAllocator::size_type minObjectBytes = EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT;
-			const GreedyAllocator::size_type maxObjectBytes = EARLGREY_DEFAULT_PAGE_ALIGNMENT;
-			const GreedyAllocator::size_type memoryChunkBytesPerAlloc = GreedyAllocator::DEFAULT_MEMORY_CHUNK_BYTES_PER_ALLOC;
-
-
-			return new T(
-				minObjectBytes
-				, maxObjectBytes
-				, memoryChunkBytesPerAlloc  
-				);
-		}
-
-		static void Destroy(T* p)
-		{ 
-			delete p; 
-		}
-	};
-
-	typedef 
-		Loki::SingletonHolder<GreedyAllocator, CreateGreedyAllocatorUsingNew, Loki::DefaultLifetime, Loki::SingleThreaded> 
-		gGreedyAllocator;
-
 }

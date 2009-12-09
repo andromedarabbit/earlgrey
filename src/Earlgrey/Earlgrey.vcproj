@@ -426,6 +426,10 @@
 					RelativePath=".\src\MemoryBlock.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\SlabAllocator.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Network"
@@ -773,6 +777,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\LFHAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryAllocatorBase.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\MemoryBlock.h"
 					>
 				</File>
@@ -786,6 +802,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\SinglyList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SlabAllocator.h"
 					>
 				</File>
 				<File
@@ -806,6 +826,14 @@
 				</File>
 				<File
 					RelativePath=".\inc\StlStackAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TBBAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadLocalAllocator.h"
 					>
 				</File>
 			</Filter>
@@ -1094,6 +1122,10 @@
 					RelativePath=".\EargreyResources.rc"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="IO"
+				>
 			</Filter>
 		</Filter>
 		<File

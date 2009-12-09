@@ -4,11 +4,27 @@
 #include "SinglyList.h"
 
 #include "Macros.h"
+#include "Lock.h"
 // #undef min
 // #undef max 
 
 namespace Earlgrey
 {
+	// Memory block without SLIST things. This will be used in Thread safe allocators.
+	class DECLSPEC_ALIGN(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT) SimpleMemoryBlock
+	{
+	public:
+		typedef size_t size_type;
+
+		inline void * Data()  
+		{
+			return this + 1;
+		}
+
+		SimpleMemoryBlock* Next;
+		size_type BlockSize;
+	};
+
 	class DECLSPEC_ALIGN(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT) MemoryBlock
 	{
 		friend class SuperMemoryBlock;
@@ -178,5 +194,43 @@ namespace Earlgrey
 
 		SinglyListHead m_BlockHead;
 
+	};
+
+	template<class Allocator>
+	class MemoryAllocatorThreadSafeProxy
+	{
+	public:
+		typedef typename Allocator::size_type size_type;
+
+		explicit MemoryAllocatorThreadSafeProxy()
+		{
+			ScopedLock scopeLock(&m_AllocatorLock);
+			m_Allocator = new Allocator;
+		}
+
+		~MemoryAllocatorThreadSafeProxy()
+		{
+			ScopedLock scopeLock(&m_AllocatorLock);
+			delete m_Allocator;
+			m_Allocator = NULL;
+		}
+
+		void * Alloc(size_type bytes)
+		{
+			ScopedLock scopeLock(&m_AllocatorLock);
+			return m_Allocator->Alloc(bytes);
+		}
+
+		inline void Free(void * ptr)
+		{
+			ScopedLock scopeLock(&m_AllocatorLock);
+			m_Allocator->Free(ptr);
+		}
+
+		Allocator* GetRealAllocator() { return m_Allocator; }
+
+	private:
+		Allocator* m_Allocator;
+		Win32Lock  m_AllocatorLock;
 	};
 }
