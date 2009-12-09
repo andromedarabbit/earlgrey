@@ -5,23 +5,24 @@ namespace Earlgrey
 {
 	class Uncopyable;
 
-	class Lock : private Uncopyable
+	class Win32Lock : private Uncopyable
 	{
 	public:
-		inline explicit Lock() {
-			InitializeCriticalSection(&SpinkLock_);
+		inline explicit Win32Lock() {
+			InitializeCriticalSection(&m_CriticalSection);
 		}
-		~Lock() {}
+		~Win32Lock() {}
 
 		inline void Lock() {
-			EnterCriticalSection(&SpinkLock_);
+			EnterCriticalSection(&m_CriticalSection);
 		}
 		inline void UnLock() {
-			LeaveCriticalSection(&SpinkLock_);
+			LeaveCriticalSection(&m_CriticalSection);
 		}	
 	private:
-		CRITICAL_SECTION SpinkLock_;
+		CRITICAL_SECTION m_CriticalSection;
 	};
+
+	typedef TScopedLock<Win32Lock> ScopedLock;
 }
 
-typedef TScopedLock<Lock> ScopedLock;

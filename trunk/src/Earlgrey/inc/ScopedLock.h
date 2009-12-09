@@ -16,7 +16,7 @@ namespace Earlgrey {
 
 		~TScopedLock(void)
 		{
-			Lock_->Unlock();
+			Lock_->UnLock();
 		}
 
 	private:

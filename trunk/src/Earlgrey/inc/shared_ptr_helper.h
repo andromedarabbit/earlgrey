@@ -3,14 +3,11 @@
 #include "StlCustomAllocator.hpp"
 
 namespace Earlgrey {
-
-	//! \todo memory manager 종류에 따라 deletor를 각각 만들어 줘야 함.
-
 	struct GreedyDeleter
 	{
 		static void Delete(void* p)
 		{
-			gGreedyAllocator::Instance().Free( p );
+			gMemoryAllocator::Instance().Free( p );
 		}
 	};
 

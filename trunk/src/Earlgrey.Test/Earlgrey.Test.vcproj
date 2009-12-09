@@ -431,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\MemoryTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\MiniDumpTest.cpp"
 				>
 			</File>
