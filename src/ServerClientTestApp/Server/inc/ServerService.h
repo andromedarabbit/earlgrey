@@ -2,6 +2,11 @@
 #include "Win32Service.h"
 #include "txstring.h"
 
+namespace Earlgrey
+{
+	class Thread;
+}
+
 class ServerService : public Earlgrey::Win32Service
 {
 	friend class Win32ServiceRunnable;
@@ -21,10 +26,10 @@ public:
 	// virtual void	OnContinue();
 	// virtual void	OnShutdown();
 
-	virtual LPSERVICE_MAIN_FUNCTION ServiceMainFunc() const
-	{
-		return __super::ServiceMainFunc();
-	}
+	//virtual LPSERVICE_MAIN_FUNCTION ServiceMainFunc() const
+	//{
+	//	return __super::ServiceMainFunc();
+	//}
 
 	virtual void OnUserInput(Earlgrey::_txstring& input);
 
@@ -43,4 +48,5 @@ private:
 private:
 	BOOL m_consoleMode;
 	HANDLE m_stopHandle;
+	std::tr1::shared_ptr<Earlgrey::Thread> m_serverThread;
 };

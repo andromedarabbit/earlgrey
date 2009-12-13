@@ -127,7 +127,7 @@ namespace Earlgrey
 
 				};
 				virtual void Stop() {}
-				virtual void Exit() {}
+				virtual void OnStop() {}
 			private:
 				IncreaseTask* Task_;
 			};

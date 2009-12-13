@@ -24,7 +24,11 @@ namespace Earlgrey
 	{
 
 	public:
-		explicit ThreadMessageQueue(std::tr1::shared_ptr<Thread> thread) : Thread_(thread) {}
+		explicit ThreadMessageQueue(std::tr1::shared_ptr<Thread> thread) 
+			: Thread_(thread) 
+		{
+
+		}
 
 		void Enqueue(std::tr1::shared_ptr<IThreadMessage> message) 
 		{

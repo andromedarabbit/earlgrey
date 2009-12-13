@@ -161,13 +161,17 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	ServerConnection* connection = new ServerConnection();
 	connection->Accept(100);
 
-	std::tr1::shared_ptr<ServerService> thisService(this);
-	std::tr1::shared_ptr<IRunnable> runnable( static_cast<IRunnable*>( new Win32ServiceRunnable(thisService) ));
-	std::tr1::shared_ptr<Thread> serverThread = Thread::CreateThread( runnable, "WindowsRunnable" );
+	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable(m_stopHandle) ));
+	EARLGREY_ASSERT(m_serverThread == NULL);
+	m_serverThread = Thread::CreateThread( 
+		runnable
+		, "WindowsRunnable"
+		, WIN_MAIN_THREAD_ID 
+		);
 
 	EARLGREY_ASSERT(ReportStatus(SERVICE_RUNNING));
 
-	serverThread->Join();
+	m_serverThread->Join();
 
 }
 
@@ -178,7 +182,8 @@ void ServerService::OnStop()
 		ReportStatus(SERVICE_STOP_PENDING, interval.Milliseconds())
 		);
 
-	EARLGREY_VERIFY(::SetEvent(m_stopHandle));
+	m_serverThread->Stop();
+	// EARLGREY_VERIFY(::SetEvent(m_stopHandle));
 }
 
 void ServerService::ProcessUserInput()

@@ -371,6 +371,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ThreadRunnable.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Timer.cpp"
 					>
 				</File>
@@ -661,6 +665,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Runnable.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\ScopedLock.h"
 					>
 				</File>
@@ -669,11 +677,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\ThreadId.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\ThreadLocal.hpp"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\ThreadMessage.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadRunnable.h"
 					>
 				</File>
 				<File

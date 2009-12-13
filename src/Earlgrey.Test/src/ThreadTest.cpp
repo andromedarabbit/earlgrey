@@ -1,42 +1,50 @@
 #include "stdafx.h"
 #include "Thread.h"
+#include "ThreadRunnable.h"
 #include "shared_ptr_helper.h"
 
 namespace Earlgrey { namespace Test 
 {
 	using std::tr1::shared_ptr;
 
-	class TestRunnable : public IRunnable
+	class TestRunnable : public ThreadRunnable
 	{
 	public:
 		TestRunnable()
 			: IsStarted(FALSE), IsRunned(FALSE), IsStopped(FALSE)
 		{
-
 		}
-		~TestRunnable()
+
+		virtual ~TestRunnable()
 		{
-
 		}
-		BOOL Init() 
+
+	protected:
+		virtual BOOL Init() 
 		{ 
 			IsStarted = TRUE;
 			return TRUE; 
 		}
-		DWORD Run() 
+
+		virtual BOOL MeetsStopCondition() const
+		{
+			return FALSE;
+		}
+
+		virtual DWORD DoTask()
 		{
 			CurrentThread = Thread::CurrentThread();
 			Sleep(1000);
 			IsRunned = TRUE;
-			return 0;
+			return EXIT_FAILURE;
 		}
 
-		void Stop() 
+		virtual void Stop() 
 		{
 			IsStopped = TRUE;
-
 		}
-		void Exit() {}
+
+		virtual void Exit() {}
 	
 
 	public:
@@ -61,10 +69,10 @@ namespace Earlgrey { namespace Test
 		TestRunnable* runner2 = new TestRunnable();
 
 		shared_ptr<Thread> testThread1
-			= Thread::CreateThread(shared_ptr<TestRunnable>(runner1), "TestThread" );
+			= Thread::CreateThread(shared_ptr<TestRunnable>(runner1), "TestThread", 0 );
 
 		shared_ptr<Thread> testThread2
-			= Thread::CreateThread(shared_ptr<TestRunnable>(runner2), "TestThread" );
+			= Thread::CreateThread(shared_ptr<TestRunnable>(runner2), "TestThread", 0 );
 
 
 		EXPECT_TRUE( NULL !=  testThread1);
@@ -87,7 +95,7 @@ namespace Earlgrey { namespace Test
 	{
 
 		shared_ptr<Thread> testThread1
-			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread1" );
+			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread1", 0 );
 
 
 		EXPECT_TRUE( NULL !=  testThread1);
@@ -95,7 +103,7 @@ namespace Earlgrey { namespace Test
 
 
 		shared_ptr<Thread> testThread2
-			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread2" );
+			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread2", 0 );
 
 
 		EXPECT_TRUE( NULL !=  testThread2);
@@ -103,7 +111,7 @@ namespace Earlgrey { namespace Test
 
 
 		shared_ptr<Thread> testThread3
-			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread3" );
+			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread3", 0 );
 
 
 		EXPECT_TRUE( NULL !=  testThread3);

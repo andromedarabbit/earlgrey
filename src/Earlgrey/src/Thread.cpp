@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Thread.h"
+#include "ThreadRunnable.h"
 #include "EarlgreyAssert.h"
 
 #include <process.h>
@@ -38,6 +39,7 @@ namespace Earlgrey
 
 	Thread::Thread() 
 		: ThreadHandle_(NULL)
+		, NativeThreadId_(INVALID_THREAD_ID)
 		, ThreadId_(INVALID_THREAD_ID)
 		, IsRunning_(FALSE)
 	{
@@ -58,11 +60,11 @@ namespace Earlgrey
 
 	void Thread::SetName(LPCSTR threadName)
 	{
-		EARLGREY_ASSERT( ThreadId_ != INVALID_THREAD_ID );
+		EARLGREY_ASSERT( NativeThreadId_ != INVALID_THREAD_ID );
 		THREADNAME_INFO info;
 		info.dwType = 0x1000;
 		info.szName = threadName;
-		info.dwThreadID = ThreadId_;
+		info.dwThreadID = NativeThreadId_;
 		info.dwFlags = 0;
 
 		__try
@@ -96,17 +98,21 @@ namespace Earlgrey
 	}
 
 	BOOL Thread::Create(
-				std::tr1::shared_ptr<IRunnable>		runnable, 
-				ThreadHolder*						threadHolder, 
-				LPCSTR								threadName, 
-				unsigned int						initFlag, 
-				DWORD								stackSize)
+				std::tr1::shared_ptr<ThreadRunnable>		runnable
+				, ThreadHolder*						threadHolder
+				, LPCSTR							threadName
+				, ThreadIdType						threadId
+				, unsigned int						initFlag 
+				, DWORD								stackSize
+				)
 	{
 		Runnable_ = runnable;
 
 		// 오류 종류에 따라 -1이나 0을 반환한다.
-		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, ThreadHolder::_ThreadProc, threadHolder, initFlag, &ThreadId_ );		
+		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, ThreadHolder::_ThreadProc, threadHolder, initFlag, &NativeThreadId_ );		
 		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
+
+		ThreadId_ = threadId;
 		
 		//! \todo 오류 처리하거나 위의 EARLGREY_ASSERT를 EARLGREY_VERIFY로 바꾸기
 		//! \remark _beginthread와 _beginthreadex는 실패할 경우 리턴하는 값이 다르다. _beginthread returns 1L, _beginthreadex returns 0
@@ -146,41 +152,49 @@ namespace Earlgrey
 
 	
 
-	std::tr1::shared_ptr<Thread> Thread::CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize)
+	std::tr1::shared_ptr<Thread> Thread::CreateThread(
+		std::tr1::shared_ptr<ThreadRunnable> runnable
+		, LPCSTR threadName
+		, ThreadIdType threadId
+		, DWORD stackSize
+		)
 	{
 		EARLGREY_ASSERT( runnable );
 		Thread* thread = new Thread();
 		EARLGREY_VERIFY(NULL != thread);
 		if (thread)
 		{
-			thread->Create( runnable,  new ThreadHolder(thread), threadName, Thread::Running, stackSize );
+			thread->Create( runnable,  new ThreadHolder(thread), threadName, threadId, Thread::Running, stackSize );
 		}
 
 		return std::tr1::shared_ptr<Thread>(thread);
 	}
 
 
-	class MainRunnable : public IRunnable {
+	class MainRunnable : public ThreadRunnable 
+	{
+	protected:
+		virtual BOOL Init() { return TRUE; }
+		virtual void Stop() {}
+		virtual void Exit() {}
 
-		virtual BOOL Init() { return TRUE; };
-		virtual DWORD Run() {
-			return 0;
+		virtual BOOL MeetsStopCondition() const
+		{
+			return TRUE;
 		}
-		;
-		virtual void Stop() {};
-		virtual void Exit() {};
-
+		virtual DWORD DoTask() { return EXIT_SUCCESS; }
 	};
 
-	std::tr1::shared_ptr<Thread> Thread::AttachThread(LPCSTR threadName)
+	std::tr1::shared_ptr<Thread> Thread::AttachThread(LPCSTR threadName, ThreadIdType threadId)
 	{
-		Thread* thread = new Thread();
+		std::tr1::shared_ptr<Thread> thread( new Thread() );
 
-		thread->ThreadId_ = GetCurrentThreadId();
+		thread->NativeThreadId_ = GetCurrentThreadId();
+		thread->ThreadId_ = threadId;
 		thread->SetName(threadName);
-		thread->Runnable_ = std::tr1::shared_ptr<IRunnable>(new MainRunnable());
+		thread->Runnable_ = std::tr1::shared_ptr<ThreadRunnable>(new MainRunnable());
 
-		CurrentThread_ = std::tr1::shared_ptr<Thread>(thread);
+		CurrentThread_ = thread;
 
 
 		return CurrentThread_;
@@ -207,5 +221,9 @@ namespace Earlgrey
 		EARLGREY_VERIFY( SetThreadPriority(ThreadHandle_, priority) );
 	}
 
+	void Thread::Stop()
+	{
+		Runnable_->Stop();
+	}
 	
 }
