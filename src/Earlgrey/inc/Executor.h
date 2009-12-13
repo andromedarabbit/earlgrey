@@ -63,7 +63,7 @@ namespace Earlgrey
 
 	public:
 		typedef std::tr1::shared_ptr<IRunnable> Task;
-		typedef xqueue<Task>::Type Tasks;
+		// typedef xqueue<Task>::Type Tasks;
 		typedef std::queue<Task> Tasks;
 		// typedef Algorithm::Lockfree::Queue<Task> Tasks;
 		typedef std::tr1::array<Tasks, MAX_THREADS> ThreadTasks;
