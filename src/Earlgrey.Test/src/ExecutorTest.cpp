@@ -2,7 +2,7 @@
 #include "AppInitializer.h"
 #include "Executor.h"
 #include "Mutex.h"
-
+#include "Environment.h"
 
 namespace Earlgrey
 {
@@ -99,9 +99,11 @@ namespace Earlgrey
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::DestructorCount_);
 		}
 
-		/*
-		TEST_F(ExecutorTest, ExecuteUsingTwoThreads) 
+		TEST_F(ExecutorTest, ExecuteUsingTwoIOThreads) 
 		{
+			if(Environment::ProcessorCount() < 2)
+				return;
+
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 
 			const long maxCount = 100;
@@ -109,7 +111,7 @@ namespace Earlgrey
 			{
 				ThreadIdType tid = IO_THREAD_ID_BEGIN;
 				if(i % 2 == 1)
-					tid = WIN_MAIN_THREAD_ID;
+					tid = IO_THREAD_ID_BEGIN + 1;
 
 				IocpExecutorSingleton::Instance().Execute(
 					RunnableBuilder::NewRunnable(new ExecutorTaskRunnable(maxCount))
@@ -122,6 +124,6 @@ namespace Earlgrey
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::RunningCount);
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::DestructorCount_);
 		}
-		*/
+	
 	}
 }
