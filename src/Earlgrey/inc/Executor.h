@@ -29,6 +29,22 @@ namespace Earlgrey
 		std::tr1::shared_ptr<IRunnable> Task_;
 	};
 
+	/*
+	template<class T>
+	class ICallable {
+
+		T call();
+		
+	};
+
+	template<class T>
+	class IFuture {
+
+		T get();
+
+	};
+	*/
+
 
 
 	//  Proactor Executor Service

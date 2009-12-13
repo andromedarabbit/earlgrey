@@ -33,9 +33,6 @@ namespace Earlgrey
 
 	void Executor::Execute(Task task, ThreadIdType threadId) 
 	{
-		if(threadId == Thread::CurrentThread()->ThreadId())
-			return Execute(task);
-
 		m_threadTasks[threadId].Enqueue(task);
 	}
 
