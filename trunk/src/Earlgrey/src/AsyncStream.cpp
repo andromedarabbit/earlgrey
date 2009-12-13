@@ -84,6 +84,7 @@ namespace Earlgrey
 
 	BOOL AsyncStream::Send()
 	{
+		// TODO ; scatter&gatter mode ÇÊ¿ä
 		WSABUF*	SocketBuffer = _PacketBuffer->GetSockSendBuffer();
 		DWORD	SentBytes;		
 		OVERLAPPED* Overlapped = new AsyncResult(_Sender, this);

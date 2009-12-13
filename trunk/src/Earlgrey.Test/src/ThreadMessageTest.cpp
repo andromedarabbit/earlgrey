@@ -54,9 +54,9 @@ namespace Earlgrey { namespace Test
 
 		virtual ~IncreaseCountThreadMessage() 
 		{
-			DestructCount++;
+			InterlockedIncrement(&DestructCount);
 		}
-		static int DestructCount;
+		static long DestructCount;
 		static int Count;
 
 		virtual void OnReceive()
@@ -65,7 +65,7 @@ namespace Earlgrey { namespace Test
 		}
 	};
 
-	int IncreaseCountThreadMessage::DestructCount = 0;
+	long IncreaseCountThreadMessage::DestructCount = 0;
 	int IncreaseCountThreadMessage::Count = 0;
 
 	TEST(ThreadMessageQueue, ThreadMessage) 

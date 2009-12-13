@@ -16,7 +16,8 @@ namespace Earlgrey
 
 			virtual ~ExecutorTaskRunnable()
 			{
-				DestructorCount_++;
+				//DestructorCount_++;
+				InterlockedIncrement(&DestructorCount_);
 			}
 
 			virtual DWORD Run() 

@@ -46,7 +46,7 @@ namespace Earlgrey
 
 
 	private:
-		std::tr1::shared_ptr<Thread> Thread_;
+		std::tr1::weak_ptr<Thread> Thread_;
 		Algorithm::Lockfree::Queue<std::tr1::shared_ptr<IThreadMessage>> MessageQueue_;
 	};
 
