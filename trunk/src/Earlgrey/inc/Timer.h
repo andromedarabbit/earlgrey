@@ -13,7 +13,11 @@ namespace Earlgrey
 		 typedef std::tr1::shared_ptr<TimerCallback> TimerCallbackPtr;
 
 	public:
-		explicit Timer(TimerCallbackPtr callback, void * state, TimeSpan dueTime, TimeSpan period);
+		explicit Timer(TimerCallbackPtr callback
+			, void * state
+			, TimeSpan dueTime
+			, TimeSpan period
+			);
 		explicit Timer(TimerCallbackPtr callback);
 
 		void Change(TimeSpan dueTime, TimeSpan period);

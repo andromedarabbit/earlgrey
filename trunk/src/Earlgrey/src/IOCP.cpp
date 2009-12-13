@@ -1,12 +1,13 @@
 #include "stdafx.h"
-
-#include "ServerInit.h"
 #include "IOCP.h"
+#include "ServerInit.h"
+#include "Thread.h"
 
 namespace Earlgrey
 {
 	IOCPRunnable::IOCPRunnable() 
 		: m_isRunning(TRUE) 
+		, m_waitingTime(TimeSpan::FromMilliseconds(10))
 	{
 	}
 
@@ -17,18 +18,19 @@ namespace Earlgrey
 
 	BOOL IOCPRunnable::Init()
 	{
+		EARLGREY_ASSERT( IsValidIOThreadId(Thread::CurrentThread()->ThreadId()) );
 		return TRUE;
 	}
 
-	DWORD IOCPRunnable::Run()
+	BOOL IOCPRunnable::MeetsStopCondition() const
 	{
-		TimeSpan WaitTime(TimeSpan::FromMilliseconds(10));
-		while( m_isRunning)
-		{
-			ProactorSingleton::Instance().HandleEvent(WaitTime);
+		return !m_isRunning;
+	}
 
-		}
-		return 0;
+	DWORD IOCPRunnable::DoTask()
+	{
+		ProactorSingleton::Instance().HandleEvent(m_waitingTime);
+		return EXIT_SUCCESS;
 	}
 
 	void IOCPRunnable::Stop() 
@@ -40,5 +42,4 @@ namespace Earlgrey
 	{
 
 	}
-
 }

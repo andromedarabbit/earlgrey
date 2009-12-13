@@ -1,26 +1,17 @@
 #pragma once
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
+#include "ThreadId.h"
 #include "ThreadLocal.hpp"
+
+#undef max
+#undef min
+
+#include <limits>
 
 namespace Earlgrey
 {
-	class IRunnable
-	{
-	public:
-		virtual BOOL Init() = 0;
-		virtual DWORD Run() = 0;
-		//! \todo Stop은 언제 쓰나요? 실제로 쓰는 곳이 없네요.
-		virtual void Stop() = 0;
-		virtual void Exit() = 0;
-	};
-
-	class RunnableBuilder {
-	public:
-		static std::tr1::shared_ptr<IRunnable> NewRunnable(IRunnable* runnable) {
-			return std::tr1::shared_ptr<IRunnable> (runnable);
-		}
-	};
+	class ThreadRunnable;
 
 	class Thread : private Uncopyable
 	{
@@ -38,14 +29,13 @@ namespace Earlgrey
 		} THREADNAME_INFO;
 
 	public:
-		static const unsigned int INVALID_THREAD_ID = 0;
+		// static const ThreadIdType INVALID_THREAD_ID = std::numeric_limits<ThreadIdType>::max();
+		// static const ThreadIdType INVALID_THREAD_ID = IO
 
 		enum {
 			Running = 0,
 			Suspended = CREATE_SUSPENDED
 		};
-
-		enum { WaitTimeForThread = 10000 };
 
 		explicit Thread();
 		~Thread();
@@ -55,7 +45,13 @@ namespace Earlgrey
 			return ThreadHandle_ != NULL; 
 		}
 
-		inline unsigned int Id() const 
+		inline ThreadIdType NativeThreadId() const 
+		{ 
+			EARLGREY_ASSERT( NativeThreadId_ != INVALID_THREAD_ID );
+			return NativeThreadId_; 
+		}
+
+		inline ThreadIdType ThreadId() const 
 		{ 
 			EARLGREY_ASSERT( ThreadId_ != INVALID_THREAD_ID );
 			return ThreadId_; 
@@ -63,8 +59,8 @@ namespace Earlgrey
 
 	public:
 		// Factory 
-		static std::tr1::shared_ptr<Thread> CreateThread(std::tr1::shared_ptr<IRunnable> runnable, LPCSTR threadName, DWORD stackSize = 0);
-		static std::tr1::shared_ptr<Thread> AttachThread(LPCSTR threadName);
+		static std::tr1::shared_ptr<Thread> CreateThread(std::tr1::shared_ptr<ThreadRunnable> runnable, LPCSTR threadName, ThreadIdType threadId, DWORD stackSize = 0);
+		static std::tr1::shared_ptr<Thread> AttachThread(LPCSTR threadName, ThreadIdType threadId);
 		static std::tr1::shared_ptr<Thread> CurrentThread();
 
 	public:	
@@ -78,18 +74,24 @@ namespace Earlgrey
 			WaitForSingleObject(ThreadHandle_, INFINITE);
 		}
 
-		void Stop()  {
-			Runnable_->Stop();
-		}
+		void Stop();
 
 	private:
-		BOOL Create(std::tr1::shared_ptr<IRunnable> runnable, class ThreadHolder* threadHolder, LPCSTR threadName, unsigned int initFlag = Running, DWORD stackSize = 0);
+		BOOL Create(
+			std::tr1::shared_ptr<ThreadRunnable> runnable
+			, class ThreadHolder* threadHolder
+			, LPCSTR threadName
+			, ThreadIdType threadId
+			, ThreadIdType initFlag = Running
+			, DWORD stackSize = 0
+			);
 		DWORD Run();
 
 	private:
 		HANDLE	ThreadHandle_;
-		unsigned int ThreadId_;
-		std::tr1::shared_ptr<IRunnable> Runnable_;
+		ThreadIdType NativeThreadId_;
+		ThreadIdType ThreadId_;
+		std::tr1::shared_ptr<ThreadRunnable> Runnable_;
 		BOOL IsRunning_; // TODO atomic check 필요
 		HANDLE	CreatedLock_;
 

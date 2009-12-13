@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Thread.h"
 #include "ThreadMessage.h"
+#include "Runnable.h"
 #include "shared_ptr_helper.h"
 
 namespace Earlgrey { namespace Test 

@@ -8,24 +8,36 @@
 using namespace Earlgrey;
 
 class WindowsRunnable 
-	: public IRunnable
+	: public ThreadRunnable
 {
 public:
-	explicit WindowsRunnable() {}
+	explicit WindowsRunnable()
+		: m_stop(FALSE)
+	{
+
+	}
 	virtual ~WindowsRunnable() {}
 
-	virtual BOOL Init(){return TRUE;}
-	virtual DWORD Run()
-	{
-		MSG msg;
-		while (GetMessage(&msg, NULL, 0, 0))
-		{
-
-		}
-		return 0;
-	}
+protected:
+	virtual BOOL Init() { return TRUE; }
 	virtual void Stop() {}
 	virtual void Exit() {}
+
+	virtual BOOL MeetsStopCondition() const
+	{
+		return !m_stop;
+	}
+
+	virtual DWORD DoTask()
+	{
+		MSG msg;
+		if(!GetMessage(&msg, NULL, 0, 0))
+			return EXIT_FAILURE;
+		return EXIT_SUCCESS;
+	}
+
+private:
+	BOOL m_stop;
 };
 
 class ClientConnection : public AsyncStream
@@ -74,7 +86,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	char* ServerIP = "localhost";//! TODO : type and ip
 	EARLGREY_ASSERT(connection->Connect(ServerIP, 100) == TRUE);
 
-	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new WindowsRunnable())), "WindowsRunnable" );
+	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( 
+		std::tr1::shared_ptr<ThreadRunnable>(static_cast<ThreadRunnable*>(new WindowsRunnable()))
+		, "WindowsRunnable"
+		, WIN_MAIN_THREAD_ID 
+		);
 
 	WinThread->Join();
 

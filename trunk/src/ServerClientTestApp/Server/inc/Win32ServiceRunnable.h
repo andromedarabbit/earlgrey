@@ -1,22 +1,25 @@
 #pragma once
 #include "Thread.h"
+#include "ThreadRunnable.h"
 
 class ServerService;
 
-//! \todo Win32ServiceRunnable로 이름 바꾸기 
 class Win32ServiceRunnable 
-	: public Earlgrey::IRunnable
+	: public Earlgrey::ThreadRunnable
 {
 public:
-	explicit Win32ServiceRunnable(std::tr1::shared_ptr<ServerService> service);
+	explicit Win32ServiceRunnable(HANDLE stopHandle);
 
 	virtual ~Win32ServiceRunnable();
 
+protected:
 	virtual BOOL Init();
-	virtual DWORD Run();
 	virtual void Stop();
+	virtual void Exit();
+
+	virtual BOOL MeetsStopCondition() const;
+	virtual DWORD DoTask();
 
 private:
-	std::tr1::shared_ptr<ServerService> m_service;
-	virtual void Exit();
+	HANDLE m_stopHandle;
 };

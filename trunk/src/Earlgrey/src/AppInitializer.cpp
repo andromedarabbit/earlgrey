@@ -34,7 +34,7 @@ namespace Earlgrey
 		if( !ProactorSingleton::Instance().Initialize() )
 			return FALSE;
 
-		std::tr1::shared_ptr<Thread> mainThread = Thread::AttachThread("MainThread");
+		std::tr1::shared_ptr<Thread> mainThread = Thread::AttachThread("MainThread", WIN_MAIN_THREAD_ID);
 		m_MainThreads.push_back(mainThread);
 
 		// Create IO Thread
@@ -43,7 +43,11 @@ namespace Earlgrey
 		//EARLGREY_ASSERT(IOThreadCount < MAX_IO_THREAD_COUNT);
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
-			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( std::tr1::shared_ptr<IRunnable>(static_cast<IRunnable*>(new IOCPRunnable())), "IOCPRunnable" );
+			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( 
+				std::tr1::shared_ptr<ThreadRunnable>(static_cast<ThreadRunnable*>(new IOCPRunnable()))
+				, "IOCPRunnable" 
+				, i + 1
+				);
 			EARLGREY_ASSERT(thread != NULL);
 			m_IOThreads.push_back(thread);
 
