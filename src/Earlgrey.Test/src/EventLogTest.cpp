@@ -50,13 +50,11 @@ namespace Earlgrey
 
 		TEST_F(EventLogTest, CreateEventSource)
 		{
-			// const TCHAR * source = _T("EarlgreyTest");
 			ASSERT_FALSE( EventLog::SourceExists(source) );
 			EventLog::CreateEventSource(source, _T("Application"));
 			ASSERT_TRUE( EventLog::SourceExists(source) );
 			EventLog::DeleteEventSource(source);
 			ASSERT_FALSE( EventLog::SourceExists(source) );
-
 		}
 
 
@@ -65,7 +63,6 @@ namespace Earlgrey
 			const TCHAR * source = _T("EarlgreyTestSource");	
 			const TCHAR * const log = _T("EarlgreyTestLog");
 
-			ASSERT_FALSE(EventLog::SourceExists(source));
 			if(EventLog::SourceExists(source) == FALSE) {
 				EventLog::CreateEventSource(source, log);
 			}

@@ -99,6 +99,7 @@ namespace Earlgrey
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::DestructorCount_);
 		}
 
+		/*
 		TEST_F(ExecutorTest, ExecuteUsingTwoThreads) 
 		{
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
@@ -121,5 +122,6 @@ namespace Earlgrey
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::RunningCount);
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::DestructorCount_);
 		}
+		*/
 	}
 }

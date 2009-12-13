@@ -2,10 +2,10 @@
 #include "Thread.h"
 #include "Runnable.h"
 #include "Proactor.h"
-// #include "taskqueue.h"
+#include "taskqueue.h"
 
-// #include "xqueue.h"
-#include "LockfreeQueue.hpp"
+#include "xqueue.h"
+// #include "LockfreeQueue.hpp"
 #include <array>
 
 namespace Earlgrey 
@@ -33,14 +33,14 @@ namespace Earlgrey
 	template<class T>
 	class ICallable {
 
-		T call();
-		
+	T call();
+
 	};
 
 	template<class T>
 	class IFuture {
 
-		T get();
+	T get();
 
 	};
 	*/
@@ -49,11 +49,12 @@ namespace Earlgrey
 
 	//  Proactor Executor Service
 	// TODO ; ICallable, IFuture 를 구현해보자!!
-	class Executor // : public Algorithm::Lockfree::TaskQueue
+	class Executor : public Algorithm::Lockfree::TaskQueue
 		// : private Uncopyable
 	{
 		friend struct Loki::CreateUsingNew<Executor>;
 		friend class ExecutorTaskRunnerInvoker; // DoTask
+		friend class ThreadRunnable;
 
 	private:
 		explicit Executor()
@@ -62,8 +63,9 @@ namespace Earlgrey
 
 	public:
 		typedef std::tr1::shared_ptr<IRunnable> Task;
-		// typedef xqueue<Task>::Type Tasks;
-		typedef Algorithm::Lockfree::Queue<Task> Tasks;
+		typedef xqueue<Task>::Type Tasks;
+		typedef std::queue<Task> Tasks;
+		// typedef Algorithm::Lockfree::Queue<Task> Tasks;
 		typedef std::tr1::array<Tasks, MAX_THREADS> ThreadTasks;
 
 		void Execute(Task task);
@@ -72,10 +74,10 @@ namespace Earlgrey
 		// void Shutdown(); cleanup, 일단은 필요없으니.
 
 	private: // private methods
-		// void AddTask_(Task task, ThreadIdType threadId);
-		
+		void AddTask_(Task task, ThreadIdType threadId);
+
 		void DoTasks();
-		// void DoTasks_();
+		void DoTasks_();
 
 
 	private: // private fields
@@ -87,6 +89,7 @@ namespace Earlgrey
 		IocpExecutorSingleton
 		;
 
+	/*
 	// IOCP Thread Loop 로 돌아자지 않고, ThreadTask Queue 를 비울때 사용. 이런거 자동으로 해주는 방법이 있었으면 좋겠다.
 	// per thread event 를 kernel 에서 주기적으로 발생시키는 -.- runner 
 
@@ -100,4 +103,5 @@ namespace Earlgrey
 		}
 
 	};
+	*/
 }

@@ -29,26 +29,26 @@ namespace Earlgrey
 		ProactorSingleton::Instance().PostEvent(new AsyncResult(new TaskCompletionHandler(task)));
 	}
 
-
-
+	/*
 	void Executor::Execute(Task task, ThreadIdType threadId) 
 	{
-		m_threadTasks[threadId].Enqueue(task);
+	EARLGREY_ASSERT(IsValidIOThreadId(threadId));
+	m_threadTasks[threadId].Enqueue(task);
 	}
 
 	void Executor::DoTasks()
 	{
-		const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
-		Tasks& threadTasks = m_threadTasks[tid];
+	const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
+	Tasks& threadTasks = m_threadTasks[tid];
 
-		Task task;
-		while(threadTasks.Dequeue(task))
-		{
-			task->Run();
-		}
+	Task task;
+	while(threadTasks.Dequeue(task))
+	{
+	task->Run();
+	}
 	} 
+	*/
 
-	/*
 	void Executor::Execute(Task task, ThreadIdType threadId) 
 	{
 		InvokeMethod( &Executor::AddTask_, this, task, threadId );
@@ -56,6 +56,7 @@ namespace Earlgrey
 
 	void Executor::AddTask_(Task task, ThreadIdType threadId)
 	{
+		EARLGREY_ASSERT(IsValidIOThreadId(threadId));
 		m_threadTasks[threadId].push(task);
 	}
 
@@ -78,7 +79,6 @@ namespace Earlgrey
 			task->Run();
 		}
 	} 
-	*/
 
 	/*
 	void Executor::Shutdown() 
