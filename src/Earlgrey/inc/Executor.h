@@ -53,7 +53,7 @@ namespace Earlgrey
 		// : private Uncopyable
 	{
 		friend struct Loki::CreateUsingNew<Executor>;
-		friend class ThreadTaskRunnerInvoker; // DoTask
+		friend class ExecutorTaskRunnerInvoker; // DoTask
 
 	private:
 		explicit Executor()
