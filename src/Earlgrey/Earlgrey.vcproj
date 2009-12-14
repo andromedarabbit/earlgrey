@@ -515,6 +515,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\DefaultAppSettings.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Environment.cpp"
 					>
 				</File>
@@ -857,6 +861,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\AppSettings.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\AppType.h"
 					>
 				</File>
@@ -874,6 +882,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\DayOfWeek.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\DefaultAppSettings.h"
 					>
 				</File>
 				<File
