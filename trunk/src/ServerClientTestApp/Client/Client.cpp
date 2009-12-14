@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "ServerInit.h"
-#include "AppInitializer.h"
+#include "Application.h"
 
 using namespace Earlgrey;
 
@@ -78,7 +78,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	DBG_UNREFERENCED_PARAMETER(argc);
 	DBG_UNREFERENCED_PARAMETER(argv);
 
-	AppInfo Application;
+	Application Application;
 
 	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_CLIENT));//юс╫ц
 

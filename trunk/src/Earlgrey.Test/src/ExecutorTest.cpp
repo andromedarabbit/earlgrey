@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "AppInitializer.h"
+#include "Application.h"
 #include "Executor.h"
 #include "Mutex.h"
 #include "Environment.h"

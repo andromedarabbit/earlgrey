@@ -4,7 +4,7 @@
 #include "tiostream.h"
 #include "ServerConnection.h"
 #include "Win32ServiceRunnable.h"
-#include "AppInitializer.h"
+#include "Application.h"
 #include "TimeSpan.h"
 #include "Console.h"
 
@@ -151,7 +151,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	EARLGREY_VERIFY(m_stopHandle);
 
 
-	AppInfo app;
+	Application app;
 	if(app.InitInstance(AppType::E_APPTYPE_DEFAULT) == FALSE)
 		throw std::exception("Application initialization failed!");
 

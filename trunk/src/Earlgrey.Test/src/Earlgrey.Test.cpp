@@ -2,13 +2,13 @@
 //
 
 #include "stdafx.h"
-#include "AppInitializer.h"
+#include "Application.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	testing::InitGoogleTest(&argc, argv);
 
-	Earlgrey::AppInfo app;
+	Earlgrey::Application app;
 	app.InitInstance(Earlgrey::AppType::E_APPTYPE_DEFAULT);
 
 	return RUN_ALL_TESTS();

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "ServerInit.h"
-#include "AppInitializer.h"
+#include "Application.h"
 
 namespace Earlgrey
 {

@@ -1,22 +1,25 @@
 #pragma once
-// #include <Loki/Singleton.h>
-#include <AppType.h>
-// #include "Uncopyable.h"
+#include "AppType.h"
 #include "EarlgreyAssert.h"
+
+#include <vector>
 
 namespace Earlgrey
 {
-	
-	class AppInitializer : private Uncopyable
+	class Thread;
+	class Uncopyable;
+
+	class Application : private Uncopyable
 	{
+		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;
 	public: // Methods
-		explicit AppInitializer()
-			: m_CurrentAppType(
-			static_cast<AppType::E_Type>(AppType::E_APPTYPE_NONE)
-			)
+		explicit Application()
+			: m_CurrentAppType(AppType::E_APPTYPE_NONE)
 		{
 		}
 
+		~Application();
+		
 		BOOL InitInstance(AppType::E_Type appType);
 
 	private: // Methods
@@ -32,6 +35,9 @@ namespace Earlgrey
 
 	private: // Fields
 		AppType::E_Type m_CurrentAppType;
+		ThreadContainer m_IOThreads;
+		ThreadContainer m_WaitThreads;
+		ThreadContainer m_MainThreads;
 
 	};
 }
