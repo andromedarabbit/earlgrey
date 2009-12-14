@@ -499,11 +499,7 @@
 				Name="System"
 				>
 				<File
-					RelativePath=".\src\AppInfo.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\AppInitializer.cpp"
+					RelativePath=".\src\Application.cpp"
 					>
 				</File>
 				<File
@@ -857,11 +853,7 @@
 				Name="System"
 				>
 				<File
-					RelativePath=".\inc\AppInfo.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\AppInitializer.h"
+					RelativePath=".\inc\Application.h"
 					>
 				</File>
 				<File

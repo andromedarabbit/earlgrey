@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "taskqueue.h"
 #include "EarlgreyAssert.h"
-#include "AppInitializer.h"
+#include "Application.h"
 #include "Executor.h"
 
 #include <functional>

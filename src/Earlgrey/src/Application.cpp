@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "AppInitializer.h"
+#include "Application.h"
 #include "SingleAppInstance.h"
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
@@ -12,7 +12,7 @@
 namespace Earlgrey
 {
 
-	BOOL AppInfo::InitInstance(AppType::E_Type appType)
+	BOOL Application::InitInstance(AppType::E_Type appType)
 	{
 		if( !CheckAppInstance(appType) )
 			return FALSE;
@@ -68,7 +68,7 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	AppInfo::~AppInfo()
+	Application::~Application()
 	{
 		for (ThreadContainer::const_iterator i = m_IOThreads.begin();  i != m_IOThreads.end(); i++ ){
 			std::tr1::shared_ptr<Thread> thread = *i;
@@ -79,7 +79,7 @@ namespace Earlgrey
 		m_IOThreads.clear();
 	}
 
-	BOOL AppInfo::CheckAppInstance(AppType::E_Type appType)
+	BOOL Application::CheckAppInstance(AppType::E_Type appType)
 	{
 		if( gSingleInstance::Instance().IsRunning(appType) == FALSE )
 		{
