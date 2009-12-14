@@ -29,21 +29,7 @@ namespace Earlgrey
 		std::tr1::shared_ptr<IRunnable> Task_;
 	};
 
-	/*
-	template<class T>
-	class ICallable {
 
-	T call();
-
-	};
-
-	template<class T>
-	class IFuture {
-
-	T get();
-
-	};
-	*/
 
 
 
@@ -54,7 +40,6 @@ namespace Earlgrey
 	{
 		friend struct Loki::CreateUsingNew<Executor>;
 		friend class ExecutorTaskRunnerInvoker; // DoTask
-		friend class ThreadRunnable;
 
 	private:
 		explicit Executor()
@@ -89,19 +74,20 @@ namespace Earlgrey
 		IocpExecutorSingleton
 		;
 
-	/*
-	// IOCP Thread Loop 로 돌아자지 않고, ThreadTask Queue 를 비울때 사용. 이런거 자동으로 해주는 방법이 있었으면 좋겠다.
-	// per thread event 를 kernel 에서 주기적으로 발생시키는 -.- runner 
 
 	class ExecutorTaskRunnerInvoker 
 	{
 		// TODO ; heap 생성을 막자.
 	public:
-		~ExecutorTaskRunnerInvoker() 
+		ExecutorTaskRunnerInvoker()
 		{
 			IocpExecutorSingleton::Instance().DoTasks();
 		}
 
+		~ExecutorTaskRunnerInvoker() 
+		{
+			
+		}
+
 	};
-	*/
 }
