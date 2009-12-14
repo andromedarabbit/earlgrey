@@ -12,6 +12,9 @@
 namespace Earlgrey
 {
 	class ThreadRunnable;
+	class Thread;
+
+	typedef std::tr1::shared_ptr<Thread> ThreadPtr;
 
 	class Thread : private Uncopyable
 	{
@@ -99,4 +102,6 @@ namespace Earlgrey
 		static ThreadLocalValue<std::tr1::shared_ptr<Thread>> CurrentThread_;
 
 	};
+
+	
 }

@@ -24,8 +24,8 @@ namespace Earlgrey
 	{
 		while(MeetsStopCondition() == FALSE)
 		{
-			// ExecutorTaskRunnerInvoker Invoker;
-			IocpExecutorSingleton::Instance().DoTasks();
+			ExecutorTaskRunnerInvoker Invoker;
+			//IocpExecutorSingleton::Instance().DoTasks();
 
 			const DWORD errCode = DoTask();
 			if(errCode != EXIT_SUCCESS)

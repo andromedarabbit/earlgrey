@@ -9,23 +9,32 @@
 
 namespace Earlgrey
 {
+	ThreadLocalValue<std::tr1::shared_ptr<Thread>> Thread::CurrentThread_ = std::tr1::shared_ptr<Thread>();
+
 	class ThreadHolder
 	{
 		friend class Thread;
 	public:
-		explicit ThreadHolder(Thread* thread)
+		explicit ThreadHolder(std::tr1::shared_ptr<Thread> thread)
 			: Thread_(thread)
 		{
 			EARLGREY_ASSERT(Thread_ != NULL);
+		}
+		~ThreadHolder() 
+		{
+
 		}
 
 	private:
 		static unsigned int __stdcall _ThreadProc(LPVOID p)
 		{
 			// new created thread context
-			std::auto_ptr<ThreadHolder> This = std::auto_ptr<ThreadHolder>( reinterpret_cast<ThreadHolder*>( p ) );
+			ThreadHolder* This = ( reinterpret_cast<ThreadHolder*>( p ) );
 			EARLGREY_ASSERT(This->Thread_ != NULL);
-			DWORD exitCode = This->Thread_->Run();
+			Thread::CurrentThread_ = This->Thread_;
+			delete This;
+
+			DWORD exitCode = Thread::CurrentThread_.Get()->Run();
 			return exitCode;
 		}
 
@@ -33,8 +42,6 @@ namespace Earlgrey
 		std::tr1::shared_ptr<Thread> Thread_;
 
 	};
-
-	ThreadLocalValue<std::tr1::shared_ptr<Thread>> Thread::CurrentThread_ = std::tr1::shared_ptr<Thread>();
 	
 
 	Thread::Thread() 
@@ -78,7 +85,6 @@ namespace Earlgrey
 
 	DWORD Thread::Run()
 	{
-		CurrentThread_ = std::tr1::shared_ptr<Thread>(this);
 
 		EARLGREY_VERIFY( NULL != Runnable_ );
 		EARLGREY_VERIFY( Runnable_->Init() );
@@ -91,9 +97,12 @@ namespace Earlgrey
 
 		IsRunning_ = FALSE;
 		Runnable_->Exit();
+		CurrentThread_.Get().reset();
 
 		// _endthread()는 thread handle(object)를 close하지만, _endthreadex()는 close하지 않는다. 따라서, CloseHandle()은 따로 호출해야 한다.
 		_endthreadex( 0 );
+
+		
 		return exitCode;
 	}
 
@@ -160,14 +169,14 @@ namespace Earlgrey
 		)
 	{
 		EARLGREY_ASSERT( runnable );
-		Thread* thread = new Thread();
+		ThreadPtr thread( new Thread());
 		EARLGREY_VERIFY(NULL != thread);
-		if (thread)
+		if (thread != NULL)
 		{
 			thread->Create( runnable,  new ThreadHolder(thread), threadName, threadId, Thread::Running, stackSize );
 		}
 
-		return std::tr1::shared_ptr<Thread>(thread);
+		return thread;
 	}
 
 

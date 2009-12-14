@@ -33,7 +33,7 @@ namespace Earlgrey { namespace Test
 
 		virtual DWORD DoTask()
 		{
-			CurrentThread = Thread::CurrentThread();
+			CurrentThread = Thread::CurrentThread().get();
 			Sleep(1000);
 			IsRunned = TRUE;
 			return EXIT_FAILURE;
@@ -48,7 +48,7 @@ namespace Earlgrey { namespace Test
 	
 
 	public:
-		std::tr1::shared_ptr<Thread> CurrentThread;
+		Thread* CurrentThread;
 		BOOL IsStarted;
 		BOOL IsRunned;
 		BOOL IsStopped;
@@ -68,10 +68,10 @@ namespace Earlgrey { namespace Test
 		TestRunnable* runner1 = new TestRunnable();
 		TestRunnable* runner2 = new TestRunnable();
 
-		shared_ptr<Thread> testThread1
+		ThreadPtr testThread1
 			= Thread::CreateThread(shared_ptr<TestRunnable>(runner1), "TestThread", 0 );
 
-		shared_ptr<Thread> testThread2
+		ThreadPtr testThread2
 			= Thread::CreateThread(shared_ptr<TestRunnable>(runner2), "TestThread", 0 );
 
 
@@ -85,8 +85,8 @@ namespace Earlgrey { namespace Test
 		testThread2->Join();
 
 		EXPECT_FALSE(runner1->CurrentThread == runner2->CurrentThread);
-		EXPECT_TRUE(runner1->CurrentThread == testThread1);
-		EXPECT_TRUE(runner2->CurrentThread == testThread2);
+		EXPECT_TRUE(runner1->CurrentThread == testThread1.get());
+		EXPECT_TRUE(runner2->CurrentThread == testThread2.get());
 
 
 	}
@@ -94,7 +94,7 @@ namespace Earlgrey { namespace Test
 	TEST(MultipleThreadTest, Thread)
 	{
 
-		shared_ptr<Thread> testThread1
+		ThreadPtr testThread1
 			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread1", 0 );
 
 
@@ -102,7 +102,7 @@ namespace Earlgrey { namespace Test
 		EXPECT_TRUE(testThread1->IsCreated());
 
 
-		shared_ptr<Thread> testThread2
+		ThreadPtr testThread2
 			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread2", 0 );
 
 
@@ -110,7 +110,7 @@ namespace Earlgrey { namespace Test
 		EXPECT_TRUE(testThread2->IsCreated());
 
 
-		shared_ptr<Thread> testThread3
+		ThreadPtr testThread3
 			= Thread::CreateThread(shared_ptr<TestRunnable>(new TestRunnable()), "TestThread3", 0 );
 
 
