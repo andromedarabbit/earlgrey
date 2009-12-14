@@ -32,6 +32,11 @@ namespace Earlgrey
 		return m_versionInfo.ProductName().c_str();
 	}
 
+	const TCHAR * const DefaultAppSettings::Description() const
+	{	
+		return m_versionInfo.FileDescription().c_str();
+	}
+
 	const TCHAR * const DefaultAppSettings::Version() const
 	{	
 		return m_versionInfo.ProductVersion().c_str();

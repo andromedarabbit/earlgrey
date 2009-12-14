@@ -35,18 +35,24 @@ namespace Earlgrey
 
 	}
 
-	_txstring Process::MainModuleFileName()
+	void Process::MainModuleFileName(TCHAR* path, DWORD length)
 	{
-		TCHAR path[1024];
+		EARLGREY_ASSERT(path != NULL);
+		EARLGREY_ASSERT(length > 0);
 
-		if( GetModuleFileName( 0, path, 1023 ) == 0 ) {
+		if( GetModuleFileName( 0, path, length ) == 0 ) {
 			// TODO: need new exception class supporting a unicode msg 
 			// const DWORD errCode = GetLastError();
-			// _txstring msg = Log::ErrorMessage(errCode)
+			// _tstring msg = Log::ErrorMessage(errCode)
 			throw std::exception("error occurs while retrieving name of main module.");
 		}
+	}
 
-		return _txstring(path);
+	_tstring Process::MainModuleFileName()
+	{
+		TCHAR path[MAX_PATH];
+		MainModuleFileName(path, MAX_PATH);
+		return _tstring(path);
 	}
 
 
@@ -60,7 +66,7 @@ namespace Earlgrey
 		return pe.th32ParentProcessID;
 	}
 
-	_txstring Process::GetParentProcessName(DWORD pid)
+	_tstring Process::GetParentProcessName(DWORD pid)
 	{
 		DWORD ppid = GetParentProcessID(pid);
 
@@ -69,6 +75,6 @@ namespace Earlgrey
 
 		if(GetParentProcessEntry(ppid, pe) == FALSE)
 			throw std::exception("No parent process found!");
-		return _txstring(pe.szExeFile);
+		return _tstring(pe.szExeFile);
 	}
 }

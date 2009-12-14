@@ -367,6 +367,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ThreadId.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ThreadLocal.cpp"
 					>
 				</File>

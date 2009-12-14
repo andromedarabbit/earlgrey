@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ServerInit.h"
 #include "Application.h"
+#include "DefaultAppSettings.h"
 
 using namespace Earlgrey;
 
@@ -78,9 +79,10 @@ int _tmain(int argc, _TCHAR* argv[])
 	DBG_UNREFERENCED_PARAMETER(argc);
 	DBG_UNREFERENCED_PARAMETER(argv);
 
-	Application Application;
+	DefaultAppSettings settings;
 
-	EARLGREY_VERIFY(Application.InitInstance(AppType::E_APPTYPE_CLIENT));//임시
+	Application app(AppType::E_APPTYPE_CLIENT, settings);
+	EARLGREY_VERIFY(app.InitInstance());//임시
 
 	ClientConnection* connection = new ClientConnection();
 	char* ServerIP = "localhost";//! TODO : type and ip

@@ -1,5 +1,5 @@
 #pragma once
-#include "txstring.h"
+#include "tstring.h"
 
 namespace Earlgrey
 {
@@ -11,12 +11,11 @@ namespace Earlgrey
 		explicit Process();
 
 	public:
-		static _txstring MainModuleFileName();
+		static _tstring MainModuleFileName();
+		static void MainModuleFileName(TCHAR* path, DWORD length = MAX_PATH);
 
-		// static BOOL IsThis
 		static DWORD GetParentProcessID(DWORD pid);
-		static _txstring GetParentProcessName(DWORD pid);
-
+		static _tstring GetParentProcessName(DWORD pid);
 	};
 
 }

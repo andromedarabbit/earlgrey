@@ -376,6 +376,10 @@
 				RelativePath=".\src\Win32ServiceRunnable.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\Win32ServiceSettings.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -404,6 +408,10 @@
 			</File>
 			<File
 				RelativePath=".\inc\Win32ServiceRunnable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Win32ServiceSettings.h"
 				>
 			</File>
 		</Filter>
