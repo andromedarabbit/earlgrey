@@ -7,13 +7,26 @@ namespace Earlgrey
 {
 	class TimeSpan;
 
+	//1 \todo 스택 할당 방지하기 
 	class Timer : private Uncopyable
 	{
 		 // friend struct Loki::CreateUsingNew<Timer>;
 		 typedef std::tr1::shared_ptr<TimerCallback> TimerCallbackPtr;
-
+ 
 	public:
-		explicit Timer(TimerCallbackPtr callback
+		/*
+		std::tr1::shared_ptr<Timer> NewInstance(
+			TimerCallbackPtr callback
+			, void * state
+			, TimeSpan dueTime
+			, TimeSpan period
+			);
+
+		std::tr1::shared_ptr<Timer> NewInstance(TimerCallbackPtr callback);
+		*/
+
+		explicit Timer(
+			TimerCallbackPtr callback
 			, void * state
 			, TimeSpan dueTime
 			, TimeSpan period
@@ -23,7 +36,9 @@ namespace Earlgrey
 		void Change(TimeSpan dueTime, TimeSpan period);
 
 		void Close();
+		void Close(HANDLE waitHandle);
 
+	private: // private methods
 
 	private: // private fields
 		TimerCallbackPtr m_callback;

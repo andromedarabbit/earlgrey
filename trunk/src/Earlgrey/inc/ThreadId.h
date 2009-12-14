@@ -10,11 +10,10 @@ namespace Earlgrey
 
 	const ThreadIdType WIN_MAIN_THREAD_ID = 0;
 	const ThreadIdType IO_THREAD_ID_BEGIN = 1;
-	const ThreadIdType IO_THREAD_ID_END = MAX_IO_THREADS;
+	const ThreadIdType IO_THREAD_ID_END = MAX_IO_THREADS; // !\todo 실제로 생성한 IOCP 스레드에 맞춰 값을 반환하는 게 좋음
 
 	const ThreadIdType MAX_THREADS = MAX_IO_THREADS + 1;
 
-	//! \todo 개선의 여지가 있음. 실제로 생성한 IOCP 스레드에 맞춰 값을 반환하는 게 좋음 
 	inline BOOL IsValidIOThreadId(ThreadIdType threadId)
 	{
 		return threadId >= IO_THREAD_ID_BEGIN 

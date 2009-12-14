@@ -19,7 +19,7 @@
 		// const static DWORD MaxIoThread = 1;
 		const static ThreadIdType MaxIoThread = MAX_IO_THREADS; 
  
- 		ThreadLocalAllocator()
+ 		explicit ThreadLocalAllocator()
  		{
  			 // 완전히 general 한 allocator를 쓰지는 못하고.. 껍데기라도 SetGlobalPool 인터페이스를 구현하고 있어야 컴파일이 됨 
  			EARLGREY_ASSERT(m_ExtraAllocator.GetRealAllocator() != NULL);
