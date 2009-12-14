@@ -1,8 +1,8 @@
 #pragma once
 #include <Loki/Singleton.h>
 #include "AppType.h"
-#include "xmap.h"
-#include "txstring.h"
+#include <map>
+#include "tstring.h"
 
 namespace Earlgrey
 {
@@ -27,7 +27,7 @@ namespace Earlgrey
 
 
 	private:
-		typedef xmap<_txstring, HANDLE>::Type MutexCollectionType;
+		typedef std::map<_tstring, HANDLE> MutexCollectionType;
 		MutexCollectionType m_handles;
 	};
 

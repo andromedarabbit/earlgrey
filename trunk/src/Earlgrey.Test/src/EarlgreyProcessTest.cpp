@@ -9,8 +9,8 @@ namespace Earlgrey
 		{
 			DWORD thisPID = ::GetCurrentProcessId();
 
-			_txstring processName( Process::GetParentProcessName(thisPID) );
-			ASSERT_GT(processName.length(), static_cast<_txstring::size_type>(0));
+			_tstring processName( Process::GetParentProcessName(thisPID) );
+			ASSERT_GT(processName.length(), static_cast<_tstring::size_type>(0));
 		}
 
 		TEST(ProcessTest, GetConsoleProcessList)

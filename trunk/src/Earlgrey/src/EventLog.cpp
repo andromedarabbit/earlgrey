@@ -188,7 +188,7 @@ namespace Earlgrey
 	//! \todo 내부에서 하는 레지스트리 조작 작업을 클래스 Registry에 위임한다.
 	void EventLog::CreateEventSource(const TCHAR * const source, const TCHAR * const logName)
 	{
-		_txstring mainModuleFileName = Process::MainModuleFileName();
+		_tstring mainModuleFileName = Process::MainModuleFileName();
 
 		TCHAR szKey[MAX_PATH];
 		_stprintf_s(szKey, TEXT("%s\\%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName, source);

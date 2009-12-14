@@ -1,26 +1,27 @@
 #pragma once
 #include "AppType.h"
 #include "EarlgreyAssert.h"
-
 #include <vector>
 
 namespace Earlgrey
 {
 	class Thread;
 	class Uncopyable;
+	class AppSettings;
 
 	class Application : private Uncopyable
 	{
 		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;
 	public: // Methods
-		explicit Application()
-			: m_CurrentAppType(AppType::E_APPTYPE_NONE)
+		explicit Application(AppType::E_Type appType, const AppSettings& appSettings)
+			: m_CurrentAppType(appType)
+			, m_AppSettings(appSettings)
 		{
 		}
 
 		~Application();
 		
-		BOOL InitInstance(AppType::E_Type appType);
+		BOOL InitInstance();
 
 	private: // Methods
 		inline AppType::E_Type CurrentAppType() const
@@ -35,6 +36,7 @@ namespace Earlgrey
 
 	private: // Fields
 		AppType::E_Type m_CurrentAppType;
+		const AppSettings& m_AppSettings;
 		ThreadContainer m_IOThreads;
 		ThreadContainer m_WaitThreads;
 		ThreadContainer m_MainThreads;

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Application.h"
 #include "Executor.h"
-#include "Mutex.h"
 #include "Environment.h"
 
 namespace Earlgrey
@@ -16,7 +15,6 @@ namespace Earlgrey
 
 			virtual ~ExecutorTaskRunnable()
 			{
-				//DestructorCount_++;
 				InterlockedIncrement(&DestructorCount_);
 			}
 

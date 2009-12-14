@@ -16,10 +16,11 @@ namespace Earlgrey
 		virtual DWORD IOThreads() const;
 		virtual const TCHAR * const ShortName() const;
 		virtual const TCHAR * const LongName() const;
+		virtual const TCHAR * const Description() const;
 		virtual const TCHAR * const Version() const;
 
 	private:
-		_txstring m_executableName;
+		_tstring m_executableName;
 		FileVersionInfo m_versionInfo;
 	};
 

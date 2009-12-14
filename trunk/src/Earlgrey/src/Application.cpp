@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Application.h"
+
+#include "AppSettings.h"
 #include "SingleAppInstance.h"
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
@@ -12,9 +14,9 @@
 namespace Earlgrey
 {
 
-	BOOL Application::InitInstance(AppType::E_Type appType)
+	BOOL Application::InitInstance()
 	{
-		if( !CheckAppInstance(appType) )
+		if( !CheckAppInstance(m_CurrentAppType) )
 			return FALSE;
 
 		// RuntimeCheck 활성화
@@ -39,7 +41,9 @@ namespace Earlgrey
 
 		// Create IO Thread
 		// 일단 스레드가 블록되지 않는다고 가정하고 프로세스 개수만큼 스레드를 생성한다. 
-		DWORD IOThreadCount = Environment::ProcessorCount();
+		const DWORD IOThreadCount = m_AppSettings.IOThreads();
+		IO_THREAD_ID_END = IO_THREAD_ID_BEGIN + IOThreadCount - 1;
+
 		for (DWORD i = 0; i < IOThreadCount; i++)
 		{
 			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( 

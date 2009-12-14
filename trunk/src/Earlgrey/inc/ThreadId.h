@@ -10,7 +10,16 @@ namespace Earlgrey
 
 	const ThreadIdType WIN_MAIN_THREAD_ID = 0;
 	const ThreadIdType IO_THREAD_ID_BEGIN = 1;
-	const ThreadIdType IO_THREAD_ID_END = MAX_IO_THREADS; // !\todo 실제로 생성한 IOCP 스레드에 맞춰 값을 반환하는 게 좋음
+
+	namespace 
+	{
+		struct Anonymous
+		{
+			static ThreadIdType TID_IO_THREAD_ID_END;
+		};
+	}
+
+	#define IO_THREAD_ID_END Anonymous::TID_IO_THREAD_ID_END
 
 	const ThreadIdType MAX_THREADS = MAX_IO_THREADS + 1;
 
@@ -21,7 +30,6 @@ namespace Earlgrey
 			;
 	}
 
-	//! \todo 개선의 여지가 있음. 주 스레드, IOCP 스레드 외에도 커스텀 스레드가 필요한 경우가 있음. 예) 과거 캐시서버
 	inline BOOL IsValidThreadId(ThreadIdType threadId)
 	{
 		return threadId == WIN_MAIN_THREAD_ID

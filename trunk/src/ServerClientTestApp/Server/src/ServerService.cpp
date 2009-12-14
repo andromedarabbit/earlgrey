@@ -4,90 +4,22 @@
 #include "tiostream.h"
 #include "ServerConnection.h"
 #include "Win32ServiceRunnable.h"
-#include "Application.h"
 #include "TimeSpan.h"
 #include "Console.h"
 
-#include "GlobalExceptionHandler.h"
-#include "MiniDump.h"
-#include "StackWriter.h"
-
-#include "Environment.h"
-#include "Path.h"
-#include "File.h"
 
 using namespace Earlgrey;
 
-namespace 
-{
-	//! ServerService에 멤버 메서드로 넣는 편이 좋겠다. 특히 파일 이름을 하드코딩한 건 문제가 있다.
-	void RegisterMiniDump()
-	{
-		const _txstring baseDir = Environment::BaseDirectory();
-		const _txstring filePath( Path::Combine(baseDir, _T("MiniDump.dmp")) );
-
-		if( File::Exists(filePath) )
-		{
-			EARLGREY_ASSERT( File::Delete(filePath) );
-		}
-
-		const MINIDUMP_TYPE dumpType = MiniDumpNormal;
-
-		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( 
-			new MiniDump(filePath.c_str(), dumpType) 
-			);
-		EARLGREY_ASSERT(miniDump != NULL);
-
-		/*
-		miniDump->AddExtendedMessage(
-			static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
-			, _T("사용자 정보 1")
-			);
-			*/
-
-		GlobalExceptionHandler::Register(miniDump);
-	}
-
-	void RegisterStackWriter()
-	{
-		const _txstring baseDir = Environment::BaseDirectory();
-		const _txstring filePath( Path::Combine(baseDir, _T("StackWriter.txt")) );
-
-		if( File::Exists(filePath) )
-		{
-			EARLGREY_ASSERT( File::Delete(filePath) );
-		}
-
-		std::tr1::shared_ptr<UnhandledExceptionHandler> stackWriter( 
-			new StackWriter(filePath, StackWalker::OptionsAll) 
-			);
-		EARLGREY_ASSERT(stackWriter != NULL);
-
-		GlobalExceptionHandler::Register(stackWriter);
-		
-	}
-
-	void InitializeGlobalExceptionHandlers()
-	{
-		GlobalExceptionHandler::Initialize();
-		RegisterMiniDump();
-		RegisterStackWriter();
-	}
-}
-
-ServerService::ServerService(
-   const TCHAR * serviceName
-   , const TCHAR * displayName 
-   , BOOL consoleMode
-   )
-   : Win32Service(serviceName, displayName)
-   , m_consoleMode(consoleMode)
-   , m_stopHandle(NULL)
+ServerService::ServerService(const Win32ServiceSettings& settings, BOOL consoleMode)
+	: Win32Service(settings.ShortName(), settings.LongName())
+	, m_settings(settings) 
+	, m_consoleMode(consoleMode)
+	, m_stopHandle(NULL)
 {
 	if(m_consoleMode)
 	{
 		EARLGREY_VERIFY(gConsole::Instance().Open(FALSE));
-		gConsole::Instance().WindowTitle(serviceName);
+		gConsole::Instance().WindowTitle(this->ServiceName().c_str());
 
 		gConsole::Instance().RedirectStdIO();
 		
@@ -149,13 +81,6 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 
 	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
 	EARLGREY_VERIFY(m_stopHandle);
-
-
-	Application app;
-	if(app.InitInstance(AppType::E_APPTYPE_DEFAULT) == FALSE)
-		throw std::exception("Application initialization failed!");
-
-	InitializeGlobalExceptionHandlers();
 
 	//! \todo delete 안 해도 되나?
 	ServerConnection* connection = new ServerConnection();

@@ -34,7 +34,7 @@ namespace Earlgrey
 
 	BOOL Win32ServiceInstaller::InstallService() 
 	{
-		_txstring serviceExecutable;
+		_tstring serviceExecutable;
 		try
 		{
 			serviceExecutable = Process::MainModuleFileName();
