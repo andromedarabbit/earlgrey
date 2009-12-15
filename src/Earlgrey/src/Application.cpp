@@ -16,7 +16,7 @@ namespace Earlgrey
 
 	BOOL Application::InitInstance()
 	{
-		if( !CheckAppInstance(m_CurrentAppType) )
+		if( !CheckAppInstance() )
 			return FALSE;
 
 		// RuntimeCheck 활성화
@@ -83,17 +83,22 @@ namespace Earlgrey
 		m_IOThreads.clear();
 	}
 
-	BOOL Application::CheckAppInstance(AppType::E_Type appType)
+	BOOL Application::CheckAppInstance()
 	{
-		if( gSingleInstance::Instance().IsRunning(appType) == FALSE )
+		return CheckAppInstance(m_AppSettings.ShortName());
+	}
+
+	BOOL Application::CheckAppInstance(const TCHAR * appName)
+	{
+		if( gSingleInstance::Instance().RegisterThisApp(appName) )
 		{
-			this->m_CurrentAppType = appType;
 			return TRUE;
 		}
 
-		BOOL needMsgBox = TRUE; // TODO: 임시 코드임
+		_txstring msg(appName);
+		msg += TEXT(" has been already started!");
 
-		_txstring msg = _txstring(AppType::Names[appType]) + TEXT(" has been already started!");
+		BOOL needMsgBox = TRUE; // TODO: 임시 코드임
 		if( needMsgBox )
 			MessageBox(NULL, msg.c_str(), NULL, MB_OK);
 		return FALSE;

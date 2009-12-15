@@ -39,18 +39,6 @@ namespace Earlgrey
 			ASSERT_STREQ(expected.c_str(), directory.c_str());
 		}
 
-		/*
-		TEST(PathTest, GetDirectoryName3)
-		{
-			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
-			_txstring directory = Path::GetDirectoryName(fullPath);
-
-			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug");
-			ASSERT_STRNE(expected.c_str(), directory.c_str());
-		}
-		*/
-		
-
 		TEST(PathTest, Exists)
 		{
 			_txstring fullPath = Environment::BaseDirectory();
@@ -62,9 +50,7 @@ namespace Earlgrey
 
 		TEST(PathTest, NotExists)
 		{
-			// _txstring fullPath = TEXT("..\\bin\\");
 			_txstring fullPath = TEXT("c:\\somewhereovertherainbow");
-
 			ASSERT_FALSE(Path::Exists(fullPath));
 		}
 
@@ -89,6 +75,23 @@ namespace Earlgrey
 			ASSERT_FALSE(Path::IsPathRooted(relativePath2));
 		}
 
+		TEST(PathTest, GetFileNameWithTXString)
+		{
+			_txstring fullPath = TEXT("C:\\mydir\\myfile.ext");
+			_txstring fileName = Path::GetFileName(fullPath);
+
+			_txstring expected = TEXT("myfile.ext");
+			ASSERT_STREQ(expected.c_str(), fileName.c_str());
+		}
+
+		TEST(PathTest, GetFileNameWithTString)
+		{
+			_tstring fullPath = TEXT("C:\\mydirectory\\mysubdirectory\\myfile");
+			_tstring fileName = Path::GetFileName(fullPath);
+
+			_tstring expected = TEXT("myfile");
+			ASSERT_STREQ(expected.c_str(), fileName.c_str());
+		}
 	}
 }
 

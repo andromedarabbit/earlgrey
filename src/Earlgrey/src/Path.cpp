@@ -132,4 +132,37 @@ namespace Earlgrey
 	{
 		return GetDirectoryName(fullPath, FALSE);
 	}
+
+	namespace
+	{
+		template <typename T>
+		T GetFileNameT(const T& path)
+		{
+			if (path.empty() == false)
+			{
+				// CheckInvalidPathChars(path);
+				T::size_type length = path.length();
+				T::size_type num2 = length;
+				while (--num2 >= 0)
+				{
+					TCHAR ch = path[num2];
+					if (((ch == Path::DirectorySeparatorChar) || (ch == Path::AltDirectorySeparatorChar)) || (ch == Path::VolumeSeparatorChar))
+					{
+						return path.substr(num2 + 1, (length - num2) - 1);
+					}
+				}
+			}
+			return path;
+		}
+	}
+
+	_txstring Path::GetFileName(const _txstring& path)
+	{
+		return GetFileNameT<_txstring>(path);
+	}
+
+	_tstring Path::GetFileName(const _tstring& path)
+	{
+		return GetFileNameT<_tstring>(path);
+	}
 }

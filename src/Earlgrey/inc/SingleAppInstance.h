@@ -1,7 +1,5 @@
 #pragma once
 #include <Loki/Singleton.h>
-#include "AppType.h"
-#include <map>
 #include "tstring.h"
 
 namespace Earlgrey
@@ -14,21 +12,15 @@ namespace Earlgrey
 		friend struct Loki::CreateUsingNew<SingleAppInstance>;
 
 	private:
-		explicit SingleAppInstance()
-		{
-		}
-
+		explicit SingleAppInstance();
 		~SingleAppInstance();
 		
-
 	public:
-		BOOL IsRunning(const TCHAR * appName);
-		BOOL IsRunning(AppType::E_Type appType);
-
+		BOOL RegisterThisApp(const TCHAR * appName);
 
 	private:
-		typedef std::map<_tstring, HANDLE> MutexCollectionType;
-		MutexCollectionType m_handles;
+		_tstring m_thisAppName;
+		HANDLE m_thisAppMutex;
 	};
 
 

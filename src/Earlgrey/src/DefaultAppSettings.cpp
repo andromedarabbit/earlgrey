@@ -2,11 +2,13 @@
 #include "DefaultAppSettings.h"
 #include "Environment.h"
 #include "EarlgreyProcess.h"
+#include "Path.h"
 
 namespace Earlgrey
 {
 	DefaultAppSettings::DefaultAppSettings()
 		: m_executableName(Process::MainModuleFileName())
+		, m_shortNmae(Path::GetFileName(m_executableName))
 		, m_versionInfo( FileVersionInfo::GetVersionInfo(m_executableName) )
 	{
 		EARLGREY_ASSERT(m_executableName.length() > 0);
@@ -24,7 +26,7 @@ namespace Earlgrey
 
 	const TCHAR * const DefaultAppSettings::ShortName() const
 	{
-		return m_executableName.c_str();
+		return m_shortNmae.c_str();
 	}
 
 	const TCHAR * const DefaultAppSettings::LongName() const

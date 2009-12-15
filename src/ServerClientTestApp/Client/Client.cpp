@@ -81,7 +81,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	DefaultAppSettings settings;
 
-	Application app(AppType::E_APPTYPE_CLIENT, settings);
+	Application app(settings);
 	EARLGREY_VERIFY(app.InitInstance());//юс╫ц
 
 	ClientConnection* connection = new ClientConnection();

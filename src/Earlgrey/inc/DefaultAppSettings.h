@@ -21,6 +21,7 @@ namespace Earlgrey
 
 	private:
 		_tstring m_executableName;
+		_tstring m_shortNmae;
 		FileVersionInfo m_versionInfo;
 	};
 
