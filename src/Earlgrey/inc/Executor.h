@@ -77,7 +77,6 @@ namespace Earlgrey
 
 	class ExecutorTaskRunnerInvoker 
 	{
-		// TODO ; heap 생성을 막자.
 	public:
 		ExecutorTaskRunnerInvoker()
 		{
@@ -89,5 +88,11 @@ namespace Earlgrey
 			
 		}
 
+	private: 
+		// heap 생성을 막기.
+		void * operator new(size_t);
+		void * operator new[](size_t);
+		void operator delete(void *);
+		void operator delete[](void *);
 	};
 }
