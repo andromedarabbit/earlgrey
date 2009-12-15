@@ -10,9 +10,8 @@ namespace Earlgrey
 		TEST(SharedPtr, Basic)
 		{
 			shared_ptr<int> test = shared_ptr<int> (new int(3));
-
-
 		}
+
 		TEST(SharedPtrHelperTest, Basic)
 		{
 			class A
