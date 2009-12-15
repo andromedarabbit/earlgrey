@@ -203,7 +203,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// const FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
 	Win32ServiceSettings settings;
 
-	Application app(AppType::E_APPTYPE_DEFAULT, settings);
+	Application app(settings);
 	if(app.InitInstance() == FALSE)
 	{
 		_tcout << _T("Application initialization failed!");

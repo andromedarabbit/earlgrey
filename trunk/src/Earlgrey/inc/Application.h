@@ -1,5 +1,4 @@
 #pragma once
-#include "AppType.h"
 #include "EarlgreyAssert.h"
 #include <vector>
 
@@ -13,9 +12,8 @@ namespace Earlgrey
 	{
 		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;
 	public: // Methods
-		explicit Application(AppType::E_Type appType, const AppSettings& appSettings)
-			: m_CurrentAppType(appType)
-			, m_AppSettings(appSettings)
+		explicit Application(const AppSettings& appSettings)
+			: m_AppSettings(appSettings)
 		{
 		}
 
@@ -24,18 +22,17 @@ namespace Earlgrey
 		BOOL InitInstance();
 
 	private: // Methods
-		inline AppType::E_Type CurrentAppType() const
+		inline const AppSettings & GetAppSettings() const
 		{
-			EARLGREY_VERIFY(m_CurrentAppType > 0);
-			return m_CurrentAppType;
+			return m_AppSettings;
 		}
 
 		//! 응용프로그램 인스턴스가 이미 실행 중인지 확인한다.
-		BOOL CheckAppInstance(AppType::E_Type appType);
+		BOOL CheckAppInstance();
+		BOOL CheckAppInstance(const TCHAR * appName);
 
 
 	private: // Fields
-		AppType::E_Type m_CurrentAppType;
 		const AppSettings& m_AppSettings;
 		ThreadContainer m_IOThreads;
 		ThreadContainer m_WaitThreads;

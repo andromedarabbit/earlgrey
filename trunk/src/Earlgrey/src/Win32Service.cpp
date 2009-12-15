@@ -37,7 +37,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(MAIN_SERVICE == NULL);
 		MAIN_SERVICE = this;
 
-		if( gSingleInstance::Instance().IsRunning(serviceName) )
+		if( gSingleInstance::Instance().RegisterThisApp(serviceName) == FALSE )
 		{
 			throw std::invalid_argument("Win32 service instance already exists!");
 		}

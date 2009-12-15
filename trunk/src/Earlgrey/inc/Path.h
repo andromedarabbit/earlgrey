@@ -1,4 +1,5 @@
 #pragma once
+#include "tstring.h"
 #include "txstring.h"
 #include "EarlgreyAssert.h"
 
@@ -21,12 +22,13 @@ namespace Earlgrey
 
 		static BOOL IsDirectorySeparator(TCHAR c);
 
+		static _tstring GetFileName(const _tstring& path);
+		static _txstring GetFileName(const _txstring& path);
+		
+		
 	public: // Fields
 		static const TCHAR AltDirectorySeparatorChar = '/';
 		static const TCHAR DirectorySeparatorChar = '\\';
 		static const TCHAR VolumeSeparatorChar = ':';
-
-
-
 	};
 }

@@ -507,10 +507,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\AppType.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Console.cpp"
 					>
 				</File>
@@ -866,10 +862,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\AppSettings.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\AppType.h"
 					>
 				</File>
 				<File
