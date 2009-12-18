@@ -42,7 +42,7 @@ namespace Earlgrey
 				return m_MsgType;
 			}
 
-			inline const _txstring Msg() const
+			inline const _txstring& Msg() const
 			{
 				return m_Msg;
 			}		
