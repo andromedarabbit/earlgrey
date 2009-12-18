@@ -2,13 +2,9 @@
 
 namespace Earlgrey
 {
-	/*
-	class Uncopyable;
+	typedef std::tr1::shared_ptr<void> StatePtr;
 
-	class TimerCallback : private Uncopyable
-	{
-	};
-	*/
+	typedef std::tr1::function<void(StatePtr)> TimerCallback;
+	typedef std::tr1::shared_ptr<TimerCallback> TimerCallbackPtr;
 
-	typedef std::tr1::function<void(void*)> TimerCallback;
 }

@@ -1,12 +1,49 @@
 #pragma once
-#include "Uncopyable.h"
+#include "Thread.h"
+#include "TimerRunnable.h"
+#include "taskqueue.h"
+#include "NoLock.h"
+
+#include <Loki/Singleton.h>
+#include <array>
 
 namespace Earlgrey
 {
-	class TimeManager : private Uncopyable
+	class TimerManager : public Algorithm::Lockfree::TaskQueue
+		// : private Uncopyable
 	{
-	public:
+		friend struct Loki::CreateUsingNew<TimerManager>;
+		friend class Timer; // PopTask
 
+	public:
+		typedef std::tr1::shared_ptr<TimerRunnable> Task;
+		//! \todo 나중에 x 계열 컨테이너로 교체한다.
+		// typedef xlist<Task>::Type Tasks;
+		typedef std::list<Task> Tasks;
+		// typedef Algorithm::Lockfree::Queue<Task> Tasks;
+		typedef std::tr1::array<Tasks, MAX_THREADS> ThreadTasks;
+
+	private: // private methods
+		explicit TimerManager();
+		
+		void Register(Task task, ThreadIdType threadId);
+		void PushTask_(Task task, ThreadIdType threadId);
+
+		void Deregister(Task task, ThreadIdType threadId);
+		void PopTask_(Task task, ThreadIdType threadId);
+
+		void DoTasks();
+		void DoTasks_();
+
+		void CleanExpiredTasks_(ThreadIdType tid);
+
+	private: // private fields
+		ThreadTasks m_threadTasks;
 	};
+
+	typedef
+		Loki::SingletonHolder<TimerManager, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
+		TimerManagerSingleton
+		;
 
 }

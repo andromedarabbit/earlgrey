@@ -1,29 +1,12 @@
 #include "stdafx.h"
 #include "Timer.h"
-
+#include "TimerManager.h"
 
 namespace Earlgrey
 {
 	using namespace std::tr1;
 
-	/*shared_ptr<Timer> Timer::NewInstance(
-		TimerCallbackPtr callback
-		, void * state
-		, TimeSpan dueTime
-		, TimeSpan period
-		)
-	{
-		return shared_ptr<Timer>(new Timer(callback, state, dueTime, period));
-	}
-
-	shared_ptr<Timer> Timer::NewInstance(
-		TimerCallbackPtr callback
-		)
-	{
-		return shared_ptr<Timer>(new Timer(callback));
-	}*/
-
-	Timer::Timer(TimerCallbackPtr callback, void * state, TimeSpan dueTime, TimeSpan period)
+	Timer::Timer(TimerCallbackPtr callback, StatePtr state, TimeSpan dueTime, TimeSpan period)
 		: m_callback(callback)
 		, m_state(state)
 		, m_dueTime(dueTime)
@@ -34,7 +17,7 @@ namespace Earlgrey
 
 	Timer::Timer(TimerCallbackPtr callback)
 		: m_callback(callback)
-		, m_state(NULL)
+		, m_state()
 		, m_dueTime(TimeSpan::MaxValue)
 		, m_period(TimeSpan::MaxValue)
 	{
@@ -46,17 +29,21 @@ namespace Earlgrey
 		m_dueTime = dueTime;
 		m_period = period;
 
-		// this->Run();
+		// TimerManager::Task task( new TimerRunnable() );
+		// TimerManagerSingleton::Instance().Register(task, INVALID_THREAD_ID);
 	}
 
 	void Timer::Close()
 	{
-
+		// TimerManager::Task task( new TimerRunnable() );
+		// TimerManagerSingleton::Instance().Deregister(task, INVALID_THREAD_ID);
 	}
 
 	void Timer::Close(HANDLE waitHandle)
 	{
 		DBG_UNREFERENCED_PARAMETER(waitHandle);
+		// TimerManager::Task task( new TimerRunnable(waitHandle) );
+		// TimerManagerSingleton::Instance().Deregister(task, INVALID_THREAD_ID);
 	}
 
 }

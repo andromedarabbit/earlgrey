@@ -1,11 +1,11 @@
 #pragma once
 #include "Thread.h"
 #include "Runnable.h"
-#include "Proactor.h"
 #include "taskqueue.h"
-
-#include "xqueue.h"
+#include "Proactor.h"
+// #include "xqueue.h"
 // #include "LockfreeQueue.hpp"
+#include <queue>
 #include <array>
 
 namespace Earlgrey 
@@ -39,17 +39,14 @@ namespace Earlgrey
 		// : private Uncopyable
 	{
 		friend struct Loki::CreateUsingNew<Executor>;
-		friend class ExecutorTaskRunnerInvoker; // DoTask
-
-	private:
-		explicit Executor()
-		{
-		}
+		friend class ExecutorTaskRunnerInvoker; // PushTask
 
 	public:
 		typedef std::tr1::shared_ptr<IRunnable> Task;
+		//! \todo 나중에 x 계열 컨테이너로 교체한다.
 		// typedef xqueue<Task>::Type Tasks;
 		typedef std::queue<Task> Tasks;
+		// typedef std::list<Task> Tasks;
 		// typedef Algorithm::Lockfree::Queue<Task> Tasks;
 		typedef std::tr1::array<Tasks, MAX_THREADS> ThreadTasks;
 
@@ -59,7 +56,9 @@ namespace Earlgrey
 		// void Shutdown(); cleanup, 일단은 필요없으니.
 
 	private: // private methods
-		void AddTask_(Task task, ThreadIdType threadId);
+		explicit Executor();
+
+		void PushTask_(Task task, ThreadIdType threadId);
 
 		void DoTasks();
 		void DoTasks_();
