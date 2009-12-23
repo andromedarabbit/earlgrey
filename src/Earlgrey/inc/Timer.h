@@ -1,6 +1,7 @@
 #pragma once
 #include "TimerCallback.h"
 #include "TimeSpan.h"
+#include "TimerRunnable.h"
 // #include "ThreadLocalSingleton.hpp"
 
 namespace Earlgrey
@@ -12,23 +13,28 @@ namespace Earlgrey
 	{
 	public:
 		explicit Timer(
-			TimerCallbackPtr callback
+			TimerCallback callback
 			, StatePtr state
 			, TimeSpan dueTime
 			, TimeSpan period
 			);
-		explicit Timer(TimerCallbackPtr callback);
+		explicit Timer(TimerCallback callback);
 
 		void Change(TimeSpan dueTime, TimeSpan period);
 
 		void Close();
 		void Close(HANDLE waitHandle);
 
+	private:
+		void RegisterTimer();
+
 	private: // private fields
-		TimerCallbackPtr m_callback;
+		TimerCallback m_callback;
 		StatePtr m_state;
 		TimeSpan m_dueTime;
 		TimeSpan m_period;
+
+		TimerRunnable::IDType m_runnableID;
 	};
 
 	/*

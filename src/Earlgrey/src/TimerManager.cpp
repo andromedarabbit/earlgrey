@@ -62,15 +62,39 @@ namespace Earlgrey
 			CleanExpiredTasks_(tid);
 	} 
 
-	void TimerManager::Deregister(Task task, ThreadIdType threadId) 
+	void TimerManager::Deregister(DeregisterRequest request, ThreadIdType threadId) 
 	{
-		InvokeMethod( &TimerManager::PopTask_, this, task, threadId );
+		InvokeMethod( &TimerManager::PopTask_, this, request, threadId );
 	}
 
-	void TimerManager::PopTask_(Task task, ThreadIdType threadId)
+	void TimerManager::PopTask_(DeregisterRequest request, ThreadIdType threadId)
 	{
+		using namespace std;
+
+		class IsExpired
+			: public not_equal_to<Task>
+		{
+		public:
+			explicit IsExpired(TimerRunnable::IDType id)
+				: m_id(id)
+			{
+				EARLGREY_ASSERT(m_id != TimerRunnable::INVALID_ID);
+			}
+
+			bool operator()(Task task) const
+			{  
+				return task->ID() == m_id; 
+			}
+
+		private:
+			TimerRunnable::IDType m_id;
+		};
+
 		EARLGREY_ASSERT(IsValidIOThreadId(threadId));
-		m_threadTasks[threadId].remove(task);
+
+		IsExpired isExpired(request->ID());
+		Tasks& tasks = m_threadTasks[threadId];
+		tasks.remove_if( isExpired );
 	}
 
 	void TimerManager::CleanExpiredTasks_(ThreadIdType tid)
