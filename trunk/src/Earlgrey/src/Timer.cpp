@@ -6,22 +6,24 @@ namespace Earlgrey
 {
 	using namespace std::tr1;
 
-	Timer::Timer(TimerCallbackPtr callback, StatePtr state, TimeSpan dueTime, TimeSpan period)
+	Timer::Timer(TimerCallback callback, StatePtr state, TimeSpan dueTime, TimeSpan period)
 		: m_callback(callback)
 		, m_state(state)
 		, m_dueTime(dueTime)
 		, m_period(period)
+		, m_runnableID(TimerRunnable::INVALID_ID)
 	{
-
+		RegisterTimer();
 	}
 
-	Timer::Timer(TimerCallbackPtr callback)
+	Timer::Timer(TimerCallback callback)
 		: m_callback(callback)
 		, m_state()
 		, m_dueTime(TimeSpan::MaxValue)
 		, m_period(TimeSpan::MaxValue)
+		, m_runnableID(TimerRunnable::INVALID_ID)
 	{
-
+		RegisterTimer();
 	}
 
 	void Timer::Change(TimeSpan dueTime, TimeSpan period)
@@ -29,21 +31,31 @@ namespace Earlgrey
 		m_dueTime = dueTime;
 		m_period = period;
 
-		// TimerManager::Task task( new TimerRunnable() );
-		// TimerManagerSingleton::Instance().Register(task, INVALID_THREAD_ID);
+		RegisterTimer();
 	}
 
 	void Timer::Close()
 	{
-		// TimerManager::Task task( new TimerRunnable() );
-		// TimerManagerSingleton::Instance().Deregister(task, INVALID_THREAD_ID);
+		Close(NULL);
 	}
 
 	void Timer::Close(HANDLE waitHandle)
 	{
-		DBG_UNREFERENCED_PARAMETER(waitHandle);
-		// TimerManager::Task task( new TimerRunnable(waitHandle) );
-		// TimerManagerSingleton::Instance().Deregister(task, INVALID_THREAD_ID);
+		EARLGREY_ASSERT(m_runnableID != TimerRunnable::INVALID_ID);
+
+		TimerManager::DeregisterRequest task( new TimerDeregisterMessage(m_runnableID, waitHandle) );
+		TimerManagerSingleton::Instance().Deregister(task, INVALID_THREAD_ID);
+	}
+
+	void Timer::RegisterTimer()
+	{
+		if(m_dueTime < TimeSpan::Zero)
+			return;
+
+		TimerManager::Task task(
+			new TimerRunnable(m_callback, m_state, m_dueTime, m_period) 
+			);
+		TimerManagerSingleton::Instance().Register(task, INVALID_THREAD_ID);
 	}
 
 }

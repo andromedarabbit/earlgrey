@@ -539,6 +539,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\TimerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\TimeSpanTest.cpp"
 				>
 			</File>

@@ -386,6 +386,10 @@
 					RelativePath=".\src\TimerManager.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\TimerRunnable.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Diagnostics"
