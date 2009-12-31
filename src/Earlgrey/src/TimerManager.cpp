@@ -17,7 +17,7 @@ namespace Earlgrey
 
 	void TimerManager::PushTask_(Task task, ThreadIdType threadId)
 	{
-		EARLGREY_ASSERT(IsValidIOThreadId(threadId));
+		EARLGREY_ASSERT(IsValidThreadId(threadId));
 		m_threadTasks[threadId].push_back(task);
 	}
 
@@ -55,7 +55,12 @@ namespace Earlgrey
 				continue;
 			}
 
-			EARLGREY_ASSERT(task->Run());
+#ifdef _UNICODE
+			DWORD exitCode = task->Run();
+			EARLGREY_ASSERT(exitCode == EXIT_SUCCESS);
+#else
+			task->Run();
+#endif
 		}
 
 		if(hasExpiredTask)
@@ -90,11 +95,13 @@ namespace Earlgrey
 			TimerRunnable::IDType m_id;
 		};
 
-		EARLGREY_ASSERT(IsValidIOThreadId(threadId));
+		EARLGREY_ASSERT(IsValidThreadId(threadId));
 
 		IsExpired isExpired(request->ID());
 		Tasks& tasks = m_threadTasks[threadId];
 		tasks.remove_if( isExpired );
+
+		request->Close();
 	}
 
 	void TimerManager::CleanExpiredTasks_(ThreadIdType tid)
@@ -107,7 +114,7 @@ namespace Earlgrey
 			}
 		};
 
-		EARLGREY_ASSERT(IsValidIOThreadId(tid));
+		EARLGREY_ASSERT(IsValidThreadId(tid));
 		Tasks& tasks = m_threadTasks[tid];
 		remove_if(tasks.begin(), tasks.end(), Anonymous::IsExpired);
 	}

@@ -2,6 +2,7 @@
 #include "ThreadRunnable.h"
 #include "Thread.h"
 #include "Executor.h"
+#include "TimerManager.h"
 
 namespace Earlgrey
 {
@@ -16,7 +17,7 @@ namespace Earlgrey
 
 	BOOL ThreadRunnable::Init()
 	{
-		EARLGREY_ASSERT( IsValidIOThreadId(Thread::CurrentThread()->ThreadId()) );
+		EARLGREY_ASSERT( IsValidThreadId(Thread::CurrentThread()->ThreadId()) );
 		return TRUE;
 	}
 
@@ -24,8 +25,9 @@ namespace Earlgrey
 	{
 		while(MeetsStopCondition() == FALSE)
 		{
-			ExecutorTaskRunnerInvoker Invoker;
+			ExecutorTaskRunnerInvoker Invoker; 
 			//IocpExecutorSingleton::Instance().DoTasks();
+			TimerManagerSingleton::Instance().DoTasks();
 
 			const DWORD errCode = DoTask();
 			if(errCode != EXIT_SUCCESS)

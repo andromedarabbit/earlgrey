@@ -7,7 +7,7 @@
 
 namespace Earlgrey
 {
-	class FileVersionInfo//  : private Uncopyable
+	class FileVersionInfo : private Uncopyable
 	{
 	private:
 		explicit FileVersionInfo(
