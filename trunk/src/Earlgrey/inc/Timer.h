@@ -2,13 +2,12 @@
 #include "TimerCallback.h"
 #include "TimeSpan.h"
 #include "TimerRunnable.h"
-// #include "ThreadLocalSingleton.hpp"
 
 namespace Earlgrey
 {
 	class TimeSpan;
 
-	//1 \todo 스택 할당 방지하기 
+	//! \todo 스택 할당 방지하기 
 	class Timer : private Uncopyable
 	{
 	public:
@@ -17,8 +16,9 @@ namespace Earlgrey
 			, StatePtr state
 			, TimeSpan dueTime
 			, TimeSpan period
+			, ThreadIdType tid = Thread::CurrentThread()->ThreadId()
 			);
-		explicit Timer(TimerCallback callback);
+		explicit Timer(TimerCallback callback, ThreadIdType tid);
 
 		void Change(TimeSpan dueTime, TimeSpan period);
 
@@ -33,13 +33,8 @@ namespace Earlgrey
 		StatePtr m_state;
 		TimeSpan m_dueTime;
 		TimeSpan m_period;
+		ThreadIdType m_tid;
 
 		TimerRunnable::IDType m_runnableID;
 	};
-
-	/*
-	typedef 
-		Loki::SingletonHolder<Timer, Loki::CreateUsingNew, ThreadLocalLifetime, ThreadLocalThreaded> 
-		TimerSingleton;
-		*/
 }

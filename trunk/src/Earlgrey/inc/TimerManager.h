@@ -14,6 +14,7 @@ namespace Earlgrey
 	{
 		friend struct Loki::CreateUsingNew<TimerManager>;
 		friend class Timer; // PopTask
+		friend class ThreadRunnable;
 
 	public:
 		typedef std::tr1::shared_ptr<TimerRunnable> Task;

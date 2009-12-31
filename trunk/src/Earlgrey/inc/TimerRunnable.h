@@ -61,8 +61,7 @@ namespace Earlgrey
 		BOOL m_expired;
 	};
 
-	LONG TimerRunnable::TIMER_COUNT = TimerRunnable::INVALID_ID;
-
+	
 
 
 	class TimerDeregisterMessage : private Uncopyable
@@ -91,7 +90,7 @@ namespace Earlgrey
 		{
 			if(m_waitHandle == NULL)
 				return;
-			EARLGREY_ASSERT(::ResetEvent(m_waitHandle));
+			EARLGREY_ASSERT(::SetEvent(m_waitHandle));
 		}
 
 	private:

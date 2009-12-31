@@ -3,6 +3,9 @@
 
 namespace Earlgrey
 {
+	LONG TimerRunnable::TIMER_COUNT = TimerRunnable::INVALID_ID;
+
+
 	DWORD TimerRunnable::Run()
 	{
 		DateTime now(DateTime::Now());
