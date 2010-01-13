@@ -68,6 +68,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
+				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="1"
@@ -144,6 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
+				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="17"
@@ -221,6 +223,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -301,6 +304,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
+				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
