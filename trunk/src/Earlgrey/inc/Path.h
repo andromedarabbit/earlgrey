@@ -1,12 +1,11 @@
 #pragma once
+#include "Uncopyable.h"
 #include "tstring.h"
 #include "txstring.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	class Path : private Uncopyable
 	{
 	private:
@@ -23,7 +22,7 @@ namespace Earlgrey
 		static BOOL IsDirectorySeparator(TCHAR c);
 
 		static _tstring GetFileName(const _tstring& path);
-		static _txstring GetFileName(const _txstring& path);
+		// static _txstring GetFileName(const _txstring& path);
 		
 		
 	public: // Fields

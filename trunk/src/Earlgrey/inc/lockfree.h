@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include <Windows.h>
 
+#include "EarlgreyAssert.h"
 #include "Uncopyable.h"
 
 namespace Earlgrey { namespace Algorithm { 

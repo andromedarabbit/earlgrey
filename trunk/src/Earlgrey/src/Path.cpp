@@ -156,10 +156,12 @@ namespace Earlgrey
 		}
 	}
 
+	/*
 	_txstring Path::GetFileName(const _txstring& path)
 	{
 		return GetFileNameT<_txstring>(path);
 	}
+	*/
 
 	_tstring Path::GetFileName(const _tstring& path)
 	{

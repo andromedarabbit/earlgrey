@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "shared_ptr_helper.h"
+#include "StlGreedyAllocator.hpp"
 
 namespace Earlgrey
 {

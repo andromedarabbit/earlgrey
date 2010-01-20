@@ -1,12 +1,11 @@
 #pragma once
-#include "UnhandledExceptionHandler.h"
-
 #include <vector>
+
+#include "UnhandledExceptionHandler.h"
+#include "Uncopyable.h"
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	class GlobalExceptionHandler : private Uncopyable
 	{
 	private:

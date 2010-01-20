@@ -1,5 +1,5 @@
 #pragma once
-#include "StlGreedyAllocator.hpp"
+#include "BuildConfiguration.h"
 
 namespace Earlgrey
 {
@@ -8,9 +8,10 @@ namespace Earlgrey
 	template<typename T>
 	struct StlDefaultAllocator
 	{
-		typedef 
+		typedef
+			EARLGREY_BUILD_STL_ALLOCATOR<T>
 			// std::allocator<T> 
-			StlGreedyAllocator<T>
+			// StlGreedyAllocator<T>
 			Type;
 	};
 }

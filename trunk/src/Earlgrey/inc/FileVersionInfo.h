@@ -1,6 +1,7 @@
 #pragma once
 #pragma comment(lib,"version.lib")
 
+#include "Uncopyable.h"
 #include "tstring.h"
 #include "tsstream.h"
 #include "RAII.h"
