@@ -2,11 +2,10 @@
 #define _EARLGREY_UNHANDLED_EXCEPTION_HANDLER_H__
 
 #include <memory>
+#include "Uncopyable.h"
 
 namespace Earlgrey
 {	
-	class Uncopyable;
-
 	class UnhandledExceptionHandler : private Uncopyable
 	{
 	public:

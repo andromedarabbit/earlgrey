@@ -1,10 +1,9 @@
 #pragma once
+#include "Uncopyable.h"
 #include "tstring.h"
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	class Process : private Uncopyable
 	{
 	private:

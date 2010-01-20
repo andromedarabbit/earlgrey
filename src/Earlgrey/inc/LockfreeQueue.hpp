@@ -1,5 +1,6 @@
 #pragma once
 #include "lockfree.h"
+#include "EarlgreyAssert.h"
 
 namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	

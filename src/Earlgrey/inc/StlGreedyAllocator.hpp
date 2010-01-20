@@ -1,6 +1,5 @@
 #pragma once
 #include "MemoryAllocator.h"
-#include <memory>
 
 namespace Earlgrey
 {

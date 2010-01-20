@@ -11,14 +11,11 @@ namespace Earlgrey
 	const ThreadIdType WIN_MAIN_THREAD_ID = 0;
 	const ThreadIdType IO_THREAD_ID_BEGIN = 1;
 
-	namespace 
+	struct Anonymous
 	{
-		struct Anonymous
-		{
-			static ThreadIdType TID_IO_THREAD_ID_END;
-		};
-	}
-
+		static ThreadIdType TID_IO_THREAD_ID_END;
+	};
+	
 	#define IO_THREAD_ID_END Anonymous::TID_IO_THREAD_ID_END
 
 	const ThreadIdType MAX_THREADS = MAX_IO_THREADS + 1;

@@ -9,6 +9,7 @@
 
 #include "txsstream.h"
 #include "RAII.h"
+#include "Macros.h"
 
 using namespace std;
 using namespace std::tr1;	

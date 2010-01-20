@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ThreadId.h"
 
 namespace Earlgrey
 {

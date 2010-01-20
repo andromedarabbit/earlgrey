@@ -1,11 +1,11 @@
 #pragma once
 #include "EarlgreyAssert.h"
+#include "Uncopyable.h"
 #include <vector>
 
 namespace Earlgrey
 {
 	class Thread;
-	class Uncopyable;
 	class AppSettings;
 
 	class Application : private Uncopyable

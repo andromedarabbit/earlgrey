@@ -2,6 +2,7 @@
 #include "TimerCallback.h"
 #include "TimeSpan.h"
 #include "TimerRunnable.h"
+#include "Thread.h"
 
 namespace Earlgrey
 {
