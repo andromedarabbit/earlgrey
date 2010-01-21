@@ -8,7 +8,7 @@
 #include <fcntl.h>
 #include <io.h>
 
-#include <iostream>
+#include "tiostream.h"
 
 namespace Earlgrey
 {
@@ -28,11 +28,7 @@ namespace Earlgrey
 	//! \todo 하드 코딩한 로케일을 어떻게 고쳐야 한다.
 	BOOL Console::Open(BOOL attachExistingConsoleIfPossible)
 	{
-#ifdef _UNICODE
-		std::wcout.imbue( std::locale("kor") );
-#else
-		std::cout.imbue( std::locale("kor") );
-#endif
+		_tcout.imbue( std::locale("kor") );
 
 		BOOL consoleAttached = FALSE;
 

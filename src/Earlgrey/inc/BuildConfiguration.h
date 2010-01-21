@@ -1,6 +1,10 @@
 #pragma once
 
-namespace Earlgrey {
+// External libraries
+/*
+EARLGREY_BUILD_USE_BOOST
+*/
+
 // Major build configuration
 /*
 EARLGREY_BUILD_MODE_SAFE
@@ -19,4 +23,5 @@ EARLGREY_BUILD_MODE_HIGH_PERFORMANCE
 #else
 #endif
 
+namespace Earlgrey {
 }
