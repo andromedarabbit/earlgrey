@@ -4,7 +4,7 @@
 class ServerConnection : public Earlgrey::AsyncStream
 {
 public:
-	ServerConnection () 
+	explicit ServerConnection () 
 		: Earlgrey::AsyncStream()
 	{}
 	virtual ~ServerConnection () {}
