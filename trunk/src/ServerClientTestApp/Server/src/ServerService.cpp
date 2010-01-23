@@ -118,14 +118,25 @@ void ServerService::ProcessUserInput()
 	_txstring input;
 	std::getline<TCHAR>(_tcin, input);
 
-	OnUserInput(input);
+	// OnUserInput(input);
+	UserInputHandlerConainter::iterator it = m_userInputHandlers.begin();
+	for( ; it != m_userInputHandlers.end(); it++)
+	{
+		(*it)->OnUserInput(*this, input);
+	}
 }
 
-void ServerService::OnUserInput(_txstring& input)
+void ServerService::RegisterUserInputHandlers(UserInputHandlerPtr handler)
+{
+	m_userInputHandlers.push_back(handler);
+}
+/*
+void ServerService::OnUserInput(const _txstring& input)
 {
 	if(input == _T("stop"))
 		OnStop();
 }
+*/
 
 BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 {

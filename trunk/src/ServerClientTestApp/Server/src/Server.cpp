@@ -20,6 +20,8 @@
 #include "MiniDump.h"
 #include "StackWriter.h"
 
+#include "UserInputHandlers.h"
+
 using namespace std;
 using namespace Earlgrey;
 
@@ -55,9 +57,16 @@ namespace
 		return FALSE;
 	}
 
+	void RegisterUserInputHandlers(ServerService& service)
+	{
+		ServerService::UserInputHandlerPtr defaultHandler(new DefaultUserInputHandler());
+		service.RegisterUserInputHandlers(defaultHandler);
+	}
+
 	DWORD RunAsWin32Service(const Win32ServiceSettings& settings)
 	{
 		ServerService service(settings, FALSE);
+		RegisterUserInputHandlers(service);
 
 		try
 		{
@@ -73,6 +82,7 @@ namespace
 	DWORD RunAsConsoleApplication(const Win32ServiceSettings& settings)
 	{
 		ServerService service(settings, TRUE);
+		RegisterUserInputHandlers(service);
 
 		try
 		{
@@ -96,6 +106,7 @@ namespace
 	DWORD InstallWin32Service(const Win32ServiceSettings& settings, SERVER_RUN_MODE mode)
 	{
 		ServerService service(settings, TRUE);
+		RegisterUserInputHandlers(service);
 
 		Win32ServiceInstaller installer(service);
 		installer.Description(settings.Description());
