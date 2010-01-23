@@ -377,6 +377,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\UserInputHandlers.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Win32ServiceRunnable.cpp"
 				>
 			</File>
