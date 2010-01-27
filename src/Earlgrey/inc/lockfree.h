@@ -158,9 +158,9 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	{
 		typedef struct Cell<T> CellType;
 
-		typedef union Pointer<Cell<T>> PointerType;
+		typedef union Pointer<CellType> PointerType;
 		
-		explicit Cell(struct Cell<T>* next, T value)
+		explicit Cell(CellType* next, T value)
 		{
 			this->next.p(next);
 			this->value = value;
