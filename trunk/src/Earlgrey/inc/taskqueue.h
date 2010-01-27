@@ -74,6 +74,9 @@ namespace Earlgrey {
 					EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 1L ) == 1L);
 					for (;;) {
 						taskHolder = NULL;
+
+						// 이걸 호출하지 않으면 _qlen이 1인데도 Dequeue() 가 false 를 리턴하여 루프를 빠져나올 수 있다.
+						// 그렇게 되면 이후의 Post() 는 task를 큐잉만 한다.
 						_q.MoveTail();
 						bool hasTask = _q.Dequeue( taskHolder );
 						if (hasTask) break;
@@ -253,6 +256,8 @@ namespace Earlgrey {
 				_MaxSize = Size;
 				_TaskQueueArray = new TaskQueueType[Size];
 				_Used = 0;
+
+				// \todo 이부분 잘 못 구현돼 있어서 수정해야 함. 초기값을 push할 필요가 없음
 				for (IndexType i=0; i < Size; i++)
 				{
 					_IndexStack.Push( i );
