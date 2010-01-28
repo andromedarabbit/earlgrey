@@ -77,10 +77,10 @@ namespace Earlgrey
 
 		TEST(PathTest, GetFileNameWithTXString)
 		{
-			_txstring fullPath = TEXT("C:\\mydir\\myfile.ext");
-			_txstring fileName = Path::GetFileName(fullPath);
+			_tstring fullPath = TEXT("C:\\mydir\\myfile.ext");
+			_tstring fileName = Path::GetFileName(fullPath);
 
-			_txstring expected = TEXT("myfile.ext");
+			_tstring expected = TEXT("myfile.ext");
 			ASSERT_STREQ(expected.c_str(), fileName.c_str());
 		}
 

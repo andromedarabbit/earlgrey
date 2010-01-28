@@ -12,6 +12,8 @@ namespace Earlgrey
 	{	
 		inline void ASSERT_ENDS_WITH(const _txstring& expected, const _txstring& value)
 		{
+			using namespace Earlgrey::String;
+
 			const size_t valueLength = value.length();
 			const size_t suffixLength = expected.length();			
 
@@ -19,7 +21,7 @@ namespace Earlgrey
 
 			_txstring suffix = value.substr(value.length() - suffixLength, suffixLength);
 
-			BOOL endsWith = StringHelper::EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected);
+			BOOL endsWith = EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected);
 			ASSERT_TRUE(endsWith);
 		}
 
