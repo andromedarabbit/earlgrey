@@ -9,6 +9,8 @@ namespace Earlgrey
 	{
 		TEST(LogTest, ErrorMessageTest)
 		{
+			using namespace Earlgrey::String;
+
 			const DWORD errCode = 5;
 			_txstring msg = Log::ErrorMessage(errCode);
 			
@@ -18,7 +20,7 @@ namespace Earlgrey
 			{
 				std::wcout <<_T("액세스가 거부되었습니다.") <<  msg.c_str() <<std::endl;
 				ASSERT_TRUE(
-					StringHelper::StartsWith(msg.c_str(), _T("액세스가 거부되었습니다."))					
+					StartsWith(msg.c_str(), _T("액세스가 거부되었습니다."))					
 					);
 			}
 		}

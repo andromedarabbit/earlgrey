@@ -1,8 +1,9 @@
 #pragma once
 #include "StringComparison.hpp"
 
-namespace Earlgrey
-{
+namespace Earlgrey {
+namespace String {
+	
 	//! \todo _locale_t는 c에서 쓰는 거라... LCID로 대체가능하면 좋겠다.	//! \todo in place 메서드가 많지 않다. 필요하면 더 구현하자.
 	class StringHelper : private Uncopyable
 	{
@@ -102,8 +103,115 @@ namespace Earlgrey
 		}
 
 		static BOOL EndsWith(const _txstring& str, const _txstring& suffix);
-
-
-
 	};
+
+
+	// Alias
+	inline _txstring Trim(const _txstring& str)
+	{
+		return StringHelper::Trim(str);
+	}
+	inline _txstring Trim(const _txstring& str, const _txstring& trimChars)
+	{
+		return StringHelper::Trim(str, trimChars);
+	}
+
+	inline _txstring TrimStart(const _txstring& str)
+	{
+		return StringHelper::TrimStart(str);
+	}
+	inline _txstring TrimStart(const _txstring& str, const _txstring& trimChars)
+	{
+		return StringHelper::TrimStart(str, trimChars);
+	}
+
+	inline _txstring TrimEnd(const _txstring& str)
+	{
+		return StringHelper::TrimEnd(str);
+	}
+	inline _txstring TrimEnd(const _txstring& str, const _txstring& trimChars)
+	{
+		return StringHelper::TrimEnd(str, trimChars);
+	}
+
+	inline void ToLower(_txstring* strPtr)
+	{
+		return StringHelper::ToLower(strPtr);
+	}
+	inline void ToLower(_txstring* strPtr, _locale_t locale)
+	{
+		return StringHelper::ToLower(strPtr, locale);
+	}
+	inline _txstring ToLower(_txstring str)
+	{
+		return StringHelper::ToLower(str);
+	}
+	inline _txstring ToLower(_txstring str, _locale_t locale)
+	{
+		return StringHelper::ToLower(str, locale);
+	}
+
+
+	inline void ToUpper(_txstring* strPtr)
+	{
+		return StringHelper::ToUpper(strPtr);
+	}
+	inline void ToUpper(_txstring* strPtr, _locale_t locale)
+	{
+		return StringHelper::ToUpper(strPtr, locale);
+	}
+	inline _txstring ToUpper(_txstring str)
+	{
+		return StringHelper::ToUpper(str);
+	}
+	inline _txstring ToUpper(_txstring str, _locale_t locale)
+	{
+		return StringHelper::ToUpper(str, locale);
+	}
+
+	template<E_StringComparison flag>
+	inline BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)
+	{
+		return StringHelper::StartsWith<flag>(str, strLength, prefix, prefixLength);
+	}
+
+	template<E_StringComparison flag>
+	static BOOL StartsWith(const _txstring& str, const _txstring& prefix)
+	{
+		return StringHelper::StartsWith<flag>(str, prefix);
+	}
+
+	inline BOOL StartsWith(const _txstring& str, const _txstring& prefix)
+	{
+		return StringHelper::StartsWith(str, prefix);
+	}
+
+
+
+	template<E_StringComparison flag>
+	inline BOOL EndsWith(const TCHAR * str, const size_t strLength, const TCHAR * suffix, const size_t suffixLength)
+	{
+		StringHelper::EndsWith<flag>(str, strLength, suffix, suffixLength);
+	}
+
+	template<E_StringComparison flag>
+	inline BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+	{
+		return StringHelper::EndsWith<flag>(str, suffix);
+	}
+
+	inline BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+	{
+		return StringHelper::EndsWith(str, suffix);
+	}
+
+	// independent functions
+	inline BOOL IsNullOrEmpty(const TCHAR * const str)
+	{
+		// TODO: _tcslen 에서 NULL을 아아서 확인하지 않을까?
+		return str == NULL
+			|| _tcslen(str) == 0
+			;
+	}
+}
 }

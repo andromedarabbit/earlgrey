@@ -523,10 +523,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\StringTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\TaskQueueTest.cpp"
 				>
 			</File>
