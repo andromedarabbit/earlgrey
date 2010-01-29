@@ -14,8 +14,6 @@ namespace Earlgrey { namespace Algorithm {
 
 	inline BOOL CAS64(volatile LONGLONG *Dest, LONGLONG Compare, LONGLONG Exchange)
 	{   
-		return InterlockedCompareExchange64(Dest, Exchange, Compare) == Compare;
-#if 0
 #ifdef _WIN64
 		return InterlockedCompareExchange64(Dest, Exchange, Compare) == Compare;
 #else
@@ -45,7 +43,6 @@ namespace Earlgrey { namespace Algorithm {
 success:
 		}
 		return Return;
-#endif
 #endif
 	}
 }}
