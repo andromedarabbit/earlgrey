@@ -13,6 +13,7 @@ namespace Earlgrey
 		explicit DefaultAppSettings();
 		virtual ~DefaultAppSettings();
 
+		virtual BOOL AllowOnlyOneInstance() const;
 		virtual DWORD IOThreads() const;
 		virtual const TCHAR * const ShortName() const;
 		virtual const TCHAR * const LongName() const;

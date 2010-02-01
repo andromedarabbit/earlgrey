@@ -19,6 +19,11 @@ namespace Earlgrey
 
 	}
 
+	BOOL DefaultAppSettings::AllowOnlyOneInstance() const
+	{
+		return TRUE;
+	}
+
 	DWORD DefaultAppSettings::IOThreads() const
 	{
 		return Environment::ProcessorCount();
