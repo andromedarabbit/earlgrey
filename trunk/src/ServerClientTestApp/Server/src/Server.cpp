@@ -6,7 +6,6 @@
 #include "Application.h"
 #include "Win32ServiceInstaller.h"
 #include "Win32ServiceSettings.h"
-#include "EarlgreyProcess.h"
 #include "EarlgreyMath.h"
 
 #include "tiostream.h"
@@ -21,6 +20,7 @@
 #include "StackWriter.h"
 
 #include "UserInputHandlers.h"
+#include "Win32ServiceHelper.h"
 
 using namespace std;
 using namespace Earlgrey;
@@ -41,20 +41,6 @@ namespace
 			args.assign(argv, argv + argc);
 			LocalFree(argv);
 		}
-	}
-
-	BOOL IsWin32Service()
-	{
-		const _tstring parentProcessName(Process::GetParentProcessName(GetCurrentProcessId()));
-
-		StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> stringComparer;
-		if(
-			stringComparer.Equals(_T("services.exe"), parentProcessName.c_str())
-			)
-		{
-			return TRUE;
-		}
-		return FALSE;
 	}
 
 	void RegisterUserInputHandlers(ServerService& service)
@@ -224,7 +210,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	InitializeGlobalExceptionHandlers();
 
 	// check if it was called by Win32Service daemon
-	if(IsWin32Service())
+	if(Win32ServiceHelper::RunByWin32Service())
 	{
 		return RunAsWin32Service(settings);		
 	}

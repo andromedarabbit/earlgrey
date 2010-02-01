@@ -26,5 +26,5 @@ namespace Earlgrey
 
 	typedef 
 		Loki::SingletonHolder<SingleAppInstance, Loki::CreateUsingNew, Loki::DefaultLifetime, Loki::SingleThreaded> 
-		gSingleInstance;
+		gSingleAppInstance;
 }
