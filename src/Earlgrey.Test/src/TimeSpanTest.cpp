@@ -16,7 +16,7 @@ namespace Earlgrey
 		{
 			TimeSpan interval(MILLISECOND_TICKS + 1);
 
-			ASSERT_EQ( 1.0001, interval.TotalMilliseconds() );
+			ASSERT_DOUBLE_EQ( 1.0001, interval.TotalMilliseconds() );
 		}
 
 		TEST(TimeSpanTest, OneSecond)

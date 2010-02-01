@@ -116,13 +116,12 @@ namespace Earlgrey
 
 		TEST(ChainBufferTest, BasicBufferUse)
 		{
-			chain_buffer<basic_buffer<BYTE>> buf(1024);
-
-			basic_buffer<BYTE> bbuf(1);
+			basic_buffer<BYTE>* bbuf = new basic_buffer<BYTE>(1);
 			BYTE tempStr = 'a';
-			bbuf.set(&tempStr , 1);
+			bbuf->set(&tempStr , 1);
 
-			buf.set(&bbuf, bbuf.size());
+			chain_buffer<basic_buffer<BYTE>> buf(1024);
+			buf.set(bbuf, bbuf->size());
 		}
 	}
 }
