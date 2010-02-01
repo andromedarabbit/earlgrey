@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ChainBuffer.hpp"
-
+#include "StlCustomAllocator.hpp"
 
 namespace Earlgrey
 {
@@ -114,15 +114,27 @@ namespace Earlgrey
 
 		}
 
-		TEST(ChainBufferTest, BasicBufferUse)
+		TEST(ChainBufferTest, BasicBufferUseWithStlDefaultAllocator)
 		{
-			basic_buffer<BYTE>* bbuf = new basic_buffer<BYTE>(1);
+			basic_buffer< BYTE, StlDefaultAllocator<BYTE>::Type >* bbuf = new basic_buffer<BYTE>(1);
 			BYTE tempStr = 'a';
 			bbuf->set(&tempStr , 1);
 
-			chain_buffer<basic_buffer<BYTE>> buf(1024);
+			chain_buffer< basic_buffer<BYTE>, StlDefaultAllocator<basic_buffer<BYTE> >::Type > buf(1024);
 			buf.set(bbuf, bbuf->size());
 		}
+
+		TEST(ChainBufferTest, BasicBufferUseWithStdAllocator)
+		{
+			basic_buffer< BYTE, std::allocator<BYTE> >* bbuf = new basic_buffer<BYTE>(1);
+			BYTE tempStr = 'a';
+			bbuf->set(&tempStr , 1);
+
+			chain_buffer< basic_buffer<BYTE>, std::allocator<basic_buffer<BYTE> > > buf(1024);
+			buf.set(bbuf, bbuf->size());
+		}
+
+
 	}
 }
 
