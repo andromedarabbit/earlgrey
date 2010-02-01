@@ -13,7 +13,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	DefaultAppSettings appSettings;
 
-	Application app( appSettings);
+	Application app( appSettings );
 	app.InitInstance();
 
 	return RUN_ALL_TESTS();

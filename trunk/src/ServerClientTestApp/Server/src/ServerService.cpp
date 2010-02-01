@@ -6,7 +6,7 @@
 #include "Win32ServiceRunnable.h"
 #include "TimeSpan.h"
 #include "Console.h"
-
+#include "SingleAppInstance.h"
 
 using namespace Earlgrey;
 
@@ -16,23 +16,38 @@ ServerService::ServerService(const Win32ServiceSettings& settings, BOOL consoleM
 	, m_consoleMode(consoleMode)
 	, m_stopHandle(NULL)
 {
-	if(m_consoleMode)
+	const TCHAR * serviceName = this->ServiceName().c_str();
+
+	if(m_consoleMode == FALSE)
 	{
-		EARLGREY_VERIFY(gConsole::Instance().Open(FALSE));
-		gConsole::Instance().WindowTitle(this->ServiceName().c_str());
-
-		gConsole::Instance().RedirectStdIO();
-		
-		// TODO: 어디선가 오류가 나서 clear를 호출해야 한다. 어딘지 찾아야 한다.
-		_tcout.clear();
-		_tcout << _T("Server started!") << std::endl;
-
-		// 핸들러를 Earlgrey::Console 클래스를 상속 받아 확장하는 식이 나을 것 같다.
-		if( SetConsoleCtrlHandler(&ServerService::ControlHandler, TRUE) == FALSE)
+		if( gSingleAppInstance::Instance().RegisterThisApp(serviceName) == FALSE )
 		{
-			// TODO
+			throw std::invalid_argument("Win32 service instance already exists!");
 		}
-	}	
+	}
+
+
+	EARLGREY_VERIFY(gConsole::Instance().Open(FALSE));
+	gConsole::Instance().WindowTitle(this->ServiceName().c_str());
+
+	gConsole::Instance().RedirectStdIO();
+	
+	// TODO: 어디선가 오류가 나서 clear를 호출해야 한다. 어딘지 찾아야 한다.
+	_tcout.clear();
+	_tcout << _T("Server started!") << std::endl;
+
+	// 핸들러를 Earlgrey::Console 클래스를 상속 받아 확장하는 식이 나을 것 같다.
+	if( SetConsoleCtrlHandler(&ServerService::ControlHandler, TRUE) == FALSE)
+	{
+		// TODO
+	}
+
+	if( m_settings.AllowOnlyOneInstance()
+		&& gSingleAppInstance::Instance().RegisterThisApp(serviceName) == FALSE )
+	{
+		throw std::invalid_argument("Win32 application instance already exists!");
+	}
+
 }
 
 ServerService::~ServerService()

@@ -16,8 +16,10 @@ namespace Earlgrey
 
 	BOOL Application::InitInstance()
 	{
-		if( !CheckAppInstance() )
+		if( CheckAppInstance() == FALSE )
+		{
 			return FALSE;
+		}
 
 		// RuntimeCheck 활성화
 		// \todo DoRtcTermination 은 어디서, 언제 부르나?
@@ -92,7 +94,8 @@ namespace Earlgrey
 
 	BOOL Application::CheckAppInstance(const TCHAR * appName)
 	{
-		if( gSingleInstance::Instance().RegisterThisApp(appName) )
+		if( m_AppSettings.AllowOnlyOneInstance() == FALSE
+			|| gSingleAppInstance::Instance().RegisterThisApp(appName) )
 		{
 			return TRUE;
 		}
