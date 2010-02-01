@@ -385,6 +385,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Win32ServiceHelper.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\Win32ServiceRunnable.cpp"
 				>
 			</File>
@@ -416,6 +420,10 @@
 			</File>
 			<File
 				RelativePath=".\targetver.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Win32ServiceHelper.h"
 				>
 			</File>
 			<File
