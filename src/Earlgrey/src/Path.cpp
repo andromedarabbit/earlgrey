@@ -7,6 +7,8 @@
 #include <errno.h>
 
 #include "EarlgreyAssert.h"
+#include "Environment.h"
+#include "File.h"
 
 namespace Earlgrey
 {
@@ -15,7 +17,7 @@ namespace Earlgrey
 		// CheckInvalidPathChars(path);
 		size_t length = path.length();
 
-		if (length >= 1) 
+		if (length >= 1 )
 		{
 			if(path[0] == DirectorySeparatorChar || path[0] == AltDirectorySeparatorChar)
 				return TRUE;
@@ -156,15 +158,52 @@ namespace Earlgrey
 		}
 	}
 
-	/*
+#ifndef EARLGREY_BUILD_STL_ALLOCATOR
 	_txstring Path::GetFileName(const _txstring& path)
 	{
 		return GetFileNameT<_txstring>(path);
 	}
-	*/
+#endif
 
 	_tstring Path::GetFileName(const _tstring& path)
 	{
 		return GetFileNameT<_tstring>(path);
+	}
+
+	namespace 
+	{
+		_txstring ResolveFilePathWithNoException(const _txstring& fileName)
+		{
+			if(Path::IsPathRooted(fileName))
+			{
+				return fileName;
+			}
+
+			_txstring currentDir(Environment::CurrentDirectory());
+			_txstring filePath(Path::Combine(currentDir, fileName));
+			if(File::Exists(filePath))
+			{
+				return filePath;
+			}
+
+			_txstring baseDir(Environment::BaseDirectory());
+			return Path::Combine(baseDir, fileName);
+		}
+	}
+
+	// TODO: Ä¿½ºÅÒ ¿¹¿Ü·Î °íÄ¥ °Í
+	_txstring Path::ResolveFilePath(const _txstring& fileName, BOOL throwNotFoundException)
+	{
+		if(fileName.empty())
+		{
+			throw std::invalid_argument("fileName shouldn't be empty!");
+		}
+
+		_txstring filePath = ResolveFilePathWithNoException(fileName);
+		if(throwNotFoundException == TRUE && File::Exists(filePath) == FALSE)
+		{
+			throw std::exception();
+		}
+		return filePath;
 	}
 }

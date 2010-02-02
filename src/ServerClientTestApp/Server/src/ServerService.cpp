@@ -131,9 +131,13 @@ void ServerService::ProcessUserInput()
 	_tcin.clear();
 
 	_txstring input;
-	std::getline<TCHAR>(_tcin, input);
+	// std::getline(_tcin, input, _tcin.widen('\n'));
+	std::getline(_tcin, input);
+	// _tcin >> input;
 
-	// OnUserInput(input);
+	if(input.empty())
+		return;
+	
 	UserInputHandlerConainter::iterator it = m_userInputHandlers.begin();
 	for( ; it != m_userInputHandlers.end(); it++)
 	{
