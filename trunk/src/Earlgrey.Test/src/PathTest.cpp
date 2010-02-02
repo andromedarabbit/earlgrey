@@ -92,6 +92,25 @@ namespace Earlgrey
 			_tstring expected = TEXT("myfile");
 			ASSERT_STREQ(expected.c_str(), fileName.c_str());
 		}
+
+		TEST(PathTest, ResolveFileName)
+		{
+			_txstring fileName = _T("AAAAABBBB.txt");
+			_txstring resolvedFilePath = Path::ResolveFilePath(fileName, FALSE);
+			ASSERT_GT(resolvedFilePath.length(), fileName.length());
+		}
+
+		TEST(PathTest, ResolveFileNameWithEmptyString)
+		{
+			_txstring fileName;
+			ASSERT_THROW( Path::ResolveFilePath(fileName, TRUE), std::invalid_argument );
+		}
+
+		TEST(PathTest, ResolveFileNameWithException)
+		{
+			_txstring fileName = _T("AAAAABBBB.txt");
+			ASSERT_THROW( Path::ResolveFilePath(fileName, TRUE), std::exception );
+		}
 	}
 }
 

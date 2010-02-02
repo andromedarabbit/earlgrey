@@ -1,5 +1,6 @@
 #pragma once 
 #include "AsyncStream.h"
+#include "tiostream.h"
 
 class ServerConnection : public Earlgrey::AsyncStream
 {
@@ -11,12 +12,12 @@ public:
 
 	virtual void Connected()
 	{
-		printf("Server Socket = %d\r\n", Socket());
+		Earlgrey::_tcout << _T("Server Socket = ") << Socket() << std::endl;
 	}
 
 	virtual void Disconnected()
 	{
-		printf("Server Disconnected %d", Socket());
+		Earlgrey::_tcout << _T("Server Disconnected ") << Socket() << std::endl;
 	}
 
 	virtual void Received()

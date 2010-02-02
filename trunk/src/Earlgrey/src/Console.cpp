@@ -29,6 +29,7 @@ namespace Earlgrey
 	BOOL Console::Open(BOOL attachExistingConsoleIfPossible)
 	{
 		_tcout.imbue( std::locale("kor") );
+		_tcin.imbue( std::locale("kor") );
 
 		BOOL consoleAttached = FALSE;
 

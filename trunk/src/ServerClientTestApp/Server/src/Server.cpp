@@ -194,10 +194,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	UNREFERENCED_PARAMETER(nCmdShow);
 
-
-	// const TCHAR * serviceName = _T("EarlgreyServer");
-	// const _txstring executableName( Process::MainModuleFileName() );
-	// const FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(executableName) );
 	Win32ServiceSettings settings;
 
 	Application app(settings);

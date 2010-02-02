@@ -22,8 +22,12 @@ namespace Earlgrey
 		static BOOL IsDirectorySeparator(TCHAR c);
 
 		static _tstring GetFileName(const _tstring& path);
-		// static _txstring GetFileName(const _txstring& path);
+#ifndef EARLGREY_BUILD_STL_ALLOCATOR
+		static _txstring GetFileName(const _txstring& path);
+#endif
 		
+		static _txstring ResolveFilePath(const _txstring& fileName, BOOL throwNotFoundException = FALSE);
+
 		
 	public: // Fields
 		static const TCHAR AltDirectorySeparatorChar = '/';
