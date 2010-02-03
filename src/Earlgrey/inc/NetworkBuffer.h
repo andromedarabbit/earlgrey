@@ -91,13 +91,15 @@ namespace Earlgrey
 			return SocketBuffer;
 		}
 
-		DWORD GetBufferSize()
+		DWORD GetBufferSize() const
 		{
+			// TODO: numeric_cast 적용
 			return (DWORD)_ChainBuffer.size();
 		}
 
-		DWORD GetBufferCapacity()
+		DWORD GetBufferCapacity() const
 		{
+			// TODO: numeric_cast 적용
 			return (DWORD)_ChainBuffer.capacity();
 		}
 
@@ -114,7 +116,7 @@ namespace Earlgrey
 			return result;
 		}
 
-		//임시?
+		// TODO 임시?
 		LPCTSTR ToString()
 		{
 			return _T("");
