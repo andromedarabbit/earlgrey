@@ -17,16 +17,30 @@ namespace Earlgrey
 		explicit BinaryWriter(BufferT& buffer);
 		~BinaryWriter();
 
+		inline size_type Size() const 
+		{
+			return m_buffer.size();
+		}
+
+		inline const BufferT& Buffer() const 
+		{
+			return m_buffer;
+		}
+
+		inline BufferT& Buffer()
+		{
+			return m_buffer;
+		}
 
 		inline BOOL WriteBoolean(const bool x)
 		{
 			return WriteNumber(x);
 		}
+
 		inline BOOL WriteBoolean(const BOOL x)
 		{
 			return WriteNumber(x);
 		}
-
 
 		inline BOOL WriteByte(const BYTE x)
 		{
@@ -56,10 +70,11 @@ namespace Earlgrey
 		}
 
 
-		inline BOOL WriteDouble(const DOUBLE x)
+		inline BOOL WriteDouble(const double x)
 		{
 			return WriteNumber(x);
 		}
+
 		inline BOOL WriteFloat(const FLOAT x)
 		{
 			return WriteNumber(x);
@@ -100,13 +115,14 @@ namespace Earlgrey
 			return WriteNumber(x);
 		}
 
-		inline BOOL WriteString(const TCHAR* x, size_type len)
+		inline BOOL WriteString(const WCHAR* x, size_type len)
 		{
-#ifdef _UNICODE 
 			return WriteWChars(x, len);
-#else
+		}
+
+		inline BOOL WriteString(const CHAR* x, size_type len)
+		{
 			return WriteChars(x, len);
-#endif
 		}
 
 

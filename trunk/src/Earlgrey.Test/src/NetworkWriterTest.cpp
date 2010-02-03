@@ -1,33 +1,32 @@
 #include "stdafx.h"
-#include "BinaryReader.hpp"
-#include "SimpleBuffer.hpp"
+#include "NetworkWriter.hpp"
+#include "NetworkReader.hpp"
 #include "BasicBuffer.hpp"
 #include "ChainBuffer.hpp"
-#include "txstring.h"
 
 namespace Earlgrey
 {
 	namespace Test
 	{
-
-		TEST(BinaryReaderTest, ReadBoolean)
+		TEST(NetworkWriterTest, WriteBoolean)
 		{
 			typedef basic_buffer<BYTE> BUFFER_T;
 
-			BUFFER_T buf(128);
-
 			BOOL largeTrue = TRUE;
-			buf.append((BYTE*)&largeTrue, sizeof(largeTrue));
 			BOOL largeFalse = FALSE;
-			buf.append((BYTE*)&largeFalse, sizeof(largeFalse));
-
 			bool smallTrue = true;
-			buf.append((BYTE*)&smallTrue, sizeof(smallTrue));
 			bool smallFalse = false;
-			buf.append((BYTE*)&smallFalse, sizeof(smallFalse));
 
 
-			BinaryReader<BUFFER_T> reader(buf);
+			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+			ASSERT_TRUE(writer.WriteBoolean(largeTrue));
+			ASSERT_TRUE(writer.WriteBoolean(largeFalse));
+			ASSERT_TRUE(writer.WriteBoolean(smallTrue));
+			ASSERT_TRUE(writer.WriteBoolean(smallFalse));
+
+
+			NetworkReader<BUFFER_T> reader(buf);
 
 			BOOL largeRetValue = FALSE;
 			ASSERT_TRUE(reader.ReadBoolean(largeRetValue));
@@ -45,18 +44,56 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadBoolean(largeTrue));
 		}
 
-		TEST(BinaryReaderTest, ReadInt32)
+
+		TEST(NetworkWriterTest, WriteBooleanUsingOperator)
+		{
+			typedef basic_buffer<BYTE> BUFFER_T;
+
+			BOOL largeTrue = TRUE;
+			BOOL largeFalse = FALSE;
+			bool smallTrue = true;
+			bool smallFalse = false;
+
+
+			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+			writer << largeTrue << largeFalse << smallTrue << smallFalse;
+
+
+			NetworkReader<BUFFER_T> reader(buf);
+
+			BOOL largeRetValue = FALSE;
+			reader >> largeRetValue;
+			ASSERT_EQ(largeTrue, largeRetValue);
+
+			reader >> largeRetValue;
+			ASSERT_EQ(largeFalse, largeRetValue);
+
+			bool smallRetValue = false;
+			reader >> smallRetValue;
+			ASSERT_EQ(smallTrue, smallRetValue);
+
+			reader >> smallRetValue;
+			ASSERT_EQ(smallFalse, smallRetValue);
+			ASSERT_FALSE(reader.ReadBoolean(largeTrue));
+		}
+
+
+		TEST(NetworkWriterTest, WriteInt32)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
 
 			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+
 			int intMaxValue = INT_MAX;
-			buf.set((BYTE*)&intMaxValue, sizeof(intMaxValue));
+			ASSERT_TRUE(writer.WriteInt32(intMaxValue));	
 
 			int intMinValue = INT_MIN;
-			buf.append((BYTE*)&intMinValue, sizeof(intMinValue));
+			ASSERT_TRUE(writer.WriteInt32(intMinValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+
+			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
 			ASSERT_TRUE(reader.ReadInt32(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
@@ -67,18 +104,21 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadInt32(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadInt32UsingChainBuffer)
+		TEST(NetworkWriterTest, WriteInt32UsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
 			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+
 			int intMaxValue = INT_MAX;
-			buf.set((BYTE*)&intMaxValue, sizeof(intMaxValue));
+			ASSERT_TRUE(writer.WriteInt32(intMaxValue));
 
 			int intMinValue = INT_MIN;
-			buf.append((BYTE*)&intMinValue, sizeof(intMinValue));
+			ASSERT_TRUE(writer.WriteInt32(intMinValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+
+			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
 			ASSERT_TRUE(reader.ReadInt32(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
@@ -89,18 +129,21 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadInt32(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadFloatUsingChainBuffer)
+		TEST(NetworkWriterTest, WriteFloatUsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
 			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+
 			float maxValue = std::numeric_limits<float>::max() / 2;
-			buf.set((BYTE*)&maxValue, sizeof(maxValue));
+			ASSERT_TRUE(writer.WriteFloat(maxValue));
 
 			float minValue = std::numeric_limits<float>::min() / 3;
-			buf.append((BYTE*)&minValue, sizeof(minValue));
+			ASSERT_TRUE(writer.WriteFloat(minValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+
+			NetworkReader<BUFFER_T> reader(buf);
 			FLOAT retValue = 0;
 			ASSERT_TRUE(reader.ReadFloat(retValue));
 			ASSERT_EQ(maxValue, retValue);
@@ -111,18 +154,21 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadFloat(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadDoubleUsingChainBuffer)
+		TEST(NetworkWriterTest, WriteDoubleUsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
 			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+
 			double maxValue = std::numeric_limits<double>::max() / 4;
-			buf.set((BYTE*)&maxValue, sizeof(maxValue));
+			ASSERT_TRUE(writer.WriteDouble(maxValue));
 
 			double minValue = std::numeric_limits<double>::min() / 5;
-			buf.append((BYTE*)&minValue, sizeof(minValue));
+			ASSERT_TRUE(writer.WriteDouble(minValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+
+			NetworkReader<BUFFER_T> reader(buf);
 			double retValue = 0;
 			ASSERT_TRUE(reader.ReadDouble(retValue));
 			ASSERT_EQ(maxValue, retValue);
@@ -134,44 +180,35 @@ namespace Earlgrey
 		}
 
 
-		TEST(BinaryReaderTest, ReadString)
+		TEST(NetworkWriterTest, WriteString)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
-			
+
 			const TCHAR* ABCD = _T("ABCD");
 			TCHAR tempStr[5];
 			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
 
 			BUFFER_T buf(128);
-			buf.set((BYTE*)tempStr + 0, sizeof(tempStr));
+			NetworkWriter<BUFFER_T> writer(buf);
 
-			BinaryReader<BUFFER_T> reader(buf);
-			TCHAR retValue[128];
-			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
-			ASSERT_TRUE( _txstring(retValue) == ABCD );
-		}
-
-		TEST(BinaryReaderTest, ReadStringWithSimpleBuffer)
-		{	
-			typedef simple_buffer<BYTE> BUFFER_T;
-
-			const TCHAR* ABCD = _T("ABCD");
-			TCHAR tempStr[5];
-			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
-
-			BUFFER_T buf((BYTE*)tempStr, _countof(tempStr), sizeof(tempStr));
+			// ASSERT_TRUE(writer.WriteString(tempStr, _countof(tempStr)));
+			writer << tempStr;
 			
-			BinaryReader<BUFFER_T> reader(buf);
-			TCHAR retValue[128];
-			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
+
+			NetworkReader<BUFFER_T> reader(buf);
+			// TCHAR retValue[128];
+			// ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
+			_txstring retValue;
+			reader >> retValue;
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
 
-		TEST(BinaryReaderTest, ReadBytes)
+		TEST(NetworkWriterTest, WriteBytes)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
 
 			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
 
 			BYTE ABCD[5];
 			ABCD[0] = static_cast<BYTE>(1);
@@ -180,13 +217,13 @@ namespace Earlgrey
 			ABCD[3] = static_cast<BYTE>(7);
 			ABCD[4] = static_cast<BYTE>(9);
 
-			
-			buf.set(ABCD + 0, sizeof(ABCD));
+			ASSERT_TRUE(writer.WriteBytes(ABCD, _countof(ABCD)));
 
-			BinaryReader<BUFFER_T> reader(buf);
+
+			NetworkReader<BUFFER_T> reader(buf);
 			BYTE retValue[128];
 			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(ABCD)));
-			
+
 			for(int i=0; i<_countof(ABCD); i++)
 			{
 				ASSERT_EQ(ABCD[i], retValue[i]);

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "BinaryReader.hpp"
+#include "NetworkReader.hpp"
 #include "SimpleBuffer.hpp"
 #include "BasicBuffer.hpp"
 #include "ChainBuffer.hpp"
@@ -10,7 +10,7 @@ namespace Earlgrey
 	namespace Test
 	{
 
-		TEST(BinaryReaderTest, ReadBoolean)
+		TEST(NetworkReaderTest, ReadBoolean)
 		{
 			typedef basic_buffer<BYTE> BUFFER_T;
 
@@ -27,7 +27,7 @@ namespace Earlgrey
 			buf.append((BYTE*)&smallFalse, sizeof(smallFalse));
 
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 
 			BOOL largeRetValue = FALSE;
 			ASSERT_TRUE(reader.ReadBoolean(largeRetValue));
@@ -45,7 +45,7 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadBoolean(largeTrue));
 		}
 
-		TEST(BinaryReaderTest, ReadInt32)
+		TEST(NetworkReaderTest, ReadInt32)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
 
@@ -56,7 +56,7 @@ namespace Earlgrey
 			int intMinValue = INT_MIN;
 			buf.append((BYTE*)&intMinValue, sizeof(intMinValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
 			ASSERT_TRUE(reader.ReadInt32(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
@@ -67,7 +67,7 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadInt32(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadInt32UsingChainBuffer)
+		TEST(NetworkReaderTest, ReadInt32UsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
@@ -78,7 +78,7 @@ namespace Earlgrey
 			int intMinValue = INT_MIN;
 			buf.append((BYTE*)&intMinValue, sizeof(intMinValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
 			ASSERT_TRUE(reader.ReadInt32(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
@@ -89,7 +89,7 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadInt32(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadFloatUsingChainBuffer)
+		TEST(NetworkReaderTest, ReadFloatUsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
@@ -100,7 +100,7 @@ namespace Earlgrey
 			float minValue = std::numeric_limits<float>::min() / 3;
 			buf.append((BYTE*)&minValue, sizeof(minValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			FLOAT retValue = 0;
 			ASSERT_TRUE(reader.ReadFloat(retValue));
 			ASSERT_EQ(maxValue, retValue);
@@ -111,7 +111,7 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.ReadFloat(retValue));
 		}
 
-		TEST(BinaryReaderTest, ReadDoubleUsingChainBuffer)
+		TEST(NetworkReaderTest, ReadDoubleUsingChainBuffer)
 		{	
 			typedef chain_buffer<BYTE> BUFFER_T;
 
@@ -122,7 +122,7 @@ namespace Earlgrey
 			double minValue = std::numeric_limits<double>::min() / 5;
 			buf.append((BYTE*)&minValue, sizeof(minValue));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			double retValue = 0;
 			ASSERT_TRUE(reader.ReadDouble(retValue));
 			ASSERT_EQ(maxValue, retValue);
@@ -134,43 +134,30 @@ namespace Earlgrey
 		}
 
 
-		TEST(BinaryReaderTest, ReadString)
+		TEST(NetworkReaderTest, ReadString)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
-			
+
+			const UINT16 len = 5;
+
 			const TCHAR* ABCD = _T("ABCD");
-			TCHAR tempStr[5];
+			TCHAR tempStr[len];
 			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
 
 			BUFFER_T buf(128);
-			buf.set((BYTE*)tempStr + 0, sizeof(tempStr));
+			buf.set((BYTE*)&len, sizeof(UINT16));
+			buf.append((BYTE*)tempStr + 0, sizeof(tempStr));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			TCHAR retValue[128];
 			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
 
-		TEST(BinaryReaderTest, ReadStringWithSimpleBuffer)
-		{	
-			typedef simple_buffer<BYTE> BUFFER_T;
-
-			const TCHAR* ABCD = _T("ABCD");
-			TCHAR tempStr[5];
-			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
-
-			BUFFER_T buf((BYTE*)tempStr, _countof(tempStr), sizeof(tempStr));
-			
-			BinaryReader<BUFFER_T> reader(buf);
-			TCHAR retValue[128];
-			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
-			ASSERT_TRUE( _txstring(retValue) == ABCD );
-		}
-
-		TEST(BinaryReaderTest, ReadBytes)
+		TEST(NetworkReaderTest, ReadBytes)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
-
+			
 			BUFFER_T buf(128);
 
 			BYTE ABCD[5];
@@ -180,13 +167,13 @@ namespace Earlgrey
 			ABCD[3] = static_cast<BYTE>(7);
 			ABCD[4] = static_cast<BYTE>(9);
 
-			
+
 			buf.set(ABCD + 0, sizeof(ABCD));
 
-			BinaryReader<BUFFER_T> reader(buf);
+			NetworkReader<BUFFER_T> reader(buf);
 			BYTE retValue[128];
 			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(ABCD)));
-			
+
 			for(int i=0; i<_countof(ABCD); i++)
 			{
 				ASSERT_EQ(ABCD[i], retValue[i]);

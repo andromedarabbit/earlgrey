@@ -1,10 +1,9 @@
 #pragma once
+#include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	//! C++은 int, long 등 정수형의 크기와 포맷이 플랫폼이나 컴파일러 구현 등에 맡긴다.
 	// 따라서 <inttypes.h> 등을 이용해 플랫폼 간의 상이함을 해결해야 하나 VC++엔 현재 <inttype.h>가 없다.
 	template <typename BufferT>
@@ -17,11 +16,26 @@ namespace Earlgrey
 		explicit BinaryReader(BufferT& buffer);
 		~BinaryReader();
 
+		inline size_type Size() const 
+		{
+			return m_buffer.size();
+		}
+
+		inline const BufferT& Buffer() const 
+		{
+			return m_buffer;
+		}
 		
+		inline BufferT& Buffer()
+		{
+			return m_buffer;
+		}
+
 		inline BOOL ReadBoolean(bool& x)
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadBoolean(BOOL& x)
 		{
 			return ReadNumber(x);
@@ -56,7 +70,7 @@ namespace Earlgrey
 		}
 
 
-		inline BOOL ReadDouble(DOUBLE& x)
+		inline BOOL ReadDouble(double& x)
 		{
 			return ReadNumber(x);
 		}
@@ -100,15 +114,15 @@ namespace Earlgrey
 			return ReadNumber(x);
 		}
 
-		inline BOOL ReadString(TCHAR* x, size_type len)
+		inline BOOL ReadString(WCHAR* x, size_type len)
 		{
-#ifdef _UNICODE 
 			return ReadWChars(x, len);
-#else
-			return ReadChars(x, len);
-#endif
 		}
 		
+		inline BOOL ReadString(CHAR* x, size_type len)
+		{
+			return ReadChars(x, len);
+		}
 
 	private: // members
 		template <typename T>

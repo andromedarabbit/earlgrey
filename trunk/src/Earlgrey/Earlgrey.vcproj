@@ -833,6 +833,18 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\NetworkReader.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkWriter.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SimpleBuffer.hpp"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\SinglyList.h"
 					>
 				</File>

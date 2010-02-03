@@ -439,7 +439,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\NetworkReaderTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\NetworkStreamTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\NetworkWriterTest.cpp"
 				>
 			</File>
 			<File
