@@ -121,4 +121,72 @@ namespace Earlgrey
 	}
 
 
+
+	void AsyncOperation::Initialize( CompletionHandler* handler, SOCKET handle, Proactor* proactor )
+	{
+		_handler = handler;
+		_handle = handle;
+		_proactor = proactor;
+		_buffer = new NetworkBuffer();
+	}
+
+	bool AsyncReadStream::Read()
+	{
+		WSABUF* SocketBuffers = _buffer->GetSockRecvBuffer();
+		OVERLAPPED* Overlapped = new AsyncResult(_handler, this);
+		DWORD ReceivedBytes;
+		DWORD Flags = 0;
+
+		INT ret = WSARecv(_handle, 
+			SocketBuffers, 
+			1,
+			&ReceivedBytes, 
+			&Flags, 
+			Overlapped, 
+			NULL);
+
+		if(SOCKET_ERROR == ret)
+		{
+			INT ErrCode = WSAGetLastError();
+			if(ErrCode != WSA_IO_PENDING && ErrCode != WSAEWOULDBLOCK)
+			{
+				//delete Overlapped;???				
+			}
+			return false;
+		}
+
+		return true;
+	}
+
+	bool AsyncWriteStream::Write()
+	{
+		WSABUF*	SocketBuffer = _buffer->GetSockSendBuffer();
+		DWORD	SentBytes;		
+		OVERLAPPED* Overlapped = new AsyncResult(_handler, this);
+
+		INT ret = WSASend(_handle, 
+			SocketBuffer, 
+			_buffer->GetBufferSize(),
+			&SentBytes, 
+			0, 
+			Overlapped, 
+			NULL);
+
+		if (SOCKET_ERROR == ret) 
+		{ 
+			INT ErrCode = WSAGetLastError();
+			if (ErrCode != WSA_IO_PENDING) 
+			{
+				if (ErrCode == WSAECONNRESET || ErrCode == WSAEINVAL)
+				{
+				}
+				else
+				{
+				}
+				//delete Overlapped;//???				
+			} 
+			return false;
+		}
+		return true;
+	}
 }
