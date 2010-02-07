@@ -9,22 +9,28 @@
  
  namespace Earlgrey
  {
- 	template<class Allocator>
+	 class DefaultThreadInterface
+	 {
+	 public:
+		 const static INT MaxThreadCount = MAX_IO_THREADS; 
+		 const static INT InvalidThreadId = INVALID_THREAD_ID;
+		 static INT ThreadIndex()
+		 {
+			 return (Thread::CurrentThread() == NULL)? InvalidThreadId: Thread::CurrentThread()->ThreadId();
+		 }
+	 };
+
+ 	template<class Allocator, class ThreadInterface>
  	class ThreadLocalAllocator
  	{
  	public:
- 		// TODO(initialjk@googlewave.com): 코드 돌아는 가게 하려고 써놓은 임시 변수. 일단 static thread pool 기준으로 작성 되어 있고, thread들이 좀더 동적으로 일할거면 좀 바꿔야 함
- 		// const static DWORD ThreadId = DWORD(-1);
- 		// const static ThreadIdType ThreadId = INVALID_THREAD_ID;
-		// const static DWORD MaxIoThread = 1;
-		const static ThreadIdType MaxIoThread = MAX_IO_THREADS; 
  
  		explicit ThreadLocalAllocator()
  		{
  			 // 완전히 general 한 allocator를 쓰지는 못하고.. 껍데기라도 SetGlobalPool 인터페이스를 구현하고 있어야 컴파일이 됨 
  			EARLGREY_ASSERT(m_ExtraAllocator.GetRealAllocator() != NULL);
  			m_ExtraAllocator.GetRealAllocator()->SetGlobalPool(&ThreadGlobalPool);
- 			for(ThreadIdType i=0; i<MaxIoThread; ++i)
+			for(ThreadIdType i=0; i<ThreadInterface::MaxThreadCount; ++i)
  			{
  				m_ThreadLocalPool[i].SetGlobalPool(&ThreadGlobalPool);
  			}		
@@ -32,21 +38,18 @@
  
  		inline void* Alloc(typename Allocator::size_type bytes)
  		{
-			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Alloc(bytes);
-			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
- 			return (tid < MaxIoThread) ? m_ThreadLocalPool[tid].Alloc(bytes) : m_ExtraAllocator.Alloc(bytes);
+			INT tid = ThreadInterface::ThreadIndex();
+			return IsValidThreadIndex(tid)? m_ThreadLocalPool[tid].Alloc(bytes) : m_ExtraAllocator.Alloc(bytes);
  		}
  		inline void* Realloc(void* ptr, DWORD bytes)
  		{
-			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Realloc(ptr, bytes);
-			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
- 			return (tid < MaxIoThread) ? m_ThreadLocalPool[tid].Realloc(ptr, bytes) : m_ExtraAllocator.Realloc(ptr, bytes);
+			INT tid = ThreadInterface::ThreadIndex();
+			return IsValidThreadIndex(tid)? m_ThreadLocalPool[tid].Realloc(ptr, bytes) : m_ExtraAllocator.Realloc(ptr, bytes);
  		}
  		inline void Free(void * ptr)
  		{
-			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Free(ptr);
-			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
- 			return (tid < MaxIoThread) ? m_ThreadLocalPool[static_cast<int>(tid)].Free(ptr) : m_ExtraAllocator.Free(ptr);
+			INT tid = ThreadInterface::ThreadIndex();
+			return IsValidThreadIndex(tid)? m_ThreadLocalPool[tid].Free(ptr) : m_ExtraAllocator.Free(ptr);
  		}
  
  		void DumpLog(/* Output */)
@@ -156,7 +159,12 @@
  		}
  
  	private:
- 		Allocator m_ThreadLocalPool[MaxIoThread];
+		static BOOL IsValidThreadIndex(INT ThreadIndex)
+		{
+			return (ThreadInterface::InvalidThreadId != ThreadIndex) && (ThreadIndex < ThreadInterface::MaxThreadCount);
+		}
+
+		Allocator m_ThreadLocalPool[ThreadInterface::MaxThreadCount];
  		MemoryAllocatorThreadSafeProxy<Allocator> m_ExtraAllocator;
  		MemoryBlockChunkPool ThreadGlobalPool;
  	};

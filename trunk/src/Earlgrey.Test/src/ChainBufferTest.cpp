@@ -126,11 +126,11 @@ namespace Earlgrey
 
 		TEST(ChainBufferTest, BasicBufferUseWithStdAllocator)
 		{
-			basic_buffer< BYTE, std::allocator<BYTE> >* bbuf = new basic_buffer<BYTE>(1);
+			basic_buffer< BYTE, std::allocator<BYTE> >* bbuf = new basic_buffer< BYTE, std::allocator<BYTE> >(1);
 			BYTE tempStr = 'a';
 			bbuf->set(&tempStr , 1);
 
-			chain_buffer< basic_buffer<BYTE>, std::allocator<basic_buffer<BYTE> > > buf(1024);
+			chain_buffer< basic_buffer< BYTE, std::allocator<BYTE> >, std::allocator<basic_buffer< BYTE, std::allocator<BYTE>> > > buf(1024);
 			buf.set(bbuf, bbuf->size());
 		}
 
