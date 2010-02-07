@@ -32,20 +32,21 @@
  
  		inline void* Alloc(typename Allocator::size_type bytes)
  		{
+			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Alloc(bytes);
 			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
  			return (tid < MaxIoThread) ? m_ThreadLocalPool[tid].Alloc(bytes) : m_ExtraAllocator.Alloc(bytes);
  		}
  		inline void* Realloc(void* ptr, DWORD bytes)
  		{
+			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Realloc(ptr, bytes);
 			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
  			return (tid < MaxIoThread) ? m_ThreadLocalPool[tid].Realloc(ptr, bytes) : m_ExtraAllocator.Realloc(ptr, bytes);
  		}
  		inline void Free(void * ptr)
  		{
+			if(Thread::CurrentThread() == NULL) return m_ExtraAllocator.Free(ptr);
 			const ThreadIdType tid = Thread::CurrentThread()->ThreadId();
- 			return (tid < MaxIoThread) 
-				? m_ThreadLocalPool[static_cast<int>(tid)].Free(ptr) 
-				: m_ExtraAllocator.Free(ptr);
+ 			return (tid < MaxIoThread) ? m_ThreadLocalPool[static_cast<int>(tid)].Free(ptr) : m_ExtraAllocator.Free(ptr);
  		}
  
  		void DumpLog(/* Output */)

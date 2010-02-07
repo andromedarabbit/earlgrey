@@ -16,6 +16,7 @@ namespace Earlgrey
 {
 	class DefaultMemoryAllocator
 	{
+	public:
 		typedef size_t size_type;
 
 		void* Alloc(size_type bytes)
