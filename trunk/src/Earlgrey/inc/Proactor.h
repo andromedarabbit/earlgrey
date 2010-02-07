@@ -124,6 +124,7 @@ namespace Earlgrey
 	};*/
 
 	class AsyncStream;
+	class AsyncOperation;
 
 	class AsyncResult 
 		: public OVERLAPPED
@@ -141,6 +142,20 @@ namespace Earlgrey
 			Pointer = NULL;
 			hEvent = NULL;
 		};
+
+		explicit AsyncResult(CompletionHandler* InHandler, AsyncOperation* InOperation) 
+			: TransferredBytes_(0)
+			, Error_(0)
+			, Status_(0)
+			, Handler_(InHandler)
+			, _Operation(InOperation)
+		{
+			Internal = 0;
+			InternalHigh = 0;
+			Pointer = NULL;
+			hEvent = NULL;
+		};
+
 
 		virtual ~AsyncResult() {}
 
@@ -183,5 +198,6 @@ namespace Earlgrey
 		DWORD Status_;
 		CompletionHandler* Handler_;
 		AsyncStream* Stream_;
+		AsyncOperation* _Operation;
 	};
 }

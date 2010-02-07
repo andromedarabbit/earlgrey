@@ -10,6 +10,43 @@ namespace Earlgrey
 	class Disconnector;
 	class Sender;
 	class Receiver;
+	class Proactor;
+
+	class AsyncOperation
+	{
+	public:
+		//! operation 초기화
+		/*!
+			\param handler I/O가 완료된 후 처리될 핸들러(hook) 객체
+			\param handle I/O를 처리할 socket
+			\param proactor I/O가 완료된 후 적당한 handler를 호출해주는 demultiplexer
+		*/
+		void Initialize(CompletionHandler* handler, SOCKET handle, Proactor* proactor);
+
+		//! post된 I/O 요청을 취소한다.
+		void Cancel()
+		{
+
+		}
+
+	protected:
+		CompletionHandler* _handler;
+		SOCKET _handle;
+		Proactor* _proactor;
+		NetworkBuffer* _buffer;
+	};
+
+	class AsyncReadStream : public AsyncOperation
+	{
+	public:
+		bool Read();
+	};
+
+	class AsyncWriteStream : public AsyncOperation
+	{
+	public:
+		bool Write();
+	};
 
 	class AsyncStream
 	{
