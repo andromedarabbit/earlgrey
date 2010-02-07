@@ -52,14 +52,15 @@ namespace Earlgrey
 	typedef Loki::SingletonHolder<AllocatorName, Loki::CreateUsingNew, Loki::DefaultLifetime, Loki::SingleThreaded> gMemoryAllocator;
 
 #if USE_MEMORY_ALLOCATOR_GREEDY
-	DEFINE_GLOBAL_MEMORY_ALLOCATOR(GreedyAllocator)
+	DEFINE_GLOBAL_MEMORY_ALLOCATOR(GreedyAllocator);
 #elif USE_MEMORY_ALLOCATOR_THREAD_LOCAL_SLAB
-	DEFINE_GLOBAL_MEMORY_ALLOCATOR(ThreadLocalAllocator<SlabAllocator>)
+	typedef ThreadLocalAllocator<SlabAllocator, DefaultThreadInterface> ThreadLocalSlabAllocatorWithDefaultThread;
+	DEFINE_GLOBAL_MEMORY_ALLOCATOR(ThreadLocalSlabAllocatorWithDefaultThread);
 #elif USE_MEMORY_ALLOCATOR_LOW_FRAGMENTATION_HEAP
-	DEFINE_GLOBAL_MEMORY_ALLOCATOR(LowFragmentationHeapMemoryAllocator)
+	DEFINE_GLOBAL_MEMORY_ALLOCATOR(LowFragmentationHeapMemoryAllocator);
 #elif USE_MEMORY_ALLOCATOR_THREAD_BUILDING_BLOCK
-	DEFINE_GLOBAL_MEMORY_ALLOCATOR(ThreadBuildingBlockMemoryAllocator)
+	DEFINE_GLOBAL_MEMORY_ALLOCATOR(ThreadBuildingBlockMemoryAllocator);
 #else
-	DEFINE_GLOBAL_MEMORY_ALLOCATOR(DefaultMemoryAllocator)
+	DEFINE_GLOBAL_MEMORY_ALLOCATOR(DefaultMemoryAllocator);
 #endif
 }
