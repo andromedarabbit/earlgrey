@@ -5,6 +5,9 @@
 
 #include "Macros.h"
 #include "Lock.h"
+
+#include <limits>
+
 // #undef min
 // #undef max 
 
@@ -231,6 +234,6 @@ namespace Earlgrey
 
 	private:
 		Allocator* m_Allocator;
-		Win32Lock  m_AllocatorLock;
+		Loki::Mutex  m_AllocatorLock;
 	};
 }

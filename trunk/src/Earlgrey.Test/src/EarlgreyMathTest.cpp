@@ -2,6 +2,8 @@
 #include "EarlgreyMath.h"
 #include "Macros.h"
 
+#include <type_traits> 
+
 namespace Earlgrey
 {
 	namespace Test
@@ -9,7 +11,7 @@ namespace Earlgrey
 		/*
 		TEST(EarlgreyMathTest, SameTypes) // 이 테스트 케이스는 컴파일 실패가 나야 정상이다.
 		{
-			Earlgrey::Math::numeric_cast<int>(INT_MAX);
+			EARLGREY_NUMERIC_CAST<int>(INT_MAX);
 		}
 		*/
 		TEST(TR1, IsSame)
@@ -48,86 +50,6 @@ namespace Earlgrey
 
 			isSame = std::tr1::is_same<JustAnotherIntWrapper, AnotherIntWrapper>::value;
 			ASSERT_FALSE(isSame);
-		}
-
-		TEST(EarlgreyMathTest, OverflowAndUnderflow) 
-		{
-			struct Mock
-			{
-				static void Overflow()
-				{
-					INT16 i = Earlgrey::Math::numeric_cast<INT16>(INT_MAX);
-					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
-				}
-
-				static void Underflow()
-				{
-					INT16 i = Earlgrey::Math::numeric_cast<INT16>(INT_MIN);
-					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
-				}
-			};
-			
-			ASSERT_THROW(Mock::Overflow(),  std::overflow_error);
-			ASSERT_THROW(Mock::Underflow(),  std::underflow_error);
-
-		}
-
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatch1) 
-		{
-			short source = 1;
-			unsigned short target = Earlgrey::Math::numeric_cast<unsigned short>(source);
-			ASSERT_EQ( static_cast<unsigned short>(1), target);
-		}
-
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatch2) 
-		{
-			unsigned short source = 1;
-			short target = Earlgrey::Math::numeric_cast<short>(source);
-			ASSERT_EQ( static_cast<short>(1), target);
-		}
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize1) 
-		{
-			DWORD source = 1;
-			int target = Earlgrey::Math::numeric_cast<int>(source);
-			ASSERT_EQ( static_cast<int>(1), target);
-		}
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize2) 
-		{
-			int source = 1;
-			DWORD target = Earlgrey::Math::numeric_cast<DWORD>(source);
-			ASSERT_EQ( static_cast<DWORD>(1), target);
-		}
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfFullySameTypeOnWin32)
-		{
-			size_t source = 1;
-			DWORD target = Earlgrey::Math::numeric_cast<DWORD>(source);
-			ASSERT_EQ( static_cast<DWORD>(1), target );
-		}
-
-		TEST(EarlgreyMathTest, NumericCastInTheCaseOfSignMismatchAndSameSize3) 
-		{
-			struct Mock
-			{
-				static void Overflow()
-				{
-					int i = Earlgrey::Math::numeric_cast<int>(UINT_MAX);
-					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
-				}
-
-				static void Underflow()
-				{
-					UINT i = Earlgrey::Math::numeric_cast<UINT>(INT_MIN);
-					DBG_UNREFERENCED_LOCAL_VARIABLE(i);
-				}
-			};
-
-			ASSERT_THROW(Mock::Overflow(),  std::overflow_error);
-			ASSERT_THROW(Mock::Underflow(),  std::underflow_error);
 		}
 
 		TEST(EarlgreyMathTest, Log2ByUsingIntrinsicFunction)

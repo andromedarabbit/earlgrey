@@ -1,4 +1,5 @@
 #pragma once 
+#include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 
 #include "StlCustomAllocator.hpp"
@@ -6,8 +7,6 @@
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	//! \note 2의 배수로 메모리 할당 받기? -> allocator에서 할 일?
 	template <typename T> // , typename A = StlDefaultAllocator<T>::Type >
 	class simple_buffer : private Uncopyable
@@ -81,6 +80,8 @@ namespace Earlgrey
 		void reserve(size_type length);
 		void resize (size_type length, T obj = T());
 
+		void swap(simple_buffer& rhs);
+		void swap(T* buffer, size_type capacity, size_type size = 0);
 
 	private:
 		T* m_buffer;		
@@ -96,37 +97,19 @@ namespace Earlgrey
 	template <typename T> //, typename A>
 	inline
 		simple_buffer<T>::simple_buffer(T* buffer, size_type capacity, size_type size)
-		: m_capacity(capacity)
-		// , m_allocator(allocator)
-		, m_buffer(buffer)		 
+		: m_buffer(buffer)
+		, m_capacity(capacity)
 		, m_size(size)
-		// , m_next(NULL)
 	{
-		EARLGREY_ASSERT(buffer != NULL);
-		EARLGREY_ASSERT(m_capacity > 0);
+		// EARLGREY_ASSERT(buffer != NULL);
+		// EARLGREY_ASSERT(m_capacity > 0);
 	}
-
-	/*
-	template <typename T>
-	inline
-		simple_buffer<T>::simple_buffer(size_type initial_capacity, const allocator_type &allocator)
-		: m_capacity(initial_capacity)
-		, m_allocator(allocator)
-		, m_buffer(m_allocator.allocate(initial_capacity))		 
-		, m_size(0)
-		// , m_next(NULL)
-	{
-		EARLGREY_ASSERT(initial_capacity > 0);
-	}
-	*/
 
 	template <typename T>
 	inline
 		simple_buffer<T>::~simple_buffer()
 	{
 		clear(); // deallocates all objects
-		// m_allocator.deallocate(m_buffer, m_capacity);
-
 	}
 
 	template <typename T>
@@ -311,6 +294,23 @@ namespace Earlgrey
 		bool simple_buffer<T>::empty() const
 	{
 		return size() == 0;
+	}
+
+	//! \todo swap이 아닌 reset 이고 그나마 이 코드는 전부 제거하는 편이 좋겠음.
+	template <typename T>
+	inline
+		void simple_buffer<T>::swap(simple_buffer& rhs)
+	{
+		swap(rhs.m_buffer, rhs.m_capacity, rhs.m_size);
+	}
+
+	template <typename T>
+	inline
+		void simple_buffer<T>::swap(T* buffer, size_type capacity, size_type size = 0)
+	{
+		m_buffer = buffer; 
+		m_capacity = capacity;
+		m_size = size;
 	}
 
 	template <typename T>

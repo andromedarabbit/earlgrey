@@ -2,25 +2,15 @@
 //
 
 #include "stdafx.h"
-#include "ServerService.h"
 #include "Application.h"
+#include "ServerService.h"
 #include "Win32ServiceInstaller.h"
 #include "Win32ServiceSettings.h"
-#include "EarlgreyMath.h"
+#include "Win32ServiceHelper.h"
 
 #include "tiostream.h"
-#include "StringComparison.hpp"
-
-#include "Environment.h"
-#include "Path.h"
-#include "File.h"
-
-#include "GlobalExceptionHandler.h"
-#include "MiniDump.h"
-#include "StackWriter.h"
-
 #include "UserInputHandlers.h"
-#include "Win32ServiceHelper.h"
+
 
 using namespace std;
 using namespace Earlgrey;
@@ -127,60 +117,6 @@ namespace
 	{
 		return InstallWin32Service(settings, SERVER_RUN_MODE_UNINSTALL);
 	}
-
-	//! ServerService에 멤버 메서드로 넣는 편이 좋겠다. 특히 파일 이름을 하드코딩한 건 문제가 있다.
-	void RegisterMiniDump()
-	{
-		const _txstring baseDir = Environment::BaseDirectory();
-		const _txstring filePath( Path::Combine(baseDir, _T("MiniDump.dmp")) );
-
-		if( File::Exists(filePath) )
-		{
-			EARLGREY_ASSERT( File::Delete(filePath) );
-		}
-
-		const MINIDUMP_TYPE dumpType = MiniDumpNormal;
-
-		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( 
-			new MiniDump(filePath.c_str(), dumpType) 
-			);
-		EARLGREY_ASSERT(miniDump != NULL);
-
-		/*
-		miniDump->AddExtendedMessage(
-		static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
-		, _T("사용자 정보 1")
-		);
-		*/
-
-		GlobalExceptionHandler::Register(miniDump);
-	}
-
-	void RegisterStackWriter()
-	{
-		const _txstring baseDir = Environment::BaseDirectory();
-		const _txstring filePath( Path::Combine(baseDir, _T("StackWriter.txt")) );
-
-		if( File::Exists(filePath) )
-		{
-			EARLGREY_ASSERT( File::Delete(filePath) );
-		}
-
-		std::tr1::shared_ptr<UnhandledExceptionHandler> stackWriter( 
-			new StackWriter(filePath, StackWalker::OptionsAll) 
-			);
-		EARLGREY_ASSERT(stackWriter != NULL);
-
-		GlobalExceptionHandler::Register(stackWriter);
-
-	}
-
-	void InitializeGlobalExceptionHandlers()
-	{
-		GlobalExceptionHandler::Initialize();
-		RegisterMiniDump();
-		RegisterStackWriter();
-	}
 }
 
 
@@ -202,8 +138,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		_tcout << _T("Application initialization failed!");
 		return EXIT_FAILURE;
 	}
-
-	InitializeGlobalExceptionHandlers();
 
 	// check if it was called by Win32Service daemon
 	if(Win32ServiceHelper::RunByWin32Service())

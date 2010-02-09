@@ -152,4 +152,8 @@ namespace Earlgrey
 	private:
 		ThreadLocal<T> _tls;
 	};
+
+#ifdef __cplusplus_cli
+#pragma managed
+#endif
 }

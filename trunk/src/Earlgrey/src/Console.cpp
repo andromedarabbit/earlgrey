@@ -91,7 +91,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(msg != NULL);
 		EARLGREY_ASSERT(msgLen > 0);
 
-		const DWORD numberOfCharsToWrite = Math::numeric_cast<DWORD>(msgLen);
+		const DWORD numberOfCharsToWrite = EARLGREY_NUMERIC_CAST<DWORD>(msgLen);
 		DWORD numberOfCharsWritten = 0;
 		if(::WriteConsole(m_stdoutHandle, msg, numberOfCharsToWrite,  &numberOfCharsWritten, NULL) == FALSE)
 		{

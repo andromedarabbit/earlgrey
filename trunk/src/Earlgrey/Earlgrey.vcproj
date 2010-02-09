@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -68,6 +68,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -111,7 +112,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -135,6 +136,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -181,7 +183,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -204,6 +206,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -251,7 +254,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -273,6 +276,7 @@
 			<Tool
 				Name="VCLibrarianTool"
 				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -341,6 +345,10 @@
 				<Filter
 					Name="Loki"
 					>
+					<File
+						RelativePath=".\src\Loki\Singleton.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -409,6 +417,10 @@
 				<Filter
 					Name="UnhandledExceptionHandler"
 					>
+					<File
+						RelativePath=".\src\ExceptionEMailer.cpp"
+						>
+					</File>
 					<File
 						RelativePath=".\src\GlobalExceptionHandler.cpp"
 						>
@@ -491,9 +503,25 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\SmtpClient.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Socket.cpp"
 					>
 				</File>
+				<Filter
+					Name="Mail"
+					>
+					<File
+						RelativePath=".\src\MailAddress.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MailMessage.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="RTTI"
@@ -502,6 +530,10 @@
 			<Filter
 				Name="Algorithm"
 				>
+				<File
+					RelativePath=".\src\lockfree.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\src\SinglyLinkedList.cpp"
 					>
@@ -747,6 +779,10 @@
 				<Filter
 					Name="UnhandledExceptionHandler"
 					>
+					<File
+						RelativePath=".\inc\ExceptionEMailer.h"
+						>
+					</File>
 					<File
 						RelativePath=".\inc\GlobalExceptionHandler.h"
 						>
@@ -1040,6 +1076,26 @@
 					RelativePath=".\inc\Socket.h"
 					>
 				</File>
+				<Filter
+					Name="Mail"
+					>
+					<File
+						RelativePath=".\inc\Attachment.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\MailAddress.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\MailMessage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\SmtpClient.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="RTTI"
@@ -1158,19 +1214,19 @@
 				>
 			</Filter>
 			<Filter
-				Name="Resource Files"
-				Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-				UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-				>
-				<File
-					RelativePath=".\EargreyResources.rc"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="IO"
 				>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+			<File
+				RelativePath=".\EargreyResources.rc"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"

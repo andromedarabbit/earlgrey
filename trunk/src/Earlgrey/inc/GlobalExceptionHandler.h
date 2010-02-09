@@ -18,11 +18,13 @@ namespace Earlgrey
 
 
 	public: // public methods
+		static BOOL Initialized();
 		static void Initialize();
 		static void Register(HandlerPtrType handler);
 
 	private: // private methods
 		static LONG WINAPI HandleException(LPEXCEPTION_POINTERS exceptionPtr);
+		static BOOL m_Initialized;
 	};
 }
 

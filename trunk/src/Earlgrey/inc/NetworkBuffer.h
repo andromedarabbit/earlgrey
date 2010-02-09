@@ -68,7 +68,7 @@ namespace Earlgrey
 			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
 
 			SocketBuffer->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
-			SocketBuffer->len = Math::numeric_cast<ULONG>(std::tr1::get<1>( ret ));
+			SocketBuffer->len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( ret ));
 
 			return SocketBuffer;
 		}
@@ -85,7 +85,7 @@ namespace Earlgrey
 			for(; it != desc_vector.end(); it++, i++)
 			{
 				SocketBuffer[i].buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( *it ));
-				SocketBuffer[i].len = Math::numeric_cast<ULONG>(std::tr1::get<1>( *it ));
+				SocketBuffer[i].len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( *it ));
 			}
 
 			return SocketBuffer;
@@ -93,13 +93,13 @@ namespace Earlgrey
 
 		DWORD GetBufferSize() const
 		{
-			// TODO: numeric_cast 利侩
+			// TODO: EARLGREY_NUMERIC_CAST 利侩
 			return (DWORD)_ChainBuffer.size();
 		}
 
 		DWORD GetBufferCapacity() const
 		{
-			// TODO: numeric_cast 利侩
+			// TODO: EARLGREY_NUMERIC_CAST 利侩
 			return (DWORD)_ChainBuffer.capacity();
 		}
 

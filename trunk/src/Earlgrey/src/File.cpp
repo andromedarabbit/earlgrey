@@ -50,4 +50,22 @@ namespace Earlgrey
 		return TRUE;		
 	}
 
+	BOOL File::Copy(
+		const _txstring& sourceFileName,
+		const _txstring& destFileName,
+		BOOL overwrite
+		)
+	{
+		EARLGREY_ASSERT(sourceFileName.length() > 0);
+		EARLGREY_ASSERT(destFileName.length() > 0);
+
+		if( ::CopyFile(sourceFileName.c_str(), destFileName.c_str(), overwrite) == 0 ) // zero indicates failure
+		{
+			// TODO 
+			// GetLastError
+			return FALSE;
+		}
+
+		return TRUE;	
+	}
 }

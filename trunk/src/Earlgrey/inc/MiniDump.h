@@ -56,14 +56,18 @@ namespace Earlgrey
 		MINIDUMP_TYPE m_DumpType;
 
 	public:
-		// explicit MiniDump(const TCHAR * const dumpFilePath, size_t pathCount, MINIDUMP_TYPE dumpType);
-		explicit MiniDump(MINIDUMP_TYPE dumpType);
 		explicit MiniDump(const _txstring& dumpFilePath, MINIDUMP_TYPE dumpType);
 		virtual ~MiniDump();
-		
+
+		virtual const TCHAR * ClassName() const;
+
+		inline const _txstring& FilePath() const
+		{
+			return m_DumpFilePath;
+		}
+
 		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg);
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);
-
 
 		static _txstring GetFaultReason(PEXCEPTION_POINTERS exPtrs);
 	private: // private methods

@@ -1,6 +1,7 @@
 #pragma once
 #include "EarlgreyAssert.h"
-#include "numeric_cast.hpp"
+// #include "numeric_cast.hpp"
+#include "if_.hpp"
 
 #include <math.h> // log()
 #include <intrin.h> // _BitScanReverse

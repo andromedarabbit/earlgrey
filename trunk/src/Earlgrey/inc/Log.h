@@ -1,4 +1,5 @@
 #pragma once
+#include "Uncopyable.h"
 #include "txstring.h"
 
 #include <Loki/Singleton.h>
@@ -9,8 +10,6 @@
 
 namespace Earlgrey
 {
-	class Uncopyable;
-
 	class Log 
 		: public Algorithm::Lockfree::TaskQueue
 	{

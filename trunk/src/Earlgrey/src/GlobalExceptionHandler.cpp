@@ -5,15 +5,22 @@ namespace Earlgrey
 {
 	GlobalExceptionHandler::HandlerCollectionType GlobalExceptionHandler::m_Handlers;
 
+	BOOL GlobalExceptionHandler::m_Initialized = FALSE;
+
 	void GlobalExceptionHandler::Initialize()
 	{
 		// Catches the unhandled exception and handle it!
 		LPTOP_LEVEL_EXCEPTION_FILTER previousTopLovelExceptionHandler 
 			= ::SetUnhandledExceptionFilter(HandleException);
 
+		m_Initialized = TRUE;
 		DBG_UNREFERENCED_LOCAL_VARIABLE(previousTopLovelExceptionHandler);
 	}
 
+	BOOL GlobalExceptionHandler::Initialized()
+	{
+		return m_Initialized;
+	}
 
 	void GlobalExceptionHandler::Register(HandlerPtrType handler)
 	{

@@ -41,17 +41,18 @@ namespace Earlgrey
 			return ReadNumber(x);
 		}
 
-
 		inline BOOL ReadByte(BYTE& x)
 		{
 			return ReadBytes(&x, sizeof(x));
 		}
+
 		BOOL ReadBytes(void* buf, size_type len);
 
 		inline BOOL ReadChar(CHAR& x)
 		{
 			return ReadBytes(&x, sizeof(CHAR));
 		}
+
 		inline BOOL ReadChars(CHAR* x, size_type len)
 		{
 			const size_type bytes = len * sizeof(CHAR);
@@ -74,6 +75,7 @@ namespace Earlgrey
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadFloat(FLOAT& x)
 		{
 			return ReadNumber(x);
@@ -84,14 +86,17 @@ namespace Earlgrey
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadInt16(INT16& x)
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadInt32(INT32& x)
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadInt64(INT64& x)
 		{
 			return ReadNumber(x);
@@ -101,14 +106,17 @@ namespace Earlgrey
 		{
 			return ReadNumber(x);
 		}
+		
 		inline BOOL ReadUInt16(UINT16& x)
 		{
 			return ReadNumber(x);
 		}
+
 		inline BOOL ReadUInt32(UINT32& x)
 		{
 			return ReadNumber(x);
 		}
+		
 		inline BOOL ReadUInt64(UINT64& x)
 		{
 			return ReadNumber(x);

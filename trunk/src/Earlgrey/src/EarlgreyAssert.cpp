@@ -2,6 +2,7 @@
 #include "EarlgreyAssert.h"
 
 #include "tiostream.h"
+#include "GlobalExceptionHandler.h"
 
 namespace Earlgrey
 {
@@ -11,13 +12,17 @@ namespace Earlgrey
 	//! \ref http://www.codeproject.com/KB/debug/DebugBreakAnyway.aspx
 	void assertion_failed(TCHAR const * expr, TCHAR const * function, TCHAR const * file, long line)
 	{
-		_tcout
-			<< expr << std::endl 
-			<< function << std::endl
-			<< file << std::endl
-			<< line << std::endl; 
+		DBG_UNREFERENCED_PARAMETER(expr);
+		DBG_UNREFERENCED_PARAMETER(function);
+		DBG_UNREFERENCED_PARAMETER(file);
+		DBG_UNREFERENCED_PARAMETER(line);
 
-		::DebugBreak();
-		// *((volatile INT *)0x1) = 1;
+		/*if( GlobalExceptionHandler::Initialized() == TRUE )
+		{
+			*(volatile INT *)0x1) = 1;
+			return;
+		}
+		*/	
+		*((volatile INT *)0x1) = 1;
 	}
 }
