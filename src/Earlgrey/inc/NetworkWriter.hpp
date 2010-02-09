@@ -159,9 +159,6 @@ namespace Earlgrey
 			return WriteString(x, len);
 		}
 
-		NetworkWriter& operator<<(const WCHAR* x);
-		NetworkWriter& operator<<(const xwstring& x);
-
 		inline BOOL WriteString(const WCHAR* x, length_type length)
 		{
 			if(m_BinaryWriter.WriteUInt16(length) == FALSE)
@@ -170,13 +167,14 @@ namespace Earlgrey
 			return m_BinaryWriter.WriteString(x, length);
 		}
 
+		NetworkWriter& operator<<(const WCHAR* x);
+		NetworkWriter& operator<<(const xwstring& x);
+
+
 		inline BOOL WriteString(const CHAR* x)
 		{
 			return WriteString(x, strlen(x));
 		}
-
-		NetworkWriter& operator<<(const CHAR* x);
-		NetworkWriter& operator<<(const xstring& x);
 
 		inline BOOL WriteString(const CHAR* x, length_type length)
 		{
@@ -186,6 +184,8 @@ namespace Earlgrey
 			return m_BinaryWriter.WriteString(x, length);
 		}
 
+		NetworkWriter& operator<<(const CHAR* x);
+		NetworkWriter& operator<<(const xstring& x);
 
 
 
@@ -387,7 +387,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xwstring& x)
 	{
-		if(this->WriteString(x, x.length()) == FALSE)
+		if(this->WriteString(x.c_str(), x.length()) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
@@ -409,7 +409,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xstring& x)
 	{
-		if(this->WriteString(x, x.length()) == FALSE)
+		if(this->WriteString(x.c_str(), x.length()) == FALSE)
 		{
 			// TODO
 			throw std::exception("");

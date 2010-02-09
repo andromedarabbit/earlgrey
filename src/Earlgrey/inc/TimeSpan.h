@@ -10,8 +10,11 @@ namespace Earlgrey
 	class TimeSpan
 	{
 		friend class DateTime;
-		friend _tostream& operator << (_tostream& stream, const TimeSpan& obj);
+		// friend _tostream& operator << (_tostream& stream, const TimeSpan& obj);
 		// friend _tistream& operator >> (_tistream& stream, TimeSpan& obj);
+
+		friend std::ostream& operator << (std::ostream& stream, const TimeSpan& obj);
+		friend std::wostream& operator << (std::wostream& stream, const TimeSpan& obj);
 
 	public:
 		typedef INT64 TickType;
@@ -287,7 +290,19 @@ namespace Earlgrey
 	}
 	*/
 
-	_tostream& operator << (_tostream& stream, const TimeSpan& obj);
+	// TODO: 임시 코드
+	inline std::ostream& operator << (std::ostream& stream, const TimeSpan& obj)
+	{
+		stream << obj.Ticks() << " ticks";
+		return stream;
+		// stream << obj.ToString();
+	}
+
+	inline std::wostream& operator << (std::wostream& stream, const TimeSpan& obj)
+	{
+		stream << obj.ToString();
+		return stream;
+	}
 	// _tistream& operator >> (_tistream& stream, TimeSpan& obj);
 }
 

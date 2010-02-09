@@ -16,15 +16,6 @@ using namespace std::tr1;
 
 namespace Earlgrey
 {
-	MiniDump::MiniDump(MINIDUMP_TYPE dumpType)
-		: m_DumpType(dumpType)
-		, m_DumpFilePath()
-		, m_MaxMsgLen(0)
-	{
-		Initialize();
-	}
-
-
 	MiniDump::MiniDump(const _txstring& dumpFilePath, MINIDUMP_TYPE dumpType)
 		: m_DumpType(dumpType)
 		, m_DumpFilePath(dumpFilePath)
@@ -60,6 +51,11 @@ namespace Earlgrey
 		// Custom information
 
 
+	}
+
+	const TCHAR * MiniDump::ClassName() const
+	{
+		return _T("Earlgrey::MiniDump");
 	}
 
 	void MiniDump::AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg)
@@ -122,7 +118,7 @@ namespace Earlgrey
 		}
 
 		MINIDUMP_USER_STREAM_INFORMATION userInformation;
-		// userInformation.UserStreamCount = Math::numeric_cast<ULONG>(numberOfExMessages);
+		// userInformation.UserStreamCount = EARLGREY_NUMERIC_CAST<ULONG>(numberOfExMessages);
 		userInformation.UserStreamCount = static_cast<ULONG>(numberOfExMessages);
 		userInformation.UserStreamArray = extendedMesssages;
 

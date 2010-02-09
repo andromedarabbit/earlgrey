@@ -2,26 +2,10 @@
 #include "Uncopyable.h"
 #include "ScopedLock.h"
 
+#include <Loki/Threads.h>
+
 namespace Earlgrey
 {
-	class Win32Lock : private Uncopyable
-	{
-	public:
-		inline explicit Win32Lock() {
-			InitializeCriticalSection(&m_CriticalSection);
-		}
-		~Win32Lock() {}
-
-		inline void Lock() {
-			EnterCriticalSection(&m_CriticalSection);
-		}
-		inline void UnLock() {
-			LeaveCriticalSection(&m_CriticalSection);
-		}	
-	private:
-		CRITICAL_SECTION m_CriticalSection;
-	};
-
-	typedef TScopedLock<Win32Lock> ScopedLock;
+	typedef TScopedLock<Loki::Mutex> ScopedLock; // Loki::Mutex == CriticalSection
 }
 

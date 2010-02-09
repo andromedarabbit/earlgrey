@@ -39,6 +39,13 @@ namespace Earlgrey
 		{
 		}
 
+		const TCHAR * ClassName() const;
+
+		const _txstring& FilePath() const 
+		{
+			return m_LogFilePath;
+		}
+
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);	
 
 	};

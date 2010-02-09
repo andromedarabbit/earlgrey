@@ -16,6 +16,9 @@ namespace Earlgrey
 		{
 		}
 
+		//! \todo ExceptionEmailer 를 지원하기 위한 임시 코드임
+		virtual const TCHAR * ClassName() const = 0;
+
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtr) = 0;
 	};
 

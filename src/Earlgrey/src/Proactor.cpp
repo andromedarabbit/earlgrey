@@ -124,7 +124,7 @@ namespace Earlgrey
 	BOOL AcceptProactor::HandleEvent(TimeValueType WaitTime)
 	{
 		BOOL Result = FALSE;
-		DWORD WaitEventNumber = Math::numeric_cast<DWORD>( _Events.size() );
+		DWORD WaitEventNumber = EARLGREY_NUMERIC_CAST<DWORD>( _Events.size() );
 
 		if (WaitEventNumber == 0)
 		{

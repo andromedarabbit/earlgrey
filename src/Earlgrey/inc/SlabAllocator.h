@@ -4,6 +4,7 @@
 #include "MemoryMath.h"
 #include "MemoryBlock.h"
 #include "LockfreeQueue.hpp"
+#include "SlabAllocator.h"
 
 namespace Earlgrey
 {

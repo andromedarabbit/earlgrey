@@ -52,6 +52,7 @@
 
 #include <cassert>
 
+#define LOKI_CLASS_LEVEL_THREADING // by Earlgrey 
 #if defined(LOKI_CLASS_LEVEL_THREADING) || defined(LOKI_OBJECT_LEVEL_THREADING)
 
 #define LOKI_DEFAULT_THREADING_NO_OBJ_LEVEL ::Loki::ClassLevelLockable

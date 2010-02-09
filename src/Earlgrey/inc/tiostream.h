@@ -15,11 +15,10 @@ namespace Earlgrey
 #else
 	typedef	std::ifstream _tifstream;
 #endif
-
 	//! \ref http://www.gamedev.net/community/forums/topic.asp?topic_id=367500
 	typedef std::basic_ostream<TCHAR, std::char_traits<TCHAR> > _tostream;
 	typedef std::basic_istream<TCHAR, std::char_traits<TCHAR> > _tistream;
-	
+		
 	// std::cerr
 	extern _tostream &_tcout;
 	extern _tistream &_tcin;

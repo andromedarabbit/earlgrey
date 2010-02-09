@@ -125,11 +125,14 @@ namespace Earlgrey
 		return (num * TicksPerMillisecond);
 	}
 
+
+	/*
 	_tostream& operator << (_tostream &os, const TimeSpan &obj)
 	{
 		os << obj.ToString();
 		return os;
 	}
+	*/
 
 	/*
 	_tistream& operator >> (_tistream& stream, TimeSpan& obj)

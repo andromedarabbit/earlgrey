@@ -53,7 +53,7 @@ namespace Earlgrey
 
 		inline BOOL ReadChar(CHAR& x)
 		{
-			return m_BinaryReader.ReadChar(&x, sizeof(CHAR));
+			return m_BinaryReader.ReadChar(x);
 		}
 
 		NetworkReader& operator>>(CHAR& x);
