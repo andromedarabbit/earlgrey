@@ -147,7 +147,7 @@ namespace Earlgrey
 
 			BinaryReader<BUFFER_T> reader(buf);
 			TCHAR retValue[128];
-			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
+			ASSERT_TRUE(reader.ReadString(retValue, _countof(retValue), _countof(tempStr)));
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
 
@@ -163,7 +163,7 @@ namespace Earlgrey
 			
 			BinaryReader<BUFFER_T> reader(buf);
 			TCHAR retValue[128];
-			ASSERT_TRUE(reader.ReadString(retValue, _countof(tempStr)));
+			ASSERT_TRUE(reader.ReadString(retValue, _countof(retValue), _countof(tempStr)));
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
 
@@ -185,7 +185,7 @@ namespace Earlgrey
 
 			BinaryReader<BUFFER_T> reader(buf);
 			BYTE retValue[128];
-			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(ABCD)));
+			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(retValue), _countof(ABCD)));
 			
 			for(int i=0; i<_countof(ABCD); i++)
 			{
