@@ -247,7 +247,7 @@ namespace Earlgrey
 		}
 
 		void* NewPtr = Alloc( NewSize );
-		memcpy( NewPtr, Ptr, std::min(NewSize, Block->BlockSize) );
+		memcpy_s( NewPtr, NewSize, Ptr, std::min(NewSize, Block->BlockSize) );
 		Free( Ptr );
 
 		return NewPtr;

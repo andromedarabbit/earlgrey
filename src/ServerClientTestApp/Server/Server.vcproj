@@ -329,6 +329,10 @@
 		</Configuration>
 	</Configurations>
 	<References>
+		<ProjectReference
+			ReferencedProjectIdentifier="{540889A0-C756-44A8-A1AB-536EE7276D70}"
+			RelativePathToProject="..\..\library\earlgrey_r336\src\GmailClient\GmailClient.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter

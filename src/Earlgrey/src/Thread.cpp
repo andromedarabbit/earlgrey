@@ -111,7 +111,7 @@ namespace Earlgrey
 				, ThreadHolder*						threadHolder
 				, LPCSTR							threadName
 				, ThreadIdType						threadId
-				, unsigned int						initFlag 
+				, ThreadIdType						initFlag 
 				, DWORD								stackSize
 				)
 	{

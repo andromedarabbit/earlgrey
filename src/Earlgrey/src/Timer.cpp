@@ -14,6 +14,7 @@ namespace Earlgrey
 		, m_runnableID(TimerRunnable::INVALID_ID)
 		, m_tid(tid)
 	{
+		EARLGREY_ASSERT(IsValidThreadId(tid));
 		RegisterTimer();
 	}
 
@@ -25,6 +26,7 @@ namespace Earlgrey
 		, m_runnableID(TimerRunnable::INVALID_ID)
 		, m_tid(tid)
 	{
+		EARLGREY_ASSERT(IsValidThreadId(tid));
 		RegisterTimer();
 	}
 

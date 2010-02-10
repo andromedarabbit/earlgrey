@@ -4,7 +4,8 @@
 #include "Environment.h"
 #include "File.h"
 #include "Path.h"
-/*
+
+
 namespace Earlgrey
 {
 	namespace Extension
@@ -81,4 +82,4 @@ namespace Earlgrey
 			}
 		}
 	}
-}*/
+}
