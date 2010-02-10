@@ -46,17 +46,16 @@ namespace Earlgrey
 			return ReadBytes(&x, sizeof(x));
 		}
 
-		BOOL ReadBytes(void* buf, size_type len);
+		BOOL ReadBytes(void* buf, size_type bufBytes, size_type len);
 
 		inline BOOL ReadChar(CHAR& x)
 		{
 			return ReadBytes(&x, sizeof(CHAR));
 		}
 
-		inline BOOL ReadChars(CHAR* x, size_type len)
+		inline BOOL ReadChars(CHAR* x, size_type x_len, size_type len)
 		{
-			const size_type bytes = len * sizeof(CHAR);
-			return ReadBytes(x, bytes);
+			return ReadBytes(x, x_len * sizeof(CHAR), len * sizeof(CHAR));
 		}
 
 		inline BOOL ReadWChar(WCHAR& x)
@@ -64,10 +63,9 @@ namespace Earlgrey
 			return ReadBytes(&x, sizeof(WCHAR));
 		}
 		
-		inline BOOL ReadWChars(WCHAR* x, size_type len)
+		inline BOOL ReadWChars(WCHAR* x, size_type x_len, size_type len)
 		{
-			const size_type bytes = len * sizeof(WCHAR);
-			return ReadBytes(x, bytes);
+			return ReadBytes(x, x_len * sizeof(WCHAR), len * sizeof(WCHAR));
 		}
 
 
@@ -122,21 +120,21 @@ namespace Earlgrey
 			return ReadNumber(x);
 		}
 
-		inline BOOL ReadString(WCHAR* x, size_type len)
+		inline BOOL ReadString(WCHAR* x, size_type x_len, size_type len)
 		{
-			return ReadWChars(x, len);
+			return ReadWChars(x, x_len, len);
 		}
 		
-		inline BOOL ReadString(CHAR* x, size_type len)
+		inline BOOL ReadString(CHAR* x, size_type x_len, size_type len)
 		{
-			return ReadChars(x, len);
+			return ReadChars(x, x_len, len);
 		}
 
 	private: // members
 		template <typename T>
 		inline BOOL ReadNumber(T& x)
 		{
-			return ReadBytes(&x, sizeof(T));
+			return ReadBytes(&x, sizeof(T), sizeof(T));
 		}
 
 
@@ -160,7 +158,7 @@ namespace Earlgrey
 	}
 
 	template <typename BufferT>
-	BOOL BinaryReader<BufferT>::ReadBytes(void* buf, size_type len)
+	BOOL BinaryReader<BufferT>::ReadBytes(void* buf, size_type bufBytes, size_type len)
 	{
 		EARLGREY_ASSERT(buf != NULL);
 		EARLGREY_ASSERT(len > 0);
@@ -171,7 +169,12 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		memcpy(buf, &m_buffer[m_bufferIndex], len);
+		memcpy_s(
+			buf
+			, bufBytes
+			, &m_buffer[m_bufferIndex]
+			, len 
+			);
 		m_bufferIndex += len;
 		return TRUE;	
 	}

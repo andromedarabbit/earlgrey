@@ -46,9 +46,9 @@ namespace Earlgrey
 			return m_BinaryReader.ReadByte(&x, sizeof(x));
 		}
 		
-		inline BOOL ReadBytes(void* buf, size_type len)
+		inline BOOL ReadBytes(void* buf, size_type bufBytes, size_type len)
 		{
-			return m_BinaryReader.ReadBytes(buf, len);
+			return m_BinaryReader.ReadBytes(buf, bufBytes, len);
 		}
 
 		inline BOOL ReadChar(CHAR& x)
@@ -146,7 +146,7 @@ namespace Earlgrey
 
 		NetworkReader& operator>>(UINT64& x);
 
-		inline BOOL ReadString(WCHAR* x, size_type bufferLen)
+		inline BOOL ReadString(WCHAR* x, size_type x_len, size_type bufferLen)
 		{
 			length_type length = 0;
 
@@ -156,12 +156,12 @@ namespace Earlgrey
 			if(length > bufferLen)
 				return FALSE;
 
-			return m_BinaryReader.ReadString(x, length);
+			return m_BinaryReader.ReadString(x, x_len, length);
 		}
 
 		NetworkReader& operator>>(xwstring& x);
 
-		inline BOOL ReadString(CHAR* x, size_type bufferLen)
+		inline BOOL ReadString(CHAR* x, size_type x_len, size_type bufferLen)
 		{
 			length_type length = 0;
 
@@ -171,7 +171,7 @@ namespace Earlgrey
 			if(length > bufferLen)
 				return FALSE;
 
-			return m_BinaryReader.ReadString(x, length);
+			return m_BinaryReader.ReadString(x, x_len, length);
 		}
 
 		NetworkReader& operator>>(xstring& x);
@@ -363,7 +363,7 @@ namespace Earlgrey
 	inline NetworkReader<BufferT>& NetworkReader<BufferT>::operator>>(xwstring& x)
 	{
 		static __declspec(thread) TCHAR buffer[_UI16_MAX];
-		if(this->ReadString(buffer, _UI16_MAX) == FALSE)
+		if(this->ReadString(buffer, _countof(buffer), _UI16_MAX) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
@@ -376,7 +376,7 @@ namespace Earlgrey
 	inline NetworkReader<BufferT>& NetworkReader<BufferT>::operator>>(xstring& x)
 	{
 		static __declspec(thread) CHAR buffer[_UI16_MAX];
-		if(this->ReadString(buffer, _UI16_MAX) == FALSE)
+		if(this->ReadString(buffer,  _countof(buffer), _UI16_MAX) == FALSE)
 		{
 			// TODO
 			throw std::exception("");

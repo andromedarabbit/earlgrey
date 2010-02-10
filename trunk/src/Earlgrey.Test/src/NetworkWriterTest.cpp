@@ -222,7 +222,7 @@ namespace Earlgrey
 
 			NetworkReader<BUFFER_T> reader(buf);
 			BYTE retValue[128];
-			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(ABCD)));
+			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(retValue), _countof(ABCD)));
 
 			for(int i=0; i<_countof(ABCD); i++)
 			{
