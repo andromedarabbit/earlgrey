@@ -22,7 +22,8 @@ namespace Earlgrey
 
 	inline BOOL IsValidIOThreadId(ThreadIdType threadId)
 	{
-		return threadId >= IO_THREAD_ID_BEGIN 
+		return threadId != INVALID_THREAD_ID
+			&& threadId >= IO_THREAD_ID_BEGIN 
 			&& threadId <= IO_THREAD_ID_END
 			;
 	}

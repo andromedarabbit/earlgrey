@@ -54,6 +54,9 @@ namespace Earlgrey
 		// Create IO Thread
 		// 일단 스레드가 블록되지 않는다고 가정하고 프로세스 개수만큼 스레드를 생성한다. 
 		const DWORD IOThreadCount = m_AppSettings.NumberOfIOThreads();
+		if(IOThreadCount == 0)
+			return TRUE;
+
 		IO_THREAD_ID_END = IO_THREAD_ID_BEGIN + IOThreadCount - 1;
 		EARLGREY_VERIFY(IO_THREAD_ID_BEGIN <= IO_THREAD_ID_END);
 		EARLGREY_VERIFY(IO_THREAD_ID_END - IO_THREAD_ID_BEGIN + 1 <= MAX_IO_THREADS);

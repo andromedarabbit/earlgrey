@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Executor.h"
 #include "Environment.h"
+#include "DefaultAppSettings.h"
 
 namespace Earlgrey
 {
@@ -68,8 +69,11 @@ namespace Earlgrey
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 
 			const long maxCount = 100;
-			for (int i = 0; i < maxCount; i++) {
-				IocpExecutorSingleton::Instance().Execute(RunnableBuilder::NewRunnable(new ExecutorTaskRunnable(maxCount)));
+			for (long i = 0; i < maxCount; i++) 
+			{
+				IocpExecutorSingleton::Instance().Execute(
+					RunnableBuilder::NewRunnable(new ExecutorTaskRunnable(maxCount))
+					);
 			}
 
 			ExecutorTaskRunnable::WaitFor();
@@ -83,7 +87,7 @@ namespace Earlgrey
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 		
 			const long maxCount = 100;
-			for (int i = 0; i < maxCount; i++) 
+			for (long i = 0; i < maxCount; i++) 
 			{
 				IocpExecutorSingleton::Instance().Execute(
 					RunnableBuilder::NewRunnable(new ExecutorTaskRunnable(maxCount))
@@ -99,13 +103,14 @@ namespace Earlgrey
 
 		TEST_F(ExecutorTest, ExecuteUsingTwoIOThreads) 
 		{
-			if(Environment::ProcessorCount() < 2)
+			DefaultAppSettings settings;
+			if(settings.NumberOfIOThreads() < 2)			
 				return;
 
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 
 			const long maxCount = 100;
-			for (int i = 0; i < maxCount; i++) 
+			for (long i = 0; i < maxCount; i++) 
 			{
 				ThreadIdType tid = IO_THREAD_ID_BEGIN;
 				if(i % 2 == 1)

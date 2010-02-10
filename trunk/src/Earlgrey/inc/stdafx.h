@@ -9,14 +9,16 @@
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 
+
+// TODO: reference additional headers your program requires here
+#define _CRT_SECURE_DEPRECATE_MEMORY
+#include <memory>
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <crtdbg.h>
-#include <memory>
 
 #define NOMINMAX // min, max 매크로 없애기
 #include <windows.h>
-
-// TODO: reference additional headers your program requires here
 
 #include "EarlgreyPrivate.h"

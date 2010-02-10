@@ -198,7 +198,7 @@ namespace Earlgrey
 		if (length > capacity()) throw std::out_of_range("Parameter out of range");		
 		
 		// TODO: _CRT_SECURE_DEPRECATE_MEMORY 를 정의하면 memcpy는 안전하지 못하기 때문에 쓰지 못하게 한다.
-		memcpy( m_buffer, ptr, length * sizeof(T) );
+		memcpy_s( m_buffer, m_capacity, ptr, length * sizeof(T) );
 		m_size = length;
 	}
 
@@ -208,7 +208,7 @@ namespace Earlgrey
 	{
 		if (m_size + length > capacity()) throw std::out_of_range("Parameter out of range");
 
-		memcpy( m_buffer + m_size, ptr, length * sizeof(T) );
+		memcpy_s( m_buffer + m_size, m_capacity - m_size, ptr, length * sizeof(T) );
 		m_size += length;
 	}
 

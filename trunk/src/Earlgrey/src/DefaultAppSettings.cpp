@@ -14,10 +14,11 @@ namespace Earlgrey
 
 	namespace
 	{
-		std::tr1::shared_ptr<UnhandledExceptionHandler> GetMiniDump()
+		std::tr1::shared_ptr<UnhandledExceptionHandler> GetMiniDump(const _txstring& appName)
 		{
 			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring filePath( Path::Combine(baseDir, _T("MiniDump.dmp")) );
+			const _txstring fileName(appName + _T(".dmp"));
+			const _txstring filePath( Path::Combine(baseDir, fileName) );
 
 			if( File::Exists(filePath) )
 			{
@@ -40,10 +41,11 @@ namespace Earlgrey
 			// GlobalExceptionHandler::Register(miniDump);
 		}
 
-		std::tr1::shared_ptr<UnhandledExceptionHandler> GetStackWriter()
+		std::tr1::shared_ptr<UnhandledExceptionHandler> GetStackWriter(const _txstring& appName)
 		{
 			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring filePath( Path::Combine(baseDir, _T("StackWriter.txt")) );
+			const _txstring fileName(appName + _T(".StackWriter.txt.dmp"));
+			const _txstring filePath( Path::Combine(baseDir, fileName) );
 
 			if( File::Exists(filePath) )
 			{
@@ -65,10 +67,12 @@ namespace Earlgrey
 	{
 		EARLGREY_ASSERT(m_executableName.length() > 0);
 
-		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( GetMiniDump() );
+		const _txstring appName(this->ShortName());
+
+		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( GetMiniDump(appName) );
 		m_UnhandledExceptions->push_back(miniDump);
 
-		std::tr1::shared_ptr<UnhandledExceptionHandler> stackWriter( GetStackWriter() );
+		std::tr1::shared_ptr<UnhandledExceptionHandler> stackWriter( GetStackWriter(appName) );
 		m_UnhandledExceptions->push_back(stackWriter);
 	}
 
@@ -85,6 +89,7 @@ namespace Earlgrey
 	DWORD DefaultAppSettings::NumberOfIOThreads() const
 	{
 		return Environment::ProcessorCount();
+		// return 2;
 	}
 
 	const TCHAR * const DefaultAppSettings::ShortName() const
