@@ -582,6 +582,10 @@
 				RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\VectorTest.cpp"
+				>
+			</File>
 			<Filter
 				Name="Temp"
 				>

@@ -9,7 +9,7 @@ namespace Earlgrey
 {
 	namespace Extension
 	{
-		class GMailClient : public Earlgrey::Mail::SmtpClient
+		class __declspec(dllexport) GMailClient : public Earlgrey::Mail::SmtpClient
 		{
 		public:
 			explicit GMailClient(const TCHAR * username, const TCHAR * password);

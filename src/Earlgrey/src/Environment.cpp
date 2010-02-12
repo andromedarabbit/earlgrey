@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "Environment.h"
 #include "Path.h"
+
 #include <Psapi.h> // GetModuleFileNameEx
 #include <Lmcons.h> // UNLEN
 #include <strsafe.h> // StringCchCat, ... 
+
+#pragma comment(lib, "Psapi.lib")
 
 namespace Earlgrey 
 { 

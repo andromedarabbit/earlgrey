@@ -25,7 +25,7 @@ namespace Earlgrey
 		{
 			return m_buffer;
 		}
-		
+
 		inline BufferT& Buffer()
 		{
 			return m_buffer;
@@ -43,14 +43,14 @@ namespace Earlgrey
 
 		inline BOOL ReadByte(BYTE& x)
 		{
-			return ReadBytes(&x, sizeof(x));
+			return ReadBytes(&x, sizeof(x), sizeof(x));
 		}
 
 		BOOL ReadBytes(void* buf, size_type bufBytes, size_type len);
 
 		inline BOOL ReadChar(CHAR& x)
 		{
-			return ReadBytes(&x, sizeof(CHAR));
+			return ReadBytes(&x, sizeof(CHAR), sizeof(CHAR));
 		}
 
 		inline BOOL ReadChars(CHAR* x, size_type x_len, size_type len)
@@ -60,9 +60,9 @@ namespace Earlgrey
 
 		inline BOOL ReadWChar(WCHAR& x)
 		{
-			return ReadBytes(&x, sizeof(WCHAR));
+			return ReadBytes(&x, sizeof(WCHAR), sizeof(WCHAR));
 		}
-		
+
 		inline BOOL ReadWChars(WCHAR* x, size_type x_len, size_type len)
 		{
 			return ReadBytes(x, x_len * sizeof(WCHAR), len * sizeof(WCHAR));
@@ -79,7 +79,7 @@ namespace Earlgrey
 			return ReadNumber(x);
 		}
 
-		
+
 		inline BOOL ReadInt8(INT8& x)
 		{
 			return ReadNumber(x);
@@ -104,7 +104,7 @@ namespace Earlgrey
 		{
 			return ReadNumber(x);
 		}
-		
+
 		inline BOOL ReadUInt16(UINT16& x)
 		{
 			return ReadNumber(x);
@@ -114,7 +114,7 @@ namespace Earlgrey
 		{
 			return ReadNumber(x);
 		}
-		
+
 		inline BOOL ReadUInt64(UINT64& x)
 		{
 			return ReadNumber(x);
@@ -124,7 +124,7 @@ namespace Earlgrey
 		{
 			return ReadWChars(x, x_len, len);
 		}
-		
+
 		inline BOOL ReadString(CHAR* x, size_type x_len, size_type len)
 		{
 			return ReadChars(x, x_len, len);
@@ -173,7 +173,7 @@ namespace Earlgrey
 			buf
 			, bufBytes
 			, &m_buffer[m_bufferIndex]
-			, len 
+		, len 
 			);
 		m_bufferIndex += len;
 		return TRUE;	

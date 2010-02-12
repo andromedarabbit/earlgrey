@@ -14,4 +14,12 @@ namespace Earlgrey
 			Type; 
 	};
 
+
+	template<typename T>
+	struct auto_deque
+	{
+		typedef 
+			std::deque<T, typename StlStackAllocator< T > > 
+			Type; 
+	};
 }

@@ -67,7 +67,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
@@ -135,7 +134,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
@@ -205,7 +203,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
@@ -275,7 +272,6 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="Psapi.lib  ws2_32.lib Dbghelp.lib Mswsock.lib"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 			/>
 			<Tool
@@ -338,6 +334,10 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\inc\xlist.h"
+				>
 			</File>
 			<Filter
 				Name="ExternalLib"
@@ -513,14 +513,6 @@
 				<Filter
 					Name="Mail"
 					>
-					<File
-						RelativePath=".\src\MailAddress.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\MailMessage.cpp"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -1182,10 +1174,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\xdeque.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\xlist.h"
 					>
 				</File>
 				<File

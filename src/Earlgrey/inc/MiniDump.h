@@ -1,15 +1,12 @@
 #pragma once 
-
-//#ifndef _WINDOWS_
-//#define NOMINMAX
-//#include <windows.h>
-//#endif
 #include "EarlgreyAssert.h"
 #include "txstring.h"
 #include "UnhandledExceptionHandler.h"
 
 #include <dbghelp.h>
 #include <vector>
+
+#pragma comment(lib, "Dbghelp.lib")
 
 namespace Earlgrey
 {
