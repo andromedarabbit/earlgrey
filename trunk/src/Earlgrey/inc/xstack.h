@@ -14,4 +14,12 @@ namespace Earlgrey
 			Type; 
 	};
 
+	template<typename T, typename Container = auto_deque<T>::Type >
+	struct auto_stack
+	{
+		typedef 
+			std::stack<T, Container> 
+			Type; 
+	};
+
 }

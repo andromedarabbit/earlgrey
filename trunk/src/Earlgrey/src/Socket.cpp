@@ -3,6 +3,8 @@
 #include "ServerInit.h"
 #include "Socket.h"
 
+#pragma comment(lib, "ws2_32.lib")
+
 namespace Earlgrey
 {
 	BOOL SocketSubsystem::InitializeSubSystem()

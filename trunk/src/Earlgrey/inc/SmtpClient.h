@@ -6,7 +6,7 @@ namespace Earlgrey
 {
 	namespace Mail
 	{
-		class SmtpClient
+		class __declspec(dllexport) SmtpClient
 		{
 		public:
 			explicit SmtpClient()
