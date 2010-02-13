@@ -7,10 +7,8 @@
 #include "txstring.h"
 #include "UnhandledExceptionHandler.h"
 
-#pragma warning( push )
-#pragma warning( disable : 4100 )
-#include "..\..\..\vendor\StackWalker\StackWalker.h"
-#pragma warning( pop )
+#include "..\..\..\vendor\StackWalker_2009-11-01\StackWalker\StackWalker.h"
+
 
 namespace Earlgrey
 {
