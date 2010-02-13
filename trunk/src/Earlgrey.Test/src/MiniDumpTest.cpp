@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "MiniDump.h"
 
-#include "..\..\..\vendor\StackWalker\StackWalker.h"
 #include "StackWriter.h"
 
 #include "Environment.h"
