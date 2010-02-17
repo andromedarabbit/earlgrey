@@ -1,5 +1,6 @@
 #pragma once
 #include "BinaryWriter.hpp"
+#include "numeric_cast.hpp"
 
 namespace Earlgrey
 {
@@ -36,7 +37,7 @@ namespace Earlgrey
 		}
 
 		NetworkWriter& operator<<(bool x);
-		
+
 		inline BOOL WriteBoolean(const BOOL x)
 		{
 			return m_BinaryWriter.WriteBoolean(x);
@@ -173,7 +174,7 @@ namespace Earlgrey
 
 		inline BOOL WriteString(const CHAR* x)
 		{
-			return WriteString(x, strlen(x));
+			return WriteString(x, EARLGREY_NUMERIC_CAST<length_type>(strlen(x)));
 		}
 
 		inline BOOL WriteString(const CHAR* x, length_type length)
@@ -191,7 +192,7 @@ namespace Earlgrey
 
 	private: // field
 		BinaryWriter<BufferT> m_BinaryWriter;
-		
+
 	};
 
 	template <typename BufferT>
@@ -387,7 +388,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xwstring& x)
 	{
-		if(this->WriteString(x.c_str(), x.length()) == FALSE)
+		if(this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
@@ -409,7 +410,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xstring& x)
 	{
-		if(this->WriteString(x.c_str(), x.length()) == FALSE)
+		if(this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
