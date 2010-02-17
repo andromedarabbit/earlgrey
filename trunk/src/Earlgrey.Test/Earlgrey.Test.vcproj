@@ -67,6 +67,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 				UACExecutionLevel="2"
@@ -145,6 +146,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 				UACExecutionLevel="2"
@@ -224,6 +226,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 				UACExecutionLevel="2"
@@ -306,6 +309,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
 				UACExecutionLevel="2"
