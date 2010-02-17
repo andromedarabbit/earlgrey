@@ -4,6 +4,8 @@
 #include "if_.hpp"
 
 #include <math.h> // log()
+#include <limits>
+
 #include <intrin.h> // _BitScanReverse
 
 #pragma intrinsic(_BitScanReverse)
