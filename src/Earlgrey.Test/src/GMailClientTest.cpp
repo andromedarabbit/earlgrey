@@ -6,21 +6,6 @@
 #include "Path.h"
 
 
-// GMailClient library
-#if defined WIN64 || _WIN64
-#if defined DEBUG || _DEBUG
-#pragma comment(lib, "../x64-Debug/bin/GMailClient.lib")
-#else // !DEBUG
-#pragma comment(lib, "../x64-Release/bin/GMailClient.lib")
-#endif
-#else // !WIN32
-#if defined DEBUG || _DEBUG
-#pragma comment(lib, "../Win32-Debug/bin/GMailClient.lib")
-#else // !DEBUG
-#pragma comment(lib, "../Win32-Release/bin/GMailClient.lib")
-#endif //!DEBUG
-#endif
-
 namespace Earlgrey
 {
 	namespace Extension
