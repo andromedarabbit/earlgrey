@@ -37,7 +37,7 @@ namespace Earlgrey
 						using namespace std;
 
 						const _txstring baseDir = Environment::BaseDirectory();
-						const _txstring srcFile( Path::Combine(baseDir, _T("..\\..\\Earlgrey.Test\\src\\GMailClientTest.cpp")) );
+						const _txstring srcFile( Path::Combine(baseDir, _T("Earlgrey.Test.txt")) );
 						_txstring dstFile( Path::Combine(baseDir, _T("GMailClientTest.cpp")) ); // __FILE__
 
 

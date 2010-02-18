@@ -28,6 +28,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -106,6 +107,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -186,6 +188,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -268,6 +271,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -345,7 +349,7 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{540889A0-C756-44A8-A1AB-536EE7276D70}"
-			RelativePathToProject=".\GmailClient\GmailClient.vcproj"
+			RelativePathToProject="..\..\library\earlgrey_r336\src\GmailClient\GmailClient.vcproj"
 		/>
 	</References>
 	<Files>
@@ -626,6 +630,10 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\Earlgrey.Test.txt"
+				>
+			</File>
 			<File
 				RelativePath=".\EarlgreyTestResources.rc"
 				>
