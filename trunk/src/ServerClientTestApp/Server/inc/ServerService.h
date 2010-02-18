@@ -1,5 +1,5 @@
 #pragma once
-#include "Win32Service.h"
+#include "ServiceBase.h"
 #include "Win32ServiceSettings.h"
 #include "txstring.h"
 #include "xvector.h"
@@ -10,7 +10,7 @@ namespace Earlgrey
 }
 
 
-class ServerService : public Earlgrey::Win32Service
+class ServerService : public Earlgrey::ServiceProcess::ServiceBase
 {
 	friend class Win32ServiceRunnable;
 
@@ -31,7 +31,6 @@ public:
 	virtual void	OnStart(DWORD argc, LPTSTR * argv);
 	virtual void	OnStop();
 
-	// virtual void OnUserInput(const Earlgrey::_txstring& input);
 	void RegisterUserInputHandlers(UserInputHandlerPtr handler);
 
 protected:
@@ -49,7 +48,6 @@ private:
 private:
 	const Win32ServiceSettings& m_settings;
 	BOOL m_consoleMode;
-	HANDLE m_stopHandle;
 	std::tr1::shared_ptr<Earlgrey::Thread> m_serverThread;
 	UserInputHandlerConainter m_userInputHandlers;
 };

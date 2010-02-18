@@ -1,14 +1,13 @@
 #include "stdafx.h"
 #include "Win32ServiceRunnable.h"
-#include "ServerService.h"
 #include "Thread.h"
 
 using namespace Earlgrey;
 
-Win32ServiceRunnable::Win32ServiceRunnable(HANDLE stopHandle) 
-	: m_stopHandle(stopHandle)
+Win32ServiceRunnable::Win32ServiceRunnable() 
+	: m_meetsStopCondition(FALSE)
 {
-	EARLGREY_ASSERT(m_stopHandle != NULL);
+
 }
 
 Win32ServiceRunnable::~Win32ServiceRunnable() 
@@ -23,26 +22,20 @@ BOOL Win32ServiceRunnable::Init()
 
 BOOL Win32ServiceRunnable::MeetsStopCondition() const
 {
-	EARLGREY_ASSERT(m_stopHandle != NULL);
-	return ::WaitForSingleObject(m_stopHandle, 10) == WAIT_OBJECT_0;
+	return m_meetsStopCondition;
 }
 
 DWORD Win32ServiceRunnable::DoTask()
 {
-	EARLGREY_ASSERT(m_stopHandle != NULL);
 	::Sleep(10);
 	return EXIT_SUCCESS;
 }
 
 void Win32ServiceRunnable::Stop()
 {
-	EARLGREY_VERIFY(::SetEvent(m_stopHandle));
+	m_meetsStopCondition = TRUE;
 }
 
 void Win32ServiceRunnable::Exit()
 {
-	if( m_stopHandle != NULL )
-	{
-		EARLGREY_VERIFY(::CloseHandle(m_stopHandle));
-	}
 }

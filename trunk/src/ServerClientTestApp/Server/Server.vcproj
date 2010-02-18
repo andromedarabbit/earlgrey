@@ -397,10 +397,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\Win32ServiceHelper.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Win32ServiceRunnable.cpp"
 				>
 			</File>
@@ -435,7 +431,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\inc\Win32ServiceHelper.h"
+				RelativePath=".\inc\UserInputHandlers.h"
 				>
 			</File>
 			<File

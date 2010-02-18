@@ -8,8 +8,7 @@ class Win32ServiceRunnable
 	: public Earlgrey::ThreadRunnable
 {
 public:
-	explicit Win32ServiceRunnable(HANDLE stopHandle);
-
+	explicit Win32ServiceRunnable();
 	virtual ~Win32ServiceRunnable();
 
 protected:
@@ -21,5 +20,5 @@ protected:
 	virtual DWORD DoTask();
 
 private:
-	HANDLE m_stopHandle;
+	BOOL m_meetsStopCondition;
 };
