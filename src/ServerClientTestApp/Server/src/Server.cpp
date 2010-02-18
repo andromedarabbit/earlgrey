@@ -4,9 +4,9 @@
 #include "stdafx.h"
 #include "Application.h"
 #include "ServerService.h"
-#include "Win32ServiceInstaller.h"
+#include "ServiceInstaller.h"
 #include "Win32ServiceSettings.h"
-#include "Win32ServiceHelper.h"
+#include "ServiceHelper.h"
 
 #include "tiostream.h"
 #include "UserInputHandlers.h"
@@ -14,6 +14,7 @@
 
 using namespace std;
 using namespace Earlgrey;
+using namespace Earlgrey::ServiceProcess;
 
 namespace 
 {
@@ -46,7 +47,7 @@ namespace
 
 		try
 		{
-			Win32Service::Run(service);
+			ServiceBase::Run(service);
 			return EXIT_SUCCESS;
 		}
 		catch(std::exception&) // 예외 메시지를 어떻게 처리할까?
@@ -84,7 +85,7 @@ namespace
 		ServerService service(settings, TRUE);
 		RegisterUserInputHandlers(service);
 
-		Win32ServiceInstaller installer(service);
+		ServiceInstaller installer(service);
 		installer.Description(settings.Description());
 
 		if(mode == SERVER_RUN_MODE_INSTALL)
@@ -140,7 +141,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 
 	// check if it was called by Win32Service daemon
-	if(Win32ServiceHelper::RunByWin32Service())
+	if(Helper::RunByWin32Service())
 	{
 		return RunAsWin32Service(settings);		
 	}

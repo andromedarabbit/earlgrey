@@ -52,9 +52,10 @@ namespace Earlgrey
 				EARLGREY_ASSERT( File::Delete(filePath) );
 			}
 
-			return std::tr1::shared_ptr<UnhandledExceptionHandler>( 
+			std::tr1::shared_ptr<UnhandledExceptionHandler> writer( 
 				new StackWriter(filePath, StackWalker::OptionsAll) 
 				);
+			return writer;
 		}
 	}
 

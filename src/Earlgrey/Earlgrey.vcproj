@@ -590,11 +590,19 @@
 					Name="Win32Service"
 					>
 					<File
-						RelativePath=".\src\Win32Service.cpp"
+						RelativePath=".\src\ServiceBase.cpp"
 						>
 					</File>
 					<File
-						RelativePath=".\src\Win32ServiceInstaller.cpp"
+						RelativePath=".\src\ServiceHelper.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ServiceInstaller.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ServiceSettings.cpp"
 						>
 					</File>
 				</Filter>
@@ -992,11 +1000,19 @@
 						>
 					</File>
 					<File
-						RelativePath=".\inc\Win32Service.h"
+						RelativePath=".\inc\ServiceBase.h"
 						>
 					</File>
 					<File
-						RelativePath=".\inc\Win32ServiceInstaller.h"
+						RelativePath=".\inc\ServiceHelper.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\ServiceInstaller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\ServiceSettings.h"
 						>
 					</File>
 				</Filter>

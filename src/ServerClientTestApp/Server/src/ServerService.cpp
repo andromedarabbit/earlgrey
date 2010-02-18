@@ -9,12 +9,12 @@
 #include "SingleAppInstance.h"
 
 using namespace Earlgrey;
+using namespace Earlgrey::ServiceProcess;
 
 ServerService::ServerService(const Win32ServiceSettings& settings, BOOL consoleMode)
-	: Win32Service(settings.ShortName(), settings.LongName())
+	: ServiceBase(settings.ShortName(), settings.LongName())
 	, m_settings(settings) 
 	, m_consoleMode(consoleMode)
-	, m_stopHandle(NULL)
 {
 	const TCHAR * serviceName = this->ServiceName().c_str();
 
@@ -94,14 +94,11 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	DBG_UNREFERENCED_PARAMETER(argv);
 
 
-	m_stopHandle = ::CreateEvent(NULL, TRUE, FALSE, NULL);
-	EARLGREY_VERIFY(m_stopHandle);
-
 	//! \todo delete 안 해도 되나?
 	ServerConnection* connection = new ServerConnection();
 	connection->Accept(100);
 
-	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable(m_stopHandle) ));
+	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable() ));
 	EARLGREY_ASSERT(m_serverThread == NULL);
 	m_serverThread = Thread::CreateThread( 
 		runnable
@@ -123,7 +120,6 @@ void ServerService::OnStop()
 		);
 
 	m_serverThread->Stop();
-	// EARLGREY_VERIFY(::SetEvent(m_stopHandle));
 }
 
 void ServerService::ProcessUserInput()
@@ -160,7 +156,7 @@ void ServerService::OnUserInput(const _txstring& input)
 BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 {
 	ServerService* instance = NULL;
-	instance = static_cast<ServerService*>( Win32Service::MainService() );
+	instance = static_cast<ServerService*>( ServiceBase::MainService() );
 	EARLGREY_ASSERT(instance != NULL);
 
 	switch( ctrlType ) {

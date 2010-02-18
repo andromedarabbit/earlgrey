@@ -1,10 +1,9 @@
 #pragma once
-#include "DefaultAppSettings.h"
+#include "ServiceSettings.h"
 
-class Win32ServiceSettings : public Earlgrey::DefaultAppSettings
+class Win32ServiceSettings : public Earlgrey::ServiceProcess::ServiceSettings
 {
 public:
-	virtual BOOL AllowOnlyOneInstance() const;
 	virtual const TCHAR * const ShortName() const;
 
 	virtual UnhandledExceptionCollectionPtr UnhandledExceptions();
