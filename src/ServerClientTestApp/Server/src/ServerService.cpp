@@ -7,6 +7,7 @@
 #include "TimeSpan.h"
 #include "Console.h"
 #include "SingleAppInstance.h"
+#include "numeric_cast.hpp"
 
 using namespace Earlgrey;
 using namespace Earlgrey::ServiceProcess;
@@ -72,7 +73,7 @@ ServerService::~ServerService()
 
 BOOL ServerService::ReportStatus(
 						  DWORD currentState
-						  , DWORD waitHint
+						  , TimeSpan waitHint
 						  , DWORD errExit
 						  )
 {
@@ -85,7 +86,8 @@ BOOL ServerService::ReportStatus(
 		return TRUE;
 	}
 
-	return __super::ReportStatus(currentState, waitHint, errExit);
+	const DWORD milliseconds = EARLGREY_NUMERIC_CAST<DWORD>( waitHint.TotalMilliseconds() );
+	return __super::ReportStatus(currentState, milliseconds, errExit);
 }
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
@@ -116,7 +118,7 @@ void ServerService::OnStop()
 {
 	TimeSpan interval(0, 0, 11);
 	EARLGREY_VERIFY( 
-		ReportStatus(SERVICE_STOP_PENDING, interval.Milliseconds())
+		ReportStatus(SERVICE_STOP_PENDING, interval)
 		);
 
 	m_serverThread->Stop();
