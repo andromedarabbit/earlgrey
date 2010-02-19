@@ -3,6 +3,7 @@
 #include "Win32ServiceSettings.h"
 #include "txstring.h"
 #include "xvector.h"
+#include "TimeSpan.h"
 
 namespace Earlgrey
 {
@@ -36,7 +37,7 @@ public:
 protected:
 	virtual BOOL ReportStatus(
 		DWORD currentState
-		, DWORD waitHint = 3000 /* milliseconds */
+		, Earlgrey::TimeSpan waitHint = Earlgrey::TimeSpan::FromSeconds(3)// DWORD waitHint = 3000 /* milliseconds */
 		, DWORD errExit = 0
 		);
 
