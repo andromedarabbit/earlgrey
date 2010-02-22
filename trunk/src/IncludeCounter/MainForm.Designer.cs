@@ -32,10 +32,12 @@
             this.ResultView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
             this.selectFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.diagnosis = new System.Windows.Forms.Button();
+            this.combine = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,6 +57,7 @@
             this.ResultView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
+            this.columnHeader4,
             this.columnHeader3});
             this.ResultView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ResultView.FullRowSelect = true;
@@ -76,6 +79,11 @@
             this.columnHeader2.Text = "Count";
             this.columnHeader2.Width = 80;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Rate";
+            this.columnHeader4.Width = 80;
+            // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Recursive";
@@ -84,6 +92,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.diagnosis);
+            this.flowLayoutPanel1.Controls.Add(this.combine);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 469);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -99,6 +108,16 @@
             this.diagnosis.Text = "Diagnosis";
             this.diagnosis.UseVisualStyleBackColor = true;
             this.diagnosis.Click += new System.EventHandler(this.diagnosis_Click);
+            // 
+            // combine
+            // 
+            this.combine.Location = new System.Drawing.Point(110, 3);
+            this.combine.Name = "combine";
+            this.combine.Size = new System.Drawing.Size(101, 23);
+            this.combine.TabIndex = 1;
+            this.combine.Text = "Combine";
+            this.combine.UseVisualStyleBackColor = true;
+            this.combine.Click += new System.EventHandler(this.combine_Click);
             // 
             // MainForm
             // 
@@ -126,6 +145,8 @@
         private System.Windows.Forms.FolderBrowserDialog selectFolder;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button diagnosis;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.Button combine;
     }
 }
 

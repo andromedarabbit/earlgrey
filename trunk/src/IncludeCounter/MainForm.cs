@@ -15,6 +15,11 @@ namespace IncludeCounter
 {
     public partial class MainForm : Form
     {
+        private Dictionary<string, FileNode> _fileNodeDictionary = new Dictionary<string, FileNode>();
+        private List<string> _filesInPreCompileHeader = new List<string>();
+        private int _CppCount = 0;
+        private const string keyName = @"Software\Earlgrey\IncludeCounter";
+
         public MainForm()
         {
             InitializeComponent();
@@ -22,7 +27,6 @@ namespace IncludeCounter
 
         private void diagnosis_Click(object sender, EventArgs e)
         {
-            string keyName = @"Software\Earlgrey\IncludeCounter";
             RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true);
             if (key == null)
             {
@@ -45,10 +49,13 @@ namespace IncludeCounter
 
             key.SetValue("selected", selectFolder.SelectedPath);
 
-            MakeReferenceTree(selectFolder.SelectedPath);
+            _fileNodeDictionary.Clear();
+            _filesInPreCompileHeader.Clear();
+            _CppCount = 0;
+
+            MakeReferenceGraph(selectFolder.SelectedPath);
 
             CountReferences();
-
             
             FileNode preCompileHeaderNode = GetOrCreateFileNode("stdafx.h");
             _filesInPreCompileHeader.Clear();
@@ -64,10 +71,15 @@ namespace IncludeCounter
             List<string> traversedFiles = new List<string>();
             foreach (KeyValuePair<string, FileNode> pair in _fileNodeDictionary)
             {
+                if (Path.GetExtension(pair.Key) != ".cpp")
+                {
+                    continue;
+                }
+                traversedFiles.Clear();
+                traversedFiles.Add(pair.Key);
+
                 foreach (FileNode referencingFileNode in pair.Value.ReferenceFileNodes)
                 {
-                    traversedFiles.Clear();
-                    traversedFiles.Add(pair.Key);
                     IncreaseCount(referencingFileNode, traversedFiles);
                 }
             }
@@ -75,22 +87,28 @@ namespace IncludeCounter
 
         private void Display()
         {
+            ResultView.Items.Clear();
             foreach (KeyValuePair<string, FileNode> pair in _fileNodeDictionary)
             {
+                if (Path.GetExtension(pair.Key) == ".cpp")
+                {
+                    continue;
+                }
                 string[] items = {
                                    pair.Key,
                                    pair.Value.Count.ToString(),
+                                   (pair.Value.Count * 100 / _CppCount).ToString() + "%",
                                    pair.Value.Recursive ? "Recursive" : ""
                                };
 
                 ListViewItem item;
                 if (_filesInPreCompileHeader.Exists(name => name == pair.Key))
                 {
-                    item = new ListViewItem(items, -1, Color.Gray, Color.White, new Font("Vernada", 8));
+                    item = new ListViewItem(items, -1, Color.Gray, Color.White, new Font("Verdana", 8));
                 }
-                else if (pair.Value.Count > 100)
+                else if (pair.Value.Count >= _CppCount / 2)
                 {
-                    item = new ListViewItem(items, -1, Color.Red, Color.LightGray, new Font("Vernada", 8));
+                    item = new ListViewItem(items, -1, Color.Red, Color.LightGray, new Font("Verdana", 8));
                 }
                 else
                 {
@@ -102,9 +120,10 @@ namespace IncludeCounter
             }
 
             ResultView.ListViewItemSorter = new ListViewItemComparer();
+            this.Text = "Include Counter - cpp files:" + _CppCount;
         }
 
-        private void MakeReferenceTree(string directoryName)
+        private void MakeReferenceGraph(string directoryName)
         {
             string[] files = Directory.GetFiles(directoryName);
             foreach (string path in files)
@@ -117,6 +136,11 @@ namespace IncludeCounter
                     continue;
                 }
 
+                if (ext == ".cpp")
+                {
+                    _CppCount++;
+                }
+
                 FileNode fileNode = GetOrCreateFileNode(filename);
 
                 AddIncludeFiles(path, fileNode);
@@ -125,7 +149,7 @@ namespace IncludeCounter
             string[] directories = Directory.GetDirectories(directoryName);
             foreach (string directory in directories)
             {
-                MakeReferenceTree(directory);
+                MakeReferenceGraph(directory);
             }
         }
 
@@ -212,8 +236,6 @@ namespace IncludeCounter
             }
         }
 
-        private Dictionary<string, FileNode> _fileNodeDictionary = new Dictionary<string, FileNode>();
-
         private void ResultView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
             ListViewItemComparer comparer = new ListViewItemComparer((ListViewItemComparer)ResultView.ListViewItemSorter);
@@ -229,7 +251,74 @@ namespace IncludeCounter
             ResultView.ListViewItemSorter = comparer;
         }
 
-        private List<string> _filesInPreCompileHeader = new List<string>();
+        private void combine_Click(object sender, EventArgs e)
+        {
+            RegistryKey key = Registry.LocalMachine.OpenSubKey(keyName, true);
+            if (key == null)
+            {
+                key = Registry.LocalMachine.CreateSubKey(keyName);
+            }
+            else
+            {
+                string value = key.GetValue("selected") as string;
+                if (value.Length > 0)
+                {
+                    selectFolder.SelectedPath = value;
+                }
+            }
+            selectFolder.ShowDialog();
+
+            if (selectFolder.SelectedPath.Length == 0)
+            {
+                return;
+            }
+
+            key.SetValue("selected", selectFolder.SelectedPath);
+
+            Combine(selectFolder.SelectedPath);
+        }
+
+        private void Combine(string directory)
+        {
+            using (StreamWriter writer = File.CreateText(Path.Combine(directory, "Combine.cpp")))
+            {
+                _Combine(directory, directory, writer);
+            }            
+        }
+
+        private void _Combine(string rootDirectory, string baseDirectory, StreamWriter writer)
+        {
+            string[] files = Directory.GetFiles(baseDirectory);
+            foreach (string path in files)
+            {
+                string filename = Path.GetFileName(path).ToLower();
+                string ext = Path.GetExtension(path).ToLower();
+
+                if (ext != ".cpp" || filename == "combine.cpp" || filename == "stdafx.cpp")
+                {
+                    continue;
+                }
+
+                string cppFile = path.ToLower();
+                int index = cppFile.IndexOf(rootDirectory.ToLower());
+                Debug.Assert(index >= 0);
+
+                index += rootDirectory.Length;
+
+                if (cppFile[index] == '\\' || cppFile[index] == '/')
+                {
+                    index++;
+                }
+
+                writer.WriteLine("#include \"" + cppFile.Substring(index) + "\"");
+            }
+
+            string[] directories = Directory.GetDirectories(baseDirectory);
+            foreach (string directory in directories)
+            {
+                _Combine(rootDirectory, directory, writer);
+            }
+        }
     }
 
     class ListViewItemComparer : IComparer
