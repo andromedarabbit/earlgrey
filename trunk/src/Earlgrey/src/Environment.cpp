@@ -448,4 +448,99 @@ namespace Earlgrey
 
 		return theValue.bits32 == 256;
 	}
+
+
+	// TODO: 메모리 해제를 스마트 포인터로...
+	namespace 
+	{
+		PSYSTEM_LOGICAL_PROCESSOR_INFORMATION GetSystemLogicalProcessorInformation(
+			DWORD& returnLength
+			)
+		{
+			PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = NULL; //, ptr;
+			returnLength = 0;
+
+			for( ; ; )
+			{
+				if( ::GetLogicalProcessorInformation (buffer, &returnLength) == TRUE )
+					break;
+
+				const DWORD errorCode = GetLastError();
+				EARLGREY_VERIFY(errorCode == ERROR_INSUFFICIENT_BUFFER);
+
+				if (errorCode == ERROR_INSUFFICIENT_BUFFER) 
+				{
+					if (buffer) 
+						::free(buffer);
+
+					buffer = (PSYSTEM_LOGICAL_PROCESSOR_INFORMATION)::malloc(returnLength);
+					EARLGREY_VERIFY(buffer != NULL); // Allocation failure
+				} 
+			}
+
+			return buffer;
+		}
+	}
+
+	WORD Environment::ProcessorCacheLineSize()
+	{
+		DWORD returnLength = 0;
+		PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = GetSystemLogicalProcessorInformation(returnLength);
+		EARLGREY_ASSERT(buffer != NULL);
+
+		WORD cacheLineSize = 0;
+		DWORD byteOffset = 0;
+
+		PSYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr = buffer;
+		while (byteOffset < returnLength) 
+		{
+			switch (ptr->Relationship) 
+			{
+			case RelationCache:
+				cacheLineSize = ptr->Cache.LineSize;
+				::free(buffer);
+				return cacheLineSize;
+
+			default:
+				break;
+			}
+			byteOffset += sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION);
+			ptr++;
+		}
+
+		::free(buffer);
+		throw std::exception("");
+		// ::free(buffer);
+		// return procCoreCount ;
+	}
+
+
+	DWORD Environment::ActiveProcessorCoresCount()
+	{
+		DWORD returnLength = 0;
+		PSYSTEM_LOGICAL_PROCESSOR_INFORMATION buffer = GetSystemLogicalProcessorInformation(returnLength);
+		EARLGREY_ASSERT(buffer != NULL);
+
+		DWORD procCoreCount = 0;
+		DWORD byteOffset = 0;
+
+		PSYSTEM_LOGICAL_PROCESSOR_INFORMATION ptr = buffer;
+		while (byteOffset < returnLength) 
+		{
+			switch (ptr->Relationship) 
+			{
+			case RelationProcessorCore:
+				procCoreCount++;
+				break;
+
+			default:
+				break;
+			}
+			byteOffset += sizeof(SYSTEM_LOGICAL_PROCESSOR_INFORMATION);
+			ptr++;
+		}
+
+		::free(buffer);
+		return procCoreCount ;
+	}
 }

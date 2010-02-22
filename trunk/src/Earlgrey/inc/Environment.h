@@ -28,11 +28,15 @@ namespace Earlgrey
 
 		static _txstring OSVersion();
 
+		// 여기서부턴 .NET Framework와 다른 메서드들
 		static BOOL Is_WinXP_SP2_or_Later();
 		static BOOL Is_Win_Server();
 
 		static BOOL Is64BitWindows();
 
 		static BOOL IsLittleEndian();
+
+		static WORD ProcessorCacheLineSize();
+		static DWORD ActiveProcessorCoresCount();
 	};
 }
