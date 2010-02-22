@@ -69,6 +69,7 @@
 				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				LargeAddressAware="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -144,6 +145,7 @@
 				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				LargeAddressAware="2"
 				TargetMachine="17"
 			/>
 			<Tool
@@ -219,6 +221,7 @@
 				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				LargeAddressAware="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -297,6 +300,7 @@
 				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				LargeAddressAware="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="17"

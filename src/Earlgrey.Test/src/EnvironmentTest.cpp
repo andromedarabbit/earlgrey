@@ -108,5 +108,17 @@ namespace Earlgrey
 			// currently only supports 80x86 CPUs
 			ASSERT_TRUE(Environment::IsLittleEndian());
 		}
+
+		TEST(EnvironmentTest, ProcessorCacheLineSize)
+		{		
+			const WORD cacheLineSize = Environment::ProcessorCacheLineSize();
+			ASSERT_EQ(64, cacheLineSize);
+		}
+
+		TEST(EnvironmentTest, ActiveProcessorCoresCount)
+		{		
+			const DWORD count = Environment::ActiveProcessorCoresCount();
+			ASSERT_GT(count, static_cast<DWORD>(1));
+		}
 	}
 }

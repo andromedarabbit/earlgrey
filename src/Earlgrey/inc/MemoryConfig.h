@@ -1,5 +1,5 @@
 #pragma once
-
+// TODO : 값을 전부 검토해야 한다. Environment::ProcessorCacheLineSize() 참고!
 /*
 #if defined(_WIN64) || defined(_M_ALPHA)
 #define MAX_NATURAL_ALIGNMENT sizeof(ULONGLONG)
