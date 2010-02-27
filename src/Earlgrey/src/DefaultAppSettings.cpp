@@ -62,7 +62,7 @@ namespace Earlgrey
 
 	DefaultAppSettings::DefaultAppSettings()
 		: m_executableName(Process::MainModuleFileName())
-		, m_shortNmae(Path::GetFileName(m_executableName))
+		, m_shortName(Path::GetFileName(m_executableName))
 		, m_versionInfo( FileVersionInfo::GetVersionInfo(m_executableName) )
 		, m_UnhandledExceptions(new UnhandledExceptionCollection())
 	{
@@ -95,7 +95,7 @@ namespace Earlgrey
 
 	const TCHAR * const DefaultAppSettings::ShortName() const
 	{
-		return m_shortNmae.c_str();
+		return m_shortName.c_str();
 	}
 
 	const TCHAR * const DefaultAppSettings::LongName() const

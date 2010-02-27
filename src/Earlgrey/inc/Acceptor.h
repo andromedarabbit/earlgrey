@@ -1,68 +1,61 @@
 #pragma once 
 #include "EarlgreyAssert.h"
 #include "AsyncStream.h"
-// #include "IOCPEventType.h"
-#include "Proactor.h"
 #include "mswsock.h"
 #include "NetworkBuffer.h"
-
+#include "ThreadRunnable.h"
+#include "WaitEvent.h"
 
 
 namespace Earlgrey
 {
-	class Acceptor 
-		: public CompletionHandler
+
+	//! Accept 이벤트를 대기하는 스레드의 runnable 클래스
+	/*!
+		Listen 또는 Connect를 여러 개 하더라도 Accept 이벤트는 이 스레드에서만 기다린다.
+		
+	*/
+	class AcceptorRunnable : public ThreadRunnable
 	{
 	public:
-		explicit Acceptor(USHORT InPort)
-			: ListenSocket(INVALID_SOCKET),
-			AcceptSocket(INVALID_SOCKET),
-			Port(InPort)
-		{};
+		virtual void Stop() 
+		{
+			::InterlockedExchange( &_IsRunning, FALSE );
+		}
 
-		virtual ~Acceptor() {};
+		virtual void Exit() 
+		{
+		}
 
-		BOOL Register();		
+		BOOL MeetsStopCondition() const
+		{
+			return _IsRunning;
+		}
 
-		// CompletionHandler Interface
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes);
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
-
-		BOOL CreateListenSocket();
-		SOCKET CreateAcceptSocket(AsyncStream* InStream);
+		DWORD DoTask() 
+		{
+			WaitEventContainerSingleton::Instance().WaitEvents();
+			return 0;
+		}
 
 	private:
-		SOCKET ListenSocket;		
-		SOCKET AcceptSocket;
-		USHORT Port;
+		volatile LONG _IsRunning;
 	};
 
+	//class Acceptor : public CompletionHandler
+	//{
+	//public:
+	//	BOOL SetProactor(Proactor* InProactor);
 
-	/**
-	*/
-	inline BOOL Acceptor::Register()
-	{
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)AcceptSocket, this))
-		{
-			if (AcceptSocket != INVALID_SOCKET) // this line is not needed
-			{
-				closesocket(AcceptSocket);
-			}
-			return FALSE;
-		}
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ListenSocket, this))
-		{
-			if (ListenSocket != INVALID_SOCKET) // this line is not needed
-			{
-				closesocket(ListenSocket);
-			}
-			return FALSE;
-		}
-		return TRUE;
-	}
+	//	// CompletionHandler Interface
+	//	virtual void HandleEvent(AsyncResult* Result);
 
-	inline void Acceptor::HandleEventError(AsyncResult* /*Result*/, DWORD /*Error*/)
-	{
-		return;//TODO :
-	}
+	//	BOOL Listen(USHORT Port, bool ReuseAddress = true);
+	//	SOCKET CreateAcceptSocket(AsyncStream* InStream);
+
+	//private:
+	//	Socket _ListenSocket;		
+	//	Socket _AcceptSocket;
+	//	Proactor* _Proactor;
+	//};
 }

@@ -12,13 +12,6 @@ namespace Earlgrey
 {
 	class NetworkBuffer;
 	class AsyncResult;
-
-	typedef enum IOCP_EVENT_TYPE
-	{
-		READ_EVENT,
-		WRITE_EVENT
-	};
-
 	class CompletionHandler;
 
 	//Windows IOCompletion Port 용
@@ -32,7 +25,7 @@ namespace Earlgrey
 		virtual BOOL HandleEvent(TimeSpan WaitTime);
 		virtual BOOL HandleEvent(DWORD milliseconds) = 0;
 
-		//! \todo 이렇게 운영체제 핸들을 드러내놓고 주고 받아도 되나?  
+		//! TODO: 이렇게 운영체제 핸들을 드러내놓고 주고 받아도 되나?  
 		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler) = 0;
 		virtual BOOL DeregisterHandler(HANDLE Handle) = 0;
 	};
@@ -63,141 +56,88 @@ namespace Earlgrey
 			ProactorSingleton
 			;
 
-	// Windows WaitEvent 용
-	/*class AcceptProactor
-		: public Proactor
-	{
-	public:
-		AcceptProactor() 
-		{
-			InitializeCriticalSection(&Lock_);
-		};
-		virtual ~AcceptProactor() {};
-
-		BOOL Initialize() {}
-
-		//Proactor Pattern Interface
-		virtual BOOL HandleEvent(TimeValueType WaitTime = DefaultTimeout);
-		virtual BOOL RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler);
-		virtual BOOL DeregisterHandler(HANDLE Handle);
-
-
-	private:
-		typedef std::map<WSAEVENT, WaitEventHandler*> EventHandlerMapType; // TODO xmap?
-		typedef std::vector<WSAEVENT> EventVectorType; // TODO xvector?
-
-
-		CRITICAL_SECTION		Lock_; // TODO shared_ptr 및 lock wrapper 필요
-		EventVectorType			_Events;
-		EventHandlerMapType		_EventHandlerMap;
-	};
-
-	typedef
-		Loki::SingletonHolder<AcceptProactor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
-		AcceptProactorSingleton
-		;
-*/
-
-	class AsyncResult;
-
 	class CompletionHandler : private Uncopyable
 	{
 	public:
 		explicit CompletionHandler() {};
 		virtual ~CompletionHandler() {};
 
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes) = 0;
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error) = 0;
+		virtual void HandleEvent(AsyncResult* Result) = 0;
 	};
 
-	/*class WaitEventHandler
-		: public CompletionHandler
+	//! Async I/O 처리를 위해 넘겨지는 token
+	/*!
+		Read / Write 에서 공통으로 사용하는 token이다.
+		완료되면 이 token이 적당한 값으로 채워진 후 핸들러에게 넘겨진다.
+	*/
+	class AsyncResult
 	{
+		friend class WinProactor;
 	public:
-		explicit WaitEventHandler() {};
-		virtual ~WaitEventHandler() {};
-
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes) = 0;
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error) = 0;
-
-		virtual void HandleEvent() = 0;
-	};*/
-
-	class AsyncStream;
-	class AsyncOperation;
-
-	class AsyncResult 
-		: public OVERLAPPED
-	{
-	public:
-		explicit AsyncResult(CompletionHandler* InHandler, AsyncStream* InStream = NULL) 
-			: TransferredBytes_(0)
-			, Error_(0)
-			, Status_(0)
-			, Handler_(InHandler)
-			, Stream_(InStream)
+		AsyncResult()
 		{
-			Internal = 0;
-			InternalHigh = 0;
-			Pointer = NULL;
-			hEvent = NULL;
-		};
-
-		explicit AsyncResult(CompletionHandler* InHandler, AsyncOperation* InOperation) 
-			: TransferredBytes_(0)
-			, Error_(0)
-			, Status_(0)
-			, Handler_(InHandler)
-			, _Operation(InOperation)
-		{
-			Internal = 0;
-			InternalHigh = 0;
-			Pointer = NULL;
-			hEvent = NULL;
-		};
-
-
-		virtual ~AsyncResult() {}
-
-		virtual void Completed()
-		{
-			EARLGREY_ASSERT(Handler_ != NULL);
-			Handler_->HandleEvent(this, TransferredBytes_);
 		}
 
-		virtual void Failed()
+		//! I/O 와 상관 없는 객체를 큐에 넣을 때 사용하는 생성자
+		AsyncResult(CompletionHandler* Handler)
+			: _Handle(INVALID_SOCKET), _Handler(Handler)
 		{
-			EARLGREY_ASSERT(Handler_ != NULL);
-			Handler_->HandleEventError(this, Error_);
 		}
 
-		virtual void TimeOut()
+		//! I/O 처리에 사용하는 생성자
+		AsyncResult(SOCKET Handle, CompletionHandler* Handler) 
+			: _Handle(Handle), _Handler(Handler)
 		{
-
+			EARLGREY_ASSERT( Handle != INVALID_SOCKET );
 		}
 
-		inline void TransferredBytes(DWORD bytes) { TransferredBytes_ = bytes; };
-		inline DWORD TransferredBytes() { return TransferredBytes_; }
-		inline void Status(DWORD status) { Status_ = status; };
-		inline void Error(DWORD error) { Error_ = error; };
-		inline DWORD Error() { return Error_; }
-
-		inline CompletionHandler* Handler() const
+		DWORD GetBytesTransferred() const
 		{
-			return Handler_;
+			return _BytesTransferred;
 		}
-		inline AsyncStream* Stream() const
+
+		SOCKET GetHandle() const
 		{
-			return Stream_;
+			return _Handle;
+		}
+
+		//! 핸들러를 호출한다. Receiver / Sender ..
+		void HandleEvent()
+		{
+			_Handler->HandleEvent( this );
+		}
+
+		CompletionHandler* GetHandler()
+		{
+			return _Handler;
+		}
+
+		OVERLAPPED* GetOverlapped()
+		{
+			return &_overlapped;
+		}
+
+		DWORD GetError() const
+		{
+			return _Error;
 		}
 
 	private:
-		//OVERLAPPED	Overlapped_;
-		DWORD TransferredBytes_;
-		DWORD Error_;
-		DWORD Status_;
-		CompletionHandler* Handler_;
-		AsyncStream* Stream_;
-		AsyncOperation* _Operation;
+		void SetBytesTransferred(DWORD Bytes)
+		{
+			_BytesTransferred = Bytes;
+		}
+
+		void SetErrorCode(DWORD Error)
+		{
+			_Error = Error;
+		}
+	private:
+		OVERLAPPED _overlapped;
+		CompletionHandler* _Handler;
+		DWORD _BytesTransferred;
+		SOCKET _Handle;
+		DWORD _Error;
 	};
+
 }

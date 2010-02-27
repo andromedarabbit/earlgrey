@@ -95,10 +95,8 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	DBG_UNREFERENCED_PARAMETER(argc);
 	DBG_UNREFERENCED_PARAMETER(argv);
 
-
-	//! \todo delete 안 해도 되나?
-	ServerConnection* connection = new ServerConnection();
-	connection->Accept(100);
+	Earlgrey::Server* server = new Earlgrey::Server();
+	server->Listen( 100, true );
 
 	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable() ));
 	EARLGREY_ASSERT(m_serverThread == NULL);

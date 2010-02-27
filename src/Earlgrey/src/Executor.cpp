@@ -8,17 +8,11 @@ namespace Earlgrey
 
 	}
 
-	void TaskCompletionHandler::HandleEvent(AsyncResult* Result, DWORD TransferredBytes) {
+	void TaskCompletionHandler::HandleEvent(AsyncResult* Result) {
 
 		UNREFERENCED_PARAMETER(Result);
-		EARLGREY_ASSERT(TransferredBytes == 0);
+		EARLGREY_ASSERT(Result->GetBytesTransferred() == 0);
 		Task_->Run();
-
-	}
-
-	void TaskCompletionHandler::HandleEventError(AsyncResult* Result, DWORD Error) {
-		UNREFERENCED_PARAMETER(Result);
-		UNREFERENCED_PARAMETER(Error);
 
 	}
 

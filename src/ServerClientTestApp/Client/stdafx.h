@@ -22,3 +22,8 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include <map>
+#include <vector>
+
+#include "Earlgrey.h"
+

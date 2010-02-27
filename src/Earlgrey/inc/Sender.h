@@ -4,37 +4,18 @@
 
 namespace Earlgrey
 {
-	class Sender
-		: public CompletionHandler
+	class AsyncStream;
+
+	class Sender : public CompletionHandler
 	{
-		explicit Sender()
-		{
+	public:
+		explicit Sender(AsyncStream* Stream);
 
-		};
+		virtual ~Sender();
 
-		virtual ~Sender()
-		{
-
-		}
-
-		// CompletionHandler Interface
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes)
-		{
-			//AsyncStream* Stream = Result->Stream();
-
-			// passive ¿¬°á²÷±è
-			if( TransferredBytes == 0 )
-			{
-				Result->Stream()->Disconnect();
-			}
-			else
-			{
-			}
-		}
-
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
-
+		virtual void HandleEvent(AsyncResult* Result);
 
 	private:
+		AsyncStream* _Stream;
 	};
 }

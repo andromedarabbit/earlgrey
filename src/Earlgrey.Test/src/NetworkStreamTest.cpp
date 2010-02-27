@@ -7,7 +7,7 @@ namespace Earlgrey
 	{
 		TEST(NetworkStreamTest, OutputStreamTest)
 		{
-			NetworkOutputStream<> Output;
+			NetworkOutputStream<> Output(NULL);
 			Output << (DWORD)1 << _txstring(_T("Test")) << (__int64)87 << EndOfStream();
 		}
 

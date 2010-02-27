@@ -4,74 +4,68 @@
 
 namespace Earlgrey
 {
-	class Connector
-		: public CompletionHandler
+	class Connector : public IWaitHandler
 	{
 	public:
 		explicit Connector()
-			: ConnectorSocket(INVALID_SOCKET)
 		{
-
 		}
 
 		virtual ~Connector() 
 		{
-
 		}
 
-		// CompletionHandler Interface
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes);
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
+		bool Connect(LPCSTR Server, INT Port);
+
+		bool ReConnect();
+
+		void DoTask()
+		{
+		}
 
 		BOOL Register();
-		SOCKET CreateSocket(const char* RemoteHostName, const INT Port, AsyncStream* InStream);
+		//SOCKET CreateSocket(const char* RemoteHostName, const INT Port, AsyncStream* InStream);
 
 	private:
 		void Close();
 
 	private:
-		SOCKET ConnectorSocket;
-		IPAddress ServerAddress;
+		Socket _Socket;
+		std::string _ServerName;
+		INT _Port;
+		HANDLE _WaitEvent;
+		IPAddress _ServerAddress;
 	};
 
-	inline BOOL Connector::Register()
-	{
-		if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ConnectorSocket, this))
-		{
-			return FALSE;
-		}
+	//inline BOOL Connector::Register()
+	//{
+	//	if (!ProactorSingleton::Instance().RegisterHandler( (HANDLE)ConnectorSocket, this))
+	//	{
+	//		return FALSE;
+	//	}
 
-		return TRUE;
-	}
+	//	return TRUE;
+	//}
 
-	inline void Connector::HandleEvent(AsyncResult* Result, DWORD /*TransferredBytes*/)
-	{
-		//lock?
+	//inline void Connector::HandleEvent(AsyncResult* Result)
+	//{
+	//	//lock?
 
-		if ((Result->Error() == (DWORD)-1) ||
-			(setsockopt( ConnectorSocket, SOL_SOCKET, SO_UPDATE_CONNECT_CONTEXT, NULL, 0) < 0))
-		{
-			return;
-		}
-		else 
-		{
-			Result->Stream()->Connected();
-		}
-	}
-
-	inline void Connector::HandleEventError(AsyncResult* /*Result*/, DWORD /*Error*/)
-	{
-
-	}
+	//	if ((Result->GetError() == (DWORD)-1) ||
+	//		(setsockopt( ConnectorSocket, SOL_SOCKET, SO_UPDATE_CONNECT_CONTEXT, NULL, 0) < 0))
+	//	{
+	//		return;
+	//	}
+	//}
 
 
-	inline void Connector::Close()
-	{
-		if(ConnectorSocket != INVALID_SOCKET)
-		{
-			closesocket(ConnectorSocket);
-			ConnectorSocket = INVALID_SOCKET;
-		}
-	}
+	//inline void Connector::Close()
+	//{
+	//	if(ConnectorSocket != INVALID_SOCKET)
+	//	{
+	//		closesocket(ConnectorSocket);
+	//		ConnectorSocket = INVALID_SOCKET;
+	//	}
+	//}
 
 }

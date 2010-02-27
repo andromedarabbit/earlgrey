@@ -4,39 +4,23 @@
 
 namespace Earlgrey
 {
-	class Receiver
-		: public CompletionHandler
+	class AsyncReadStream;
+
+	class Receiver : public CompletionHandler
 	{
-		explicit Receiver()
-		{
+	public:
+		explicit Receiver(AsyncStream* Stream);
 
-		};
-
-		virtual ~Receiver()
-		{
-
-		}
+		virtual ~Receiver();
 
 		// CompletionHandler Interface
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes)
-		{
-			//AsyncStream* Stream = Result->Stream();
+		virtual void HandleEvent(AsyncResult* Result);
 
-			// passive ¿¬°á²÷±è
-			if( TransferredBytes == 0 )
-			{
-				Result->Stream()->Disconnect();
-			}
-			else
-			{
-				//ConnectionHandler ¿¡ ³Ñ°ÜÁà¾ßÇÏ´Âµ¥...
-				//printf("¹ÞÀº °ª = %s\n", Stream->GetNetworkBuffer().RecvBuf_);
-				Result->Stream()->Recv();
-			}
-		}
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
+		void OnDisconnected();
 
+		bool Read();
 
 	private:
+		AsyncStream* _Stream;
 	};
 }

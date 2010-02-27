@@ -2,14 +2,13 @@
 #include "Thread.h"
 #include "Runnable.h"
 #include "taskqueue.h"
-#include "Proactor.h"
-// #include "xqueue.h"
-// #include "LockfreeQueue.hpp"
 #include <queue>
 #include <array>
 
 namespace Earlgrey 
 {
+	class AsyncResult;
+
 	class TaskCompletionHandler : public CompletionHandler
 	{
 	public:
@@ -21,9 +20,7 @@ namespace Earlgrey
 
 		virtual ~TaskCompletionHandler();
 
-		virtual void HandleEvent(AsyncResult* Result, DWORD TransferredBytes);
-
-		virtual void HandleEventError(AsyncResult* Result, DWORD Error);
+		virtual void HandleEvent(AsyncResult* Result);
 
 	private:
 		std::tr1::shared_ptr<IRunnable> Task_;

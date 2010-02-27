@@ -52,7 +52,7 @@ namespace Earlgrey
 	BOOL WinProactor::PostEvent(AsyncResult* Result)
 	{
 		EARLGREY_ASSERT(Result != NULL);
-		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)Result->Handler(), Result);
+		return PostQueuedCompletionStatus( _IOCompletionPort, 0, (ULONG_PTR)Result->GetHandler(), Result->GetOverlapped() );
 	}
 
 	BOOL WinProactor::HandleEvent(TimeSpan WaitTime)
@@ -69,7 +69,7 @@ namespace Earlgrey
 		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, milliseconds);
 
 		// MSDN 참조
-		if (!Result && !Overlapped)
+		if (!Result && WAIT_TIMEOUT == GetLastError())
 		{
 			// timeout!!, not error.
 			return TRUE;
@@ -77,18 +77,20 @@ namespace Earlgrey
 
 		EARLGREY_ASSERT( Overlapped );
 
-		std::auto_ptr<AsyncResult> IOResult( static_cast<AsyncResult*>(Overlapped) );
-		IOResult->Status(Result);
+		// AsyncResult 객체는 AsyncStream 객체가 관리하므로 delete 하면 안된다.
+		AsyncResult* IOResult = reinterpret_cast<AsyncResult*>(Overlapped);
 		if(!Result)
 		{
-			IOResult->Error( GetLastError() );
-			IOResult->Failed();
+			IOResult->SetErrorCode( GetLastError() );
+			IOResult->SetBytesTransferred( 0 );
 		}
 		else
 		{
-			IOResult->TransferredBytes(Transferred);
-			IOResult->Completed();
+			IOResult->SetErrorCode( 0 );
+			IOResult->SetBytesTransferred( Transferred );
 		}
+		
+		Handler->HandleEvent( IOResult );
 
 		return Result;
 	}

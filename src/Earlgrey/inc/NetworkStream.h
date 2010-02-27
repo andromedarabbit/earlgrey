@@ -2,6 +2,7 @@
 #include "numeric_cast.hpp"
 #include "NetworkBuffer.h"
 #include "txstring.h"
+#include "AsyncStream.h"
 
 namespace Earlgrey {
 
@@ -145,10 +146,22 @@ namespace Earlgrey {
 	class NetworkOutputStream : private Uncopyable
 	{
 	public:
+		explicit NetworkOutputStream(AsyncStream* Stream) : _Stream(Stream), _Buffer(NULL)
+		{
+		}
+
+		bool Initialize(NetworkBuffer* Buffer)
+		{
+			EARLGREY_ASSERT( Buffer	);
+			_Buffer = Buffer;
+			return true;
+		}
+
 		template<typename T>
 		FORCEINLINE friend NetworkOutputStream& operator<<(NetworkOutputStream& OutputStream, const T& Value)
 		{
-			Writer<T>::Write( OutputStream._Buffer, Value );
+			EARLGREY_ASSERT( OutputStream._Buffer );
+			Writer<T>::Write( *OutputStream._Buffer, Value );
 			return OutputStream;
 		}
 
@@ -160,10 +173,15 @@ namespace Earlgrey {
 
 		void Flush()
 		{
+			// TODO: 에러처리
+			if (_Stream->Write())
+			{
+			}
 		}
 
 	private:
-		NetworkBuffer _Buffer;
+		NetworkBuffer* _Buffer;
+		AsyncStream* _Stream;
 	};
 
 	template<typename T>
@@ -216,10 +234,17 @@ namespace Earlgrey {
 
 	template<template<class> class Reader = DefaultReader>
 	class NetworkInputStream : private Uncopyable
-	{
-	public:
-		NetworkInputStream() : _IsValidStream(TRUE), _Offset(0)
 		{
+	public:
+		explicit NetworkInputStream() : _Buffer(NULL), _IsValidStream(TRUE), _Offset(0)
+		{
+		}
+
+		bool Initialize(NetworkBuffer* Buffer)
+		{
+			EARLGREY_ASSERT( Buffer	);
+			_Buffer = Buffer;
+			return true;
 		}
 
 		BOOL IsValid() const { return _IsValidStream; }
@@ -227,12 +252,13 @@ namespace Earlgrey {
 		template<typename T>
 		FORCEINLINE friend NetworkInputStream& operator>>(NetworkInputStream& InputStream, T& Value)
 		{
-			InputStream._IsValidStream &= Reader<T>::Read( InputStream._Buffer, InputStream._Offset, Value );
+			EARLGREY_ASSERT( InputStream._Buffer );
+			InputStream._IsValidStream &= Reader<T>::Read( *InputStream._Buffer, InputStream._Offset, Value );
 			return InputStream;
 		}
 
 	private:
-		NetworkBuffer _Buffer;
+		NetworkBuffer* _Buffer;
 		DWORD _Offset;
 		BOOL _IsValidStream;
 	};

@@ -23,3 +23,7 @@
 #define NOMINMAX // min, max 매크로 없애기
 #include <windows.h>
 
+#include <map>
+#include <vector>
+
+#include "Earlgrey.h"
