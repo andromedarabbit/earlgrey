@@ -109,7 +109,7 @@ namespace Earlgrey
 		bool SetNonBlockingSocket() const 
 		{
 			DWORD temp = 1;
-			return (ioctlsocket( _Handle, FIONBIO, &temp ) == SOCKET_ERROR);
+			return (ioctlsocket( _Handle, FIONBIO, &temp ) != SOCKET_ERROR);
 		}
 
 		bool IsValid() const
