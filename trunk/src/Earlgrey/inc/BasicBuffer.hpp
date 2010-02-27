@@ -61,12 +61,14 @@ namespace Earlgrey
 
 		void clear();
 		bool empty() const;
+		void erase(size_type offset, size_type length);
 		
 		iterator begin();
 		iterator end();
 
 		void reserve(size_type length);
 		void resize (size_type length, T obj = T());
+		void resize_noset(size_type length);
 
 
 	private:
@@ -238,10 +240,10 @@ namespace Earlgrey
 	inline
 		void basic_buffer<T,A>::resize (size_type length, T obj = T())
 	{
-		if(length == capacity())
+		if(length == size())
 			return;
 
-		if (length < capacity())
+		if (length < size())
 		{
 			for(size_type i = length; i < m_size; i++)
 			{
@@ -262,6 +264,23 @@ namespace Earlgrey
 		m_size = length;
 	}
 
+	template <typename T, typename A> 
+	inline
+		void basic_buffer<T,A>::resize_noset(size_type length)
+	{
+		if (length == size())
+		{
+			return;
+		}
+
+		if (length > capacity()) 
+		{
+			throw std::out_of_range("Capacity is smaller than size");
+		}
+
+		m_size = length;
+	}
+
 	template <typename T, typename A>
 	inline
 		void basic_buffer<T,A>::clear()
@@ -273,6 +292,23 @@ namespace Earlgrey
 		}
 
 		m_size = 0;
+	}
+
+	template <typename T, typename A>
+	inline
+		void basic_buffer<T,A>::erase(size_type offset, size_type length)
+	{
+		if (offset + length > size())
+		{
+			throw std::out_of_range("out of range");
+		}
+
+		size_type new_buf_size = size() - length;
+		T* new_buf = m_allocator.allocate(new_buf_size);
+		if (offset > 0)
+		{
+			memcpy_s( new_buf, new_buf_size, m_buffer, offset * sizeof(value_type) );
+		}
 	}
 
 	template <typename T, typename A>

@@ -40,39 +40,39 @@ protected:
 private:
 	BOOL m_stop;
 };
-
-class ClientConnection : public AsyncStream
-{
-public:
-	ClientConnection() 
-		: AsyncStream()
-	{}
-	virtual ~ClientConnection() {}
-
-	virtual void Connected()
-	{
-		printf("Client Socket = %d\r\n", Socket());
-		NetworkBuffer* buf = GetNetworkBuffer();
-		BYTE str[13] = "hello server";
-		buf->SetValue(&str[0], sizeof(str));
-		Send();
-	}
-
-	virtual void Disconnected()
-	{
-		printf("Client Disconnected = %d", Socket());
-	}
-
-	virtual void Received()
-	{
-
-	}
-
-	virtual void Sent()
-	{
-
-	}
-};
+//
+//class ClientConnection : public AsyncStream
+//{
+//public:
+//	ClientConnection() 
+//		: AsyncStream()
+//	{}
+//	virtual ~ClientConnection() {}
+//
+//	virtual void Connected()
+//	{
+//		printf("Client Socket = %d\r\n", Socket());
+//		NetworkBuffer* buf = GetReadBuffer();
+//		BYTE str[13] = "hello server";
+//		buf->SetValue(&str[0], sizeof(str));
+//		Write();
+//	}
+//
+//	virtual void Disconnected()
+//	{
+//		printf("Client Disconnected = %d", Socket());
+//	}
+//
+//	virtual void Received()
+//	{
+//
+//	}
+//
+//	virtual void Sent()
+//	{
+//
+//	}
+//};
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -84,9 +84,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	Application app(settings);
 	EARLGREY_VERIFY(app.InitInstance());//юс╫ц
 
-	ClientConnection* connection = new ClientConnection();
-	char* ServerIP = "localhost";//! TODO : type and ip
-	EARLGREY_ASSERT(connection->Connect(ServerIP, 100) == TRUE);
+	Earlgrey::Connector* connector = new Earlgrey::Connector();
+	EARLGREY_VERIFY( connector->Connect( "localhost", 100 ) );
 
 	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( 
 		std::tr1::shared_ptr<ThreadRunnable>(static_cast<ThreadRunnable*>(new WindowsRunnable()))

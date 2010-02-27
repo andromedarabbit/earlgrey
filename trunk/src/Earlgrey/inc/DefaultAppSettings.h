@@ -24,7 +24,7 @@ namespace Earlgrey
 
 	private:
 		_tstring m_executableName;
-		_tstring m_shortNmae;
+		_tstring m_shortName;
 		FileVersionInfo m_versionInfo;
 		UnhandledExceptionCollectionPtr m_UnhandledExceptions;
 	};

@@ -5,8 +5,7 @@
 #include "SingleAppInstance.h"
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
-#include "Socket.h"
-#include "Proactor.h" // ProactorSingleton
+#include "ServerInit.h"
 #include "Environment.h" // Environment
 #include "Thread.h" // Thread
 #include "IOCP.h" // IOCPRunnable
@@ -75,16 +74,13 @@ namespace Earlgrey
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
-		/*for (DWORD i = 0; i < 1; i++) // FIXME: wait thread 갯수 지정하는거 필요
-		{
+		std::tr1::shared_ptr<ThreadRunnable> acceptorThread(
+			new AcceptorRunnable()
+			);
 
-			std::tr1::shared_ptr<IRunnable> acceptorThread (
-				new AcceptorRunnable()
-				);
-			std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable" );
-			m_WaitThreads.push_back(thread);
-
-		}*/
+		// Wait thread ID 정의 필요
+		std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable", 0 );
+		m_WaitThreads.push_back(thread);
 
 		return TRUE;
 	}

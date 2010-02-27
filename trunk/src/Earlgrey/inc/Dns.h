@@ -4,15 +4,6 @@
 
 namespace Earlgrey
 {
-	class Dns : private Uncopyable
-	{
-	private:
-		explicit Dns(); // 구현하지 않음
-
-	public:
-		// static GetHostByName 
-	};
-
 	class IPAddress
 	{
 		SOCKADDR_IN Address;
@@ -43,4 +34,31 @@ namespace Earlgrey
 			return (SOCKADDR_IN*)&Address;
 		}
 	};
+
+	class Dns : private Uncopyable
+	{
+	private:
+		explicit Dns();
+
+	public:
+		static DWORD GetHostByName(LPCSTR Name, IPAddress& Addr)
+		{
+			HOSTENT* HostEnt = gethostbyname(Name);
+
+			if (!HostEnt)
+			{
+				return WSAGetLastError();
+			}
+
+			if (HostEnt->h_addrtype == PF_INET)
+			{
+				Addr.SetAddr( *(in_addr*)(*HostEnt->h_addr_list) );
+				return 0;
+			}
+			
+			return WSAHOST_NOT_FOUND;
+		}
+	};
+
+	
 }

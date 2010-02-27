@@ -77,9 +77,11 @@ namespace Earlgrey
 
 		
 		buffer_node_desc_type expand(size_t size);
+		void increase_tail_size(size_t length);
 
 		void clear();
 		bool empty() const;
+		void erase(size_type offset, size_type length);
 		
 		iterator begin();
 		iterator end();
@@ -286,6 +288,44 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline 
+		void chain_buffer<T,A>::erase(size_type offset, size_type length)
+	{
+		size_type pos = offset;
+		size_type length_to_erase = length;
+
+		buffer_list_type::const_iterator it = m_buffer_list.begin();
+		while(it != m_buffer_list.end())
+		{
+			size_type cur_size = (*it)->size();
+			if(pos < cur_size)
+			{
+				buffer_pointer found = (*it);
+				size_type size_after_offset = cur_size - pos;
+				size_type erase_size = std::min( size_after_offset, length_to_erase );
+
+				found->erase( pos, erase_size );
+				length_to_erase -= erase_size;
+				pos = 0;
+
+				if (found->size() == 0)
+				{
+					it = m_buffer_list.erase( it );
+				}
+
+				if (length_to_erase)
+				{
+					continue;
+				}
+				break;
+			}
+
+			pos = pos - cur_size;
+			it++;
+		}
+	}
+
+	template <typename T, typename A>
+	inline 
 		bool chain_buffer<T,A>::get(size_type offset, pointer ptr, size_type length)
 	{
 		if (size() < offset + length)
@@ -314,6 +354,14 @@ namespace Earlgrey
 			bufSize = lastBuffer->capacity();
 		}
 		return chain_buffer<T,A>::buffer_node_desc_type( p, bufSize );
+	}
+
+	template <typename T, typename A>
+	inline
+		void chain_buffer<T,A>::increase_tail_size(size_t length)
+	{
+		buffer_pointer lastBuffer = m_buffer_list.back();
+		lastBuffer->resize_noset( lastBuffer->size() + length );
 	}
 
 	template <typename T, typename A>

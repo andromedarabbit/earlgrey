@@ -27,6 +27,8 @@
 
 #pragma warning( pop )
 
-
+#include <map>
+#include <vector>
 #include "Uncopyable.h"
 #include "txstring.h"
+#include "Earlgrey.h"

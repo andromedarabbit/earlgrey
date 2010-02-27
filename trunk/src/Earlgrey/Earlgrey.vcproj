@@ -300,6 +300,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\Connection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Listener.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -626,11 +634,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\Connection.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\Earlgrey.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\EarlgreyPrivate.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\Listener.h"
 				>
 			</File>
 			<File
@@ -1082,6 +1098,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Socket.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\WaitEvent.h"
 					>
 				</File>
 				<Filter

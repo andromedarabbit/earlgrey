@@ -22,4 +22,6 @@ namespace Earlgrey
 		BOOL m_isRunning;
 		TimeSpan m_waitingTime;
 	};
+
+	
 }

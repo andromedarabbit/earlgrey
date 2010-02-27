@@ -24,10 +24,14 @@ namespace Earlgrey
 	{
 	public:
 		const static DWORD NETWORK_BUFFER_DEFAULT_SIZE = 1024;
+
+		typedef chain_buffer<BYTE>		BufferType;
+		typedef BufferType::size_type	SizeType;
+
+		//! chain_buffer의 initial capacity 를 설정한다.
 		explicit NetworkBuffer(DWORD DefaultSize = NETWORK_BUFFER_DEFAULT_SIZE)
-			: _AcceptBuffer(DefaultSize), _ChainBuffer(DefaultSize)
+			: _ChainBuffer(DefaultSize)
 		{
-			
 		}
 
 		NetworkBuffer(const NetworkBuffer& rhs)
@@ -46,31 +50,28 @@ namespace Earlgrey
 			return *this;
 		}
 
-		void Initialize()
+		//! 특정 크기만큼 버퍼를 확장한 후 소켓버퍼를 얻는다.
+		/*!
+			Capacity만 확장한 상태의 버퍼를 소켓버퍼에 설정한다.
+			SendBuffer와는 달리 chain_buffer의 마지막 buffer 노드만을 사용한다.
+		*/
+		WSABUF* GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE)
 		{
+			EARLGREY_ASSERT( Size > 0 );
+
+			WSABUF* SockBuf = new WSABUF;
+
+			BufferType::buffer_node_desc_type desc = _ChainBuffer.expand( Size );
+			SockBuf->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( desc ));
+			SockBuf->len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( desc ));
+
+			return SockBuf;
 		}
 
-		CHAR* GetAcceptBuffer()
+		//! 수신이 완료되면 size를 증가시켜준다.
+		void OnReceived(DWORD Transferred)
 		{
-			basic_buffer<BYTE>::reference ret = _AcceptBuffer.front();
-
-			return reinterpret_cast<CHAR*>( ret );
-		}
-
-		DWORD GetAcceptBufferSize()
-		{
-			return (DWORD)_AcceptBuffer.capacity();
-		}
-
-		WSABUF* GetSockRecvBuffer()
-		{
-			WSABUF* SocketBuffer = new WSABUF; //! TODO : shared_ptr?
-			chain_buffer<BYTE>::buffer_node_desc_type ret = _ChainBuffer.expand( NETWORK_BUFFER_DEFAULT_SIZE );
-
-			SocketBuffer->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( ret ));
-			SocketBuffer->len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( ret ));
-
-			return SocketBuffer;
+			_ChainBuffer.increase_tail_size( Transferred );
 		}
 
 		WSABUF* GetSockSendBuffer()
@@ -93,14 +94,22 @@ namespace Earlgrey
 
 		DWORD GetBufferSize() const
 		{
-			// TODO: EARLGREY_NUMERIC_CAST 적용
-			return (DWORD)_ChainBuffer.size();
+			return EARLGREY_NUMERIC_CAST<DWORD>(_ChainBuffer.size());
 		}
 
 		DWORD GetBufferCapacity() const
 		{
-			// TODO: EARLGREY_NUMERIC_CAST 적용
-			return (DWORD)_ChainBuffer.capacity();
+			return EARLGREY_NUMERIC_CAST<DWORD>(_ChainBuffer.capacity());
+		}
+
+		void Erase(chain_buffer<BYTE>::size_type Size)
+		{
+			Size;
+		}
+
+		void Clear()
+		{
+			_ChainBuffer.clear();
 		}
 
 		BOOL SetValue(const BYTE* InValue, DWORD InSize)
@@ -123,7 +132,6 @@ namespace Earlgrey
 		}
 
 	private:
-		basic_buffer<BYTE> _AcceptBuffer;
-		chain_buffer<BYTE> _ChainBuffer;
+		BufferType _ChainBuffer;
 	};
 }
