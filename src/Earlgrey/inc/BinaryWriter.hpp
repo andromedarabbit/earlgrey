@@ -2,10 +2,14 @@
 #include "Uncopyable.h"
 #include "EarlgreyAssert.h"
 
+#include <type_traits>
+
 namespace Earlgrey
 {
 	//! C++은 int, long 등 정수형의 크기와 포맷이 플랫폼이나 컴파일러 구현 등에 맡긴다.
 	// 따라서 <inttypes.h> 등을 이용해 플랫폼 간의 상이함을 해결해야 하나 VC++엔 현재 <inttype.h>가 없다.
+
+	//! BinaryWriter는 기본적으로 POD 타입만 지원한다.
 	template <typename BufferT>
 	class BinaryWriter : private Uncopyable
 	{
@@ -31,111 +35,91 @@ namespace Earlgrey
 			return m_buffer;
 		}
 
-		inline BOOL WriteBoolean(const bool x)
-		{
-			return WriteNumber(x);
-		}
 
-		inline BOOL WriteBoolean(const BOOL x)
-		{
-			return WriteNumber(x);
-		}
-
-		inline BOOL WriteByte(const BYTE x)
-		{
-			return WriteBytes(x, sizeof(x));
-		}
 		BOOL WriteBytes(const void* buf, size_type len);
 
-		inline BOOL WriteChar(const CHAR x)
+
+		template<typename T>
+		inline BOOL Write(const T x, size_type len)
 		{
-			return WriteBytes(&x, sizeof(CHAR));
-		}
-		inline BOOL WriteChars(const CHAR* x, size_type len)
-		{
-			const size_type bytes = len * sizeof(CHAR);
+			const size_type bytes = len * sizeof(T);
 			return WriteBytes(x, bytes);
+			// typedef std::tr1::remove_pointer<T>::type type;
+			// return Write(value, std::tr1::is_pod<type>(), std::tr1::is_pointer<T>());
 		}
 
-		inline BOOL WriteWChar(const WCHAR x)
+		template <typename Key, typename Value>
+		inline BOOL Write(const std::pair<const Key, Value>& x)
 		{
-			return WriteBytes(&x, sizeof(WCHAR));
+			if(Write(x.first) == FALSE)
+				return FALSE;
+
+			if(Write(x.second) == FALSE)
+				return FALSE;
+
+			return TRUE;
 		}
 
-		inline BOOL WriteWChars(const WCHAR* x, size_type len)
+		template<class T>
+		inline BOOL Write(const T& value)
 		{
-			const size_type bytes = len * sizeof(WCHAR);
-			return WriteBytes(x, bytes);
+			typedef std::tr1::remove_pointer<T>::type type;
+			return Write(value, std::tr1::is_pod<type>(), std::tr1::is_pointer<T>());
 		}
 
+		/*
+		template<class T>
+		inline BOOL Write(const T& value, size_type len)
+		{
+			typedef std::tr1::remove_pointer<T>::type tt;
+			return Write(value, std::tr1::is_pod<tt>(), std::tr1::is_pointer<T>(), len);
+		}
+		*/
 
-		inline BOOL WriteDouble(const double x)
+		inline BOOL Write(const WCHAR* x)
 		{
-			return WriteNumber(x);
-		}
-
-		inline BOOL WriteFloat(const FLOAT x)
-		{
-			return WriteNumber(x);
-		}
-
-
-		inline BOOL WriteInt8(const INT8 x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt16(const INT16 x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt32(const INT32 x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteInt64(const INT64 x)
-		{
-			return WriteNumber(x);
+			return Write(x, wcslen(x));
 		}
 
-		inline BOOL WriteUInt8(const UINT8 x)
+		inline BOOL Write(const CHAR* x)
 		{
-			return WriteNumber(x);
+			return Write(x, strlen(x));
 		}
-		inline BOOL WriteUInt16(const UINT16 x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteUInt32(const UINT32 x)
-		{
-			return WriteNumber(x);
-		}
-		inline BOOL WriteUInt64(const UINT64 x)
-		{
-			return WriteNumber(x);
-		}
-
-		inline BOOL WriteString(const WCHAR* x, size_type len)
-		{
-			return WriteWChars(x, len);
-		}
-
-		inline BOOL WriteString(const CHAR* x, size_type len)
-		{
-			return WriteChars(x, len);
-		}
-
 
 	private: // members
-		template <typename T>
-		inline BOOL WriteNumber(const T x)
+		// POD 이면서 포인터형도 아님
+		template<class T>
+		inline BOOL Write(const T& value, std::tr1::true_type, std::tr1::false_type)
 		{
-			return WriteBytes(&x, sizeof(T));
+			return WriteBytes(&value, sizeof(value));
 		}
 
+		// POD 포인터형
+		template<class T>
+		inline BOOL Write(const T& value, std::tr1::true_type, std::tr1::true_type, size_type len)
+		{
+			const size_type bytes = len * sizeof(T);
+			return WriteBytes(&value, bytes);
+		}
+
+		/*
+		// POD 아닌 포인터형
+		template<class T>
+		inline BOOL Write(const T& value, std::tr1::false_type, std::tr1::true_type, size_type len)
+		{
+			return Serializer<T>::Write(*this, value, n);
+		}
+
+		// POD 아닌 형
+		template<class T>
+		BOOL Write(const T& value, std::tr1::false_type, std::tr1::false_type)
+		{
+			return Serializer<T>::Write(*this, &value);
+		}
+		*/
 
 	private: // field
 		BufferT& m_buffer;
-		// typename size_type m_bufferIndex;
 
 	};
 
@@ -156,8 +140,12 @@ namespace Earlgrey
 	template <typename BufferT>
 	BOOL BinaryWriter<BufferT>::WriteBytes(const void* buf, size_type len)
 	{
-		EARLGREY_ASSERT(buf != NULL);
-		EARLGREY_ASSERT(len > 0);
+		// EARLGREY_ASSERT(buf != NULL);
+		// EARLGREY_ASSERT(len > 0);
+		EARLGREY_ASSERT( buf != NULL || len == 0 );
+
+		if(len == 0)
+			return TRUE;
 
 		// m_buffer.resize(m_buffer.size() + len);
 		m_buffer.append( (BufferT::pointer)buf, len);
