@@ -358,6 +358,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ADOParameter.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ADOTransaction.cpp"
 					>
 				</File>
@@ -374,6 +378,10 @@
 			>
 			<File
 				RelativePath=".\inc\CommandType.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\ParameterDirection.h"
 				>
 			</File>
 			<File
@@ -413,6 +421,14 @@
 				</File>
 				<File
 					RelativePath=".\inc\ADOLog.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ADOParameter.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ADOParameterCollection.h"
 					>
 				</File>
 				<File

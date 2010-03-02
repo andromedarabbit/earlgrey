@@ -410,6 +410,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ADOParameterTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ADOTransactionTest.cpp"
 					>
 				</File>

@@ -8,6 +8,7 @@
 #include "TimeSpan.h"
 
 #include "CommandType.h"
+#include "ParameterDirection.h"
 
 namespace Earlgrey {
 	namespace ADO {
@@ -280,7 +281,7 @@ namespace Earlgrey {
 		}
 
 		// ADO Native types
-		// TODO:: 임시로 함수 이름을 지음
+		// TODO:: 정적 타임에 변환을 마칠 수 있지 않을까? 템플렛 메타프로그래밍으로 충분히 가능할 듯
 		template<>
 		inline CommandType database_cast<CommandType, RawADO::CommandTypeEnum>(
 			const RawADO::CommandTypeEnum& arg
@@ -305,6 +306,47 @@ namespace Earlgrey {
 
 			if(arg == StoredProcedure)
 				return RawADO::adCmdStoredProc;
+
+			throw std::exception("");
+		}
+
+		// ParameterDirection
+		template<>
+		inline ParameterDirection database_cast<ParameterDirection, RawADO::ParameterDirectionEnum>(
+			const RawADO::ParameterDirectionEnum& arg
+			)
+		{
+			if(arg == RawADO::adParamInput)
+				return Input;
+
+			if(arg == RawADO::adParamOutput)
+				return Output;
+
+			if(arg == RawADO::adParamInputOutput)
+				return InputOutput;
+
+			if(arg == RawADO::adParamReturnValue)
+				return ReturnValue;
+
+			throw std::exception("");
+		}
+
+		template<>
+		inline RawADO::ParameterDirectionEnum database_cast<RawADO::ParameterDirectionEnum, ParameterDirection>(
+			const ParameterDirection& arg
+			)
+		{
+			if(arg == Input)
+				return RawADO::adParamInput;
+
+			if(arg == Output)
+				return RawADO::adParamOutput;
+
+			if(arg == InputOutput)
+				return RawADO::adParamInputOutput;
+
+			if(arg == ReturnValue)
+				return RawADO::adParamReturnValue;
 
 			throw std::exception("");
 		}
