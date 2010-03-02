@@ -3,6 +3,8 @@
 #include "LockfreeStack.hpp"
 #include "EarlgreyAssert.h"
 
+#include <functional>
+
 namespace Earlgrey {
 	namespace Algorithm {
 	namespace Lockfree {

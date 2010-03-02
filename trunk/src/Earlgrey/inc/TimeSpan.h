@@ -146,7 +146,7 @@ namespace Earlgrey
 			return num;
 		}
 
-		TimeSpan Negate() const
+		inline TimeSpan Negate() const
 		{
 			if (this->m_Ticks == MinTicks)
 			{
@@ -159,84 +159,84 @@ namespace Earlgrey
 
 		TimeSpan Subtract(const TimeSpan& ts) const ;
 
-		TimeSpan operator + (const TimeSpan& other)
+		inline TimeSpan operator + (const TimeSpan& other)
 		{
 			return Add(other);
 		}
 
-		TimeSpan operator + (const TimeSpan& other) const
+		inline TimeSpan operator + (const TimeSpan& other) const
 		{
 			return Add(other);
 		}
 
-		TimeSpan operator - (const TimeSpan& other)
+		inline TimeSpan operator - (const TimeSpan& other)
 		{
 			return Subtract(other);
 		}
 
-		TimeSpan operator - (const TimeSpan& other) const
+		inline TimeSpan operator - (const TimeSpan& other) const
 		{
 			return Subtract(other);
 		}
 
 		// friend TimeSpan operator - (const TimeSpan& other);
 
-		bool operator == (const TimeSpan& other) const
+		inline bool operator == (const TimeSpan& other) const
 		{
 			return this->m_Ticks == other.m_Ticks;
 		}
 
-		bool operator == (const TickType otherTick) const
+		inline bool operator == (const TickType otherTick) const
 		{
 			return this->m_Ticks == otherTick;
 		}
 
-		bool operator != (const TimeSpan& other) const
+		inline bool operator != (const TimeSpan& other) const
 		{
 			return this->m_Ticks != other.m_Ticks;
 		}
 
-		bool operator != (const TickType otherTick) const
+		inline bool operator != (const TickType otherTick) const
 		{
 			return this->m_Ticks != otherTick;
 		}
 
-		bool operator <= (const TimeSpan& other) const
+		inline bool operator <= (const TimeSpan& other) const
 		{
 			return this->m_Ticks <= other.m_Ticks;	
 		}
 
-		bool operator <= (const TickType otherTick) const
+		inline bool operator <= (const TickType otherTick) const
 		{
 			return this->m_Ticks <= otherTick;	
 		}
 
-		bool operator >= (const TimeSpan& other) const
+		inline bool operator >= (const TimeSpan& other) const
 		{
 			return this->m_Ticks >= other.m_Ticks;
 		}
 
-		bool operator < (const TimeSpan& other) const
+		inline bool operator < (const TimeSpan& other) const
 		{
 			return this->m_Ticks < other.m_Ticks;
 		}
 
-		bool operator > (const TimeSpan& other) const
+		inline bool operator > (const TimeSpan& other) const
 		{
 			return this->m_Ticks > other.m_Ticks;
 		}
 
-		bool operator < (const TickType otherTick) const
+		inline bool operator < (const TickType otherTick) const
 		{
 			return this->m_Ticks < otherTick;
 		}
 
-		bool operator > (const TickType otherTick) const
+		inline bool operator > (const TickType otherTick) const
 		{
 			return this->m_Ticks > otherTick;
 		}
 
-		int CompareTo(const TimeSpan& other) const
+		inline int CompareTo(const TimeSpan& other) const
 		{
 			TickType num = other.m_Ticks;
 			if (this->m_Ticks > num)

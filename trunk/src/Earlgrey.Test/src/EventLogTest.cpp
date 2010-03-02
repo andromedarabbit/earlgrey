@@ -17,11 +17,15 @@ namespace Earlgrey
 			}
 
 			static const TCHAR * source;
+			static const TCHAR * log;
 		private:
 			void DeleteEventSource()
 			{
 				try
 				{
+					EventLog eventLog(log, source);
+					eventLog.Clear();
+
 					EventLog::DeleteEventSource( source );
 				}
 				catch(...)
@@ -30,7 +34,8 @@ namespace Earlgrey
 			}
 		};
 
-		const TCHAR * EventLogTest::source = _T("EarlgreyTest");
+		const TCHAR * EventLogTest::source = _T("EarlgreyTestSource");
+		const TCHAR * EventLogTest::log = _T("EarlgreyTestLog");
 
 		TEST_F(EventLogTest, Exists)
 		{
@@ -60,9 +65,6 @@ namespace Earlgrey
 
 		TEST_F(EventLogTest, WriteEntryAndClear)
 		{
-			const TCHAR * source = _T("EarlgreyTestSource");	
-			const TCHAR * const log = _T("EarlgreyTestLog");
-
 			if(EventLog::SourceExists(source) == FALSE) {
 				EventLog::CreateEventSource(source, log);
 			}
