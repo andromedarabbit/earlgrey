@@ -30,19 +30,19 @@ namespace Earlgrey
 			NetworkReader<BUFFER_T> reader(buf);
 
 			BOOL largeRetValue = FALSE;
-			ASSERT_TRUE(reader.ReadBoolean(largeRetValue));
+			ASSERT_TRUE(reader.Read(largeRetValue));
 			ASSERT_EQ(largeTrue, largeRetValue);
 
-			ASSERT_TRUE(reader.ReadBoolean(largeRetValue));
+			ASSERT_TRUE(reader.Read(largeRetValue));
 			ASSERT_EQ(largeFalse, largeRetValue);
 
 			bool smallRetValue = false;
-			ASSERT_TRUE(reader.ReadBoolean(smallRetValue));
+			ASSERT_TRUE(reader.Read(smallRetValue));
 			ASSERT_EQ(smallTrue, smallRetValue);
 
-			ASSERT_TRUE(reader.ReadBoolean(smallRetValue));
+			ASSERT_TRUE(reader.Read(smallRetValue));
 			ASSERT_EQ(smallFalse, smallRetValue);
-			ASSERT_FALSE(reader.ReadBoolean(largeTrue));
+			ASSERT_FALSE(reader.Read(largeTrue));
 		}
 
 		TEST(NetworkReaderTest, ReadInt32)
@@ -58,13 +58,13 @@ namespace Earlgrey
 
 			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
-			ASSERT_TRUE(reader.ReadInt32(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
 
-			ASSERT_TRUE(reader.ReadInt32(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(intMinValue, retValue);
 
-			ASSERT_FALSE(reader.ReadInt32(retValue));
+			ASSERT_FALSE(reader.Read(retValue));
 		}
 
 		TEST(NetworkReaderTest, ReadInt32UsingChainBuffer)
@@ -80,13 +80,13 @@ namespace Earlgrey
 
 			NetworkReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
-			ASSERT_TRUE(reader.ReadInt32(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
 
-			ASSERT_TRUE(reader.ReadInt32(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(intMinValue, retValue);
 
-			ASSERT_FALSE(reader.ReadInt32(retValue));
+			ASSERT_FALSE(reader.Read(retValue));
 		}
 
 		TEST(NetworkReaderTest, ReadFloatUsingChainBuffer)
@@ -102,13 +102,13 @@ namespace Earlgrey
 
 			NetworkReader<BUFFER_T> reader(buf);
 			FLOAT retValue = 0;
-			ASSERT_TRUE(reader.ReadFloat(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(maxValue, retValue);
 
-			ASSERT_TRUE(reader.ReadFloat(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(minValue, retValue);
 
-			ASSERT_FALSE(reader.ReadFloat(retValue));
+			ASSERT_FALSE(reader.Read(retValue));
 		}
 
 		TEST(NetworkReaderTest, ReadDoubleUsingChainBuffer)
@@ -124,13 +124,13 @@ namespace Earlgrey
 
 			NetworkReader<BUFFER_T> reader(buf);
 			double retValue = 0;
-			ASSERT_TRUE(reader.ReadDouble(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(maxValue, retValue);
 
-			ASSERT_TRUE(reader.ReadDouble(retValue));
+			ASSERT_TRUE(reader.Read(retValue));
 			ASSERT_EQ(minValue, retValue);
 
-			ASSERT_FALSE(reader.ReadDouble(retValue));
+			ASSERT_FALSE(reader.Read(retValue));
 		}
 
 

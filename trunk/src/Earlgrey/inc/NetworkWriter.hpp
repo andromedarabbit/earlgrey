@@ -2,6 +2,10 @@
 #include "BinaryWriter.hpp"
 #include "numeric_cast.hpp"
 
+#include <map>
+#include <stack>
+#include <queue>
+
 namespace Earlgrey
 {
 	//! C++은 int, long 등 정수형의 크기와 포맷이 플랫폼이나 컴파일러 구현 등에 맡긴다.
@@ -10,163 +14,54 @@ namespace Earlgrey
 	class NetworkWriter : private Uncopyable
 	{
 	public:
-		typedef typename BinaryWriter<BufferT>::size_type size_type;
+		typedef BinaryWriter<BufferT> RawWriter;
+		typedef typename RawWriter::size_type size_type;
 		typedef UINT16 length_type;
 
 		explicit NetworkWriter(BufferT& buffer);
 		~NetworkWriter();
 
-		inline size_type Size() const 
+		size_type Size() const;
+
+		const BufferT& Buffer() const;
+
+		BufferT& Buffer();
+
+		BOOL WriteBytes(const void* buf, size_type len);
+	
+
+		template <typename T>
+		inline NetworkWriter& operator<<(const T& x)
 		{
-			return m_BinaryWriter.Size();
+			if(this->Write(x) == FALSE)
+			{
+				// TODO
+				throw std::exception("");
+			}
+			return *this;
 		}
 
-		inline const BufferT& Buffer() const 
-		{
-			return m_BinaryWriter.Buffer();
-		}
-
-		inline BufferT& Buffer()
-		{
-			return m_BinaryWriter.Buffer();
-		}
-
-		inline BOOL WriteBoolean(const bool x)
-		{
-			return m_BinaryWriter.WriteBoolean(x);
-		}
-
-		NetworkWriter& operator<<(bool x);
-
-		inline BOOL WriteBoolean(const BOOL x)
-		{
-			return m_BinaryWriter.WriteBoolean(x);
-		}
-
-		// NetworkWriter& operator<<(BOOL x); // BOOL == int == INT32
-
-		inline BOOL WriteByte(const BYTE x)
-		{
-			return m_BinaryWriter.WriteByte(x);
-		}
-
-		// NetworkWriter& operator<<(BYTE x); // BYTE == unsigned char == INT8
-
-		BOOL WriteBytes(const void* buf, size_type len)
-		{
-			return m_BinaryWriter.WriteBytes(buf, len);
-		}
-
-		inline BOOL WriteChar(const CHAR x)
-		{
-			return m_BinaryWriter.WriteChar(x);
-		}
-
-		inline NetworkWriter& operator<<(CHAR x);
-
-		inline BOOL WriteChars(const CHAR* x, size_type len)
-		{
-			return m_BinaryWriter.WriteChars(x, len);
-		}
-
-		inline BOOL WriteWChar(const WCHAR x)
-		{
-			return m_BinaryWriter.WriteWChar(x);
-		}
-
-		NetworkWriter& operator<<(WCHAR x);
-
-		inline BOOL WriteWChars(const WCHAR* x, size_type len)
-		{
-			return m_BinaryWriter.WriteWChars(x, len);
-		}
-
-
-		inline BOOL WriteDouble(const double x)
-		{
-			return m_BinaryWriter.WriteDouble(x);
-		}
-
-		NetworkWriter& operator<<(double x);
-
-		inline BOOL WriteFloat(const FLOAT x)
-		{
-			return m_BinaryWriter.WriteFloat(x);
-		}
-
-		inline NetworkWriter& operator<<(FLOAT x);
-
-
-		inline BOOL WriteInt8(const INT8 x)
-		{
-			return m_BinaryWriter.WriteInt8(x);
-		}
-
-		NetworkWriter& operator<<(INT8 x);
-
-		inline BOOL WriteInt16(const INT16 x)
-		{
-			return m_BinaryWriter.WriteInt16(x);
-		}
-
-		NetworkWriter& operator<<(INT16 x);
-
-		inline BOOL WriteInt32(const INT32 x)
-		{
-			return m_BinaryWriter.WriteInt32(x);
-		}
-
-		NetworkWriter& operator<<(INT32 x);
-
-		inline BOOL WriteInt64(const INT64 x)
-		{
-			return m_BinaryWriter.WriteInt64(x);
-		}
-
-		NetworkWriter& operator<<(INT64 x);
-
-		inline BOOL WriteUInt8(const UINT8 x)
-		{
-			return m_BinaryWriter.WriteUInt8(x);
-		}
-
-		NetworkWriter& operator<<(UINT8 x);
-
-		inline BOOL WriteUInt16(const UINT16 x)
-		{
-			return m_BinaryWriter.WriteUInt16(x);
-		}
-
-		NetworkWriter& operator<<(UINT16 x);
-
-		inline BOOL WriteUInt32(const UINT32 x)
-		{
-			return m_BinaryWriter.WriteUInt32(x);
-		}
-
-		NetworkWriter& operator<<(UINT32 x);
-
-		inline BOOL WriteUInt64(const UINT64 x)
-		{
-			return m_BinaryWriter.WriteUInt64(x);
-		}
-
-		NetworkWriter& operator<<(UINT64 x);
-
-		inline BOOL WriteString(const WCHAR* x)
+		inline BOOL Write(const WCHAR* x)
 		{
 			// TODO: numeric_cast
 			length_type len = static_cast<length_type>(wcslen(x));
-			return WriteString(x, len);
+			return Write(x, len);
 		}
 
-		inline BOOL WriteString(const WCHAR* x, length_type length)
+		inline BOOL Write(const WCHAR* x, length_type length)
 		{
-			if(m_BinaryWriter.WriteUInt16(length) == FALSE)
+			if(m_BinaryWriter.Write(length) == FALSE)
 				return FALSE;
 
-			return m_BinaryWriter.WriteString(x, length);
+			return m_BinaryWriter.Write(x, length);
 		}
+
+		template <typename T>
+		inline BOOL Write(const T& x)
+		{
+			return m_BinaryWriter.Write(x);
+		}
+
 
 		NetworkWriter& operator<<(const WCHAR* x);
 		NetworkWriter& operator<<(const xwstring& x);
@@ -179,19 +74,76 @@ namespace Earlgrey
 
 		inline BOOL WriteString(const CHAR* x, length_type length)
 		{
-			if(m_BinaryWriter.WriteUInt16(length) == FALSE)
+			if(m_BinaryWriter.Write(length) == FALSE)
 				return FALSE;
 
-			return m_BinaryWriter.WriteString(x, length);
+			return m_BinaryWriter.Write(x, length);
 		}
 
 		NetworkWriter& operator<<(const CHAR* x);
 		NetworkWriter& operator<<(const xstring& x);
+	
 
+		template<class Kty, class Ty, class Pr, class Alloc>
+			NetworkWriter& operator <<(const std::map<Kty, Ty, Pr, Alloc>& container);
 
+		template<typename T, typename Alloc>
+			NetworkWriter& operator <<(const std::vector<T, Alloc>& container);
+
+		template<typename T, typename C>
+			NetworkWriter& operator <<(const std::stack<T, C>& container);
+
+		template<class Kty, class Pr, class Alloc>
+			NetworkWriter& operator <<(const std::set<Kty, Pr, Alloc>& container);
+
+		template<typename T, typename C>
+			NetworkWriter& operator <<(const std::queue<T, C>& container);
+
+		template<typename T>
+			NetworkWriter& operator <<(const std::deque<T>& container);
+
+	private: // methods
+		/*
+		template<class Kty, class Ty, class Pr, class Alloc>
+			inline BOOL WriteContainer(const std::map<Kty, Ty, Pr, Alloc>& container)
+		{
+			typedef std::map<Kty, Ty, Pr, Alloc> map_type;
+
+			if(m_BinaryWriter.Write(container.size()) == FALSE)
+				return FALSE;
+
+			typedef typename map_type::const_iterator const_iterator;
+			for (const_iterator it = container.begin(); it != container.end(); ++it)
+			{
+				if(m_BinaryWriter.Write(it->first) == FALSE)
+					return FALSE;
+				
+				if(m_BinaryWriter.Write(it->second) == FALSE)
+					return FALSE;
+			}
+
+			return TRUE;
+		}
+			*/
+
+		template<class Container>
+			inline BOOL WriteContainer(const Container& container)
+		{
+			const length_type size = EARLGREY_NUMERIC_CAST<length_type>(container.size());
+			if(m_BinaryWriter.Write(size) == FALSE)
+				return FALSE;
+
+			Container::const_iterator it = container.begin();
+			for( ; it != container.end(); it++)
+			{
+				if(m_BinaryWriter.Write(*it) == FALSE)
+					return FALSE;
+			}
+			return TRUE;
+		}
 
 	private: // field
-		BinaryWriter<BufferT> m_BinaryWriter;
+		RawWriter m_BinaryWriter;
 
 	};
 
@@ -207,177 +159,34 @@ namespace Earlgrey
 	{
 	}
 
-
 	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(bool x)
+	inline typename NetworkWriter<BufferT>::size_type NetworkWriter<BufferT>::Size() const 
 	{
-		if(this->WriteBoolean(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	//template <typename BufferT>
-	//inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(BOOL x)
-	//{
-	//	if(this->WriteBoolean(x) == FALSE)
-	//	{
-	//		// TODO
-	//		throw std::exception("");
-	//	}
-	//	return *this;
-	//}
-
-	//template <typename BufferT>
-	//inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(BYTE x)
-	//{
-	//	if(this->WriteByte(x) == FALSE)
-	//	{
-	//		// TODO
-	//		throw std::exception("");
-	//	}
-	//	return *this;
-	//}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(CHAR x)
-	{
-		if(this->WriteChar(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
+		return m_BinaryWriter.Size();
 	}
 
 	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(WCHAR x)
+	inline const BufferT& NetworkWriter<BufferT>::Buffer() const 
 	{
-		if(this->WriteWChar(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
+		return m_BinaryWriter.Buffer();
 	}
 
 	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(double x)
+	inline BufferT& NetworkWriter<BufferT>::Buffer()
 	{
-		if(this->WriteDouble(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
+		return m_BinaryWriter.Buffer();
 	}
 
 	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(FLOAT x)
+	inline BOOL NetworkWriter<BufferT>::WriteBytes(const void* buf, size_type len)
 	{
-		if(this->WriteFloat(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(INT8 x)
-	{
-		if(this->WriteInt8(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(INT16 x)
-	{
-		if(this->WriteInt16(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(INT32 x)
-	{
-		if(this->WriteInt32(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(INT64 x)
-	{
-		if(this->WriteInt64(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(UINT8 x)
-	{
-		if(this->WriteUInt8(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(UINT16 x)
-	{
-		if(this->WriteUInt16(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(UINT32 x)
-	{
-		if(this->WriteUInt32(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
-	}
-
-	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(UINT64 x)
-	{
-		if(this->WriteUInt64(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
-		return *this;
+		return m_BinaryWriter.WriteBytes(buf, len);
 	}
 
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const WCHAR * x)
 	{
-		if(this->WriteString(x) == FALSE)
+		if(this->Write(x) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
@@ -388,7 +197,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xwstring& x)
 	{
-		if(this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
+		if(this->Write(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
@@ -408,7 +217,7 @@ namespace Earlgrey
 	}
 
 	template <typename BufferT>
-	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xstring& x)
+		inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xstring& x)
 	{
 		if(this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
 		{
@@ -417,4 +226,71 @@ namespace Earlgrey
 		}
 		return *this;
 	}
+
+	template <typename BufferT>
+	template<class Kty, class Ty, class Pr, class Alloc>
+	inline NetworkWriter<BufferT>& 
+		NetworkWriter<BufferT>::operator <<(const std::map<Kty, Ty, Pr, Alloc>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
+	template <typename BufferT>
+	template<typename T, typename Alloc>
+	inline NetworkWriter<BufferT>& 
+		NetworkWriter<BufferT>::operator <<(const std::vector<T, Alloc>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
+	template <typename BufferT>
+	template<typename T, typename C>
+	inline NetworkWriter<BufferT>& 
+		NetworkWriter<BufferT>::operator <<(const std::stack<T, C>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
+	template <typename BufferT>
+	template<class Kty, class Pr, class Alloc>
+	inline NetworkWriter<BufferT>& 
+		NetworkWriter<BufferT>::operator <<(const std::set<Kty, Pr, Alloc>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
+	template <typename BufferT>
+	template<typename T, typename C>
+	inline NetworkWriter<BufferT>&
+		NetworkWriter<BufferT>::operator <<(const std::queue<T, C>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
+	template <typename BufferT>
+	template<typename T>
+	inline NetworkWriter<BufferT>& 
+		NetworkWriter<BufferT>::operator <<(const std::deque<T>& container)
+	{
+		if(WriteContainer(container) == FALSE)
+			throw std::exception("");
+
+		return *this;
+	}
+
 }
