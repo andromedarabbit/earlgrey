@@ -358,10 +358,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\ADORecordset.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\ADOTransaction.cpp"
 					>
 				</File>
