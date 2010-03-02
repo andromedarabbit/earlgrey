@@ -213,5 +213,13 @@ namespace String {
 			|| _tcslen(str) == 0
 			;
 	}
+
+
+	// Encoding
+	// MultiByteToWideChar
+	const WCHAR * ToUnicode(const CHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
+
+	const CHAR * FromUnicode(const WCHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
+
 }
 }
