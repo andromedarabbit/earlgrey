@@ -46,29 +46,29 @@ namespace Earlgrey
 
 		DateTime Add(const TimeSpan& interval) const;
 
-		DateTime AddDays(double days) const
+		inline DateTime AddDays(double days) const
 		{
 			return this->Add(days, 0x5265c00);
 		}
 
-		DateTime AddHours(double hours) const
+		inline DateTime AddHours(double hours) const
 		{
 			return this->Add(hours, 0x36ee80);
 		}
 
-		DateTime AddMilliseconds(double milliseconds) const
+		inline DateTime AddMilliseconds(double milliseconds) const
 		{
 			return this->Add(milliseconds, 1);
 		}
 
-		DateTime AddMinutes(double minutes) const
+		inline DateTime AddMinutes(double minutes) const
 		{
 			return this->Add(minutes, 0xea60);
 		}
 
 		DateTime AddMonths(int months) const;
 		
-		DateTime AddSeconds(double seconds) const
+		inline DateTime AddSeconds(double seconds) const
 		{
 			return this->Add(seconds, 0x3e8);
 		}
@@ -76,7 +76,7 @@ namespace Earlgrey
 
 		DateTime AddTicks(const INT64 ticks) const;
 
-		DateTime AddYears(int years) const
+		inline DateTime AddYears(int years) const
 		{
 			if ((years < -10000) || (years > 0x2710))
 			{
@@ -101,56 +101,56 @@ namespace Earlgrey
 
 		TimeSpan operator - (const DateTime& other) const;
 
-		bool operator == (const DateTime& other) const
+		inline bool operator == (const DateTime& other) const
 		{
 			return this->InternalTicks() == other.InternalTicks();
 		}
 
-		bool operator != (const DateTime& other) const
+		inline bool operator != (const DateTime& other) const
 		{
 			return this->InternalTicks() != other.InternalTicks();
 		}
 
-		bool operator <= (const DateTime& other) const
+		inline bool operator <= (const DateTime& other) const
 		{
 			return this->InternalTicks() <= other.InternalTicks();	
 		}
 
-		bool operator >= (const DateTime& other) const
+		inline bool operator >= (const DateTime& other) const
 		{
 			return this->InternalTicks() >= other.InternalTicks();
 		}
 
-		bool operator < (const DateTime& other) const
+		inline bool operator < (const DateTime& other) const
 		{
 			return this->InternalTicks() < other.InternalTicks();
 		}
 
-		bool operator > (const DateTime& other) const
+		inline bool operator > (const DateTime& other) const
 		{
 			return this->InternalTicks() > other.InternalTicks();
 		}
 
 
-		DateTime Date() const
+		inline DateTime Date() const
 		{	
 			UINT64 internalTicks = this->InternalTicks();
 			return DateTime(((UINT64) (internalTicks - (internalTicks % TicksPerDay))) | this->InternalKind());
 		}
 		
-		int Day() const
+		inline int Day() const
 		{
 			return this->GetDatePart(3);
 		}
 
 		E_DayOfWeek DayOfWeek() const;
 
-		int DayOfYear() const
+		inline int DayOfYear() const
 		{
 			return this->GetDatePart(1);
 		}
 
-		int Hour() const
+		inline int Hour() const
 		{
 			return static_cast<int>( 
 				((this->InternalTicks() / TicksPerHour) % 0x18L)
@@ -159,21 +159,21 @@ namespace Earlgrey
 
 		E_DateTimeKind Kind() const;
 
-		int Millisecond() const
+		inline int Millisecond() const
 		{
 			return static_cast<int>(
 				((this->InternalTicks() / TicksPerMillisecond) % 0x3e8L)
 				);
 		}
 
-		int Minute() const
+		inline int Minute() const
 		{
 			return static_cast<int>(
 				((this->InternalTicks() / TicksPerMinute) % 60L)
 				);
 		}
 
-		int Month() const
+		inline int Month() const
 		{
 			return this->GetDatePart(2);
 		}
@@ -183,19 +183,19 @@ namespace Earlgrey
 
 		static DateTime UtcNow();
 
-		int Second() const
+		inline int Second() const
 		{
 			return static_cast<int>(
 				((this->InternalTicks() / TicksPerSecond) % 60L)
 				);
 		}
 
-		INT64 Ticks() const
+		inline INT64 Ticks() const
 		{
 			return this->InternalTicks();
 		}
 		
-		TimeSpan TimeOfDay() const;
+		inline TimeSpan TimeOfDay() const;
 
 		/*
 		static DateTime Today
@@ -204,13 +204,13 @@ namespace Earlgrey
 		}
 		*/
 
-		int Year() const
+		inline int Year() const
 		{
 			return this->GetDatePart(0);
 		}
 
 
-		int CompareTo(const DateTime& other) const
+		inline int CompareTo(const DateTime& other) const
 		{
 			INT64 internalTicks = other.InternalTicks();
 			INT64 num2 = this->InternalTicks();
@@ -246,12 +246,12 @@ namespace Earlgrey
 		int GetDatePart(int part) const;		
 
 
-		INT64 InternalTicks() const
+		inline INT64 InternalTicks() const
 		{
 			return (((INT64) this->dateData) & 0x3fffffffffffffffL);
 		}
 
-		UINT64 InternalKind() const
+		inline UINT64 InternalKind() const
 		{
 			return (this->dateData & 13835058055282163712L);
 		}

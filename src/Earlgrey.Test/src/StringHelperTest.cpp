@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "StringHelper.h"
 
+#include "numeric_cast.hpp"
+
 namespace Earlgrey
 {
 	namespace String
@@ -182,6 +184,81 @@ namespace Earlgrey
 
 				str = _T(" ");
 				ASSERT_FALSE(IsNullOrEmpty(str));
+			}
+
+
+
+			// Encoding 
+			TEST(StringHelperTest, ToUnicode)
+			{
+				const std::string src1("가나 다라 마 바 사 ");
+				const std::wstring expected1(_T("가나 다라 마 바 사 "));
+
+				const WCHAR * dst1 = String::ToUnicode(src1.c_str(), EARLGREY_NUMERIC_CAST<int>(src1.length()), CP_THREAD_ACP);
+				
+				ASSERT_TRUE(dst1 != NULL);
+				ASSERT_TRUE(expected1 == dst1);
+
+				const std::string src2("ASDJL MLKMQWLEIOJFAS");
+				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
+
+				const WCHAR * dst2 = String::ToUnicode(src2.c_str(), EARLGREY_NUMERIC_CAST<int>(src2.length()), CP_THREAD_ACP);
+
+				ASSERT_TRUE(dst2 != NULL);
+				ASSERT_TRUE(expected2 == dst2);
+			}
+
+			TEST(StringHelperTest, EmptyStringToUnicode)
+			{
+				const std::string src;
+				const std::wstring expected;
+
+				const WCHAR * dst = String::ToUnicode(src.c_str(), EARLGREY_NUMERIC_CAST<int>(src.length()), CP_THREAD_ACP);
+
+				ASSERT_TRUE(dst != NULL);
+				ASSERT_TRUE(expected == dst);
+			}
+
+			TEST(StringHelperTest, FromUnicode)
+			{
+				const std::wstring src1(_T("가나 다라 마 바 사 "));
+				const std::string expected1("가나 다라 마 바 사 ");
+
+				const CHAR * dst1 = String::FromUnicode(
+					src1.c_str()
+					, EARLGREY_NUMERIC_CAST<int>(src1.length() * sizeof(WCHAR))
+					, CP_THREAD_ACP
+					);
+
+				ASSERT_TRUE(dst1 != NULL);
+				ASSERT_TRUE(expected1 == dst1);
+
+				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
+
+				const CHAR * dst2 = String::FromUnicode(
+					src2.c_str()
+					, EARLGREY_NUMERIC_CAST<int>(src2.length() * sizeof(WCHAR) )
+					, CP_THREAD_ACP
+					);
+
+				ASSERT_TRUE(dst2 != NULL);
+				ASSERT_TRUE(expected2 == dst2);
+			}
+
+			TEST(StringHelperTest, FromUnicodeWithEmptyString)
+			{
+				const std::wstring src;
+				const std::string expected;
+
+				const CHAR * dst = String::FromUnicode(
+					src.c_str()
+					, EARLGREY_NUMERIC_CAST<int>(src.length() * sizeof(WCHAR))
+					, CP_THREAD_ACP
+					);
+
+				ASSERT_TRUE(dst != NULL);
+				ASSERT_TRUE(expected == dst);
 			}
 		}
 	}
