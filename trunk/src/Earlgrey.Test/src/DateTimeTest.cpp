@@ -3,6 +3,8 @@
 #include "DateTime.h"
 #include "DateTimeKind.h"
 
+#include "txsstream.h"
+
 namespace Earlgrey
 {
 	namespace Test
@@ -37,6 +39,33 @@ namespace Earlgrey
 			DateTime sum = dateTime + interval;
 			DateTime expected(2009, 4, 3);
 			ASSERT_EQ(expected.Ticks(), sum.Ticks());
+		}
+
+		TEST(DateTimeTest, StreamOutput)
+		{
+			DateTime dateTime(2009, 4, 2, 11, 39, 10, 213, DATETIMEKIND_LOCAL);
+
+			_txostringstream ss;
+			ss << dateTime;
+
+			_txstring str = ss.str();
+			ASSERT_TRUE(str == _T("2009-04-02 11:39:10.000213"));
+		}
+
+		TEST(DateTimeTest, Now)
+		{
+			SYSTEMTIME localSystemTime;
+			::GetLocalTime(&localSystemTime);
+
+			DateTime now = DateTime::Now();
+			ASSERT_EQ(localSystemTime.wYear, now.Year());
+			ASSERT_EQ(localSystemTime.wMonth, now.Month());
+			ASSERT_EQ(localSystemTime.wDay, now.Day());
+			ASSERT_EQ(localSystemTime.wHour, now.Hour());
+			ASSERT_EQ(localSystemTime.wMinute, now.Minute());
+			ASSERT_EQ(localSystemTime.wSecond, now.Second());
+			ASSERT_EQ(localSystemTime.wMilliseconds, now.Millisecond());
+
 		}
 	}
 }

@@ -241,6 +241,7 @@ namespace Earlgrey {
 			return _variant_t(vTime, VT_DATE);
 		}
 
+		//! \ref http://blogs.msdn.com/oldnewthing/archive/2004/08/25/220195.aspx
 		template<>
 		inline TimeSpan database_cast(const _variant_t& arg)
 		{
@@ -257,17 +258,32 @@ namespace Earlgrey {
 			if(::SystemTimeToFileTime(&systemTime, &fileTime) == 0)
 				throw std::exception("");
 
-			const TimeSpan::TickType newTimeSpan = *reinterpret_cast<TimeSpan::TickType*>(&fileTime) - ZERO_TICK_FOR_DB;
+			ULARGE_INTEGER temp;
+			temp.HighPart = fileTime.dwHighDateTime;
+			temp.LowPart = fileTime.dwLowDateTime; 
+
+			const TimeSpan::TickType newTimeSpan = temp.QuadPart - ZERO_TICK_FOR_DB;
 			return TimeSpan(newTimeSpan);
 		}
 		
+		//! \ref http://blogs.msdn.com/oldnewthing/archive/2004/08/25/220195.aspx
 		template<>
 		inline _variant_t database_cast<_variant_t, TimeSpan>(const TimeSpan& arg)
 		{
 			static const TimeSpan::TickType ZERO_TICK_FOR_DB = 94353120000000000; //1072620576000000000;
 
 			TimeSpan::TickType newTimeSpan = arg.Ticks() + ZERO_TICK_FOR_DB;
-			FILETIME fileTime = *reinterpret_cast<LPFILETIME>(&newTimeSpan);
+
+			ULARGE_INTEGER temp;
+			temp.QuadPart = newTimeSpan;
+			
+
+			FILETIME fileTime;
+			fileTime.dwHighDateTime = temp.HighPart;
+			fileTime.dwLowDateTime = temp.LowPart;
+			// FILETIME fileTime = *reinterpret_cast<LPFILETIME>(&newTimeSpan);
+
+
 
 			SYSTEMTIME systemTime;
 			if(::FileTimeToSystemTime(&fileTime, &systemTime) == 0)

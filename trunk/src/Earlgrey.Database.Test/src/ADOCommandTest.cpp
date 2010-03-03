@@ -100,7 +100,40 @@ namespace Earlgrey {
 				const _txstring updateText = ss.str();
 				Command updateCmd(updateText, connection);
 
-				updateCmd.ExecuteNonQuery();
+				const LONG recordsAffected = updateCmd.ExecuteNonQuery();
+				EXPECT_EQ(0L, recordsAffected);
+
+				// 업데이트된 내용 확인하기
+				const long uniqueKeyRetrieved = selectCmd.ExecuteScalar<long>();
+				ASSERT_EQ(uniqueKeyExpected, uniqueKeyRetrieved);
+
+			}
+
+			TEST(ADOCommandTest, ExecuteNonQueryWithRecrodsAffected)
+			{
+				const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
+
+				Connection connection;
+				ASSERT_TRUE(connection.Open(connectionString));
+				ASSERT_TRUE(connection.IsConnected());
+
+				const _txstring selectText = _T("select unique_key from earlgrey_test.single_column_table limit 1");
+				Command selectCmd(selectText, connection);
+
+				const long uniqueKey = selectCmd.ExecuteScalar<long>();
+
+				// 새 값으로 업데이트 하기
+				const long uniqueKeyExpected = uniqueKey + 1;
+
+				_txstringstream ss;
+				ss << _T("update `earlgrey_test`.`single_column_table` set unique_key=") << uniqueKeyExpected;
+
+				const _txstring updateText = ss.str();
+				Command updateCmd(updateText, connection);
+
+				// TODO: 여기 뺴고 ExecuteNonQuery 테스트와 동일함. 중복 코드 제거
+				const LONG recordsAffected = updateCmd.ExecuteNonQuery(TRUE);
+				EXPECT_EQ(1L, recordsAffected);
 
 				// 업데이트된 내용 확인하기
 				const long uniqueKeyRetrieved = selectCmd.ExecuteScalar<long>();

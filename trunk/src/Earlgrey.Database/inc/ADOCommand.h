@@ -103,9 +103,13 @@ namespace Earlgrey {
 				return reader->GetValue<T>(0);
 			}	
 
-			inline LONG ExecuteNonQuery()
+			inline LONG ExecuteNonQuery(BOOL withRecordsAffected = FALSE)
 			{
-				const LONG recordsAffected = m_Command->Execute(NULL, NULL, RawADO::adExecuteNoRecords);
+				long options = RawADO::adCmdUnspecified;
+				if(withRecordsAffected == FALSE)
+					options = RawADO::adExecuteNoRecords;
+
+				const LONG recordsAffected = m_Command->Execute(NULL, NULL, options);
 				return recordsAffected;
 			}
 

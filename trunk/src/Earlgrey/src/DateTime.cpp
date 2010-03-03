@@ -4,6 +4,9 @@
 #include "DateTimeKind.h"
 #include "TimeSpan.h"
 
+#include "txsstream.h"
+#include <iomanip>
+
 namespace Earlgrey
 {
 	const INT64 DateTime::MinTicks = 0L;
@@ -76,10 +79,10 @@ namespace Earlgrey
 	DateTime DateTime::Now()
 	{
 		SYSTEMTIME localSystemTime;
-		GetLocalTime(&localSystemTime);
+		::GetLocalTime(&localSystemTime);
 
 		FILETIME fileTime;
-		SystemTimeToFileTime(&localSystemTime, &fileTime);
+		::SystemTimeToFileTime(&localSystemTime, &fileTime);
 
 		return FromFileTime(fileTime);
 	}
@@ -92,12 +95,19 @@ namespace Earlgrey
 		return FromFileTime(fileTime);
 	}
 
+	//! \ref http://blogs.msdn.com/oldnewthing/archive/2004/08/25/220195.aspx
 	DateTime DateTime::FromFileTime(const FILETIME& fileTime)
-	{
-		UINT64 now;
-		now |= fileTime.dwHighDateTime;
-		now <<= 32;
-		now |= fileTime.dwLowDateTime;
+	{		
+// 		UINT64 now;
+// 		now |= fileTime.dwHighDateTime;
+// 		now <<= 32;
+// 		now |= fileTime.dwLowDateTime;
+
+		// UINT64 now = *reinterpret_cast<const UINT64*>(&fileTime);
+		ULARGE_INTEGER temp;
+		temp.HighPart = fileTime.dwHighDateTime;
+		temp.LowPart = fileTime.dwLowDateTime; 
+		const UINT64 now = temp.QuadPart;
 
 		// return new DateTime((UINT64) ((GetSystemTimeAsFileTime() + 0x701ce1722770000L) | 0x4000000000000000L));
 		return DateTime((UINT64) ((now + 0x701ce1722770000L) | 0x4000000000000000L));
@@ -312,8 +322,18 @@ namespace Earlgrey
 
 	_txstring DateTime::ToString() const
 	{
-		// TODO: 구현하자.
-		return TEXT("");
+		// _tcsftime() 와 struct tm의 조합은 밀리초 단위까지 표현하지 못하므로 쓰지 않는다.
+		_txostringstream ss;
+		ss << Year()
+			<< _T("-") << std::setfill(_T('0')) << std::setw(2) << Month()
+			<< _T("-") << std::setfill(_T('0')) << std::setw(2) << Day()
+			<< _T(" ") << std::setfill(_T('0')) << std::setw(2) << Hour()
+			<< _T(":") << std::setfill(_T('0')) << std::setw(2) << Minute()
+			<< _T(":") << std::setfill(_T('0')) << std::setw(2) << Second()
+			<< _T(".") << std::setfill(_T('0')) << std::setw(6) << Millisecond()
+			;
+
+		return ss.str();
 	}
 
 	_tostream& operator << (_tostream &os, const DateTime &obj)
