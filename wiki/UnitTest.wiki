@@ -9,6 +9,6 @@ Earlgrey.Test 에는 몇 가지 짜증을 유발할 만한 단위테스트가 �
 
 이런 문제를 겪지 않으려면 Earlgre.Test.exe 실행시 명령인자를 다음과 같이 적습니다. (주의. 위키에서 별표가 나오게 하는 방법을 몰라서 '로 대체 표기합니다).
 
-<pre>
---gtest_filter=-'Performance':'Mail'
-</pre>
+{{{
+--gtest_filter=-*Performance*:*Mail*
+}}}
