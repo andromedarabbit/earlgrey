@@ -94,6 +94,7 @@ namespace Earlgrey
 			thread->Join();
 		}
 		m_IOThreads.clear();
+		GlobalExceptionHandler::UnregisterAll();
 	}
 
 	BOOL Application::CheckAppInstance()

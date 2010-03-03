@@ -28,6 +28,11 @@ namespace Earlgrey
 		m_Handlers.push_back(handler);
 	}
 
+	void GlobalExceptionHandler::UnregisterAll()
+	{
+		m_Handlers.clear();
+	}
+
 	LONG WINAPI GlobalExceptionHandler::HandleException(LPEXCEPTION_POINTERS exceptionPtr)
 	{
 		HandlerCollectionType::const_iterator it = m_Handlers.begin();

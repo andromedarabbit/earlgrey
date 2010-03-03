@@ -69,7 +69,7 @@ namespace Earlgrey {
 		private:
 			void ExecuteAllTasksInQueue()
 			{
-				EARLGREY_ASSERT(InterlockedIncrement( &_IsRunning) == 1L);
+				InterlockedIncrement( &_IsRunning);
 				do {
 					EARLGREY_ASSERT( _qlen > 0 );
 					TaskHolder* taskHolder = NULL;
@@ -88,7 +88,7 @@ namespace Earlgrey {
 					(*taskHolder)();
 					delete taskHolder;
 				} while(InterlockedDecrement( &_qlen ));
-				EARLGREY_ASSERT(InterlockedDecrement( &_IsRunning) == 0L);
+				InterlockedDecrement( &_IsRunning);
 			}
 
 		private:
