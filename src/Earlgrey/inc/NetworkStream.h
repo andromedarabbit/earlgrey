@@ -173,6 +173,8 @@ namespace Earlgrey {
 
 		void Flush()
 		{
+			if (NULL == _Stream)  return;
+
 			// TODO: 에러처리
 			if (_Stream->Write())
 			{
@@ -210,15 +212,19 @@ namespace Earlgrey {
 				return TRUE;
 			}
 
-			std::vector<TCHAR> ReadStr;	//! \todo xvector로 변경
-			ReadStr.reserve( Length );
-			Result = Buffer.GetValue( Offset, reinterpret_cast<BYTE*>(&ReadStr[0]), Length * sizeof(TCHAR) );
+			StackAllocator stackAllocator;
+			TCHAR * buffer = (TCHAR*)stackAllocator.malloc((Length + 1) * sizeof(TCHAR));
+			//std::vector<TCHAR> ReadStr;	//! \todo xvector로 변경
+			//ReadStr.reserve( Length );
+			Result = Buffer.GetValue( Offset, reinterpret_cast<BYTE*>(buffer), Length * sizeof(TCHAR) );
 			if (!Result)
 			{
 				return FALSE;
 			}
 
-			Value.assign( &ReadStr[0], Length );
+			//buffer[Length] = TEXT('\0');
+
+			Value.assign( buffer, Length );
 			return TRUE;
 		}
 	};
