@@ -42,7 +42,9 @@ namespace Earlgrey
 		template<typename T>
 		inline BOOL Write(const T x, size_type len)
 		{
-			const size_type bytes = len * sizeof(T);
+			typedef std::tr1::remove_pointer<T>::type type;
+
+			const size_type bytes = len * sizeof(type);
 			return WriteBytes(x, bytes);
 			// typedef std::tr1::remove_pointer<T>::type type;
 			// return Write(value, std::tr1::is_pod<type>(), std::tr1::is_pointer<T>());
