@@ -1,6 +1,6 @@
 #pragma once
 #include "Uncopyable.h"
-#include "xlist.h"
+#include <list>
 #include "UnhandledExceptionHandler.h"
 
 namespace Earlgrey
@@ -9,7 +9,7 @@ namespace Earlgrey
 	{
 	public:
 		typedef std::tr1::shared_ptr<UnhandledExceptionHandler> UnhandledExceptionHandlerPtr;
-		typedef xlist<UnhandledExceptionHandlerPtr>::Type UnhandledExceptionCollection;
+		typedef std::list<UnhandledExceptionHandlerPtr> UnhandledExceptionCollection;
 		typedef std::tr1::shared_ptr<UnhandledExceptionCollection> UnhandledExceptionCollectionPtr;
 
 		explicit AppSettings() {}
