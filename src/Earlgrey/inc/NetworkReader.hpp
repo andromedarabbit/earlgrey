@@ -49,7 +49,11 @@ namespace Earlgrey
 		inline BOOL ReadString(WCHAR* x, size_type x_len, size_type bufferLen)
 		{
 			length_type length = 0;
+			return ReadString(x, x_len, bufferLen, length);
+		}
 
+		inline BOOL ReadString(WCHAR* x, size_type x_len, size_type bufferLen, length_type& length)
+		{
 			if(m_BinaryReader.Read(length) == FALSE)
 				return FALSE;
 
@@ -64,7 +68,11 @@ namespace Earlgrey
 		inline BOOL ReadString(CHAR* x, size_type x_len, size_type bufferLen)
 		{
 			length_type length = 0;
+			return ReadString(x, x_len, bufferLen, length);
+		}
 
+		inline BOOL ReadString(CHAR* x, size_type x_len, size_type bufferLen, length_type& length)
+		{
 			if(m_BinaryReader.Read(length) == FALSE)
 				return FALSE;
 
@@ -245,12 +253,15 @@ namespace Earlgrey
 		static __declspec(thread) TCHAR buffer[_UI16_MAX];
 		buffer[0] = NULL;
 
-		if(this->ReadString(buffer, _countof(buffer), _UI16_MAX) == FALSE)
+		length_type length = 0;
+		if(this->ReadString(buffer, _countof(buffer), _UI16_MAX, length) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
 		}
-		x = buffer;
+		
+		buffer[length] = NULL;
+		x.assign(buffer, length);
 		return *this;
 	}
 
@@ -260,12 +271,15 @@ namespace Earlgrey
 		static __declspec(thread) CHAR buffer[_UI16_MAX];
 		buffer[0] = NULL;
 
-		if(this->ReadString(buffer, _countof(buffer), _UI16_MAX) == FALSE)
+		length_type length = 0;
+		if(this->ReadString(buffer, _countof(buffer), _UI16_MAX, length) == FALSE)
 		{
 			// TODO
 			throw std::exception("");
 		}
-		x = buffer;
+		
+		buffer[length] = NULL;
+		x.assign(buffer, length);
 		return *this;
 	}
 

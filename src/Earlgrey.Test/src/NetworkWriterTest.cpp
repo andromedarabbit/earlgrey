@@ -188,17 +188,63 @@ namespace Earlgrey
 			typedef basic_buffer<BYTE> BUFFER_T;
 
 			const _txstring ABCD = _T("ABCD");
-			
+
 			BUFFER_T buf(128);
 			NetworkWriter<BUFFER_T> writer(buf);
 			writer << ABCD;
-			
+
 
 			NetworkReader<BUFFER_T> reader(buf);
 			_txstring retValue;
 			reader >> retValue;
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
+
+		TEST(NetworkWriterTest, WriteStrings)
+		{	
+			typedef basic_buffer<BYTE> BUFFER_T;
+
+			const _txstring str1 = _T("ABCD");
+			const _txstring str2 = _T("EFGH");
+
+			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+			writer << str1 << str2;
+
+
+			NetworkReader<BUFFER_T> reader(buf);
+			_txstring retValue1;
+			_txstring retValue2;
+			reader >> retValue1 >> retValue2;
+			ASSERT_TRUE( retValue1 == str1 );
+			ASSERT_TRUE( retValue2 == str2 );
+		}
+
+
+		TEST(NetworkWriterTest, WriteReadWriteRead)
+		{	
+			typedef basic_buffer<BYTE> BUFFER_T;
+
+			const _txstring str1 = _T("ABCDEFGHIJKLMN");
+			
+			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+			writer << str1;
+
+			NetworkReader<BUFFER_T> reader(buf);
+			_txstring retValue1;
+			reader >> retValue1;
+			ASSERT_TRUE( retValue1 == str1 );
+			
+
+			const _txstring str2 = _T("°¡³ª´Ù");
+			writer << str2;
+
+			_txstring retValue2;
+			reader >> retValue2;
+			ASSERT_TRUE( retValue2 == str2 );
+		}
+
 
 		TEST(NetworkWriterTest, WriteEmptyString)
 		{	
@@ -265,7 +311,7 @@ namespace Earlgrey
 
 
 			NetworkReader<BUFFER_T> reader(buf);
-			
+
 			xvector<BYTE>::Type newContainer;
 			reader >> newContainer;
 
@@ -291,7 +337,7 @@ namespace Earlgrey
 			ABCD[_T('b')] = 2;
 			ABCD[_T('c')] = 3;
 			ABCD[_T('d')] = 4;
-			
+
 			writer << ABCD;
 		}
 	}
