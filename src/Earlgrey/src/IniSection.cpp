@@ -5,7 +5,7 @@
 
 namespace Earlgrey 
 {
-	_txstring IniSection::ReadString(const _txstring& keyName, const _txstring& defaultValue) const
+	_txstring IniSection::ReadString(const _txstring& keyName) const
 	{
 		EARLGREY_ASSERT(keyName.empty() == false);
 
@@ -17,8 +17,8 @@ namespace Earlgrey
 			LPTSTR rawBuffer = m_Buffer.data();
 			const DWORD size = EARLGREY_NUMERIC_CAST<DWORD>(m_Buffer.capacity());
 
-			length = GetPrivateProfileString(m_Name.c_str(), keyName.c_str(), defaultValue.c_str(), rawBuffer, size, m_FilePath.c_str());
-			if(length != size - 2)
+			length = GetPrivateProfileString(m_Name.c_str(), keyName.c_str(), _T(""), rawBuffer, size, m_FilePath.c_str());
+			if(length != size - 1) // 왜 -1 인지는 MSDN 문서를 확인할 것!
 				break;
 
 			m_Buffer.reserve(size * 2);
@@ -26,7 +26,4 @@ namespace Earlgrey
 
 		return _txstring(m_Buffer.data());
 	}
-
-
-
 }
