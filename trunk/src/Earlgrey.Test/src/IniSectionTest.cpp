@@ -47,6 +47,18 @@ namespace Earlgrey
 			ASSERT_TRUE(valueNotFound.empty());
  		}
 
+		TEST(IniSectionTest, ReadLongString)
+		{
+			const _txstring fileName = _T("Earlgrey.Test.ini");
+			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
+
+			IniReader reader(filePath);
+			ASSERT_TRUE(reader.Open());
+
+			_txstring value1 = reader[_T("test5")][_T("connection_string")].GetValue<_txstring>();
+			ASSERT_TRUE(value1.length() > 100);
+		}
+
 		TEST(IniSectionTest, ReadInt)
 		{
 			const _txstring fileName = _T("Earlgrey.Test.ini");

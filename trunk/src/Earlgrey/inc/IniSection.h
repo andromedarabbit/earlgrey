@@ -44,7 +44,7 @@ namespace Earlgrey
 		TypeConverter operator[] (const _txstring& keyName) const;
 
 	private: // methods
-		_txstring ReadString(const _txstring& keyName, const _txstring& defaultValue = _T("")) const;
+		_txstring ReadString(const _txstring& keyName) const;
 
 	private:
 		_txstring m_FilePath;
@@ -117,6 +117,12 @@ namespace Earlgrey
 
 	template <>
 	inline const _txstring& IniSection::TypeConverter::GetValue() const
+	{
+		return m_Src;
+	}
+
+	template <>
+	inline _txstring IniSection::TypeConverter::GetValue() const
 	{
 		return m_Src;
 	}
