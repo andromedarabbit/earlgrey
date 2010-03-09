@@ -559,10 +559,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\DefaultAppSettings.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\Environment.cpp"
 					>
 				</File>
@@ -627,6 +623,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\src\DefaultAppSettings.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IniReader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IniSection.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -638,19 +650,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\inc\Connection.h"
-				>
-			</File>
-			<File
 				RelativePath=".\inc\Earlgrey.h"
 				>
 			</File>
 			<File
 				RelativePath=".\inc\EarlgreyPrivate.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\Listener.h"
 				>
 			</File>
 			<File
@@ -945,10 +949,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\AppSettings.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\Console.h"
 					>
 				</File>
@@ -962,10 +962,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\DayOfWeek.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\DefaultAppSettings.h"
 					>
 				</File>
 				<File
@@ -1057,6 +1053,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\Connection.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Connector.h"
 					>
 				</File>
@@ -1070,6 +1070,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Listener.h"
 					>
 				</File>
 				<File
@@ -1244,6 +1248,26 @@
 			<Filter
 				Name="IO"
 				>
+			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\inc\AppSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\DefaultAppSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IniReader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IniSection.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

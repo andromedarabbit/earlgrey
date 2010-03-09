@@ -28,7 +28,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -108,7 +108,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -190,7 +190,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -274,7 +274,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -353,7 +353,7 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{540889A0-C756-44A8-A1AB-536EE7276D70}"
-			RelativePathToProject="..\..\library\earlgrey_r336\src\GmailClient\GmailClient.vcproj"
+			RelativePathToProject=".\GmailClient\GmailClient.vcproj"
 		/>
 	</References>
 	<Files>
@@ -432,6 +432,14 @@
 			</File>
 			<File
 				RelativePath=".\src\GreedyAllocatorTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\IniReaderTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\IniSectionTest.cpp"
 				>
 			</File>
 			<File
@@ -634,6 +642,14 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\Earlgrey.Test.Empty.ini"
+				>
+			</File>
+			<File
+				RelativePath=".\Earlgrey.Test.ini"
+				>
+			</File>
 			<File
 				RelativePath=".\Earlgrey.Test.txt"
 				>
