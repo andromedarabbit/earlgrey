@@ -31,10 +31,16 @@ namespace Earlgrey
 		}
 	
 
-		TEST(StringConversionTest, FromString1)
+		TEST(StringConversionTest, ToDouble)
 		{
 			double d = String::lexical_cast<double>("12.333");
-			ASSERT_EQ(12.333, d);
+			ASSERT_DOUBLE_EQ(12.333, d);
+		}
+
+		TEST(StringConversionTest, ToFloat)
+		{
+			float d = String::lexical_cast<float>("98.765");
+			ASSERT_FLOAT_EQ(98.765f, d);
 		}
 	}
 }

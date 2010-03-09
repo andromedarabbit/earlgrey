@@ -16,12 +16,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Test", "Earlgrey.Test\Earlgrey.Test.vcproj", "{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}"
 	ProjectSection(ProjectDependencies) = postProject
 		{89B2BD42-B130-4811-9043-71A8EBC40DE5} = {89B2BD42-B130-4811-9043-71A8EBC40DE5}
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
 		{97815F93-C18E-4749-BAB1-B1917C7CE375} = {97815F93-C18E-4749-BAB1-B1917C7CE375}
 		{540889A0-C756-44A8-A1AB-536EE7276D70} = {540889A0-C756-44A8-A1AB-536EE7276D70}
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560} = {527D29F7-E2A8-4134-ACEE-266F4DE2D560}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\vendor\gtest-1.3.0\msvc\gtest.vcproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\vendor\gtest-1.3.0\msvc\gtest.vcproj", "{527D29F7-E2A8-4134-ACEE-266F4DE2D560}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServerClientTestApps", "ServerClientTestApps", "{171E3F30-9CC2-4D17-A610-B3F30F4DD097}"
 EndProject
@@ -62,6 +62,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Database", "Earlgrey.Database\Earlgrey.Database.vcproj", "{EDE03948-20A1-46CF-AA94-DF7B87C00565}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Database.Test", "Earlgrey.Database.Test\Earlgrey.Database.Test.vcproj", "{27AAF7AF-BF52-4797-B07B-1C807D599699}"
+	ProjectSection(ProjectDependencies) = postProject
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560} = {527D29F7-E2A8-4134-ACEE-266F4DE2D560}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,18 +100,18 @@ Global
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|Win32.Build.0 = Release|Win32
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|x64.ActiveCfg = Release|x64
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|x64.Build.0 = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.Build.0 = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.Build.0 = Debug|Win32
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.ActiveCfg = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.Build.0 = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.Build.0 = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.ActiveCfg = Release|Win32
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.Build.0 = Release|Win32
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x64.ActiveCfg = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x64.Build.0 = Release|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|Win32.ActiveCfg = Debug|Win32
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|Win32.Build.0 = Debug|Win32
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|x64.ActiveCfg = Debug|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Debug|x64.Build.0 = Debug|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|Mixed Platforms.Build.0 = Release|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|Win32.ActiveCfg = Release|Win32
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|Win32.Build.0 = Release|Win32
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|x64.ActiveCfg = Release|x64
+		{527D29F7-E2A8-4134-ACEE-266F4DE2D560}.Release|x64.Build.0 = Release|x64
 		{8946A7CE-5C7D-4BDE-8429-C491FB198BAB}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
 		{8946A7CE-5C7D-4BDE-8429-C491FB198BAB}.Debug|Mixed Platforms.Build.0 = Debug|x64
 		{8946A7CE-5C7D-4BDE-8429-C491FB198BAB}.Debug|Win32.ActiveCfg = Debug|Win32
