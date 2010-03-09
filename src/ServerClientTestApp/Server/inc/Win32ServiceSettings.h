@@ -6,8 +6,8 @@ class Win32ServiceSettings : public Earlgrey::ServiceProcess::ServiceSettings
 public:
 	virtual const TCHAR * const ShortName() const;
 
-	virtual UnhandledExceptionCollectionPtr UnhandledExceptions();
+	virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const;
 
 private:
-	std::tr1::shared_ptr<Earlgrey::UnhandledExceptionHandler> GetExceptionEMailer();
+	std::tr1::shared_ptr<Earlgrey::UnhandledExceptionHandler> GetExceptionEMailer() const;
 };

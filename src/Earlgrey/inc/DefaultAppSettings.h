@@ -19,7 +19,7 @@ namespace Earlgrey
 		virtual const TCHAR * const Description() const;
 		virtual const TCHAR * const Version() const;
 
-		virtual UnhandledExceptionCollectionPtr UnhandledExceptions();
+		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const;
 	
 
 	private:

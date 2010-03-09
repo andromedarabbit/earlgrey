@@ -22,7 +22,7 @@ namespace Earlgrey
 		virtual const TCHAR * const Description() const = 0;
 		virtual const TCHAR * const Version() const = 0;
 		
-		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() = 0;
+		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const = 0;
 	};
 
 }

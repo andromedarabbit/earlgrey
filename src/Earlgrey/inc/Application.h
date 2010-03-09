@@ -11,11 +11,9 @@ namespace Earlgrey
 	class Application : private Uncopyable
 	{
 		typedef std::vector<std::tr1::shared_ptr<Thread>> ThreadContainer;
+
 	public: // Methods
-		explicit Application(AppSettings& appSettings)
-			: m_AppSettings(appSettings)
-		{
-		}
+		explicit Application(const AppSettings& appSettings);
 
 		~Application();
 		
@@ -33,7 +31,7 @@ namespace Earlgrey
 
 
 	private: // Fields
-		AppSettings& m_AppSettings;
+		const AppSettings& m_AppSettings;
 		ThreadContainer m_IOThreads;
 		ThreadContainer m_WaitThreads;
 		ThreadContainer m_MainThreads;

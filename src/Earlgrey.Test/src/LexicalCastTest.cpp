@@ -42,5 +42,11 @@ namespace Earlgrey
 			float d = String::lexical_cast<float>("98.765");
 			ASSERT_FLOAT_EQ(98.765f, d);
 		}
+
+		TEST(StringConversionTest, ToDWORD)
+		{
+			DWORD d = String::lexical_cast<DWORD>("95");
+			ASSERT_EQ(static_cast<DWORD>(95), d);
+		}
 	}
 }
