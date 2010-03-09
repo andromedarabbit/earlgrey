@@ -381,6 +381,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\inc\IsolationLevel.h"
+				>
+			</File>
+			<File
 				RelativePath=".\inc\ParameterDirection.h"
 				>
 			</File>

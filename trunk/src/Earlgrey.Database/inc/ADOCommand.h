@@ -3,31 +3,32 @@
 #include "txstring.h"
 #include "ADO.h"
 
-// #include "CommandType.h"
 #include "ADOCast.h"
 #include "ADODataReader.h"
 #include "ADOLog.h"
 
 namespace Earlgrey {
 
-	// enum CommandType;
-
 	namespace ADO {
 
 		class Connection;
-		// class DataReader;
 
 		class Command : private Uncopyable
 		{
 		public:
 			explicit Command();
- 			explicit Command(const _txstring& cmdText);
- 			explicit Command(const _txstring& cmdText, Connection& connection);
+			explicit Command(const _txstring& cmdText);
+			explicit Command(const _txstring& cmdText, Connection& connection);
 
 			inline const TCHAR * CommandText() const
 			{
 				EARLGREY_ASSERT(m_Command != NULL);
 				return m_Command->CommandText;
+			}
+
+			inline void CommandText(const _txstring& cmdText)
+			{
+				return CommandText(cmdText.c_str());
 			}
 
 			inline void CommandText(const TCHAR * cmdText)
@@ -71,11 +72,11 @@ namespace Earlgrey {
 				// _variant_t recordsAffected(0L);
 				// RawADO::_RecordsetPtr recordset = m_Command->Execute(&recordsAffected, NULL, NULL);
 				RawADO::_RecordsetPtr recordset = m_Command->Execute(NULL, NULL, NULL);
- 				/*std::tr1::shared_ptr<RawADO::_Recordset> recordset(
- 					m_Command->Execute(NULL, NULL, NULL)
- 					, Deleter<RawADO::_RecordsetPtr>()
- 					);*/
-			
+				/*std::tr1::shared_ptr<RawADO::_Recordset> recordset(
+				m_Command->Execute(NULL, NULL, NULL)
+				, Deleter<RawADO::_RecordsetPtr>()
+				);*/
+
 				//return DataReader(recordset);
 				return std::tr1::shared_ptr<DataReader>(
 					new DataReader(recordset)
@@ -88,14 +89,14 @@ namespace Earlgrey {
 				static const _variant_t index(static_cast<SHORT>(0), VT_I2);
 
 				// TODO: adExecuteRecord를 어떻게 쓰는지 몰라서 우선 이렇게 처리한다.
-// 					RawADO::_RecordPtr record = m_Command->Execute(NULL, NULL, RawADO::adExecuteRecord);
-// 					const _variant_t value(
-// 						record->Fields->GetItem(&index)->GetValue()
-// 						);
-// 					record->Close();
-// 
-// 					return database_cast<T>(value);
-// 					
+				// 					RawADO::_RecordPtr record = m_Command->Execute(NULL, NULL, RawADO::adExecuteRecord);
+				// 					const _variant_t value(
+				// 						record->Fields->GetItem(&index)->GetValue()
+				// 						);
+				// 					record->Close();
+				// 
+				// 					return database_cast<T>(value);
+				// 					
 				// DataReader reader(ExecuteReader());
 				std::tr1::shared_ptr<DataReader> reader(ExecuteReader());
 				if(reader->Read() == FALSE)

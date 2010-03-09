@@ -14,6 +14,15 @@
 
 namespace Earlgrey
 {
+	Application::Application(const AppSettings& appSettings)
+		: m_AppSettings(appSettings)
+		, m_IOThreads()
+		, m_WaitThreads()
+		, m_MainThreads()
+	{
+	}
+
+
 	BOOL Application::InitInstance()
 	{
 		if( CheckAppInstance() == FALSE )

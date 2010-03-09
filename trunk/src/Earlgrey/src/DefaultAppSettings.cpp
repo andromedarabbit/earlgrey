@@ -115,7 +115,7 @@ namespace Earlgrey
 
 
 	
-	AppSettings::UnhandledExceptionCollectionPtr DefaultAppSettings::UnhandledExceptions() 
+	AppSettings::UnhandledExceptionCollectionPtr DefaultAppSettings::UnhandledExceptions() const
 	{
 		return m_UnhandledExceptions;
 	}

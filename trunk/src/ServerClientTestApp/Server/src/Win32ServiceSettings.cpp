@@ -16,7 +16,7 @@ const TCHAR * const Win32ServiceSettings::ShortName() const
 }
 
 //! \todo 코드 정리 좀....
-std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExceptionEMailer()
+std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExceptionEMailer() const
 {
 	const _txstring miniDumpClassName(_T("Earlgrey::MiniDump"));
 	const _txstring stackWriterClassName(_T("Earlgrey::StackWriter"));
@@ -78,7 +78,7 @@ std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExcepti
 	return sender;
 }
 
-AppSettings::UnhandledExceptionCollectionPtr Win32ServiceSettings::UnhandledExceptions()
+AppSettings::UnhandledExceptionCollectionPtr Win32ServiceSettings::UnhandledExceptions() const
 {
 	UnhandledExceptionCollectionPtr collection = __super::UnhandledExceptions();
 	UnhandledExceptionCollectionPtr newCollection( new UnhandledExceptionCollection(*collection.get()));
