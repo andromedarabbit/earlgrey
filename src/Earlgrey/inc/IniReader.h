@@ -47,7 +47,7 @@ namespace Earlgrey
 		_txstring m_FilePath;
 		BOOL m_Open;
 		SectionNameContainer m_SectionNames;
-		int m_NextSection; // TODO: 이해하기 쉽게 m_CurrentSection으로 바꾸면 좋겠다.
+		size_t m_NextSection; // TODO: 이해하기 쉽게 m_CurrentSection으로 바꾸면 좋겠다.
 
 	};
 }
