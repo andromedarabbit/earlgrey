@@ -76,6 +76,16 @@ namespace Earlgrey
 				ASSERT_STREQ(expected.c_str(), str.c_str());
 			}
 
+			TEST(StringHelperTest, TrimEmptyString)
+			{
+				_txstring str = TEXT("");
+				str = Trim(str);
+
+				_txstring expected = TEXT("");
+
+				ASSERT_STREQ(expected.c_str(), str.c_str());
+			}
+
 			TEST(StringHelperTest, ToLowerInPlace1)
 			{
 				_txstring str = TEXT("AbCd사바나가EfGh");
