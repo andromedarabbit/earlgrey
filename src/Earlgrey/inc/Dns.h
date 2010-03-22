@@ -1,39 +1,13 @@
 #pragma once 
 #include "Uncopyable.h"
-#include "ServerInit.h"
+#include "txstring.h"
+#include "xlist.h"
 
 namespace Earlgrey
 {
-	class IPAddress
-	{
-		SOCKADDR_IN Address;
-	public:
-		IPAddress()
-		{
-			memset(&Address,0, sizeof(SOCKADDR_IN));
-			Address.sin_family = AF_INET;
-		}
-
-		void SetPort(INT Port)
-		{
-			Address.sin_port = htons((u_short)Port);
-		}
-
-		INT GetPort() const
-		{
-			return ntohs(Address.sin_port);
-		}
-
-		void SetAddr(const in_addr& Addr)
-		{
-			Address.sin_addr = Addr;
-		}
-
-		operator SOCKADDR_IN*()
-		{
-			return (SOCKADDR_IN*)&Address;
-		}
-	};
+	class IPHostEntry;
+	class IPAddress;
+	class IPAddress2;
 
 	class Dns : private Uncopyable
 	{
@@ -41,23 +15,21 @@ namespace Earlgrey
 		explicit Dns();
 
 	public:
-		static DWORD GetHostByName(LPCSTR Name, IPAddress& Addr)
-		{
-			HOSTENT* HostEnt = gethostbyname(Name);
+		typedef std::tr1::shared_ptr<IPHostEntry> IPHostEntryPtr;
 
-			if (!HostEnt)
-			{
-				return WSAGetLastError();
-			}
+		// ±â¿Ï¾¾°¡ Â§ ¿¾³¯ ÄÚµå
+		static DWORD GetHostByName(LPCSTR Name, IPAddress& Addr);
 
-			if (HostEnt->h_addrtype == PF_INET)
-			{
-				Addr.SetAddr( *(in_addr*)(*HostEnt->h_addr_list) );
-				return 0;
-			}
-			
-			return WSAHOST_NOT_FOUND;
-		}
+
+		typedef std::tr1::shared_ptr<IPAddress2> IPAddressPtr;
+		typedef xlist<IPAddressPtr>::Type IPAddresses;
+
+		static _txstring GetHostName();
+
+		static void GetHostAddresses(const _txstring& hostNameOrAddress, IPAddresses& addresses);
+
+ 		static IPHostEntryPtr GetHostEntry(const IPAddress2& address);
+ 		static IPHostEntryPtr GetHostEntry(const _txstring& hostNameOrAddress);
 	};
 
 	

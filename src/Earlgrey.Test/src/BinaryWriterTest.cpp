@@ -145,6 +145,29 @@ namespace Earlgrey
 			ASSERT_FALSE(reader.Read(retValue));
 		}
 
+// 		TEST(BinaryWriterTest, WriteInt32Pointer)
+// 		{	
+// 			typedef chain_buffer<BYTE> BUFFER_T;
+// 
+// 			BUFFER_T buf(128);
+// 			BinaryWriter<BUFFER_T> writer(buf);
+// 
+// 			std::auto_ptr<int> intMaxValue( new int(INT_MAX) );
+// 			ASSERT_TRUE(writer.Write(intMaxValue.get()));
+// 
+// 			std::auto_ptr<int> intMinValue( new int(INT_MIN) );
+// 			ASSERT_TRUE(writer.Write(intMinValue.get()));
+// 
+// 			BinaryReader<BUFFER_T> reader(buf);
+// 			INT32 * retValue = NULL;
+// 			ASSERT_TRUE(reader.Read(retValue));
+// 			ASSERT_EQ(*intMaxValue, *retValue);
+// 
+// 			ASSERT_TRUE(reader.Read(retValue));
+// 			ASSERT_EQ(*intMinValue, *retValue);
+// 
+// 			ASSERT_FALSE(reader.Read(retValue));
+// 		}
 
 		TEST(BinaryWriterTest, WriteString)
 		{	
@@ -230,15 +253,15 @@ namespace Earlgrey
 
 			ASSERT_TRUE(writer.Write(ABCD, _countof(ABCD)));
 
-// 
-// 			BinaryReader<BUFFER_T> reader(buf);
-// 			int retValue[128];
-// 			ASSERT_TRUE(reader.Read(retValue, _countof(retValue), _countof(ABCD)));
-// 
-// 			for(int i=0; i<_countof(ABCD); i++)
-// 			{
-// 				ASSERT_EQ(ABCD[i], retValue[i]);
-// 			}
+ 
+//  			BinaryReader<BUFFER_T> reader(buf);
+//  			int retValue[128];
+//  			ASSERT_TRUE(reader.Read(retValue, _countof(retValue), _countof(ABCD)));
+//  
+//  			for(int i=0; i<_countof(ABCD); i++)
+//  			{
+//  				ASSERT_EQ(ABCD[i], retValue[i]);
+//  			}
 		}
 	}
 }

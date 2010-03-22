@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
-#include "ServerInit.h"
 #include "Connector.h"
 
+#include "ServerInit.h"
 
 
 namespace Earlgrey

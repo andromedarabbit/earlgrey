@@ -194,7 +194,7 @@ namespace Earlgrey
 		_stprintf_s(szKey, TEXT("%s\\%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName, source);
 		
 		HKEY hKey = 0;
-		Earlgrey::handle_t regKeyHandle(hKey, &RegCloseKey);
+		handle_t regKeyHandle(hKey, &RegCloseKey);
 		// LONG lRet = ERROR_SUCCESS;
 
 		// Create a key for that application and insert values for

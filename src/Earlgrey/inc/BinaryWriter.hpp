@@ -97,12 +97,12 @@ namespace Earlgrey
 		}
 
 		// POD 포인터형
-		template<class T>
-		inline BOOL Write(const T& value, std::tr1::true_type, std::tr1::true_type, size_type len)
-		{
-			const size_type bytes = len * sizeof(T);
-			return WriteBytes(&value, bytes);
-		}
+// 		template<class T>
+// 		inline BOOL Write(const T& value, std::tr1::true_type, std::tr1::true_type, size_type len)
+// 		{
+// 			const size_type bytes = len * sizeof(T);
+// 			return WriteBytes(&value, bytes);
+// 		}
 
 		/*
 		// POD 아닌 포인터형
@@ -111,14 +111,14 @@ namespace Earlgrey
 		{
 			return Serializer<T>::Write(*this, value, n);
 		}
-
+*/
 		// POD 아닌 형
 		template<class T>
-		BOOL Write(const T& value, std::tr1::false_type, std::tr1::false_type)
+		inline BOOL Write(const T& value, std::tr1::false_type, std::tr1::false_type)
 		{
-			return Serializer<T>::Write(*this, &value);
+			return Serialization::Write(*this, value);
 		}
-		*/
+
 
 	private: // field
 		BufferT& m_buffer;

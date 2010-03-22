@@ -487,7 +487,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Dns.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IOCP.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPAddress.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPHostEntry.cpp"
 					>
 				</File>
 				<File
@@ -1070,6 +1082,18 @@
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPAddress.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPEndPoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPHostEntry.h"
 					>
 				</File>
 				<File
