@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "..\inc\Connection.h"
+#include "Connection.h"
 
 namespace Earlgrey {
 

@@ -57,6 +57,9 @@ namespace Earlgrey
 			if(m_BinaryReader.Read(length) == FALSE)
 				return FALSE;
 
+			if(length == 0)
+				return TRUE;
+
 			if(length > bufferLen)
 				return FALSE;
 
@@ -259,8 +262,11 @@ namespace Earlgrey
 			// TODO
 			throw std::exception("");
 		}
-		
+
 		buffer[length] = NULL;
+		if(length == 0)
+			return *this;
+
 		x.assign(buffer, length);
 		return *this;
 	}
@@ -277,8 +283,11 @@ namespace Earlgrey
 			// TODO
 			throw std::exception("");
 		}
-		
+
 		buffer[length] = NULL;
+		if(length == 0)
+			return *this;
+
 		x.assign(buffer, length);
 		return *this;
 	}

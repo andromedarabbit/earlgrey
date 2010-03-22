@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "NetworkWriterTest.h"
+
 #include "NetworkWriter.hpp"
 #include "NetworkReader.hpp"
 #include "BasicBuffer.hpp"
@@ -247,7 +249,7 @@ namespace Earlgrey
 
 
 		TEST(NetworkWriterTest, WriteEmptyString)
-		{	
+		{
 			typedef basic_buffer<BYTE> BUFFER_T;
 
 			const _txstring empty;
@@ -292,7 +294,7 @@ namespace Earlgrey
 		}
 
 
-		TEST(BinaryWriterTest, WriteInt32Vector)
+		TEST(NetworkWriterTest, WriteInt32Vector)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
 
@@ -320,12 +322,9 @@ namespace Earlgrey
 			{
 				ASSERT_EQ(ABCD[i], newContainer[i]);
 			}
-
-			// xvector<BYTE>::Type newContainer;
-			// reader >> newContainer;
 		}
 
-		TEST(BinaryWriterTest, WriteInt32Map)
+		TEST(NetworkWriterTest, WriteInt32Map)
 		{	
 			typedef basic_buffer<BYTE> BUFFER_T;
 
@@ -340,5 +339,70 @@ namespace Earlgrey
 
 			writer << ABCD;
 		}
+
+
+		TEST(NetworkWriterTest, WriteVectorContaningClassInstances)
+		{	
+			typedef basic_buffer<BYTE> BUFFER_T;
+
+			BUFFER_T buf(128);
+			NetworkWriter<BUFFER_T> writer(buf);
+
+			xvector<Mock>::Type ABCD;
+			
+			Mock instance1(1);
+			Mock instance2(2);
+			Mock instance3(3);
+			
+			ABCD.push_back(instance1);
+			ABCD.push_back(instance2);
+			ABCD.push_back(instance3);
+
+			writer << ABCD;
+
+
+			NetworkReader<BUFFER_T> reader(buf);
+
+			xvector<Mock>::Type newContainer;
+			reader >> newContainer;
+
+			ASSERT_EQ(ABCD.size(), newContainer.size());
+			for(size_t i=0; i < ABCD.size(); i++)
+			{
+				ASSERT_EQ(ABCD[i], newContainer[i]);
+			}
+		}
+ 
+//  		TEST(NetworkWriterTest, WriteVectorContaningClassInstancePointers)
+//  		{	
+//  			typedef basic_buffer<BYTE> BUFFER_T;
+//  
+//  			BUFFER_T buf(128);
+//  			NetworkWriter<BUFFER_T> writer(buf);
+//  
+//  			xvector<Mock*>::Type ABCD;
+//  
+//  			std::auto_ptr<Mock> instance1(new Mock(1));
+//  			std::auto_ptr<Mock> instance2(new Mock(2));
+//  			std::auto_ptr<Mock> instance3(new Mock(3));
+//  
+//  			ABCD.push_back(instance1.get());
+//  			ABCD.push_back(instance2.get());
+//  			ABCD.push_back(instance3.get());
+//  
+//  			writer << ABCD;
+//  
+//  
+//  			NetworkReader<BUFFER_T> reader(buf);
+//  
+//  			xvector<Mock*>::Type newContainer;
+//  			reader >> newContainer;
+//  
+//  			ASSERT_EQ(ABCD.size(), newContainer.size());
+//  			for(size_t i=0; i < ABCD.size(); i++)
+//  			{
+//  				ASSERT_EQ(*ABCD[i], *newContainer[i]);
+//  			}
+//  		}
 	}
 }

@@ -1,9 +1,13 @@
 #pragma once 
 #include "EarlgreyAssert.h"
 #include "AsyncStream.h"
+#include "WaitEvent.h"
+#include "IPAddress.h"
 
 namespace Earlgrey
 {
+	class IPAddress;
+
 	class Connector : public IWaitHandler
 	{
 	public:

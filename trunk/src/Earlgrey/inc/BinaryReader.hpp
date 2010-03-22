@@ -82,63 +82,64 @@ namespace Earlgrey
 			return ReadBytes(&value, sizeof(T), sizeof(T));
 		}
 
-		/*
+
 		// POD 포인터형
 		template<class T>
-		void Read(T& value, std::tr1::true_type, std::tr1::true_type)
+		BOOL Read(T& value, std::tr1::true_type, std::tr1::true_type)
 		{
 			typedef std::tr1::remove_pointer<T>::type type;
 
 			// 문자열 포인터는 불러올 수 없으므로 컴파일 에러로 처리한다.
 			using std::tr1::is_same;
 			using std::tr1::remove_const;
-			Assert<!is_same<char, remove_const<type>::type>::value>();
-
-			bool null;
-			Copy(&null, sizeof(null));
-
-			if (null)
-			{
-				value = NULL;
-			}
-			else
-			{
-				// 메모리를 할당하므로 관리에 주의한다.
-				value = new type;
-				Copy(value, sizeof(type));
-			}
+			EARLGREY_STATIC_ASSERT<!is_same<char, remove_const<type>::type>::value>();
+// 
+// 			bool null;
+// 			Copy(&null, sizeof(null));
+// 
+// 			if (null)
+// 			{
+// 				value = NULL;
+// 				return TRUE;
+// 			}
+// 
+// 			// 메모리를 할당하므로 관리에 주의한다.
+// 			value = new type;
+// 			Copy(value, sizeof(type));
+			return TRUE;
 		}
 
 
+		/*
 		// POD 아닌 포인터형
 		template<class T>
 		void Read(T& value, std::tr1::false_type, std::tr1::true_type)
 		{
-			using std::tr1::remove_pointer;
-			typedef remove_pointer<T>::type type;
+		using std::tr1::remove_pointer;
+		typedef remove_pointer<T>::type type;
 
-			bool null;
-			Copy(&null, sizeof(null));
+		bool null;
+		Copy(&null, sizeof(null));
 
-			if (null)
-			{
-				value = NULL;
-			}
-			else
-			{
-				// 메모리를 할당하므로 관리에 주의한다.
-				value = new type;
-				value->Serialize(*this);
-			}
+		if (null)
+		{
+		value = NULL;
 		}
-
+		else
+		{
+		// 메모리를 할당하므로 관리에 주의한다.
+		value = new type;
+		value->Serialize(*this);
+		}
+		}
+*/
 		// POD 아닌 형
 		template<class T>
-		BOOL Read(T& value, std::tr1::false_type, std::tr1::false_type)
+		inline BOOL Read(T& value, std::tr1::false_type, std::tr1::false_type)
 		{
-			return Serializer<T>::Read(*this, &value);
+			return Serialization::Read(*this, value);
 		}
-		*/
+
 
 
 	private: // field
@@ -163,10 +164,8 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline BOOL BinaryReader<BufferT>::ReadBytes(void* buf, size_type bufBytes, size_type len)
 	{
-		EARLGREY_ASSERT( buf != NULL || len == 0 );
-
-		if(len == 0)
-			return TRUE;
+		if(buf == NULL || len == 0)
+			return FALSE;
 
 		size_type lastIndex = m_bufferIndex + len - 1;
 		if(lastIndex >= m_buffer.size()) 
