@@ -90,7 +90,11 @@ namespace Earlgrey
 	DWORD DefaultAppSettings::NumberOfIOThreads() const
 	{
 		return Environment::ProcessorCount();
-		// return 2;
+	}
+
+	DWORD DefaultAppSettings::NumberOfConcurrentIOThreads() const
+	{
+		return NumberOfIOThreads();
 	}
 
 	const TCHAR * const DefaultAppSettings::ShortName() const

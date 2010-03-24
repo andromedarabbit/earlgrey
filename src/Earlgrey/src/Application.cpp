@@ -49,11 +49,11 @@ namespace Earlgrey
 			return FALSE;
 
 		// 네트워크 초기화
-		if( !SocketSubsystem::InitializeSubSystem() )
+		if( !SocketSubsystem::Initialize() )
 			return FALSE;
 
 		// IOCP 초기화
-		if( !ProactorSingleton::Instance().Initialize() )
+		if( !ProactorSingleton::Instance().Initialize(m_AppSettings) )
 			return FALSE;
 
 		std::tr1::shared_ptr<Thread> mainThread = Thread::AttachThread("MainThread", WIN_MAIN_THREAD_ID);
