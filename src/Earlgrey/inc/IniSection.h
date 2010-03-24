@@ -83,7 +83,7 @@ namespace Earlgrey
 		_txstring valueStr = ReadString(keyName); 
 		if(valueStr.empty())
 			throw std::exception("");
-		return String::lexical_cast<T, _txstring>(valueStr);
+		return EARLGREY_LEXICAL_CAST<T, _txstring>(valueStr);
 	}
 
 	template<>
@@ -112,7 +112,7 @@ namespace Earlgrey
 	{
 		if(m_Src.empty())
 			throw std::exception("");
-		return String::lexical_cast<T, _txstring>(m_Src);
+		return EARLGREY_LEXICAL_CAST<T, _txstring>(m_Src);
 	}
 
 	template <>

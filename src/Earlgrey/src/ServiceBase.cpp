@@ -204,7 +204,8 @@ namespace Earlgrey
 			return ERROR_CALL_NOT_IMPLEMENTED;
 		}
 
-		BOOL ServiceBase::ReportStatus(DWORD currentState, DWORD waitHint, DWORD errExit)
+		// BOOL ServiceBase::ReportStatus(DWORD currentState, DWORD waitHint, DWORD errExit)
+		BOOL ServiceBase::ReportStatus(DWORD currentState, TimeSpan waitHint, DWORD errExit)
 		{
 			// when debugging we don't report to the SCM
 			// if( m_bDebug )
@@ -212,9 +213,9 @@ namespace Earlgrey
 
 			m_serviceStatus.dwCurrentState = currentState;
 			m_serviceStatus.dwWin32ExitCode = NO_ERROR;
-			m_serviceStatus.dwWaitHint = waitHint;
+			m_serviceStatus.dwWaitHint = waitHint.Milliseconds();
 
-			if( currentState == SERVICE_START_PENDING)
+			if( currentState == SERVICE_START_PENDING )
 				m_serviceStatus.dwControlsAccepted = 0;
 			else
 				m_serviceStatus.dwControlsAccepted = SERVICE_ACCEPT_STOP;
@@ -231,7 +232,7 @@ namespace Earlgrey
 				m_serviceStatus.dwCheckPoint = ++m_checkPoint;
 
 			// Report the status of the service to the service control manager.
-			BOOL succeeded = ::SetServiceStatus( m_serviceStatusHandle, &m_serviceStatus);
+			const BOOL succeeded = ::SetServiceStatus( m_serviceStatusHandle, &m_serviceStatus);
 			if (succeeded == FALSE) {
 				m_eventLog.WriteEntry(TEXT("SetServiceStatus() failed"), EVENTLOG_ERROR_TYPE);
 				return FALSE;

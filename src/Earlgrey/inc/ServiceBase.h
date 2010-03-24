@@ -58,7 +58,7 @@ namespace Earlgrey {
 		
 			virtual BOOL ReportStatus(
 				DWORD currentState
-				, DWORD waitHint = 3000 /* milliseconds */
+				, TimeSpan waitHint = TimeSpan::FromSeconds(3)
 				, DWORD errExit = 0
 				);
 

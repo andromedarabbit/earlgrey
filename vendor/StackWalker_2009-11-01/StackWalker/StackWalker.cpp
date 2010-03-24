@@ -1251,10 +1251,10 @@ void StackWalker::OnLoadModule(LPCSTR img, LPCSTR mod, DWORD64 baseAddr, DWORD s
     _snprintf_s(buffer, STACKWALK_MAX_NAMELEN, "%s:%s (%p), size: %d (result: %d), SymType: '%s', PDB: '%s'\n", img, mod, (LPVOID) baseAddr, size, result, symType, pdbName);
   else
   {
-    DWORD v4 = (DWORD) fileVersion & 0xFFFF;
-    DWORD v3 = (DWORD) (fileVersion>>16) & 0xFFFF;
-    DWORD v2 = (DWORD) (fileVersion>>32) & 0xFFFF;
-    DWORD v1 = (DWORD) (fileVersion>>48) & 0xFFFF;
+    DWORD v4 = (DWORD) (fileVersion & 0xFFFF);
+    DWORD v3 = (DWORD) ((fileVersion>>16) & 0xFFFF);
+    DWORD v2 = (DWORD) ((fileVersion>>32) & 0xFFFF);
+    DWORD v1 = (DWORD) ((fileVersion>>48) & 0xFFFF);
     _snprintf_s(buffer, STACKWALK_MAX_NAMELEN, "%s:%s (%p), size: %d (result: %d), SymType: '%s', PDB: '%s', fileVersion: %d.%d.%d.%d\n", img, mod, (LPVOID) baseAddr, size, result, symType, pdbName, v1, v2, v3, v4);
   }
   OnOutput(buffer);

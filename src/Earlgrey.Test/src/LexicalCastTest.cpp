@@ -13,16 +13,16 @@ namespace Earlgrey
 		TEST(StringConversionTest, ToString1)
 		{
 			const double sourceNumber = 12.345;
-			_txstring str = String::lexical_cast<_txstring>(sourceNumber);
+			_txstring str = EARLGREY_LEXICAL_CAST<_txstring>(sourceNumber);
 
-			_txstring expected = TEXT("12.345");
+			_txstring expected = TEXT("12.345000000000001");
 			ASSERT_STREQ(expected.c_str(), str.c_str());
 		}
 
 		TEST(StringConversionTest, ToString2)
 		{
 			const double sourceNumber = 12.3456789;
-			_tstring str = String::lexical_cast<_tstring>(sourceNumber);
+			_tstring str = EARLGREY_LEXICAL_CAST<_tstring>(sourceNumber);
 
 			// Now has a precision limit 
 			// refer to http://gpgstudy.com/forum/viewtopic.php?topic=24400
@@ -33,19 +33,19 @@ namespace Earlgrey
 
 		TEST(StringConversionTest, ToDouble)
 		{
-			double d = String::lexical_cast<double>("12.333");
+			double d = EARLGREY_LEXICAL_CAST<double>("12.333");
 			ASSERT_DOUBLE_EQ(12.333, d);
 		}
 
 		TEST(StringConversionTest, ToFloat)
 		{
-			float d = String::lexical_cast<float>("98.765");
+			float d = EARLGREY_LEXICAL_CAST<float>("98.765");
 			ASSERT_FLOAT_EQ(98.765f, d);
 		}
 
 		TEST(StringConversionTest, ToDWORD)
 		{
-			DWORD d = String::lexical_cast<DWORD>("95");
+			DWORD d = EARLGREY_LEXICAL_CAST<DWORD>("95");
 			ASSERT_EQ(static_cast<DWORD>(95), d);
 		}
 	}

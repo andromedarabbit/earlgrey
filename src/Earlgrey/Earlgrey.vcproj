@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -111,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -181,7 +181,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -251,7 +251,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -499,6 +499,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\IPGlobalProperties.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IPHostEntry.cpp"
 					>
 				</File>
@@ -528,6 +532,10 @@
 				</File>
 				<File
 					RelativePath=".\src\Socket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SystemTcpStatistics.cpp"
 					>
 				</File>
 				<File
@@ -1093,6 +1101,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\IPGlobalProperties.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\IPHostEntry.h"
 					>
 				</File>
@@ -1130,6 +1142,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Socket.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SystemTcpStatistics.h"
 					>
 				</File>
 				<File

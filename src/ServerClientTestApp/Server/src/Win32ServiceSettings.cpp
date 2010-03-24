@@ -30,6 +30,7 @@ std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExcepti
 	subject += this->ShortName();
 	_txstring body(_T("Please see attachments!"));
 
+	//! TODO: 바로 아래 코드에서 스레드가 둘 정도 더 생성된다.
 	ExceptionEMailer::SmtpClientPtr smtpClient(new GMailClient(username, password));
 
 	std::tr1::shared_ptr<ExceptionEMailer> sender( 
