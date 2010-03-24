@@ -1,0 +1,9 @@
+#summary 자신에게 맞는 빌드 방법 알아보기
+#labels Phase-Design,Phase-Implementation
+
+= Introduction =
+Earlgrey 라이브러리는 기본적으로 Visual Studio 2008 + Feature Pack 조합이면 별도의 작업을 하지 않아도 빌드가 된다. 그러나 구미에 맞게 외부 라이브러리와 연동하거나 성능 및 기능 옵션을 조정할 수도 있다.
+
+
+= BuildConfiguration.h =
+* 곧 문서를 갱신할 예정입니다.
