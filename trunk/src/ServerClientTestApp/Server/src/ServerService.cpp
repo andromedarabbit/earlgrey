@@ -86,8 +86,7 @@ BOOL ServerService::ReportStatus(
 		return TRUE;
 	}
 
-	const DWORD milliseconds = EARLGREY_NUMERIC_CAST<DWORD>( waitHint.TotalMilliseconds() );
-	return __super::ReportStatus(currentState, milliseconds, errExit);
+	return __super::ReportStatus(currentState, waitHint, errExit);
 }
 
 void ServerService::OnStart(DWORD argc, LPTSTR * argv)
