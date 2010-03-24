@@ -14,6 +14,7 @@ namespace Earlgrey
 
 		virtual BOOL AllowOnlyOneInstance() const;
 		virtual DWORD NumberOfIOThreads() const;
+		virtual DWORD NumberOfConcurrentIOThreads() const;
 		virtual const TCHAR * const ShortName() const;
 		virtual const TCHAR * const LongName() const;
 		virtual const TCHAR * const Description() const;

@@ -1,7 +1,9 @@
 #include "stdafx.h"
-
 #include "Proactor.h"
+
 #include "EarlgreyMath.h"
+#include "numeric_cast.hpp"
+#include "AppSettings.h"
 
 namespace Earlgrey
 {
@@ -11,18 +13,26 @@ namespace Earlgrey
 		if(WaitTime == TimeSpan::MaxValue)
 			milliseconds = INFINITE;
 		else
-			milliseconds = static_cast<DWORD>(WaitTime.TotalMilliseconds());
+			milliseconds = EARLGREY_NUMERIC_CAST<DWORD>(WaitTime.TotalMilliseconds());
 
 		return HandleEvent(milliseconds);
 	}
 
 
+	WinProactor::WinProactor()
+		: _IOCompletionPort(NULL)
+	{
 
-	BOOL WinProactor::Initialize()
+	}
+
+	WinProactor::~WinProactor() 
+	{
+	}
+
+	BOOL WinProactor::Initialize(const AppSettings& appSettings)
 	{
 		// Completion port를 생성한다.
-		// 매개변수 NumberOfConcurrentThreads = 0 : 프로세서당 하나의 스레드가 completion port를 처리한다. 
-		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, appSettings.NumberOfConcurrentIOThreads());
 		if(_IOCompletionPort == NULL) //TODO: 오류 코드는 확인 안 하나?
 			return FALSE;
 		return TRUE;

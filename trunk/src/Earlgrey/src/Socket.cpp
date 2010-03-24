@@ -7,7 +7,7 @@
 
 namespace Earlgrey
 {
-	BOOL SocketSubsystem::InitializeSubSystem()
+	BOOL SocketSubsystem::Initialize()
 	{
 		// MSDN 라이브러리의 예제를 참고했다.
 		WORD wVersionRequested;

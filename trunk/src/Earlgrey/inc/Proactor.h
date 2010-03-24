@@ -13,6 +13,7 @@ namespace Earlgrey
 	class NetworkBuffer;
 	class AsyncResult;
 	class CompletionHandler;
+	class AppSettings;
 
 	//Windows IOCompletion Port ¿ë
 	class Proactor : private Uncopyable
@@ -34,10 +35,10 @@ namespace Earlgrey
 		: public Proactor
 	{
 	public:
-		WinProactor() {}
-		virtual ~WinProactor() {}
+		explicit WinProactor();		
+		virtual ~WinProactor();
 
-		BOOL Initialize();
+		BOOL Initialize(const AppSettings& appSettings);
 		
 		// Proactor Pattern Interface
 		virtual BOOL HandleEvent(TimeSpan WaitTime = TimeSpan::MaxValue);
@@ -132,6 +133,7 @@ namespace Earlgrey
 		{
 			_Error = Error;
 		}
+
 	private:
 		OVERLAPPED _overlapped;
 		CompletionHandler* _Handler;
