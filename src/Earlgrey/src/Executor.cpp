@@ -49,7 +49,7 @@ namespace Earlgrey
 
 	void Executor::Execute(Task task, ThreadIdType threadId) 
 	{
-		InvokeMethod( &Executor::PushTask_, this, task, threadId );
+		InvokeMethod( &Executor::PushTask_, task, threadId );
 	}
 
 	void Executor::PushTask_(Task task, ThreadIdType threadId)
@@ -60,7 +60,7 @@ namespace Earlgrey
 
 	void Executor::DoTasks()
 	{
-		InvokeMethod(&Executor::DoTasks_, this);
+		InvokeMethod(&Executor::DoTasks_);
 	}
 
 	//! \todo 한번에 너무 많이 처리하면 안 되므로 최대 수행시간을 받아야 한다. 
