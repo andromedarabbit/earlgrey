@@ -12,7 +12,7 @@ namespace Earlgrey
 
 	void TimerManager::Register(Task task, ThreadIdType threadId) 
 	{
-		InvokeMethod( &TimerManager::PushTask_, this, task, threadId );
+		InvokeMethod( &TimerManager::PushTask_, task, threadId );
 	}
 
 	void TimerManager::PushTask_(Task task, ThreadIdType threadId)
@@ -23,7 +23,7 @@ namespace Earlgrey
 
 	void TimerManager::DoTasks()
 	{
-		InvokeMethod(&TimerManager::DoTasks_, this);
+		InvokeMethod(&TimerManager::DoTasks_);
 	}
 
 	//! \todo 한번에 너무 많이 처리하면 안 되므로 최대 수행시간을 받아야 한다. 
@@ -69,7 +69,7 @@ namespace Earlgrey
 
 	void TimerManager::Deregister(DeregisterRequest request, ThreadIdType threadId) 
 	{
-		InvokeMethod( &TimerManager::PopTask_, this, request, threadId );
+		InvokeMethod( &TimerManager::PopTask_, request, threadId );
 	}
 
 	void TimerManager::PopTask_(DeregisterRequest request, ThreadIdType threadId)

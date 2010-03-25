@@ -66,7 +66,7 @@ namespace Earlgrey
 			}
 
 			template <typename T>
-			inline T GetValue(SHORT i)
+			inline T GetValue(SHORT i) const
 			{
 				const _variant_t index(i, VT_I2);
 				const _variant_t value(

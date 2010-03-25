@@ -23,7 +23,7 @@ namespace Earlgrey {
 
 		void ConnectionPool::BeginRegister(const TCHAR * connectionString, Callback callback)
 		{
-			InvokeMethod(&ConnectionPool::Register_, this, connectionString, callback);
+			InvokeMethod(&ConnectionPool::Register_, connectionString, callback);
 		}
 
 		void ConnectionPool::Register_(const TCHAR * connectionString, Callback callback) // 대소문자 구분함.
@@ -52,7 +52,7 @@ namespace Earlgrey {
 
 		void ConnectionPool::BeginDeregister(const TCHAR * connectionString, Callback callback)
 		{
-			InvokeMethod(&ConnectionPool::Deregister_, this, connectionString, callback);
+			InvokeMethod(&ConnectionPool::Deregister_, connectionString, callback);
 		}
 
 		void ConnectionPool::Deregister_(const TCHAR * connectionString, Callback callback) // 대소문자 구분함.

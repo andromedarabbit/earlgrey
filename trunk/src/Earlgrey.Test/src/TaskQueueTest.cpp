@@ -25,22 +25,22 @@ namespace Earlgrey
 		public:   			
 			void Set1 ()   
 			{   
-				InvokeMethod( &TestTaskQueueClass::RawSet1, this );
+				InvokeMethod( &TestTaskQueueClass::RawSet1 );
 			}
 
 			void Set10 ()   
 			{   
-				InvokeMethod( &TestTaskQueueClass::RawSet10, this );
+				InvokeMethod( &TestTaskQueueClass::RawSet10 );
 			}
 
 			void AddTwoValues (int a, int b)   
 			{   
-				InvokeMethod( &TestTaskQueueClass::RawAddTwoValues, this, a, b );
+				InvokeMethod( &TestTaskQueueClass::RawAddTwoValues, a, b );
 			}
 
 			void SumOfTen(int n1, int n2, int n3, int n4, int n5, int n6, int n7, int n8, int n9)
 			{
-				InvokeMethod( &TestTaskQueueClass::RawSumOfTen, this, n1, n2, n3, n4, n5, n6, n7, n8, n9 );
+				InvokeMethod( &TestTaskQueueClass::RawSumOfTen, n1, n2, n3, n4, n5, n6, n7, n8, n9 );
 			}
 
 		private:   
@@ -116,30 +116,72 @@ namespace Earlgrey
 			class TaskRunnable : public IRunnable {
 
 			public:
-				explicit TaskRunnable(IncreaseTask* task) : Task_(task)  {}
-				virtual BOOL Init() { return TRUE;}
-				virtual DWORD Run() {
+				explicit TaskRunnable(IncreaseTask* task) 
+					: Task_(task)  
+				{
+				}
+				
+				virtual BOOL Init() { return TRUE; }
+				
+				virtual DWORD Run() 
+				{
 					InterlockedIncrement(&Task_->AtomicCount_);
 					
-					Task_->InvokeMethod(&IncreaseTask::Increase, Task_);
+					Task_->Increase();
 
-					return 0;
-
+					return EXIT_SUCCESS;
 				};
+
 				virtual void Stop() {}
 				virtual void OnStop() {}
+
 			private:
 				IncreaseTask* Task_;
 			};
+
 		public:
 			explicit IncreaseTask(const int maxCount) 
-				: AtomicCount_(0), Count_(0), EvenCount_(0), OddCount_(0), MaxCount_(maxCount)
+				: AtomicCount_(0)
+				, Count_(0)
+				, EvenCount_(0)
+				, OddCount_(0)
+				, MaxCount_(maxCount)
+				, Waiter_(CreateEvent(NULL, TRUE, FALSE, NULL))
 			{
-				Waiter_ = CreateEvent(NULL, TRUE, FALSE, NULL);
+				
 			}
 
-			void Increase() {
+			void Increase()
+			{
+				InvokeMethod(&IncreaseTask::RawIncrease);
+			}
 
+			void Done() {
+				SetEvent(Waiter_);
+			}
+
+			void WaitFor() {
+				DWORD Success = WaitForSingleObject(Waiter_, INFINITE);
+				EARLGREY_VERIFY(Success == WAIT_OBJECT_0); 
+			}
+
+// 			void Report() {
+// 				printf("Count %d, Even %d, Odd %d\n", Count_, EvenCount_, OddCount_);
+// 			}
+
+			long AtomicCount() const 
+			{
+				return AtomicCount_;
+			}
+			
+			int Count() const 
+			{
+				return Count_;
+			}
+
+		private:
+			void RawIncrease() 
+			{
 				Count_++;
 
 				if (Count_ % 100 == 0) {
@@ -160,21 +202,7 @@ namespace Earlgrey
 				}
 			}
 
-			void Done() {
-				SetEvent(Waiter_);
-
-			}
-
-			void WaitFor() {
-				DWORD Success = WaitForSingleObject(Waiter_, INFINITE);
-				EARLGREY_VERIFY(Success == WAIT_OBJECT_0); 
-			}
-
-			void Report() {
-				printf("Count %d, Even %d, Odd %d\n", Count_, EvenCount_, OddCount_);
-			}
-
-		public:
+		private:
 			long AtomicCount_;
 			int Count_;
 			int EvenCount_;
@@ -184,27 +212,28 @@ namespace Earlgrey
 		};
 
 
-		TEST(TaskQueueTest, MultiThread) {
-
+		TEST(TaskQueueTest, MultiThread) 
+		{
 			const int maxCount = 10000;
 
+			// TODO: 이 객체 인스턴스는 누가 지우지?
+			IncreaseTask * task = new IncreaseTask(maxCount);
 
-			IncreaseTask *task = new IncreaseTask(maxCount);
+			ASSERT_EQ(0, maxCount % 2); // even count
 
-			ASSERT_EQ(0, maxCount %2); // even count
-
-			for (int i = 0; i < maxCount; i++) {
-				IocpExecutorSingleton::Instance().Execute(RunnableBuilder::NewRunnable(new IncreaseTask::TaskRunnable(task)));
+			for (int i = 0; i < maxCount; i++) 
+			{
+				IocpExecutorSingleton::Instance().Execute(
+					RunnableBuilder::NewRunnable(new IncreaseTask::TaskRunnable(task))
+					);
 			}
 
 
 			task->WaitFor();
-			//task->Report();
+			// task->Report();
 
-			ASSERT_EQ(maxCount, task->AtomicCount_);
-			ASSERT_EQ(maxCount, task->Count_);
-
-
+			ASSERT_EQ(maxCount, task->AtomicCount());
+			ASSERT_EQ(maxCount, task->Count());
 		}
 	}
 }
