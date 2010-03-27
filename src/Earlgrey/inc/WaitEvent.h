@@ -20,6 +20,10 @@ namespace Earlgrey {
 	class WaitEventContainer
 	{
 		typedef std::vector<HANDLE> HandleVectorType;
+
+		typedef Loki::Mutex mutex_type;
+		typedef ScopedLock<mutex_type> scoped_lock_type;
+
 	public:
 		void Add(HANDLE AcceptEvent, IWaitHandler* Handler);
 

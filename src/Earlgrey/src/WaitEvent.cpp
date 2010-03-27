@@ -8,7 +8,7 @@ namespace Earlgrey {
 
 	void WaitEventContainer::Add(HANDLE AcceptEvent, IWaitHandler* Handler)
 	{
-		ScopedLock Lock(&_Lock);
+		scoped_lock_type Lock(_Lock);
 
 		EARLGREY_ASSERT( _WaitEventList.size() <= WSA_MAXIMUM_WAIT_EVENTS );
 		if (_WaitEventList.size() > WSA_MAXIMUM_WAIT_EVENTS)
@@ -22,7 +22,7 @@ namespace Earlgrey {
 
 	void WaitEventContainer::Remove(HANDLE AcceptEvent)
 	{
-		ScopedLock Lock(&_Lock);
+		scoped_lock_type Lock(_Lock);
 		HandleVectorType::const_iterator iter = std::find( _WaitEventList.begin(), _WaitEventList.end(), AcceptEvent );
 		if (iter == _WaitEventList.end())
 		{
@@ -35,7 +35,7 @@ namespace Earlgrey {
 	void WaitEventContainer::WaitEvents(DWORD WaitTime)
 	{
 		// TODO: lock-free로 구현해야 한다.
-		ScopedLock Lock(&_Lock);
+		scoped_lock_type Lock(_Lock);
 		DWORD EventSize = EARLGREY_NUMERIC_CAST<DWORD>( _WaitEventList.size() );
 		if (0 == EventSize)
 		{

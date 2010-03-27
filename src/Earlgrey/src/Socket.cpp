@@ -91,7 +91,7 @@ namespace Earlgrey
 		if(s_Initialized)
 			return;
 
-		ScopedLock scopeLock(&s_InternalSyncObject);
+		scoped_lock_type scopeLock(s_InternalSyncObject);
 
 		if(s_Initialized)
 			return;

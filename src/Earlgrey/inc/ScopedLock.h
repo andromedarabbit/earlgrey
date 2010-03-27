@@ -1,26 +1,29 @@
 #pragma once
 
 namespace Earlgrey {
-	template<class LockType>
-	class TScopedLock
+	template<class LockType = Loki::Mutex>
+	class ScopedLock
 		: private Uncopyable
 	{
 	private:
-		TScopedLock();
+		ScopedLock();
 
 	public:
-		TScopedLock(LockType* Lock) : Lock_(Lock)
+		typedef LockType mutex_type;
+
+		explicit ScopedLock(mutex_type& Lock) 
+			: Lock_(&Lock)
 		{
 			Lock_->Lock();
 		}
 
-		~TScopedLock(void)
+		~ScopedLock(void)
 		{
 			Lock_->Unlock();
 		}
 
 	private:
-		LockType*	Lock_;
+		mutex_type*	Lock_;
 	};
 
 };

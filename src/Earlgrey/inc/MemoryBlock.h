@@ -6,7 +6,10 @@
 #include "Macros.h"
 #include "Lock.h"
 
+#include <Loki/Threads.h>
+
 #include <limits>
+
 
 // #undef min
 // #undef max 
@@ -204,29 +207,31 @@ namespace Earlgrey
 	{
 	public:
 		typedef typename Allocator::size_type size_type;
+		typedef Loki::Mutex mutex_type;
+		typedef typename ScopedLock<mutex_type> scoped_lock_type;
 
 		explicit MemoryAllocatorThreadSafeProxy()
 		{
-			ScopedLock scopeLock(&m_AllocatorLock);
+			scoped_lock_type scopeLock(m_AllocatorLock);
 			m_Allocator = new Allocator;
 		}
 
 		~MemoryAllocatorThreadSafeProxy()
 		{
-			ScopedLock scopeLock(&m_AllocatorLock);
+			scoped_lock_type scopeLock(m_AllocatorLock);
 			delete m_Allocator;
 			m_Allocator = NULL;
 		}
 
 		void * Alloc(size_type bytes)
 		{
-			ScopedLock scopeLock(&m_AllocatorLock);
+			scoped_lock_type scopeLock(m_AllocatorLock);
 			return m_Allocator->Alloc(bytes);
 		}
 
 		inline void Free(void * ptr)
 		{
-			ScopedLock scopeLock(&m_AllocatorLock);
+			scoped_lock_type scopeLock(m_AllocatorLock);
 			m_Allocator->Free(ptr);
 		}
 
@@ -234,6 +239,6 @@ namespace Earlgrey
 
 	private:
 		Allocator* m_Allocator;
-		Loki::Mutex  m_AllocatorLock;
+		mutex_type m_AllocatorLock;
 	};
 }
