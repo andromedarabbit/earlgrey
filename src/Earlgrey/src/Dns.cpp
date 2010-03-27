@@ -18,6 +18,8 @@ namespace Earlgrey
 {
 	_txstring Dns::GetHostName()
 	{
+		Socket::InitializeSockets();
+
 		// TODO: 임시 버퍼
 		static __declspec(thread) CHAR buffer[MAX_PATH];
 
@@ -71,7 +73,8 @@ namespace Earlgrey
 		ADDRINFOT * aiList = NULL;
 		handle_t regKeyHandle(aiList, &FreeAddrInfo);
 
-		const int retVal = GetAddrInfo(hostNameOrAddress.c_str(), NULL, &aiHints, &aiList);		
+		Socket::InitializeSockets(); // GetAddrInfo 호출 전에...
+		const int retVal = ::GetAddrInfo(hostNameOrAddress.c_str(), NULL, &aiHints, &aiList);		
 		if (retVal != 0) {
 			throw std::exception("");
 		}

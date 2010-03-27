@@ -58,9 +58,7 @@ namespace Earlgrey
 		SOCKADDR_STORAGE saDestination;
 		int addrlen = sizeof(SOCKADDR_STORAGE);
 
-		//TCHAR buffer[MAX_PATH];
-		//_tcscpy_s(buffer, sizeof(buffer), ipString.c_str());
-
+		Socket::InitializeSockets(); // WSAStringToAddress 호출 전에...
 		const int retValue = WSAStringToAddress( 
 			(LPTSTR)ipString.c_str(), // 강제 캐스팅해도 되나?
 			// buffer,

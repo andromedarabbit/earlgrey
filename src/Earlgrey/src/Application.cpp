@@ -48,10 +48,6 @@ namespace Earlgrey
 		if( !processInitializer.Run() )
 			return FALSE;
 
-		// 네트워크 초기화
-		if( !SocketSubsystem::Initialize() )
-			return FALSE;
-
 		// IOCP 초기화
 		if( !ProactorSingleton::Instance().Initialize(m_AppSettings) )
 			return FALSE;

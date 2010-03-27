@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Acceptor.h"
 
 namespace Earlgrey {
@@ -13,9 +12,10 @@ namespace Earlgrey {
 	class AcceptCompleteHandler : public IRunnable
 	{
 	public:
-		AcceptCompleteHandler(SOCKET ListenSocket)
+		explicit AcceptCompleteHandler(SOCKET ListenSocket)
+			: _ListenSocket( ListenSocket )
 		{
-			_ListenSocket.Attach( ListenSocket );
+			EARLGREY_ASSERT(_ListenSocket != INVALID_SOCKET);
 		}
 
 		DWORD Run();
@@ -27,7 +27,7 @@ namespace Earlgrey {
 	class Listener : public IWaitHandler 
 	{
 	public:
-		Listener(void);
+		explicit Listener(void);
 		~Listener(void);
 
 		void DoTask();

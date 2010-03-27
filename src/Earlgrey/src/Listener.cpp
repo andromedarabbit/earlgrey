@@ -1,7 +1,9 @@
 #include "StdAfx.h"
-#include "..\inc\Listener.h"
+#include "Listener.h"
 #include "Executor.h"
 #include "Connection.h"
+
+#pragma comment(lib, "ws2_32.lib")
 
 namespace Earlgrey {
 
@@ -84,8 +86,8 @@ namespace Earlgrey {
 			return 0;
 		}
 
-		Socket socket;
-		socket.Attach( ClientSocket );
+		Socket socket(ClientSocket);
+		// socket.Attach( ClientSocket );
 
 		socket.SetReceiveBufferSize( 0 );
 		socket.SetSendBufferSize( 0 );
