@@ -1,5 +1,6 @@
 #pragma once
 #include "Acceptor.h"
+#include "EarlgreyAssert.h"
 
 namespace Earlgrey {
 
@@ -15,7 +16,7 @@ namespace Earlgrey {
 		explicit AcceptCompleteHandler(SOCKET ListenSocket)
 			: _ListenSocket( ListenSocket )
 		{
-			EARLGREY_ASSERT(_ListenSocket != INVALID_SOCKET);
+			EARLGREY_ASSERT(ListenSocket != INVALID_SOCKET);
 		}
 
 		DWORD Run();
@@ -30,9 +31,10 @@ namespace Earlgrey {
 		explicit Listener(void);
 		~Listener(void);
 
-		void DoTask();
-
 		BOOL Listen(USHORT Port, bool ReuseAddress);
+
+	protected:
+		virtual void DoTask();
 
 	private:
 		Socket _Socket;
