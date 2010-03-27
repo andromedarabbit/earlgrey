@@ -455,6 +455,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\ListenerTest.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\LockfreeQueueTest.cpp"
 				>
 			</File>

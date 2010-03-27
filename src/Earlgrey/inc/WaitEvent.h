@@ -5,8 +5,11 @@ namespace Earlgrey {
 
 	class IWaitHandler 
 	{
+		friend class WaitEventContainer;
 	public:
 		virtual ~IWaitHandler() {}
+
+	protected:
 		virtual void DoTask() = 0;
 	};
 
