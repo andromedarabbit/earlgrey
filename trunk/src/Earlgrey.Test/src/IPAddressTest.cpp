@@ -1,11 +1,17 @@
 #include "stdafx.h"
 #include "IPAddress.h"
 
+#include "SocketTest.h"
+
 namespace Earlgrey
 {
 	namespace Test
 	{
-		TEST(IPAddressTest, ReadBoolean)
+		class IPAddressTest : public SocketTest {
+		};
+
+
+		TEST_F(IPAddressTest, ReadBoolean)
 		{
 			IN_ADDR addr;
 			addr.S_un.S_un_b.s_b1 = 250;
@@ -24,7 +30,7 @@ namespace Earlgrey
 			ASSERT_EQ(bytes[3], addr.S_un.S_un_b.s_b4);
 		}
 
-		TEST(IPAddressTest, ParseIPAddressString)
+		TEST_F(IPAddressTest, ParseIPAddressString)
 		{
 			// const _txstring ipString = _T("3ffe:2900:d005:f28d:250:8bff:fea0:92ed");
 			const _txstring ipString = _T("115.68.22.160");
@@ -39,7 +45,7 @@ namespace Earlgrey
 			ASSERT_EQ(bytes[3], 160);
 		}
 
-		TEST(IPAddressTest, Parse2)
+		TEST_F(IPAddressTest, Parse2)
 		{
 			const _txstring ipString = _T("115.68.22.160");
 			IPAddress2 address = IPAddress2::Parse(ipString);
@@ -53,7 +59,7 @@ namespace Earlgrey
 			ASSERT_EQ(bytes[3], 160);
 		}
 
-		TEST(IPAddressTest, TryParseIpAddress)
+		TEST_F(IPAddressTest, TryParseIpAddress)
 		{
 			const _txstring ipString = _T("115.68.22.160");
 			IPAddress2 address(0);
@@ -68,14 +74,14 @@ namespace Earlgrey
 			ASSERT_EQ(bytes[3], 160);
 		}
 
-		TEST(IPAddressTest, TryParseNonIpAddress)
+		TEST_F(IPAddressTest, TryParseNonIpAddress)
 		{
 			const _txstring ipString = _T("1154.68.22.160");
 			IPAddress2 address(0);
 			ASSERT_FALSE(IPAddress2::TryParse(ipString, address));
 		}
 
-		TEST(IPAddressTest, ToString)
+		TEST_F(IPAddressTest, ToString)
 		{
 			const _txstring ipString = _T("115.68.22.160");
 			IPAddress2 address = IPAddress2::Parse(ipString);

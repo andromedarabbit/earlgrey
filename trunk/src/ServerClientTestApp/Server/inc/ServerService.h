@@ -8,6 +8,7 @@
 namespace Earlgrey
 {
 	class Thread;
+	class Server;
 }
 
 
@@ -37,8 +38,8 @@ public:
 protected:
 	virtual BOOL ReportStatus(
 		DWORD currentState
-		, Earlgrey::TimeSpan waitHint = Earlgrey::TimeSpan::FromSeconds(3)// DWORD waitHint = 3000 /* milliseconds */
-		, DWORD errExit = 0
+		, Earlgrey::TimeSpan waitHint = Earlgrey::TimeSpan::FromSeconds(3)
+		, DWORD errExit = EXIT_SUCCESS
 		);
 
 private:
@@ -51,4 +52,5 @@ private:
 	BOOL m_consoleMode;
 	std::tr1::shared_ptr<Earlgrey::Thread> m_serverThread;
 	UserInputHandlerConainter m_userInputHandlers;
+	Earlgrey::Server m_server;
 };

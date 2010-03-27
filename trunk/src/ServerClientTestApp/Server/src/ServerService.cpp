@@ -94,8 +94,12 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	DBG_UNREFERENCED_PARAMETER(argc);
 	DBG_UNREFERENCED_PARAMETER(argv);
 
-	Earlgrey::Server* server = new Earlgrey::Server();
-	server->Listen( 100, true );
+	// TODO: 포트 번호 등은 ini 파일로 옮기는 게 낫지 않을까?
+	if(m_server.Listen( 9999, true ) == FALSE)
+	{
+		throw std::exception("");
+	}
+
 
 	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable() ));
 	EARLGREY_ASSERT(m_serverThread == NULL);
