@@ -27,6 +27,9 @@ namespace Earlgrey
 	class Socket : private Uncopyable
 	{
 	public:
+		typedef Loki::Mutex mutex_type;
+		typedef ScopedLock<mutex_type> scoped_lock_type;
+
 		explicit Socket() 
 			: _Handle(INVALID_SOCKET)
 		{
