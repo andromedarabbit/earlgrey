@@ -1,5 +1,6 @@
 #pragma once 
 #include "EarlgreyAssert.h"
+#include "Socket.h"
 #include "AsyncStream.h"
 #include "WaitEvent.h"
 #include "IPAddress.h"

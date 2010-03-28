@@ -2,6 +2,8 @@
 #include "Thread.h"
 #include "Runnable.h"
 #include "taskqueue.h"
+#include "Proactor.h"
+
 #include <queue>
 #include <array>
 

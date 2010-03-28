@@ -523,10 +523,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\ServerInit.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\src\SmtpClient.cpp"
 					>
 				</File>
@@ -762,6 +758,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\Thread.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadGroup.h"
 					>
 				</File>
 				<File
@@ -1134,10 +1134,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\Sender.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\ServerInit.h"
 					>
 				</File>
 				<File

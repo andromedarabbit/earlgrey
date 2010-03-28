@@ -1,7 +1,6 @@
 #include "stdafx.h"
-
-#include "ServerInit.h"
 #include "Acceptor.h"
+
 #include "NetworkBuffer.h"
 
 #pragma comment(lib,"ws2_32.lib")

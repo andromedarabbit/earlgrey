@@ -363,30 +363,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\BasicBufferTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\BinaryReaderTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\BinaryWriterTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ChainBufferTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\CircularBufferTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ConnectTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\ConsoleTest.cpp"
 				>
 			</File>
@@ -395,19 +371,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\DNSTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\EarlgreyAssertTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\EarlgreyMathTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\EarlgreyProcessTest.cpp"
 				>
 			</File>
 			<File
@@ -423,19 +391,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ExecutorTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\FileVersionInfoTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\GMailClientTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\GreedyAllocatorTest.cpp"
 				>
 			</File>
 			<File
@@ -447,15 +403,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\IPAddressTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\LexicalCastTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ListenerTest.cpp"
 				>
 			</File>
 			<File
@@ -475,31 +423,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\MemoryBlockTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\MemoryMathTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\MemoryTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\MiniDumpTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\NetworkReaderTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\NetworkStreamTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\NetworkWriterTest.cpp"
 				>
 			</File>
 			<File
@@ -523,10 +447,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\ServerTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\SharedPtrHelperTest.cpp"
 				>
 			</File>
@@ -535,15 +455,239 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\SocketTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\StackAllocatorTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\StaticAssertTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\StringHelperTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TaskQueueTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TimeSpanTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\VectorTest.cpp"
+				>
+			</File>
+			<Filter
+				Name="Temp"
+				>
+				<File
+					RelativePath=".\src\SampleTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TempTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Network"
+				>
+				<File
+					RelativePath=".\src\ConnectionTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DNSTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPAddressTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ListenerTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SocketTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SystemTcpStatisticsTest.cpp"
+					>
+				</File>
+				<Filter
+					Name="Mail"
+					>
+					<File
+						RelativePath=".\src\GMailClientTest.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="Memory"
+				>
+				<File
+					RelativePath=".\src\BasicBufferTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\BinaryReaderTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\BinaryWriterTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ChainBufferTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\CircularBufferTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\GreedyAllocatorTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MemoryBlockTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MemoryMathTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\MemoryTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\NetworkReaderTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\NetworkStreamTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\NetworkWriterTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ServerTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StackAllocatorTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ProcessThread"
+				>
+				<File
+					RelativePath=".\src\EarlgreyProcessTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ExecutorTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StlStackAllocatorTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadGroup.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadLocalTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadMessageTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimerTest.cpp"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="헤더 파일"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<Filter
+				Name="Main"
+				>
+				<File
+					RelativePath=".\resource.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\stdafx.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\targetver.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Network"
+				>
+				<File
+					RelativePath=".\inc\SocketTest.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Memory"
+				>
+				<File
+					RelativePath=".\inc\NetworkWriterTest.h"
+					>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Name="리소스 파일"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
+			<File
+				RelativePath=".\Earlgrey.Test.Empty.ini"
+				>
+			</File>
+			<File
+				RelativePath=".\Earlgrey.Test.ini"
+				>
+			</File>
+			<File
+				RelativePath=".\Earlgrey.Test.txt"
+				>
+			</File>
+			<File
+				RelativePath=".\EarlgreyTestResources.rc"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Main"
+			>
+			<File
+				RelativePath=".\src\Earlgrey.Test.cpp"
 				>
 			</File>
 			<File
@@ -581,118 +725,6 @@
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\src\StlStackAllocatorTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\StringHelperTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SystemTcpStatisticsTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TaskQueueTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ThreadLocalTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ThreadMessageTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ThreadTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TimerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TimeSpanTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VectorTest.cpp"
-				>
-			</File>
-			<Filter
-				Name="Temp"
-				>
-				<File
-					RelativePath=".\src\SampleTest.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\TempTest.cpp"
-					>
-				</File>
-			</Filter>
-		</Filter>
-		<Filter
-			Name="헤더 파일"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\inc\NetworkWriterTest.h"
-				>
-			</File>
-			<File
-				RelativePath=".\resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\SocketTest.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\targetver.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="리소스 파일"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-			<File
-				RelativePath=".\Earlgrey.Test.Empty.ini"
-				>
-			</File>
-			<File
-				RelativePath=".\Earlgrey.Test.ini"
-				>
-			</File>
-			<File
-				RelativePath=".\Earlgrey.Test.txt"
-				>
-			</File>
-			<File
-				RelativePath=".\EarlgreyTestResources.rc"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Main"
-			>
-			<File
-				RelativePath=".\src\Earlgrey.Test.cpp"
-				>
 			</File>
 		</Filter>
 		<File

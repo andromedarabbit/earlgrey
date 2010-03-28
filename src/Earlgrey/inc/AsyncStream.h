@@ -1,9 +1,9 @@
 #pragma once 
+#include "Proactor.h" // CompletionHandler
 #include <WinSock2.h>
 
 namespace Earlgrey
 {
-	class CompletionHandler;
 	class NetworkBuffer;
 	class Sender;
 	class Receiver;

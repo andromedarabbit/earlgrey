@@ -83,18 +83,17 @@ namespace Earlgrey {
 		if (ClientSocket == INVALID_SOCKET)
 		{
 			// TODO: 에러처리
-			return 0;
+			return EXIT_SUCCESS;
 		}
 
 		Socket socket(ClientSocket);
-		// socket.Attach( ClientSocket );
-
+		
 		socket.SetReceiveBufferSize( 0 );
 		socket.SetSendBufferSize( 0 );
 
 		Connection<DefaultReader, DefaultWriter>* connection = new Connection<DefaultReader, DefaultWriter>();
-		connection->Initialize( socket.GetHandle() );
+		connection->Initialize( socket );
 
-		return 0;
+		return EXIT_SUCCESS;
 	}
 }

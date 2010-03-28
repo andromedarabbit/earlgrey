@@ -4,11 +4,12 @@
 #include "txstring.h"
 #include "xvector.h"
 #include "TimeSpan.h"
+#include "Listener.h"
 
 namespace Earlgrey
 {
 	class Thread;
-	class Server;
+	// class Server;
 }
 
 

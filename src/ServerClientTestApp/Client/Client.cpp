@@ -2,9 +2,10 @@
 //
 
 #include "stdafx.h"
-#include "ServerInit.h"
 #include "Application.h"
 #include "DefaultAppSettings.h"
+#include "ThreadRunnable.h"
+#include "Connector.h"
 
 using namespace Earlgrey;
 
@@ -40,39 +41,6 @@ protected:
 private:
 	BOOL m_stop;
 };
-//
-//class ClientConnection : public AsyncStream
-//{
-//public:
-//	ClientConnection() 
-//		: AsyncStream()
-//	{}
-//	virtual ~ClientConnection() {}
-//
-//	virtual void Connected()
-//	{
-//		printf("Client Socket = %d\r\n", Socket());
-//		NetworkBuffer* buf = GetReadBuffer();
-//		BYTE str[13] = "hello server";
-//		buf->SetValue(&str[0], sizeof(str));
-//		Write();
-//	}
-//
-//	virtual void Disconnected()
-//	{
-//		printf("Client Disconnected = %d", Socket());
-//	}
-//
-//	virtual void Received()
-//	{
-//
-//	}
-//
-//	virtual void Sent()
-//	{
-//
-//	}
-//};
 
 int _tmain(int argc, _TCHAR* argv[])
 {

@@ -1,4 +1,5 @@
 #pragma once
+#include "Socket.h"
 #include "Acceptor.h"
 #include "EarlgreyAssert.h"
 
@@ -19,7 +20,7 @@ namespace Earlgrey {
 			EARLGREY_ASSERT(ListenSocket != INVALID_SOCKET);
 		}
 
-		DWORD Run();
+		virtual DWORD Run();
 
 	private:
 		Socket _ListenSocket;
@@ -29,7 +30,7 @@ namespace Earlgrey {
 	{
 	public:
 		explicit Listener(void);
-		~Listener(void);
+		virtual ~Listener(void);
 
 		BOOL Listen(USHORT Port, bool ReuseAddress);
 

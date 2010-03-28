@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Socket.h"
 #include "NetworkStream.h"
 #include "AsyncStream.h"
 #include "Receiver.h"
@@ -22,6 +22,8 @@ namespace Earlgrey {
 		Connection(void);
 		virtual ~Connection(void);
 
+		// TODO: 궁극적으론 소켓 핸들을 직접 받는 메서드는 없애는 게 좋다.
+		bool Initialize(const Socket& socket);
 		bool Initialize(SOCKET socket);
 
 		inline InputStreamType* GetInputStream();
@@ -48,6 +50,12 @@ namespace Earlgrey {
 	template<template<class> class Reader, template<class> class Writer> 
 	Connection<Reader, Writer>::~Connection(void)
 	{
+	}
+
+	template<template<class> class Reader, template<class> class Writer> 
+	bool Connection<Reader, Writer>::Initialize( const Socket& socket )
+	{
+		return Initialize(socket.GetHandle());
 	}
 
 	template<template<class> class Reader, template<class> class Writer> 

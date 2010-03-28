@@ -5,7 +5,7 @@
 #include "SingleAppInstance.h"
 #include "RuntimeCheck.h"
 #include "ProcessInitializer.h"
-#include "ServerInit.h"
+#include "Acceptor.h"
 #include "Environment.h" // Environment
 #include "Thread.h" // Thread
 #include "IOCP.h" // IOCPRunnable
