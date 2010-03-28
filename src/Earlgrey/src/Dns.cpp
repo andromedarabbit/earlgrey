@@ -62,9 +62,9 @@ namespace Earlgrey
 		//--------------------------------
 		// Setup the hints address info structure
 		// which is passed to the getaddrinfo() function
-		ADDRINFOT aiHints;
+		ADDRINFOT aiHints = {0};
 
-		memset(&aiHints, 0, sizeof(aiHints));
+		// memset(&aiHints, 0, sizeof(aiHints));
 		// aiHints.ai_flags = AI_CANONNAME;
 		// aiHints.ai_family = AF_UNSPEC;
 		// 			aiHints.ai_socktype = SOCK_STREAM;
@@ -137,9 +137,9 @@ namespace Earlgrey
 			//--------------------------------
 			// Setup the hints address info structure
 			// which is passed to the getaddrinfo() function
-			ADDRINFOT aiHints;
+			ADDRINFOT aiHints = { 0 };
 
-			memset(&aiHints, 0, sizeof(aiHints));
+			// memset(&aiHints, 0, sizeof(aiHints));
 			aiHints.ai_flags = AI_CANONNAME;
 			aiHints.ai_family = AF_UNSPEC;
 			// 			aiHints.ai_socktype = SOCK_STREAM;

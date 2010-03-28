@@ -1,7 +1,22 @@
 #pragma once 
 #include "Log.h"
+#include "IPAddress.h"
+#include "IPEndPoint.h"
+#include "RAII.h"
+#include "numeric_cast.hpp"
+
 #include <Loki/Threads.h>
+
 #include <winsock2.h>
+
+
+#pragma warning( push ) 
+#pragma warning( disable : 4996 )
+#include <ws2tcpip.h>
+#pragma warning( pop ) 
+
+// #pragma comment(lib, "Ws2_32.lib")
+
 
 namespace Earlgrey
 {
@@ -50,7 +65,6 @@ namespace Earlgrey
 			}
 		}
 
-
 		bool Bind(USHORT Port)
 		{
 			SOCKADDR_IN Address;
@@ -67,6 +81,44 @@ namespace Earlgrey
 			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
 			return false;
 
+		}
+
+		bool Bind(const IPEndPoint& localEP)
+		{
+			EARLGREY_ASSERT(IsValid() == false);
+
+			ADDRINFOT aiHints = { 0 };
+			aiHints.ai_family = AF_UNSPEC;
+			aiHints.ai_socktype = SOCK_STREAM;
+			aiHints.ai_protocol = IPPROTO_TCP;
+			aiHints.ai_flags = AI_PASSIVE;
+
+			ADDRINFOT * aiList = NULL;
+			handle_t regKeyHandle(aiList, &FreeAddrInfo);
+
+			Socket::InitializeSockets(); // GetAddrInfo 호출 전에...
+			const int retVal = ::GetAddrInfo(localEP.Address().ToString().c_str(), NULL, &aiHints, &aiList);		
+			if (retVal != 0) {
+				return false;
+			}
+
+			ADDRINFOT * current = aiList;
+			do
+			{
+				SOCKET handle = socket(current->ai_family, current->ai_socktype, current->ai_protocol);
+				if(handle == INVALID_SOCKET)
+					continue;
+
+				if(bind(handle, current->ai_addr, EARLGREY_NUMERIC_CAST<int>(current->ai_addrlen)) == SOCKET_ERROR)
+					continue;
+
+				EARLGREY_ASSERT(IsValid());
+				_Handle = handle;
+
+				return true;
+			} while ( NULL != (current = current->ai_next) );
+
+			return false;
 		}
 
 		bool Listen(int MaxConnections = SOMAXCONN)

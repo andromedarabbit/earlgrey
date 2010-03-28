@@ -89,6 +89,8 @@ namespace Earlgrey
 
 	private:
 		// AddressBytes m_AddressBytes;
+		friend class Socket;
+		friend class Connector;
 		SOCKADDR_STORAGE m_AddressStorage;
 	};
 }
