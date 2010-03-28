@@ -7,7 +7,7 @@ namespace Earlgrey
 	{
 	public:
 		virtual ~IRunnable() {}
-		virtual DWORD Run() = 0;
+		virtual DWORD Run() = NULL;
 	};
 
 	//! \note 이 클래스의 존재 의의는 뭔가요?

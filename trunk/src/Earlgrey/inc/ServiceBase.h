@@ -3,6 +3,7 @@
 #include "txstring.h"
 #include "xvector.h"
 #include "EventLog.h"
+#include "TimeSpan.h"
 
 namespace Earlgrey {
 

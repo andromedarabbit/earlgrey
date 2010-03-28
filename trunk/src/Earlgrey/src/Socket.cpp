@@ -1,7 +1,6 @@
 #include "stdafx.h"
-
-#include "ServerInit.h"
 #include "Socket.h"
+
 #include "ScopedLock.h"
 
 #pragma comment(lib, "ws2_32.lib")

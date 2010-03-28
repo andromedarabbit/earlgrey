@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "IOCP.h"
-#include "ServerInit.h"
 #include "Thread.h"
 
 namespace Earlgrey

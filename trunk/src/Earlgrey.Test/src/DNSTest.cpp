@@ -2,6 +2,7 @@
 #include "DNS.h"
 
 #include "IPHostEntry.h"
+#include "IPAddress.h"
 #include "SocketTest.h"
 
 namespace Earlgrey
