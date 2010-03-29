@@ -241,6 +241,18 @@ namespace Earlgrey {
 			return _variant_t(vTime, VT_DATE);
 		}
 
+
+		/************************************************************************/
+		/* MySQL 의 DateTime
+		/*  1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
+		/* MSSQL 의 DateTime
+		/*  1753-01-01 00:00:00 ~ 9999-12-31 23:59:59
+		/* MSSQL 의 SmallDateTime
+		/*  1900-01-01 00:00:00 ~ 2079-01-06 23:59:59
+		/* ADO 의 COleDateTime
+		/*  1899-12-30 00:00:00 ~ ?
+		/************************************************************************/
+
 		//! \ref http://blogs.msdn.com/oldnewthing/archive/2004/08/25/220195.aspx
 		template<>
 		inline TimeSpan database_cast(const _variant_t& arg)
@@ -248,7 +260,7 @@ namespace Earlgrey {
 			EARLGREY_ASSERT(arg.vt != VT_EMPTY);
 			EARLGREY_ASSERT(arg.vt == VT_DATE);
 
-			static const TimeSpan::TickType ZERO_TICK_FOR_DB = 94353120000000000; //1072620576000000000;
+			static const TimeSpan::TickType ZERO_TICK_FOR_DB = 94353120000000000; // 현재
 
 			SYSTEMTIME systemTime;
 			if(::VariantTimeToSystemTime(arg.date, &systemTime) == 0)
@@ -271,6 +283,7 @@ namespace Earlgrey {
 		inline _variant_t database_cast<_variant_t, TimeSpan>(const TimeSpan& arg)
 		{
 			static const TimeSpan::TickType ZERO_TICK_FOR_DB = 94353120000000000; //1072620576000000000;
+			// static const TimeSpan::TickType ZERO_TICK_FOR_DB = 1072620576000000000;
 
 			TimeSpan::TickType newTimeSpan = arg.Ticks() + ZERO_TICK_FOR_DB;
 

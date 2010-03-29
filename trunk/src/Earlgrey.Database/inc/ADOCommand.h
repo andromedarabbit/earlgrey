@@ -66,22 +66,7 @@ namespace Earlgrey {
 				m_Command->CommandType = database_cast<RawADO::CommandTypeEnum>(cmdType);
 			}
 
-			std::tr1::shared_ptr<DataReader> ExecuteReader()
-			{
-				// TODO: 임시 코드
-				// _variant_t recordsAffected(0L);
-				// RawADO::_RecordsetPtr recordset = m_Command->Execute(&recordsAffected, NULL, NULL);
-				RawADO::_RecordsetPtr recordset = m_Command->Execute(NULL, NULL, NULL);
-				/*std::tr1::shared_ptr<RawADO::_Recordset> recordset(
-				m_Command->Execute(NULL, NULL, NULL)
-				, Deleter<RawADO::_RecordsetPtr>()
-				);*/
-
-				//return DataReader(recordset);
-				return std::tr1::shared_ptr<DataReader>(
-					new DataReader(recordset)
-					);
-			}
+			std::tr1::shared_ptr<DataReader> ExecuteReader();
 
 			template<typename T>
 			inline T ExecuteScalar()
@@ -104,15 +89,7 @@ namespace Earlgrey {
 				return reader->GetValue<T>(0);
 			}	
 
-			inline LONG ExecuteNonQuery(BOOL withRecordsAffected = FALSE)
-			{
-				long options = RawADO::adCmdUnspecified;
-				if(withRecordsAffected == FALSE)
-					options = RawADO::adExecuteNoRecords;
-
-				const LONG recordsAffected = m_Command->Execute(NULL, NULL, options);
-				return recordsAffected;
-			}
+			LONG ExecuteNonQuery(BOOL withRecordsAffected = FALSE);
 
 		private:
 			RawADO::_CommandPtr m_Command;

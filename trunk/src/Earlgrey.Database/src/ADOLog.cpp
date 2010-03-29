@@ -7,40 +7,53 @@ namespace Earlgrey
 {
 	namespace ADO
 	{
-		using namespace RawADO;
-
-		void Log::ReportSqlError(_CommandPtr command, _com_error &e, BOOL clearErrors)
-		{		
-			_txstring message;
-			_txstring queryMessage;
-			_txstring commandTxt;
-			if(command->CommandType == adCmdStoredProc)
-				queryMessage = TEXT("Stored Procedure");
-			else
-				queryMessage = TEXT("Query");
-
-			commandTxt = command->CommandText;
-
-			// Message = FormatStr(TEXT("%s '%s' was Failed to Execution!"),QueryMessage.c_str(),CommandTxt.c_str());
-
-			// Logf( LT_WARN, _T("%s"), Message.c_str() );
-			ReportSqlError(command->ActiveConnection, e, clearErrors);
-		}
-
-		void Log::ReportSqlError(_ConnectionPtr pConnection, _com_error &e, BOOL clearErrors)
+		_txstring Log::FromSqlError(RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
 		{
-			ReportProviderError(pConnection, clearErrors);
-			ReportComError(e);
+			_txostringstream ss;
+			FromSqlError(ss, command, e, clearErrors);
+			return _txstring(ss.str());
 		}
 
-		void Log::ReportProviderError(_ConnectionPtr pConnection, BOOL clearErrors)
+		void Log::FromSqlError(_txostringstream& ss, RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
+		{
+			if(command->CommandType == RawADO::adCmdStoredProc)
+				ss << TEXT("Stored Procedure ");
+			else
+				ss << TEXT("Query ");
+
+			ss << _T("'") << command->CommandText << _T("' failed!") << std::endl;
+
+			FromSqlError(ss, command->ActiveConnection, e, clearErrors);
+		}
+
+		_txstring Log::FromSqlError(RawADO::_ConnectionPtr pConnection, const _com_error &e, BOOL clearErrors)
+		{
+			_txostringstream ss;
+			FromSqlError(ss, pConnection, e, clearErrors);
+			return _txstring(ss.str());
+		}
+
+		void Log::FromSqlError(_txostringstream& ss, RawADO::_ConnectionPtr pConnection, const _com_error &e, BOOL clearErrors)
+		{
+			FromProviderError(ss, pConnection, clearErrors);
+			FromComError(ss, e);
+		}
+
+		_txstring Log::FromProviderError(RawADO::_ConnectionPtr pConnection, BOOL clearErrors)
+		{
+			_txostringstream ss;
+			FromProviderError(ss, pConnection, clearErrors);
+			return _txstring(ss.str());
+		}
+
+		void Log::FromProviderError(_txostringstream& ss, RawADO::_ConnectionPtr pConnection, BOOL clearErrors)
 		{
 			if(pConnection == NULL)
 				return;
 
 			// Print Provider Errors from Connection object.
 			// pErr is a record object in the Connection's Error collection.
-			ErrorPtr  pErr = NULL;
+			RawADO::ErrorPtr  pErr = NULL;
 
 			if( (pConnection->Errors->Count) > 0)
 			{
@@ -50,7 +63,7 @@ namespace Earlgrey
 				for(long i = 0; i < nCount; i++)
 				{
 					pErr = pConnection->Errors->GetItem(i);
-					ReportError(pErr);
+					FromError(ss, pErr);
 				}
 			}
 
@@ -58,41 +71,49 @@ namespace Earlgrey
 				pConnection->Errors->Clear();
 		}
 
-		void Log::ReportComError(_com_error &e)
+		_txstring Log::FromComError(const _com_error &e)
 		{
- 			_bstr_t bstrSource(e.Source());
-// 			const TCHAR* const source = (LPCTSTR)bstrSource; 
- 			_bstr_t bstrDescription(e.Description());
-// 			const TCHAR* const description = (LPCTSTR)bstrDescription;
-
-			DBG_UNREFERENCED_LOCAL_VARIABLE(bstrSource);
-			DBG_UNREFERENCED_LOCAL_VARIABLE(bstrDescription);
-
-// 			_txstring SourceMsg;
-// 			_txstring DescMsg;
-
-// 			if(source != NULL)
-// 				SourceMsg = FormatStr(TEXT("Source:'%s'"), source);
-// 
-// 			if(description != NULL)
-// 				DescMsg = FormatStr(TEXT("Desc:'%s'"), description);
-// 
-// 			_txstring Message = FormatStr(TEXT("SQL ComError Code:%d, Meaning:'%s', %s, %s"),
-// 				e.Error(),			
-// 				e.ErrorMessage(),
-// 				SourceMsg.c_str(),
-// 				DescMsg.c_str()
-// 				);
-// 
-// 			Logf( LT_WARN, _T("%s"), Message.c_str() );	
+			_txostringstream ss;
+			FromComError(ss, e);
+			return _txstring(ss.str());
 		}
 
-		// void Log::ReportError(struct Error* error)
-		void Log::ReportError(ErrorPtr error)
+		void Log::FromComError(_txostringstream& ss, const _com_error &e)
 		{
-			DBG_UNREFERENCED_PARAMETER(error);
-			// if(error)
-				// Logf( LT_WARN, _T("SQL Error Number: %x, Desc:%s"), error->Number, (LPCTSTR)error->Description );
+			ss << _T("SQL ComError Code: ") << e.Error()
+				<< _T(", Meaning: '") << e.ErrorMessage() << _T("'")
+				;
+
+
+			_bstr_t bstrSource(e.Source());
+			const TCHAR* const source = (LPCTSTR)bstrSource; 
+
+			if(source != NULL)
+				ss << _T(", Source: '") << source << _T("'");
+
+
+			_bstr_t bstrDescription(e.Description());
+			const TCHAR* const description = (LPCTSTR)bstrDescription;
+
+			if(description != NULL)
+				ss << _T(", Desc: '") << source << _T("'");
+
+			ss << std::endl;
 		}
+
+
+		_txstring Log::FromError(RawADO::ErrorPtr error)
+		{
+			_txostringstream ss;
+			FromError(ss, error);
+			return _txstring(ss.str());
+		}
+
+		void Log::FromError(_txostringstream& ss, RawADO::ErrorPtr error)
+		{
+			if(error)
+				ss << _T("SQL Error Number: " << error->Number << _T(", Desc: ") << (LPCTSTR)error->Description ) << std::endl;
+		}
+
 	}
 }

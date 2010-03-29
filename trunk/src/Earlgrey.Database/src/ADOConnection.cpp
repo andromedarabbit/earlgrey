@@ -33,10 +33,12 @@ namespace ADO {
 			
 			return TRUE;
 		}
-		catch (_com_error &e)
+		catch(_com_error& e)
 		{
-			DBG_UNREFERENCED_PARAMETER(e);
-			// FADOUtil::ReportSqlError(m_Connection, e);
+			// TODO: 임시코드
+			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
+			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
+			// throw std::exception( String::FromUnicode(msg) );
 		}
 		return FALSE;
 	} 
@@ -63,8 +65,10 @@ namespace ADO {
 		}
 		catch (_com_error &e)
 		{
-			DBG_UNREFERENCED_PARAMETER(e);
-			// FADOUtil::ReportSqlError(m_Connection, e);
+			// TODO: 임시코드
+			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
+			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
+			// throw std::exception( String::FromUnicode(msg) );
 		}
 	}
 
@@ -83,8 +87,10 @@ namespace ADO {
 		}
 		catch (_com_error &e)
 		{
-			DBG_UNREFERENCED_PARAMETER(e);
-			// FADOUtil::ReportSqlError(m_Connection, e);
+			// TODO: 임시코드
+			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
+			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
+			// throw std::exception( String::FromUnicode(msg) );
 		}
 		return FALSE;
 	}
