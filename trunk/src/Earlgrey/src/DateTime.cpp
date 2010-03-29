@@ -28,10 +28,12 @@ namespace Earlgrey
 		if ((ticks < MinTicks) || (ticks > MaxTicks))
 		{
 			// throw new ArgumentOutOfRangeException("ticks", Environment.GetResourceString("ArgumentOutOfRange_DateTimeBadTicks"));
+			throw std::exception("");
 		}
 		if ((kind < DATETIMEKIND_UNSPECIFIED) || (kind > DATETIMEKIND_LOCAL))
 		{
 			// throw new ArgumentException(Environment.GetResourceString("Argument_InvalidDateTimeKind"), "kind");
+			throw std::exception("");
 		}
 		this->dateData = (UINT64) (ticks | (((INT64) kind) << 0x3e));
 	}
@@ -47,10 +49,12 @@ namespace Earlgrey
 		if ((num < 0L) || (num > 0x2bca2875f4373fffL))
 		{
 			// throw new ArgumentException(Environment.GetResourceString("Arg_DateTimeRange"));
+			throw std::exception("");
 		}
 		if ((kind < DATETIMEKIND_UNSPECIFIED) || (kind > DATETIMEKIND_LOCAL))
 		{
 			// throw new ArgumentException(Environment.GetResourceString("Argument_InvalidDateTimeKind"), "kind");
+			throw std::exception("");
 		}
 		this->dateData = (UINT64) (num | (((INT64) kind) << 0x3e));
 	}
@@ -66,6 +70,7 @@ namespace Earlgrey
 		if ((ticks > (0x2bca2875f4373fffL - internalTicks)) || (ticks < -internalTicks))
 		{
 			// throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_DateArithmetic"));
+			throw std::exception("");
 		}
 		return DateTime(((UINT64) (internalTicks + ticks)) | this->InternalKind());
 	}
@@ -141,6 +146,7 @@ namespace Earlgrey
 		if ((month < 1) || (month > 12))
 		{
 			// throw new ArgumentOutOfRangeException("month", Environment.GetResourceString("ArgumentOutOfRange_Month"));
+			throw std::exception("");
 		}
 		const int* numArray = IsLeapYear(year) ? DaysToMonth366 : DaysToMonth365;
 		return (numArray[month] - numArray[month - 1]);
@@ -151,6 +157,7 @@ namespace Earlgrey
 		INT64 num = (INT64) ((thisValue * scale) + ((thisValue >= 0.0) ? 0.5 : -0.5));
 		if ((num <= -315537897600000L) || (num >= 0x11efae44cb400L))
 		{
+			throw std::exception("");
 			// throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_AddValue"));
 		}
 		return this->AddTicks(num * TicksPerMillisecond);
@@ -179,6 +186,7 @@ namespace Earlgrey
 		if ((datePart < 1) || (datePart > 0x270f))
 		{
 			// throw new ArgumentOutOfRangeException("months", Environment.GetResourceString("ArgumentOutOfRange_DateArithmetic"));
+			throw std::exception("");
 		}
 		int num5 = DaysInMonth(datePart, month);
 		if (day > num5)
@@ -200,6 +208,7 @@ namespace Earlgrey
 		if ((internalTicks < num2) || ((internalTicks - 0x2bca2875f4373fffL) > num2))
 		{
 			// throw new ArgumentOutOfRangeException("value", Environment.GetResourceString("ArgumentOutOfRange_DateArithmetic"));
+			throw std::exception("");
 		}
 		return DateTime(((UINT64) (internalTicks - num2)) | this->InternalKind());
 	}
@@ -281,6 +290,7 @@ namespace Earlgrey
 		if ((year < 1) || (year > 0x270f))
 		{
 			// throw new ArgumentOutOfRangeException("year", Environment.GetResourceString("ArgumentOutOfRange_Year"));
+			throw std::exception("");
 		}
 		if ((year % 4) != 0)
 		{
@@ -308,7 +318,8 @@ namespace Earlgrey
 
 		// TODO: юс╫ц
 		// throw new ArgumentOutOfRangeException(null, Environment.GetResourceString("ArgumentOutOfRange_BadYearMonthDay"));
-		throw 1;
+		throw std::exception("");
+		// throw 1;
 	}
 
 	INT64 DateTime::TimeToTicks(int hour, int minute, int second)
@@ -316,6 +327,7 @@ namespace Earlgrey
 		if ((((hour < 0) || (hour >= 0x18)) || ((minute < 0) || (minute >= 60))) || ((second < 0) || (second >= 60)))
 		{
 			// throw new ArgumentOutOfRangeException(null, Environment.GetResourceString("ArgumentOutOfRange_BadHourMinuteSecond"));
+			throw std::exception("");
 		}
 		return TimeSpan::TimeToTicks(hour, minute, second);
 	}

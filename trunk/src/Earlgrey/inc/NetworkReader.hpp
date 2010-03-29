@@ -20,6 +20,49 @@ namespace Earlgrey
 		explicit NetworkReader(BufferT& buffer);
 		~NetworkReader();
 
+		inline 
+			std::ios::iostate rdstate() const 
+		{
+			return m_BinaryReader.rdstate();
+		}
+
+		inline 
+			void clear(std::ios::iostate state = std::ios::goodbit)
+		{
+			m_BinaryReader.clear(state);
+		}
+
+		inline
+			void setstate(std::ios::io_state state)
+		{
+			m_BinaryReader.setstate(state);
+		}
+
+		inline
+			bool good() const
+		{	// test if no state bits are set
+			return m_BinaryReader.good();
+		}
+
+		inline
+			bool eof() const
+		{	// test if eofbit is set in stream state
+			return m_BinaryReader.eof();
+		}
+
+		inline
+			bool fail() const
+		{	// test if badbit or failbit is set in stream state
+			return m_BinaryReader.fail();
+		}
+
+		inline
+			bool bad() const
+		{	// test if badbit is set in stream state
+			return m_BinaryReader.bad();
+		}
+
+
 		inline size_type Size() const 
 		{
 			return m_BinaryReader.Size();
@@ -61,7 +104,10 @@ namespace Earlgrey
 				return TRUE;
 
 			if(length > bufferLen)
+			{
+				setstate(std::ios::failbit);
 				return FALSE;
+			}
 
 			return m_BinaryReader.Read(x, x_len, length);
 		}
@@ -80,47 +126,44 @@ namespace Earlgrey
 				return FALSE;
 
 			if(length > bufferLen)
+			{
+				setstate(std::ios::failbit);
 				return FALSE;
+			}
 
 			return m_BinaryReader.Read(x, x_len, length);
 		}
 
-		NetworkReader& operator>>(xstring& x);
-
-
+		NetworkReader& operator >> (xstring& x);
 
 		template<class Kty, class Ty, class Pr, class Alloc>
-		NetworkReader& operator >>(std::map<Kty, Ty, Pr, Alloc>& container);
+		NetworkReader& operator >> (std::map<Kty, Ty, Pr, Alloc>& container);
 
 		template<typename T, typename Alloc>
-		NetworkReader& operator >>(std::vector<T, Alloc>& container);
+		NetworkReader& operator >> (std::vector<T, Alloc>& container);
 
 		template<typename T, typename C>
-		NetworkReader& operator >>(std::stack<T, C>& container);
+		NetworkReader& operator >> (std::stack<T, C>& container);
 
 		template<class Kty, class Pr, class Alloc>
-		NetworkReader& operator >>(std::set<Kty, Pr, Alloc>& container);
+		NetworkReader& operator >> (std::set<Kty, Pr, Alloc>& container);
 
 		template<typename T, typename C>
-		NetworkReader& operator >>(std::queue<T, C>& container);
+		NetworkReader& operator >> (std::queue<T, C>& container);
 
 		template<typename T>
-		NetworkReader& operator >>(std::deque<T>& container);
+		NetworkReader& operator >> (std::deque<T>& container);
 
 		template<typename T>
 		inline NetworkReader& operator>>(T& x)
 		{
-			if(this->Read(x) == FALSE)
-			{
-				// TODO
-				throw std::exception("");
-			}
+			this->Read(x); // return 값 확인 안 해도 Read 안에서 오류 값 설정함
 			return *this;
 		}
 
 	private: // methods
-		template<class Kty, class Ty, class Pr, class Alloc>
-		inline BOOL ReadContainer(std::map<Kty, Ty, Pr, Alloc>& container)
+		template<class T>
+		inline BOOL ReadContainer(T& container)
 		{
 			length_type size = 0;
 			if(m_BinaryReader.Read(size) == FALSE)
@@ -128,106 +171,11 @@ namespace Earlgrey
 
 			for(length_type i = 0; i < size; i++)
 			{
-				std::pair<const Kty, Ty> v;
+				T::value_type v;
 				if(m_BinaryReader.Read(v) == FALSE)
 					return FALSE;
 
-				container.insert(v);
-			}
-
-			return TRUE;
-		}
-
-		template<typename T, typename Alloc>
-		inline BOOL ReadContainer(std::vector<T, Alloc>& container)
-		{
-			length_type size = 0;
-			if(m_BinaryReader.Read(size) == FALSE)
-				return FALSE;
-
-			for(length_type i = 0; i < size; i++)
-			{
-				T v;
-				if(m_BinaryReader.Read(v) == FALSE)
-					return FALSE;
-
-				container.push_back(v);
-			}
-
-			return TRUE;
-		}
-
-		template<typename T, typename C>
-		inline BOOL ReadContainer(std::stack<T, C>& container)
-		{
-			length_type size = 0;
-			if(m_BinaryReader.Read(size) == FALSE)
-				return FALSE;
-
-			for(length_type i = 0; i < size; i++)
-			{
-				T v;
-				if(m_BinaryReader.Read(v) == FALSE)
-					return FALSE;
-
-				container.push(v);
-			}
-
-			return TRUE;
-		}
-
-		template<class Kty, class Pr, class Alloc>
-		inline BOOL ReadContainer(std::set<Kty, Pr, Alloc>& container)
-		{
-			length_type size = 0;
-			if(m_BinaryReader.Read(size) == FALSE)
-				return FALSE;
-
-			for(length_type i = 0; i < size; i++)
-			{
-				Key v;
-				if(m_BinaryReader.Read(v) == FALSE)
-					return FALSE;
-
-				container.insert(v);
-			}
-
-			return TRUE;
-		}
-
-		template<typename T, typename C>
-		inline BOOL ReadContainer(std::queue<T, C>& container)
-		{
-			length_type size = 0;
-			if(m_BinaryReader.Read(size) == FALSE)
-				return FALSE;
-
-			for(length_type i = 0; i < size; i++)
-			{
-				T v;
-				if(m_BinaryReader.Read(v) == FALSE)
-					return FALSE;
-
-				container.push(v);
-			}
-
-			return TRUE;
-		}
-
-		template<typename T>
-		inline BOOL ReadContainer(std::deque<T>& container)
-		{
-			length_type size = 0;
-			if(m_BinaryReader.Read(size) == FALSE)
-				return FALSE;
-
-			for(length_type i = 0; i < size; i++)
-			{
-				T v;
-				if(m_BinaryReader.Read(v) == FALSE)
-					return FALSE;
-
-				container.push_back(v);
+				std::back_inserter(container) = v;
 			}
 
 			return TRUE;
@@ -235,6 +183,7 @@ namespace Earlgrey
 
 	private: // field
 		BinaryReader<BufferT> m_BinaryReader;
+		std::ios::iostate m_State;
 
 	};
 
@@ -295,7 +244,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<class Kty, class Ty, class Pr, class Alloc>
 	inline NetworkReader<BufferT>& 
-		NetworkReader<BufferT>::operator >>(std::map<Kty, Ty, Pr, Alloc>& container)
+		NetworkReader<BufferT>::operator >> (std::map<Kty, Ty, Pr, Alloc>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");
@@ -306,7 +255,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<typename T, typename Alloc>
 	inline NetworkReader<BufferT>& 
-		NetworkReader<BufferT>::operator >>(std::vector<T, Alloc>& container)
+		NetworkReader<BufferT>::operator >> (std::vector<T, Alloc>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");
@@ -317,7 +266,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<typename T, typename C>
 	inline NetworkReader<BufferT>& 
-		NetworkReader<BufferT>::operator >>(std::stack<T, C>& container)
+		NetworkReader<BufferT>::operator >> (std::stack<T, C>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");
@@ -328,7 +277,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<class Kty, class Pr, class Alloc>
 	inline NetworkReader<BufferT>& 
-		NetworkReader<BufferT>::operator >>(std::set<Kty, Pr, Alloc>& container)
+		NetworkReader<BufferT>::operator >> (std::set<Kty, Pr, Alloc>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");
@@ -339,7 +288,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<typename T, typename C>
 	inline NetworkReader<BufferT>&
-		NetworkReader<BufferT>::operator >>(std::queue<T, C>& container)
+		NetworkReader<BufferT>::operator >> (std::queue<T, C>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");
@@ -350,7 +299,7 @@ namespace Earlgrey
 	template <typename BufferT>
 	template<typename T>
 	inline NetworkReader<BufferT>& 
-		NetworkReader<BufferT>::operator >>(std::deque<T>& container)
+		NetworkReader<BufferT>::operator >> (std::deque<T>& container)
 	{
 		if(ReadContainer(container) == FALSE)
 			throw std::exception("");

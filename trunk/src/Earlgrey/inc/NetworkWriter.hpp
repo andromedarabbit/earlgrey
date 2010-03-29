@@ -21,6 +21,48 @@ namespace Earlgrey
 		explicit NetworkWriter(BufferT& buffer);
 		~NetworkWriter();
 
+		inline 
+			std::ios::iostate rdstate() const 
+		{
+			return m_BinaryReader.rdstate();
+		}
+
+		inline 
+			void clear(std::ios::iostate state = std::ios::goodbit)
+		{
+			m_BinaryReader.clear(state);
+		}
+
+		inline
+			void setstate(std::ios::io_state state)
+		{
+			m_BinaryReader.setstate(state);
+		}
+
+		inline
+			bool good() const
+		{	// test if no state bits are set
+			return m_BinaryReader.good();
+		}
+
+		inline
+			bool eof() const
+		{	// test if eofbit is set in stream state
+			return m_BinaryReader.eof();
+		}
+
+		inline
+			bool fail() const
+		{	// test if badbit or failbit is set in stream state
+			return m_BinaryReader.fail();
+		}
+
+		inline
+			bool bad() const
+		{	// test if badbit is set in stream state
+			return m_BinaryReader.bad();
+		}
+
 		size_type Size() const;
 
 		const BufferT& Buffer() const;
@@ -33,11 +75,12 @@ namespace Earlgrey
 		template <typename T>
 		inline NetworkWriter& operator<<(const T& x)
 		{
-			if(this->Write(x) == FALSE)
-			{
-				// TODO
-				throw std::exception("");
-			}
+// 			if(this->Write(x) == FALSE)
+// 			{
+// 				// TODO
+// 				throw std::exception("");
+// 			}
+			this->Write(x);
 			return *this;
 		}
 
@@ -103,37 +146,14 @@ namespace Earlgrey
 			NetworkWriter& operator <<(const std::deque<T>& container);
 
 	private: // methods
-		/*
-		template<class Kty, class Ty, class Pr, class Alloc>
-			inline BOOL WriteContainer(const std::map<Kty, Ty, Pr, Alloc>& container)
-		{
-			typedef std::map<Kty, Ty, Pr, Alloc> map_type;
-
-			if(m_BinaryWriter.Write(container.size()) == FALSE)
-				return FALSE;
-
-			typedef typename map_type::const_iterator const_iterator;
-			for (const_iterator it = container.begin(); it != container.end(); ++it)
-			{
-				if(m_BinaryWriter.Write(it->first) == FALSE)
-					return FALSE;
-				
-				if(m_BinaryWriter.Write(it->second) == FALSE)
-					return FALSE;
-			}
-
-			return TRUE;
-		}
-			*/
-
-		template<class Container>
-			inline BOOL WriteContainer(const Container& container)
+		template<class T>
+			inline BOOL WriteContainer(const T& container)
 		{
 			const length_type size = EARLGREY_NUMERIC_CAST<length_type>(container.size());
 			if(m_BinaryWriter.Write(size) == FALSE)
 				return FALSE;
 
-			Container::const_iterator it = container.begin();
+			T::const_iterator it = container.begin();
 			for( ; it != container.end(); it++)
 			{
 				if(m_BinaryWriter.Write(*it) == FALSE)
@@ -144,7 +164,6 @@ namespace Earlgrey
 
 	private: // field
 		RawWriter m_BinaryWriter;
-
 	};
 
 	template <typename BufferT>
@@ -186,44 +205,28 @@ namespace Earlgrey
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const WCHAR * x)
 	{
-		if(this->Write(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
+		this->Write(x);
 		return *this;
 	}
 
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xwstring& x)
 	{
-		if(this->Write(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
+		this->Write(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length()));
 		return *this;
 	}
 
 	template <typename BufferT>
 	inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const CHAR * x)
 	{
-		if(this->WriteString(x) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
+		this->WriteString(x);
 		return *this;
 	}
 
 	template <typename BufferT>
 		inline NetworkWriter<BufferT>& NetworkWriter<BufferT>::operator<<(const xstring& x)
 	{
-		if(this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length())) == FALSE)
-		{
-			// TODO
-			throw std::exception("");
-		}
+		this->WriteString(x.c_str(), EARLGREY_NUMERIC_CAST<length_type>(x.length()));
 		return *this;
 	}
 
@@ -232,9 +235,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>& 
 		NetworkWriter<BufferT>::operator <<(const std::map<Kty, Ty, Pr, Alloc>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
@@ -243,9 +244,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>& 
 		NetworkWriter<BufferT>::operator <<(const std::vector<T, Alloc>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
@@ -254,9 +253,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>& 
 		NetworkWriter<BufferT>::operator <<(const std::stack<T, C>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
@@ -265,9 +262,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>& 
 		NetworkWriter<BufferT>::operator <<(const std::set<Kty, Pr, Alloc>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
@@ -276,9 +271,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>&
 		NetworkWriter<BufferT>::operator <<(const std::queue<T, C>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
@@ -287,9 +280,7 @@ namespace Earlgrey
 	inline NetworkWriter<BufferT>& 
 		NetworkWriter<BufferT>::operator <<(const std::deque<T>& container)
 	{
-		if(WriteContainer(container) == FALSE)
-			throw std::exception("");
-
+		WriteContainer(container);
 		return *this;
 	}
 
