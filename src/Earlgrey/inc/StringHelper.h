@@ -219,6 +219,30 @@ namespace String {
 	// Encoding
 	// MultiByteToWideChar
 	const WCHAR * ToUnicode(const CHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
+
+	template<class _Ax>
+	inline const WCHAR * ToUnicode(
+		const std::basic_string<char, std::char_traits<char>, _Ax>& src
+		, UINT codePage = CP_THREAD_ACP
+		)
+	{
+		const int bytes = EARLGREY_NUMERIC_CAST<int>(src.length() );
+		return ToUnicode(src.c_str(), bytes, codePage);
+	}
+
+	// 이름과 달리 Unicode 문자열을 Unicode 문자열로 바꾸는(?) 메서드이다.
+	// _UNICODE의 정의 여부에 따라 #if를 쓰지 않으려고 만들었다. 
+	// _txstring의 경우를 생각하면 된다.
+	template<class _Ax>
+	inline const WCHAR * ToUnicode(
+		const std::basic_string<wchar_t, std::char_traits<wchar_t>, _Ax>& src
+		, UINT codePage = CP_THREAD_ACP
+		)
+	{
+		return src.c_str();
+	}
+
+
 	const CHAR * FromUnicode(const WCHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
 
 	template<class _Ax>
