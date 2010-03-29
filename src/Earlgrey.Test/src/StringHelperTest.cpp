@@ -256,6 +256,25 @@ namespace Earlgrey
 				ASSERT_TRUE(expected2 == dst2);
 			}
 
+			TEST(StringHelperTest, FromStlString)
+			{
+				const std::wstring src1(_T("가나 다라 마 바 사 "));
+				const std::string expected1("가나 다라 마 바 사 ");
+
+				const CHAR * dst1 = String::FromUnicode(src1);
+
+				ASSERT_TRUE(dst1 != NULL);
+				ASSERT_TRUE(expected1 == dst1);
+
+				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
+
+				const CHAR * dst2 = String::FromUnicode(src2);
+
+				ASSERT_TRUE(dst2 != NULL);
+				ASSERT_TRUE(expected2 == dst2);
+			}
+
 			TEST(StringHelperTest, FromUnicodeWithEmptyString)
 			{
 				const std::wstring src;
