@@ -420,6 +420,14 @@
 					RelativePath=".\src\ADOVersionTest.cpp"
 					>
 				</File>
+				<Filter
+					Name="Temp"
+					>
+					<File
+						RelativePath=".\src\ADOTimeSpanTest.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Main"

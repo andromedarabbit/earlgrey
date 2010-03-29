@@ -295,6 +295,20 @@ namespace Earlgrey {
 				ASSERT_TRUE(src == var);
 			}
 
+			TEST(ADOCastTest, CastTimeSpan2)
+			{
+				TimeSpan src(-2, -12, -10, -33);
+
+				_variant_t var = database_cast<_variant_t>(src);
+				TimeSpan dst = database_cast<TimeSpan>(var);
+				ASSERT_TRUE(src == dst);
+
+				EXPECT_EQ(-2, dst.Days());
+				EXPECT_EQ(-12, dst.Hours());
+				EXPECT_EQ(-10, dst.Minutes());
+				EXPECT_EQ(-33, dst.Seconds());
+			}
+
 		} // ! Test
 	} // ! ADO
 } // ! Earlgrey
