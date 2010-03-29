@@ -75,11 +75,6 @@ namespace Earlgrey
 		template <typename T>
 		inline NetworkWriter& operator<<(const T& x)
 		{
-// 			if(this->Write(x) == FALSE)
-// 			{
-// 				// TODO
-// 				throw std::exception("");
-// 			}
 			this->Write(x);
 			return *this;
 		}
