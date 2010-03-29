@@ -23,16 +23,16 @@ namespace Earlgrey
 			ASSERT_TRUE(socket.Bind(port));
 		}
 
-		TEST_F(SocketTest, BindNewVersion)
-		{
-			Socket socket;
-			// ASSERT_TRUE(socket.CreateTcpSocket());
-
-			const USHORT port = 9879; // 설마 선점한 녀석은 없겠지?
-			IPEndPoint localEp(IPAddress2::Any(), port);
-
-			ASSERT_TRUE(socket.Bind(localEp));
-		}
+// 		TEST_F(SocketTest, BindNewVersion)
+// 		{
+// 			Socket socket;
+// 			// ASSERT_TRUE(socket.CreateTcpSocket());
+// 
+// 			const USHORT port = 9879; // 설마 선점한 녀석은 없겠지?
+// 			IPEndPoint localEp(IPAddress2::Any(), port);
+// 
+// 			ASSERT_TRUE(socket.Bind(localEp));
+// 		}
 
 
 	}

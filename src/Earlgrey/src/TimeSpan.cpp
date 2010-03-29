@@ -40,6 +40,7 @@ namespace Earlgrey
 		if (((this->m_Ticks >> 0x3f) == (ts.m_Ticks >> 0x3f)) && ((this->m_Ticks >> 0x3f) != (ticks >> 0x3f)))
 		{
 			// throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
+			throw std::exception("");
 		}
 		return TimeSpan(ticks);
 	}
@@ -50,6 +51,7 @@ namespace Earlgrey
 		if (((this->m_Ticks >> 0x3f) != (ts.m_Ticks >> 0x3f)) && ((this->m_Ticks >> 0x3f) != (ticks >> 0x3f)))
 		{
 			// throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
+			throw std::exception("");
 		}
 		return TimeSpan(ticks);
 	}
@@ -94,6 +96,7 @@ namespace Earlgrey
 		if(_isnan(hours))
 		{
 		// throw new ArgumentException(Environment.GetResourceString("Arg_CannotBeNaN"));
+			throw std::exception("");
 		}
 	
 		double num = hours * scale;
@@ -101,6 +104,7 @@ namespace Earlgrey
 		if ((num2 > 922337203685477) || (num2 < -922337203685477))
 		{
 			// throw new OverflowException(Environment.GetResourceString("Overflow_TimeSpanTooLong"));
+			throw std::exception("");
 		}
 		return TimeSpan(((TickType) num2) * 0x2710L);
 	}
@@ -108,9 +112,10 @@ namespace Earlgrey
 	TimeSpan::TickType TimeSpan::TimeToTicks(int hour, int minute, int second)
 	{
 		TickType num = ((hour * 0xe10L) + (minute * 60L)) + second;
-		if ((num > MaxSeconds) || (num < -MinSeconds))
+		if ((num > MaxSeconds) || (num < MinSeconds))
 		{
 			// throw new ArgumentOutOfRangeException(null, Environment.GetResourceString("Overflow_TimeSpanTooLong"));
+			throw std::exception("");
 		}
 		return (num * TicksPerSecond);
 	}
@@ -118,9 +123,10 @@ namespace Earlgrey
 	TimeSpan::TickType TimeSpan::TimeToTicks(int days, int hours, int minutes, int seconds, int milliseconds)
 	{
 		TickType num = ((((((days * 0xe10L) * 0x18L) + (hours * 0xe10L)) + (minutes * 60L)) + seconds) * MillisPerSecond) + milliseconds;
-		if ((num > MaxMilliSeconds) || (num < -MinMilliSeconds))
+		if ((num > MaxMilliSeconds) || (num < MinMilliSeconds))
 		{
 			// throw new ArgumentOutOfRangeException(null, Environment.GetResourceString("Overflow_TimeSpanTooLong"));
+			throw std::exception("");
 		}
 		return (num * TicksPerMillisecond);
 	}

@@ -20,6 +20,50 @@ namespace Earlgrey
 		explicit BinaryWriter(BufferT& buffer);
 		~BinaryWriter();
 
+		inline 
+			std::ios::iostate rdstate() const 
+		{
+			return m_State;
+		}
+
+		inline 
+			void clear(std::ios::iostate state = std::ios::goodbit)
+		{
+			m_State = state;
+		}
+
+		inline
+			void setstate(std::ios::io_state state)
+		{
+			clear ( rdstate() | state );
+		}
+
+		inline
+			bool good() const
+		{	// test if no state bits are set
+			return (rdstate() == std::ios::goodbit);
+		}
+
+		inline
+			bool eof() const
+		{	// test if eofbit is set in stream state
+			return ((int)rdstate() & (int)std::ios::eofbit);
+		}
+
+		inline
+			bool fail() const
+		{	// test if badbit or failbit is set in stream state
+			return (((int)rdstate()
+				& ((int)std::ios::badbit | (int)std::ios::failbit)) != 0);
+		}
+
+		inline
+			bool bad() const
+		{	// test if badbit is set in stream state
+			return (((int)rdstate() & (int)std::ios::badbit) != 0);
+		}
+
+
 		inline size_type Size() const 
 		{
 			return m_buffer.size();
@@ -100,8 +144,16 @@ namespace Earlgrey
 // 		template<class T>
 // 		inline BOOL Write(const T& value, std::tr1::true_type, std::tr1::true_type, size_type len)
 // 		{
+// 			if(good() == false) // badbit, failbit, eofbit
+// 				return FALSE;
+
 // 			const size_type bytes = len * sizeof(T);
-// 			return WriteBytes(&value, bytes);
+// 			if(WriteBytes(&value, bytes) == FALSE)
+// 			{
+// 				setstate(std::ios::failbit);
+// 				return FALSE;
+// 			}
+// 			return TRUE;
 // 		}
 
 		/*
@@ -109,25 +161,40 @@ namespace Earlgrey
 		template<class T>
 		inline BOOL Write(const T& value, std::tr1::false_type, std::tr1::true_type, size_type len)
 		{
-			return Serializer<T>::Write(*this, value, n);
+			if(Serializer<T>::Write(*this, value, n) == FALSE)
+			{
+				setstate(std::ios::failbit);
+				return FALSE;
+			}
+			return TRUE;
 		}
 */
 		// POD 아닌 형
 		template<class T>
 		inline BOOL Write(const T& value, std::tr1::false_type, std::tr1::false_type)
 		{
-			return Serialization::Write(*this, value);
+			if(good() == false) // badbit, failbit, eofbit
+				return FALSE;
+
+			if(Serialization::Write(*this, value) == FALSE)
+			{
+				setstate(std::ios::failbit);
+				return FALSE;
+			}
+			return TRUE;
 		}
 
 
 	private: // field
 		BufferT& m_buffer;
+		std::ios::iostate m_State;
 
 	};
 
 	template <typename BufferT>
 	BinaryWriter<BufferT>::BinaryWriter(BufferT& buffer)
 		: m_buffer(buffer)
+		, m_State(std::ios::goodbit)
 		// , m_bufferIndex(0)
 	{
 
@@ -146,11 +213,22 @@ namespace Earlgrey
 		// EARLGREY_ASSERT(len > 0);
 		EARLGREY_ASSERT( buf != NULL || len == 0 );
 
+		if(good() == false) // badbit, failbit, eofbit
+			return FALSE;
+
 		if(len == 0)
 			return TRUE;
 
 		// m_buffer.resize(m_buffer.size() + len);
-		m_buffer.append( (BufferT::pointer)buf, len);
+		try
+		{
+			m_buffer.append( (BufferT::pointer)buf, len);
+		}
+		catch(std::out_of_range&)
+		{
+			setstate(std::ios::badbit); // TODO: eofbit 도 넣어야 하나?
+			return FALSE;
+		}		
 
 		return TRUE;	
 	}

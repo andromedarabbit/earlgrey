@@ -235,8 +235,6 @@ namespace Earlgrey
 			}
 		}
 
-
-
 		TEST(BinaryWriterTest, WriteIntegers)
 		{
 			typedef basic_buffer<int> BUFFER_T;
@@ -252,16 +250,27 @@ namespace Earlgrey
 			ABCD[4] = 9;
 
 			ASSERT_TRUE(writer.Write(ABCD, _countof(ABCD)));
+		}
 
- 
-//  			BinaryReader<BUFFER_T> reader(buf);
-//  			int retValue[128];
-//  			ASSERT_TRUE(reader.Read(retValue, _countof(retValue), _countof(ABCD)));
-//  
-//  			for(int i=0; i<_countof(ABCD); i++)
-//  			{
-//  				ASSERT_EQ(ABCD[i], retValue[i]);
-//  			}
+		TEST(BinaryWriterTest, BufferIsFull)
+		{
+			typedef basic_buffer<int> BUFFER_T;
+
+			BUFFER_T buf(4);
+			BinaryWriter<BUFFER_T> writer(buf);
+
+			int ABCD[5];
+			ABCD[0] = 1;
+			ABCD[1] = 3;
+			ABCD[2] = 5;
+			ABCD[3] = 7;
+			ABCD[4] = 9;
+
+			ASSERT_FALSE(writer.Write(ABCD, _countof(ABCD)));
+			ASSERT_FALSE(writer.good());
+			ASSERT_FALSE(writer.eof());
+			ASSERT_TRUE(writer.bad());
+			ASSERT_TRUE(writer.fail());
 		}
 	}
 }

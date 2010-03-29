@@ -71,7 +71,16 @@ namespace Earlgrey
 			_txstring str = interval.ToString();
 
 			ASSERT_STREQ( TEXT("00:01:01.0010000"), str.c_str() );
+		}
 
+		TEST(TimeSpanTest, Yesterday)
+		{
+			TimeSpan src(-2, -12, -10, -33);
+
+			EXPECT_EQ(-2, src.Days());
+			EXPECT_EQ(-12, src.Hours());
+			EXPECT_EQ(-10, src.Minutes());
+			EXPECT_EQ(-33, src.Seconds());
 		}
 	}
 }
