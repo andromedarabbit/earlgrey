@@ -218,6 +218,25 @@ namespace Earlgrey
 				ASSERT_TRUE(expected2 == dst2);
 			}
 
+			TEST(StringHelperTest, FromStringToUnicode)
+			{
+				const std::string src1("가나 다라 마 바 사 ");
+				const std::wstring expected1(_T("가나 다라 마 바 사 "));
+
+				const WCHAR * dst1 = String::ToUnicode(src1);
+
+				ASSERT_TRUE(dst1 != NULL);
+				ASSERT_TRUE(expected1 == dst1);
+
+				const std::string src2("ASDJL MLKMQWLEIOJFAS");
+				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
+
+				const WCHAR * dst2 = String::ToUnicode(src2);
+
+				ASSERT_TRUE(dst2 != NULL);
+				ASSERT_TRUE(expected2 == dst2);
+			}
+
 			TEST(StringHelperTest, EmptyStringToUnicode)
 			{
 				const std::string src;
@@ -256,7 +275,7 @@ namespace Earlgrey
 				ASSERT_TRUE(expected2 == dst2);
 			}
 
-			TEST(StringHelperTest, FromStlString)
+			TEST(StringHelperTest, FromWStringToAnsi)
 			{
 				const std::wstring src1(_T("가나 다라 마 바 사 "));
 				const std::string expected1("가나 다라 마 바 사 ");
