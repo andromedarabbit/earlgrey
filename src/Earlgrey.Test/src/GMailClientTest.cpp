@@ -20,11 +20,11 @@ namespace Earlgrey
 				MailMessage::MailAddressPtr to1(new MailAddress(_T("earlgreyproject@googlegroups.com"), _T("얼그레이")));
 
 				Earlgrey::Mail::MailMessage msg(from, to1);
-				msg.Subject(_T("GMailClientTest::Send"));
-				msg.Body(_T("지메일로 이메일 보내기 테스트"));
+				msg.Subject(_T("단위테스트 GMailClientTest::Send"));
+				msg.Body(_T("지메일 전송 테스트"));
 
 				GMailClient client(_T("buildmaster@kaistizen.net"), _T("dkswjsgkwldksgdmsdkagh"));
-				client.Send(msg);
+				ASSERT_NO_THROW(client.Send(msg));				
 			}
 
 
@@ -78,7 +78,8 @@ namespace Earlgrey
 				msg.Attachments().push_back(attachment);
 
 				GMailClient client(_T("buildmaster@kaistizen.net"), _T("dkswjsgkwldksgdmsdkagh"));
-				client.Send(msg);
+
+				ASSERT_NO_THROW(client.Send(msg));
 			}
 		}
 	}
