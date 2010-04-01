@@ -184,7 +184,7 @@ namespace Earlgrey
 	private:
 		static BOOL s_Initialized;
 		// static BOOL s_UseOverlappedIO;
-		static Loki::Mutex s_InternalSyncObject;
+		static mutex_type s_InternalSyncObject;
 
 		SOCKET _Handle;
 	};

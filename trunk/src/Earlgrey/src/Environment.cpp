@@ -10,6 +10,73 @@
 
 namespace Earlgrey 
 { 
+
+	//BOOL Environment::s_Initialized = FALSE;
+	Socket::mutex_type Environment::s_InternalSyncObject;
+
+	Environment::OSName Environment::m_osname = OSNAME_INVALID;
+
+	Environment::OSName Environment::OSInfo()
+	{
+		if (m_osname != OSNAME_INVALID)
+			return m_osname;
+
+ 		scoped_lock_type scopeLock(s_InternalSyncObject);
+
+		if (m_osname != OSNAME_INVALID)
+			return m_osname;
+
+
+		OSVERSIONINFOEX osvi = {0, };
+		osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
+
+		BOOL bOsVersionInfoEx = GetVersionEx ((OSVERSIONINFO *) &osvi);
+		if( !bOsVersionInfoEx )
+			throw std::exception("");
+
+		switch(osvi.dwPlatformId)
+		{
+		/*
+		#define VER_PLATFORM_WIN32s             0
+		#define VER_PLATFORM_WIN32_WINDOWS      1
+		#define VER_PLATFORM_WIN32_NT           2
+		*/
+		case VER_PLATFORM_WIN32_WINDOWS:
+			switch(osvi.dwMajorVersion)
+			{
+			case 4:
+				if (osvi.dwMinorVersion == 0)
+				{
+					m_osname = OSNAME_WIN95;
+				}
+				else
+				{
+					m_osname = OSNAME_WIN98;
+				}
+				return m_osname;
+
+			case 5:
+				m_osname = OSNAME_WINME;
+				return m_osname;
+			}
+			m_osname = OSNAME_WIN9X;
+			return m_osname;
+
+		case VER_PLATFORM_WIN32_NT:
+			switch(osvi.dwMajorVersion)
+			{
+			case 4:
+				m_osname = OSNAME_NT4;
+				return m_osname;
+			}
+			m_osname = OSNAME_WINNT;
+			return m_osname;
+		}
+		m_osname = OSNAME_UNKNOWN;
+		return m_osname;
+	}
+
+
 	const TCHAR* const Environment::NewLine()
 	{
 		return TEXT("\r\n"); // 현재는 Windows만 지원하므로,
@@ -125,7 +192,7 @@ namespace Earlgrey
 
 		BOOL bOsVersionInfoEx = GetVersionEx ((OSVERSIONINFO *) &osvi);
 		if( !bOsVersionInfoEx )
-			return 1;
+			return FALSE; // TODO: 예외 던지는 게 나을까?
 
 		// Call GetNativeSystemInfo if supported or GetSystemInfo otherwise.
 
@@ -136,8 +203,7 @@ namespace Earlgrey
 			pGNSI(&si);
 		else GetSystemInfo(&si);
 
-		if ( VER_PLATFORM_WIN32_NT==osvi.dwPlatformId && 
-			osvi.dwMajorVersion > 4 )
+		if ( VER_PLATFORM_WIN32_NT==osvi.dwPlatformId && osvi.dwMajorVersion > 4 )
 		{
 			StringCchCopy(pszOS, BUFSIZE, TEXT("Microsoft "));
 
@@ -340,14 +406,13 @@ namespace Earlgrey
 
 	_txstring Environment::OSVersion()
 	{
-		TCHAR pszOS[BUFSIZE];
+		TCHAR pszOS[BUFSIZE]; // TODO: 임시 버퍼
 		if( !GetOSDisplayString( pszOS ) )
 		{
 			//! \todo 오류 처리
-
+			throw std::exception("");
 		}
-		_txstring osVersion(pszOS);
-		return osVersion;
+		return _txstring(pszOS);
 	}
 
 
@@ -542,5 +607,38 @@ namespace Earlgrey
 
 		::free(buffer);
 		return procCoreCount ;
+	}
+
+	BOOL Environment::UserInteractive()
+	{		
+		if ((OSInfo() & OSNAME_WINNT) != OSNAME_WINNT)
+			throw std::exception("");
+		
+		HWINSTA hStation = GetProcessWindowStation ( ) ;
+		if (hStation == NULL)
+		{
+			// TODO: GetLastError
+			throw std::exception("");
+		}
+		
+		USEROBJECTFLAGS stUOF;
+		DWORD dwNeeded ;
+		if(GetUserObjectInformation (hStation,	UOI_FLAGS, &stUOF, sizeof ( USEROBJECTFLAGS), &dwNeeded) == 0)
+		{
+			// TODO: GetLastError
+			throw std::exception("");
+		}
+
+		return (( WSF_VISIBLE & stUOF.dwFlags ) == WSF_VISIBLE);
+	}
+
+	DWORD Environment::TickCount()
+	{
+		return ::GetTickCount();
+	}
+
+	ULONGLONG Environment::TickCount64()
+	{
+		return ::GetTickCount64();
 	}
 }

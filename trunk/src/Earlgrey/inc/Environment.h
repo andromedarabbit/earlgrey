@@ -1,6 +1,9 @@
 #pragma once
 #include "Uncopyable.h"
 #include "txstring.h"
+#include "Lock.h"
+
+#include <Loki/Threads.h>
 
 namespace Earlgrey 
 {
@@ -8,6 +11,26 @@ namespace Earlgrey
 	{
 	private:
 		explicit Environment();
+
+		typedef Loki::Mutex mutex_type;
+		typedef ScopedLock<mutex_type> scoped_lock_type;
+
+		enum OSName
+		{
+			OSNAME_INVALID = 0,
+			OSNAME_NT4 = 0x81,
+			OSNAME_UNKNOWN = 1,
+			OSNAME_WIN2K = 130,
+			OSNAME_WIN95 = 0x41,
+			OSNAME_WIN98 = 0x42,
+			OSNAME_WIN9X = 0x40,
+			OSNAME_WINME = 0x43,
+			OSNAME_WINNT = 0x80
+		};
+
+		// static BOOL s_Initialized;
+		static mutex_type s_InternalSyncObject;
+		static OSName m_osname;
 
 	public:
 		static const TCHAR* const NewLine();
@@ -38,5 +61,14 @@ namespace Earlgrey
 
 		static WORD ProcessorCacheLineSize();
 		static DWORD ActiveProcessorCoresCount();
+
+		static BOOL UserInteractive();
+
+		static DWORD TickCount();
+		static ULONGLONG TickCount64();
+
+	private:
+		static OSName OSInfo();
+
 	};
 }

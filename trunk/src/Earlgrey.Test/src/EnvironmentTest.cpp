@@ -90,7 +90,6 @@ namespace Earlgrey
 			ASSERT_TRUE(name.length() > 0);
 		}
 
-
 		TEST(EnvironmentTest, UserDomainName)
 		{		
 			_txstring name = Environment::UserDomainName();
@@ -119,6 +118,21 @@ namespace Earlgrey
 		{		
 			const DWORD count = Environment::ActiveProcessorCoresCount();
 			ASSERT_GT(count, static_cast<DWORD>(1));
+		}
+
+		TEST(EnvironmentTest, UserInteractive)
+		{
+			ASSERT_TRUE( Environment::UserInteractive() );
+		}
+
+		TEST(EnvironmentTest, TickCount)
+		{
+			ASSERT_GT( Environment::TickCount(), static_cast<DWORD>(0)  );
+		}
+
+		TEST(EnvironmentTest, TickCount64)
+		{
+			ASSERT_GT( Environment::TickCount64(), static_cast<ULONGLONG>(0) );
 		}
 	}
 }
