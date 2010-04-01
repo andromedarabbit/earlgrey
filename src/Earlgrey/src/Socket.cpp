@@ -83,7 +83,7 @@ namespace Earlgrey
 	BOOL Socket::s_Initialized = FALSE;
 	// BOOL Socket::s_UseOverlappedIO = FALSE;
 
-	Loki::Mutex Socket::s_InternalSyncObject;
+	Socket::mutex_type Socket::s_InternalSyncObject;
 
 	void Socket::InitializeSockets()
 	{

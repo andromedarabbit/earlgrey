@@ -2,19 +2,20 @@
 #include "Uncopyable.h"
 #include "txstring.h"
 
-#include <Loki/Singleton.h>
-#include <Loki/Threads.h> // for Loki::SingleThreaded
-#include "NoLock.h"
+// #include <Loki/Singleton.h>
+// #include <Loki/Threads.h> // for Loki::SingleThreaded
+// #include "NoLock.h"
 
-#include "taskqueue.h"
+// #include "taskqueue.h"
 
 namespace Earlgrey
 {
 	class Log 
-		: public Algorithm::Lockfree::TaskQueue
+		: private Uncopyable
+		// : public Algorithm::Lockfree::TaskQueue
 	{
 	private:
-		friend struct Loki::CreateStatic<Log>;
+		// friend struct Loki::CreateStatic<Log>;
 		explicit Log();
 
 	public: // instance methods
@@ -27,7 +28,7 @@ namespace Earlgrey
 		static _txstring ErrorMessage(DWORD errorCode);
 	};
 
-	typedef 
-		Loki::SingletonHolder<Log, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
-		LogSingleton;
+// 	typedef 
+// 		Loki::SingletonHolder<Log, Loki::CreateStatic, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
+// 		LogSingleton;
 }
