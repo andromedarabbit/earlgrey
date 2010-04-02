@@ -103,5 +103,74 @@ namespace Earlgrey
 
 	};
 
+
+	//! 사용법이 간단한 스레드
+	/*!
+		스레드 아이디를 확인하지 않고 가볍게 사용할 수 있는 스레드이다.
+	*/
+	class SimpleThread : private Uncopyable
+	{
+	public:
+		enum {
+			Running = 0,
+			Suspended = CREATE_SUSPENDED
+		};
+
+		SimpleThread() : m_stop(0)
+		{
+		}
+
+		~SimpleThread()
+		{
+		}
+
+		static unsigned int __stdcall _ThreadProc(LPVOID p)
+		{
+			SimpleThread* This = reinterpret_cast<SimpleThread*>( p );
+			return This->Run();
+		}
+
+		inline bool IsCreated() const 
+		{ 
+			return m_handle != NULL; 
+		}
+
+		inline Earlgrey::ThreadIdType ThreadId() const 
+		{ 
+			EARLGREY_ASSERT( m_threadID != Earlgrey::INVALID_THREAD_ID );
+			return m_threadID; 
+		}
+
+	public:
+		BOOL Create(DWORD stackSize = 0);
+
+	public:	
+
+		void Join() 
+		{
+			EARLGREY_ASSERT(m_handle != NULL);
+
+			WaitForSingleObject(m_handle, INFINITE);
+		}
+
+		void Stop()
+		{
+			InterlockedExchange( &m_stop, 1L );
+		}
+
+	protected:
+		virtual DWORD Run() = 0;
+
+		bool IsRunning()
+		{
+			return m_stop == 0;
+		}
+
+	private:
+		HANDLE			m_handle;
+		ThreadIdType	m_threadID;
+		volatile LONG	m_stop;
+	};
+
 	
 }

@@ -235,4 +235,20 @@ namespace Earlgrey
 		Runnable_->Stop();
 	}
 	
+
+	BOOL SimpleThread::Create( DWORD stackSize /*= 0*/ )
+	{
+		// 오류 종류에 따라 -1이나 0을 반환한다.
+		uintptr_t threadHandle = _beginthreadex( NULL, stackSize, SimpleThread::_ThreadProc, this, Running, &m_threadID );		
+		EARLGREY_ASSERT(threadHandle != -1 && threadHandle != 0);
+
+		if(threadHandle == 0) // in which case errno and _doserrno are set
+		{
+			return FALSE;
+		}
+
+		m_handle = reinterpret_cast<HANDLE>( threadHandle );
+
+		return TRUE;
+	}
 }

@@ -1,9 +1,11 @@
 #pragma once
 #define NOMINMAX
 #include <Windows.h>
-
+#include <vector>
+#include <functional>
 #include "EarlgreyAssert.h"
 #include "Uncopyable.h"
+
 
 namespace Earlgrey { namespace Algorithm { 
 
@@ -174,6 +176,62 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		PointerType		next;
 		T				value;
 		
+	};
+
+	//! Cell 의 포인터를 관리한다. 
+	/*!
+		lockfree 알고리즘에서 cell 객체를 delete할 때 문제가 발생하는데, 그 이유는 다른 스레드에서
+		삭제된 객체를 참조할 수 있기 때문이다. PointerPool 클래스는 cell 객체를 delete 하지 않고 pool에 저장한다.
+		그리고 pool 에 있는 객체를 재사용한다.
+		주의-1 : 이 클래스는 객체의 생성자와 파괴자를 호출하지 않기 때문에 주의해야 한다.
+		주의! 이 클래스는 TLS 메모리로 관리돼야 한다.
+	*/
+	template<typename T, class Allocator = std::allocator<T>>
+	class PointerPool
+	{
+		typedef Cell<T>		CellType;
+		typedef CellType*	CellPointer;
+		typedef typename Allocator::rebind<CellType>::other AllocType;
+
+		typedef std::vector<CellPointer, typename Allocator::rebind<CellPointer>::other> HazardPointerListType;
+	public:
+		~PointerPool()
+		{
+			HazardPointerListType::const_iterator iter = _cellList.begin();
+			for (; iter != _cellList.end(); iter++)
+			{
+				_allocator.deallocate( *iter, 0 );
+			}
+		}
+
+		//! cell pointer를 할당한다. 이미 풀에 있다면 풀에서 가져온다.
+		CellPointer Allocate()
+		{
+			if (_cellList.empty())
+			{
+				CellPointer pointer = new(_allocator.allocate(1)) CellType();
+				return pointer;
+			}
+
+			CellPointer pointer = _cellList.back();
+			_cellList.pop_back();
+
+			// initialize the object
+			pointer->next.p( NULL );
+			pointer->value = T();
+
+			return pointer;
+		}
+
+		//! cell 을 풀에 저장한다.
+		void Release(CellPointer pointer)
+		{
+			_cellList.push_back( pointer );
+		}
+
+	private:
+		HazardPointerListType _cellList;	//!< 포인터 리스트를 저장한다.
+		AllocType _allocator;				//!< 할당자 std::vector 에서도 사용하는 타입이다.
 	};
 
 }}}
