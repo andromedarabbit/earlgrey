@@ -637,8 +637,10 @@ namespace Earlgrey
 		return ::GetTickCount();
 	}
 
+#if (_WIN32_WINNT >= 0x0600)
 	ULONGLONG Environment::TickCount64()
 	{
 		return ::GetTickCount64();
 	}
+#endif
 }

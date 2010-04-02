@@ -130,9 +130,11 @@ namespace Earlgrey
 			ASSERT_GT( Environment::TickCount(), static_cast<DWORD>(0)  );
 		}
 
+#if _WIN32_WINNT >= 0x0600
 		TEST(EnvironmentTest, TickCount64)
 		{
 			ASSERT_GT( Environment::TickCount64(), static_cast<ULONGLONG>(0) );
 		}
+#endif
 	}
 }

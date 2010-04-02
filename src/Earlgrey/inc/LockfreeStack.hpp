@@ -3,15 +3,27 @@
 
 namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 
-	template<typename T>
+	template<typename T, class Allocator = std::allocator<T>>
 	class Stack : private Uncopyable
 	{
-	public:
-		typedef struct Cell<T> CellType;
-		typedef union Pointer<CellType> PointerType;
+	private:
+		typedef struct Cell<T>				CellType;
+		typedef union Pointer<CellType>		PointerType;
+		typedef PointerPool<T, Allocator>	PointerPoolType;
 
 	private:
 		PointerType _head;
+
+		static std::tr1::shared_ptr<PointerPoolType> GetHazardPointerPool()
+		{
+			static ThreadLocalValue<std::tr1::shared_ptr<PointerPoolType>> tlshazardPointerPool;
+			if (!tlshazardPointerPool.IsAllocated())
+			{
+				tlshazardPointerPool = std::tr1::shared_ptr<PointerPoolType>(new PointerPoolType());
+			}
+			return tlshazardPointerPool.Get();
+		}
+		
 
 	public:
 		Stack()
@@ -26,7 +38,8 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		//! normal push operation of stack
 		void Push(T value)
 		{
-			CellType* cell = new CellType( NULL, value );
+			CellType* cell = GetHazardPointerPool()->Allocate();
+			cell->value = value;
 			PointerType head, newItem;
 			newItem.p( cell );
 
@@ -54,7 +67,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 				if (CAS64( (volatile LONGLONG*)&_head.val64, head.val64, next.val64 ))
 				{
 					value = head.p()->value;
-					delete head.p();
+					GetHazardPointerPool()->Release( head.p() );
 					return true;
 				}
 				head = _head;

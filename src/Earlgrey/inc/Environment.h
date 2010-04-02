@@ -65,8 +65,10 @@ namespace Earlgrey
 		static BOOL UserInteractive();
 
 		static DWORD TickCount();
-		static ULONGLONG TickCount64();
 
+#if (_WIN32_WINNT >= 0x0600)
+		static ULONGLONG TickCount64();
+#endif
 	private:
 		static OSName OSInfo();
 

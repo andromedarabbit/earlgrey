@@ -50,6 +50,8 @@ namespace Earlgrey
 
 		T *Get(void)
 		{
+			EARLGREY_ASSERT(TLS_OUT_OF_INDEXES != _threadLocalIndex);
+
 			if (TLS_OUT_OF_INDEXES == _threadLocalIndex)
 			{
 				// 초기화가 안됐으므로 프로그램을 종료하는 것이 좋다.
@@ -125,6 +127,11 @@ namespace Earlgrey
 		bool operator !()
 		{
 			return Get() == NULL;
+		}
+
+		bool IsAllocated() 
+		{
+			return _tls.Get() != NULL;
 		}
 
 	private:
