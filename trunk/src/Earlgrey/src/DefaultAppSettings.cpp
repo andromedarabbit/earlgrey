@@ -123,6 +123,7 @@ namespace Earlgrey
 	{
 		return m_UnhandledExceptions;
 	}
+
 	/*
 	AppSettings::UnhandledExceptionCollection& DefaultAppSettings::UnhandledExceptions()
 	{
@@ -134,6 +135,20 @@ namespace Earlgrey
 		return m_UnhandledExceptions;
 	}
 	*/
-	
 
+// 	ThreadIdType DefaultAppSettings::LoggingThreadId() const
+// 	{
+// 		return WIN_MAIN_THREAD_ID;
+// 	}
+	
+	BOOL DefaultAppSettings::IsThisLoggingThread() const
+	{
+		return Thread::CurrentThread()->ThreadId() == WIN_MAIN_THREAD_ID;
+	}
+
+	TimeSpan DefaultAppSettings::LoggingFlushInterval() const
+	{
+		static TimeSpan interval(TimeSpan::FromSeconds(1));
+		return interval;
+	}
 }

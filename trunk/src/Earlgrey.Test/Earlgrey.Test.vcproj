@@ -371,27 +371,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\EarlgreyAssertTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\EarlgreyMathTest.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\EnvironmentTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\EventLogTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ExceptionEmailerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\FileVersionInfoTest.cpp"
 				>
 			</File>
 			<File
@@ -415,15 +399,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\LogTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\MacrosTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\MiniDumpTest.cpp"
 				>
 			</File>
 			<File
@@ -455,10 +431,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\src\StaticAssertTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\StringHelperTest.cpp"
 				>
 			</File>
@@ -468,14 +440,6 @@
 			</File>
 			<File
 				RelativePath=".\src\TimeSpanTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\VectorTest.cpp"
 				>
 			</File>
 			<Filter
@@ -619,6 +583,62 @@
 				</File>
 				<File
 					RelativePath=".\src\TimerTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Diagnostics"
+				>
+				<File
+					RelativePath=".\src\EarlgreyAssertTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\FileVersionInfoTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StaticAssertTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\UserDefinedCompilerMessageTest.cpp"
+					>
+				</File>
+				<Filter
+					Name="UnhandledExceptionHandler"
+					>
+					<File
+						RelativePath=".\src\ExceptionEmailerTest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\MiniDumpTest.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Log"
+					>
+					<File
+						RelativePath=".\src\EventLogTest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\LoggerTest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\LogTest.cpp"
+						>
+					</File>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="StlCustom"
+				>
+				<File
+					RelativePath=".\src\VectorTest.cpp"
 					>
 				</File>
 			</Filter>

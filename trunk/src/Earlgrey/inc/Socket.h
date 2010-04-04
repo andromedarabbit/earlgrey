@@ -4,6 +4,7 @@
 #include "IPEndPoint.h"
 #include "RAII.h"
 #include "numeric_cast.hpp"
+#include "txsstream.h"
 
 #include <Loki/Threads.h>
 
@@ -17,6 +18,9 @@
 
 // #pragma comment(lib, "Ws2_32.lib")
 
+#ifdef EARLGREY_UNIT_TEST
+#include <gtest/gtest_prod.h> // 단위 테스트
+#endif 
 
 namespace Earlgrey
 {
@@ -28,33 +32,16 @@ namespace Earlgrey
 
 		explicit Socket() 
 			: _Handle(INVALID_SOCKET)
+			, m_IsListening(false)
 		{
 			Socket::InitializeSockets();
 		}
 
 		explicit Socket(SOCKET handle)
 			: _Handle(handle)
+			, m_IsListening(false)
 		{
-
-		}
-
-		bool CreateTcpSocket()
-		{
-			_Handle = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-			if(_Handle != INVALID_SOCKET)
-				return true;
-
-			// TODO: 임시코드
-			const DWORD errCode = WSAGetLastError();
-			const _txstring msg = Log::ErrorMessage(errCode);
-			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
-			return false;
-		}
-
-		bool CreateAsyncTcpSocket()
-		{
-			_Handle = WSASocket( AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED );
-			return _Handle != INVALID_SOCKET;
+			Socket::InitializeSockets();
 		}
 
 		void Close()
@@ -83,47 +70,38 @@ namespace Earlgrey
 
 		}
 
-		bool Bind(const IPEndPoint& localEP)
+		// TODO: 뭔가 잘못 구현한 듯... 설계가...
+		bool Bind(const IPEndPoint& localEP);
+	
+
+		void BeginConnect(const IPEndPoint& remoteEP)
 		{
-			EARLGREY_ASSERT(IsValid() == false);
+			DBG_UNREFERENCED_PARAMETER(remoteEP);
+			if(m_IsListening)
+				throw std::exception("net_sockets_mustnotlisten");
 
-			ADDRINFOT aiHints = { 0 };
-			aiHints.ai_family = AF_UNSPEC;
-			aiHints.ai_socktype = SOCK_STREAM;
-			aiHints.ai_protocol = IPPROTO_TCP;
-			aiHints.ai_flags = AI_PASSIVE;
 
-			ADDRINFOT * aiList = NULL;
-			handle_t regKeyHandle(aiList, &FreeAddrInfo);
+			if(CreateAsyncTcpSocket() == false)
+				throw std::exception("");
 
-			Socket::InitializeSockets(); // GetAddrInfo 호출 전에...
-			const int retVal = ::GetAddrInfo(localEP.Address().ToString().c_str(), NULL, &aiHints, &aiList);		
-			if (retVal != 0) {
-				return false;
-			}
+			if(SetNonBlockingSocket() == false)
+				throw std::exception("");
 
-			ADDRINFOT * current = aiList;
-			do
-			{
-				SOCKET handle = socket(current->ai_family, current->ai_socktype, current->ai_protocol);
-				if(handle == INVALID_SOCKET)
-					continue;
-
-				if(bind(handle, current->ai_addr, EARLGREY_NUMERIC_CAST<int>(current->ai_addrlen)) == SOCKET_ERROR)
-					continue;
-
-				EARLGREY_ASSERT(IsValid());
-				_Handle = handle;
-
-				return true;
-			} while ( NULL != (current = current->ai_next) );
-
-			return false;
+			if(
+				::ConnectEx
+				)
 		}
+
+
 
 		bool Listen(int MaxConnections = SOMAXCONN)
 		{
-			return listen(_Handle, MaxConnections) != SOCKET_ERROR;
+			if( listen(_Handle, MaxConnections) != SOCKET_ERROR )
+			{
+				m_IsListening = true;
+				return true;
+			}
+			return false;
 		}
 
 		bool SetReceiveBufferSize(INT Size) const
@@ -180,6 +158,17 @@ namespace Earlgrey
 		static void InitializeSockets();
 		static void UninitializeSockets();
 
+	private:
+		friend class Connector;
+
+#ifdef EARLGREY_UNIT_TEST
+		FRIEND_TEST(SocketTest, CreateTcpSocket);
+		FRIEND_TEST(SocketTest, Bind);
+#endif 
+
+		bool CreateTcpSocket();
+		bool CreateAsyncTcpSocket();
+
 
 	private:
 		static BOOL s_Initialized;
@@ -187,6 +176,7 @@ namespace Earlgrey
 		static mutex_type s_InternalSyncObject;
 
 		SOCKET _Handle;
+		bool m_IsListening;
 	};
 
 	

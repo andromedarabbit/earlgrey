@@ -6,14 +6,14 @@ namespace Earlgrey
 	class IPEndPoint : private Uncopyable
 	{
 	public:
-		explicit IPEndPoint(INT64 address, int port)
+		explicit IPEndPoint(INT64 address, USHORT port)
 			: m_IpAddress(address)
 			, m_Port(port)
 		{
 			EARLGREY_ASSERT(port <= MinPort() && port >= MaxPort());
 		}
 
-		explicit IPEndPoint(const IPAddress2& address, int port)
+		explicit IPEndPoint(const IPAddress2& address, USHORT port)
 			: m_IpAddress(address)
 			, m_Port(port)
 		{
@@ -30,12 +30,12 @@ namespace Earlgrey
 			return m_IpAddress;
 		}
 
-		inline void Port(int port)
+		inline void Port(USHORT port)
 		{
 			m_Port = port;
 		}
 
-		inline int Port() const
+		inline USHORT Port() const
 		{
 			return m_Port;
 		}
@@ -53,6 +53,6 @@ namespace Earlgrey
 
 	private:
 		IPAddress2 m_IpAddress;
-		int m_Port;
+		USHORT m_Port;
 	};
 }

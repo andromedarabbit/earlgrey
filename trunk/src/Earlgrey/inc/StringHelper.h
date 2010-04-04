@@ -261,7 +261,7 @@ namespace String {
 	template<class _Ax>
 	inline const CHAR * FromUnicode(
 		const std::basic_string<char, std::char_traits<char>, _Ax>& src
-		, UINT codePage = CP_THREAD_ACP
+		, UINT /* codePage = CP_THREAD_ACP */
 		)
 	{
 		return src.c_str();

@@ -8,6 +8,10 @@
 namespace Earlgrey {
 
 	Listener::Listener(void)
+		: _Socket(INVALID_SOCKET)
+		, _AcceptEvent(NULL)
+		, _ExclusiveAddressUse(false)
+		, m_Active(false)
 	{
 	}
 
@@ -16,32 +20,43 @@ namespace Earlgrey {
 		_Socket.Close();
 	}
 
-	BOOL Listener::Listen( USHORT Port, bool ReuseAddress )
+	void Listener::ExclusiveAddressUse(bool exclusiveAddressUse)
+	{
+		if(m_Active)
+		{
+			//  throw new InvalidOperationException(SR.GetString("net_tcplistener_mustbestopped"));
+			throw new std::exception("");
+		}
+		_ExclusiveAddressUse = exclusiveAddressUse;
+	}
+
+	BOOL Listener::Listen( const IPEndPoint& localEP ) // USHORT Port )
 	{
 		if (_Socket.IsValid())
 		{
 			return FALSE;
 		}
 
-		if (!_Socket.CreateTcpSocket())
-		{
-			return FALSE;
-		}
+// 		if (!_Socket.CreateTcpSocket())
+// 		{
+// 			return FALSE;
+// 		}
 
-		if (ReuseAddress)
-		{
-			_Socket.SetReuseAddress();
-		}
-		else
-		{
-			_Socket.SetExclusiveAddressUse();
-		}
-
-		if (!_Socket.Bind( Port ))
+		// if (!_Socket.Bind( localEP.Port() ))
+		if (!_Socket.Bind(localEP) )
 		{
 			_Socket.Close();
 			return FALSE;
 		}
+
+// 		if (_ExclusiveAddressUse)
+// 		{
+// 			_Socket.SetExclusiveAddressUse();
+// 		}
+// 		else
+// 		{
+// 			_Socket.SetReuseAddress();
+// 		}
 
 		if (!_Socket.Listen())
 		{
@@ -49,7 +64,7 @@ namespace Earlgrey {
 			return FALSE;
 		}
 
-		if( 0 != Port )
+		if( 0 != localEP.Port() )
 		{
 			// Accept 이벤트를 등록한다.
 			_AcceptEvent = WSACreateEvent();
@@ -57,6 +72,7 @@ namespace Earlgrey {
 			WaitEventContainerSingleton::Instance().Add( _AcceptEvent, this );
 		}
 
+		m_Active = true;
 		return TRUE;
 	}
 
