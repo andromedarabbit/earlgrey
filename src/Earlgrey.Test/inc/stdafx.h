@@ -27,8 +27,8 @@
 
 #pragma warning( pop )
 
-#include <map>
-#include <vector>
+
+#define EARLGREY_UNIT_TEST
 #include "Uncopyable.h"
 #include "txstring.h"
 #include "Earlgrey.h"

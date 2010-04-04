@@ -110,4 +110,73 @@ namespace Earlgrey
 			return;
 		}
 	}
+
+
+
+
+	bool Socket::CreateTcpSocket()
+	{
+		// InitializeSockets();
+
+		_Handle = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		if(_Handle != INVALID_SOCKET)
+			return true;
+
+		// TODO: 임시코드
+		const DWORD errCode = WSAGetLastError();
+		const _txstring msg = Log::ErrorMessage(errCode);
+		DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
+		return false;
+	}
+
+	bool Socket::CreateAsyncTcpSocket()
+	{
+		_Handle = WSASocket( AF_INET, SOCK_STREAM, 0, NULL, 0, WSA_FLAG_OVERLAPPED );
+		return _Handle != INVALID_SOCKET;
+	}
+
+	bool Socket::Bind(const IPEndPoint& localEP)
+	{
+		EARLGREY_ASSERT(IsValid() == false);
+
+		ADDRINFOT aiHints = { 0 };
+		aiHints.ai_family = AF_UNSPEC;
+		aiHints.ai_socktype = SOCK_STREAM;
+		aiHints.ai_protocol = IPPROTO_TCP;
+		aiHints.ai_flags = AI_PASSIVE;
+
+		ADDRINFOT * aiList = NULL;
+		handle_t regKeyHandle(aiList, &FreeAddrInfo);
+
+		Socket::InitializeSockets(); // GetAddrInfo 호출 전에...
+
+		// TODO: 임시
+		_txstringstream ss;
+		ss << localEP.Port();
+
+
+		const int retVal = ::GetAddrInfo(localEP.Address().ToString().c_str(), ss.str().c_str(), &aiHints, &aiList);		
+		if (retVal != 0) {
+			return false;
+		}
+
+		ADDRINFOT * current = aiList;
+		do
+		{
+			SOCKET handle = socket(current->ai_family, current->ai_socktype, current->ai_protocol);
+			if(handle == INVALID_SOCKET)
+				continue;
+
+			if(bind(handle, current->ai_addr, EARLGREY_NUMERIC_CAST<int>(current->ai_addrlen)) == SOCKET_ERROR)
+				continue;
+
+			_Handle = handle;
+			EARLGREY_ASSERT(IsValid());
+
+			return true;
+		} while ( NULL != (current = current->ai_next) );
+
+		return false;
+	}
+
 }

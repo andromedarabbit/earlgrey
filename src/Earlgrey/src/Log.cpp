@@ -2,31 +2,6 @@
 #include "Log.h"
 #include "EarlgreyAssert.h"
 
-// #include "RAII.h"
-/*
-namespace 
-{
-	//! \note 임시 조치
-	template<typename BufferType>
-	class AutoLocalMemory
-	{
-	private:
-		BufferType m_Buffer;
-		
-	public:
-		explicit AutoLocalMemory(BufferType buffer)
-			: m_Buffer(buffer)
-		{
-		}
-
-		~AutoLocalMemory()
-		{
-			LocalFree( m_Buffer );
-		}
-	};
-}
-*/
-
 using namespace std::tr1;
 
 namespace Earlgrey

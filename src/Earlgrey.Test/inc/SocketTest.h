@@ -3,8 +3,8 @@
 
 namespace Earlgrey
 {
-	namespace Test
-	{
+// 	namespace Test
+// 	{
 		class SocketTest : public ::testing::Test {
 		protected:
 			// Per-test-case set-up.
@@ -29,5 +29,5 @@ namespace Earlgrey
 
 			// Some expensive resource shared by all tests.
 		};
-	}
+//	}
 }

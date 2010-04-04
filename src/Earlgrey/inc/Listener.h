@@ -32,7 +32,16 @@ namespace Earlgrey {
 		explicit Listener(void);
 		virtual ~Listener(void);
 
-		BOOL Listen(USHORT Port, bool ReuseAddress);
+		// BOOL Listen(USHORT Port);
+		BOOL Listen(const IPEndPoint& localEP);
+
+		inline
+			bool ExclusiveAddressUse() const 
+		{
+			return _ExclusiveAddressUse ;
+		}
+
+		void ExclusiveAddressUse(bool exclusiveAddressUse);
 
 	protected:
 		virtual void DoTask();
@@ -40,6 +49,8 @@ namespace Earlgrey {
 	private:
 		Socket _Socket;
 		HANDLE _AcceptEvent;
+		bool m_Active;
+		bool _ExclusiveAddressUse;
 	};
 
 	class Server : public Listener

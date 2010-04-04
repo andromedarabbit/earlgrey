@@ -12,10 +12,14 @@ namespace Earlgrey
 
 		TEST_F(ListenerTest, Listen)
 		{
-			const USHORT port = 9879; // 설마 선점한 녀석은 없겠지?
+			// const USHORT port = 9879; // 설마 선점한 녀석은 없겠지?
+			// explicit IPEndPoint(const IPAddress2& address, USHORT port)
+			IPAddress2 localAddress(IPAddress2::Any());
+			IPEndPoint localEP(localAddress, 9879);
 			
 			Listener listener;
-			ASSERT_TRUE(listener.Listen(port, true));
+			listener.ExclusiveAddressUse(false);
+			ASSERT_TRUE(listener.Listen(localEP));
 		}
 	}
 }

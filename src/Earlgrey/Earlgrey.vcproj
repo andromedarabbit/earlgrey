@@ -453,6 +453,10 @@
 						RelativePath=".\src\Log.cpp"
 						>
 					</File>
+					<File
+						RelativePath=".\src\Logger.cpp"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -853,6 +857,10 @@
 					</File>
 					<File
 						RelativePath=".\inc\Log.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\Logger.h"
 						>
 					</File>
 				</Filter>

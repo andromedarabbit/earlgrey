@@ -95,7 +95,11 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	DBG_UNREFERENCED_PARAMETER(argv);
 
 	// TODO: 포트 번호 등은 ini 파일로 옮기는 게 낫지 않을까?
-	if(m_server.Listen( 9999, true ) == FALSE)
+	const IPAddress2 localAddress(IPAddress2::Any());
+	const IPEndPoint localEP(localAddress, 9879);
+
+	m_server.ExclusiveAddressUse(false);
+	if(m_server.Listen( localEP ) == FALSE)
 	{
 		throw std::exception("");
 	}
