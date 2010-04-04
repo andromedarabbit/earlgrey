@@ -17,8 +17,10 @@ namespace Earlgrey
 			, StatePtr state
 			, TimeSpan dueTime
 			, TimeSpan period
+			// , ThreadIdType tid = INVALID_THREAD_ID
 			, ThreadIdType tid = Thread::CurrentThread()->ThreadId()
 			);
+		// explicit Timer(TimerCallback callback, ThreadIdType tid = INVALID_THREAD_ID);
 		explicit Timer(TimerCallback callback, ThreadIdType tid);
 
 		void Change(TimeSpan dueTime, TimeSpan period);

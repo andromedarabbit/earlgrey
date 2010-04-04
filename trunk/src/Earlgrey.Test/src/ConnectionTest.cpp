@@ -14,9 +14,6 @@ namespace Earlgrey
 
 		TEST_F(ConnectionTest, Listen)
 		{
-// 			Socket socket;
-// 			ASSERT_TRUE(socket.CreateTcpSocket());
-
 			const LPCSTR server = ("kaistizen.net");
 			const INT port = 80;
 
