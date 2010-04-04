@@ -22,6 +22,9 @@ namespace Earlgrey
 
 		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const;
 	
+		// virtual ThreadIdType LoggingThreadId() const;
+		virtual BOOL IsThisLoggingThread() const;
+		virtual TimeSpan LoggingFlushInterval() const;
 
 	private:
 		_tstring m_executableName;

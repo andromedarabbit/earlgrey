@@ -1,10 +1,15 @@
 #pragma once
 #include "Uncopyable.h"
-#include <list>
 #include "UnhandledExceptionHandler.h"
+#include "ThreadId.h"
+// #include "TimeSpan.h"
+
+#include <list>
 
 namespace Earlgrey
 {
+	class TimeSpan;
+
 	class AppSettings : private Uncopyable
 	{
 	public:
@@ -15,15 +20,19 @@ namespace Earlgrey
 		explicit AppSettings() {}
 		virtual ~AppSettings() {}
 
-		virtual BOOL AllowOnlyOneInstance() const = 0;
-		virtual DWORD NumberOfIOThreads() const = 0;
-		virtual DWORD NumberOfConcurrentIOThreads() const = 0;
-		virtual const TCHAR * const ShortName() const = 0;
-		virtual const TCHAR * const LongName() const = 0;
-		virtual const TCHAR * const Description() const = 0;
-		virtual const TCHAR * const Version() const = 0;
+		virtual BOOL AllowOnlyOneInstance() const = NULL;
+		virtual DWORD NumberOfIOThreads() const = NULL;
+		virtual DWORD NumberOfConcurrentIOThreads() const = NULL;
+		virtual const TCHAR * const ShortName() const = NULL;
+		virtual const TCHAR * const LongName() const = NULL;
+		virtual const TCHAR * const Description() const = NULL;
+		virtual const TCHAR * const Version() const = NULL;
 		
-		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const = 0;
+		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const = NULL;
+
+		// virtual ThreadIdType LoggingThreadId() const = NULL;
+		virtual BOOL IsThisLoggingThread() const = NULL;
+		virtual TimeSpan LoggingFlushInterval() const = NULL;
 	};
 
 }
