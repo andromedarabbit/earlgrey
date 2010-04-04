@@ -1,14 +1,18 @@
 #include "stdafx.h"
 #include "ADOParameter.h"
 
-// #include "DatabaseTestAppSettings.h"
-
+#include "ADOEnvironmentTest.h"
 
 namespace Earlgrey {
 namespace ADO {
 namespace Test {
 
-	TEST(ADOParameterTest, Value)
+	class ADOParameterTest : public ADOEnvironmentTest
+	{
+	};
+
+
+	TEST_F(ADOParameterTest, Value)
 	{
 		const int integerValue = 1;
 
@@ -18,7 +22,7 @@ namespace Test {
 		ASSERT_EQ(integerValue, parameter.Value<int>());
 	}
 
-	TEST(ADOParameterTest, ParameterName)
+	TEST_F(ADOParameterTest, ParameterName)
 	{
 		const _txstring parameterName = _T("ParameterName1");
 
@@ -29,7 +33,7 @@ namespace Test {
 	}
 
 	// TODO: x64로 돌릴 때 RTC 오류가 난다..... ADO 고유의 문제 같지만...
-	TEST(ADOParameterTest, Size)
+	TEST_F(ADOParameterTest, Size)
 	{
 		const long size = 21;
 
@@ -43,7 +47,7 @@ namespace Test {
 #endif
 	}
 
-	TEST(ADOParameterTest, Direction)
+	TEST_F(ADOParameterTest, Direction)
 	{
 		const ParameterDirection direction = InputOutput;
 		Parameter parameter;
@@ -52,7 +56,7 @@ namespace Test {
 		ASSERT_EQ(direction, parameter.Direction());
 	}
 
-	TEST(ADOParameterTest, Precision)
+	TEST_F(ADOParameterTest, Precision)
 	{
 		const BYTE precision = 1;
 
@@ -62,7 +66,7 @@ namespace Test {
 		ASSERT_EQ(precision, parameter.Precision());
 	}
 
-	TEST(ADOParameterTest, Scale)
+	TEST_F(ADOParameterTest, Scale)
 	{
 		const BYTE scale = 12;
 

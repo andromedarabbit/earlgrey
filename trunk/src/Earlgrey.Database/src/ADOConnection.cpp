@@ -4,6 +4,7 @@
 #include "ADOCommand.h"
 #include "ADOTransaction.h"
 #include "ADOLog.h"
+#include "ADOEnvironment.h"
 #include "EarlgreyAssert.h"
 #include "numeric_cast.hpp"
 
@@ -19,6 +20,7 @@ namespace ADO {
 
 	BOOL Connection::Open(const TCHAR* const connectionString, TimeSpan connectionTimeout)
 	{
+		Environment::InitializeADO();
 		try
 		{
 			if(m_Connection == NULL)
@@ -130,6 +132,8 @@ namespace ADO {
 			new Transaction(*this)
 			);
 	}
+
+
 
 }
 }

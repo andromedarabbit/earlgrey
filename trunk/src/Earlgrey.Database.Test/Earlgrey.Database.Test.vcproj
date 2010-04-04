@@ -409,6 +409,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ADOEnvironmentTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ADOParameterTest.cpp"
 					>
 				</File>
@@ -416,15 +420,15 @@
 					RelativePath=".\src\ADOTransactionTest.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\ADOVersionTest.cpp"
-					>
-				</File>
 				<Filter
 					Name="Temp"
 					>
 					<File
 						RelativePath=".\src\ADOTimeSpanTest.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\ORMTest.cpp"
 						>
 					</File>
 				</Filter>
@@ -466,6 +470,22 @@
 					RelativePath=".\inc\DatabaseTestAppSettings.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="ADO"
+				>
+				<File
+					RelativePath=".\inc\ADOEnvironmentTest.h"
+					>
+				</File>
+				<Filter
+					Name="Test"
+					>
+					<File
+						RelativePath=".\inc\ORMTest.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter

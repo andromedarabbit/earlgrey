@@ -1,22 +1,28 @@
 #include "stdafx.h"
 #include "ADOConnection.h"
 
+#include "ADOEnvironmentTest.h"
 #include "DatabaseTestAppSettings.h"
 
 // юс╫ц
 #include "ADOLog.h"
 
+
 namespace Earlgrey {
 namespace ADO {
 namespace Test {
 
-	TEST(ADOConnectionTest, NotConnected)
+	class ADOConnectionTest : public ADOEnvironmentTest
+	{
+	};
+
+	TEST_F(ADOConnectionTest, NotConnected)
 	{
 		Connection connection;
 		ASSERT_FALSE(connection.IsConnected());
 	}
 
-	TEST(ADOConnectionTest, ConnectionFail)
+	TEST_F(ADOConnectionTest, ConnectionFail)
 	{
 		const _txstring invalidConnectionString;
 
@@ -25,7 +31,7 @@ namespace Test {
 		ASSERT_FALSE(connection.IsConnected());
 	}
 
-	TEST(ADOConnectionTest, OpenLocalMySQLUsingODBC)
+	TEST_F(ADOConnectionTest, OpenLocalMySQLUsingODBC)
 	{
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 		
@@ -36,7 +42,7 @@ namespace Test {
 		ASSERT_FALSE(connection.IsConnected());
 	}
 
-	TEST(ADOConnectionTest, ConnectionTimeout)
+	TEST_F(ADOConnectionTest, ConnectionTimeout)
 	{
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 		TimeSpan timeout(0, 0, 30);
