@@ -5,17 +5,8 @@
 #include "Application.h"
 #include "DatabaseTestAppSettings.h"
 
-// #include <boost/thread.hpp>
-
-
 int _tmain(int argc, _TCHAR* argv[])
 {
-	// TODO 임시
-	if(::CoInitializeEx(NULL, COINIT_MULTITHREADED) == S_FALSE) // S_OK, S_FALSE, RPC_E_CHANGED_MODE
-	{
-		// TODO: 오류처리
-	}
-
 	testing::InitGoogleTest(&argc, argv);
 
 	Earlgrey::Application app( 

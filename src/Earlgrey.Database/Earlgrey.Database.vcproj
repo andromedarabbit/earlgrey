@@ -354,6 +354,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\ADOEnvironment.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\ADOLog.cpp"
 					>
 				</File>
@@ -363,10 +367,6 @@
 				</File>
 				<File
 					RelativePath=".\src\ADOTransaction.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\ADOVersion.cpp"
 					>
 				</File>
 			</Filter>
@@ -420,6 +420,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\ADOEnvironment.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\ADOLog.h"
 					>
 				</File>
@@ -433,10 +437,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\ADOTransaction.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\ADOVersion.h"
 					>
 				</File>
 				<File

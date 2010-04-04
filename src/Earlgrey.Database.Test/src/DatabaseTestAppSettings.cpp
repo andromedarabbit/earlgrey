@@ -37,6 +37,7 @@ namespace Earlgrey {
 		const int bufferSize = MAX_PATH;
 		TCHAR buffer[bufferSize];
 
+		// TODO: IniReader로 대체하자.
 		const int length = ::GetPrivateProfileString(_T("database"), _T("ConnectionString"), NULL, buffer, bufferSize, IniFile().c_str());
 		buffer[length] = NULL;
 
