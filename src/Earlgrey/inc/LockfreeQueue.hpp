@@ -16,6 +16,8 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		PointerType _head;
 		PointerType _tail;
 
+		volatile LONG _moveTailCount;
+
 		static std::tr1::shared_ptr<PointerPoolType> GetHazardPointerPool()
 		{
 			static ThreadLocalValue<std::tr1::shared_ptr<PointerPoolType>> tlshazardPointerPool;
@@ -27,7 +29,7 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		}
 
 	public:
-		explicit Queue()
+		explicit Queue() : _moveTailCount(0)
 		{
 			_head.p( GetHazardPointerPool()->Allocate() );
 			_head.Count(_head.NextCount());
@@ -87,11 +89,12 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 				// 큐가 비어있지 않으면 tail을 옮기지 않아도 된다.
 				if (head.p() != tail.p())  return;
 
-				// is any item pushed? wait..
-				if (next.p() == NULL) continue;
+				// 큐에 데이터가 있고 tail의 next가 null이면 정상!! 옮길 필요가 없다.
+				if (next.p() == NULL) return;
 
 				// an item has been pushed, so update tail
 				CAS64( (volatile LONGLONG*) &_tail.val64, tail.val64, PointerType(next.p(), tail.NextCount()).val64);
+				InterlockedIncrement( &_moveTailCount );
 			}
 
 		}
