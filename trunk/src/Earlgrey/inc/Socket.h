@@ -86,10 +86,6 @@ namespace Earlgrey
 
 			if(SetNonBlockingSocket() == false)
 				throw std::exception("");
-
-			if(
-				::ConnectEx
-				)
 		}
 
 

@@ -32,7 +32,7 @@ namespace Earlgrey
 			}
 
 		private:
-			enum { MAX_VALUE = 100000 };
+			enum { MAX_VALUE = 10000 };
 
 			DWORD Run()
 			{
@@ -58,8 +58,15 @@ namespace Earlgrey
 					{
 						break;
 					}
+
+					DoSomething();
 				}
 				return 0;
+			}
+
+			void DoSomething()
+			{
+				InterlockedDecrement( &s_value );
 			}
 
 			bool m_push;
