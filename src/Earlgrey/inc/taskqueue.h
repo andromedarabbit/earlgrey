@@ -249,62 +249,50 @@ namespace Earlgrey {
 			}
 		};
 
-		template<typename T, typename IndexType = int, IndexType InvalidIndex = static_cast<IndexType>(-1)>
-		class TaskQueueArray
+
+		struct SimpleHashFunction
+		{
+			template<typename T>
+			static T Hash(T value, T bucketSize)
+			{
+				return value % bucketSize;
+			}
+		};
+
+
+		template<class T, typename IndexType, IndexType BucketSize, class HashFn = SimpleHashFunction>
+		class TaskQueueHash
 		{
 		public:
 			typedef T TaskQueueType;
 
-			void Initialize(IndexType Size)
+			TaskQueueType& operator[](IndexType Index) 
 			{
-				_MaxSize = Size;
-				_TaskQueueArray = new TaskQueueType[Size];
-				_Used = 0;
-
-				// \todo 이부분 잘 못 구현돼 있어서 수정해야 함. 초기값을 push할 필요가 없음
-				for (IndexType i=0; i < Size; i++)
-				{
-					_IndexStack.Push( i );
-				}
-			}
-
-			void Destroy()
-			{
-				delete[] _TaskQueueArray;
-			}
-
-			LONG GetUsedIndexCount() const { return _Used; }
-			IndexType GetMaxSize() const { return _MaxSize; }
-
-			TaskQueueType& operator[](IndexType Index) const
-			{ 
-				EARLGREY_ASSERT(_TaskQueueArray);
-				EARLGREY_ASSERT(Index < _MaxSize);
-				return _TaskQueueArray[Index]; 
-			}
-
-			IndexType AllocateIndex() 
-			{
-				IndexType i = InvalidIndex;
-				if (_IndexStack.Pop( i ))
-				{
-					InterlockedIncrement( &_Used );
-					return i;
-				}
-				return InvalidIndex;
-			}
-
-			void ReleaseIndex(IndexType Index)
-			{
-				_IndexStack.Push( Index );
-				InterlockedDecrement( &_Used );
+				return _TaskQueue[HashFn::Hash( Index, BucketSize )];
 			}
 
 		private:
-			TaskQueueType* _TaskQueueArray;
-			Stack<IndexType> _IndexStack;
-			volatile LONG _Used;	//!< 이 값은 오차가 있을 수 있으므로 주의해서 사용해야 한다.
-			IndexType _MaxSize;
+			TaskQueueType _TaskQueue[BucketSize];
+		};
+
+		template<typename T, typename IndexType, IndexType Size>
+		class TaskQueueArray
+		{
+		public:
+			typedef T TaskQueueType;
+			enum { MAX = Size };
+
+			TaskQueueType& operator[](IndexType Index)
+			{ 
+				if (Index >= Size)
+				{
+					throw std::overflow_error("out of range");
+				}
+				return _TaskQueueArray[Index]; 
+			}
+
+		private:
+			TaskQueueType _TaskQueueArray[Size];
 		};
 
 	} // end of Lockfree namespace

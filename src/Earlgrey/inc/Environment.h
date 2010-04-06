@@ -66,6 +66,10 @@ namespace Earlgrey
 
 		static DWORD TickCount();
 
+		static __int64 GetPerformanceCounter();
+
+		static __int64 GetPerformanceFrequency();
+
 #if (_WIN32_WINNT >= 0x0600)
 		static ULONGLONG TickCount64();
 #endif

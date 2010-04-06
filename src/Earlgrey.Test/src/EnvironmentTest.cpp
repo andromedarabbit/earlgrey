@@ -136,5 +136,11 @@ namespace Earlgrey
 			ASSERT_GT( Environment::TickCount64(), static_cast<ULONGLONG>(0) );
 		}
 #endif
+		
+		TEST(EnvironmentTest, GetPerformaceCounter)
+		{
+			EXPECT_GT( Environment::GetPerformanceCounter(), static_cast<__int64>(0) );
+			EXPECT_GT( Environment::GetPerformanceFrequency(), static_cast<__int64>(0) );
+		}
 	}
 }
