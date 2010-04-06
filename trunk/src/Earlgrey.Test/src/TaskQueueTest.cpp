@@ -83,7 +83,9 @@ namespace Earlgrey
 			intval_for_taskq = 100;
 		}
 
-		TaskQueueArray<TestTaskQueueClass> MyTaskQueueArray;
+		TaskQueueArray<TestTaskQueueClass, int, 100> MyTaskQueueArray;
+
+		TaskQueueHash<TestTaskQueueClass, int, 100> MyTaskQueueHash;
 
 		TEST(TaskQueueTest, Simple)
 		{
@@ -103,10 +105,8 @@ namespace Earlgrey
 			myQueueableClass->Invoke( Set100 );
 			EXPECT_TRUE( intval_for_taskq == 100 );
 
-			MyTaskQueueArray.Initialize( 100 );
-			int index = MyTaskQueueArray.AllocateIndex();
-			MyTaskQueueArray[index].Set1();
-			EXPECT_TRUE( MyTaskQueueArray[index]._test == 1 );
+			MyTaskQueueArray[10].AddTwoValues( 20, 100 );
+			EXPECT_EQ( MyTaskQueueArray[10]._test, 200 );
 		}
 
 

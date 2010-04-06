@@ -643,4 +643,18 @@ namespace Earlgrey
 		return ::GetTickCount64();
 	}
 #endif
+
+	__int64 Environment::GetPerformanceCounter()
+	{
+		LARGE_INTEGER li;
+		QueryPerformanceCounter(&li);
+		return li.QuadPart;
+	}
+
+	__int64 Environment::GetPerformanceFrequency()
+	{
+		LARGE_INTEGER li;
+		QueryPerformanceFrequency(&li);
+		return li.QuadPart;
+	}
 }
