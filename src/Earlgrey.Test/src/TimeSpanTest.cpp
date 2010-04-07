@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "TimeSpan.h"
 
+#include "DateTime.h"
+
 namespace Earlgrey
 {
 	namespace Test
@@ -82,5 +84,25 @@ namespace Earlgrey
 			EXPECT_EQ(-10, src.Minutes());
 			EXPECT_EQ(-33, src.Seconds());
 		}
+
+ 		TEST(TimeSpanTest, timeGetTime)
+ 		{
+			DateTime now1(DateTime::Now());
+ 			const DWORD milliseconds1 = timeGetTime();			
+			
+			Sleep(1000);
+
+ 			const DWORD milliseconds2 = timeGetTime();
+			DateTime now2(DateTime::Now());
+ 
+			const DWORD elapsedTime = milliseconds2 - milliseconds1;
+			const TimeSpan interval = now2 - now1;
+
+			const TimeSpan errorRange(TimeSpan::FromMilliseconds(5));
+
+			ASSERT_TRUE( (interval - errorRange).TotalMilliseconds() < elapsedTime );
+			ASSERT_TRUE( (interval + errorRange).TotalMilliseconds() > elapsedTime );
+ 
+ 		}
 	}
 }
