@@ -4,7 +4,7 @@
 #include "IPEndPoint.h"
 #include "RAII.h"
 #include "numeric_cast.hpp"
-#include "txsstream.h"
+#include "ScopedLock.h"
 
 #include <Loki/Threads.h>
 
