@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Socket.h"
 
-#include "ScopedLock.h"
+#include "txsstream.h"
 
 #pragma comment(lib, "ws2_32.lib")
 

@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "LockfreeStack.hpp"
 #include "LockfreeQueue.hpp"
-#include <iostream>
+
+#include "Thread.h"
 
 using namespace Earlgrey::Algorithm::Lockfree;
 

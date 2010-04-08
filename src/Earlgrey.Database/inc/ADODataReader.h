@@ -3,6 +3,7 @@
 #include "EarlgreyAssert.h"
 #include "ADO.h"
 #include "ADOCast.h"
+#include "ADOLog.h"
 
 #include <ios>
 
