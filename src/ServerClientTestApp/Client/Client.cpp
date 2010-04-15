@@ -27,7 +27,7 @@ protected:
 
 	virtual BOOL MeetsStopCondition() const
 	{
-		return !m_stop;
+		return m_stop;
 	}
 
 	virtual DWORD DoTask()
@@ -53,7 +53,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	EARLGREY_VERIFY(app.InitInstance());//юс╫ц
 
 	Earlgrey::Connector* connector = new Earlgrey::Connector();
-	EARLGREY_VERIFY( connector->Connect( "localhost", 100 ) );
+	EARLGREY_VERIFY( connector->Connect( "127.0.0.1", 9879 ) );
 
 	std::tr1::shared_ptr<Thread> WinThread = Thread::CreateThread( 
 		std::tr1::shared_ptr<ThreadRunnable>(static_cast<ThreadRunnable*>(new WindowsRunnable()))

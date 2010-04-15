@@ -11,8 +11,9 @@
 #include <vector>
 #include <string>
 
-
 // 미리 컴파일된 헤더엔 정말 많이 쓰는 헤더만 넣었으면 합니다.
+#include "Log.h"
+#include "Logger.h"
 #include "BuildConfiguration.h"
 #include "EarlgreyAssert.h"
 #include "txstring.h"

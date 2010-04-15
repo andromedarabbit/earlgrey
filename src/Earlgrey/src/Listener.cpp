@@ -76,7 +76,7 @@ namespace Earlgrey {
 		return TRUE;
 	}
 
-	void Listener::DoTask()
+	bool Listener::DoTask()
 	{
 		// Accept 이벤트가 왔으므로 처리한다
 
@@ -87,6 +87,9 @@ namespace Earlgrey {
 		IocpExecutorSingleton::Instance().Execute(
 			RunnableBuilder::NewRunnable(new AcceptCompleteHandler(_Socket.GetHandle()))
 			);		
+
+		// 핸들을 계속 유지해야 하므로 false를 리턴한다.
+		return false;
 	}
 
 	DWORD AcceptCompleteHandler::Run()

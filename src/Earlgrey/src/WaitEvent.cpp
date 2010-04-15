@@ -42,17 +42,23 @@ namespace Earlgrey {
 			Sleep( WaitTime );
 			return;
 		}
-		DWORD Result = ::WaitForMultipleObjects( EventSize, &_WaitEventList[0], FALSE, WaitTime );
-		if (WAIT_OBJECT_0 <= Result && Result < WAIT_OBJECT_0 + EventSize)
+		DWORD Index = ::WSAWaitForMultipleEvents( EventSize, &_WaitEventList[0], FALSE, WaitTime, FALSE );
+		if (WSA_WAIT_EVENT_0 <= Index && Index < WSA_WAIT_EVENT_0 + EventSize)
 		{
-			IWaitHandler* Handler = _WaitHandlerMap[_WaitEventList[Result - WAIT_OBJECT_0]];
+			Index -= WSA_WAIT_EVENT_0;
+
+			IWaitHandler* Handler = _WaitHandlerMap[_WaitEventList[Index]];
 			EARLGREY_ASSERT( Handler );
 			if (Handler)
 			{
-				Handler->DoTask();
+				if (Handler->DoTask())
+				{
+					// true를 리턴하면 이벤트 핸들을 제거한다.
+					_WaitEventList.erase( _WaitEventList.begin() + Index );
+				}
 			}
 		}
-		else if (Result == WAIT_TIMEOUT)
+		else if (Index == WAIT_TIMEOUT)
 		{		
 		}
 		else
