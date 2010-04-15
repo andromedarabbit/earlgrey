@@ -65,6 +65,8 @@ namespace Earlgrey {
 		_OutputStream->Initialize( _Stream->GetWriteBuffer() );
 		_InputStream->Initialize( _Stream->GetReadBuffer() );
 
+		_Stream->Read();
+
 		return true;
 	}
 
@@ -80,4 +82,5 @@ namespace Earlgrey {
 		return _OutputStream;
 	}
 
+	typedef Connection<DefaultReader, DefaultWriter> BinaryConnection;
 }

@@ -22,15 +22,18 @@ namespace Earlgrey
 		}
 
 		// TODO: 패킷을 모두 받은 후 핸들러를 호출한다.
-	}
 
-	bool Receiver::Read()
-	{
-		return _Stream->Read();
+		NetworkBuffer* buffer = _Stream->GetReadBuffer();
+		DWORD readBytes = Result->GetBytesTransferred();
+
+		readBytes;
+		buffer;
+
+		_Stream->Read();
 	}
 
 	void Receiver::OnDisconnected()
 	{
-
+		// TODO: Connection 객체를 제거한다.
 	}
 }

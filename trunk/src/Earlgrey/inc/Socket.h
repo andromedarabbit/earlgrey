@@ -49,6 +49,7 @@ namespace Earlgrey
 			if (INVALID_SOCKET != _Handle)
 			{
 				closesocket( _Handle );
+				_Handle = INVALID_SOCKET;
 			}
 		}
 

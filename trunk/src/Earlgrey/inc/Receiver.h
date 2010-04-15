@@ -18,8 +18,6 @@ namespace Earlgrey
 
 		void OnDisconnected();
 
-		bool Read();
-
 	private:
 		AsyncStream* _Stream;
 	};
