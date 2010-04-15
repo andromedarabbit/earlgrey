@@ -18,9 +18,19 @@ namespace Earlgrey
 	class AcceptorRunnable : public ThreadRunnable
 	{
 	public:
+		AcceptorRunnable() : _IsRunning(0L)
+		{
+		}
+
+		BOOL Init()
+		{
+			_IsRunning = 1L;
+			return __super::Init();
+		}
+
 		virtual void Stop() 
 		{
-			::InterlockedExchange( &_IsRunning, FALSE );
+			::InterlockedExchange( &_IsRunning, 0L );
 		}
 
 		virtual void Exit() 
@@ -29,7 +39,7 @@ namespace Earlgrey
 
 		BOOL MeetsStopCondition() const
 		{
-			return _IsRunning;
+			return !_IsRunning;
 		}
 
 		DWORD DoTask() 

@@ -133,4 +133,21 @@ namespace Earlgrey
 
 		return ReConnect();
 	}
+
+	bool Connector::DoTask()
+	{
+		WSANETWORKEVENTS Events = {0};
+
+		::WSAEnumNetworkEvents( _Socket.GetHandle(), _WaitEvent, &Events );
+
+		EARLGREY_ASSERT( Events.lNetworkEvents & FD_CONNECT );
+
+		if (Events.iErrorCode[FD_CONNECT_BIT])
+		{
+			LoggerSingleton::Instance().Debug( Log::ErrorMessage( Events.iErrorCode[FD_CONNECT_BIT] ) );
+		}		
+
+		// 이벤트 핸들을 삭제하기 위해 true를 리턴한다.
+		return true;
+	}
 }

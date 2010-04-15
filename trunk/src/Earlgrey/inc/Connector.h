@@ -24,9 +24,7 @@ namespace Earlgrey
 
 		bool ReConnect();
 
-		void DoTask()
-		{
-		}
+		bool DoTask();
 
 		BOOL Register();
 		//SOCKET CreateSocket(const char* RemoteHostName, const INT Port, AsyncStream* InStream);

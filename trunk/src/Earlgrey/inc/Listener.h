@@ -44,7 +44,7 @@ namespace Earlgrey {
 		void ExclusiveAddressUse(bool exclusiveAddressUse);
 
 	protected:
-		virtual void DoTask();
+		virtual bool DoTask();
 
 	private:
 		Socket _Socket;
