@@ -4,6 +4,8 @@
 #include "numeric_cast.hpp"
 #include "Lock.h"
 
+#pragma comment(lib, "Ws2_32.lib")
+
 namespace Earlgrey {
 
 	void WaitEventContainer::Add(HANDLE AcceptEvent, IWaitHandler* Handler)

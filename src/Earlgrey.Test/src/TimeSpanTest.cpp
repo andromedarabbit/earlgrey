@@ -3,6 +3,8 @@
 
 #include "DateTime.h"
 
+#pragma comment(lib, "Winmm.lib")
+
 namespace Earlgrey
 {
 	namespace Test
