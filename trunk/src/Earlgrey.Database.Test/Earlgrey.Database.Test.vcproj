@@ -430,10 +430,6 @@
 						RelativePath=".\src\ADOTimeSpanTest.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\ORMTest.cpp"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -481,14 +477,14 @@
 					RelativePath=".\inc\ADOEnvironmentTest.h"
 					>
 				</File>
-				<Filter
-					Name="Test"
+			</Filter>
+			<Filter
+				Name="ADO"
+				>
+				<File
+					RelativePath=".\inc\ADOEnvironmentTest.h"
 					>
-					<File
-						RelativePath=".\inc\ORMTest.h"
-						>
-					</File>
-				</Filter>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
