@@ -1,0 +1,6 @@
+#summary Brief introduction
+
+= Introduction =
+You can find brief concepts and architecture of Earl Grey from the following:
+
+http://www.slideshare.net/kaistizen/project-earl-grey
