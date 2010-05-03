@@ -48,6 +48,38 @@ namespace Earlgrey
 
 		ThreadLocalValue<int> ThreadLocalTestRunnable::TLSValue(InitialValue_);
 
+
+		class TLSTestThread : public SimpleThread
+		{
+		public:
+			DWORD Run()
+			{
+				static ThreadLocalValue<int> testTLS;
+				while (IsRunning())
+				{
+					testTLS.IsAllocated();
+				}
+				return 0;
+			}
+		};
+
+		TEST(ThreadLocalTest, ContentionTest)
+		{
+			TLSTestThread testThread[10];
+			for (int i=0; i < 10; i++)
+			{
+				EXPECT_TRUE(testThread[i].Create());
+			}
+
+			Sleep( 1000 );
+
+			for (int i=0; i < 10; i++)
+			{
+				testThread[i].Stop();
+				testThread[i].Join();
+			}
+		}
+
 		TEST(ThreadLocalTest, IntTest)
 		{
 			const int integerValue = 5;

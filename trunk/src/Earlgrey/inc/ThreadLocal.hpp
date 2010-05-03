@@ -8,6 +8,8 @@
 #include <vector>
 #include <functional>
 #include <algorithm>
+#include "loki/Threads.h"
+#include "ScopedLock.h"
 
 
 namespace Earlgrey
@@ -16,31 +18,22 @@ namespace Earlgrey
 	class ThreadLocal
 	{
 	private:
-		DWORD	_threadLocalIndex;
-
 		ThreadLocal(ThreadLocal const&);
 
-		void Allocate()
-		{
-			this->_threadLocalIndex = ::TlsAlloc();
-		}
+		DWORD _threadLocalIndex;
+		::Loki::Mutex _lock;
 
+		//! dtor에서만 호출한다.
 		T* Release()
 		{
 			T* ret = Get();
-			::TlsFree( _threadLocalIndex );
-			_threadLocalIndex = TLS_OUT_OF_INDEXES;
+			::TlsFree( GetIndex() );
 			return ret;
 		}
 
 	public:
-		explicit ThreadLocal(T* pointer = NULL) : _threadLocalIndex(TLS_OUT_OF_INDEXES)
+		ThreadLocal() : _threadLocalIndex(TLS_OUT_OF_INDEXES)
 		{
-			Allocate();
-			if (pointer)
-			{
-				Set( pointer );
-			}
 		}
 
 		virtual ~ThreadLocal()
@@ -48,26 +41,29 @@ namespace Earlgrey
 			Release();
 		}
 
-		T *Get(void)
+		DWORD GetIndex()
 		{
-			EARLGREY_ASSERT(TLS_OUT_OF_INDEXES != _threadLocalIndex);
-
-			if (TLS_OUT_OF_INDEXES == _threadLocalIndex)
+			if (_threadLocalIndex == TLS_OUT_OF_INDEXES)
 			{
-				// 초기화가 안됐으므로 프로그램을 종료하는 것이 좋다.
-				return NULL;
+				ScopedLock<> lock( _lock );
+				if (_threadLocalIndex == TLS_OUT_OF_INDEXES)
+				{
+					_threadLocalIndex = ::TlsAlloc();
+				}
 			}
-			return static_cast<T*>(::TlsGetValue(this->_threadLocalIndex));
+
+			return _threadLocalIndex;
+		}
+
+		T* Get(void)
+		{
+			EARLGREY_ASSERT( GetIndex() != TLS_OUT_OF_INDEXES );
+			return static_cast<T*>( ::TlsGetValue( GetIndex() ) );
 		}
 
 		void Set(T *value)
 		{
-			EARLGREY_ASSERT( TLS_OUT_OF_INDEXES != _threadLocalIndex );
-			if (TLS_OUT_OF_INDEXES == _threadLocalIndex)
-			{
-				return;
-			}
-			::TlsSetValue(this->_threadLocalIndex, static_cast<void*>(value));
+			::TlsSetValue(GetIndex(), static_cast<void*>(value));
 		}
 
 		T* operator->()
@@ -86,7 +82,7 @@ namespace Earlgrey
 	{
 	public:
 		ThreadLocalValue() {}
-		ThreadLocalValue(const T& value)
+		ThreadLocalValue(const T& value) : _initialValue(value)
 		{
 			Set( value );
 		}
@@ -98,9 +94,7 @@ namespace Earlgrey
 
 		T* operator->()
 		{
-			T* pointer = _tls.Get();
-			EARLGREY_ASSERT( pointer );
-			return pointer;
+			return GetPointer();
 		}
 
 		ThreadLocalValue<T>& operator=(const T& value)
@@ -111,7 +105,7 @@ namespace Earlgrey
 
 		T& Get()
 		{
-			return *_tls.Get();
+			return *GetPointer();
 		}
 
 		operator T&()
@@ -121,7 +115,7 @@ namespace Earlgrey
 
 		T* operator&()
 		{
-			return _tls.Get();
+			return GetPointer();
 		}
 
 		bool operator !()
@@ -142,22 +136,41 @@ namespace Earlgrey
 			return new T( value );
 		}
 
+		T* GetPointer()
+		{
+			T* pointer = _tls.Get();
+			if (!pointer)
+			{
+				return SetPointer( Allocate( _initialValue ) );
+			}
+			return pointer;
+		}
+
+		T* SetPointer(T* pointer)
+		{
+			_tls.Set( pointer );
+			return pointer;
+		}
+
 		void Free() 
 		{
-			T* value = _tls.Get();
-			if (value)
+			T* pointer = GetPointer();
+			if (pointer)
 			{
-				delete value;
+				delete pointer;
 			}
 		}
 
 		void Set(const T& value)
 		{
-			_tls.Set( Allocate( value ) );
+			T* pointer = GetPointer();
+			EARLGREY_ASSERT(pointer);
+			*pointer = value;
 		}
 
 	private:
-		ThreadLocal<T> _tls;
+		ThreadLocal<T>  _tls;
+		T				_initialValue;
 	};
 
 #ifdef __cplusplus_cli

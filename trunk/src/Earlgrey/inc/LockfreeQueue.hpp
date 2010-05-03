@@ -1,13 +1,14 @@
 #pragma once
 #include "lockfree.h"
 #include "EarlgreyAssert.h"
+#include "ThreadLocal.hpp"
 
 namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 	
 	template<typename T, class Allocator = std::allocator<T>>
 	class Queue : private Uncopyable
 	{
-	private:
+	public:
 		typedef struct Cell<T>				CellType;
 		typedef union Pointer<CellType>		PointerType;
 		typedef PointerPool<T, Allocator>	PointerPoolType;
