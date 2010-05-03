@@ -209,7 +209,8 @@ namespace Earlgrey { namespace Algorithm { namespace Lockfree {
 		{
 			if (_cellList.empty())
 			{
-				CellPointer pointer = new(_allocator.allocate(1)) CellType();
+				//CellPointer pointer = new(_allocator.allocate(1)) CellType();
+				CellPointer pointer = new CellType();
 				return pointer;
 			}
 
