@@ -19,6 +19,10 @@ namespace Earlgrey
 		static const DateTime MaxValue;
 		static const DateTime MinValue;		
 
+		explicit DateTime()
+		{
+			this->dateData = static_cast<UINT64>( MinTicks );
+		}
 
 		explicit DateTime(INT64 ticks)
 		{
