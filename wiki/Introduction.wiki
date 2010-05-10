@@ -1,6 +1,12 @@
 #summary Brief introduction
 
 = Introduction =
+== For English speakers ==
 You can find brief concepts and architecture of Earl Grey from the following:
 
-http://www.slideshare.net/kaistizen/project-earl-grey
+[http://www.slideshare.net/kaistizen/project-earl-grey Concepts and Architecture for Dummies]
+
+== 한국어 사용자에게 ==
+위의 프리젠테이션 자료를 자세히 설명하는 글도 있습니다. 
+
+* [http://kaistizen.net/EE/index.php/imaso/2010_05_05_how_to_develop_a_high_performance_server_threading_model/ 고성능 서버 응용프로그램을 위한 고민 : 스레딩 편]
