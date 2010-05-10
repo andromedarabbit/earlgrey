@@ -9,12 +9,26 @@ namespace Earlgrey {
 	namespace Algorithm {
 	namespace Lockfree {
 
+		class LockTask
+		{
+
+		};
+
+		class UnlockTask
+		{
+
+		};
+
 		class TaskQueue : private Uncopyable
 		{
 		public:
 			explicit TaskQueue() 
 				: _qlen(0)
-				, _IsRunning(0) 
+				, _IsRunning(0)
+				, _lockID(1)
+				, _waitQLen(0)
+				, _lockTask(NULL)
+				, _lockState(0)
 			{
 			}
 
@@ -27,18 +41,107 @@ namespace Earlgrey {
 			class TaskHolder
 			{
 			public:
-				explicit TaskHolder(const std::tr1::function<void()>& task) : _task(task) {}
+				enum {
+					NORMAL,
+					LOCK,
+					LOCK_EVENT
+				};
+
+				explicit TaskHolder(const std::tr1::function<void()>& task) : _task(task), _lock(NORMAL) {}
+
+				explicit TaskHolder(const std::tr1::function<void()>& task, int lock, LONG lockID = 0L) : _task(task), _lock(lock), _lockID(lockID) {}
+
 				void operator()()
 				{
 					_task();
 				}
+
+				bool IsLockTask() const
+				{
+					return _lock == LOCK;
+				}
+
+				void SetLockID(LONG lockID)
+				{
+					_lockID = lockID;
+				}
+
+				LONG GetLockID() const
+				{
+					return _lockID;
+				}
+
 			private:
 				std::tr1::function<void()> _task;
+				int _lock;
+				LONG _lockID;
 			};
+
+		public:
+
+			//! Lock을 걸어 이후의 task가 unlock될 때까지 수행되지 못하도록 막는다.
+			/*!
+				\param task unlock될 때 호출 될 
+			*/
+			void Lock(const std::tr1::function<void()>& task)
+			{
+				if (CAS( &_qlen, 0L, 1L ))
+				{
+					if (_lockState)
+					{
+						EARLGREY_ASSERT( _lockTask );
+
+						// 이미 lock 상태인데 큐가 빈 상태이므로 lock task를 큐잉한다.
+						_q.Enqueue( new TaskHolder( task, TaskHolder::LOCK ) );
+						return;
+					}
+
+					EARLGREY_ASSERT( !_lockTask );
+
+					_lockID *= 3;
+					InterlockedExchange( &_lockState, _lockID );
+					_lockTask = new TaskHolder( task, TaskHolder::LOCK, _lockState );
+
+					InterlockedDecrement( &_qlen );	// 큐에는 넣지 않으므로 다시 0으로 설정한다.
+				}
+				else
+				{
+					_q.Enqueue( new TaskHolder( task, TaskHolder::LOCK ) );
+					InterlockedIncrement( &_qlen );
+				}
+			}
+
+			void Unlock()
+			{
+				EARLGREY_ASSERT( _lockState );
+				EARLGREY_ASSERT( _lockTask );
+				EARLGREY_ASSERT( _lockTask->IsLockTask() );
+				EARLGREY_ASSERT( _lockTask->GetLockID() == _lockState );
+
+				(*_lockTask)();
+
+				delete _lockTask;
+				_lockTask = NULL;
+
+				InterlockedExchange( &_lockState, 0L );
+
+				if (_qlen > 0)
+				{
+					ExecuteAllTasksInQueue();
+				}				
+			}
 
 		private:
 			void Post(const std::tr1::function<void()>& task)
 			{
+				if (_lockState)
+				{
+					// lock인 상태에서는 항상 큐잉만 한다.
+					_q.Enqueue( new TaskHolder( task ) );
+					InterlockedIncrement( &_qlen );
+					return;
+				}
+
 				// Is there any thread in process?
 				if (CAS( &_qlen, 0L, 1L ))
 				{
@@ -85,6 +188,17 @@ namespace Earlgrey {
 						if (hasTask) break;
 					}
 					EARLGREY_ASSERT(taskHolder != NULL);
+
+					if (taskHolder->IsLockTask())
+					{
+						_lockID *= 3;
+						InterlockedExchange( &_lockState, _lockID );
+						taskHolder->SetLockID( _lockState );
+						_lockTask = taskHolder;
+
+						InterlockedDecrement( &_qlen );
+						return;
+					}
 					
 					(*taskHolder)();
 					delete taskHolder;
@@ -94,9 +208,14 @@ namespace Earlgrey {
 			}
 
 		private:
+			TaskHolder*	_lockTask;					//!< lock task
 			Queue<TaskQueue::TaskHolder*> _q;		//!< lockfree queue
-			volatile LONG _qlen;		//!< the number of tasks in queue
+			volatile LONG _qlen;					//!< the number of tasks in queue
+			volatile LONG _waitQLen;				//!< the number of tasks in waiting queue
 			volatile LONG _IsRunning;
+			volatile LONG _lockState;				//!< default : 0
+			volatile LONG _lockID;
+
 
 		protected:
 			template<typename T>

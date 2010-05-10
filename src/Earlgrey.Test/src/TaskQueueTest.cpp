@@ -3,6 +3,7 @@
 #include "EarlgreyAssert.h"
 #include "Application.h"
 #include "Executor.h"
+#include "PAL_Windows.h"
 
 #include <functional>
 
@@ -106,7 +107,7 @@ namespace Earlgrey
 			EXPECT_TRUE( intval_for_taskq == 100 );
 
 			MyTaskQueueArray[10].AddTwoValues( 20, 100 );
-			EXPECT_EQ( MyTaskQueueArray[10]._test, 200 );
+			EXPECT_EQ( MyTaskQueueArray[10]._test, 120 );
 		}
 
 
@@ -234,6 +235,155 @@ namespace Earlgrey
 
 			ASSERT_EQ(maxCount, task->AtomicCount());
 			ASSERT_EQ(maxCount, task->Count());
+		}
+
+
+		class TaskQueueFixture : public ::testing::Test 
+		{
+		public:
+			class MyQueue : public Earlgrey::Algorithm::Lockfree::TaskQueue
+			{
+			public:
+				MyQueue() : _value(0L), _refCount(0L)
+				{
+					_waitEvent = CreateEvent( NULL, FALSE, FALSE, NULL );
+				}
+
+				void AddRef()
+				{
+					AtomicInc( _refCount );
+				}
+
+				void Release()
+				{
+					if (0 == AtomicDec( _refCount ))
+					{
+						SetEvent( _waitEvent );
+					}
+				}
+
+				void Add(DWORD d)
+				{
+					InvokeMethod( &MyQueue::RawAdd, d );
+				}
+
+				void LockSet0()
+				{
+					this->Lock( std::tr1::function<void()>(std::tr1::bind( &MyQueue::RawSet0, this )) );
+				}
+
+				DWORD GetValue() const
+				{
+					return _value;
+				}
+
+				HANDLE GetWaitHandle() const
+				{
+					return _waitEvent;
+				}
+
+			private:
+				void RawAdd(DWORD d)
+				{
+					_value += d;
+				}
+
+				void RawSet0()
+				{
+					_value = 0;
+				}
+
+				DWORD _value;
+				HANDLE _waitEvent;
+				volatile LONG _refCount;
+			};
+
+		public:
+			class TaskRunnable : public IRunnable 
+			{
+			public:
+				explicit TaskRunnable(MyQueue* task) 
+					: Task_(task)  
+				{
+				}
+
+				virtual BOOL Init() { return TRUE; }
+
+				virtual DWORD Run() 
+				{
+					for (int i=0; i < 10000; i++)
+					{
+						Task_->Add( 1L );
+					}
+
+					Task_->Release();
+
+					return EXIT_SUCCESS;
+				};
+
+				virtual void Stop() {}
+				virtual void OnStop() {}
+
+			private:
+				MyQueue* Task_;
+			};
+
+
+		public:
+			MyQueue _taskQueue;
+		};
+
+		TEST_F( TaskQueueFixture, BasicTest )
+		{
+			_taskQueue.Add( 100L );
+			EXPECT_EQ( _taskQueue.GetValue(), 100L );
+
+			_taskQueue.Add( 10L );
+			EXPECT_EQ( _taskQueue.GetValue(), 110L );
+
+			_taskQueue.Add( 20L );
+			EXPECT_EQ( _taskQueue.GetValue(), 130L );
+		}
+
+
+		TEST_F( TaskQueueFixture, MultiThreadTest )
+		{
+			for (int i = 0; i < 10; i++) 
+			{
+				_taskQueue.AddRef();
+				IocpExecutorSingleton::Instance().Execute(
+					RunnableBuilder::NewRunnable(new TaskRunnable(&_taskQueue))
+					);
+			}
+
+			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
+
+			EXPECT_EQ( _taskQueue.GetValue(), 100000L );
+		}
+
+		TEST_F( TaskQueueFixture, WaitTest )
+		{
+			for (int i = 0; i < 10; i++) 
+			{
+				if (i == 5)
+				{
+					_taskQueue.LockSet0();
+				}
+				_taskQueue.AddRef();
+				IocpExecutorSingleton::Instance().Execute(
+					RunnableBuilder::NewRunnable(new TaskRunnable(&_taskQueue))
+					);
+			}
+
+			Sleep(1000);
+
+			DWORD value = 100000L - _taskQueue.GetValue();
+			
+			_taskQueue.Unlock();
+
+			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
+
+			EXPECT_TRUE( _taskQueue.GetValue() == value );
 		}
 	}
 }
