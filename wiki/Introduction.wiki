@@ -1,4 +1,4 @@
-#summary Providing some documents
+#summary Providing some documents regarding concepts of this project.
 
 = Introduction =
 == For English speakers ==
