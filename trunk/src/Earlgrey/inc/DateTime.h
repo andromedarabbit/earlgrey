@@ -47,6 +47,10 @@ namespace Earlgrey
 
 		explicit DateTime(int year, int month, int day, int hour, int minute, int second, int millisecond, E_DateTimeKind kind);
 
+		void SetTicks(UINT64 ticks)
+		{
+			this->dateData = ticks;
+		}
 
 		DateTime Add(const TimeSpan& interval) const;
 
