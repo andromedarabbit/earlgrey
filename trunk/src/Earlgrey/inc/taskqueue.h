@@ -196,6 +196,7 @@ namespace Earlgrey {
 						taskHolder->SetLockID( _lockState );
 						_lockTask = taskHolder;
 
+						InterlockedDecrement( &_IsRunning );
 						InterlockedDecrement( &_qlen );
 						return;
 					}
