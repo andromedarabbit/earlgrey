@@ -9,15 +9,7 @@ namespace Earlgrey {
 	namespace Algorithm {
 	namespace Lockfree {
 
-		class LockTask
-		{
-
-		};
-
-		class UnlockTask
-		{
-
-		};
+		typedef std::tr1::function<void()> TaskType;
 
 		class TaskQueue : private Uncopyable
 		{
@@ -47,13 +39,21 @@ namespace Earlgrey {
 					LOCK_EVENT
 				};
 
-				explicit TaskHolder(const std::tr1::function<void()>& task) : _task(task), _lock(NORMAL) {}
+				explicit TaskHolder(const TaskType& task) : _task(task), _lock(NORMAL) {}
 
-				explicit TaskHolder(const std::tr1::function<void()>& task, int lock, LONG lockID = 0L) : _task(task), _lock(lock), _lockID(lockID) {}
+				explicit TaskHolder(const TaskType& task, const TaskType& unlockTask, int lock, LONG lockID = 0L) 
+					: _task(task), _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
+				{
+				}
 
 				void operator()()
 				{
 					_task();
+				}
+
+				void ExecuteUnlockTask()
+				{
+					_unlockTask();
 				}
 
 				bool IsLockTask() const
@@ -72,7 +72,8 @@ namespace Earlgrey {
 				}
 
 			private:
-				std::tr1::function<void()> _task;
+				TaskType _task;
+				TaskType _unlockTask;
 				int _lock;
 				LONG _lockID;
 			};
@@ -83,7 +84,7 @@ namespace Earlgrey {
 			/*!
 				\param task unlock될 때 호출 될 
 			*/
-			void Lock(const std::tr1::function<void()>& task)
+			void Lock(const TaskType& task, const TaskType& unlockTask)
 			{
 				if (CAS( &_qlen, 0L, 1L ))
 				{
@@ -91,22 +92,24 @@ namespace Earlgrey {
 					{
 						EARLGREY_ASSERT( _lockTask );
 
-						// 이미 lock 상태인데 큐가 빈 상태이므로 lock task를 큐잉한다.
-						_q.Enqueue( new TaskHolder( task, TaskHolder::LOCK ) );
+						// 이미 lock 상태이므로 lock task를 큐잉한다.
+						_q.Enqueue( new TaskHolder( task, unlockTask, TaskHolder::LOCK ) );
 						return;
 					}
 
 					EARLGREY_ASSERT( !_lockTask );
 
+					task();
+
 					_lockID *= 3;
 					InterlockedExchange( &_lockState, _lockID );
-					_lockTask = new TaskHolder( task, TaskHolder::LOCK, _lockState );
+					_lockTask = new TaskHolder( task, unlockTask, TaskHolder::LOCK, _lockState );
 
 					InterlockedDecrement( &_qlen );	// 큐에는 넣지 않으므로 다시 0으로 설정한다.
 				}
 				else
 				{
-					_q.Enqueue( new TaskHolder( task, TaskHolder::LOCK ) );
+					_q.Enqueue( new TaskHolder( task, unlockTask, TaskHolder::LOCK ) );
 					InterlockedIncrement( &_qlen );
 				}
 			}
@@ -118,7 +121,8 @@ namespace Earlgrey {
 				EARLGREY_ASSERT( _lockTask->IsLockTask() );
 				EARLGREY_ASSERT( _lockTask->GetLockID() == _lockState );
 
-				(*_lockTask)();
+				//(*_lockTask)();
+				_lockTask->ExecuteUnlockTask();
 
 				delete _lockTask;
 				_lockTask = NULL;
@@ -132,7 +136,7 @@ namespace Earlgrey {
 			}
 
 		private:
-			void Post(const std::tr1::function<void()>& task)
+			void Post(const TaskType& task)
 			{
 				if (_lockState)
 				{
@@ -189,6 +193,8 @@ namespace Earlgrey {
 					}
 					EARLGREY_ASSERT(taskHolder != NULL);
 
+					(*taskHolder)();
+
 					if (taskHolder->IsLockTask())
 					{
 						_lockID *= 3;
@@ -201,7 +207,6 @@ namespace Earlgrey {
 						return;
 					}
 					
-					(*taskHolder)();
 					delete taskHolder;
 					InterlockedDecrement( &_IsRunning);
 				} while(InterlockedDecrement( &_qlen ));
@@ -222,70 +227,70 @@ namespace Earlgrey {
 			template<typename T>
 			void InvokeMethod(void (T::*func)())
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this));
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this));
 				Post( f );
 			}
 
 			template<typename T, typename T1>
 			void InvokeMethod(void (T::*func)(T1), T1 t1)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1);
 				Post( f );
 			}
 
 			template<typename T, typename T1, typename T2>
 			void InvokeMethod(void (T::*func)(T1,T2), T1 t1, T2 t2)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2);
 				Post( f );
 			}
 
 			template<typename T, typename T1, typename T2, typename T3>
 			void InvokeMethod(void (T::*func)(T1,T2,T3), T1 t1, T2 t2, T3 t3)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3);
 				Post( f );
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4), T1 t1, T2 t2, T3 t3, T4 t4)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4);
 				Post( f );			
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5);
 				Post( f );			
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5,T6), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6);
 				Post( f );			
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5,T6,T7), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7);
 				Post( f );			
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8);
 				Post( f );			
 			}
 
 			template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8,T9), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8, t9);
+				TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8, t9);
 				Post( f );
 			}
 
@@ -293,7 +298,7 @@ namespace Earlgrey {
 			/*template<typename T, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T0>
 			void InvokeMethod(void (T::*func)(T1,T2,T3,T4,T5,T6,T7,T8,T9,T0), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9, T0 t0)
 			{
-			std::tr1::function<void()> f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8, t9, t0);
+			TaskType f = std::tr1::bind(func, static_cast<T*>(this), t1, t2, t3, t4, t5, t6, t7, t8, t9, t0);
 			Post( f );			
 			}*/
 
@@ -301,70 +306,70 @@ namespace Earlgrey {
 		public:
 			void Invoke(void (*func)())
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func);
+				TaskType f = std::tr1::bind(func);
 				Post( f );
 			}
 
 			template<typename T1>
 			void Invoke(void (*func)(T1), T1 t1)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1);
+				TaskType f = std::tr1::bind(func, t1);
 				Post( f );
 			}
 
 			template<typename T1, typename T2>
 			void Invoke(void (*func)(T1,T2), T1 t1, T2 t2)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2);
+				TaskType f = std::tr1::bind(func, t1, t2);
 				Post( f );
 			}
 
 			template<typename T1, typename T2, typename T3>
 			void Invoke(void (*func)(T1,T2,T3), T1 t1, T2 t2, T3 t3)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3);
+				TaskType f = std::tr1::bind(func, t1, t2, t3);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4>
 			void Invoke(void (*func)(T1,T2,T3,T4), T1 t1, T2 t2, T3 t3, T4 t4)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4, typename T5>
 			void Invoke(void (*func)(T1,T2,T3,T4,T5), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4, t5);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
 			void Invoke(void (*func)(T1,T2,T3,T4,T5,T6), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
 			void Invoke(void (*func)(T1,T2,T3,T4,T5,T6,T7), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
 			void Invoke(void (*func)(T1,T2,T3,T4,T5,T6,T7,T8), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7, t8);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7, t8);
 				Post( f );			
 			}
 
 			template<typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
 			void Invoke(void (*func)(T1,T2,T3,T4,T5,T6,T7,T8,T9), T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6, T7 t7, T8 t8, T9 t9)
 			{
-				std::tr1::function<void()> f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7, t8, t9);
+				TaskType f = std::tr1::bind(func, t1, t2, t3, t4, t5, t6, t7, t8, t9);
 				Post( f );
 			}
 		};
