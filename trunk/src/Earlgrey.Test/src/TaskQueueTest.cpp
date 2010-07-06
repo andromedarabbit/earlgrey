@@ -267,10 +267,22 @@ namespace Earlgrey
 					InvokeMethod( &MyQueue::RawAdd, d );
 				}
 
+				void Set(DWORD d)
+				{
+					InvokeMethod( &MyQueue::RawSet, d );
+				}
+
+				void LockCheck(DWORD d)
+				{
+					TaskType f1 = std::tr1::bind( &MyQueue::RawPreCheck, static_cast<MyQueue*>(this), d );
+					TaskType f2 = std::tr1::bind( &MyQueue::RawCheck, static_cast<MyQueue*>(this), d );
+					this->Lock( f1, f2 );
+				}
+
 				void LockSet0()
 				{
-					this->Lock( std::tr1::function<void()>(std::tr1::bind( &MyQueue::RawSet0, this )) );
-				}
+					this->Lock( std::tr1::bind( &MyQueue::RawPreSet0, static_cast<MyQueue*>(this) ), std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this) ) );
+				}				
 
 				DWORD GetValue() const
 				{
@@ -288,9 +300,29 @@ namespace Earlgrey
 					_value += d;
 				}
 
+				void RawPreSet0()
+				{
+				}
+
 				void RawSet0()
 				{
 					_value = 0;
+				}
+
+				void RawSet(DWORD d)
+				{
+					_value = d;
+					LockCheck( d );
+				}
+
+				void RawPreCheck(DWORD d)
+				{
+					_value = d;
+				}
+
+				void RawCheck(DWORD d)
+				{
+					ASSERT_EQ(_value, d);
 				}
 
 				DWORD _value;
@@ -363,10 +395,12 @@ namespace Earlgrey
 
 		TEST_F( TaskQueueFixture, WaitTest )
 		{
+			// 스레드 10개 * 각 10000 번씩 => 10만을 증가시킨다.
 			for (int i = 0; i < 10; i++) 
 			{
 				if (i == 5)
 				{
+					// 특정 시점에 락을 건다. 락이 풀리면서 값이 0으로 설정된다. 이전 값은 날아가게 된다.
 					_taskQueue.LockSet0();
 				}
 				_taskQueue.AddRef();
@@ -377,13 +411,22 @@ namespace Earlgrey
 
 			Sleep(1000);
 
+			// 10만에서 락을 걸기 전까지의 계산값을 뺀다.
 			DWORD value = 100000L - _taskQueue.GetValue();
 			
+			// 나머지를 모두 수행한다.
 			_taskQueue.Unlock();
 
 			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
 
 			EXPECT_TRUE( _taskQueue.GetValue() == value );
+		}
+
+		TEST_F( TaskQueueFixture, LockTest )
+		{
+			_taskQueue.LockCheck( 123 );
+			_taskQueue.Set( 0 );
+			_taskQueue.Unlock();
 		}
 	}
 }
