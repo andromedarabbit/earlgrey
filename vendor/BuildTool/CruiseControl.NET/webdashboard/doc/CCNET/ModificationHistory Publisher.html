@@ -16,56 +16,68 @@
                                                     </span>
 				    </div>
 				    <div class="pagesubheading">
-					    This page last changed on Mar 14, 2009 by <font color="#0050B2">dcameron</font>.
+					    This page last changed on Dec 05, 2009 by <font color="#0050B2">csut017</font>.
 				    </div>
 
-				    <p>This publisher logs all modifications for each build in a file.<br/>
-These modifications can be viewed in the Dashboard with the <a href="modificationHistoryProjectPlugin.html" title="modificationHistoryProjectPlugin">modificationHistoryProjectPlugin</a> plugin enabled.</p>
+				    <h1><a name="ModificationHistoryPublisher-ModificationHistoryPublisher"></a>Modification History Publisher</h1>
 
-<h4><a name="ModificationHistoryPublisher-MinimalConfiguration%3A%26nbsp%3B"></a>Minimal Configuration:&nbsp;</h4>
+<p>This publisher logs all modifications for each build in a file.  <br/>
+These modifications can be viewed in the Dashboard with the <a href="modificationHistoryProjectPlugin.html" title="modificationHistoryProjectPlugin">modificationHistoryProjectPlugin</a> plugin enabled.  </p>
 
-<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
-<pre class="code-xml"><span class="code-tag">&lt;publishers&gt;</span>
-   <span class="code-tag">&lt;modificationHistory /&gt;</span>
-<span class="code-tag">&lt;/publishers&gt;</span></pre>
+
+<h2><a name="ModificationHistoryPublisher-Version"></a>Version</h2>
+
+<p>Available from version 1.3</p>
+
+<h2><a name="ModificationHistoryPublisher-Examples"></a>Examples</h2>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;border-bottom-style: solid;background-color: #ADD6FF;"><b>Minimalist example</b></div><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;modificationHistory /&gt;</span></pre>
 </div></div>
-<p>This is available from build 1.3.0.2981 onwards</p>
-
-<h4><a name="ModificationHistoryPublisher-Full%26nbsp%3BConfiguration"></a>Full&nbsp; Configuration</h4>
-
-<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
-<pre class="code-xml"><span class="code-tag">&lt;publishers&gt;</span>
-   <span class="code-tag">&lt;modificationHistory  onlyLogWhenChangesFound=<span class="code-quote">"true"</span> /&gt;</span>
-<span class="code-tag">&lt;/publishers&gt;</span></pre>
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader" style="border-bottom-width: 1px;border-bottom-style: solid;background-color: #ADD6FF;"><b>Full example</b></div><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;modificationHistory onlyLogWhenChangesFound=<span class="code-quote">"true"</span> /&gt;</span></pre>
 </div></div>
+
+
+<h2><a name="ModificationHistoryPublisher-ConfigurationElements"></a>Configuration Elements</h2>
+
 <table class='confluenceTable'><tbody>
 <tr>
-<th class='confluenceTh'> Node </th>
+<th class='confluenceTh'> Element </th>
 <th class='confluenceTh'> Description </th>
 <th class='confluenceTh'> Type </th>
 <th class='confluenceTh'> Required </th>
 <th class='confluenceTh'> Default </th>
-</tr>
-<tr>
-<td class='confluenceTd'> onlyLogWhenChangesFound </td>
-<td class='confluenceTd'> When true, the history file will only be updated when the build contains modifications <br clear="all" />
-This setting is mainly for keeping the file small when there are a lot builds without modifications <br clear="all" />
-For example : like CCNet, there is a public website where everybody can force a build </td>
-<td class='confluenceTd'> bool </td>
-<td class='confluenceTd'> false </td>
-<td class='confluenceTd'> false <br clear="all" /> </td>
+<th class='confluenceTh'> Version </th>
 </tr>
 <tr>
 <td class='confluenceTd'> description </td>
-<td class='confluenceTd'> If filled in, this will be shown in the buildstage as the process name <br clear="all" /> </td>
-<td class='confluenceTd'> string <br clear="all" /> </td>
-<td class='confluenceTd'> false <br clear="all" /> </td>
-<td class='confluenceTd'> n/a </td>
+<td class='confluenceTd'> Description used for the visualisation of the buildstage, if left empty the process name will be shown.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> The task/publisher name. </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dynamicValues </td>
+<td class='confluenceTd'> The dynamic values to use for the task.   </td>
+<td class='confluenceTd'> <a href="Dynamic Values.html" title="Dynamic Values">Dynamic Values</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> onlyLogWhenChangesFound </td>
+<td class='confluenceTd'> When true, the history file will only be updated when the build contains modifications. This setting is mainly for keeping the file small when there are a lot builds without modifications. For example: like CCNet, there is a public website where everybody can force a build.   </td>
+<td class='confluenceTd'> Boolean </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+<td class='confluenceTd'> 1.3 </td>
 </tr>
 </tbody></table>
-<p><br clear="all" /></p>
 
-<p><br clear="all" /></p>
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Automatically Generated</b><br />
+<p>Documentation generated on Saturday, 5 Dec 2009 at 6:11:17 AM</p></td></tr></table></div>
 
 				    
                     			    </td>
@@ -76,7 +88,7 @@ For example : like CCNet, there is a public website where everybody can force a 
 				<td height="12" background="http://confluence.public.thoughtworks.org//images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
 			</tr>
 		    <tr>
-			    <td align="center"><font color="grey">Document generated by Confluence on Mar 14, 2009 02:55</font></td>
+			    <td align="center"><font color="grey">Document generated by Confluence on May 02, 2010 20:17</font></td>
 		    </tr>
 	    </table>
     </body>
