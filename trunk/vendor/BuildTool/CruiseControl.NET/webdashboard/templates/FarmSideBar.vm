@@ -1,9 +1,10 @@
+<!-- FarmSideBar.vm: Start -->
 <table width="100%">
 	#foreach ($link in $links)
-	<tr><td><a href="$link.Url" class="$link.LinkClass">$link.Text</a></td></tr>
+	<tr><td><a href="$link.Url" class="$link.LinkClass">$translations.Translate($link.Text)</a></td></tr>
 	#end
 	<tr><td>&nbsp;</td></tr>
-	<tr><td><b>Servers</b></td></tr>
+	<tr><td><b>$translations.Translate("Servers")</b></td></tr>
 	#foreach ($slink in $serverlinks)
 	<tr><td><a href="$slink.Url" class="$slink.LinkClass">$slink.Text</a></td></tr>
 	#end
@@ -14,7 +15,7 @@
 	</tr>
 	<tr>
 		<td>
-			<b>Categories</b> (<a href="$farmLink.Url">All</a>)
+			<b>$translations.Translate("Categories")</b> (<a href="$farmLink.Url">All</a>)
 		</td>
 	</tr>
 	#foreach ($categorylink in $categorylinks)
@@ -26,3 +27,4 @@
 	#end
 	#end
 </table>
+<!-- FarmSideBar.vm: End -->
