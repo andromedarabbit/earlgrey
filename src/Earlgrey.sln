@@ -61,13 +61,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Database.Test", "E
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnityBuild", "UnityBuild", "{A781377B-0A81-4854-A019-498C8572E8B7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnityBuild", "BuildTools\UnityBuild", "{A781377B-0A81-4854-A019-498C8572E8B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCProject", "UnityBuild\VCProject\VCProject.csproj", "{21ABAC76-40AC-45F0-9CA4-85281002887F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCProject", "BuildTools\UnityBuild\VCProject\VCProject.csproj", "{21ABAC76-40AC-45F0-9CA4-85281002887F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCProjectTest", "UnityBuild\VCProjectTest\VCProjectTest.csproj", "{E1F67322-5B7D-4985-B4A8-32AB797AB8D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VCProjectTest", "BuildTools\UnityBuild\VCProjectTest\VCProjectTest.csproj", "{E1F67322-5B7D-4985-B4A8-32AB797AB8D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLNToolsTest", "UnityBuild\SLNToolsTest\SLNToolsTest.csproj", "{D158583A-9300-4E6F-BDE7-3AA077A8CA8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLNToolsTest", "BuildTools\UnityBuild\SLNToolsTest\SLNToolsTest.csproj", "{D158583A-9300-4E6F-BDE7-3AA077A8CA8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
