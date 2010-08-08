@@ -16,6 +16,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         private readonly List<string> _localPaths;
         private readonly SvnInfo _svnInfo;
 
+       
         private class Roots
         {
             public string RepositoryRoot
@@ -35,17 +36,20 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 get; set;
             }
 
-            public bool IsValid
+            public void Validate()
             {
-                get
-                {
-                    return
-                        string.IsNullOrEmpty(this.LocalRoot) == false
-                        && Directory.Exists(this.LocalRoot) == true
-                        && string.IsNullOrEmpty(this.RepositoryRoot) == false
-                        && string.IsNullOrEmpty(this.RepositoryPathOfLocalRoot) == false
-                        ;
-                }
+                const string msg = "Path resolving failed!";
+                if(string.IsNullOrEmpty(this.LocalRoot))
+                    throw new Exception(msg);
+
+                if(Directory.Exists(this.LocalRoot) == false)
+                    throw new Exception(msg);
+    
+                if(string.IsNullOrEmpty(this.RepositoryRoot))
+                    throw new Exception(msg);
+
+                if(string.IsNullOrEmpty(this.RepositoryPathOfLocalRoot))
+                    throw new Exception(msg);
             }
         }
 
@@ -128,12 +132,18 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 return false;
 
             // Get local root path
-            Roots roots = GetRoots();
-            if (roots == null)
+            Roots roots = null;
+            try
             {
-                Log.LogError("Couldn't find local root from the local path \"{0}\"!", LocalPath);
+                roots = GetRoots();
+            }
+            catch (Exception ex)
+            {
+                Log.LogError(ex.Message);
                 return false;
             }
+
+            Debug.Assert(roots != null);
             
             string repositoryRoot = roots.RepositoryPathOfLocalRoot;
             foreach(var repositoryPath in _repositoryPaths)
@@ -174,11 +184,9 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                     );
             }
             roots.RepositoryPathOfLocalRoot = svnInfo.RepositoryPath;
+            roots.Validate();
 
-            if(roots.IsValid)
-                return roots;
-            
-            return null;
+            return roots;
         }
 
         private SvnInfo CreateSvnInfoInstance(string localPath)
@@ -195,7 +203,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             return svnInfo;
         }
 
-        private string GetNextPath(string path)
+        private static string GetNextPath(string path)
         {
             DirectoryInfo parent = Directory.GetParent(path);
             if (parent == null || parent.Exists == false)
