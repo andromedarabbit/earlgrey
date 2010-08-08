@@ -67,6 +67,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             return builder.ToString();
         }
 
+        //! \ref http://ss64.com/nt/robocopy-exit.html
         [Flags]
         private enum EExitCode
         {
