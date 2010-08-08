@@ -35,10 +35,6 @@
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities" />
-    <Reference Include="MSBuild.Community.Tasks, Version=1.2.0.306, Culture=neutral, PublicKeyToken=e8bf2261941c3948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\MSBuild.Community.Tasks.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -58,6 +54,30 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Subversion\AbstractSvnDiff.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\DiffXmlSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Subversion\SvnDiff.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnDiffWithPlainSummary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnDiffWithXmlSummary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\diff.cs" />
+    <Compile Include="Subversion\SvnPathResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnSwitch.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExternalTools\Robocopy.exe">
@@ -66,9 +86,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MSBuild.Community.Tasks.snk" />
+    <None Include="Subversion\DiffXmlSummary.xsc">
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </None>
+    <None Include="Subversion\DiffXmlSummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DiffXmlSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Subversion\DiffXmlSummary.xss">
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Subversion\" />
+    <ProjectReference Include="..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
+      <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
+      <Name>MSBuild.Community.Tasks</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
