@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: Test_XmlQueryWithNS.xml 235 2006-08-15 02:16:56Z joshuaflanagan $ -->
+<xsl:transform version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:soap="http://www.w3.org/2001/12/soap-envelope" xmlns:other="urn:test:msbuild:community">
+  <xsl:template match="/">
+    <soap:Header>
+      <other:CustomType other:Id="A"  soap:mustUnderstand="1">Nonsense</other:CustomType>
+      <other:CustomType other:Id="B">Gibberish</other:CustomType>
+    </soap:Header>
+  </xsl:template>
+</xsl:transform>

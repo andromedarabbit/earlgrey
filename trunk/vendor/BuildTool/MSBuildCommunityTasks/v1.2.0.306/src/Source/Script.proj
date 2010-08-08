@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- $Id: Script.proj 254 2006-09-13 22:58:32Z joshuaflanagan $ -->
+
+	<PropertyGroup>
+		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\bin\Debug</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\MSBuild.Community.Tasks.Targets"/>
+	<PropertyGroup>
+		<Code>
+			<![CDATA[
+			public static void ScriptMain() {
+				List<string> list = new List<string>();
+				list.Add("Happy");
+				list.Add("Christmas");
+				Console.WriteLine("Hello MSBuild Community Scripting World.");
+				foreach(string s in list)
+				{
+				Console.WriteLine(s);
+				}
+			}
+			]]>
+		</Code>
+	</PropertyGroup>
+	
+		<PropertyGroup>
+		<CodeWithAssembly>
+			<![CDATA[
+public static void ScriptMain(){
+string x = System.Web.HttpUtility.HtmlEncode("<tag>");
+Console.WriteLine(x);
+}			]]>
+		</CodeWithAssembly>
+	</PropertyGroup>
+
+  <PropertyGroup>
+    <CodeWithReturnValue>
+      <![CDATA[
+public static string ScriptMain(){
+return "Hello World";
+}			]]>
+    </CodeWithReturnValue>
+  </PropertyGroup>
+
+
+  <Target Name="DoScript">
+		<Script Language="C#" Code="$(Code)" />
+		<Script Language="C#" Code="$(CodeWithAssembly)" References="System.Web" />
+    <Script Language="C#" Code="$(CodeWithReturnValue)">
+      <Output TaskParameter="ReturnValue" PropertyName="ReturnedValue" />
+    </Script>
+    <Error Condition="'$(ReturnedValue)' != 'Hello World'" Text="ReturnValue should have been set." />
+    <Message Text="$(ReturnedValue)" />
+	</Target>
+  
+</Project>

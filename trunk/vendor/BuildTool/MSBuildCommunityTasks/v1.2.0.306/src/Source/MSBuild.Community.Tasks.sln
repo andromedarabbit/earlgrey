@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Community.Tasks", "MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj", "{F88A60A8-564C-4E70-92DC-E92DBB897641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E57396C8-69C1-45A3-B30A-3EFD0AE03EF6}"
+	ProjectSection(SolutionItems) = preProject
+		..\Documentation\DevelopersGuide.txt = ..\Documentation\DevelopersGuide.txt
+		..\www\index.html = ..\www\index.html
+		..\Master-helper.proj = ..\Master-helper.proj
+		..\Master.proj = ..\Master.proj
+		..\MSBuildTasks.proj = ..\MSBuildTasks.proj
+		..\Documentation\Overview.html = ..\Documentation\Overview.html
+		..\Test.proj = ..\Test.proj
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Community.Tasks.Tests", "MSBuild.Community.Tasks.Tests\MSBuild.Community.Tasks.Tests.csproj", "{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A", "MSBuild.Community.Tasks.Tests\ILMerge\A\A.csproj", "{1291B270-5E1F-425B-ACA1-5253A0067D26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B", "MSBuild.Community.Tasks.Tests\ILMerge\B\B.csproj", "{885FC778-671A-4934-B76B-BE28334AD9CB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests Projects", "Tests Projects", "{FCC5A863-5D5E-4EB9-B3B1-69BBB6655492}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuild Scripts", "MSBuild Scripts", "{0D470952-AD01-4FD8-ACAA-9340AF1A6674}"
+	ProjectSection(SolutionItems) = preProject
+		FxCop.proj = FxCop.proj
+		Sample.proj = Sample.proj
+		Script.proj = Script.proj
+		Services.proj = Services.proj
+		Sleep.proj = Sleep.proj
+		Subversion.proj = Subversion.proj
+		Task.proj = Task.proj
+		Vss.proj = Vss.proj
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F88A60A8-564C-4E70-92DC-E92DBB897641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88A60A8-564C-4E70-92DC-E92DBB897641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88A60A8-564C-4E70-92DC-E92DBB897641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88A60A8-564C-4E70-92DC-E92DBB897641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1291B270-5E1F-425B-ACA1-5253A0067D26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1291B270-5E1F-425B-ACA1-5253A0067D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1291B270-5E1F-425B-ACA1-5253A0067D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1291B270-5E1F-425B-ACA1-5253A0067D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{885FC778-671A-4934-B76B-BE28334AD9CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{885FC778-671A-4934-B76B-BE28334AD9CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{885FC778-671A-4934-B76B-BE28334AD9CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{885FC778-671A-4934-B76B-BE28334AD9CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{885FC778-671A-4934-B76B-BE28334AD9CB} = {FCC5A863-5D5E-4EB9-B3B1-69BBB6655492}
+		{1291B270-5E1F-425B-ACA1-5253A0067D26} = {FCC5A863-5D5E-4EB9-B3B1-69BBB6655492}
+	EndGlobalSection
+EndGlobal

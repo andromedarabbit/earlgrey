@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- $Id: Subversion.proj 305 2007-02-25 18:11:59Z joshuaflanagan $ -->
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\bin\Debug</MSBuildCommunityTasksPath>
+    <LastUpdate>Dienstag, 10. Januar 2006</LastUpdate>
+    <TestUpdate>Test from Task.proj</TestUpdate>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+	<TestRepositoryPath>http://msbuildtasks.tigris.org/svn/msbuildtasks/trunk/Source/MSBuild.Community.Tasks.Tests/Subversion</TestRepositoryPath>
+	<TestWorkingFolder>$(MSBuildProjectDirectory)\Test\Checkout</TestWorkingFolder>
+	<LocalTestRepositoryPath>file:///d:/svn/repo/Test/trunk</LocalTestRepositoryPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\MSBuild.Community.Tasks.Targets" />
+
+  <Target Name="Version">
+    <SvnVersion LocalPath="$(MSBuildProjectDirectory)">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnVersion>
+
+    <Message Text="Revision: $(Revision)" />
+  </Target>
+
+  <Target Name="Export">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Test" />
+    <RemoveDir Directories="$(MSBuildProjectDirectory)\Test\Export" />
+
+    <SvnExport RepositoryPath="$(TestRepositoryPath)"
+               LocalPath="$(MSBuildProjectDirectory)\Test\Export">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnExport>
+
+    <Message Text="Revision: $(Revision)" />
+  </Target>
+
+  <Target Name="Checkout">
+    <RemoveDir Directories="$(TestWorkingFolder)" />
+
+    <SvnCheckout RepositoryPath="$(TestRepositoryPath)" 
+                 LocalPath="$(TestWorkingFolder)">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnCheckout>
+
+    <Message Text="Revision: $(Revision)" />
+  </Target>
+
+  <Target Name="Update" DependsOnTargets="Checkout">
+    <Delete Files="$(TestWorkingFolder)\SvnClientTest.cs" />
+    <SvnUpdate LocalPath="$(TestWorkingFolder)">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnUpdate>
+    <Message Text="Revision: $(Revision)" />
+  </Target>
+
+  <ItemGroup>
+    <CommitFiles Include="$(TestWorkingFolder)\test.txt" />
+    <CommitFiles Include="$(TestWorkingFolder)\Blah.txt" />
+  </ItemGroup>
+
+  <Target Name="Commit">
+	<RemoveDir Directories="$(TestWorkingFolder)" />
+    <SvnCheckout RepositoryPath="$(LocalTestRepositoryPath)" 
+                 LocalPath="$(TestWorkingFolder)">
+		<Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnCheckout>
+    <Message Text="Checked out revision: $(Revision)" />
+
+	<WriteLinesToFile File="%(CommitFiles.FullPath)" Lines="This is a test append." />
+
+    <SvnCommit Targets="@(CommitFiles)" Message="Auto commit from MSBuild.">
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </SvnCommit>
+
+    <Message Text="Committed revision: $(Revision)" />
+  </Target>
+
+  <Target Name="Info" DependsOnTargets="Checkout">
+    <SvnInfo LocalPath="$(TestWorkingFolder)">
+      <Output TaskParameter="RepositoryPath" PropertyName="RepositoryPath" />
+      <Output TaskParameter="RepositoryRoot" PropertyName="RepositoryRoot" />
+      <Output TaskParameter="LastChangedAuthor" PropertyName="LastChangedAuthor" />
+      <Output TaskParameter="LastChangedRevision" PropertyName="LastChangedRevision" />
+      <Output TaskParameter="LastChangedDate" PropertyName="LastChangedDate" />
+      <Output TaskParameter="Schedule" PropertyName="Schedule" />
+      <Output TaskParameter="NodeKind" PropertyName="NodeKind" />
+      <Output TaskParameter="RepositoryUuid" PropertyName="RepositoryUuid" />
+    </SvnInfo>
+    <Message Text="RepositoryRoot: $(RepositoryRoot)" />
+    <Message Text="RepositoryPath: $(RepositoryPath)" />
+    <Message Text="LastChangedAuthor: $(LastChangedAuthor)" />
+    <Message Text="LastChangedRevision: $(LastChangedRevision)" />
+    <Message Text="LastChangedDate: $(LastChangedDate)" />
+    <Message Text="Schedule: $(Schedule)" />
+    <Message Text="NodeKind: $(NodeKind)" />
+    <Message Text="RepositoryUuid: $(RepositoryUuid)" />
+  </Target>
+
+  <Target Name="RemoteInfo">
+    <SvnInfo RepositoryPath="http://msbuildtasks.tigris.org/svn/msbuildtasks/trunk/Master.proj">
+      <Output TaskParameter="RepositoryPath" PropertyName="RepositoryPath" />
+      <Output TaskParameter="RepositoryRoot" PropertyName="RepositoryRoot" />
+      <Output TaskParameter="LastChangedAuthor" PropertyName="LastChangedAuthor" />
+      <Output TaskParameter="LastChangedRevision" PropertyName="LastChangedRevision" />
+      <Output TaskParameter="LastChangedDate" PropertyName="LastChangedDate" />
+      <Output TaskParameter="Schedule" PropertyName="Schedule" />
+      <Output TaskParameter="NodeKind" PropertyName="NodeKind" />
+      <Output TaskParameter="RepositoryUuid" PropertyName="RepositoryUuid" />
+    </SvnInfo>
+    <Message Text="RepositoryRoot: $(RepositoryRoot)" />
+    <Message Text="RepositoryPath: $(RepositoryPath)" />
+    <Message Text="LastChangedAuthor: $(LastChangedAuthor)" />
+    <Message Text="LastChangedRevision: $(LastChangedRevision)" />
+    <Message Text="LastChangedDate: $(LastChangedDate)" />
+    <Message Text="Schedule: $(Schedule)" />
+    <Message Text="NodeKind: $(NodeKind)" />
+    <Message Text="RepositoryUuid: $(RepositoryUuid)" />
+  </Target>
+
+  <Target Name="Copy" DependsOnTargets="Checkout">
+    <SvnCopy SourcePath="$(TestWorkingFolder)\SvnCopyTest.cs"
+                DestinationPath="$(TestWorkingFolder)\SvnCopyTest.cs.bak" />
+  </Target>
+
+  <Target Name="Revert" DependsOnTargets="Copy">
+    <SvnClient Command="revert" LocalPath="$(TestWorkingFolder)\SvnCopyTest.cs.bak" />
+  </Target>
+
+  <Target Name="All">
+    <CallTarget Targets="Version" />
+    <CallTarget Targets="Export" />
+    <CallTarget Targets="Checkout" />
+    <CallTarget Targets="Copy" />
+    <CallTarget Targets="Revert" />
+    <CallTarget Targets="Update" />
+    <CallTarget Targets="Info" />
+    <CallTarget Targets="RemoteInfo" />
+  </Target>
+</Project>
