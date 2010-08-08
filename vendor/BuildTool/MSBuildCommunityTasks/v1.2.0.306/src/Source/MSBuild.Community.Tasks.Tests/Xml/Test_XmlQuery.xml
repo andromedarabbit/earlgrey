@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id: Test_XmlQuery.xml 246 2006-08-20 16:11:55Z joshuaflanagan $ -->
+<configuration>
+  <configSections>
+    <section name="singleValue" type="SingleValueSection" />
+  </configSections>
+  <appSettings>
+    <add key="DefaultTheme" value="Simple" />
+    <add key="MaxRowsPerPage" value="25" />
+    <!-- This is a comment -->
+    <add key="MinutesToCacheResults" value="10" />
+  </appSettings>
+  <singleValue>
+    <FirstName>John</FirstName>
+    <LastName>Doe</LastName>
+  </singleValue>
+  <system.web>
+    <compilation defaultLanguage="c#" debug="true" />
+    <authorization>
+      <deny users="?" />
+      <allow users="*" />
+    </authorization>
+    <trace enabled="false" />
+  </system.web>
+  <substitutions xmlns:xmu="urn:msbuildcommunitytasks-xmlmassupdate">
+    <keyed>
+      <system.web>
+        <compilation debug="true" />
+        <customErrors mode="RemoteOnly" />
+      </system.web>
+      <appSettings>
+        <add xmu:key="key" key="MaxRowsPerPage" value="10" />
+        <add xmu:key="key" key="DefaultTheme" value="Elegant" />
+        <add xmu:key="key" key="BrandNewSetting" value="2" />
+      </appSettings>
+    </keyed>
+    <same>
+      <system.web>
+        <compilation debug="false" />
+        <customErrors mode="On" defaultRedirect="Errors.htm" />
+      </system.web>
+      <appSettings>
+        <add xmu:key="key" key="MaxRowsPerPage" value="50" />
+      </appSettings>
+    </same>
+    <remove>
+      <system.web>
+        <trace xmu:action="remove" />
+      </system.web>
+    </remove>
+  </substitutions>
+</configuration>

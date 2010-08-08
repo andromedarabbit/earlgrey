@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<!-- $Id: Sleep.proj 114 2006-03-14 06:32:46Z pwelter34 $ -->
+
+	<PropertyGroup>
+		<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\bin\Debug</MSBuildCommunityTasksPath>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildProjectDirectory)\MSBuild.Community.Tasks\MSBuild.Community.Tasks.Targets"/>
+
+	<Target Name="Sleep">
+		<Sleep Milliseconds="200" />
+	</Target>
+</Project>
