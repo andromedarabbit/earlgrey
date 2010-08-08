@@ -1,14 +1,12 @@
 ﻿using System;
-using System.IO;
 
 using MSBuild.Earlgrey.Tasks.Subversion;
 using NUnit.Framework;
 
-
 namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
 {
     [TestFixture]
-    public class SvnDiffWithXmlSummaryTests
+    public class SvnDiffTests
     {
         [Test]
         public void ExecuteWithNoArgumentsWillFail()

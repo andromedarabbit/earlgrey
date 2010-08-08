@@ -12,9 +12,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         [Test]
         public void Execute()
         {
-            // string 
             const string repositoryPath = @"https://earlgrey.googlecode.com/svn/trunk/src/msbuild.xml";
-            // const string expectedLocalPath = @"D:\My Workspace\MyCombatArms\trunk\src\BuildTools\MSBuild.Earlgrey.Tasks\bin\MSBuild.Earlgrey.Tasks.Targets";
             string localPath = Path.GetFullPath(
                 Path.Combine(TaskUtility.BaseDirectory, @"..\..\")
                 );
@@ -31,8 +29,6 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
             Assert.IsTrue(
                 resolver.LocalPaths[0].EndsWith(@"src\msbuild.xml")
                 );
-            // Assert.AreEqual(expectedLocalPath, resolver.LocalPaths[0]);
-            
         }
     }
 }
