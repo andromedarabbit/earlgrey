@@ -38,5 +38,18 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
             Assert.AreEqual(9, info.FilesModified.Length);
             Assert.AreEqual(0, info.FoldersModified.Length);
         }
+
+        [Test]
+        public void HandlePathContainingKoreanLetters()
+        {
+            SvnDiff info = new SvnDiff();
+            info.Old = "https://earlgrey.googlecode.com/svn/trunk" + "@459";
+            info.New = "https://earlgrey.googlecode.com/svn/trunk" + "@460";
+            info.BuildEngine = new MSBuild.Community.Tasks.Tests.MockBuild();
+
+            Assert.IsTrue(info.Execute());
+            Assert.AreEqual(2, info.ItemsAdded.Length);
+            
+        }
     }
 }
