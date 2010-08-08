@@ -50,6 +50,11 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
             Assert.IsTrue(info.Execute());
             Assert.AreEqual(2, info.ItemsAdded.Length);
             
+            CollectionAssert.Contains(info.ItemsAdded,
+                                      @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더");
+            CollectionAssert.Contains(info.ItemsAdded,
+                                      @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더/한글 파일.txt");
+
         }
     }
 }
