@@ -1,12 +1,10 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-  <Import Project="..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\bin\MSBuild.Community.Tasks.Targets"/>
+<Import Project="..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\bin\MSBuild.Community.Tasks.Targets"/>
 
-  <PropertyGroup>
-    <RootDir>
-      $(MSBuildProjectDirectory)
-    </RootDir>  
-  </PropertyGroup>
+<PropertyGroup>
+	<RootDir>$(MSBuildProjectDirectory)</RootDir>  
+</PropertyGroup>
   
 <!-- 플랫폼 판단 -->
 <Choose> 
@@ -25,8 +23,8 @@
 </Choose>
 	
 <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
 	<BuildCondition>$(Configuration)|$(Platform)</BuildCondition>
 	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
 	<BinDir>$(OutputDir)\Bin</BinDir>
@@ -67,7 +65,7 @@
 <Target Name="CleanUnitTestArtifacts">
 	<Message Text="타겟: CleanUnitTestArtifacts" />
 
-  <Delete Files="$(BinDir)\NUnit.Reports.xml" />
+	<Delete Files="$(BinDir)\NUnit.Reports.xml" />
 </Target>
 
 
@@ -92,11 +90,11 @@
 <Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
 	<Message Text="타겟: TestAlone" />
 
-  <NUnit
-      ToolPath="..\..\vendor\NUnit 2.5.1\bin\net-2.0"
-      Assemblies="@(TestAssembly)"
-      OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
-    />
+	<NUnit
+		ToolPath="..\..\vendor\NUnit 2.5.1\bin\net-2.0"
+		Assemblies="@(TestAssembly)"
+		OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
+	/>
 </Target>
 
 </Project>

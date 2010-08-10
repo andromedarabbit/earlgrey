@@ -17,12 +17,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.ItemGroup
 
         public ItemsHelperTest()
         {
-            _colors = new List<string>();
-            _colors.Add("Red");
-            _colors.Add("Blue");
-            _colors.Add("Yellow");
-            _colors.Add("Violet");
-            _colors.Add("Black");
+            _colors = new List<string> {"Red", "Blue", "Yellow", "Violet", "Black"};
 
             _items = from color in _colors
                      select new TaskItem(color)
