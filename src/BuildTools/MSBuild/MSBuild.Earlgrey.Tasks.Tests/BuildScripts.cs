@@ -36,16 +36,21 @@ namespace MSBuild.Earlgrey.Tasks.Tests
 
         private static bool RunBuildScript(string projectFile)
         {
-            Engine engine = new Engine();
-            engine.BinPath = TaskUtility.BaseDirectory;
+            string winDir = Environment.GetEnvironmentVariable("windir");
+            string binPath = Path.Combine(winDir, @"Microsoft.NET\Framework\v2.0.50727");
+
+            Engine engine = new Engine(binPath);
             
             ILogger logger = new ConsoleLogger(LoggerVerbosity.Diagnostic);
             engine.RegisterLogger(logger);
         
             Project project = new Project(engine);
             project.Load(projectFile);
+       
+            if(project.Build() == false)
+                return false;
 
-            return project.Build();
+            return true;
         }
 
         [Test]

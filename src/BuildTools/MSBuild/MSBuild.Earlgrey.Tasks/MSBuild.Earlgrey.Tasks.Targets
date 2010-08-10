@@ -2,9 +2,12 @@
 
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">$(MSBuildExtensionsPath)\MSBuildEarlgreyTasks</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">.</MSBuildEarlgreyTasksPath>
     <MSBuildEarlgreyTasksLib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.dll</MSBuildEarlgreyTasksLib>
+    <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
   </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Community.Tasks.Targets"/>
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.RoboCopy" />
 

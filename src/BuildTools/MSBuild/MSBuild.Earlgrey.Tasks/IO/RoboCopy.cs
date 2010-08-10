@@ -35,10 +35,11 @@ namespace MSBuild.Earlgrey.Tasks.IO
             if (File.Exists(fullPathToTool))
                 return fullPathToTool;
 
-            return Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"ExternalTools\" + ToolName
-                );
+            Uri currentAssemblyUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            string currentAssemblyPath = currentAssemblyUri.LocalPath;
+            string baseDirectory = Directory.GetParent(currentAssemblyPath).FullName;
+
+            return Path.Combine(baseDirectory, @"ExternalTools\" + ToolName);
         }
 
         private string FullPathToTool
@@ -88,10 +89,6 @@ namespace MSBuild.Earlgrey.Tasks.IO
         //! \todo 사용자가 원한다면 일부 종료 코드를 오류 처리하게 하자.
         protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
         {
-            //Debug.Assert(string.IsNullOrEmpty(pathToTool) == false);
-            //Debug.Assert(string.IsNullOrEmpty(responseFileCommands) == false);
-            //Debug.Assert(string.IsNullOrEmpty(commandLineCommands) == false);
-
             Log.LogMessage("Running " + pathToTool + " " + commandLineCommands);
             return HandleExitCode(
                 base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands)
