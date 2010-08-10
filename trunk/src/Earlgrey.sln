@@ -73,9 +73,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildTools", "BuildTools", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuildExtensions", "MSBuildExtensions", "{68EEC053-7DC2-4653-9F47-CBB244C60B11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Tasks", "BuildTools\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj", "{72CE6E28-4C07-4377-B01B-CBEC887CE918}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Tasks", "BuildTools\MSBuild\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj", "{72CE6E28-4C07-4377-B01B-CBEC887CE918}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Tasks.Tests", "BuildTools\MSBuild.Earlgrey.Tasks.Tests\MSBuild.Earlgrey.Tasks.Tests.csproj", "{A22F1515-6D9F-4E5B-A4C9-5F18F48A8C6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Tasks.Tests", "BuildTools\MSBuild\MSBuild.Earlgrey.Tasks.Tests\MSBuild.Earlgrey.Tasks.Tests.csproj", "{A22F1515-6D9F-4E5B-A4C9-5F18F48A8C6E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Community.Tasks", "..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj", "{F88A60A8-564C-4E70-92DC-E92DBB897641}"
 EndProject
