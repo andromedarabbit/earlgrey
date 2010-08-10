@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">$(MSBuildExtensionsPath)\MSBuildEarlgreyTasks</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksLib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.dll</MSBuildEarlgreyTasksLib>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.RoboCopy" />
+
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.ItemGroup.ItemsHelper" />
+
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnPathResolver" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" />
+</Project>

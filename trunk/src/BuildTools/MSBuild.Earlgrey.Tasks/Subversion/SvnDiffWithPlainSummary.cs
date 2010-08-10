@@ -7,7 +7,6 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
 {
     public class SvnDiffWithPlainSummary : AbstractSvnDiff
     {
-        // private diff _diffObj;
         private List<ItemChanged> _itemsChanged;
 
 

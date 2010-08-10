@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+  <ItemGroup>
+    <Colors Include="Red" />
+    <Colors Include="Blue" />
+    <Colors Include="Violet" />
+    <Colors Include="Black" />
+  </ItemGroup>
+
+  <Target Name="FirstTest">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="First" PropertyName="FirstItem" />
+    </ItemsHelper>
+
+    <Error
+      Text="First item should be 'Red', but '$(FirstItem)'!"
+      Condition="'$(FirstItem)' != 'Red'" />
+  </Target>
+
+  <Target Name="LastTest">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Last" PropertyName="LastItem" />
+    </ItemsHelper>
+
+    <Error
+      Text="Last item should be 'Black', but '$(LastItem)'!"
+      Condition="'$(LastItem)' != 'Black'" />
+  </Target>
+
+  <Target Name="CountTest">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Count" PropertyName="CountOfItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="The number of items should be '4', but '$(CountOfItems)'!"
+      Condition="'$(CountOfItems)' != '4'" />
+  </Target>
+
+  <Target Name="MaxTest">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Max" PropertyName="MaxItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="Item with maximum value should be 'Violet', but '$(MaxItems)'!"
+      Condition="'$(MaxItems)' != 'Violet'" />
+  </Target>
+
+  <Target Name="MinTest">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Min" PropertyName="MinItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="Item with minimum value should be 'Black', but '$(MinItems)'!"
+      Condition="'$(MinItems)' != 'Black'" />
+  </Target>
+
+  <Target Name="All" DependsOnTargets="FirstTest; LastTest; CountTest; MaxTest; MinTest">
+  </Target>
+</Project>
