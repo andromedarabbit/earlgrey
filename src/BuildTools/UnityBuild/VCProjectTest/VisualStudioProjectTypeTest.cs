@@ -18,7 +18,7 @@ namespace VCProjectTest
         private static readonly string SampleVcProjFilePath;
 
         // private static readonly string xsdFileName;
-        private static readonly string XsdFilePath;
+     //   private static readonly string XsdFilePath;
 
 
         static VisualStudioProjectTypeTest()
@@ -30,11 +30,11 @@ namespace VCProjectTest
                 , @"..\..\..\..\Earlgrey\Earlgrey.vcproj"
             );
 
-            // xsdFileName = "VisualStudioProjectType.xsd";
-            XsdFilePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\VCProject\VisualStudioProjectType.xsd"
-            );
+//             // xsdFileName = "VisualStudioProjectType.xsd";
+//             XsdFilePath = Path.Combine(
+//                 AppDomain.CurrentDomain.BaseDirectory
+//                 , @"..\..\..\VCProject\VisualStudioProjectType.xsd"
+//             );
         }
 
         private static string ReadVcProjText(string path)
@@ -60,14 +60,15 @@ namespace VCProjectTest
             string requestXsdNameSpace = string.Empty;
      
             // Create a validating XML reader and validate...
-            var context = new XmlParserContext(null, null, "", XmlSpace.None);
-            var vr = new XmlValidatingReader(SampleVcProjFilePath, XmlNodeType.Element, context);
-            vr.ValidationType = ValidationType.Schema;
-            vr.Schemas.Add(requestXsdNameSpace, XsdFilePath);
-            vr.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandler);
-            while (vr.Read())
-            {
-            }
+//             var context = new XmlParserContext(null, null, "", XmlSpace.None);
+//             // var vr = new XmlValidatingReader(SampleVcProjFilePath, XmlNodeType.Element, context);
+//             var vr = new XmlValidatingReader(SampleVcProjFilePath, XmlNodeType.Element, context);
+//             vr.ValidationType = ValidationType.Schema;
+//             vr.Schemas.Add(requestXsdNameSpace, XsdFilePath);
+//             vr.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandler);
+//             while (vr.Read())
+//             {
+           // }
 
             // Read in the input XML in a TextReader...
             using (TextReader tr = new StreamReader(SampleVcProjFilePath))
