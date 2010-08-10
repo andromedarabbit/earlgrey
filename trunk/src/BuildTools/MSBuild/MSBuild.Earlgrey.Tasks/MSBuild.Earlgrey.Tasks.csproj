@@ -119,4 +119,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(SolutionDir)"
+XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Community.Tasks", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Community.Tasks.Tests", "..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks.Tests\MSBuild.Community.Tasks.Tests.csproj", "{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{8C57DDC2-1BC9-4CAB-9DA4-E2C629348D8C}"
+	ProjectSection(SolutionItems) = preProject
+		msbuild-ci.xml = msbuild-ci.xml
+		msbuild.xml = msbuild.xml
+		..\MSBuild_Win32.bat = ..\MSBuild_Win32.bat
+		..\MSBuild_x64.bat = ..\MSBuild_x64.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,8 +66,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{72CE6E28-4C07-4377-B01B-CBEC887CE918} = {27AB49EA-5129-433D-BDA2-7781C548017C}
 		{A22F1515-6D9F-4E5B-A4C9-5F18F48A8C6E} = {27AB49EA-5129-433D-BDA2-7781C548017C}
+		{72CE6E28-4C07-4377-B01B-CBEC887CE918} = {27AB49EA-5129-433D-BDA2-7781C548017C}
 		{F88A60A8-564C-4E70-92DC-E92DBB897641} = {27AB49EA-5129-433D-BDA2-7781C548017C}
 		{5AC1D006-CA56-4BE1-8250-DBEABBEA0725} = {27AB49EA-5129-433D-BDA2-7781C548017C}
 		{21ABAC76-40AC-45F0-9CA4-85281002887F} = {ABBFE178-7A72-4645-A562-11F98731B735}
