@@ -1,60 +1,35 @@
 ﻿<Project DefaultTargets="BuildForCI" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-<!--
-<Import Project="..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\bin\MSBuild.Community.Tasks.Targets"/>
--->
 
 <Import Project="msbuild.xml"/>
 
 <!-- 서브버전 -->
 <PropertyGroup>
 	<SvnUsername>kaistizen</SvnUsername>
+	<SvnUsername Condition="'$(SvnUsername)' == ''">$(USERNAME)</SvnUsername>
 	<!-- <SvnPassword></SvnPassword> -->
-	<SvnLocalRootPath>..</SvnLocalRootPath>
+	<SvnLocalRootPath>.</SvnLocalRootPath>
 </PropertyGroup>
-
-<!-- 공유 라이브러리의 로컬 경로 -->
-<ItemGroup>
-	<SharedLibrary Include="Item">
-		<LocalPath>..\vendor\gtest-1.3.0</LocalPath>
-		<EscapedLocalPath>gtest</EscapedLocalPath>
-	</SharedLibrary>
-	<SharedLibrary Include="Item">
-		<LocalPath>.\Earlgrey</LocalPath>
-		<EscapedLocalPath>earlgrey</EscapedLocalPath>
-	</SharedLibrary>
-</ItemGroup>
-
 
 <!-- C# 코드는 컴파일이 빠르니 안전하게 다시 빌드하자 -->
 <Target Name="DetermineBuildConditionForCI">
-	<CreateProperty
-		Value="Rebuild">
-		<Output
-			TaskParameter="Value"
-			PropertyName="BuildConditionForCI" />
+	<CreateProperty Value="Rebuild">
+		<Output TaskParameter="Value" PropertyName="BuildConditionForCI" />
 	</CreateProperty>
 	
 	<Message Text="BuildConditionForCI = $(BuildConditionForCI)" Importance="high"/>
 </Target>
 	
-	
 <Target Name="SrcUpdate">
-	<SvnUpdate Username="$(SvnUsername)"
-		Password="$(SvnPassword)" 
-		LocalPath="$(SvnLocalRootPath)">
-	</SvnUpdate>
+	<SvnUpdate Username="$(SvnUsername)" Password="$(SvnPassword)" LocalPath="$(SvnLocalRootPath)" />
 </Target>
 
 <Target Name="CleanForCI" DependsOnTargets="Clean;">
 	<Message Text="타겟: CleanForCI" />
 </Target>
 
-<Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate ">
-	<Message Text="CI용 빌드 타겟: $(BuildConditionForCI)" />
-	
-	<CallTarget Targets="$(BuildConditionForCI)" />
-	<CallTarget Targets="TestAlone" />
+<Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate;">	
+  
+	<CallTarget Targets="$(BuildConditionForCI); TestAlone" />
 </Target>
 
 </Project>
-	

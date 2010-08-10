@@ -1,0 +1,46 @@
+﻿<Project DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Import Project="msbuild-ci.xml"/>
+
+<!-- 배포 폴더 -->
+<PropertyGroup>
+	<MSBuildExtensionDir Condition="'$(MSBuildExtensionDir)' == ''">$(OutputDir)\MSBuildExtension</MSBuildExtensionDir>
+</PropertyGroup>
+
+<!-- 배포 파일 -->
+<Target Name="GetMSBuildExtensionFileList">
+	<CreateItem
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll"
+		Exclude="$(BinDir)\MSBuild.*.Tests.*"
+		AdditionalMetadata="DstDir=$(MSBuildExtensionDir)"
+	>
+
+		<Output
+			TaskParameter="Include"
+			ItemName="MSBuildExtensionFile"
+		/>
+	</CreateItem>
+	
+	<CreateItem
+		Include="$(BinDir)\ExternalTools\*"
+		AdditionalMetadata="DstDir=$(MSBuildExtensionDir)\ExternalTools"
+	>
+		<Output
+			TaskParameter="Include"
+			ItemName="MSBuildExtensionFile"
+		/>
+	</CreateItem>
+</Target>
+
+<Target Name="Deploy" DependsOnTargets="BuildForCI; GetMSBuildExtensionFileList">
+	<Exec Command="rmdir /s $(Quot)$(MSBuildExtensionDir)$(Quot)" />
+	
+	<Copy      
+      DestinationFolder="%(MSBuildExtensionFile.DstDir)"
+      SourceFiles="%(MSBuildExtensionFile.FullPath)"
+	/>
+	
+	<Message Text="@(MSBuildExtensionFile)" Importance="high" />
+</Target>
+
+</Project>
