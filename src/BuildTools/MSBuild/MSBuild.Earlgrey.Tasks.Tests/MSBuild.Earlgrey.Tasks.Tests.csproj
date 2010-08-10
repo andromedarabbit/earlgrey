@@ -63,11 +63,11 @@
     <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks.Tests\MSBuild.Community.Tasks.Tests.csproj">
+    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks.Tests\MSBuild.Community.Tasks.Tests.csproj">
       <Project>{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}</Project>
       <Name>MSBuild.Community.Tasks.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
+    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
       <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
       <Name>MSBuild.Community.Tasks</Name>
     </ProjectReference>
