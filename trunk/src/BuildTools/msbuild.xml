@@ -45,24 +45,29 @@
 
 <!-- 빌드 대상 -->
 <ItemGroup>
-	<ProjectReferences Include="Earlgrey.sln">
+	<ProjectReferences Include="Earlgrey.BuildTools.sln">
 		<Configuration>$(Configuration)</Configuration>
-		<Platform>$(Platform)</Platform>
+		<Platform>Any CPU</Platform>
 	</ProjectReferences>
 </ItemGroup>
 		
 <!-- 단위 테스트 바이너리 -->
+<!-- TODO: 단위 테스트는 나중에 적용하자 -->
+<!--
 <ItemGroup>
 	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Test.exe">
 	</UnitTestBinaries>
 </ItemGroup>
-
+-->
 
 <Target Name="CleanUnitTestArtifacts">
 	<Message Text="타겟: CleanUnitTestArtifacts" />
 	
+	<!--
 	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" ContinueOnError="true" IgnoreExitCode="true" />
+	-->
 </Target>
+
 
 <Target Name="Clean">  
     <Message Text="타겟: Clean" />  
@@ -84,7 +89,9 @@
 
 <Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
 	<Message Text="타겟: TestAlone" />
+	
 	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;" WorkingDirectory="$(BinDir)" ContinueOnError="true"  IgnoreExitCode="true" />
+	
 </Target>
 
 </Project>
