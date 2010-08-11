@@ -9,7 +9,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
 {
     [TestFixture]
     public class DeleteSharedFolderTest
-    {
+    {        
         [Test]
         public void TreatAsErrorWhenNotExist()
         {

@@ -25,32 +25,35 @@ namespace MSBuild.Earlgrey.Tasks.IO
 
         private bool Delete()
         {
-            Win32Share tempShare = Win32Share.GetNamedShare(Name);
-            if(tempShare == null)
+            using (Win32Share tempShare = Win32Share.GetNamedShare(Name))
             {
-                string msg = string.Format("Shared folder with a name '{0}' not found!", Name);
-
-                if(TreatAsErrorWhenNotExist)
+                if (tempShare == null)
                 {
-                    Log.LogError(msg);
+                    string msg = string.Format("Shared folder with a name '{0}' not found!", Name);
+
+                    if (TreatAsErrorWhenNotExist)
+                    {
+                        Log.LogError(msg);
+                        return false;
+                    }
+
+                    Log.LogWarning(msg);
+                    return true;
+                }
+
+
+                Win32Share.MethodStatus deleteResult = tempShare.Delete();
+                if (deleteResult != Win32Share.MethodStatus.Success)
+                {
+                    Log.LogError("Couldn't delete the shared folder!");
                     return false;
                 }
 
-                Log.LogWarning(msg);
+                if (DeleteLocalFolder)
+                    Directory.Delete(tempShare.Path, true);
+
                 return true;
             }
-
-            Win32Share.MethodStatus deleteResult = tempShare.Delete();
-            if (deleteResult != Win32Share.MethodStatus.Success)
-            {
-                Log.LogError("Couldn't delete the shared folder!");
-                return false;
-            }
-            
-            if (DeleteLocalFolder)
-                Directory.Delete(tempShare.Path, true);
-
-            return true;
         }
 
         protected override bool ValidateParameters()

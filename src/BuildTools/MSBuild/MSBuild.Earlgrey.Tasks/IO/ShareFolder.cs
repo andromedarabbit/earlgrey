@@ -48,20 +48,22 @@ namespace MSBuild.Earlgrey.Tasks.IO
         private bool Share()
         {
             // \todo DeleteSharedFolder 클래스를 써서 중복 코드 제거하자
-            Win32Share sharedFolder = Win32Share.GetNamedShare(Name);
-            if(sharedFolder != null)
+            using (Win32Share sharedFolder = Win32Share.GetNamedShare(Name))
             {
-                if(ResetExistingOne == false)
+                if (sharedFolder != null)
                 {
-                    Log.LogError("Shared folder with the same name already exists!");
-                    return false;
-                }
+                    if (ResetExistingOne == false)
+                    {
+                        Log.LogError("Shared folder with the same name already exists!");
+                        return false;
+                    }
 
-                Win32Share.MethodStatus deleteResult = sharedFolder.Delete();
-                if (deleteResult != Win32Share.MethodStatus.Success)
-                {
-                    Log.LogError("Couldn't delete the existing folder!");
-                    return false;
+                    Win32Share.MethodStatus deleteResult = sharedFolder.Delete();
+                    if (deleteResult != Win32Share.MethodStatus.Success)
+                    {
+                        Log.LogError("Couldn't delete the existing folder!");
+                        return false;
+                    }
                 }
             }
 
@@ -76,11 +78,6 @@ namespace MSBuild.Earlgrey.Tasks.IO
 
         protected override bool ValidateParameters()
         {
-            //if(string.IsNullOrEmpty(LocalPath))
-            //{
-            //    Log.LogError();
-            //    return false;
-            //}
             return true;
         }
 
