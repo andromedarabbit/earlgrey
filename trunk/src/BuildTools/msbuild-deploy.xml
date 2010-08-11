@@ -4,7 +4,7 @@
 
 <!-- 배포 폴더 -->
 <PropertyGroup>
-	<MSBuildExtensionDir Condition="'$(MSBuildExtensionDir)' == ''">$(OutputDir)\MSBuildExtension</MSBuildExtensionDir>
+	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\MSBuildExtension</DeploymentDir>
 </PropertyGroup>
 
 <!-- 배포 파일 -->
@@ -12,7 +12,7 @@
 	<CreateItem
 		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll"
 		Exclude="$(BinDir)\MSBuild.*.Tests.*"
-		AdditionalMetadata="DstDir=$(MSBuildExtensionDir)"
+		AdditionalMetadata="DstDir=$(DeploymentDir)"
 	>
 
 		<Output
@@ -23,7 +23,7 @@
 	
 	<CreateItem
 		Include="$(BinDir)\ExternalTools\*"
-		AdditionalMetadata="DstDir=$(MSBuildExtensionDir)\ExternalTools"
+		AdditionalMetadata="DstDir=$(DeploymentDir)\ExternalTools"
 	>
 		<Output
 			TaskParameter="Include"
@@ -33,7 +33,7 @@
 </Target>
 
 <Target Name="Deploy" DependsOnTargets="BuildForCI; GetMSBuildExtensionFileList">
-	<Exec Command="rmdir /s $(Quot)$(MSBuildExtensionDir)$(Quot)" />
+	<Exec Command="rmdir /s $(Quot)$(DeploymentDir)$(Quot)" />
 	
 	<Copy      
       DestinationFolder="%(MSBuildExtensionFile.DstDir)"
