@@ -41,6 +41,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -52,7 +53,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTask.cs" />
+    <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\RoboCopy.cs" />
+    <Compile Include="IO\ShareFolder.cs" />
+    <Compile Include="IO\Win32Share.cs" />
     <Compile Include="ItemGroup\ItemsHelper.cs" />
     <Compile Include="MockBuildEngine.cs">
       <SubType>Code</SubType>
@@ -82,6 +86,7 @@
     <Compile Include="Subversion\SvnSwitch.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExternalTools\Robocopy.exe">

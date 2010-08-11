@@ -12,6 +12,8 @@
     <AssemblyName>MSBuild.Earlgrey.Tasks.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>MSBuild.Community.Tasks.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\RoboCopyTest.cs" />
+    <Compile Include="IO\ShareFolderTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
     <Compile Include="OneTimeSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,13 +67,8 @@
     <Compile Include="Subversion\diffTest.cs" />
     <Compile Include="Subversion\SvnDiffTest.cs" />
     <Compile Include="Subversion\SvnPathResolverTest.cs" />
-    <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks.Tests\MSBuild.Community.Tasks.Tests.csproj">
-      <Project>{5AC1D006-CA56-4BE1-8250-DBEABBEA0725}</Project>
-      <Name>MSBuild.Community.Tasks.Tests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
       <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
       <Name>MSBuild.Community.Tasks</Name>
@@ -81,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IO\BuildScripts\RoboCopyTest.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IO\BuildScripts\SharedFolderTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="IO\RoboCopySrcFolder1\TextFile.txt">
@@ -95,6 +97,9 @@
     <Content Include="Subversion\Sample\한글 폴더\한글 파일.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MSBuild.Community.Tasks.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

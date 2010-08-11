@@ -10,10 +10,13 @@
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Community.Tasks.Targets"/>
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.RoboCopy" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.ShareFolder" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.DeleteSharedFolder" />
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.ItemGroup.ItemsHelper" />
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnPathResolver" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" />
+  
 </Project>

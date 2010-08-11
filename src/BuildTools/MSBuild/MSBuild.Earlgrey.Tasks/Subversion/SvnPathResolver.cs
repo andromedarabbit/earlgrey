@@ -125,7 +125,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         {
             if (string.IsNullOrEmpty(LocalPath))
             {
-                LocalPath = AppDomain.CurrentDomain.BaseDirectory;
+                LocalPath = TaskUtility.ThisAssemblyDirectory;
             }
             
             if(ValidateParameters() == false)
@@ -140,6 +140,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             catch (Exception ex)
             {
                 Log.LogError(ex.Message);
+                // _svnInfo.Log.LogError(ex.Message);
                 return false;
             }
 
@@ -186,7 +187,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             if (svnInfo.Execute() == false)
             {
                 throw new Exception(
-                    string.Format("Couldn't find repository path of local root path '{0}'", roots.LocalRoot)
+                    string.Format("Couldn't find repository path of local root path '{0}' when starting searching from local path '{1}'.", roots.LocalRoot, LocalPath)
                     );
             }
             roots.RepositoryPathOfLocalRoot = svnInfo.RepositoryPath;

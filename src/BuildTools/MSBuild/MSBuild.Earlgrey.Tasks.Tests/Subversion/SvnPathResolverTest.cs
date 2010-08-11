@@ -14,7 +14,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         {
             const string repositoryPath = @"https://earlgrey.googlecode.com/svn/trunk/src/msbuild.xml";
             string localPath = Path.GetFullPath(
-                Path.Combine(TaskUtility.BaseDirectory, @"..\..\")
+                Path.Combine(TaskUtility.ThisAssemblyDirectory, @"..\..\")
                 );
 
             SvnPathResolver resolver = CreateResolver(localPath, repositoryPath);
@@ -29,11 +29,9 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         private static SvnPathResolver CreateResolver(string localPath, string repositoryPath)
         {
             SvnPathResolver resolver = new SvnPathResolver();
-            resolver.BuildEngine = new MSBuild.Community.Tasks.Tests.MockBuild();
+            resolver.BuildEngine = new MockBuildEngine();
             resolver.LocalPath = localPath;
-            resolver.RepositoryPaths = new string[] {
-                                                        repositoryPath
-                                                    };
+            resolver.RepositoryPaths = new [] { repositoryPath };
             return resolver;
         }
 
@@ -41,7 +39,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         public void ExecuteWithLocalPathUnversioned()
         {
             const string repositoryPath = @"https://earlgrey.googlecode.com/svn/trunk/src/msbuild.xml";
-            string localPath = TaskUtility.BaseDirectory;
+            string localPath = TaskUtility.ThisAssemblyDirectory;
 
             SvnPathResolver resolver = CreateResolver(localPath, repositoryPath);
             Assert.IsFalse(resolver.Execute());
