@@ -171,8 +171,14 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 svnInfo = CreateSvnInfoInstance(path); // _svnInfo 인스턴스를 재활용하면 좋지만 SvnInfo 클래스가 1회 실행을 전제로 설계되었다.                
                 if (svnInfo.Execute() == false)
                     break;
-                
-                roots.RepositoryRoot = svnInfo.RepositoryRoot; // 한번만 해도 될 듯 하나 귀찮으니......
+             
+                // svn:external 로 가져온 소스코드도 고려한다.
+                if( string.IsNullOrEmpty(roots.RepositoryRoot) )
+                    roots.RepositoryRoot = svnInfo.RepositoryRoot;
+
+                if( roots.RepositoryRoot != svnInfo.RepositoryRoot )
+                    break;
+
                 roots.LocalRoot = path;
             }
 
