@@ -19,11 +19,11 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
         static RoboCopyTest()
         {
             SrcDir = Path.Combine(
-                TaskUtility.BaseDirectory
+                TaskUtility.ThisAssemblyDirectory
                 , @"IO\RoboCopySrcFolder1"
                 );
             DstDir = Path.Combine(
-                TaskUtility.BaseDirectory
+                TaskUtility.ThisAssemblyDirectory
                 , @"IO\RoboCopyDstFolder1"
                 );
         }

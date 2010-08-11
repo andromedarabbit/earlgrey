@@ -56,7 +56,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests
         [Test]
         public void Execute()
         {
-            List<string> files = SearchFile(TaskUtility.BaseDirectory, "*.msbuild.xml");
+            List<string> files = SearchFile(TaskUtility.ThisAssemblyDirectory, "*.msbuild.xml");
             CollectionAssert.IsNotEmpty(files);
 
             files.ForEach(

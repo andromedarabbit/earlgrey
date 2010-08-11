@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <Target Name="DeleteNotExistingSharedFolderWithTreatAsErrorWhenNotExistSwitch">
+    <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.WrongFolder"
+                        TreatAsErrorWhenNotExist="false"
+                        DeleteLocalFolder="true"
+                        />
+  </Target>
+
+  
+  <Target Name="ShareAndUnshareTest">
+    <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" 
+                        TreatAsErrorWhenNotExist="false"
+                        />
+    <Delete Files="$(RootDir)\SharedFolder1" />
+
+    <ShareFolder
+      LocalFolder="$(RootDir)\SharedFolder1"
+      Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1"
+      Description="Unit-testing......"
+      ResetExistingOne="true"
+		/>
+
+    <Error
+      Text="Folder not found!"
+      Condition="!Exists('$(RootDir)\SharedFolder1')" />
+
+    <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" />
+  </Target>
+  
+  <Target Name="ResetExistingOneTest">
+    <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1"
+                        TreatAsErrorWhenNotExist="false"
+                        />
+    <Delete Files="$(RootDir)\SharedFolder1" />    
+
+    <ShareFolder
+      LocalFolder="$(RootDir)\SharedFolder1"
+      Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1"
+      Description="Unit-testing......"
+      ResetExistingOne="false"
+		/>
+
+    <Error
+     Text="Folder not found!"
+     Condition="!Exists('$(RootDir)\SharedFolder1')" />
+    
+    <ShareFolder
+     LocalFolder="$(RootDir)\SharedFolder1"
+     Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1"
+     Description="Unit-testing......"
+     ResetExistingOne="true"
+		/>
+
+    <Error
+      Text="Folder not found!"
+      Condition="!Exists('$(RootDir)\SharedFolder1')" />
+
+    <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" />
+  </Target>
+
+  <Target Name="All" DependsOnTargets="DeleteNotExistingSharedFolderWithTreatAsErrorWhenNotExistSwitch; ShareAndUnshareTest; ResetExistingOneTest;">
+  </Target>
+</Project>
