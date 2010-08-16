@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
@@ -8,7 +8,7 @@
 
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
 
-  <Target Name="CopyFileWithParentDirectoryTest">
+  <Target Name="TestCase-CopyFileWithParentDirectoryTest-ExpectTrue">
     <Delete Files="$(RootDir)\..\RoboCopyDstFolder1" />
     
     <RoboCopy
@@ -21,9 +21,5 @@
     <Error
       Text="Parent folder not found!"
       Condition="!Exists('$(RootDir)\..\RoboCopyDstFolder1')" />
-  </Target>
-
- 
-  <Target Name="All" DependsOnTargets="CopyFileWithParentDirectoryTest">
-  </Target>
+  </Target> 
 </Project>

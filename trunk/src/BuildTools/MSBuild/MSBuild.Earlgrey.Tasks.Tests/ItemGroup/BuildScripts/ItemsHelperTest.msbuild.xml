@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
@@ -16,7 +16,7 @@
     <Colors Include="Black" />
   </ItemGroup>
 
-  <Target Name="FirstTest">
+  <Target Name="TestCase-FirstTest-ExpectTrue">
     <ItemsHelper Items="@(Colors)">
       <Output TaskParameter="First" PropertyName="FirstItem" />
     </ItemsHelper>
@@ -26,7 +26,7 @@
       Condition="'$(FirstItem)' != 'Red'" />
   </Target>
 
-  <Target Name="LastTest">
+  <Target Name="TestCase-LastTest-ExpectTrue">
     <ItemsHelper Items="@(Colors)">
       <Output TaskParameter="Last" PropertyName="LastItem" />
     </ItemsHelper>
@@ -36,7 +36,7 @@
       Condition="'$(LastItem)' != 'Black'" />
   </Target>
 
-  <Target Name="CountTest">
+  <Target Name="TestCase-CountTest-ExpectTrue">
     <ItemsHelper Items="@(Colors)">
       <Output TaskParameter="Count" PropertyName="CountOfItems" />
     </ItemsHelper>
@@ -46,7 +46,7 @@
       Condition="'$(CountOfItems)' != '4'" />
   </Target>
 
-  <Target Name="MaxTest">
+  <Target Name="TestCase-MaxTest-ExpectTrue">
     <ItemsHelper Items="@(Colors)">
       <Output TaskParameter="Max" PropertyName="MaxItems" />
     </ItemsHelper>
@@ -56,7 +56,7 @@
       Condition="'$(MaxItems)' != 'Violet'" />
   </Target>
 
-  <Target Name="MinTest">
+  <Target Name="TestCase-MinTest-ExpectTrue">
     <ItemsHelper Items="@(Colors)">
       <Output TaskParameter="Min" PropertyName="MinItems" />
     </ItemsHelper>
@@ -66,6 +66,4 @@
       Condition="'$(MinItems)' != 'Black'" />
   </Target>
 
-  <Target Name="All" DependsOnTargets="FirstTest; LastTest; CountTest; MaxTest; MinTest">
-  </Target>
 </Project>

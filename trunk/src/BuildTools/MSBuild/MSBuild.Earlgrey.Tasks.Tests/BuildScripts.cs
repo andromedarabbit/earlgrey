@@ -14,6 +14,20 @@ namespace MSBuild.Earlgrey.Tasks.Tests
     [TestFixture]
     public class BuildScripts
     {
+        private static readonly string TestCaseTargetPrefix;
+
+        static BuildScripts()
+        {
+            TestCaseTargetPrefix = "TestCase-";
+        }
+
+        public BuildScripts()
+        {
+            ContinueOnError = false;
+        }
+
+        private bool ContinueOnError { get; set; }
+
         //! \todo 이 기능을 여기저기서 쓰니 따로 정리하자.
         private static List<string> SearchFile(string rootDir, string pattern)
         {
@@ -34,7 +48,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests
             }
         }
 
-        private static bool RunBuildScript(string projectFile)
+        private bool RunBuildScript(string projectFile)
         {
             string winDir = Environment.GetEnvironmentVariable("windir");
             string binPath = Path.Combine(winDir, @"Microsoft.NET\Framework\v2.0.50727");
@@ -46,11 +60,37 @@ namespace MSBuild.Earlgrey.Tasks.Tests
         
             Project project = new Project(engine);
             project.Load(projectFile);
-       
-            if(project.Build() == false)
-                return false;
 
-            return true;
+            bool successful = true;
+
+            foreach (Target target in project.Targets)
+            {
+                string targetName = target.Name;
+                if (targetName.StartsWith(TestCaseTargetPrefix, StringComparison.CurrentCultureIgnoreCase) == false)
+                    continue;
+
+                if (RunTarget(project, targetName) == false)
+                {
+                    if (ContinueOnError == false)
+                        return false;
+                    successful = false;
+                }
+            }
+            
+            return successful;
+        }
+
+        private static bool RunTarget(Project project, string targetName)
+        {
+            if (targetName.EndsWith("-ExpectTrue"))
+                return project.Build(targetName) == true;
+                    
+            if (targetName.EndsWith("-ExpectFalse"))
+                return project.Build(targetName) == false;
+
+            throw new Exception(
+                string.Format("Unexpected target name '{0}'", targetName)
+                );
         }
 
         [Test]
