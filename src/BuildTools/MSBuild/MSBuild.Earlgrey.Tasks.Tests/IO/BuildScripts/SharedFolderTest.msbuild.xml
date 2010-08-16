@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Project DefaultTargets="All" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
@@ -8,7 +8,7 @@
 
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
 
-  <Target Name="DeleteNotExistingSharedFolderWithTreatAsErrorWhenNotExistSwitch">
+  <Target Name="TestCase-DeleteNotExistingSharedFolderWithTreatAsErrorWhenNotExistSwitch-ExpectTrue">
     <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.WrongFolder"
                         TreatAsErrorWhenNotExist="false"
                         DeleteLocalFolder="true"
@@ -16,7 +16,7 @@
   </Target>
 
   
-  <Target Name="ShareAndUnshareTest">
+  <Target Name="TestCase-ShareAndUnshareTest-ExpectTrue">
     <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" 
                         TreatAsErrorWhenNotExist="false"
                         />
@@ -36,7 +36,7 @@
     <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" />
   </Target>
   
-  <Target Name="ResetExistingOneTest">
+  <Target Name="TestCase-ResetExistingOneTest-ExpectTrue">
     <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1"
                         TreatAsErrorWhenNotExist="false"
                         />
@@ -65,8 +65,5 @@
       Condition="!Exists('$(RootDir)\SharedFolder1')" />
 
     <DeleteSharedFolder Name="MSBuild.Earlgrey.Tasks.Tests.SharedFolder1" />
-  </Target>
-
-  <Target Name="All" DependsOnTargets="DeleteNotExistingSharedFolderWithTreatAsErrorWhenNotExistSwitch; ShareAndUnshareTest; ResetExistingOneTest;">
   </Target>
 </Project>
