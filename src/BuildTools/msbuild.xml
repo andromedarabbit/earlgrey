@@ -26,7 +26,7 @@
 	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 	<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
 	<BuildCondition>$(Configuration)|$(Platform)</BuildCondition>
-	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
+	<OutputDir>$(RootDir)\$(Platform)-$(Configuration)</OutputDir>
 	<BinDir>$(OutputDir)\Bin</BinDir>
 	<ObjDir>$(OutputDir)\Obj</ObjDir>
 </PropertyGroup>
@@ -94,6 +94,7 @@
 		ToolPath="..\..\vendor\NUnit 2.5.1\bin\net-2.0"
 		Assemblies="@(TestAssembly)"
 		OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
+		WorkingDirectory="$(BinDir)"
 	/>
 </Target>
 

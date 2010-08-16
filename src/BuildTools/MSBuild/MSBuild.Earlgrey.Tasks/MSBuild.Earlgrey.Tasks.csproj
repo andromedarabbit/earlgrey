@@ -14,7 +14,6 @@
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>MSBuild.Community.Tasks.snk</AssemblyOriginatorKeyFile>
-    <ApplicationManifest>MSBuild.Earlgrey.Tasks.dll.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -95,7 +94,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MSBuild.Earlgrey.Tasks.dll.manifest" />
     <None Include="MSBuild.Community.Tasks.snk" />
     <None Include="MSBuild.Earlgrey.Tasks.Targets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -129,8 +127,7 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(SolutionDir)"
 XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(OutDir)"
-CALL "%25VS90COMNTOOLS%25\..\..\VC\vcvarsall.bat" x86
-CALL "mt.exe" -manifest "$(ProjectDir)$(TargetName).dll.manifest" -outputresource:"$(TargetDir)$(TargetFileName);#1"</PostBuildEvent>
+</PostBuildEvent>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
