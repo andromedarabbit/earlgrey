@@ -1,6 +1,11 @@
 ﻿<Project DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-<Import Project="msbuild-ci.xml"/>
+<PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+	<Configuration Condition=" '$(BuildCondition)' == '' ">Rebuild</Configuration>
+</PropertyGroup>
+
+<Import Project="msbuild.xml"/>
 
 <!-- 배포 폴더 -->
 <PropertyGroup>
@@ -32,7 +37,7 @@
 	</CreateItem>
 </Target>
 
-<Target Name="Deploy" DependsOnTargets="BuildForCI; GetMSBuildExtensionFileList">
+<Target Name="Deploy" DependsOnTargets="$(BuildCondition); GetMSBuildExtensionFileList">
 	<Exec Command="rmdir /s $(Quot)$(DeploymentDir)$(Quot)" />
 	
 	<Copy      
