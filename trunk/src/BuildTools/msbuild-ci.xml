@@ -12,7 +12,7 @@
 
 <!-- C# 코드는 컴파일이 빠르니 안전하게 다시 빌드하자 -->
 <Target Name="DetermineBuildConditionForCI">
-	<CreateProperty Value="Rebuild">
+	<CreateProperty Value="Rebuild" Condition="'$(BuildConditionForCI)' == ''">
 		<Output TaskParameter="Value" PropertyName="BuildConditionForCI" />
 	</CreateProperty>
 	

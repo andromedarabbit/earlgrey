@@ -25,7 +25,7 @@
 <PropertyGroup>
 	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
 	<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
-	<BuildCondition>$(Configuration)|$(Platform)</BuildCondition>
+	<BuildConfiguration>$(Configuration)|$(Platform)</BuildConfiguration>
 	<OutputDir>$(RootDir)\$(Platform)-$(Configuration)</OutputDir>
 	<BinDir>$(OutputDir)\Bin</BinDir>
 	<ObjDir>$(OutputDir)\Obj</ObjDir>
@@ -78,7 +78,7 @@
 
 <Target Name="Build">
 	<Message Text="타겟: Build " />
-	<Message Text="빌드 조건: '$(BuildCondition)'" Importance="high" />
+	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
 	
 	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
 </Target>
