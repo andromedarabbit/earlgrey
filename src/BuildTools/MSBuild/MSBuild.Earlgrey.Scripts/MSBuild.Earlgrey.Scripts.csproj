@@ -50,6 +50,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\Configuration.msbuild.xml" />
     <Content Include="Scripts\Net\SharedFolder.msbuild.xml">
     </Content>
   </ItemGroup>
