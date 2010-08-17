@@ -21,8 +21,6 @@ namespace MSBuild.Earlgrey.Tasks.IO
             return Delete();
         }
 
-
-
         private bool Delete()
         {
             using (Win32Share tempShare = Win32Share.GetNamedShare(Name))
