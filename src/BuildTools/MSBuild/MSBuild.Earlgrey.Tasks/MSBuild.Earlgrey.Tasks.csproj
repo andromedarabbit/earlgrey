@@ -41,10 +41,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Management" />
-    <Reference Include="System.Xml.Linq">
+    <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -86,7 +86,6 @@
     <Compile Include="Subversion\SvnSwitch.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ExternalTools\Robocopy.exe">
@@ -114,6 +113,10 @@
     <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
       <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
       <Name>MSBuild.Community.Tasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MSBuild.Earlgrey\MSBuild.Earlgrey.csproj">
+      <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
+      <Name>MSBuild.Earlgrey</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

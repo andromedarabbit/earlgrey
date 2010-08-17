@@ -5,16 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{A22F1515-6D9F-4E5B-A4C9-5F18F48A8C6E}</ProjectGuid>
+    <ProjectGuid>{035A0F96-98FA-49B1-8D3D-476768F74743}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MSBuild.Earlgrey.Tasks.Tests</RootNamespace>
-    <AssemblyName>MSBuild.Earlgrey.Tasks.Tests</AssemblyName>
+    <RootNamespace>MSBuild.Earlgrey</RootNamespace>
+    <AssemblyName>MSBuild.Earlgrey</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>MSBuild.Community.Tasks.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>MSBuild.Earlgrey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,7 +23,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,9 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Engine, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Build.Tasks" />
-    <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\vendor\NUnit 2.5.1\bin\net-2.0\framework\nunit.framework.dll</HintPath>
@@ -58,53 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IO\DeleteSharedFolder.cs" />
-    <Compile Include="IO\RoboCopyTest.cs" />
-    <Compile Include="IO\ShareFolderTest.cs" />
-    <Compile Include="ItemGroup\ItemsHelperTest.cs" />
-    <Compile Include="OneTimeSetUp.cs" />
+    <Compile Include="BuildScriptRunner.cs" />
+    <Compile Include="FileSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BuildScripts.cs" />
-    <Compile Include="Subversion\diffTest.cs" />
-    <Compile Include="Subversion\SvnDiffTest.cs" />
-    <Compile Include="Subversion\SvnPathResolverTest.cs" />
+    <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
-      <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
-      <Name>MSBuild.Community.Tasks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
-      <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>
-      <Name>MSBuild.Earlgrey.Tasks</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MSBuild.Earlgrey\MSBuild.Earlgrey.csproj">
-      <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
-      <Name>MSBuild.Earlgrey</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="IO\BuildScripts\RoboCopyTest.msbuild.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="IO\BuildScripts\SharedFolderTest.msbuild.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="IO\RoboCopySrcFolder1\TextFile.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ItemGroup\BuildScripts\ItemsHelperTest.msbuild.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Subversion\Sample\DiffXmlSummaryExample.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Subversion\Sample\한글 폴더\한글 파일.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MSBuild.Community.Tasks.snk" />
+    <None Include="MSBuild.Earlgrey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,35 @@
+﻿<Project DefaultTargets="CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+
+<!-- 배포 파일 -->
+<ItemGroup>
+	<MSBuildExtensionFile Include="$(BinDir)\ExternalTools\**\*">
+		<DstDir>$(DeploymentDir)\ExternalTools</DstDir>
+	</MSBuildExtensionFile>
+	
+	<MSBuildExtensionFile Include="$(BinDir)\Scripts\**\*">
+		<DstDir>$(DeploymentDir)\Scripts</DstDir>
+	</MSBuildExtensionFile>
+	
+	<MSBuildExtensionFile 
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll"
+		Exclude="$(BinDir)\MSBuild.*.Tests.*"
+	>
+		<DstDir>$(DeploymentDir)</DstDir>
+	</MSBuildExtensionFile>
+</ItemGroup>
+
+
+
+<Target Name="CopyFiles">
+	<!--
+	<Exec Command="rmdir /s $(Quot)$(DeploymentDir)$(Quot)" />
+	-->
+	
+	<Copy      
+      DestinationFolder="%(MSBuildExtensionFile.DstDir)"
+      SourceFiles="%(MSBuildExtensionFile.FullPath)"
+	/>
+</Target>
+
+</Project>
