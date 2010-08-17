@@ -2,7 +2,7 @@
 
 <PropertyGroup>
 	<Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
-	<Configuration Condition=" '$(BuildCondition)' == '' ">Rebuild</Configuration>
+	<BuildCondition Condition=" '$(BuildCondition)' == '' ">Rebuild</BuildCondition>
 </PropertyGroup>
 
 <Import Project="msbuild.xml"/>
@@ -12,40 +12,12 @@
 	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\MSBuildExtension</DeploymentDir>
 </PropertyGroup>
 
-<!-- 배포 파일 -->
-<Target Name="GetMSBuildExtensionFileList">
-	<CreateItem
-		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll"
-		Exclude="$(BinDir)\MSBuild.*.Tests.*"
-		AdditionalMetadata="DstDir=$(DeploymentDir)"
-	>
-
-		<Output
-			TaskParameter="Include"
-			ItemName="MSBuildExtensionFile"
+<Target Name="Deploy" DependsOnTargets="$(BuildCondition);">
+	<MSBuild 
+			Projects="$(RootDir)\msbuild-deploy-internal.xml" 
+			Targets="CopyFiles" 
+			Properties="DeploymentDir=$(DeploymentDir);BinDir=$(BinDir)"
 		/>
-	</CreateItem>
-	
-	<CreateItem
-		Include="$(BinDir)\ExternalTools\*"
-		AdditionalMetadata="DstDir=$(DeploymentDir)\ExternalTools"
-	>
-		<Output
-			TaskParameter="Include"
-			ItemName="MSBuildExtensionFile"
-		/>
-	</CreateItem>
-</Target>
-
-<Target Name="Deploy" DependsOnTargets="$(BuildCondition); GetMSBuildExtensionFileList">
-	<Exec Command="rmdir /s $(Quot)$(DeploymentDir)$(Quot)" />
-	
-	<Copy      
-      DestinationFolder="%(MSBuildExtensionFile.DstDir)"
-      SourceFiles="%(MSBuildExtensionFile.FullPath)"
-	/>
-	
-	<Message Text="@(MSBuildExtensionFile)" Importance="high" />
 </Target>
 
 </Project>

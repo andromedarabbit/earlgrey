@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace MSBuild.Earlgrey.Tasks
+namespace MSBuild.Earlgrey
 {
-    internal class TaskUtility
+    public class TaskUtility
     {
         public static string BaseDirectory
         {
