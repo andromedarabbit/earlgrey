@@ -16,7 +16,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             MakeFolderWhenNotExist = true;
             ResetExistingOne = false;
             MaximumUsers = 10;
-            Privilege = Permission.Read;
+            InternalPrivilege = Permission.Read;
         }
 
         protected override bool ExecuteCommand()
@@ -78,7 +78,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
                 MaximumAllowed = MaximumUsers,
                 Description = this.Description,
                 // DomainUsers = this.Users,
-                Privilege = (Win32Share.AccessMaskType)this.Privilege
+                Privilege = (Win32Share.AccessMaskType)this.InternalPrivilege
                 // Permission = this.Permission
             };
             options.AddUsers(this.Users);
@@ -142,9 +142,13 @@ namespace MSBuild.Earlgrey.Tasks.IO
             Full = Read | Change | Win32Share.AccessMaskType.READ_CONTROL | Win32Share.AccessMaskType.WRITE_DAC | Win32Share.AccessMaskType.WRITE_OWNER
         }
 
-        public Permission Privilege { get; set; }
+        private Permission InternalPrivilege { get; set; }
 
         //! \todo PASSWORD
-
+        public string Privilege
+        {
+            get { return Enum.GetName(typeof(Permission), InternalPrivilege); }
+            set { InternalPrivilege = (Permission)Enum.Parse(typeof(Permission), value); }
+        }
     }
 }

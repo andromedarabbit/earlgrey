@@ -86,7 +86,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             try
             {
                 ShareFolder share = CreateShare();
-                share.Privilege = ShareFolder.Permission.Read;
+                share.Privilege = Enum.GetName(typeof(ShareFolder.Permission), ShareFolder.Permission.Read);
                 // share.ResetExistingOne = true;
                 Assert.IsTrue(share.Execute());
 
@@ -110,7 +110,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             {
                 ShareFolder share = CreateShare();
                 // share.ResetExistingOne = true;
-                share.Privilege = ShareFolder.Permission.Change;
+                share.Privilege = Enum.GetName(typeof(ShareFolder.Permission), ShareFolder.Permission.Change);
                 share.Users = new string[] 
                                 {
                                     string.Format(@"{0}\{1}", Environment.UserDomainName, Environment.UserName)
@@ -143,7 +143,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             {
                 ShareFolder share = CreateShare();
                 share.ResetExistingOne = true;
-                share.Privilege = ShareFolder.Permission.Full;
+                share.Privilege = Enum.GetName(typeof(ShareFolder.Permission), ShareFolder.Permission.Full); ;
                 share.Users = new string[]
                                   {
                                       string.Format(@"{0}\{1}", Environment.UserDomainName, Environment.UserName)
