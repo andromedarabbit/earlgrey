@@ -57,6 +57,7 @@
     <Compile Include="IO\IniFile\AbstractIniFile.cs" />
     <Compile Include="IO\IniFile\GetSection.cs" />
     <Compile Include="IO\IniFile\GetSections.cs" />
+    <Compile Include="IO\IniFile\GetValue.cs" />
     <Compile Include="IO\IniFile\SetValue.cs" />
     <Compile Include="IO\RoboCopy.cs" />
     <Compile Include="IO\ShareFolder.cs" />

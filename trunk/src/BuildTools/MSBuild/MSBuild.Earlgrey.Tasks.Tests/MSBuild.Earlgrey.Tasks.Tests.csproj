@@ -96,6 +96,12 @@
     <Content Include="IO\BuildScripts\SharedFolderTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="IO\BuildScripts\IniFileTest-SetValue.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IO\BuildScripts\IniFileTest-GetSection.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="IO\RoboCopySrcFolder1\TextFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

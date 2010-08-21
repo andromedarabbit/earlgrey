@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using IniParser;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.IO.IniFile
 {
@@ -56,6 +55,11 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
                 Debug.Assert(_parsedData != null); 
                 return _parsedData;
             }
+        }
+
+        protected string GlobalSectionName
+        {
+            get { return "[]"; }
         }
 
         [Required]
