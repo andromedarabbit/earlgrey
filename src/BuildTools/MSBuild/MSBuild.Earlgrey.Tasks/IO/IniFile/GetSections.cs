@@ -28,7 +28,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
                 string sectionName = section.SectionName;
 
                 if (sectionName == StreamIniDataParser.GlobalSectionName)
-                    sectionName = "[Global]";
+                    sectionName = GlobalSectionName;
 
                 TaskItem item = new TaskItem(sectionName);
                 item.SetMetadata("NumberOfKeys", section.Keys.Count.ToString());

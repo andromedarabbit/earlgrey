@@ -24,14 +24,5 @@
 
     <Error Text="Expected section names are '@(ExpectedSectionNames)' but '@(SectionNames)'." Condition="'@(SectionNames)' != '@(ExpectedSectionNames)'" />
   </Target>
-  
-  <!--
-  <Target Name="TestCase-SetValue-ExpectTrue">
-    <IniFIle.SetValue FilePath="$(IniFile)"
-                      Section="Section1"
-                      Key="키2"
-                      Value="새로운 값"
-                      />
-  </Target>
-  -->
+ 
 </Project>

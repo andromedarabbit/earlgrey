@@ -6,33 +6,27 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.IO.IniFile
 {
-    public class SetValue : AbstractIniFile
+    public class GetValue : AbstractIniFile
     {
-        public SetValue()
+        public GetValue()
             : base()
         {
         }
 
         protected override bool ExecuteCommand()
         {
-            if(base.ExecuteCommand() == false)
+            if (base.ExecuteCommand() == false)
                 return false;
 
-            if (Data.Sections.ContainsSection(InternalSection) == false)
-            {
-                Debug.Assert(Data.Sections.AddSection(InternalSection));
-            }
+            if (Data.Sections.ContainsSection(InternalSection) == false)            
+                throw new Exception();
 
             KeyDataCollection section = Data[InternalSection];
             if (section.ContainsKey(Key) == false)
-            {
-                Debug.Assert(section.AddKey(Key));
-            }
+                throw new Exception();
 
-            section[Key] = Value;
+            Value = section[Key];
 
-            Parser.SaveFile(FullPath, Data);
-            
             return true;
         }
 
@@ -57,7 +51,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
         [Required]
         public string Key { get; set; }
 
-        [Required]
+        [Output]
         public string Value { get; set; }
     }
 }
