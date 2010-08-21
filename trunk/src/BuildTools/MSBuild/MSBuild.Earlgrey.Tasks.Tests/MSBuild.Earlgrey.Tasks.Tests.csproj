@@ -58,6 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IO\BuildScripts\IniFileTest.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\RoboCopyTest.cs" />
     <Compile Include="IO\ShareFolderTest.cs" />
@@ -84,6 +87,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="IO\BuildScripts\IniFileTestWithNoGlobalSection.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="IO\BuildScripts\RoboCopyTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -104,6 +110,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IO\BuildScripts\IniFileTest.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="IO\BuildScripts\IniFileTestWithNoGlobalSection.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="MSBuild.Community.Tasks.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
