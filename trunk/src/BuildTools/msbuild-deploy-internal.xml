@@ -12,7 +12,7 @@
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile 
-		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll; $(BinDir)\INIFileParser.*"
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\ICSharpCode.SharpZipLib.dll; $(BinDir)\INIFileParser.*"
 		Exclude="$(BinDir)\MSBuild.*.Tests.*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
