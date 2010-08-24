@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace IniParser
 {
@@ -33,7 +34,7 @@ namespace IniParser
             {
                 using (FileStream fs = File.Open(fileName, FileMode.Open, FileAccess.Read))
                 {
-                    using (StreamReader sr = new StreamReader(fs))
+                    using (StreamReader sr = CreateStreamReader(fs))
                     {
                         return ReadData(sr, relaxedIniRead);
                     }
@@ -44,6 +45,11 @@ namespace IniParser
                 throw new ParsingException(String.Format("Could not parse file {0}", fileName), ex);
             }
 
+        }
+
+        protected virtual StreamReader CreateStreamReader(FileStream fs)
+        {
+            return new StreamReader(fs);
         }
 
         /// <summary>
@@ -63,18 +69,22 @@ namespace IniParser
             {
                 using (FileStream fs = File.Open(fileName, FileMode.Create, FileAccess.Write))
                 {
-                    using (StreamWriter sr = new StreamWriter(fs))
+                    using (StreamWriter sr = CreateStreamWriter(fs))
                     {
                         WriteData(sr, parsedData);
                     }
                 }
-
             }
             catch (IOException ex)
             {
                 throw new ParsingException(String.Format("Could not save data to file {0}", fileName), ex);
             }
 
+        }
+
+        protected virtual StreamWriter CreateStreamWriter(FileStream fs)
+        {
+            return new StreamWriter(fs);
         }
 
         #endregion

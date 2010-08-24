@@ -110,5 +110,41 @@ namespace Earlgrey
 			const INT64 valueInt64 = section.Read<INT>(_T("keyLessThanZero"));
 			ASSERT_EQ(valueInt64, valueExpected);
 		}
+
+		TEST(IniReaderTest, HandleCommentedItems)
+		{
+			const _txstring fileName = _T("Earlgrey.Test.Comments.ini");
+			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
+
+			IniReader reader(filePath);
+			ASSERT_TRUE(reader.Open());
+
+			IniSection section1 = reader[_T("Section1")];
+
+			ASSERT_THROW(section1.Read<_tstring>(_T("CommentedKey1")), std::exception);
+			ASSERT_THROW(section1.Read<_tstring>(_T(";CommentedKey1")), std::exception);
+
+			const _tstring value2 = section1.Read<_tstring>(_T("Key2"));
+			ASSERT_TRUE(_T(";InlineCommentDelimiterIsNotTreatedAsComment") == value2);
+
+			const _tstring value3 = section1.Read<_tstring>(_T("Key3"));
+			ASSERT_TRUE(_T("Value3") == value3);
+
+
+			// Section 2
+			IniSection section2 = reader[_T("Section2")];
+
+			// "//" is not treated as a comment delimiter
+			ASSERT_THROW(section1.Read<_tstring>(_T("Key4")), std::exception);
+
+			const _tstring value4 = section2.Read<_tstring>(_T("//Key4"));
+			ASSERT_TRUE(_T("Value4") == value4);
+
+			// "#" is not treated as a comment delimiter
+			ASSERT_THROW(section1.Read<_tstring>(_T("Key5")), std::exception);
+
+			const _tstring value5 = section2.Read<_tstring>(_T("#Key5"));
+			ASSERT_TRUE(_T("Value5") == value5);
+		}
 	}
 }
