@@ -12,23 +12,17 @@
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile 
-		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll"
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\ICSharpCode.SharpZipLib.dll; $(BinDir)\INIFileParser.*"
 		Exclude="$(BinDir)\MSBuild.*.Tests.*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
 	</MSBuildExtensionFile>
 </ItemGroup>
 
-
-
 <Target Name="CopyFiles">
-	<!--
-	<Exec Command="rmdir /s $(Quot)$(DeploymentDir)$(Quot)" />
-	-->
-	
-	<Copy      
-      DestinationFolder="%(MSBuildExtensionFile.DstDir)"
+	<Copy            
       SourceFiles="%(MSBuildExtensionFile.FullPath)"
+	  DestinationFolder="%(MSBuildExtensionFile.DstDir)\%(RecursiveDir)"
 	/>
 </Target>
 

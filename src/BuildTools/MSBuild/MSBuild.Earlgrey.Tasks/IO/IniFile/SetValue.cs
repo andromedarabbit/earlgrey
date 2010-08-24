@@ -20,13 +20,13 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
 
             if (Data.Sections.ContainsSection(InternalSection) == false)
             {
-                Debug.Assert(Data.Sections.AddSection(InternalSection));
+                Trace.Assert(Data.Sections.AddSection(InternalSection));
             }
 
             KeyDataCollection section = Data[InternalSection];
             if (section.ContainsKey(Key) == false)
             {
-                Debug.Assert(section.AddKey(Key));
+                Trace.Assert(section.AddKey(Key));
             }
 
             section[Key] = Value;

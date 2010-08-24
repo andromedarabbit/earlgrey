@@ -102,6 +102,9 @@
     <Content Include="IO\BuildScripts\IniFileTest-GetSection.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="IO\BuildScripts\IniFileTest.ANSIEncoded.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="IO\RoboCopySrcFolder1\TextFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -116,6 +119,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="IO\BuildScripts\IniFileTest.ANSIEncoded.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="IO\BuildScripts\IniFileTest.msbuild.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

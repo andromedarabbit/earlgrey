@@ -60,6 +60,7 @@
 <!-- 단위 테스트 바이너리 -->
 <ItemGroup>
   <TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
+  <TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
 </ItemGroup>
 
 <Target Name="CleanUnitTestArtifacts">

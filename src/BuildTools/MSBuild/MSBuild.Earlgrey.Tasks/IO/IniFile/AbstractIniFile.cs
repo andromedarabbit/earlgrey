@@ -11,12 +11,12 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
 {
     public abstract class AbstractIniFile : AbstractTask
     {
-        private readonly FileIniDataParser _parser;
+        private readonly AdvancedFileIniDataParser _parser;
         private IniData _parsedData;
 
         protected AbstractIniFile()
         {
-            _parser = new FileIniDataParser();
+            _parser = new AdvancedFileIniDataParser();
         }
 
         protected override bool ExecuteCommand()
@@ -43,7 +43,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
         {
             get
             {
-                Debug.Assert(_parser != null);
+                Trace.Assert(_parser != null);
                 return _parser;
             }
         }
@@ -52,7 +52,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
         {
             get
             {
-                Debug.Assert(_parsedData != null); 
+                Trace.Assert(_parsedData != null); 
                 return _parsedData;
             }
         }
