@@ -35,6 +35,10 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\vendor\DotNetZipLib-DevKit-v1.9\DotNetZip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities" />
     <Reference Include="System" />
@@ -62,6 +66,9 @@
     <Compile Include="IO\RoboCopy.cs" />
     <Compile Include="IO\ShareFolder.cs" />
     <Compile Include="IO\Win32Share.cs" />
+    <Compile Include="IO\Zip\Pack.cs" />
+    <Compile Include="IO\Zip\Unpack.cs" />
+    <Compile Include="IO\Zip\ZipFileHelper.cs" />
     <Compile Include="ItemGroup\ItemsHelper.cs" />
     <Compile Include="MockBuildEngine.cs">
       <SubType>Code</SubType>
