@@ -74,7 +74,8 @@
     <Message Text="타겟: Clean" />  
        
 	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
-	<RemoveDir Directories="$(OutputDir)" />  
+	
+  <RemoveDir Directories="$(OutputDir)" />  
 </Target>  
 
 <Target Name="Build">
