@@ -50,7 +50,7 @@ Every step is described in the following sample code.
 		First thing you need to do is to define $(MSBuildEarlgreyTasksPath),
 		which represents deployment directory path of MSBuild.Earlgrey.Tasks. 
 		-->
-		<MSBuildEarlgreyTasksPath><MSBuildEarlgreyTasksPath>BuildTools\Any CPU-Release\MSBuildExtension</MSBuildEarlgreyTasksPath>
+		<MSBuildEarlgreyTasksPath>BuildTools\Any CPU-Release\MSBuildExtension</MSBuildEarlgreyTasksPath>
 	</PropertyGroup>
 
 	<!-- Second, import MSBuild.Earlgrey.Tasks. -->
