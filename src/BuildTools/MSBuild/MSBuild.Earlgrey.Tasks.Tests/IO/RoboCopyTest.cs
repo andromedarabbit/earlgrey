@@ -53,5 +53,24 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             Assert.IsTrue(roboCopy.Execute());
             Assert.IsTrue(Directory.Exists(DstDir));
         }
+
+        [Test]
+        public void SucessWhenSourceFileNotFound()
+        {
+            RoboCopy roboCopy = new RoboCopy();
+            roboCopy.BuildEngine = new MockBuildEngine();
+
+            const string srcFileName = "NOT_EXISTS____.txt";
+
+            roboCopy.SourceDir = new TaskItem(SrcDir);
+            roboCopy.DestinationDir = new TaskItem(DstDir);
+            roboCopy.Files = new ITaskItem[]
+                                 {
+                                     new TaskItem(srcFileName)
+                                 };
+
+            // 다소 이상하지만 robocopy 자체가 이런 식으로 구현됐음
+            Assert.IsTrue(roboCopy.Execute());
+        }
     }
 }

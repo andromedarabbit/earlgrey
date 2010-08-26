@@ -73,6 +73,11 @@
     <Compile Include="MockBuildEngine.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Net\DefaultSmtpClientConfiguration.cs" />
+    <Compile Include="Net\Email.cs" />
+    <Compile Include="Net\GmailSmtpClientConfiguration.cs" />
+    <Compile Include="Net\ISmtpClientConfiguration.cs" />
+    <Compile Include="Net\SmtpClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subversion\AbstractSvnDiff.cs">
       <SubType>Code</SubType>
