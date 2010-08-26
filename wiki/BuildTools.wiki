@@ -1,0 +1,20 @@
+#summary Build tools A to Z
+
+= Introduction =
+*Earlgrey* has now two kinds of build tools. 
+ * Third-party tools
+ * Custom tools
+
+= Third-party tools =
+Build tools developed by other opensource communities are now placed in /trunk/vendor path. We are currently using *MSBuild Community Tasks* to provide extensive functionalities to MSBuild scripts. *CruiseControl .NET* is also used to automate build processes and to get a rapid feedbacks.
+
+= Custom tools = 
+
+== MSBuild.Earlgrey ==
+The name of *MSBuild Earlgrey* describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other opensource communities' efforts. 
+
+=== How to Build ===
+
+
+== Earlgrey.UnityBuild == 
+This library is still under development, and not ready to release.
