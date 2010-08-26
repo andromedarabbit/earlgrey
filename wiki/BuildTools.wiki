@@ -13,7 +13,29 @@ Build tools developed by other opensource communities are now placed in /trunk/v
 == MSBuild.Earlgrey ==
 The name of *MSBuild Earlgrey* describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other opensource communities' efforts. 
 
-=== How to Build ===
+=== How to build MSBuild.Earlgrey ===
+==== Very simple way ====
+{{{
+D:\earlgrey> cd trunk\src
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml
+}}}
+
+That's it! All the files you need will be put into "trunk\src\BuildTools\Any CPU-Release\MSBuildExtension\".
+
+==== Change deployment directory ====
+{{{
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml /p:DeploymentDir="D:\earlgrey.tasks"
+}}}
+
+Now, files will be placed in "D:\earlgrey.tasks\".
+
+==== If you need 'DEBUG' version of files ====
+{{{
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml /p:Configuration=Debug
+}}}
+
+That's it! Isn't it easy?
+
 
 
 == Earlgrey.UnityBuild == 
