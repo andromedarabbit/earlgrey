@@ -75,4 +75,4 @@ Every step is described in the following sample code.
 }}}
 
 == Earlgrey.UnityBuild == 
-This library is still under development, and not ready to release.
+This library is still under development, and not ready to be released.
