@@ -40,7 +40,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(path != NULL);
 		EARLGREY_ASSERT(length > 0);
 
-		if( GetModuleFileName( 0, path, length ) == 0 ) {
+		if( GetModuleFileName( NULL, path, length ) == 0 ) {
 			// TODO: need new exception class supporting a unicode msg 
 			// const DWORD errCode = GetLastError();
 			// _tstring msg = Log::ErrorMessage(errCode)

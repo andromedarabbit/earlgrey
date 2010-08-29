@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Application.h"
 #include "DefaultAppSettings.h"
+#include "Thread.h"
 #include "ThreadRunnable.h"
 #include "Connector.h"
 

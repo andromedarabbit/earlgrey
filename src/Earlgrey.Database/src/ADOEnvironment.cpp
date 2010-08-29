@@ -4,7 +4,7 @@
 #include "Registry.h"
 #include "lexical_cast.hpp"
 
-#include <objbase.h>
+#include "COMHelper.h"
 
 namespace Earlgrey
 {
@@ -58,17 +58,12 @@ namespace Earlgrey
 				if(version < 2.8f) // TODO: 임시로 최소 지원 버전을 2.8 로 설정한다.
 					return FALSE;
 
-				if(::CoInitializeEx(NULL, COINIT_MULTITHREADED) != S_OK) // S_OK, S_FALSE, RPC_E_CHANGED_MODE
-				{
-					return FALSE;
-				}
-
-				return TRUE;
+				return COMHelper::Initialize();
 			}
 
 			void CleanupADO()
 			{
-				::CoUninitialize();
+				COMHelper::Uninitialize();
 			}
 		}
 
