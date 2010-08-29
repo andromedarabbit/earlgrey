@@ -122,8 +122,8 @@ namespace Earlgrey
 			IniSection section1 = reader[_T("Section1")];
 
 			// ;CommentedKey1=CommentedValue1
-			ASSERT_TRUE(section1.Read<_tstring>(_T("CommentedKey1")).empty());
-			ASSERT_TRUE(section1.Read<_tstring>(_T(";CommentedKey1")).empty());
+			ASSERT_THROW(section1.Read<_tstring>(_T("CommentedKey1")), std::exception);
+			ASSERT_THROW(section1.Read<_tstring>(_T(";CommentedKey1")), std::exception);
 
 			const _tstring value2 = section1.Read<_tstring>(_T("Key2"));
 			ASSERT_TRUE(_T(";InlineCommentDelimiterIsNotTreatedAsComment") == value2);
@@ -136,13 +136,13 @@ namespace Earlgrey
 			IniSection section2 = reader[_T("Section2")];
 
 			// "//" is not treated as a comment delimiter
-			ASSERT_TRUE(section1.Read<_tstring>(_T("Key4")).empty());
+			ASSERT_THROW(section1.Read<_tstring>(_T("Key4")), std::exception);
 
 			const _tstring value4 = section2.Read<_tstring>(_T("//Key4"));
 			ASSERT_TRUE(_T("Value4") == value4);
 
 			// "#" is not treated as a comment delimiter
-			ASSERT_TRUE(section1.Read<_tstring>(_T("Key5")).empty());
+			ASSERT_THROW(section1.Read<_tstring>(_T("Key5")), std::exception);
 
 			const _tstring value5 = section2.Read<_tstring>(_T("#Key5"));
 			ASSERT_TRUE(_T("Value5") == value5);
