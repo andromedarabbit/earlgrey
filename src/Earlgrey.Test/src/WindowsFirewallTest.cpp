@@ -32,9 +32,9 @@ namespace Earlgrey
 			firewall.Initialize();
 
 
-			_tstring thisModuleName = Process::MainModuleFileName();
+			_txstring thisModuleName( Process::MainModuleFileName().c_str() );
 			ASSERT_TRUE(
-				File::Exists(thisModuleName.c_str())
+				File::Exists(thisModuleName)
 				);
 
 			_txstring newFile(thisModuleName);
