@@ -28,7 +28,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -108,7 +108,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -190,7 +190,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -274,7 +274,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)Earlgrey*.ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;xcopy /y &quot;$(ProjectDir)Earlgrey*.txt&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -376,6 +376,10 @@
 			</File>
 			<File
 				RelativePath=".\src\EnvironmentTest.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\FileTest.cpp"
 				>
 			</File>
 			<File
