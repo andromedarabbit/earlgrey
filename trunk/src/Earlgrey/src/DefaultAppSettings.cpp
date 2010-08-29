@@ -6,6 +6,7 @@
 #include "File.h"
 #include "MiniDump.h"
 #include "StackWriter.h"
+#include "Thread.h"
 
 #include <memory>
 

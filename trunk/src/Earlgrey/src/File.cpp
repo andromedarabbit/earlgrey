@@ -59,7 +59,7 @@ namespace Earlgrey
 		EARLGREY_ASSERT(sourceFileName.length() > 0);
 		EARLGREY_ASSERT(destFileName.length() > 0);
 
-		if( ::CopyFile(sourceFileName.c_str(), destFileName.c_str(), overwrite) == 0 ) // zero indicates failure
+		if( ::CopyFile(sourceFileName.c_str(), destFileName.c_str(), !overwrite) == 0 ) // zero indicates failure
 		{
 			// TODO 
 			// GetLastError

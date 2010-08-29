@@ -542,6 +542,10 @@
 					RelativePath=".\src\WaitEvent.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\WindowsFirewall.cpp"
+					>
+				</File>
 				<Filter
 					Name="Mail"
 					>
@@ -568,6 +572,10 @@
 				>
 				<File
 					RelativePath=".\src\Application.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\COMHelper.cpp"
 					>
 				</File>
 				<File
@@ -977,6 +985,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\COMHelper.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Console.h"
 					>
 				</File>
@@ -1002,6 +1014,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\lexical_cast.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\OperatingSystem.h"
 					>
 				</File>
 				<File
@@ -1154,6 +1170,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\WaitEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\WindowsFirewall.h"
 					>
 				</File>
 				<Filter
