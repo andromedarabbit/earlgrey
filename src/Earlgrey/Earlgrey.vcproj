@@ -1017,10 +1017,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\inc\OperatingSystem.h"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\Path.h"
 					>
 				</File>

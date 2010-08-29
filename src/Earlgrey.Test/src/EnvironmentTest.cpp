@@ -4,7 +4,6 @@
 #include "Path.h"
 
 #include <iostream>
-using namespace Earlgrey;
 
 namespace Earlgrey
 {
