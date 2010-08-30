@@ -111,6 +111,20 @@ namespace Earlgrey
 			ASSERT_EQ(valueInt64, valueExpected);
 		}
 
+		// TODO: support unicode files.
+		TEST(IniReaderTest, NotAbleToReadUnicodeFile)
+		{
+			const _txstring fileName = _T("Earlgrey.Test.In.Unicode.ini");
+			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
+
+			IniReader reader(filePath);
+			ASSERT_FALSE(reader.Open());
+
+// 			IniSection section1 = reader[_T("한글 섹션 1")];
+// 			const _tstring value1 = section1.Read<_tstring>(_T("한글 키 1"));
+// 			ASSERT_TRUE(_T("한글 값") == value1);
+		}
+
 		TEST(IniReaderTest, HandleCommentedItems)
 		{
 			const _txstring fileName = _T("Earlgrey.Test.Comments.ini");
@@ -147,5 +161,30 @@ namespace Earlgrey
 			const _tstring value5 = section2.Read<_tstring>(_T("#Key5"));
 			ASSERT_TRUE(_T("Value5") == value5);
 		}
+		
+		TEST(IniReaderTest, ReadSectionKeyValueWithBlanks)
+		{
+			// [Section 3]
+			// Key with blanks = value	with	blanks
+			const _txstring fileName = _T("Earlgrey.Test.Comments.ini");
+			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
+
+			IniReader reader(filePath);
+			ASSERT_TRUE(reader.Open());
+
+			// able to read a section with a blank
+			const TCHAR * section3Name = _T("Section 3");
+			IniSection section3 = reader[section3Name];
+			ASSERT_TRUE(section3Name == section3.Name());
+
+			// able to read a key and value with a blank
+			_txstring valueWithBlanks = section3.Read<_txstring>(_T("Key with blanks"));
+			ASSERT_TRUE(_T("value	with	blanks") == valueWithBlanks);
+
+			_txstring valueWithBlanksInKorean = section3.Read<_txstring>(_T("한글 키"));
+			ASSERT_TRUE(_T("한글 값") == valueWithBlanksInKorean);
+		}
+
+
 	}
 }

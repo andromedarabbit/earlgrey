@@ -705,6 +705,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Earlgrey.Test.In.Unicode.ini"
+				>
+			</File>
+			<File
 				RelativePath=".\Earlgrey.Test.ini"
 				DeploymentContent="true"
 				>
