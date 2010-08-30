@@ -3,7 +3,7 @@
 
 <!-- 플랫폼 판단 -->
 <Choose> 
-	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v2.0.50727' ">
+	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v3.5' ">
 		<PropertyGroup>
 			<Is64Bit>true</Is64Bit>
 			<Platform>x64</Platform>
