@@ -106,13 +106,13 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         {
             if (_repositoryPaths.Count == 0)
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnPathResolver", "RepositoryPaths");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnPathResolver", "RepositoryPaths");
                 return false;
             }
 
             if(string.IsNullOrEmpty(LocalPath))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnPathResolver", "LocalPath");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnPathResolver", "LocalPath");
                 return false;
             }
 

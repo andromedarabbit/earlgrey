@@ -12,7 +12,7 @@
     <AssemblyName>MSBuild.Earlgrey.Tasks.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>MSBuild.Community.Tasks.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
   </PropertyGroup>
@@ -67,7 +67,7 @@
     </Content>
     <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\IniFile\GetSectionsTest.cs" />
-    <Compile Include="IO\RoboCopyTest.cs" />
+    <Compile Include="IO\BetterRoboCopyTest.cs" />
     <Compile Include="IO\ShareFolderTest.cs" />
     <Compile Include="IO\Zip\ZipTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
@@ -79,9 +79,9 @@
     <Compile Include="Subversion\SvnPathResolverTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.2.0.306\src\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
+    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
       <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
-      <Name>MSBuild.Community.Tasks</Name>
+      <Name>MSBuild.Community.Tasks %28MSBuild\External Libraries\MSBuild.Community.Tasks\MSBuild.Community.Tasks%29</Name>
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
       <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>
@@ -96,7 +96,7 @@
     <Content Include="IO\BuildScripts\IniFileTestWithNoGlobalSection.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\RoboCopyTest.msbuild.xml">
+    <Content Include="IO\BuildScripts\BetterRoboCopyTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="IO\BuildScripts\SharedFolderTest.msbuild.xml">
@@ -114,7 +114,7 @@
     <Content Include="IO\BuildScripts\ZipPack.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\RoboCopySrcFolder1\TextFile.txt">
+    <Content Include="IO\BetterRoboCopySrcFolder1\TextFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ItemGroup\BuildScripts\ItemsHelperTest.msbuild.xml">
