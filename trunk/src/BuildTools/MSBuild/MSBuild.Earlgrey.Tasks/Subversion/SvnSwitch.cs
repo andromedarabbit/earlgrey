@@ -16,7 +16,9 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         public SvnSwitch()
         {
             base.Command = "switch";
-            base.CommandSwitches = SvnSwitches.NonInteractive | SvnSwitches.NoAuthCache;
+
+            base.NonInteractive = true;
+            base.NoAuthCache = true;
         }
 
         /// <summary>
@@ -29,13 +31,13 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         {
             if (string.IsNullOrEmpty(base.RepositoryPath))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnSwitch", "RepositoryPath");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnSwitch", "RepositoryPath");
                 return false;
             }
 
             if (string.IsNullOrEmpty(base.LocalPath))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnSwitch", "LocalPath");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnSwitch", "LocalPath");
                 return false;
             }
             return base.ValidateParameters();

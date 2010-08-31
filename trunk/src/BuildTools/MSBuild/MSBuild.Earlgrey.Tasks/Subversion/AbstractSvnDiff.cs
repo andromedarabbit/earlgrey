@@ -21,10 +21,12 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         protected AbstractSvnDiff(bool withXmlOption)
         {
             base.Command = "diff";
-            base.CommandSwitches = SvnSwitches.NonInteractive | SvnSwitches.NoAuthCache; // | SvnSwitches.Xml;
+            base.NonInteractive = true;
+            base.NoAuthCache = true;
+
             if(withXmlOption)
             {
-                base.CommandSwitches = base.CommandSwitches | SvnSwitches.Xml;
+                base.Xml = true;
             }
 
             ResetMemberVariables();
@@ -40,25 +42,25 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         {
             if (string.IsNullOrEmpty(this._old))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnDiff", "Old");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnDiff", "Old");
                 return false;
             }
 
             if (string.IsNullOrEmpty(this._new))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterRequired, "SvnDiff", "New");
+                Log.LogError(Properties.Resources.ParameterRequired, "SvnDiff", "New");
                 return false;
             }
 
             if (!String.IsNullOrEmpty(RepositoryPath))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterNotUsed, "SvnCopy", "RepositoryPath");
+                Log.LogError(Properties.Resources.ParameterNotUsed, "SvnCopy", "RepositoryPath");
                 return false;
             }
 
             if (!String.IsNullOrEmpty(LocalPath))
             {
-                Log.LogError(MSBuild.Community.Tasks.Properties.Resources.ParameterNotUsed, "SvnCopy", "LocalPath");
+                Log.LogError(Properties.Resources.ParameterNotUsed, "SvnCopy", "LocalPath");
                 return false;
             }
 
