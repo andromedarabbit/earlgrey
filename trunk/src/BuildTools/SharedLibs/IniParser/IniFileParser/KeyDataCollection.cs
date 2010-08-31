@@ -83,6 +83,12 @@ namespace IniParser
 
         #endregion
 
+        private static bool IsValidKeyName(string keyName)
+        {
+            // NOTE: i guess a key with blanks is valid.
+            // return Assert.StringHasNoBlankSpaces(keyName);
+            return true;
+        }
         #region Public Methods
 
         /// <summary>
@@ -100,7 +106,7 @@ namespace IniParser
         public bool AddKey(string keyName)
         {
             //Checks valid key name
-            if ( !Assert.StringHasNoBlankSpaces(keyName) )
+            if ( !IsValidKeyName(keyName) )
                 throw new ArgumentException("Key name is not valid");
 
             if ( !_keyData.ContainsKey(keyName) )

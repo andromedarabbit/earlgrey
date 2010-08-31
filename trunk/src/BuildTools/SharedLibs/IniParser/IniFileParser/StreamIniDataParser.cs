@@ -17,8 +17,8 @@ namespace IniParser
         private const string strSectionRegexStart = @"^(\s*?)";
         private const string strSectionRegexMiddle = @"{1}\s*[_\.\-\w\d\s]+\s*";
         private const string strSectionRegexEnd = @"(\s*?)$";
-        private const string strKeyRegex = @"^(\s*[_\.\d\w]*\s*)";
-        private const string strValueRegex = @"([\s\d\w\W]*)$";
+        private const string strKeyRegex = @"((\s)*(?<Key>([^\=^\n]+))[\s^\n]*\";
+        private const string strValueRegex = @"(\s)*(?<Value>([^\n]+(\n){0,1})))";
         private const string strSpecialRegexChars = @"[\^$.|?*+()";
 
         #endregion
