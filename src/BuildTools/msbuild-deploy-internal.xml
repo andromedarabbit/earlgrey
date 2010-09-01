@@ -1,5 +1,6 @@
 ﻿<Project DefaultTargets="CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+<Import Project="msbuild-initialize.xml"/>
 
 <!-- 배포 파일 -->
 <ItemGroup>
@@ -12,7 +13,7 @@
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile 
-		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.Zip.dll; $(BinDir)\ICSharpCode.SharpZipLib.dll; $(BinDir)\INIFileParser.*"
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll;"
 		Exclude="$(BinDir)\MSBuild.*.Tests.*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
