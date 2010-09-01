@@ -4,7 +4,7 @@
 	>
 
 <Import Project="msbuild-initialize.xml" />
-
+<Import Project="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.Targets"/>
 
 <!-- 빌드 대상 -->
 <ItemGroup>
