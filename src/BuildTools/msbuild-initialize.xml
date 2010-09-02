@@ -6,8 +6,8 @@
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
 
-	<MSBuildCommunityTasksRoot>..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
-	<MSBuildCommunityTasksDir>..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504</MSBuildCommunityTasksDir>
+	<MSBuildCommunityTasksRoot>$(RootDir)\..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
+	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
 	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksBin>
 </PropertyGroup>
   
