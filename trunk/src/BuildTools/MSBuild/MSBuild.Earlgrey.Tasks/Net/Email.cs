@@ -49,7 +49,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         /// <summary>
         /// List of addresss that contains the carbon copy (CC) recipients for this e-mail message
         /// </summary>
-        public string[] CC
+        public string[] Cc
         {
             get { return _cc; }
             set { _cc = value; }
