@@ -1,61 +1,42 @@
-﻿<Project 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
 	DefaultTargets="Build" 
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
-<Import Project="msbuild-initialize.xml" />
-<Import Project="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.Targets"/>
+	<Import Project="msbuild-initialize.xml" />
+	<Import Project="$(MSBuildCommunityTasksTargets)"/>
 
-<!-- 빌드 대상 -->
-<ItemGroup>
-	<ProjectReferences Include="Earlgrey.BuildTools.sln">
-		<Configuration>$(Configuration)</Configuration>
-		<Platform>$(Platform)</Platform>
-	</ProjectReferences>
-</ItemGroup>
+	<!-- 빌드 대상 -->
+	<ItemGroup>
+		<ProjectReferences Include="Earlgrey.BuildTools.sln">
+			<Configuration>$(Configuration)</Configuration>
+			<Platform>$(Platform)</Platform>
+		</ProjectReferences>
+	</ItemGroup>
+			
+
+	<Target Name="Clean" DependsOnTargets="CleanThirdParties">  
+		<Message Text="타겟: Clean" />  
+		   
+		<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
 		
-<!-- 단위 테스트 바이너리 -->
-<ItemGroup>
-  <TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
-  <TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
-</ItemGroup>
+		<RemoveDir Directories="$(OutputDir)" />  
+	</Target>  
 
-<Target Name="CleanUnitTestArtifacts">
-	<Message Text="타겟: CleanUnitTestArtifacts" />
+	<Target Name="Build">
+		<Message Text="타겟: Build " />
+		<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
+			
+		<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+		
+	</Target>
 
-	<Delete Files="$(BinDir)\NUnit.Reports.xml" />
-</Target>
+	<Target Name="Rebuild" DependsOnTargets="Clean; Build">
+		<Message Text="타겟: Rebuild" />
+	</Target>
 
-
-<Target Name="Clean">  
-    <Message Text="타겟: Clean" />  
-       
-	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
-	
-  <RemoveDir Directories="$(OutputDir)" />  
-</Target>  
-
-<Target Name="Build">
-	<Message Text="타겟: Build " />
-	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
-	
-	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
-</Target>
-
-<Target Name="Rebuild" DependsOnTargets="Clean; Build">
-	<Message Text="타겟: Rebuild" />
-</Target>
-
-<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
-	<Message Text="타겟: TestAlone" />
-
-	<NUnit
-		ToolPath="..\..\vendor\NUnit 2.5.1\bin\net-2.0"
-		Assemblies="@(TestAssembly)"
-		OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
-		WorkingDirectory="$(BinDir)"
-	/>
-</Target>
+	<Import Project="$(RootDir)\msbuild-unittests.xml" />
 
 </Project>
 

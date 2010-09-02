@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="VerifyProperties"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	
+	<ItemGroup>
+		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
+		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
+	</ItemGroup>
+
+	<Target Name="VerifyProperties">
+		<Error
+			Text="Property 'BinDir' should be defined!"
+			Condition="'$(BinDir)' == ''"
+			/>
+	</Target>
+	
+	<Target Name="CleanUnitTestArtifacts">
+		<Message Text="타겟: CleanUnitTestArtifacts" />
+
+		<Delete Files="$(BinDir)\NUnit.Reports.xml" />
+	</Target>
+
+	<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
+		<Message Text="타겟: TestAlone" />
+
+		<Error Text="'%(TestAssembly.FullPath)' not found!"
+			Condition="!Exists('%(TestAssembly.FullPath)')"
+			/>
+			
+		<NUnit
+			ToolPath="$(RootDir)\..\..\vendor\NUnit 2.5.1\bin\net-2.0"
+			Assemblies="@(TestAssembly)"
+			OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
+			WorkingDirectory="$(BinDir)"
+			Force32Bit="!$(Is64Bit)"
+		/>
+	</Target>
+</Project>
+
+		
