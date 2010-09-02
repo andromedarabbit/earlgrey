@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	DefaultTargets="PrepareThirdParties"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<PropertyGroup>
+	<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+	
+	<MSBuildCommunityTasksRoot>$(RootDir)\..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
+	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
+	<MSBuildCommunityTasksOutput>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksOutput>
+	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksOutput)\$(Configuration)\bin</MSBuildCommunityTasksBin>
+	
+	
+	<MSBuildCommunityTasksPath>$(MSBuildCommunityTasksDir)-bin\$(Configuration)</MSBuildCommunityTasksPath>
+	<MSBuildCommunityTasksTargets>$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargets>
+</PropertyGroup>
+
+<ItemGroup>
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\ICSharpCode.SharpZipLib.dll" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\Microsoft.VisualStudio.SourceSafe.Interop.dll" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.Targets" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xml" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xsd" />
+</ItemGroup>
+
+<Target Name="BuildMSBuildCommunityTasks">
+	<Copy 
+		SourceFiles="$(MSBuildCommunityTasksRoot)\MissingFiles\ICSharpCode.SharpZipLib.dll"
+		DestinationFolder="$(MSBuildCommunityTasksDir)\Libraries"
+		/>
+
+	<MSBuild
+		Projects="$(MSBuildCommunityTasksDir)\MSBuildTasks.proj"
+		Targets="Build"
+		Properties="Configuration=$(Configuration)"
+		/>
+	
+</Target>
+
+<Target Name="CleanMSBuildCommunityTasks">
+	<RemoveDir Directories="$(MSBuildCommunityTasksOutput)" />
+</Target>
+
+<Target Name="CleanThirdParties" DependsOnTargets="CleanMSBuildCommunityTasks">
+</Target>
+
+<Target Name="DeployMSBuildCommunityTasks" DependsOnTargets="BuildMSBuildCommunityTasks">
+	<Exec 
+		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(MSBuildCommunityTasksPath)\$(Quot) " />
+	<Exec 
+		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(BinDir)\$(Quot) " />
+</Target>
+
+<Target Name="PrepareThirdParties" DependsOnTargets="DeployMSBuildCommunityTasks">
+</Target>
+
+</Project>
+
+		

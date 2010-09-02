@@ -1,16 +1,18 @@
-﻿<Project 
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
 	InitialTargets="Initialize"
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
-
+<!--
 	<MSBuildCommunityTasksRoot>$(RootDir)\..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
 	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
 	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksBin>
+	-->
 </PropertyGroup>
-  
+
 <!-- 플랫폼 판단 -->
 <Choose> 
 	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v2.0.50727' ">
@@ -54,10 +56,16 @@
     <DevEnv>devenv</DevEnv>  
 </PropertyGroup> 
 
+<!-- Third-party tools -->
+<Import Project="$(RootDir)\msbuild-thirdparties.xml" />
 
 <!-- Targets begin -->
-<Target Name="Initialize" DependsOnTargets="">
+<Target Name="Initialize" DependsOnTargets="PrepareThirdParties">
+
+	
 </Target>
+
+
 
 </Project>
 
