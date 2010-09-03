@@ -16,7 +16,7 @@
 	</ItemGroup>
 			
 
-	<Target Name="Clean" DependsOnTargets="CleanThirdParties">  
+	<Target Name="Clean">
 		<Message Text="타겟: Clean" />  
 		   
 		<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
