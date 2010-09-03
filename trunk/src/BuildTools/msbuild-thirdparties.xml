@@ -30,13 +30,12 @@
 		SourceFiles="$(MSBuildCommunityTasksRoot)\MissingFiles\ICSharpCode.SharpZipLib.dll"
 		DestinationFolder="$(MSBuildCommunityTasksDir)\Libraries"
 		/>
-
-	<MSBuild
-		Projects="$(MSBuildCommunityTasksDir)\MSBuildTasks.proj"
-		Targets="Build"
-		Properties="Configuration=$(Configuration)"
-		/>
 	
+	<!-- MSBuild 태스크는 쓰지 말 것: 경로가 꼬인다. -->
+	<Exec 
+		Command="$(Quot)$(MSBuildExeWrapper)$(Quot) MSBuildTasks.proj /t:Build /p:Configuration=$(Configuration)"
+		WorkingDirectory="$(MSBuildCommunityTasksDir)"
+	/>
 </Target>
 
 <Target Name="CleanMSBuildCommunityTasks">
