@@ -6,11 +6,6 @@
 
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
-<!--
-	<MSBuildCommunityTasksRoot>$(RootDir)\..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
-	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
-	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksBin>
-	-->
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->
@@ -53,6 +48,8 @@
   
 <!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
 <PropertyGroup>  
+	<MSBuildExeWrapper Condition="'$(Is64Bit)' == 'false'">$(RootDir)\MSBuild_Win32.bat</MSBuildExeWrapper>
+	<MSBuildExeWrapper Condition="'$(MSBuildExeWrapper)' == ''">$(RootDir)\MSBuild_x64.bat</MSBuildExeWrapper>
     <DevEnv>devenv</DevEnv>  
 </PropertyGroup> 
 
