@@ -35,7 +35,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
                         return false;
                     }
 
-                    Log.LogWarning(msg);
+                    Log.LogMessage(msg);
                     return true;
                 }
 
