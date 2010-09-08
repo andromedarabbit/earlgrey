@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using System.Text;
-using System.Management;
 using System.IO;
 using Microsoft.Build.Framework;
 

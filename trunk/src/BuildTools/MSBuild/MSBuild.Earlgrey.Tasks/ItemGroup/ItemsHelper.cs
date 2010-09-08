@@ -67,5 +67,10 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
             }
         }
 
+        [Output]
+        public ITaskItem[] Distinct
+        {
+            get { return Items.Distinct().ToArray(); }
+        }
     }
 }

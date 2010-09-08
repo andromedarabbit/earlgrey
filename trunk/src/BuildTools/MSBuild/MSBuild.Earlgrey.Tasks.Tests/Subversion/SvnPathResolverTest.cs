@@ -8,7 +8,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
     [TestFixture]
     public class SvnPathResolverTest
     {
-        [Ignore]
+        // [Ignore]
         [Test]
         public void Execute()
         {
@@ -35,7 +35,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
             return resolver;
         }
 
-        [Ignore]
+        // [Ignore]
         [Test]
         public void ExecuteWithLocalPathUnversioned()
         {
