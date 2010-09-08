@@ -57,7 +57,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         /// Initializes a new instance of the <see cref="T:SvnPathResolver"/> class.
         /// </summary>
         public SvnPathResolver()
-        {   
+        {
             _repositoryPaths = new List<string>();
             _localPaths = new List<string>();
             _svnInfo = new SvnInfo();
@@ -149,7 +149,10 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             string repositoryRoot = roots.RepositoryPathOfLocalRoot;
             foreach(var repositoryPath in _repositoryPaths)
             {
-                string relativePath = repositoryPath.Substring(repositoryRoot.Length, repositoryPath.Length - repositoryRoot.Length);
+                // TOOD
+                string reposPath = repositoryPath;
+
+                string relativePath = reposPath.Substring(repositoryRoot.Length, reposPath.Length - repositoryRoot.Length);
                 relativePath = relativePath.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
                 
                 _localPaths.Add(

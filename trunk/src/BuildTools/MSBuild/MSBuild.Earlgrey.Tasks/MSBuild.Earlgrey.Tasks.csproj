@@ -57,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTask.cs" />
+    <Compile Include="IO\PathHelper.cs" />
+    <Compile Include="ItemGroup\SetMetadata.cs" />
+    <Compile Include="Str\Replace.cs" />
+    <Compile Include="Subversion\BetterSvnDiff.cs" />
     <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\IniFile\AbstractIniFile.cs" />
     <Compile Include="IO\IniFile\GetSection.cs" />

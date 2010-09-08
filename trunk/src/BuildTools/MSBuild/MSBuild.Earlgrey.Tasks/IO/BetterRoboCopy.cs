@@ -11,7 +11,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
         {
             string fullPathToTool = base.GenerateFullPathToTool();
 
-            if (File.Exists(fullPathToTool))
+            if (FileSearch.Exists(fullPathToTool))
                 return fullPathToTool;
 
             Uri currentAssemblyUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);

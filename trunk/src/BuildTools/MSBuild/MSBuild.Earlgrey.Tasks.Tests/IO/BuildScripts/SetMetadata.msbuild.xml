@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+  <ItemGroup>
+    <SrcPath Include="ABCDEF" />
+    <ParentPath Include="G" />
+
+    <SrcPath Include="AB" />
+    <ParentPath Include="CDEFG" />
+
+    <SrcPath Include="ABCD" />
+    <ParentPath Include="EFG" />
+
+    <SrcPath Include="A" />
+    <ParentPath Include="BCDEFG" />
+  </ItemGroup>
+
+
+
+  <Target Name="TestCase-GetParentFolder-ExpectTrue">
+    <SetMetadata Items="@(SrcPath)" KeyName="Parent" Values="@(ParentPath)">
+      <Output TaskParameter="OutputTasks" ItemName="Outputs" />
+    </SetMetadata>
+
+
+    <Error
+      Text="Combined string '(Outputs.Identity)(Output.Parent)' should be 'ABCDEFG', but '%(Outputs.Identity)%(Outputs.Parent)'!"
+      Condition="'%(Outputs.Identity)%(Outputs.Parent)' != 'ABCDEFG'" />
+  </Target>
+
+</Project>
