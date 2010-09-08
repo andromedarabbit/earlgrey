@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Text;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
-    using MSBuild.Community.Tasks;
     using MSBuild.Community.Tasks.Subversion;
 
     public class SvnSwitch : SvnClient

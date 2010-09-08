@@ -4,7 +4,6 @@ using System.Text;
 using System.Net.Mail;
 using Microsoft.Build.Utilities;
 using Microsoft.Build.Framework;
-using System.Net;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {

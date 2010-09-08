@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MSBuild.Earlgrey;
 using NUnit.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.Tests
