@@ -47,6 +47,11 @@ namespace IniParser
 
         }
 
+        /// <summary>
+        /// Create a StreamReader instance of the ini file.
+        /// </summary>
+        /// <param name="fs">FileStream instance of the ini file</param>
+        /// <returns>StreamReader instance of the ini file</returns>
         protected virtual StreamReader CreateStreamReader(FileStream fs)
         {
             return new StreamReader(fs);
@@ -82,6 +87,11 @@ namespace IniParser
 
         }
 
+        /// <summary>
+        /// Create a StreamWriter instance of the ini file.
+        /// </summary>
+        /// <param name="fs">FileStream instance of the ini file</param>
+        /// <returns>StreamWriter instance of the ini file</returns>
         protected virtual StreamWriter CreateStreamWriter(FileStream fs)
         {
             return new StreamWriter(fs);

@@ -25,6 +25,9 @@ namespace IniParser
 
         #region Public Methods
 
+        /// <summary>
+        /// Alias for the global section name, which is the empty string.
+        /// </summary>
         public static readonly string GlobalSectionName = string.Empty;
 
         /// <summary>
