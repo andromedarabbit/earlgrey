@@ -1,5 +1,7 @@
 ﻿using System;
-
+using System.IO;
+using System.Linq;
+using Microsoft.Build.Utilities;
 using MSBuild.Earlgrey.Tasks.Subversion;
 using NUnit.Framework;
 
@@ -11,50 +13,54 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         [Test]
         public void ExecuteWithNoArgumentsWillFail()
         {
-            SvnDiff info = new SvnDiff();
-            info.BuildEngine = new MockBuildEngine();
-            Assert.IsFalse(info.Execute());
+            SvnDiff diff = new SvnDiff();
+            diff.BuildEngine = new MockBuildEngine();
+            Assert.IsFalse(diff.Execute());
         }
 
         [Test]
         public void AddedOrModified()
         {
-            SvnDiff info = new SvnDiff();
-            info.Old = "https://earlgrey.googlecode.com/svn/trunk" + "@456";
-            info.New = "https://earlgrey.googlecode.com/svn/trunk" + "@457";
-            info.BuildEngine = new MockBuildEngine();
+            SvnDiff diff = new SvnDiff();
+            diff.Old = "https://earlgrey.googlecode.com/svn/trunk" + "@456";
+            diff.New = "https://earlgrey.googlecode.com/svn/trunk" + "@457";
+            diff.BuildEngine = new MockBuildEngine();
 
-            Assert.IsTrue(info.Execute());
+            Assert.IsTrue(diff.Execute());
 
-            Assert.AreEqual(19, info.ItemsAdded.Length);
-            Assert.AreEqual(11, info.FilesAdded.Length);
-            Assert.AreEqual(8, info.FoldersAdded.Length);
+            Assert.AreEqual(19, diff.ItemsAdded.Length);
+            Assert.AreEqual(11, diff.FilesAdded.Length);
+            Assert.AreEqual(8, diff.FoldersAdded.Length);
 
-            Assert.AreEqual(0, info.ItemsDeleted.Length);
-            Assert.AreEqual(0, info.FilesDeleted.Length);
-            Assert.AreEqual(0, info.FoldersDeleted.Length);
+            Assert.AreEqual(0, diff.ItemsDeleted.Length);
+            Assert.AreEqual(0, diff.FilesDeleted.Length);
+            Assert.AreEqual(0, diff.FoldersDeleted.Length);
             
-            Assert.AreEqual(9, info.ItemsModified.Length);
-            Assert.AreEqual(9, info.FilesModified.Length);
-            Assert.AreEqual(0, info.FoldersModified.Length);
+            Assert.AreEqual(9, diff.ItemsModified.Length);
+            Assert.AreEqual(9, diff.FilesModified.Length);
+            Assert.AreEqual(0, diff.FoldersModified.Length);
         }
 
         [Test]
         public void HandlePathContainingKoreanLetters()
         {
-            SvnDiff info = new SvnDiff();
-            info.Old = "https://earlgrey.googlecode.com/svn/trunk" + "@459";
-            info.New = "https://earlgrey.googlecode.com/svn/trunk" + "@460";
-            info.BuildEngine = new MockBuildEngine();
+            SvnDiff diff = new SvnDiff();
+            diff.Old = "https://earlgrey.googlecode.com/svn/trunk" + "@459";
+            diff.New = "https://earlgrey.googlecode.com/svn/trunk" + "@460";
+            diff.BuildEngine = new MockBuildEngine();
 
-            Assert.IsTrue(info.Execute());
-            Assert.AreEqual(2, info.ItemsAdded.Length);
-            
-            CollectionAssert.Contains(info.ItemsAdded,
-                                      @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더");
-            CollectionAssert.Contains(info.ItemsAdded,
-                                      @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더/한글 파일.txt");
+            Assert.IsTrue(diff.Execute());
+            Assert.AreEqual(2, diff.ItemsAdded.Length);
+           
+            var paths = from item in diff.ItemsAdded
+                        select item.ItemSpec;
 
+            CollectionAssert.Contains(paths,
+                                      @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더"
+                                      );
+            CollectionAssert.Contains(paths,
+                                       @"https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Subversion/Sample/한글 폴더/한글 파일.txt"
+                                       );
         }
     }
 }

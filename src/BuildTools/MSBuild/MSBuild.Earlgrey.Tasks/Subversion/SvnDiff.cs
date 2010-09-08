@@ -3,24 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
     using Microsoft.Build.Framework;
 
-    public class SvnDiff : Microsoft.Build.Utilities.ToolTask 
+    public class SvnDiff : ToolTask 
     {
         private readonly SvnDiffWithPlainSummary _plainDiff;
         private readonly SvnDiffWithXmlSummary _xmlDiff;
 
-        private readonly List<AbstractSvnDiff.ItemChanged> _itemsChanged;
+        // private readonly List<AbstractSvnDiff.ItemChanged> _itemsChanged;
+        private readonly List<ITaskItem> _itemsChanged;
 
         public SvnDiff()
         {
             this._plainDiff = new SvnDiffWithPlainSummary();
             this._xmlDiff = new SvnDiffWithXmlSummary();
 
-            this._itemsChanged = new List<AbstractSvnDiff.ItemChanged>();
+            // this._itemsChanged = new List<AbstractSvnDiff.ItemChanged>();
+            this._itemsChanged = new List<ITaskItem>();
         }
         
         protected override string GenerateFullPathToTool()
@@ -43,13 +46,32 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             diffObj.BuildEngine = this.BuildEngine;
             diffObj.Old = this.Old;
             diffObj.New = this.New;
+            diffObj.Username = this.Username;
+            diffObj.Password = this.Password;
             diffObj.RepositoryPath = this.RepositoryPath;
-            diffObj.LocalPath = this.LocalPath;
+            // TODO: 왜 LocalPath를 설정하면 실패하는 걸까?
+            // diffObj.LocalPath = this.LocalPath;
             diffObj.OldIsBasePath = this.OldIsBasePath;
+        }
+
+        protected override bool ValidateParameters()
+        {
+            if(base.ValidateParameters() == false)
+                return false;
+
+            if (ResolveLocalPaths == true && this.LocalPath == null)
+            {
+                Log.LogError(
+                    string.Format("Parameter 'LocalPath' required to resolve local paths")
+                    );
+                return false;
+            }
+            return true;
         }
 
         public override bool Execute()
         {
+            // Execute
             InitializeInternalDiff(this._plainDiff);
             if (_plainDiff.Execute() == false)
                 return false;
@@ -73,27 +95,50 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 if(plainItem.StateMarked != xmlItem.StateMarked)
                     throw new Exception("Svn diffs comparison failed!");
 
-                _itemsChanged.Add(
-                    new AbstractSvnDiff.ItemChanged
-                    {
-                        KindOf = xmlItem.KindOf,
-                        Path = plainItem.Path,
-                        StateMarked = plainItem.StateMarked
-                    }
-                );
+                ITaskItem item = new TaskItem(plainItem.Path);
+                item.SetMetadata(
+                    "State"
+                    , Enum.GetName(typeof (AbstractSvnDiff.State), plainItem.StateMarked)
+                    );
+                item.SetMetadata(
+                    "Kind"
+                    , Enum.GetName(typeof(AbstractSvnDiff.Kind), xmlItem.KindOf)
+                    );
+                _itemsChanged.Add(item);
             }
-
 
             return true;
         }
 
+        protected List<ITaskItem> ItemsChanged
+        {
+            get
+            {
+                return _itemsChanged; 
+            }        
+        }
 
+
+        public string Username
+        {
+            get;
+            set;
+        }
+
+        public string Password
+        {
+            get;
+            set;
+        }
+
+        [Required]
         public string Old
         {
             get;
             set;
         }
 
+        [Required]
         public string New
         {
             get;
@@ -117,27 +162,41 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             get;
             set;
         }
+
+        // TODO: 경로를 잡으려면 로컬 복사본의 리비전이 BasePath의 리비전과 일치해야 한다.
+        public bool ResolveLocalPaths { get; set; }
     
-        private string[] GetPaths(AbstractSvnDiff.State state, AbstractSvnDiff.Kind kind)
+        private ITaskItem[] GetPaths(AbstractSvnDiff.State state, AbstractSvnDiff.Kind kind)
         {
             var result = from itemChanged in _itemsChanged
-                             where itemChanged.StateMarked == state && itemChanged.KindOf == kind
-                             select itemChanged.Path
+                         where itemChanged.GetMetadata("State") == Enum.GetName(typeof(AbstractSvnDiff.State), state)
+                         && itemChanged.GetMetadata("Kind") == Enum.GetName(typeof(AbstractSvnDiff.Kind), kind)
+                             select itemChanged
                              ;
             return result.ToArray();
         }
 
-        private string[] GetPaths(AbstractSvnDiff.State state)
+        private ITaskItem[] GetPaths(AbstractSvnDiff.State state)
         {
             var result = from itemChanged in _itemsChanged
-                         where itemChanged.StateMarked == state
-                         select itemChanged.Path
+                         where itemChanged.GetMetadata("State") == Enum.GetName(typeof(AbstractSvnDiff.State), state)
+                         select itemChanged
                              ;
             return result.ToArray();
+        }
+
+
+        [Output]
+        public ITaskItem[] Items
+        {
+            get
+            {
+                return _itemsChanged.ToArray();
+            }
         }
 
         [Output]
-        public string[] ItemsAdded
+        public ITaskItem[] ItemsAdded
         {
             get
             {
@@ -146,7 +205,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FoldersAdded
+        public ITaskItem[] FoldersAdded
         {
             get
             {
@@ -155,7 +214,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FilesAdded
+        public ITaskItem[] FilesAdded
         {
             get
             {
@@ -165,7 +224,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] ItemsModified
+        public ITaskItem[] ItemsModified
         {
             get
             {
@@ -174,7 +233,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FoldersModified
+        public ITaskItem[] FoldersModified
         {
             get
             {
@@ -183,7 +242,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FilesModified
+        public ITaskItem[] FilesModified
         {
             get
             {
@@ -192,7 +251,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] ItemsDeleted
+        public ITaskItem[] ItemsDeleted
         {
             get
             {
@@ -201,7 +260,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FoldersDeleted
+        public ITaskItem[] FoldersDeleted
         {
             get
             {
@@ -210,7 +269,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FilesDeleted
+        public ITaskItem[] FilesDeleted
         {
             get
             {
@@ -219,7 +278,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] ItemsInConflict
+        public ITaskItem[] ItemsInConflict
         {
             get
             {
@@ -228,7 +287,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FoldersInConflict
+        public ITaskItem[] FoldersInConflict
         {
             get
             {
@@ -237,7 +296,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         }
 
         [Output]
-        public string[] FilesInConflict
+        public ITaskItem[] FilesInConflict
         {
             get
             {

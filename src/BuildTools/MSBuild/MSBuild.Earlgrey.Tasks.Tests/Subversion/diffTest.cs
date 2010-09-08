@@ -31,7 +31,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
                 diff diffObj = ser.Deserialize(tr) as diff;
                 Assert.IsNotNull(diffObj);
             }
-
+            
         }
     }
 }

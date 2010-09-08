@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+  <ItemGroup>
+    <SrcPath Include="$(RootDir)\PathHelperTest.msbuild.xml" />
+    <ParentPath Include="$(RootDIr)" />
+
+    <SrcPath Include="$(RootDir)\PathHelperTest.msbuild.xml\" />
+    <ParentPath Include="$(RootDIr)\PathHelperTest.msbuild.xml" />
+
+    <SrcPath Include="$(RootDir)\Temp" />
+    <ParentPath Include="$(RootDIr)" />
+
+    <SrcPath Include="$(RootDir)\Temp\" />
+    <ParentPath Include="$(RootDIr)\Temp" />
+  </ItemGroup>
+  
+
+
+  <Target Name="TestCase-GetParentFolder-ExpectTrue">
+    <PathHelper Items="@(SrcPath)">
+      <Output TaskParameter="ParentFolder" ItemName="Parents" />
+    </PathHelper>
+
+    
+    <Error
+      Text="Parent folders should be '@(Parents)', but '@(ParentPath)'!"
+      Condition="'@(Parents)' != '@(ParentPath)'" />
+  </Target>
+
+</Project>
