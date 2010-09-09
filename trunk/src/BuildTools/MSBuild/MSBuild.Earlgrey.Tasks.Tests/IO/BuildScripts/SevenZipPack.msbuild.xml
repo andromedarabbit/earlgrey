@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+  <Target Name="TestCase-SevenZipPack-ExpectTrue">
+    <Delete Files="IO.zip" />
+    
+    <SevenZip.Pack SrcFolder="..\..\IO" ZipFilePath="IO.zip" Excludes="IniFileTest*" />
+  </Target>    
+</Project>
