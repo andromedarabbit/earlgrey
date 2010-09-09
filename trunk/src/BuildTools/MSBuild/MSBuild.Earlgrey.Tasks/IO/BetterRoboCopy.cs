@@ -14,11 +14,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             if (FileSearch.Exists(fullPathToTool))
                 return fullPathToTool;
 
-            Uri currentAssemblyUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
-            string currentAssemblyPath = currentAssemblyUri.LocalPath;
-            string baseDirectory = Directory.GetParent(currentAssemblyPath).FullName;
-
-            return Path.Combine(baseDirectory, @"ExternalTools\" + ToolName);
+            return ToolsSearch.FindExternalTool(ToolName);
         }
 
         //! \ref http://ss64.com/nt/robocopy-exit.html

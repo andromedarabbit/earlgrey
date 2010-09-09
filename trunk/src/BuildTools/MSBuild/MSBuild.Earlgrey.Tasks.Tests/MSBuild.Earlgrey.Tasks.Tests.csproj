@@ -65,12 +65,13 @@
     <Content Include="IO\BuildScripts\IniFileTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Compile Include="IO\Compression\SevenZip\ZipTest.cs" />
     <Compile Include="IO\DeleteSharedFolderTest.cs" />
     <Compile Include="IO\IniFile\GetSectionsTest.cs" />
     <Compile Include="IO\BetterRoboCopyTest.cs" />
     <Compile Include="IO\PathHelperTest.cs" />
     <Compile Include="IO\ShareFolderTest.cs" />
-    <Compile Include="IO\Zip\ZipTest.cs" />
+    <Compile Include="IO\Compression\Zip\ZipTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
     <Compile Include="OneTimeSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,6 +121,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="IO\BetterRoboCopySrcFolder1\TextFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IO\BuildScripts\SevenZipPack.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ItemGroup\BuildScripts\ItemsHelperTest.msbuild.xml">

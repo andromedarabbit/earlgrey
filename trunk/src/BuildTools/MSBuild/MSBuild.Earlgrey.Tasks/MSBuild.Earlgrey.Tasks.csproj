@@ -57,6 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTask.cs" />
+    <Compile Include="AbstractToolTask.cs" />
+    <Compile Include="IO\Compression\AbstracUnpack.cs" />
+    <Compile Include="IO\Compression\IPack.cs" />
+    <Compile Include="IO\Compression\IUnpack.cs" />
+    <Compile Include="IO\Compression\SevenZip\CompressionLevel.cs" />
+    <Compile Include="IO\Compression\SevenZip\ExitCode.cs" />
+    <Compile Include="IO\Compression\SevenZip\ExtractExistingFileAction.cs" />
+    <Compile Include="IO\Compression\SevenZip\Pack.cs" />
+    <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
     <Compile Include="Str\Replace.cs" />
@@ -70,9 +79,9 @@
     <Compile Include="IO\BetterRoboCopy.cs" />
     <Compile Include="IO\ShareFolder.cs" />
     <Compile Include="IO\Win32Share.cs" />
-    <Compile Include="IO\Zip\Pack.cs" />
-    <Compile Include="IO\Zip\Unpack.cs" />
-    <Compile Include="IO\Zip\ZipFileHelper.cs" />
+    <Compile Include="IO\Compression\Zip\Pack.cs" />
+    <Compile Include="IO\Compression\Zip\Unpack.cs" />
+    <Compile Include="IO\Compression\ZipFileHelper.cs" />
     <Compile Include="ItemGroup\ItemsHelper.cs" />
     <Compile Include="MockBuildEngine.cs">
       <SubType>Code</SubType>
@@ -112,13 +121,30 @@
     <Compile Include="Subversion\SvnSwitch.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TaskItemHelper.cs" />
+    <Compile Include="ToolsSearch.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ExternalTools\7za465\7za.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za465\copying.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za465\license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za465\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ExternalTools\Robocopy.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExternalTools\7za465\7-zip.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="MSBuild.Community.Tasks.snk" />
     <None Include="MSBuild.Earlgrey.Tasks.Targets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
