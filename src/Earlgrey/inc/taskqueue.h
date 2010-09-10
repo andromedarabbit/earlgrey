@@ -41,6 +41,11 @@ namespace Earlgrey {
 
 				explicit TaskHolder(const TaskType& task) : _task(task), _lock(NORMAL) {}
 
+				explicit TaskHolder(const TaskType& unlockTask, int lock, LONG lockID = 0L) 
+					: _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
+				{
+				}
+
 				explicit TaskHolder(const TaskType& task, const TaskType& unlockTask, int lock, LONG lockID = 0L) 
 					: _task(task), _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
 				{
@@ -121,7 +126,6 @@ namespace Earlgrey {
 				EARLGREY_ASSERT( _lockTask->IsLockTask() );
 				EARLGREY_ASSERT( _lockTask->GetLockID() == _lockState );
 
-				//(*_lockTask)();
 				_lockTask->ExecuteUnlockTask();
 
 				delete _lockTask;
@@ -133,6 +137,25 @@ namespace Earlgrey {
 				{
 					ExecuteAllTasksInQueue();
 				}				
+			}
+
+		protected:
+			//! lock the queue
+			/*!
+				This method MUST be called in a task.
+
+				\param unlockTask be invoked after unlock.
+			*/
+			void LockInTask(const TaskType& unlockTask)
+			{
+				EARLGREY_ASSERT( _lockState == 0 );
+				EARLGREY_ASSERT( _lockTask == NULL );
+				EARLGREY_ASSERT( _qlen > 0 );
+
+				// transit to LOCK state
+				_lockID *= 3;
+				InterlockedExchange( &_lockState, _lockID );
+				_lockTask = new TaskHolder( unlockTask, TaskHolder::LOCK, _lockState );
 			}
 
 		private:
@@ -153,7 +176,9 @@ namespace Earlgrey {
 
 					// there is no thread in process, then return.
 					if (InterlockedDecrement( &_qlen ) == 0)
+					{
 						return;
+					}
 
 					// if not, execute all task in queue.
 					// other threads MUST have enqueued their tasks.
@@ -178,10 +203,18 @@ namespace Earlgrey {
 			{
 				
 				do {
+					// A task can lock.
+					if (_lockState)
+					{
+						EARLGREY_ASSERT( _lockTask );
+						return;
+					}
+
 					InterlockedIncrement( &_IsRunning);
 					EARLGREY_ASSERT( _qlen > 0 );
 					TaskHolder* taskHolder = NULL;
 					EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 1L ) == 1L);
+
 					for (;;) {
 						taskHolder = NULL;
 

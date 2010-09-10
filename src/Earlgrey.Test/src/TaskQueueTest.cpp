@@ -282,7 +282,12 @@ namespace Earlgrey
 				void LockSet0()
 				{
 					this->Lock( std::tr1::bind( &MyQueue::RawPreSet0, static_cast<MyQueue*>(this) ), std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this) ) );
-				}				
+				}
+
+				void LockInTaskSet()
+				{
+					InvokeMethod( &MyQueue::RawLockInTaskSet );
+				}
 
 				DWORD GetValue() const
 				{
@@ -307,6 +312,12 @@ namespace Earlgrey
 				void RawSet0()
 				{
 					_value = 0;
+				}
+
+				void RawLockInTaskSet()
+				{
+					// Lock the queue
+					this->LockInTask( std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this) ) );
 				}
 
 				void RawSet(DWORD d)
@@ -414,6 +425,35 @@ namespace Earlgrey
 			// 10만에서 락을 걸기 전까지의 계산값을 뺀다.
 			DWORD value = 100000L - _taskQueue.GetValue();
 			
+			// 나머지를 모두 수행한다.
+			_taskQueue.Unlock();
+
+			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
+
+			EXPECT_TRUE( _taskQueue.GetValue() == value );
+		}
+
+		TEST_F( TaskQueueFixture, LockInTaskTest )
+		{
+			// 스레드 10개 * 각 10000 번씩 => 10만을 증가시킨다.
+			for (int i = 0; i < 10; i++) 
+			{
+				if (i == 5)
+				{
+					// 특정 시점에 락을 건다. 락이 풀리면서 값이 0으로 설정된다. 이전 값은 날아가게 된다.
+					_taskQueue.LockInTaskSet();
+				}
+				_taskQueue.AddRef();
+				IocpExecutorSingleton::Instance().Execute(
+					RunnableBuilder::NewRunnable(new TaskRunnable(&_taskQueue))
+					);
+			}
+
+			Sleep(1000);
+
+			// 10만에서 락을 걸기 전까지의 계산값을 뺀다.
+			DWORD value = 100000L - _taskQueue.GetValue();
+
 			// 나머지를 모두 수행한다.
 			_taskQueue.Unlock();
 

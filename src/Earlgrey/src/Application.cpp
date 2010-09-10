@@ -99,6 +99,12 @@ namespace Earlgrey
 			thread->Join();
 		}
 		m_IOThreads.clear();
+		for (ThreadContainer::const_iterator i = m_WaitThreads.begin(); i != m_WaitThreads.end(); i++)
+		{
+			(*i)->Stop();
+			(*i)->Join();
+		}
+		m_WaitThreads.clear();
 		GlobalExceptionHandler::UnregisterAll();
 	}
 
