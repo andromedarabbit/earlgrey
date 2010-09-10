@@ -8,7 +8,7 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
 {
-    public class Pack : ToolTask, IPack
+    public class Pack : AbstractToolTask, IPack
     {
         private string _password;
         private ITaskItem _srcFolder;
@@ -43,11 +43,6 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
             }
 
             return true;
-        }
-
-        protected override string GenerateFullPathToTool()
-        {
-            return ToolsSearch.FindExternalTool(ToolName);
         }
 
         protected override string GenerateCommandLineCommands()

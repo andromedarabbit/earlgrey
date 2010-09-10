@@ -34,7 +34,7 @@ namespace MSBuild.Earlgrey
 
         public static string FindFirst(string rootDir, string pattern)
         {
-            foreach (string dir in Directory.GetDirectories(rootDir))
+            foreach (string dir in Directory.GetDirectories(rootDir, "*", SearchOption.AllDirectories))
             {
                 foreach (string file in Directory.GetFiles(dir, pattern))
                 {

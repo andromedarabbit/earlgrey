@@ -9,7 +9,7 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
 {
-    public class Unpack : ToolTask, IUnpack
+    public class Unpack : AbstractToolTask, IUnpack
     {
         public Unpack()
         {
@@ -22,12 +22,6 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
                 return false;
 
             return true;
-        }
-
-
-        protected override string GenerateFullPathToTool()
-        {
-            return ToolsSearch.FindExternalTool(ToolName);
         }
 
         protected override string GenerateCommandLineCommands()
