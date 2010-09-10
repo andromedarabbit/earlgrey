@@ -55,6 +55,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             return share;
         }
 
+        [Ignore]
         [Test]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void ShareWithoutAuthentication()
@@ -78,6 +79,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             }
         }
 
+        [Ignore]
         [Test]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void ShareWithReadPermissionOnly()
