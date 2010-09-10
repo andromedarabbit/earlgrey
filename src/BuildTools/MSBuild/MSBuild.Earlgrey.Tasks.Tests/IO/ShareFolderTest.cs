@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using Microsoft.Build.Utilities;
 using MSBuild.Earlgrey.Tasks.IO;
 using NUnit.Framework;
@@ -27,8 +27,6 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
                     TaskUtility.ThisAssemblyDirectory
                     , "MySharedFolderForTesting"
                 );
-                // return @"d:\a";
-                // return Path.GetTempPath();
             }
         }
 
@@ -55,7 +53,17 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             return share;
         }
 
-        [Ignore]
+        private static bool IsNewerThanWindowsXpOr2003
+        {
+            get 
+            { 
+                OperatingSystem os = Environment.OSVersion;
+                Trace.Assert(os.Platform == PlatformID.Win32NT);
+
+                return os.Version.Major > 5; // vista, 2008, 7
+            }
+        }
+
         [Test]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void ShareWithoutAuthentication()
@@ -63,7 +71,6 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             try
             {
                 ShareFolder share = CreateShare();
-                // share.ResetExistingOne = true;
                 Assert.IsTrue(share.Execute());
 
                 string textFile = Path.Combine(share.Uri, "ShareWithoutAuthenticationTest.txt");
@@ -71,6 +78,9 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
                 {
                     sw.WriteLine("Wow!");
                 }
+
+                Assert.IsFalse(IsNewerThanWindowsXpOr2003);
+                throw new UnauthorizedAccessException();
             }
             finally
             {
@@ -79,7 +89,6 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             }
         }
 
-        [Ignore]
         [Test]
         [ExpectedException(typeof(UnauthorizedAccessException))]
         public void ShareWithReadPermissionOnly()
@@ -96,6 +105,9 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
                 {
                     sw.WriteLine("Wow!");
                 }
+
+                Assert.IsFalse(IsNewerThanWindowsXpOr2003);
+                throw new UnauthorizedAccessException();
             }
             finally
             {
