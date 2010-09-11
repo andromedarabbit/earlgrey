@@ -14,8 +14,8 @@
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile 
-		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\MSBuild.Earlgrey*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll;"
-		Exclude="$(BinDir)\MSBuild.*.Tests.*"
+		Include="$(BinDir)\MSBuild.*.Tasks.*; $(BinDir)\MSBuild.Earlgrey*; $(BinDir)\Earlgrey.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll;"
+		Exclude="$(BinDir)\MSBuild*Test*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
 	</MSBuildExtensionFile>

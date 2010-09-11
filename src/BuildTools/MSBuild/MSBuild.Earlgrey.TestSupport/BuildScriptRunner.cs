@@ -8,7 +8,7 @@ using Microsoft.Build.BuildEngine;
 using Microsoft.Build.Framework;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey
+namespace MSBuild.Earlgrey.TestSupport
 {
     public class BuildScriptRunner
     {

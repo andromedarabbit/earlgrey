@@ -5,13 +5,16 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{414BBE27-6698-4FB3-BCEE-EF5BE459FCD1}</ProjectGuid>
+    <ProjectGuid>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MSBuild.Earlgrey.Scripts.Tests</RootNamespace>
-    <AssemblyName>MSBuild.Earlgrey.Scripts.Tests</AssemblyName>
+    <RootNamespace>Earlgrey</RootNamespace>
+    <AssemblyName>Earlgrey</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +24,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +35,8 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Build.Engine, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\vendor\NUnit 2.5.1\bin\net-2.0\framework\nunit.framework.dll</HintPath>
@@ -51,25 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildScripts.cs" />
+    <Compile Include="FileSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
-      <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
-      <Name>Earlgrey</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MSBuild.Earlgrey.Scripts\MSBuild.Earlgrey.Scripts.csproj">
-      <Project>{7D7CF82B-B8B3-4D66-A066-0704B45CBF60}</Project>
-      <Name>MSBuild.Earlgrey.Scripts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MSBuild.Earlgrey.TestSupport\MSBuild.Earlgrey.TestSupport.csproj">
-      <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
-      <Name>MSBuild.Earlgrey</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Net\" />
+    <Compile Include="TaskUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

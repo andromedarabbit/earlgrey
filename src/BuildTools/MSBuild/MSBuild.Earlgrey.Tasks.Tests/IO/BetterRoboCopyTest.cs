@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using Earlgrey;
 using MSBuild.Earlgrey.Tasks.IO;
 using NUnit.Framework;
 

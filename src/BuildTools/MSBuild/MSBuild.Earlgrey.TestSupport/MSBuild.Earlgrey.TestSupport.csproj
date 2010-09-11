@@ -8,12 +8,13 @@
     <ProjectGuid>{035A0F96-98FA-49B1-8D3D-476768F74743}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MSBuild.Earlgrey</RootNamespace>
-    <AssemblyName>MSBuild.Earlgrey</AssemblyName>
+    <RootNamespace>MSBuild.Earlgrey.TestSupport</RootNamespace>
+    <AssemblyName>MSBuild.Earlgrey.TestSupport</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>MSBuild.Earlgrey.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,12 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildScriptRunner.cs" />
-    <Compile Include="FileSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskUtility.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MSBuild.Earlgrey.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

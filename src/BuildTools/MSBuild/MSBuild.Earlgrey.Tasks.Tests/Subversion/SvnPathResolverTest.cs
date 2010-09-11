@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Earlgrey;
 using MSBuild.Earlgrey.Tasks.Subversion;
 using NUnit.Framework;
 

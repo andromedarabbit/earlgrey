@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using Earlgrey;
 using Microsoft.Build.Utilities;
 using MSBuild.Earlgrey.Tasks.IO;
 using NUnit.Framework;
