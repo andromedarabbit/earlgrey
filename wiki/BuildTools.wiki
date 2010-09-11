@@ -56,19 +56,19 @@ Every step is described in the following sample code.
 	<!-- Second, import MSBuild.Earlgrey.Tasks. -->
 	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
 
-	<!-- Usage example of MSBuild.Earlgrey.Tasks.IO.RoboCopy -->
+	<!-- Usage example of MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy -->
 	<Target Name="RoboCopyUsageExample">
-		<RoboCopy
-			SourceDir="$(RootDir)\MSBuildExtension"
-			DestinationDir="$(RootDir)\"
-			Files="FILE_NOT_EXISTS.txt"
+		<BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
 		/>
 		
 		<!-- You can also use the full name of a task -->
-		<MSBuild.Earlgrey.Tasks.IO.RoboCopy
-			SourceDir="$(RootDir)\MSBuildExtension"
-			DestinationDir="$(RootDir)\"
-			Files="FILE_NOT_EXISTS.txt"
+		<MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
 		/>
 	</Target>
 </Project>
