@@ -149,11 +149,15 @@
       <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
       <Name>MSBuild.Community.Tasks %28MSBuild\External Libraries\MSBuild.Community.Tasks\MSBuild.Community.Tasks%29</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
+      <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
+      <Name>Earlgrey</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SharedLibs\IniParser\IniFileParser\INIFileParser.csproj">
       <Project>{5E46DCF4-C473-4171-9F9B-F3910B5EC407}</Project>
       <Name>INIFileParser</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MSBuild.Earlgrey\MSBuild.Earlgrey.csproj">
+    <ProjectReference Include="..\MSBuild.Earlgrey.TestSupport\MSBuild.Earlgrey.TestSupport.csproj">
       <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
       <Name>MSBuild.Earlgrey</Name>
     </ProjectReference>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Diagnostics;
-
+using Earlgrey;
 using Microsoft.Build.Framework;
 using MSBuild.Community.Tasks.Subversion;
 

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Earlgrey;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey.Tests
+namespace Earlgrey.Tests
 {
     [TestFixture]
     public class FileSearchTest

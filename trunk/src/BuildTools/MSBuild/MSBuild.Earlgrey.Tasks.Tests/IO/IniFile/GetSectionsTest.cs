@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Earlgrey;
 using Microsoft.Build.Utilities;
 using MSBuild.Earlgrey.Tasks.IO.IniFile;
 using NUnit.Framework;

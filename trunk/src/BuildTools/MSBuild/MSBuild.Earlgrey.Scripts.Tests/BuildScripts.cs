@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Earlgrey;
+using MSBuild.Earlgrey.TestSupport;
 using NUnit.Framework;
 
 namespace MSBuild.Earlgrey.Scripts.Tests

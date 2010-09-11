@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Serialization;
-
+using Earlgrey;
 using MSBuild.Earlgrey.Tasks.Subversion;
 using NUnit.Framework;
 
