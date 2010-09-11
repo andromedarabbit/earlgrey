@@ -6,12 +6,12 @@
  * Custom tools
 
 = Third-party tools =
-Build tools developed by other opensource communities are now placed in /trunk/vendor path. We are currently using *MSBuild Community Tasks* to provide extensive functionalities to MSBuild scripts. *CruiseControl .NET* is also used to automate build processes and to get a rapid feedbacks.
+Build tools developed by other open source communities are now placed in /trunk/vendor path. We are currently using *MSBuild Community Tasks* to provide extensive functionalities to MSBuild scripts. *CruiseControl .NET* is also being used to automate build processes and to get rapid feedbacks.
 
 = Custom tools = 
 
 == MSBuild.Earlgrey.Tasks ==
-The name of *MSBuild Earlgrey.Tasks* describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other opensource communities' efforts. 
+The name of *MSBuild Earlgrey.Tasks* describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks does. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other open source communities' efforts. 
 
 === How to build MSBuild.Earlgrey.Tasks ===
 ==== Very simple way ====
