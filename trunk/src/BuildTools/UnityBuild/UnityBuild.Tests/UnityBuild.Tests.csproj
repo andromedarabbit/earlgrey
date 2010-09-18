@@ -51,8 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractTest.cs" />
     <Compile Include="StreamAppendTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextFileAppendTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
@@ -72,6 +74,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="UnityBuildTestResources\TextFileEmpty.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnityBuildTestResources\TextFileUtf8Encoded1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnityBuildTestResources\TextFileUtf8Encoded2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

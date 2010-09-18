@@ -9,37 +9,8 @@ using NUnit.Framework;
 namespace UnityBuild.Tests
 {
     [TestFixture]
-    public class StreamAppendTest
+    public class StreamAppendTest : AbstractTest
     {
-        private static readonly string TempDir;
-        private static readonly string ThisDir;
-
-        static StreamAppendTest()
-        {
-            ThisDir = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory
-                , @"UnityBuildTestResources"
-                );
-
-            TempDir = Path.Combine(ThisDir, "Temp");
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            if(Directory.Exists(TempDir))
-                Directory.Delete(TempDir, true);
-
-            Directory.CreateDirectory(TempDir);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            if (Directory.Exists(TempDir))
-                Directory.Delete(TempDir, true);
-        }
-
         [Test]
         public void MergeTextFileEmptyToNewFile()
         {
