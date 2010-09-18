@@ -7,6 +7,7 @@ using System.Text;
 
 namespace UnityBuild
 {
+    // TODO: 별로 쓸모 없을 듯
     public class TextAppend
     {
         private readonly TextReader _src;
@@ -32,6 +33,7 @@ namespace UnityBuild
         }
 
         // TODO: FileStream 을 직접 쓰면 인코딩이 다른 파일을 합칠 때 문제가 있을 듯
+        // TODO: 게다가 아래 코드는 버그 투성이 StreamAppend 처럼 짜야 한다.
         public virtual void Merge()
         {
             _src.ReadBlock(_buffer, 0, _buffer.Length);

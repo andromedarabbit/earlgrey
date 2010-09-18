@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Earlgrey;
 
 namespace SLNToolsTest
 {
@@ -17,8 +18,8 @@ namespace SLNToolsTest
         static SolutionFileReaderTest()
         {
             SolutionFileFullPath = Path.Combine(
-               AppDomain.CurrentDomain.BaseDirectory
-               , @"..\..\..\..\Earlgrey.sln"
+               TaskUtility.ThisAssemblyDirectory // AppDomain.CurrentDomain.BaseDirectory
+               , @"..\..\..\Earlgrey.sln"
            );
         }
 
