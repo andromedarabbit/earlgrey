@@ -20,7 +20,7 @@ Project Earlgrey also contains custom build tools. Not using these tools right n
 <a href="http://earlgrey.googlecode.com/svn-history/r539/wiki/DependencyDiagram/Earlgrey.BuildTools.png"><img src="http://earlgrey.googlecode.com/svn-history/r539/wiki/DependencyDiagram/Earlgrey.BuildTools.png" alt="Earlgrey.BuildTools 솔루션의 의존성 관계" width="1000" /></a>
 
 
-All pictures of diagrams are powered by http://dependencyvisualizer.codeplex.com/ [Dependency Visualizer]. Thank you.
+All pictures of diagrams are powered by [http://dependencyvisualizer.codeplex.com/ Dependency Visualizer]. Thank you.
  
 
 == 한국어 사용자에게 ==
