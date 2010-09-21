@@ -17,8 +17,11 @@ namespace IniParser
         private const string strSectionRegexStart = @"^(\s*?)";
         private const string strSectionRegexMiddle = @"{1}\s*[_\.\-\w\d\s]+\s*";
         private const string strSectionRegexEnd = @"(\s*?)$";
+
+        /// <seealso cref="http://www.dotfusion.net/multi-platform-ini-in-csharp"/>
         private const string strKeyRegex = @"((\s)*(?<Key>([^\=^\n]+))[\s^\n]*\";
         private const string strValueRegex = @"(\s)*(?<Value>([^\n]+(\n){0,1})))";
+        
         private const string strSpecialRegexChars = @"[\^$.|?*+()";
 
         #endregion
