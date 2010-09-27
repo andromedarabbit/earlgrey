@@ -4,6 +4,7 @@
 #include "EarlgreyMath.h"
 #include "numeric_cast.hpp"
 #include "AppSettings.h"
+#include "CompletionHandler.h"
 
 namespace Earlgrey
 {
@@ -176,4 +177,9 @@ namespace Earlgrey
 
 		return Result;
 	}*/
+
+	void AsyncResult::HandleEvent()
+	{
+		_Handler->HandleEvent( this );
+	}
 }

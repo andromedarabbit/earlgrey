@@ -14,6 +14,7 @@ namespace Earlgrey
 	class AsyncResult;
 	class CompletionHandler;
 	class AppSettings;
+	class CompletionHandler;
 
 	//Windows IOCompletion Port 용
 	class Proactor : private Uncopyable
@@ -57,15 +58,7 @@ namespace Earlgrey
 			ProactorSingleton
 			;
 
-	class CompletionHandler : private Uncopyable
-	{
-	public:
-		explicit CompletionHandler() {};
-		virtual ~CompletionHandler() {};
-
-		virtual void HandleEvent(AsyncResult* Result) = 0;
-	};
-
+	
 	//! Async I/O 처리를 위해 넘겨지는 token
 	/*!
 		Read / Write 에서 공통으로 사용하는 token이다.
@@ -103,10 +96,7 @@ namespace Earlgrey
 		}
 
 		//! 핸들러를 호출한다. Receiver / Sender ..
-		void HandleEvent()
-		{
-			_Handler->HandleEvent( this );
-		}
+		void HandleEvent();
 
 		CompletionHandler* GetHandler()
 		{
