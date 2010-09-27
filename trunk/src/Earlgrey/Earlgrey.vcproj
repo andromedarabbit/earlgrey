@@ -1009,6 +1009,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\EventProducer.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\File.h"
 					>
 				</File>
@@ -1090,6 +1094,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\AsyncStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\CompletionHandler.h"
 					>
 				</File>
 				<File

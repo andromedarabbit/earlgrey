@@ -1,6 +1,6 @@
 #pragma once 
-#include "Proactor.h" // CompletionHandler
-#include <WinSock2.h>
+
+#include "CompletionHandler.h"
 
 namespace Earlgrey
 {
@@ -9,6 +9,7 @@ namespace Earlgrey
 	class Receiver;
 	class Proactor;
 	class AsyncResult;
+	class CompletionHandler;
 
 	
 	//! ºñµ¿±â I/O Stream

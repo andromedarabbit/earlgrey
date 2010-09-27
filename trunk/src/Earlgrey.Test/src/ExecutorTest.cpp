@@ -3,6 +3,7 @@
 #include "Executor.h"
 #include "Environment.h"
 #include "DefaultAppSettings.h"
+#include "Runnable.h"
 
 namespace Earlgrey
 {

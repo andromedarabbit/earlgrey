@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Executor.h"
+#include "Runnable.h"
 
 namespace Earlgrey
 {
@@ -16,6 +17,10 @@ namespace Earlgrey
 
 	}
 
+	TaskCompletionHandler::TaskCompletionHandler( std::tr1::shared_ptr<IRunnable> task ) : Task_(task)
+	{
+
+	}
 	Executor::Executor()
 	{
 
@@ -85,4 +90,9 @@ namespace Earlgrey
 	{
 	}
 	*/
+
+	ExecutorTaskRunnerInvoker::ExecutorTaskRunnerInvoker()
+	{
+		IocpExecutorSingleton::Instance().DoTasks();
+	}
 }

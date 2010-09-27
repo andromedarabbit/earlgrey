@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "AsyncStream.h"
-
 #include "Socket.h"
 #include "Proactor.h"
 #include "NetworkBuffer.h"

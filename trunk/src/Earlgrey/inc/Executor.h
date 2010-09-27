@@ -1,24 +1,17 @@
 #pragma once
-#include "Thread.h"
-#include "Runnable.h"
 #include "taskqueue.h"
-#include "Proactor.h"
-
-#include <queue>
-#include <array>
+#include "CompletionHandler.h"
+#include "NoLock.h"
 
 namespace Earlgrey 
 {
 	class AsyncResult;
+	class IRunnable;
 
 	class TaskCompletionHandler : public CompletionHandler
 	{
 	public:
-		explicit TaskCompletionHandler(std::tr1::shared_ptr<IRunnable> task) 
-			: Task_(task) 
-		{
-
-		}
+		explicit TaskCompletionHandler(std::tr1::shared_ptr<IRunnable> task);
 
 		virtual ~TaskCompletionHandler();
 
@@ -76,10 +69,7 @@ namespace Earlgrey
 	class ExecutorTaskRunnerInvoker 
 	{
 	public:
-		ExecutorTaskRunnerInvoker()
-		{
-			IocpExecutorSingleton::Instance().DoTasks();
-		}
+		ExecutorTaskRunnerInvoker();
 
 		~ExecutorTaskRunnerInvoker() 
 		{

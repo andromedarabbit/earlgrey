@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Sender.h"
 #include "NetworkBuffer.h"
+#include "AsyncStream.h"
 
 namespace Earlgrey
 {

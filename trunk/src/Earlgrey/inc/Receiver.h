@@ -1,10 +1,11 @@
 #pragma once 
-#include "EarlgreyAssert.h"
-#include "AsyncStream.h"
+
+#include "CompletionHandler.h"
 
 namespace Earlgrey
 {
-	class AsyncReadStream;
+	class AsyncStream;
+	class AsyncResult;
 
 	class Receiver : public CompletionHandler
 	{
