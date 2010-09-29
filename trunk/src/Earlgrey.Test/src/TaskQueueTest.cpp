@@ -17,7 +17,7 @@ namespace Earlgrey
 	{
 		int intval_for_taskq = 0;
 
-		class TestTaskQueueClass : public TaskQueue
+		class TestTaskQueueClass : public TaskQueue<void()>
 		{
 		public:
 			explicit TestTaskQueueClass() : _test(0) 
@@ -112,7 +112,7 @@ namespace Earlgrey
 		}
 
 
-		class IncreaseTask : public TaskQueue
+		class IncreaseTask : public TaskQueue<void()>
 		{
 		public:
 			class TaskRunnable : public IRunnable {
@@ -242,7 +242,7 @@ namespace Earlgrey
 		class TaskQueueFixture : public ::testing::Test 
 		{
 		public:
-			class MyQueue : public Earlgrey::Algorithm::Lockfree::TaskQueue
+			class MyQueue : public Earlgrey::Algorithm::Lockfree::TaskQueue<void(DWORD)>
 			{
 			public:
 				MyQueue() : _value(0L), _refCount(0L)
@@ -275,14 +275,17 @@ namespace Earlgrey
 
 				void LockCheck(DWORD d)
 				{
-					TaskType f1 = std::tr1::bind( &MyQueue::RawPreCheck, static_cast<MyQueue*>(this), d );
-					TaskType f2 = std::tr1::bind( &MyQueue::RawCheck, static_cast<MyQueue*>(this), d );
+					TaskQueue::TaskType f1 = std::tr1::bind( &MyQueue::RawPreCheck, static_cast<MyQueue*>(this), d );
+					TaskQueue::UnlockTaskType f2 = std::tr1::bind( &MyQueue::RawCheck, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 );
 					this->Lock( f1, f2 );
 				}
 
 				void LockSet0()
 				{
-					this->Lock( std::tr1::bind( &MyQueue::RawPreSet0, static_cast<MyQueue*>(this) ), std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this) ) );
+					this->Lock( 
+						std::tr1::bind( &MyQueue::RawPreSet0, static_cast<MyQueue*>(this) ), 
+						std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) 
+					);
 				}
 
 				void LockInTaskSet()
@@ -310,7 +313,7 @@ namespace Earlgrey
 				{
 				}
 
-				void RawSet0()
+				void RawSet0(DWORD)
 				{
 					_value = 0;
 				}
@@ -318,7 +321,7 @@ namespace Earlgrey
 				void RawLockInTaskSet()
 				{
 					// Lock the queue
-					this->LockInTask( std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this) ) );
+					this->LockInTask( std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) );
 				}
 
 				void RawSet(DWORD d)
@@ -427,7 +430,7 @@ namespace Earlgrey
 			DWORD value = 100000L - _taskQueue.GetValue();
 			
 			// 나머지를 모두 수행한다.
-			_taskQueue.Unlock();
+			_taskQueue.Unlock( 0 );
 
 			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
 
@@ -456,7 +459,7 @@ namespace Earlgrey
 			DWORD value = 100000L - _taskQueue.GetValue();
 
 			// 나머지를 모두 수행한다.
-			_taskQueue.Unlock();
+			_taskQueue.Unlock( 0 );
 
 			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
 
@@ -467,7 +470,7 @@ namespace Earlgrey
 		{
 			_taskQueue.LockCheck( 123 );
 			_taskQueue.Set( 0 );
-			_taskQueue.Unlock();
+			_taskQueue.Unlock( 123 );
 		}
 	}
 }

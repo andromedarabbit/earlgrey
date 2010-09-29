@@ -9,7 +9,7 @@
 
 namespace Earlgrey
 {
-	class TimerManager : public Algorithm::Lockfree::TaskQueue
+	class TimerManager : public Algorithm::Lockfree::TaskQueue<void()>
 		// : private Uncopyable
 	{
 		friend struct Loki::CreateUsingNew<TimerManager>;

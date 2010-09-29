@@ -9,8 +9,11 @@ namespace Earlgrey {
 	namespace Algorithm {
 	namespace Lockfree {
 
-		typedef std::tr1::function<void()> TaskType;
-
+		//! task queue 를 구현한다.
+		/*!
+			\param UnlockFType Unlock 메서드의 시그니처. Unlock 메서드를 호출할 때 넘겨지는 파라미터를 정의한다.
+		*/
+		template<class UnlockFType>
 		class TaskQueue : private Uncopyable
 		{
 		public:
@@ -29,6 +32,9 @@ namespace Earlgrey {
 				// \todo erase all items from queue
 			}
 
+			typedef std::tr1::function<void()> TaskType;
+			typedef std::tr1::function<UnlockFType> UnlockTaskType;
+
 		private:
 			class TaskHolder
 			{
@@ -41,12 +47,12 @@ namespace Earlgrey {
 
 				explicit TaskHolder(const TaskType& task) : _task(task), _lock(NORMAL) {}
 
-				explicit TaskHolder(const TaskType& unlockTask, int lock, LONG lockID = 0L) 
+				explicit TaskHolder(const UnlockTaskType& unlockTask, int lock, LONG lockID = 0L) 
 					: _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
 				{
 				}
 
-				explicit TaskHolder(const TaskType& task, const TaskType& unlockTask, int lock, LONG lockID = 0L) 
+				explicit TaskHolder(const TaskType& task, const UnlockTaskType& unlockTask, int lock, LONG lockID = 0L) 
 					: _task(task), _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
 				{
 				}
@@ -59,6 +65,36 @@ namespace Earlgrey {
 				void ExecuteUnlockTask()
 				{
 					_unlockTask();
+				}
+
+				template<typename T1>
+				void ExecuteUnlockTask(T1 val1)
+				{
+					_unlockTask( val1 );
+				}
+
+				template<typename T1, typename T2>
+				void ExecuteUnlockTask(T1 val1, T2 val2)
+				{
+					_unlockTask( val1, val2 );
+				}
+
+				template<typename T1, typename T2, typename T3>
+				void ExecuteUnlockTask(T1 val1, T2 val2, T3 val3)
+				{
+					_unlockTask( val1, val2, val3 );
+				}
+
+				template<typename T1, typename T2, typename T3, typename T4>
+				void ExecuteUnlockTask(T1 val1, T2 val2, T3 val3, T4 val4)
+				{
+					_unlockTask( val1, val2, val3, val4 );
+				}
+
+				template<typename T1, typename T2, typename T3, typename T4, typename T5>
+				void ExecuteUnlockTask(T1 val1, T2 val2, T3 val3, T4 val4, T5 val5)
+				{
+					_unlockTask( val1, val2, val3, val4, val5 );
 				}
 
 				bool IsLockTask() const
@@ -78,7 +114,7 @@ namespace Earlgrey {
 
 			private:
 				TaskType _task;
-				TaskType _unlockTask;
+				UnlockTaskType _unlockTask;
 				int _lock;
 				LONG _lockID;
 			};
@@ -89,7 +125,7 @@ namespace Earlgrey {
 			/*!
 				\param task unlock될 때 호출 될 
 			*/
-			void Lock(const TaskType& task, const TaskType& unlockTask)
+			void Lock(const TaskType& task, const UnlockTaskType& unlockTask)
 			{
 				if (CAS( &_qlen, 0L, 1L ))
 				{
@@ -121,24 +157,63 @@ namespace Earlgrey {
 
 			void Unlock()
 			{
-				EARLGREY_ASSERT( _lockState );
-				EARLGREY_ASSERT( _lockTask );
-				EARLGREY_ASSERT( _lockTask->IsLockTask() );
-				EARLGREY_ASSERT( _lockTask->GetLockID() == _lockState );
+				PreUnlock();
 
 				_lockTask->ExecuteUnlockTask();
 
-				delete _lockTask;
-				_lockTask = NULL;
-
-				InterlockedExchange( &_lockState, 0L );
-
-				if (_qlen > 0)
-				{
-					ExecuteAllTasksInQueue();
-				}				
+				PostUnlock();
 			}
 
+			template<typename T1>
+			void Unlock(T1 val1)
+			{
+				PreUnlock();
+
+				_lockTask->ExecuteUnlockTask( val1 );
+
+				PostUnlock();
+			}
+
+			template<typename T1, typename T2>
+			void Unlock(T1 val1, T2 val2)
+			{
+				PreUnlock();
+
+				_lockTask->ExecuteUnlockTask( val1, val2 );
+
+				PostUnlock();
+			}
+
+			template<typename T1, typename T2, typename T3>
+			void Unlock(T1 val1, T2 val2, T3 val3)
+			{
+				PreUnlock();
+
+				_lockTask->ExecuteUnlockTask( val1, val2, val3 );
+
+				PostUnlock();
+			}
+
+			template<typename T1, typename T2, typename T3, typename T4>
+			void Unlock(T1 val1, T2 val2, T3 val3, T4 val4)
+			{
+				PreUnlock();
+
+				_lockTask->ExecuteUnlockTask( val1, val2, val3, val4 );
+
+				PostUnlock();
+			}
+
+			template<typename T1, typename T2, typename T3, typename T4, typename T5>
+			void Unlock(T1 val1, T2 val2, T3 val3, T4 val4, T5)
+			{
+				PreUnlock();
+
+				_lockTask->ExecuteUnlockTask( val1, val2, val3, val4, val5 );
+
+				PostUnlock();
+			}
+			
 		protected:
 			//! lock the queue
 			/*!
@@ -146,7 +221,7 @@ namespace Earlgrey {
 
 				\param unlockTask be invoked after unlock.
 			*/
-			void LockInTask(const TaskType& unlockTask)
+			void LockInTask(const UnlockTaskType& unlockTask)
 			{
 				EARLGREY_ASSERT( _lockState == 0 );
 				EARLGREY_ASSERT( _lockTask == NULL );
@@ -199,6 +274,27 @@ namespace Earlgrey {
 			}
 
 		private:
+			void PreUnlock()
+			{
+				EARLGREY_ASSERT( _lockState );
+				EARLGREY_ASSERT( _lockTask );
+				EARLGREY_ASSERT( _lockTask->IsLockTask() );
+				EARLGREY_ASSERT( _lockTask->GetLockID() == _lockState );
+			}
+
+			void PostUnlock()
+			{
+				delete _lockTask;
+				_lockTask = NULL;
+
+				InterlockedExchange( &_lockState, 0L );
+
+				if (_qlen > 0)
+				{
+					ExecuteAllTasksInQueue();
+				}	
+			}
+
 			void ExecuteAllTasksInQueue()
 			{
 				
@@ -248,7 +344,7 @@ namespace Earlgrey {
 
 		private:
 			TaskHolder*	_lockTask;					//!< lock task
-			Queue<TaskQueue::TaskHolder*> _q;		//!< lockfree queue
+			Queue<TaskHolder*> _q;					//!< lockfree queue
 			volatile LONG _qlen;					//!< the number of tasks in queue
 			volatile LONG _waitQLen;				//!< the number of tasks in waiting queue
 			volatile LONG _IsRunning;
