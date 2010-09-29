@@ -13,7 +13,7 @@
 namespace Earlgrey
 {
 	class Logger 		
-		: public Algorithm::Lockfree::TaskQueue
+		: public Algorithm::Lockfree::TaskQueue<void()>
 	{
 	private:
 		typedef xwstring InternalString;
