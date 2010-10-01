@@ -15,7 +15,7 @@ namespace Earlgrey {
 
 		//! \ref http://kaistizen.net/EE/index.php/weblog/comments/myth_of_ado_connection_pool/
 		class ConnectionPool 
-			: public Algorithm::Lockfree::TaskQueue<>
+			: public Algorithm::Lockfree::TaskQueue<void()>
 		{
 			friend struct Loki::CreateUsingNew<ConnectionPool>;
 

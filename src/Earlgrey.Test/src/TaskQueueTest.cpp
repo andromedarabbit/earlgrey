@@ -270,12 +270,12 @@ namespace Earlgrey
 
 				void Set(DWORD d)
 				{
-					InvokeMethod( &MyQueue::RawSet, d );
+					InvokeMethod( &MyQueue::RawSetAndCheck, d );
 				}
 
 				void LockCheck(DWORD d)
 				{
-					TaskQueue::TaskType f1 = std::tr1::bind( &MyQueue::RawPreCheck, static_cast<MyQueue*>(this), d );
+					TaskQueue::TaskType f1 = std::tr1::bind( &MyQueue::RawSet, static_cast<MyQueue*>(this), d );
 					TaskQueue::UnlockTaskType f2 = std::tr1::bind( &MyQueue::RawCheck, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 );
 					this->Lock( f1, f2 );
 				}
@@ -284,13 +284,19 @@ namespace Earlgrey
 				{
 					this->Lock( 
 						std::tr1::bind( &MyQueue::RawPreSet0, static_cast<MyQueue*>(this) ), 
-						std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) 
+						std::tr1::bind( &MyQueue::RawSet, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) 
 					);
 				}
 
 				void LockInTaskSet()
 				{
 					InvokeMethod( &MyQueue::RawLockInTaskSet );
+				}
+
+				// lock 상태에서 LockInTask 를 호출을 검사
+				void NestedLockInTask()
+				{
+					InvokeMethod( &MyQueue::RawNestedLockInTaskSet );
 				}
 
 				DWORD GetValue() const
@@ -313,26 +319,35 @@ namespace Earlgrey
 				{
 				}
 
-				void RawSet0(DWORD)
+				void RawSet(DWORD value)
 				{
-					_value = 0;
+					_value = value;
 				}
 
 				void RawLockInTaskSet()
 				{
 					// Lock the queue
-					this->LockInTask( std::tr1::bind( &MyQueue::RawSet0, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) );
+					this->LockInTask( std::tr1::bind( &MyQueue::RawSet, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) );
 				}
 
-				void RawSet(DWORD d)
+				void CallLockInTask(DWORD)
+				{
+					RawLockInTaskSet();
+				}
+
+				void RawNestedLockInTaskSet()
+				{
+					// unlock 메서드 내에서 LockInTask 를 또 호출한다.
+					// unlock 메서드가 호출된 후에 unlock 상태가 되므로 unlock 메서드 내에서 호출하는
+					// LockInTask 는 lock 상태에서 수행된다. 
+					// LockInTask 내에서 lock 상태를 검사하고 lock 상태라면 큐잉을 한다.
+					this->LockInTask( std::tr1::bind( &MyQueue::CallLockInTask, static_cast<MyQueue*>(this), std::tr1::placeholders::_1 ) );
+				}
+
+				void RawSetAndCheck(DWORD d)
 				{
 					_value = d;
 					LockCheck( d );
-				}
-
-				void RawPreCheck(DWORD d)
-				{
-					_value = d;
 				}
 
 				void RawCheck(DWORD d)
@@ -471,6 +486,20 @@ namespace Earlgrey
 			_taskQueue.LockCheck( 123 );
 			_taskQueue.Set( 0 );
 			_taskQueue.Unlock( 123 );
+		}
+
+		TEST_F( TaskQueueFixture, NestedLockTest )
+		{
+			_taskQueue.NestedLockInTask();
+			_taskQueue.AddRef();
+			IocpExecutorSingleton::Instance().Execute(
+				RunnableBuilder::NewRunnable(new TaskRunnable(&_taskQueue))
+				);
+
+			_taskQueue.Unlock( 0 );
+			_taskQueue.Unlock( 0 );
+
+			WaitForSingleObject( _taskQueue.GetWaitHandle(), INFINITE );
 		}
 	}
 }
