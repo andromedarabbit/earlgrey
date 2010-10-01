@@ -38,6 +38,9 @@ namespace Earlgrey {
 		private:
 			class TaskHolder
 			{
+				static void DummyLock()
+				{
+				}
 			public:
 				enum {
 					NORMAL,
@@ -48,7 +51,7 @@ namespace Earlgrey {
 				explicit TaskHolder(const TaskType& task) : _task(task), _lock(NORMAL) {}
 
 				explicit TaskHolder(const UnlockTaskType& unlockTask, int lock, LONG lockID = 0L) 
-					: _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
+					: _task(&TaskHolder::DummyLock), _unlockTask(unlockTask), _lock(lock), _lockID(lockID) 
 				{
 				}
 
@@ -219,10 +222,20 @@ namespace Earlgrey {
 			/*!
 				This method MUST be called in a task.
 
-				\param unlockTask be invoked after unlock.
+				\param unlockTask is being invoked after unlock.
 			*/
 			void LockInTask(const UnlockTaskType& unlockTask)
 			{
+				if (_lockState)
+				{
+					EARLGREY_ASSERT( _lockTask );
+
+					// 이미 lock 상태이므로 lock task를 큐잉한다. lockID 는 나중에 재설정되므로 설정할 필요가 없다.
+					_q.Enqueue( new TaskHolder( unlockTask, TaskHolder::LOCK ) );
+					InterlockedIncrement( &_qlen );
+					return;
+				}
+
 				EARLGREY_ASSERT( _lockState == 0 );
 				EARLGREY_ASSERT( _lockTask == NULL );
 				EARLGREY_ASSERT( _qlen > 0 );
