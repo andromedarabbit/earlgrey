@@ -23,7 +23,7 @@
 
 <Target Name="CopyFiles">
 	<Copy            
-      SourceFiles="%(MSBuildExtensionFile.FullPath)"
+    SourceFiles="%(MSBuildExtensionFile.FullPath)"
 	  DestinationFolder="%(MSBuildExtensionFile.DstDir)\%(RecursiveDir)"
 	/>
 </Target>

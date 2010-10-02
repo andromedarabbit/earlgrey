@@ -65,7 +65,7 @@
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.TestSupport\MSBuild.Earlgrey.TestSupport.csproj">
       <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
-      <Name>MSBuild.Earlgrey</Name>
+      <Name>MSBuild.Earlgrey.TestSupport</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

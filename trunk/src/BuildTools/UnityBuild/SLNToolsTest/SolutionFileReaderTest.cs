@@ -18,9 +18,10 @@ namespace SLNToolsTest
         static SolutionFileReaderTest()
         {
             SolutionFileFullPath = Path.Combine(
-               TaskUtility.ThisAssemblyDirectory // AppDomain.CurrentDomain.BaseDirectory
-               , @"..\..\..\Earlgrey.sln"
-           );
+                TaskUtility.ThisAssemblyDirectory // AppDomain.CurrentDomain.BaseDirectory
+                , @"..\..\..\Earlgrey.sln"
+            );
+            SolutionFileFullPath = Path.GetFullPath(SolutionFileFullPath);
         }
 
         [Test]
@@ -51,6 +52,39 @@ namespace SLNToolsTest
             }
         }
 
-  
+
+        [Test]
+        public void VerifySolutionAndProjectsFullPaths()
+        { 
+            using (var reader = new SolutionFileReader(SolutionFileFullPath))
+            {
+                SolutionFile slnFile = reader.ReadSolutionFile();
+                // NOTE: requires manual asignment of the path value. not a good design.
+                slnFile.SolutionFullPath = SolutionFileFullPath;
+
+                //var result = from project in slnFile.Projects
+                //                   where project.ProjectFullName == "Earlgrey"
+                //                   select project;
+
+                //Project earlgrey = result.First();
+                //Assert.IsNotNull(earlgrey);
+
+                //string fullPath = earlgrey.FullPath;
+                //Assert.IsTrue(File.Exists(fullPath));
+
+                foreach (var project in slnFile.Projects)
+                {
+                    if (project.AllDescendants != null && project.AllDescendants.Count() > 0)
+                        continue;
+                    if (File.Exists(project.FullPath)==false)
+                        Console.WriteLine();
+                    Assert.IsTrue(File.Exists(project.FullPath));
+                }
+            }
+        }
+
+        #region Bugs found
+        #endregion // Bugs found
+
     }
 }
