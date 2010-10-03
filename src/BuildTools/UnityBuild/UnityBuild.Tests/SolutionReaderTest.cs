@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace VCProjectTest
+namespace UnityBuild.Tests
 {
     using NUnit.Framework;
 
@@ -17,8 +17,10 @@ namespace VCProjectTest
         {
             SolutionFilePath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\..\Earlgrey.sln"
+                , @"..\..\..\Earlgrey.sln"
             );
+            SolutionFilePath = Path.GetFullPath(SolutionFilePath);
+
         }
 
         [Test]
