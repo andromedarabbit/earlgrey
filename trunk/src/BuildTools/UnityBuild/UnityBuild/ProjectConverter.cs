@@ -16,23 +16,12 @@ namespace UnityBuild
 
         public ProjectConverter(Project project)
         {
-            Debug.Assert(_originalProject != null);
+            Debug.Assert(project != null);
             _originalProject = project;
         }
 
         public void Run()
         {
-            // SolutionFile slnFile = SolutionFile.FromFile(solutionFileFullPath);
-            using (TextReader tr = new StreamReader(_originalProject.FullPath))
-            {
-                // Now deserialize.
-                var project = (VisualStudioProjectType)(
-                    new XmlSerializer(typeof(VisualStudioProjectType))
-                ).Deserialize(tr);
-
-                Debug.Assert(project != null);
-            }
-
             _convertedProject = null;
         }
 

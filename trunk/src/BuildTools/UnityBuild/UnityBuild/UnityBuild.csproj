@@ -60,6 +60,7 @@
       <DependentUpon>UnityBuild.settings</DependentUpon>
     </Compile>
     <Compile Include="TextAppend.cs" />
+    <Compile Include="VcProject.cs" />
     <Compile Include="VisualStudioProjectType.cs">
       <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
     </Compile>
