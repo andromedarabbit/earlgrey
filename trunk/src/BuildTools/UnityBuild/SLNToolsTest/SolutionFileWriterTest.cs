@@ -19,13 +19,15 @@ namespace SLNToolsTest
         {
             SolutionFileFullPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\..\Earlgrey.sln"
+                , @"..\..\..\Earlgrey.sln"
             );
+            SolutionFileFullPath = Path.GetFullPath(SolutionFileFullPath);
 
             NewSolutionFileFullPath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\..\NewEarlgrey.sln"
+                , @"..\..\..\NewEarlgrey.sln"
             );
+            NewSolutionFileFullPath = Path.GetFullPath(NewSolutionFileFullPath);
         }
 
         [SetUp]
@@ -56,6 +58,7 @@ namespace SLNToolsTest
             using (var reader = new SolutionFileReader(SolutionFileFullPath))
             {
                 SolutionFile slnFile = reader.ReadSolutionFile();
+                slnFile.SolutionFullPath = SolutionFileFullPath;
 
                 var newSlnFile = new SolutionFile(NewSolutionFileFullPath, slnFile.Headers, null, null);
                 using(var writer = new SolutionFileWriter(NewSolutionFileFullPath))

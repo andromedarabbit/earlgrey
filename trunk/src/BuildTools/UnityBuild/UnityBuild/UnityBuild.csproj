@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IText.cs" />
+    <Compile Include="ProjectConverter.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="TextFile.cs" />
     <Compile Include="TextFilesAppend.cs" />
@@ -59,14 +60,22 @@
       <DependentUpon>UnityBuild.settings</DependentUpon>
     </Compile>
     <Compile Include="TextAppend.cs" />
+    <Compile Include="VisualStudioProjectType.cs">
+      <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\UnityBuild.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UnityBuild.Designer.cs</LastGenOutput>
     </None>
+    <None Include="VisualStudioProjectType.xsd" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\vendor\SLNTools\src\Main\CWDev.SLNTools.Core.dll\CWDev.SLNTools.Core.dll.csproj">
+      <Project>{055CF73F-58D6-4E8F-89B0-3FDDC5CC57F5}</Project>
+      <Name>CWDev.SLNTools.Core.dll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SharedLibs\Earlgrey.EncodingTools\Earlgrey.EncodingTools.csproj">
       <Project>{CA19D4DE-B232-491A-92BF-7BF3A2758694}</Project>
       <Name>Earlgrey.EncodingTools</Name>

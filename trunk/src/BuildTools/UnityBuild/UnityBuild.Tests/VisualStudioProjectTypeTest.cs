@@ -7,7 +7,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace VCProjectTest
+namespace UnityBuild.Tests
 {
     using NUnit.Framework;
 
@@ -27,9 +27,9 @@ namespace VCProjectTest
 
             SampleVcProjFilePath = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\..\Earlgrey\Earlgrey.vcproj"
+                , @"..\..\..\Earlgrey\Earlgrey.vcproj"
             );
-
+            SampleVcProjFilePath = Path.GetFullPath(SampleVcProjFilePath);
 //             // xsdFileName = "VisualStudioProjectType.xsd";
 //             XsdFilePath = Path.Combine(
 //                 AppDomain.CurrentDomain.BaseDirectory
@@ -55,9 +55,9 @@ namespace VCProjectTest
         [Test]
         public void DeserializeVcProjectTest()
         {
-            VisualStudioProjectType project = null;
+            // VisualStudioProjectType project = null;
 
-            string requestXsdNameSpace = string.Empty;
+            // string requestXsdNameSpace = string.Empty;
      
             // Create a validating XML reader and validate...
 //             var context = new XmlParserContext(null, null, "", XmlSpace.None);
@@ -74,7 +74,7 @@ namespace VCProjectTest
             using (TextReader tr = new StreamReader(SampleVcProjFilePath))
             {
                 // Now deserialize.
-                project = (VisualStudioProjectType) (
+                var project = (VisualStudioProjectType)(
                     new XmlSerializer(typeof (VisualStudioProjectType))
                 ).Deserialize(tr);
 

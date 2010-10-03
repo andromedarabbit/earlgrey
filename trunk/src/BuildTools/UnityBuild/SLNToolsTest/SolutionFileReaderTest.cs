@@ -59,7 +59,7 @@ namespace SLNToolsTest
             using (var reader = new SolutionFileReader(SolutionFileFullPath))
             {
                 SolutionFile slnFile = reader.ReadSolutionFile();
-                // NOTE: requires manual asignment of the path value. not a good design.
+                // NOTE: requires manual assignment of the path value. not a good design.
                 slnFile.SolutionFullPath = SolutionFileFullPath;
 
                 var realProjects = from project in slnFile.Projects
