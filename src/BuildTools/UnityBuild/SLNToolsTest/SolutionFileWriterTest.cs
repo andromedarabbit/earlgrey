@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace SLNToolsTest
+namespace SLNTools.Tests
 {
     using NUnit.Framework;
     using CWDev.SLNTools.Core;
