@@ -54,7 +54,7 @@ namespace SLNToolsTest
 
 
         [Test]
-        public void VerifySolutionAndProjectsFullPaths()
+        public void VerifySolutionAndVcProjectsFullPaths()
         { 
             using (var reader = new SolutionFileReader(SolutionFileFullPath))
             {
@@ -62,25 +62,24 @@ namespace SLNToolsTest
                 // NOTE: requires manual asignment of the path value. not a good design.
                 slnFile.SolutionFullPath = SolutionFileFullPath;
 
-                //var result = from project in slnFile.Projects
-                //                   where project.ProjectFullName == "Earlgrey"
-                //                   select project;
-
-                //Project earlgrey = result.First();
-                //Assert.IsNotNull(earlgrey);
-
-                //string fullPath = earlgrey.FullPath;
-                //Assert.IsTrue(File.Exists(fullPath));
-
-                foreach (var project in slnFile.Projects)
+                var realProjects = from project in slnFile.Projects
+                                   where project.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
+                                   select project
+                    ;
+                                  
+                foreach (var project in realProjects)
                 {
-                    if (project.AllDescendants != null && project.AllDescendants.Count() > 0)
-                        continue;
-                    if (File.Exists(project.FullPath)==false)
-                        Console.WriteLine();
                     Assert.IsTrue(File.Exists(project.FullPath));
                 }
             }
+        }
+
+        [Test]
+        public void CreateSolutionFileInstanceUsingAnotherWay()
+        {
+            SolutionFile slnFile = SolutionFile.FromFile(SolutionFileFullPath);
+
+            Assert.IsTrue(File.Exists(slnFile.SolutionFullPath));
         }
 
         #region Bugs found
