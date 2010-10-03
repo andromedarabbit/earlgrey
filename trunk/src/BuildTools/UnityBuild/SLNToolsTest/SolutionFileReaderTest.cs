@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Earlgrey;
 
-namespace SLNToolsTest
+namespace SLNTools.Tests
 {
     using NUnit.Framework;
     using CWDev.SLNTools.Core;

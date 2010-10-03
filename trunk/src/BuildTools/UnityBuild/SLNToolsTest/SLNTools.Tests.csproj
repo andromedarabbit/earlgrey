@@ -8,8 +8,8 @@
     <ProjectGuid>{D158583A-9300-4E6F-BDE7-3AA077A8CA8E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SLNToolsTest</RootNamespace>
-    <AssemblyName>SLNToolsTest</AssemblyName>
+    <RootNamespace>SLNTools.Tests</RootNamespace>
+    <AssemblyName>SLNTools.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

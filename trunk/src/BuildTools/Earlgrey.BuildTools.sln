@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MSBuild", "MSBuild", "{27AB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnityBuild", "UnityBuild", "{ABBFE178-7A72-4645-A562-11F98731B735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLNToolsTest", "UnityBuild\SLNToolsTest\SLNToolsTest.csproj", "{D158583A-9300-4E6F-BDE7-3AA077A8CA8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLNTools.Tests", "UnityBuild\SLNToolsTest\SLNTools.Tests.csproj", "{D158583A-9300-4E6F-BDE7-3AA077A8CA8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{8C57DDC2-1BC9-4CAB-9DA4-E2C629348D8C}"
 	ProjectSection(SolutionItems) = preProject
