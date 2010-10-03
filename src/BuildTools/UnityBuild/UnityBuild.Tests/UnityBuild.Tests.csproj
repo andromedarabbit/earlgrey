@@ -61,9 +61,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="TextFileAppendTest.cs" />
+    <Compile Include="VcProjectTest.cs" />
     <Compile Include="VisualStudioProjectTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\vendor\SLNTools\src\Main\CWDev.SLNTools.Core.dll\CWDev.SLNTools.Core.dll.csproj">
+      <Project>{055CF73F-58D6-4E8F-89B0-3FDDC5CC57F5}</Project>
+      <Name>CWDev.SLNTools.Core.dll</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
       <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
       <Name>Earlgrey</Name>
