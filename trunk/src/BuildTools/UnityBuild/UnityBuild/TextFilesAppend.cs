@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace UnityBuild
 {
@@ -34,10 +33,9 @@ namespace UnityBuild
 
         class TextReaders : IEnumerator<TextReader>
         {
-            private TextReader[] _srcFiles;
-            private string _delimiter;
+            private readonly TextReader[] _srcFiles;
+            private readonly string _delimiter;
             private int _count;
-            // private int _totalCount;
 
             public TextReaders(TextFile[] srcFiles, string delimiter)
             {
