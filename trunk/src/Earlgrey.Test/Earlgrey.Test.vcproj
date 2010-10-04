@@ -379,7 +379,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\EventProducerTest.cpp"
+				RelativePath=".\src\EventProducerTest.cpp"
 				>
 			</File>
 			<File
