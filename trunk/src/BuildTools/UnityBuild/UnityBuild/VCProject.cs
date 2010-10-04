@@ -11,28 +11,47 @@ namespace UnityBuild
 {
     internal class VcProject
     {
-        private readonly Project _project;
+        private readonly Project _projectSummary;
+        private VisualStudioProjectType _projectDetails;
 
-        public VcProject(Project project)
+        public VcProject(Project projectSummary)
         {
-            Debug.Assert(project != null);
+            Debug.Assert(projectSummary != null);
             Debug.Assert(
-                project.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
+                projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
                 );
-            _project = project;
+            _projectSummary = projectSummary;
         }
 
-        public void Run()
+        public void Initialize()
         {
-            // SolutionFile slnFile = SolutionFile.FromFile(solutionFileFullPath);
-            using (TextReader tr = new StreamReader(_project.FullPath))
+            Debug.Assert(File.Exists(_projectSummary.FullPath));
+
+            using (TextReader tr = new StreamReader(_projectSummary.FullPath))
             {
-                // Now deserialize.
-                var project = (VisualStudioProjectType)(
+                _projectDetails = (VisualStudioProjectType)(
                     new XmlSerializer(typeof(VisualStudioProjectType))
                 ).Deserialize(tr);
 
-                Debug.Assert(project != null);
+                Debug.Assert(_projectDetails != null);
+            }
+        }
+
+        public VisualStudioProjectType Details
+        {
+            get
+            {
+                Debug.Assert(_projectDetails != null);
+                return _projectDetails;
+            }
+        }
+
+        public Project Summary
+        {
+            get 
+            { 
+                Debug.Assert(_projectSummary != null);
+                return _projectSummary;
             }
         }
 
