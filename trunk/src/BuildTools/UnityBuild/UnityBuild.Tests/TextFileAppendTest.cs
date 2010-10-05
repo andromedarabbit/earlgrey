@@ -1,4 +1,4 @@
-﻿using System;
+﻿                       using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,7 +64,7 @@ namespace UnityBuild.Tests
 
             TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
 
-            TextFilesAppend append = new TextFilesAppend(dstFile, _textFileEmpty);
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileEmpty);
             append.Merge();
 
             Assert.IsTrue(File.Exists(_dstFilePath));
@@ -80,7 +80,7 @@ namespace UnityBuild.Tests
 
             TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
 
-            TextFilesAppend append = new TextFilesAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2);
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2);
             append.Merge();
 
 
@@ -97,7 +97,7 @@ namespace UnityBuild.Tests
 
             TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
 
-            TextFilesAppend append = new TextFilesAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2);
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2);
             append.Delimiter = " - "; 
             append.Merge();
 
@@ -113,7 +113,7 @@ namespace UnityBuild.Tests
 
             TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
 
-            TextFilesAppend append = new TextFilesAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2, _textFileUtf8Encoded1, _textFileUtf8Encoded2);
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2, _textFileUtf8Encoded1, _textFileUtf8Encoded2);
             append.Delimiter = " - ";
             append.Merge();
 
