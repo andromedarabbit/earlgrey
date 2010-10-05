@@ -22,5 +22,31 @@ namespace UnityBuild.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("UnityBuild")]
+        public string RootFilterName {
+            get {
+                return ((string)(this["RootFilterName"]));
+            }
+            set {
+                this["RootFilterName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsi=\"http://www.w3." +
+            "org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\r\n  <s" +
+            "tring>cpp</string>\r\n</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection SourceFileExtensions {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["SourceFileExtensions"]));
+            }
+            set {
+                this["SourceFileExtensions"] = value;
+            }
+        }
     }
 }

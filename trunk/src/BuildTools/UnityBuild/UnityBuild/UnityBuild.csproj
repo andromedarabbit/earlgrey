@@ -61,12 +61,15 @@
       <DependentUpon>UnityBuild.settings</DependentUpon>
     </Compile>
     <Compile Include="TextAppend.cs" />
+    <Compile Include="Properties\UnityBuild.cs" />
     <Compile Include="VcProject.cs" />
     <Compile Include="VisualStudioProjectType.cs">
       <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CustomExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Properties\UnityBuild.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UnityBuild.Designer.cs</LastGenOutput>

@@ -127,20 +127,15 @@ namespace UnityBuild
 
         #endregion
 
-        public static bool IsSrcFile(FileType file)
-        {
-            return IsSrcFile(file.RelativePath);
-        }
-
-        public static bool IsSrcFile(string filePath)
-        {
-            return string.Equals(Path.GetExtension(filePath), ".cpp", StringComparison.OrdinalIgnoreCase);
-        }
+        //public static bool IsSrcFile(FileType file)
+        //{
+        //    return Properties.UnityBuild.Default.IsSourceFile(file.RelativePath);
+        //}
 
         public void MergeSrcFile(FileType file)
         {
             Debug.Assert(file != null);
-            Debug.Assert(IsSrcFile(file));
+            Debug.Assert(file.IsSrcFile());
 
             string filePath = Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath));
             Debug.Assert(File.Exists(filePath));

@@ -97,7 +97,7 @@ namespace UnityBuild.Tests
                     if (fileOrFilter is FileType)
                     {
                         FileType file = (FileType)fileOrFilter;
-                        if (SrcFileAppend.IsSrcFile(file) == false)
+                        if (file.IsSrcFile() == false)
                             continue;
 
                         merger.MergeSrcFile(file);
