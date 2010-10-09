@@ -55,7 +55,7 @@ namespace UnityBuild.Tests
             return earlgreyProject;
         }
 
-
+     
         [Test]
         public void MergeRootFiles()
         {
@@ -66,23 +66,32 @@ namespace UnityBuild.Tests
 
             var details = vcProject.Details;
 
-            string dstFilePath = Path.Combine(TempDir, "VcProjectTest.MergeRootFiles.cpp");
-
-            if (File.Exists(dstFilePath))
-                File.Delete(dstFilePath);
-
             string projectDir = Path.GetDirectoryName(earlgreyProject.FullPath);
             Assert.IsNotNull(projectDir);
             Assert.IsTrue(Directory.Exists(projectDir));
 
-            object[] filesAndFilters = details.Files;     
-            MergeRootSrcFiles(dstFilePath, projectDir, filesAndFilters);
+            object[] filesAndFilters = details.Files;
+            MergeRootSrcFiles(projectDir, filesAndFilters);
         }
 
-        private static void MergeRootSrcFiles(string dstFilePath, string projectDir, object[] filesAndFilters)
+        private static void MergeRootSrcFiles(string projectDir, object[] filesAndFilters)
+        {
+            var parentFilters = new LinkedList<FilterType>();
+            MergeRootSrcFiles(projectDir, filesAndFilters, parentFilters);
+        }
+
+        private static void MergeRootSrcFiles(string projectDir, object[] filesAndFilters, IEnumerable<FilterType> parentFilters)
         {
             if (filesAndFilters == null || filesAndFilters.Length == 0)
                 return;
+
+            // string 
+            NumberProvider.Instance.Next();
+            string dstFileName = string.Format("UnityBuild-{0}.cpp", NumberProvider.Instance.NoString);
+            string dstFilePath = Path.Combine(TempDir, dstFileName);
+
+            if (File.Exists(dstFilePath))
+                File.Delete(dstFilePath);
 
             using (SrcFileAppend merger = new SrcFileAppend(dstFilePath, projectDir, true))
             {
@@ -90,6 +99,8 @@ namespace UnityBuild.Tests
 
                 foreach (var fileOrFilter in filesAndFilters)
                 {
+                    Assert.IsNotNull(fileOrFilter);
+
                     Assert.IsTrue(
                         (fileOrFilter is FileType) || (fileOrFilter is FilterType)
                         );
@@ -100,6 +111,12 @@ namespace UnityBuild.Tests
                         if (file.IsSrcFile() == false)
                             continue;
 
+                        // TODO: 임시 코드
+                        if (file.RelativePath.EndsWith("NotUsed.cpp"))
+                        {    
+ bool d=file.IsExcludedFromBuild();
+                        }
+
                         merger.MergeSrcFile(file);
                     }
 
@@ -107,8 +124,10 @@ namespace UnityBuild.Tests
                     {
                         FilterType filter = (FilterType)fileOrFilter;
 
-                        string newDstFilePath = Path.Combine(TempDir, "VcProjectTest.MergeRootFiles." + filter.Name + ".cpp");
-                        MergeRootSrcFiles(newDstFilePath, projectDir, filter.Items);
+                        var newParentFilters = new LinkedList<FilterType>(parentFilters);
+                        newParentFilters.AddLast(filter);
+
+                        MergeRootSrcFiles(projectDir, filter.Items, newParentFilters);
                     }
                 }
             }

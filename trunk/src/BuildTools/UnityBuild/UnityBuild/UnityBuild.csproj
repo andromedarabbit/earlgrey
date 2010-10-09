@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IText.cs" />
-    <Compile Include="ProjectConverter.cs" />
+    <Compile Include="NumberProvider.cs" />
+    <Compile Include="VcProjectConverter.cs" />
     <Compile Include="SrcFileAppend.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="TextFile.cs" />
