@@ -32,7 +32,7 @@
 #include "Uncopyable.h"
 #include "txstring.h"
 #include "Earlgrey.h"
-#include <queue>
+#include "xqueue.h"
 #include <array>
-#include <map>
+#include "xmap.h"
 #include "loki/Singleton.h"
