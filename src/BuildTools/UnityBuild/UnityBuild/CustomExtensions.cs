@@ -27,7 +27,7 @@ namespace UnityBuild
         {
             foreach(var item in file.Items)
             {
-                Debug.Assert(item != null);
+                Debug.Assert(item != null); 
                 Debug.Assert(item is ConfigurationType);
 
                 var configuration = (ConfigurationType) item;
