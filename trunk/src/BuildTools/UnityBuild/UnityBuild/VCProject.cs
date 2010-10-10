@@ -11,8 +11,21 @@ namespace UnityBuild
 {
     internal class VcProject
     {
+        // private readonly SolutionFile _solution;
         private readonly Project _projectSummary;
         private VisualStudioProjectType _projectDetails;
+
+        //public VcProject(SolutionFile solution, Project projectSummary)
+        //{
+        //    Debug.Assert(solution != null);
+        //    Debug.Assert(projectSummary != null);
+        //    Debug.Assert(
+        //        projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
+        //        );
+
+        //    _solution = solution;
+        //    _projectSummary = projectSummary;
+        //}
 
         public VcProject(Project projectSummary)
         {
@@ -20,6 +33,7 @@ namespace UnityBuild
             Debug.Assert(
                 projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
                 );
+
             _projectSummary = projectSummary;
         }
 
@@ -32,10 +46,19 @@ namespace UnityBuild
                 _projectDetails = (VisualStudioProjectType)(
                     new XmlSerializer(typeof(VisualStudioProjectType))
                 ).Deserialize(tr);
-
+                
                 Debug.Assert(_projectDetails != null);
             }
         }
+
+        //public SolutionFile Solution
+        //{
+        //    get
+        //    {
+        //        Debug.Assert(_solution != null);
+        //        return _solution;
+        //    }
+        //}
 
         public VisualStudioProjectType Details
         {
@@ -54,7 +77,5 @@ namespace UnityBuild
                 return _projectSummary;
             }
         }
-
-
     }
 }
