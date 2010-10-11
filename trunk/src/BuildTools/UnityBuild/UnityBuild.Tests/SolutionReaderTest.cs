@@ -9,20 +9,8 @@ namespace UnityBuild.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class SolutionReaderTest
+    public class SolutionReaderTest : AbstractTest
     {
-        private static readonly string SolutionFilePath;
-
-        static SolutionReaderTest()
-        {
-            SolutionFilePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey.sln"
-            );
-            SolutionFilePath = Path.GetFullPath(SolutionFilePath);
-
-        }
-
         [Test]
         public void ReadSolutionFileTest()
         {

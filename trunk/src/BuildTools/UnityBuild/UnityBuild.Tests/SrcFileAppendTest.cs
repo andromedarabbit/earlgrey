@@ -12,19 +12,6 @@ namespace UnityBuild.Tests
     [TestFixture]
     public class SrcFileAppendTest : AbstractTest
     {
-        private static readonly string SolutionFilePath;
-
-        // SolutionReaderTest 와 동일하다.
-        static SrcFileAppendTest()
-        {
-            SolutionFilePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey.sln"
-            );
-            SolutionFilePath = Path.GetFullPath(SolutionFilePath);
-
-        }
-
         [Test]
         public void ReadProjectDetails()
         {
@@ -111,11 +98,11 @@ namespace UnityBuild.Tests
                         if (file.IsSrcFile() == false)
                             continue;
 
-                        // TODO: 임시 코드
-                        if (file.RelativePath.EndsWith("NotUsed.cpp"))
-                        {    
- bool d=file.IsExcludedFromBuild();
-                        }
+ //                       // TODO: 임시 코드
+ //                       if (file.RelativePath.EndsWith("NotUsed.cpp"))
+ //                       {    
+ //bool d=file.IsExcludedFromBuild();
+ //                       }
 
                         merger.MergeSrcFile(file);
                     }

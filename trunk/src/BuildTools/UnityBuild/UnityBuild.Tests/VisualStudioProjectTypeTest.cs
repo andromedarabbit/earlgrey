@@ -11,31 +11,8 @@ namespace UnityBuild.Tests
     using NUnit.Framework;
 
     [TestFixture]
-    public class VisualStudioProjectTypeTest
+    public class VisualStudioProjectTypeTest : AbstractTest
     {
-        // private static readonly string sampleVcProjFileName;
-        private static readonly string SampleVcProjFilePath;
-
-        // private static readonly string xsdFileName;
-     //   private static readonly string XsdFilePath;
-
-
-        static VisualStudioProjectTypeTest()
-        {
-            // sampleVcProjFileName = "Earlgrey.vcproj";
-
-            SampleVcProjFilePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey\Earlgrey.vcproj"
-            );
-            SampleVcProjFilePath = Path.GetFullPath(SampleVcProjFilePath);
-//             // xsdFileName = "VisualStudioProjectType.xsd";
-//             XsdFilePath = Path.Combine(
-//                 AppDomain.CurrentDomain.BaseDirectory
-//                 , @"..\..\..\VCProject\VisualStudioProjectType.xsd"
-//             );
-        }
-
         private static string ReadVcProjText(string path)
         {
             using (var sr = new StreamReader(path, true))

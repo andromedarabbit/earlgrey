@@ -12,19 +12,6 @@ namespace UnityBuild.Tests
     [TestFixture]
     public class VcProjectTest : AbstractTest
     {
-        private static readonly string SolutionFilePath;
-
-        // SolutionReaderTest 와 동일하다.
-        static VcProjectTest()
-        {
-            SolutionFilePath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey.sln"
-            );
-            SolutionFilePath = Path.GetFullPath(SolutionFilePath);
-
-        }
-
         [Test]
         public void ReadProjectDetails()
         {
