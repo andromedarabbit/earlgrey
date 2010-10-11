@@ -28,20 +28,7 @@ namespace UnityBuild.Tests
             Assert.AreEqual(4, vcProject.Details.Configurations.Length);
         }
 
-        private static Project GetEarlgreyProject()
-        {
-            SolutionFile slnFile = SolutionFile.FromFile(SolutionFilePath);
-
-            var result = from project in slnFile.Projects
-                         where project.ProjectName == "Earlgrey"
-                         select project
-                ;
-
-            var earlgreyProject = result.First();
-            Assert.IsNotNull(earlgreyProject);
-            return earlgreyProject;
-        }
-
+      
 
     }
 }

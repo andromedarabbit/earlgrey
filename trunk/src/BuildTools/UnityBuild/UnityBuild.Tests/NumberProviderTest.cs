@@ -27,6 +27,7 @@ namespace UnityBuild.Tests
             Assert.AreEqual(3, provider.No);
         }
 
+#if DEBUG
         [Test]
         public void GetCurrentNumberString()
         {
@@ -50,5 +51,7 @@ namespace UnityBuild.Tests
             
             provider.Next();
         }
+#endif
+
     }
 }

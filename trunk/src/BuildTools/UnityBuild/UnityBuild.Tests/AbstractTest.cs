@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using CWDev.SLNTools.Core;
 using Earlgrey;
 using NUnit.Framework;
 
@@ -52,6 +53,21 @@ namespace UnityBuild.Tests
             if (Directory.Exists(_TempDir))
                 Directory.Delete(_TempDir, true);
         }
+
+        protected static Project GetEarlgreyProject()
+        {
+            SolutionFile slnFile = SolutionFile.FromFile(SolutionFilePath);
+
+            var result = from project in slnFile.Projects
+                         where project.ProjectName == "Earlgrey"
+                         select project
+                ;
+
+            var earlgreyProject = result.First();
+            Assert.IsNotNull(earlgreyProject);
+            return earlgreyProject;
+        }
+
 
         public static string TempDir
         {
