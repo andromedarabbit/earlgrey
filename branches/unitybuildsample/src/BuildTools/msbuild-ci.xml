@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="BuildForCI" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Import Project="msbuild.xml"/>
+
+<!-- 서브버전 -->
+<PropertyGroup>
+	<SvnUsername>kaistizen</SvnUsername>
+	<SvnUsername Condition="'$(SvnUsername)' == ''">$(USERNAME)</SvnUsername>
+	<!-- <SvnPassword></SvnPassword> -->
+	<SvnLocalRootPath>.</SvnLocalRootPath>
+</PropertyGroup>
+
+<!-- C# 코드는 컴파일이 빠르니 안전하게 다시 빌드하자 -->
+<Target Name="DetermineBuildConditionForCI">
+	<CreateProperty Value="Rebuild" Condition="'$(BuildConditionForCI)' == ''">
+		<Output TaskParameter="Value" PropertyName="BuildConditionForCI" />
+	</CreateProperty>
+	
+	<Message Text="BuildConditionForCI = $(BuildConditionForCI)" Importance="high"/>
+</Target>
+	
+<Target Name="SrcUpdate">
+	<SvnUpdate Username="$(SvnUsername)" Password="$(SvnPassword)" LocalPath="$(SvnLocalRootPath)" />
+</Target>
+
+<Target Name="CleanForCI" DependsOnTargets="Clean;">
+	<Message Text="타겟: CleanForCI" />
+</Target>
+
+<Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate;">	
+	<CallTarget Targets="$(BuildConditionForCI); TestAlone" />
+</Target>
+
+</Project>

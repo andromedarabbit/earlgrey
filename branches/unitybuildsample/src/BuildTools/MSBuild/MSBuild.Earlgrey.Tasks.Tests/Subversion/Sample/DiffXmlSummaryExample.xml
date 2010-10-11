@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<diff>
+<paths>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/MSBuild.Community.Tasks.snk</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/MockBuildEngine.cs</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/ExternalTools/Robocopy.exe</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/ExternalTools</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/IO/RoboCopy.cs</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/IO</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/MSBuild.Earlgrey.Tasks.csproj</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/Properties/AssemblyInfo.cs</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks/Properties</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/IO/RoboCopyTest.cs</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/IO/RoboCopySrcFolder1/TextFile.txt</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/IO/RoboCopySrcFolder1</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/IO</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/TaskUtility.cs</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Properties/AssemblyInfo.cs</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/Properties</path>
+<path
+   props="none"
+   kind="file"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests/MSBuild.Earlgrey.Tasks.Tests.csproj</path>
+<path
+   props="none"
+   kind="dir"
+   item="added">https://earlgrey.googlecode.com/svn/trunk/src/BuildTools/MSBuild.Earlgrey.Tasks.Tests</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/src/Earlgrey.sln</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Build/MSBuild.Community.Tasks.dll</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Build/MSBuild.Community.Tasks.xml</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Build/MSBuild.Community.Tasks.pdb</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Source/MSBuild.Community.Tasks/Properties/AssemblyInfo.cs</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Source/MSBuild.Community.Tasks/Properties/Resources.Designer.cs</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Source/MSBuild.Community.Tasks/MSBuild.Community.Tasks.csproj</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/src/Source/MSBuild.Community.Tasks.Tests/MSBuild.Community.Tasks.Tests.csproj</path>
+<path
+   props="none"
+   kind="file"
+   item="modified">https://earlgrey.googlecode.com/svn/trunk/vendor/BuildTool/MSBuildCommunityTasks/v1.2.0.306/bin/MSBuild.Community.Tasks.dll</path>
+</paths>
+</diff>

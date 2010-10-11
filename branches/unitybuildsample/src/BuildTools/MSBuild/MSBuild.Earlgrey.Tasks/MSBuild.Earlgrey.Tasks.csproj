@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MSBuild.Earlgrey.Tasks</RootNamespace>
+    <AssemblyName>MSBuild.Earlgrey.Tasks</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>MSBuild.Community.Tasks.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Any CPU-Debug\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Any CPU-Release\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\vendor\DotNetZipLib-DevKit-v1.9\DotNetZip-v1.9\Release\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractTask.cs" />
+    <Compile Include="AbstractToolTask.cs" />
+    <Compile Include="IO\Compression\AbstracUnpack.cs" />
+    <Compile Include="IO\Compression\IPack.cs" />
+    <Compile Include="IO\Compression\IUnpack.cs" />
+    <Compile Include="IO\Compression\SevenZip\CompressionLevel.cs" />
+    <Compile Include="IO\Compression\SevenZip\ExitCode.cs" />
+    <Compile Include="IO\Compression\SevenZip\ExtractExistingFileAction.cs" />
+    <Compile Include="IO\Compression\SevenZip\Pack.cs" />
+    <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
+    <Compile Include="IO\PathHelper.cs" />
+    <Compile Include="ItemGroup\SetMetadata.cs" />
+    <Compile Include="Str\Replace.cs" />
+    <Compile Include="Subversion\BetterSvnDiff.cs" />
+    <Compile Include="IO\DeleteSharedFolder.cs" />
+    <Compile Include="IO\IniFile\AbstractIniFile.cs" />
+    <Compile Include="IO\IniFile\GetSection.cs" />
+    <Compile Include="IO\IniFile\GetSections.cs" />
+    <Compile Include="IO\IniFile\GetValue.cs" />
+    <Compile Include="IO\IniFile\SetValue.cs" />
+    <Compile Include="IO\BetterRoboCopy.cs" />
+    <Compile Include="IO\ShareFolder.cs" />
+    <Compile Include="IO\Win32Share.cs" />
+    <Compile Include="IO\Compression\Zip\Pack.cs" />
+    <Compile Include="IO\Compression\Zip\Unpack.cs" />
+    <Compile Include="IO\Compression\ZipFileHelper.cs" />
+    <Compile Include="ItemGroup\ItemsHelper.cs" />
+    <Compile Include="MockBuildEngine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Net\DefaultSmtpClientConfiguration.cs" />
+    <Compile Include="Net\Email.cs" />
+    <Compile Include="Net\GmailSmtpClientConfiguration.cs" />
+    <Compile Include="Net\ISmtpClientConfiguration.cs" />
+    <Compile Include="Net\SmtpClientFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Subversion\AbstractSvnDiff.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\DiffXmlSummary.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Subversion\SvnDiff.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnDiffWithPlainSummary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnDiffWithXmlSummary.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\diff.cs" />
+    <Compile Include="Subversion\SvnPathResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Subversion\SvnSwitch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TaskItemHelper.cs" />
+    <Compile Include="ToolsSearch.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExternalTools\7za\v4.65\7-zip.chm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="MSBuild.Community.Tasks.snk" />
+    <None Include="MSBuild.Earlgrey.Tasks.Targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Subversion\DiffXmlSummary.xsc">
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </None>
+    <None Include="Subversion\DiffXmlSummary.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DiffXmlSummary.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Subversion\DiffXmlSummary.xss">
+      <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">
+      <Project>{F88A60A8-564C-4E70-92DC-E92DBB897641}</Project>
+      <Name>MSBuild.Community.Tasks %28MSBuild\External Libraries\MSBuild.Community.Tasks\MSBuild.Community.Tasks%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
+      <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
+      <Name>Earlgrey</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SharedLibs\IniParser\IniFileParser\INIFileParser.csproj">
+      <Project>{5E46DCF4-C473-4171-9F9B-F3910B5EC407}</Project>
+      <Name>INIFileParser</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MSBuild.Earlgrey.TestSupport\MSBuild.Earlgrey.TestSupport.csproj">
+      <Project>{035A0F96-98FA-49B1-8D3D-476768F74743}</Project>
+      <Name>MSBuild.Earlgrey.TestSupport</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ExternalTools\7za\v4.65\7za.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za\v4.65\copying.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za\v4.65\license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\7za\v4.65\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\Robocopy\v5.1.2600.26\ROBOCOPY.EXE">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(SolutionDir)"
+XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(OutDir)"
+</PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+</Project>

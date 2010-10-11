@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="Initialize"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<PropertyGroup>
+	<RootDir>$(MSBuildProjectDirectory)</RootDir>
+</PropertyGroup>
+
+<!-- 플랫폼 판단 -->
+<Choose> 
+	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v2.0.50727' ">
+		<PropertyGroup>
+			<Is64Bit>true</Is64Bit>
+			<Platform>Any CPU</Platform>
+		</PropertyGroup>
+	</When>
+	<Otherwise>
+		<PropertyGroup>
+			<Is64Bit>false</Is64Bit>
+			<Platform>Any CPU</Platform>
+		</PropertyGroup>
+	</Otherwise>
+</Choose>
+	
+<PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+	<BuildConfiguration>$(Configuration)|$(Platform)</BuildConfiguration>
+	<OutputDir>$(RootDir)\$(Platform)-$(Configuration)</OutputDir>
+	<BinDir>$(OutputDir)\Bin</BinDir>
+	<ObjDir>$(OutputDir)\Obj</ObjDir>
+</PropertyGroup>
+
+<!-- 특별한 문자열 -->  
+<PropertyGroup>  
+	<Semicolon>%3b</Semicolon>  
+	 
+	<Ampersand>&amp;</Ampersand>
+	<LeftAngleBracket>&lt;</LeftAngleBracket>
+	<RightAngleBracket>&gt;</RightAngleBracket>
+	<StraightQuotationMark>&quot;</StraightQuotationMark>
+	<Quot>$(StraightQuotationMark)</Quot>
+	<Apostrophe>&apos;</Apostrophe>
+</PropertyGroup>  
+
+  
+<!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
+<PropertyGroup>  
+	<MSBuildExeWrapper Condition="'$(Is64Bit)' == 'false'">$(RootDir)\..\MSBuild_Win32.bat</MSBuildExeWrapper>
+	<MSBuildExeWrapper Condition="'$(MSBuildExeWrapper)' == ''">$(RootDir)\..\MSBuild_x64.bat</MSBuildExeWrapper>
+    <DevEnv>devenv</DevEnv>  
+</PropertyGroup> 
+
+<!-- Third-party tools -->
+<Import Project="$(RootDir)\msbuild-thirdparties.xml" />
+
+<!-- Targets begin -->
+<Target Name="Initialize" DependsOnTargets="PrepareThirdParties">
+
+	
+</Target>
+
+
+
+</Project>
+
+		

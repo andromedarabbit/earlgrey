@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <Target Name="TestCase-CopyFileWithParentDirectoryTest-ExpectTrue">
+    <Delete Files="$(RootDir)\..\BetterRoboCopyDstFolder1" />
+    
+    <BetterRoboCopy
+      SourceFolder="$(RootDir)\..\BetterRoboCopySrcFolder1"
+      DestinationFolder="$(RootDir)\..\BetterRoboCopyDstFolder1"
+      SourceFiles="*.*"
+      Options="/R:3"
+		/>
+
+    <Error
+      Text="Parent folder not found!"
+      Condition="!Exists('$(RootDir)\..\BetterRoboCopyDstFolder1')" />
+  </Target> 
+</Project>

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <IniFile>IniFileTestWithNoGlobalSection.msbuild.ini</IniFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ExpectedSectionNames Include="Section1"/>
+    <ExpectedSectionNames Include="섹션2"/>
+  </ItemGroup>
+
+  <Target Name="TestCase-GetSectionNames-ExpectTrue">
+    <IniFile.GetSections FilePath="$(IniFile)">
+      <Output TaskParameter="Sections" ItemName="SectionNames" />
+    </IniFile.GetSections>
+
+    <Error Text="Expected section names are '@(ExpectedSectionNames)' but '@(SectionNames)'." Condition="'@(SectionNames)' != '@(ExpectedSectionNames)'" />
+  </Target>
+ 
+</Project>

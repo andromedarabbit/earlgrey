@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <PropertyGroup>
+    <IniFile>IniFileTest.ANSIEncoded.msbuild.ini</IniFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ExpectedSectionNames Include="[]"/>
+    <ExpectedSectionNames Include="섹션1"/>
+    <ExpectedSectionNames Include="섹션2"/>
+  </ItemGroup>
+
+  <Target Name="TestCase-GetSectionNames-ExpectTrue">
+    <IniFile.GetSections FilePath="$(IniFile)">
+      <Output TaskParameter="Sections" ItemName="SectionNames" />
+    </IniFile.GetSections>
+
+    <Error Text="Expected section names are '@(ExpectedSectionNames)' but '@(SectionNames)'." Condition="'@(SectionNames)' != '@(ExpectedSectionNames)'" />
+  </Target>
+
+  <Target Name="TestCase-GetSection-ExpectTrue">
+    <MSBuild Projects="IniFileTest-GetSection.msbuild.xml"
+            Targets="GetSection"
+            Properties="IniFile=$(IniFile);Section=[];Keys=$(Quot)Key1;Key2;키3$(Quot);Values=$(Quot)1;문자열;192.168.0.1$(Quot)"
+             />
+
+    <MSBuild Projects="IniFileTest-GetSection.msbuild.xml"
+            Targets="GetSection"
+            Properties="IniFile=$(IniFile);Section=섹션2;Keys=$(Quot)1000키$(Quot);Values=$(Quot)값 값 값$(Quot)"
+             />
+  </Target>
+
+  <Target Name="TestCase-SetValue-ExpectTrue">
+    <MSBuild Projects="IniFileTest-SetValue.msbuild.xml"
+               Targets="SetValue"
+               Properties="IniFile=$(IniFile);Section=[];Key=새로운키;Value=$(Quot)새로운 값$(Quot)"
+             />
+    
+    <MSBuild Projects="IniFileTest-SetValue.msbuild.xml"
+             Targets="SetValue"
+             Properties="IniFile=$(IniFile);Section=Section1;Key=키2;Value=$(Quot)새로운 값$(Quot)"
+             />
+             
+    <MSBuild Projects="IniFileTest-SetValue.msbuild.xml"
+             Targets="SetValue"
+             Properties="IniFile=$(IniFile);Section=섹션2;Key=새로운키;Value=$(Quot)새로운 값$(Quot)"
+             />
+      
+    <MSBuild Projects="IniFileTest-SetValue.msbuild.xml"
+                 Targets="SetValue"
+                 Properties="IniFile=$(IniFile);Section=새로운섹션;Key=새로운키;Value=$(Quot)새로운 값$(Quot)"
+             />
+  </Target>
+</Project>

@@ -1,0 +1,1874 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ThoughtWorks.CruiseControl.WebDashboard</name>
+    </assembly>
+    <members>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Configuration.CachingDashboardConfigurationLoader.ClearCache">
+            <summary>
+            Clears the cached configuration.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Configuration.ServerLocation.TransferLogsCompressed">
+            <summary>
+            Gets or sets a value indicating whether the transfer should use compressed logs.
+            </summary>
+            <value><c>true</c> if logs should be transferred compressed; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Configuration.StylesheetConfiguration">
+            <summary>
+            Defines the configuration for a stylesheet.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Configuration.StylesheetConfiguration.Location">
+            <summary>
+            The location of the stylesheet.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Configuration.StylesheetConfiguration.Name">
+            <summary>
+            The name of the stylesheet.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Configuration.StylesheetConfiguration.IsDefault">
+            <summary>
+            Whether this is the default stylesheet or not.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.HtmlReportAction.#ctor(ThoughtWorks.CruiseControl.WebDashboard.MVC.IFingerprintFactory,ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService,ThoughtWorks.CruiseControl.WebDashboard.MVC.View.IVelocityViewGenerator)">
+            <summary>
+            Initialise a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.HtmlReportAction"/>.
+            </summary>
+            <param name="fingerprintFactory"></param>
+            <param name="farmService"></param>
+            <param name="viewGenerator"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.HtmlReportAction.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Execute the action.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.HtmlReportAction.GetFingerprint(ThoughtWorks.CruiseControl.WebDashboard.MVC.IRequest)">
+            <summary>
+            Generate a fingerprint for this action.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.HtmlReportAction.HtmlFileName">
+            <summary>
+            The name of the file to display.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.Remote.XsltParameter">
+            <summary>
+            Define an XSL-T parameter.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.Remote.XsltParameter.Name">
+            <summary>
+            The name.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.Remote.XsltParameter.Value">
+            <summary>
+            The value.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionRetriever">
+            <summary>
+            Retrieve a session token from a cookie.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever">
+            <summary>
+            Interface for retrieving sessions.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever.RetrieveSessionToken(ThoughtWorks.CruiseControl.WebDashboard.MVC.IRequest)">
+            <summary>
+            Retrieves the session token from a request.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever.SessionToken">
+            <summary>
+            The retrieved session token.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionRetriever.RetrieveSessionToken(ThoughtWorks.CruiseControl.WebDashboard.MVC.IRequest)">
+            <summary>
+            Retrieve the session token.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionRetriever.SessionToken">
+            <summary>
+            The session token.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStore">
+            <summary>
+            Use a cookie as the store for the session token.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionStore">
+            <summary>
+            Provides a session store.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStore.RetrieveStorer">
+            <summary>
+            Retrieve the session storer.
+            </summary>
+            <returns>Returns an object that will store a session token.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStore.RetrieveRetriever">
+            <summary>
+            Retrieve the session retriever.
+            </summary>
+            <returns>Returns an object that will retrieve a session token.</returns>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStorer">
+            <summary>
+            Store the session token in a cookie.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStorer.GenerateQueryToken">
+            <summary>
+            Generate a query value containing the session token.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.CookieSessionStorer.SessionToken">
+            <summary>
+            The session token.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin">
+            <title>HTML Report Plugin</title>
+            <version>1.5</version>
+            <summary>
+            A generic plug-in to display a report from an HTML file.
+            </summary>
+            <example>
+            <code title="Minimalist">
+            &lt;htmlReportPlugin description="Document Report" actionName="viewReport" htmlFileName="reports\document.html"/&gt;
+            </code>
+            <code title="In Context">
+            &lt;buildPlugins&gt;
+            &lt;buildReportBuildPlugin&gt;
+            &lt;xslFileNames&gt;
+            &lt;xslFile&gt;xsl\header.xsl&lt;/xslFile&gt;
+            &lt;xslFile&gt;xsl\modifications.xsl&lt;/xslFile&gt;
+            &lt;/xslFileNames&gt;
+            &lt;/buildReportBuildPlugin&gt;
+            &lt;buildLogBuildPlugin /&gt;
+            &lt;htmlReportPlugin description="Document Report" actionName="viewReport" htmlFileName="reports\document.html"/&gt;
+            &lt;/buildPlugins&gt;
+            </code>
+            </example>
+            <remarks>
+            <heading>HTML Source Location</heading>
+            <para>
+            This plug-in can display any file that is in the build folder under artefacts folder for the 
+            project. It cannot display files from any other location (for security reasons).
+            </para>
+            <para>
+            Files can be published to a build folder using the <link>File Merge Task</link>. This will
+            automatically generate the correct folder structure for the HTML reports.
+            </para>
+            <heading>File Names</heading>
+            <para>
+            All file names are relative to the build folder. Files directly in the folder can be specified,
+            as well as folders in sub-folders. For example both report.html and documents\report.html are
+            valid file names.
+            </para>
+            <para>
+            Absolute filepaths are not allowed (e.g. c:\somewhere\report.html).
+            </para>
+            <para>
+            If the project's artefact folder was d:\data\ and the build label was 1.0.1, then report.html
+            would come from d:\data\1.0.1\report.html.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.ProjectConfigurableBuildPlugin.IncludedProjects">
+            <summary>
+            The projects to include in this plug-in.
+            </summary>
+            <version>1.0</version>
+            <default>None</default>
+            <remarks>
+            This is currently not implemented.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.ProjectConfigurableBuildPlugin.ExcludedProjects">
+            <summary>
+            The projects to exclude from this plug-in.
+            </summary>
+            <version>1.0</version>
+            <default>None</default>
+            <remarks>
+            This is currently not implemented.
+            </remarks>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IActionInstantiator)">
+            <summary>
+            Initialise a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin"/>.
+            </summary>
+            <param name="actionInstantiator"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.ConfiguredLinkDescription">
+            <summary>
+            The description of the plug-in.
+            </summary>
+            <version>1.5</version>
+            <default>n/a</default>
+            <remarks>
+            This will be displayed as the title of the link.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.LinkDescription">
+            <summary>
+            The description of the plug-in.
+            </summary>
+            <remarks>
+            These 2 are separate due to inheritence / property monkey-ness.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.ActionName">
+            <summary>
+            The name of the action - this will be used in the URL for the plug-in.
+            </summary>
+            <version>1.5</version>
+            <default>n/a</default>
+            <remarks>
+            This must be unique for the dashboard (e.g. there cannot be another action or plug-in with the
+            same name.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.HtmlFileName">
+            <summary>
+            The name of the file to display.
+            </summary>
+            <version>1.5</version>
+            <default>n/a</default>
+            <remarks>
+            See the notes below on what are valid names.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.HtmlReportPlugin.NamedActions">
+            <summary>
+            The named actions that are exposed.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ImmutableNamedActionWithoutSiteTemplate">
+            <summary>
+            An immutable action that doesn't use the site template.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.INoSiteTemplateAction">
+            <summary>
+            An action that does not use the site template.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IndicatorBarLocation">
+            <summary>
+            Defines the location of the success indicator bar.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IndicatorBarLocation.None">
+            <summary>
+            The bar will not appear at all.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IndicatorBarLocation.Top">
+            <summary>
+            The bar will appear at the top.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IndicatorBarLocation.Bottom">
+            <summary>
+            The bar will appear at the bottom.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IndicatorBarLocation.TopAndBottom">
+            <summary>
+            The bar will appear both top and bottom.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder">
+            <summary>
+            A file system location to store data in.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.fileSystem">
+            <summary>
+            The <see cref="T:ThoughtWorks.CruiseControl.Core.Util.IFileSystem"/> to use.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.executionEnvironment">
+            <summary>
+            The <see cref="T:ThoughtWorks.CruiseControl.Core.Util.IExecutionEnvironment"/> to use.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.location">
+            <summary>
+            The default location to use.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder"/> class.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.MapPath(System.String)">
+            <summary>
+            Maps the path.
+            </summary>
+            <param name="path">The path to map.</param>
+            <returns>The mapped path.</returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.IO.ProgramDataFolder.Location">
+            <summary>
+            Gets or sets the location of the program data folder.
+            </summary>
+            <value>The program data folder path.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction">
+            <summary>
+            Allows a user to administer the dashboard.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.ActionName">
+            <summary>
+            The name of the action.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager,ThoughtWorks.CruiseControl.WebDashboard.MVC.View.IVelocityViewGenerator,ThoughtWorks.CruiseControl.WebDashboard.Configuration.IRemoteServicesConfiguration,ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IPhysicalApplicationPathProvider)">
+            <summary>
+            Create a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction"/>.
+            </summary>
+            <param name="manager"></param>
+            <param name="viewGenerator"></param>
+            <param name="physicalApplicationPathProvider"></param>
+            <param name="servicesConfiguration"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Executes the action.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.SaveServer(ThoughtWorks.CruiseControl.WebDashboard.MVC.IRequest,System.Collections.Hashtable)">
+            <summary>
+            Save the server details
+            </summary>
+            <param name="request"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.DeleteServer(ThoughtWorks.CruiseControl.WebDashboard.MVC.IRequest,System.Collections.Hashtable)">
+            <summary>
+            Deletes a server.
+            </summary>
+            <param name="request"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.LoadConfig">
+            <summary>
+            Load the config file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.SaveConfig(System.Xml.XmlDocument)">
+            <summary>
+            Save the config file.
+            </summary>
+            <param name="configFile"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.ImportPackage(System.Web.HttpContext,System.Collections.Hashtable)">
+            <summary>
+            Imports a package.
+            </summary>
+            <param name="context"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.InstallPackage(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest,System.Collections.Hashtable)">
+            <summary>
+            Installs a package.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.UninstallPackage(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest,System.Collections.Hashtable)">
+            <summary>
+            Uninstalls a package.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.RemovePackage(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest,System.Collections.Hashtable)">
+            <summary>
+            Removes a package.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <param name="velocityContext"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.ValidateSession(System.Collections.Hashtable)">
+            <summary>
+            Validates a session.
+            </summary>
+            <param name="velocityContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.RetrieveSessionCookie(System.Web.HttpContext)">
+            <summary>
+            Retrieves a session cookie.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.AddSessionCookie(System.Web.HttpContext)">
+            <summary>
+            Adds the session cookie.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.Logout">
+            <summary>
+            Logs out a session
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerAction.Password">
+            <summary>
+            The password to lock down the administration plugin.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin">
+            <summary>
+            A plugin for administering the dashboard.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IActionInstantiator)">
+            <summary>
+            Creates a new instance of a <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin"/>.
+            </summary>
+            <param name="actionInstantiator"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin.Password">
+            <summary>
+            The password to lock down the administration plugin.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin.LinkDescription">
+            <summary>
+            The description of the link.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.AdministerPlugin.NamedActions">
+            <summary>
+            The actions that are exposed.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationAttribute">
+            <summary>
+            Defines a configuration attribute.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationAttribute.Name">
+            <summary>
+            The name of the attribute.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationAttribute.Value">
+            <summary>
+            The value of the setting.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting">
+            <summary>
+            Defines a configuration setting to apply.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting.Path">
+            <summary>
+            The path for the setting.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting.Filter">
+            <summary>
+            An optional filter to apply.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting.Name">
+            <summary>
+            The name of the setting.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting.Value">
+            <summary>
+            The value of the setting.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting.Attributes">
+            <summary>
+            The attributes for the element.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.FileLocation">
+            <summary>
+            Defines a file location for a package and the contained files.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.FileLocation.Location">
+            <summary>
+            The location for the files.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.FileLocation.Files">
+            <summary>
+            The files to include in the location.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package">
+            <summary>
+            Defines a plug-in package.
+            </summary>
+            <remarks>
+            A plug-in package contains all the files and configuration to get a plug-in working
+            in the web dashboard.
+            </remarks>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.#ctor(System.IO.Stream)">
+            <summary>
+            Initialises a new package from a stream.
+            </summary>
+            <param name="packageStream">The stream that contains the package.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Install">
+            <summary>
+            Installs the package to the specified location.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Uninstall">
+            <summary>
+            Uninstalls the package from the specified location.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Dispose">
+            <summary>
+            Removes all the temporary files.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.FireMessage(System.Diagnostics.TraceLevel,System.String,System.Object[])">
+            <summary>
+            Fires the <see cref="E:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Message"/> event.
+            </summary>
+            <param name="message">The message to pass.</param>
+            <param name="level">The level of the message.</param>
+            <param name="values">The values for the message.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.ExtractAllFiles(System.IO.Stream)">
+            <summary>
+            Extracts all the files to a temporary location
+            </summary>
+            <param name="packageStream">The stream to load the files from.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.CopyFiles(ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.FileLocation)">
+            <summary>
+            Copies files to the install location.
+            </summary>
+            <param name="folder">The details of the files to copy.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.RemoveFiles(ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.FileLocation)">
+            <summary>
+            Removes files to the install location.
+            </summary>
+            <param name="folder">The details of the files to remove.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.UpdateConfigurationSetting(System.Xml.XmlDocument,ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.ConfigurationSetting,System.Boolean)">
+            <summary>
+            Updates a setting in the config file.
+            </summary>
+            <param name="configXml">The XML document contains the configuration.</param>
+            <param name="setting">The setting to add.</param>
+            <param name="addSettings"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.UpdateConfigurationFile(System.Boolean)">
+            <summary>
+            Updates the configuration file.
+            </summary>
+            <param name="addSettings"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Manifest">
+            <summary>
+            The manifest of the package.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.IsValid">
+            <summary>
+            Returns true if this is a valid package.
+            </summary>
+        </member>
+        <member name="E:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.Package.Message">
+            <summary>
+            A message for the calling application.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageImportEventArgs">
+            <summary>
+            The arguments for an import event while installing a package.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageImportEventArgs.#ctor(System.String,System.Diagnostics.TraceLevel)">
+            <summary>
+            Initialises a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageImportEventArgs"/>.
+            </summary>
+            <param name="message"></param>
+            <param name="level"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageImportEventArgs.Message">
+            <summary>
+            The import message.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageImportEventArgs.Level">
+            <summary>
+            The trace level of the message.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager">
+            <summary>
+            Manages the packages for CruiseControl.Net.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.#ctor">
+            <summary>
+            Create a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager"/>.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.StorePackage(System.String,System.IO.Stream)">
+            <summary>
+            Stores a package locally on the server
+            </summary>
+            <param name="fileName">The file name of the package.</param>
+            <param name="stream">The stream containing the package.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.InstallPackage(System.String)">
+            <summary>
+            Installs a package.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.RemovePackage(System.String)">
+            <summary>
+            Removes a package stored locally on the server
+            </summary>
+            <param name="fileName">The file name of the package.</param>
+            <returns>The name of the package.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.UninstallPackage(System.String)">
+            <summary>
+            Uninstalls a package.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.ListPackages">
+            <summary>
+            Lists all the available packages.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.SaveToFile(System.IO.Stream,System.String)">
+            <summary>
+            Saves a stream to a file.
+            </summary>
+            <param name="stream">The stream to save.</param>
+            <param name="fileName">The name of the file.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.LoadPackageList">
+            <summary>
+            Load the package list.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.UpdatePackagesList(ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest,System.Xml.XmlDocument,System.Boolean)">
+            <summary>
+            Updates a package in the list of packages.
+            </summary>
+            <param name="manifest">The manifest of the package.</param>
+            <param name="packageList">The XML document containing the list.</param>
+            <param name="addPackage">Whether to add or remove the package</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManager.SavePackageList(System.Xml.XmlDocument)">
+            <summary>
+            Save the package list.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest">
+            <summary>
+            Defines a manifest for a plug-in package.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.ToString">
+            <summary>
+            Returns the name of the package.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.CompareTo(System.Object)">
+            <summary>
+            Compare this to another package.
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.Name">
+            <summary>
+            The name of the package.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.Description">
+            <summary>
+            The description of the package.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.Type">
+            <summary>
+            The type of the package.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.FileName">
+            <summary>
+            The filename of the package.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.IsInstalled">
+            <summary>
+            Whether this package has been installed or not.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.FileLocations">
+            <summary>
+            The files to export and their locations.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageManifest.ConfigurationSettings">
+            <summary>
+            The configuration settings to apply.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageType">
+            <summary>
+            The type of package.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageType.Plugin">
+            <summary>
+            The package contains a standard plugin.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Administration.PackageType.Theme">
+            <summary>
+            The package contains a theme.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.MultipleXslReportBuildAction.GenerateFilenameList(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Generates the filename list.
+            </summary>
+            <param name="cruiseRequest">The cruise request.</param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.MultipleXslReportBuildAction.XslFileNames">
+            <summary>
+            Gets or sets the XSL file names.
+            </summary>
+            <value>The XSL file names.</value>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions.XslReportBuildAction.Parameters">
+            <summary>
+            Optional parameters to pass into the XSL-T.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.BuildRequestTransformer.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IBuildRetriever,ThoughtWorks.CruiseControl.Core.Util.IMultiTransformer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.BuildRequestTransformer"/> class.
+            </summary>
+            <param name="buildRetriever">The build retriever.</param>
+            <param name="transformer">The transformer.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.BuildRequestTransformer.Transform(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IBuildSpecifier,System.String[],System.Collections.Hashtable,System.String)">
+            <summary>
+            Transforms the specified build specifier.
+            </summary>
+            <param name="buildSpecifier">The build specifier.</param>
+            <param name="transformerFileNames">The transformer file names.</param>
+            <param name="xsltArgs">The XSLT args.</param>
+            <param name="sessionToken">The session token.</param>
+            <returns>The transformed content.</returns>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.XslMultiReportBuildPlugin">
+            <summary>
+            A Generic XSL report template that can accept multiple transforms.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins.XslReportBuildPlugin.Parameters">
+            <summary>
+            Optional parameters to pass into the XSL-T.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IProjectGridAction.DefaultSortColumn">
+            <summary>
+            The default column to sort by.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IProjectGridAction.SuccessIndicatorBarLocation">
+            <summary>
+            Gets or sets the success indicator bar location.
+            </summary>
+            <value>The success indicator bar location.</value>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.VelocityProjectGridAction.DefaultSortColumn">
+            <summary>
+            The default column to sort by.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Dashboard.VelocityProjectGridAction.SuccessIndicatorBarLocation">
+            <summary>
+            Gets or sets the success indicator bar location.
+            </summary>
+            <value>The success indicator bar location.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.IO.HttpPathMapper">
+            <summary>
+            Maps paths by using an Http components
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest.RetrieveSessionToken">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest.RetrieveSessionToken(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever)">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.RequestWrappingCruiseRequest.RetrieveSessionToken">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.IO.RequestWrappingCruiseRequest.RetrieveSessionToken(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever)">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.MVC.FileTransferResponse.GetMimeType(System.String)">
+            <summary>
+            Retrieves the mime type for a file.
+            </summary>
+            <param name="filename"></param>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportBuildPlugin.XslFileNames">
+            <summary>
+            Gets or sets the XSL file names.
+            </summary>
+            <value>The XSL file names.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename">
+            <summary>
+            Defines a XSL file to be included in the build report.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename"/> class.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename"/> class.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.CheckProject(System.String)">
+            <summary>
+            Checks the project.
+            </summary>
+            <param name="projectName">Name of the project.</param>
+            <returns><c>true</c> if the file is valid for the project; otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.Filename">
+            <summary>
+            Gets or sets the filename.
+            </summary>
+            <value>The filename.</value>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.IncludedProjects">
+            <summary>
+            Gets the included projects.
+            </summary>
+            <value>The included projects.</value>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildReportXslFilename.ExcludedProjects">
+            <summary>
+            Gets the excluded projects.
+            </summary>
+            <value>The excluded projects.</value>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport.BuildFileDownload.LoadHtmlFile(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest,System.String)">
+            <summary>
+            Loads the HTML file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.FarmReport.FarmReportFarmPlugin.DefaultSortColumn">
+            <summary>
+            The default column to sort by.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.FarmReport.FarmReportFarmPlugin.SuccessIndicatorBarLocation">
+            <summary>
+            Gets or sets the success indicator bar location.
+            </summary>
+            <value>The success indicator bar location.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.OhlohProjectPlugin">
+            <summary>
+            Display Ohloh stats for a project.
+            Configuration is done in ccnet.config via the linkedSites property
+            </summary>
+            <version>1.5</version>
+            <example>
+            <code>
+            </code>
+            </example>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction">
+            <summary>
+            Display a list of all the generated packages.
+            </summary>
+        </member>
+        <member name="F:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction.ActionName">
+            <summary>
+            The name of the action.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction.#ctor(ThoughtWorks.CruiseControl.WebDashboard.MVC.View.IVelocityViewGenerator,ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService)">
+            <summary>
+            Create a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction"/>.
+            </summary>
+            <param name="viewGenerator"></param>
+            <param name="farmService"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Executes the action.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction.FormatSize(System.Int64)">
+            <summary>
+            Formats a size.
+            </summary>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListAction.PackageDisplay">
+            <summary>
+            Display details on a package.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListPlugin">
+            <summary>
+            A plug-in for generating a list of packages.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListPlugin.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IActionInstantiator)">
+            <summary>
+            Creates a new instance of a <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListPlugin"/>.
+            </summary>
+            <param name="actionInstantiator"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListPlugin.LinkDescription">
+            <summary>
+            The description of the link.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.PackageListPlugin.NamedActions">
+            <summary>
+            The actions that are exposed.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusPlugin">
+            <title>Project Status Plugin</title>
+            <version>1.0</version>
+            <summary>
+            Displays the status of a project.
+            </summary>
+            <example>
+            <code>
+            &lt;viewProjectStatusPlugin /&gt;
+            </code>
+            </example>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ModificationHistoryProjectPlugin.OnlyShowBuildsWithModifications">
+            <summary>
+            Filters out builds without modifications when set to true.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectReportProjectPlugin">
+            <title>Project Report Project Plugin</title>
+            <version>1.0</version>
+            <summary>
+            The Project Report Project Plugin shows you summary details for a specific project. Part of these details are any <link>External
+            Links</link> you have specified in the project configuration.
+            </summary>
+            <example>
+            <code>
+            &lt;projectReportProjectPlugin /&gt;
+            </code>
+            </example>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectReportProjectPlugin.ModifiedCruiseRequest.RetrieveSessionToken">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectReportProjectPlugin.ModifiedCruiseRequest.RetrieveSessionToken(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.ISessionRetriever)">
+            <summary>
+            Attempt to retrieve a session token
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction">
+            <summary>
+            Displays a timeline of the project builds.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction.#ctor(ThoughtWorks.CruiseControl.WebDashboard.MVC.View.IVelocityViewGenerator,ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService,ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.ICruiseUrlBuilder)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction"/> class.
+            </summary>
+            <param name="viewGenerator">The view generator.</param>
+            <param name="farmService">The farm service.</param>
+            <param name="urlBuilder"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Executes the action.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction.GenerateTimelinePage(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Generates the timeline page.
+            </summary>
+            <param name="cruiseRequest">The cruise request.</param>
+            <returns>The HTML to return to the client.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction.GenerateData(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Generates the data.
+            </summary>
+            <param name="cruiseRequest">The cruise request.</param>
+            <returns>The XML data for the project.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelineAction.AppendBuild(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IBuildSpecifier,System.Xml.XmlWriter,System.String)">
+            <summary>
+            Appends a build to the document.
+            </summary>
+            <param name="build">The build.</param>
+            <param name="xmlWriter">The XML writer.</param>
+            <param name="basePath">The base path.</param>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelinePlugin">
+            <title>Project Timeline Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Displays a timeline of all the builds for a project.
+            </summary>
+            <example>
+            <code>
+            &lt;projectTimelinePlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Project Timeline" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelinePlugin.#ctor(ThoughtWorks.CruiseControl.WebDashboard.Dashboard.IActionInstantiator)">
+            <summary>
+            Creates a new instance of a <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelinePlugin"/>.
+            </summary>
+            <param name="actionInstantiator"></param>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelinePlugin.LinkDescription">
+            <summary>
+            The description of the link.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectTimelinePlugin.NamedActions">
+            <summary>
+            The actions that are exposed.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ServerAuditHistoryProjectPlugin">
+            <title>Server Audit History Project Plugin</title>
+            <version>1.5</version>
+            <summary>
+            The Server Audit History Project Plugin displays the audit log from the server.
+            server is running.
+            </summary>
+            <example>
+            <code>
+            &lt;serverAuditHistoryProjectPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            This requires that the currently logged in user has the required permissions on the server.
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ServerLogProjectPlugin">
+            <title>Server Log Project Plugin</title>
+            <version>1.0</version>
+            <summary>
+            The Server Log Project Plugin shows you recent activity that has been output to the server log for a specific project. 
+            </summary>
+            <example>
+            <code>
+            &lt;serverLogProjectPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            Read the <link>Server Application Config File</link> page for more help on build server logging.
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ServerSecurityConfigurationProjectPlugin">
+            <title>Server Security Configuration Project Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Displays the security configuration for a project on a build server.
+            </summary>
+            <example>
+            <code>
+            &lt;serverSecurityConfigurationProjectPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Security Configuration Display" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ServerUserListProjectPlugin">
+            <title>User List Project Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Displays all the users in the system, plus the security rights they have for the project.
+            </summary>
+            <example>
+            <code>
+            &lt;serverUserListProjectPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "User List" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ViewConfigurationProjectPlugin">
+            <title>View Configuration Project Plugin</title>
+            <version>1.3.0</version>
+            <summary>
+            The View Configuration Project Plugin shows the configuration for a project.
+            </summary>
+            <example>
+            <code title="Minimalist Example">
+            &lt;viewConfigurationProjectPlugin /&gt;
+            </code>
+            <code title="Full Example">
+            &lt;viewConfigurationProjectPlugin hidePasswords="false" /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Project Configuration Display" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ViewConfigurationProjectPlugin.HidePasswords">
+            <summary>
+            Whether to hide the passwords.
+            </summary>
+            <version>1.4.0</version>
+            <default>true</default>
+            <remarks>
+            From version 1.4.0 the passwords are masked by default. Use this setting if you need to see the passwords.
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction">
+            <summary>
+            Returns an XML fragment containing the current status of the project.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.#ctor(ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService)">
+            <summary>
+            Initialise a new <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction"/>.
+            </summary>
+            <param name="farmServer">The farm service to use.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Generates the XML response for the specified project.
+            </summary>
+            <param name="cruiseRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.ConvertStatusToJson(ThoughtWorks.CruiseControl.Remote.ProjectStatusSnapshot)">
+            <summary>
+            Simple method to convert a project status to JSON (since we're not using .NET 3.5).
+            </summary>
+            <param name="status">The status to convert.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.ConvertStatusToJson(ThoughtWorks.CruiseControl.Remote.ItemStatus)">
+            <summary>
+            Simple method to convert am item status to JSON (since we're not using .NET 3.5).
+            </summary>
+            <param name="status">The status to convert.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.AppendStatusDetails(ThoughtWorks.CruiseControl.Remote.ItemStatus,System.Text.StringBuilder)">
+            <summary>
+            Simple method to append status information to a builder
+            </summary>
+            <param name="status">The status to append.</param>
+            <param name="builder">The builder to append the details to.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.ToJsonString(System.String)">
+            <summary>
+            Convert a <see cref="T:System.String"/> to a JSON safe version.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport.ProjectStatusAction.ToJsonDate(System.DateTime)">
+            <summary>
+            Convert a <see cref="T:System.DateTime"/> to a JSON representation.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Security.UserNameSecurityAction.AddSessionCookie(System.String)">
+            <summary>
+            Adds the session cookie.
+            </summary>
+            <param name="sessionToken"></param>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Security.UserNameSecurityPlugin">
+            <title>Simple Security Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Allows the user to send a user name and password to the server for authentication.
+            </summary>
+            <example>
+            <code title="Minimalist Example">
+            &lt;simpleSecurity /&gt;
+            </code>
+            <code title="Full Example">
+            &lt;simpleSecurity hidePassword="true" /&gt;
+            </code>
+            </example>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Security.UserNameSecurityPlugin.HidePassword">
+            <summary>
+            Whether to hide the password field or not.
+            </summary>
+            <version>1.5</version>
+            <default>false</default>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin">
+            <summary>
+            A pass-through plug-in that hands any message-type requests to the cruise server for processing.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin.#ctor(ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService)">
+            <summary>
+            Initialise a new instance of <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin"/>.
+            </summary>
+            <param name="farmService">The <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService"/> to use in the plug-in.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin.Execute(ThoughtWorks.CruiseControl.WebDashboard.IO.ICruiseRequest)">
+            <summary>
+            Processes an incoming request.
+            </summary>
+            <param name="cruiseRequest">The request to process.</param>
+            <returns>An XML fragment containing the response from the server.</returns>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin.NamedActions">
+            <summary>
+            The actions that are available from this plug-in.
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.MessageHandlerPlugin.LinkDescription">
+            <summary>
+            The description for any links to this plug-in.
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.QueueStatusServerPlugin">
+            <title>Queue Status Server Plugin</title>
+            <version>1.4.3</version>
+            <summary>
+            The Queue Status Server Plugin displays the status of the queues on the specified server.
+            </summary>
+            <example>
+            <code>
+            &lt;queueStatusServerPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Queue Status Display" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ProjectConfigurationServerPlugin">
+            <title>Project Configuration Server Plugin</title>
+            <version>1.4.0</version>
+            <summary>
+            This plugin shows the basic configuration of the projects on this buildserver, such as project name, category, queue and queue
+            priority, making it easier to spot conflicts in the queue setup for this buildserver.
+            </summary>
+            <example>
+            <code>
+            &lt;projectConfigurationServerPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Server Configuration Display" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerAuditHistoryServerPlugin">
+            <title>Server Audit History Server Plugin</title>
+            <version>1.5</version>
+            <summary>
+            The Server Audit History Server Plugin displays the audit log from the server.
+            server is running.
+            </summary>
+            <example>
+            <code>
+            &lt;serverAuditHistoryServerPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            This requires that the currently logged in user has the required permissions on the server.
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerInformationServerPlugin">
+            <title>Server Information Server Plugin</title>
+            <version>1.4.4</version>
+            <summary>
+            The Server Information Server Plugin gives you information about a build server, for example the version of CruiseControl.NET the build
+            server is running.
+            </summary>
+            <example>
+            <code title="Minimalist example">
+            &lt;serverInformationServerPlugin /&gt;
+            </code>
+            <code title="Full example">
+            &lt;serverInformationServerPlugin minFreeSpace="524288" /&gt;
+            </code>
+            </example>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerInformationServerPlugin.MinFreeSpace">
+            <summary>
+            The minimum required amount of free disk space in bytes. If the free disk space is less than this a warning will be displayed.
+            </summary>
+            <version>1.4.4</version>
+            <default>1048576</default>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerLogServerPlugin">
+            <title>Server Log Server Plugin</title>
+            <version>1.0</version>
+            <summary>
+            The Server Log Server Plugin shows you recent activity that has been output to the server log for a specific build server. 
+            </summary>
+            <example>
+            <code>
+            &lt;serverLogServerPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            Read the <link>Server Application Config File</link> page for more help on build server logging.
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerReportServerPlugin">
+            <title>Server Report Server Plugin</title>
+            <version>1.0</version>
+            <summary>
+            The Server Report Server Plugin shows you status information for all projects on a specific server. If the Dashboard cannot connect to
+            the server then an errors table is shown detailing the problem.. 
+            </summary>
+            <example>
+            <code title="Minimalist example">
+            &lt;serverReportServerPlugin /&gt;
+            </code>
+            <code title="Full example">
+            &lt;serverReportServerPlugin defaultSort="Name" /&gt;
+            </code>
+            </example>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerReportServerPlugin.DefaultSortColumn">
+            <summary>
+            The default column to sort by.
+            </summary>
+            <version>1.4.4</version>
+            <default>Name</default>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerReportServerPlugin.SuccessIndicatorBarLocation">
+            <summary>
+            Gets or sets the success indicator bar location.
+            </summary>
+            <value>The success indicator bar location.</value>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerSecurityConfigurationServerPlugin">
+            <title>Server Security Configuration Server Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Displays the security configuration for a build server.
+            </summary>
+            <example>
+            <code>
+            &lt;serverSecurityConfigurationServerPlugin /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "Security Configuration Display" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerUserListServerPlugin">
+            <title>User List Server Plugin</title>
+            <version>1.5</version>
+            <summary>
+            Displays all the users in the system, plus the security rights they have on the server.
+            </summary>
+            <example>
+            <code title="Minimalist Example">
+            &lt;serverUserListServerPlugin /&gt;
+            </code>
+            <code title="Full Example">
+            &lt;serverUserListServerPlugin resetPassword="anewpassword" /&gt;
+            </code>
+            </example>
+            <remarks>
+            <para type="tip">
+            This can be installed using the "User List" package.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport.ServerUserListServerPlugin.ResetPassword">
+            <summary>
+            The password to use when reseting the password.
+            </summary>
+            <version>1.5</version>
+            <default>None</default>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph">
+            <summary>
+            Provides functions for making a graph of the specified builds.
+            These are HTML tables, so should not be browser specific.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GetBuildHistory(System.Int32)">
+            <summary>
+             Returns a sorted list containing build information per buildday
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.HighestAmountPerDay">
+            <summary>
+            highest amount of builds found in 1 day for the entire graph
+            used for calculating the height of the graph
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.AmountOfOKBuilds">
+            <summary>
+            Total amount of OK builds
+            </summary>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.AmountOfFailedBuilds">
+            <summary>
+            Total amount of failed builds
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GraphBuildInfo">
+             <summary>
+             Information about a certain build 
+             Wrapper around existing functions for ease of use in template
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GraphBuildDayInfo">
+            <summary>
+            structure containing all the builds on 1 day (YYYY-MM-DD)
+            </summary>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Plugins.ViewAllBuilds.ViewAllBuildsProjectPlugin">
+            <title>View All Builds Project Plugin</title>
+            <version>1.0</version>
+            <summary>
+            The View All Builds Project Plugin lists all available builds for a project.
+            </summary>
+            <example>
+            <code>
+            &lt;viewAllBuildsProjectPlugin /&gt;
+            </code>
+            </example>
+        </member>
+        <member name="T:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations">
+            <summary>
+            Provides translations for different resources.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations"/> class.
+            </summary>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations"/> class.
+            </summary>
+            <param name="culture">The name of the culture to use.</param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.RetrieveCurrent">
+            <summary>
+            Retrieves the current instance of the translations for a request.
+            </summary>
+            <returns>The <see cref="T:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations"/> for the current request.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.Translate(System.String,System.Object[])">
+            <summary>
+            Translates the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="args">The args to pass.</param>
+            <returns>
+            The translated value if found, the value otherwise.
+            </returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.FormatBuildStage(System.String)">
+            <summary>
+            Formats the build stage.
+            </summary>
+            <param name="buildStageData">The build stage data.</param>
+            <returns>An HTML fragment to display the build stage data in a table.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.TranslateJson(System.String,System.Object[])">
+            <summary>
+            Translates the specified value into JSON.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="args">The args to pass.</param>
+            <returns>
+            The translated value if found, the value otherwise.
+            </returns>
+            <remarks>
+            This will ensure all apostrophes and quotes are correctly encoded.
+            </remarks>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.Culture">
+            <summary>
+            Gets the culture.
+            </summary>
+            <value>The user's culture.</value>
+        </member>
+        <member name="P:ThoughtWorks.CruiseControl.WebDashboard.Resources.Translations.UICulture">
+            <summary>
+            Gets the UI culture to use.
+            </summary>
+            <value>The UI culture.</value>
+            <remarks>
+            This will return a <see cref="T:System.Globalization.CultureInfo"/> that is safe to use in formatting. If the current culture is a neutral culture
+            it will fall back to the current UI culture on the server.
+            </remarks>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.GetServerSecurity(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String)">
+            <summary>
+            Retrieves the configuration for security on a server.
+            </summary>
+            <param name="serverSpecifier">The server to get the configuration from.</param>
+            <param name="sessionToken"></param>
+            <returns>An XML fragment containing the security configuration.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.ListAllUsers(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String)">
+            <summary>
+            Lists all the users who have been defined on a server.
+            </summary>
+            <param name="serverSpecifier">The server to get the users from.</param>
+            <param name="sessionToken"></param>
+            <returns>
+            A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.UserDetails"/> containing the details on all the users
+            who have been defined.
+            </returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.DiagnoseSecurityPermissions(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String,System.String)">
+            <summary>
+            Checks the security permissions for a user for a project.
+            </summary>
+            <param name="projectSpecifier">The project to check.</param>
+            <param name="userName">The name of the user.</param>
+            <param name="sessionToken"></param>
+            <returns>A set of diagnostics information.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.DiagnoseSecurityPermissions(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.String)">
+            <summary>
+            Checks the security permissions for a user for a server.
+            </summary>
+            <param name="serverSpecifier">The server to check.</param>
+            <param name="userName">The name of the user.</param>
+            <returns>A set of diagnostics information.</returns>
+            <param name="sessionToken"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.ListBuildParameters(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            Lists the build parameters for a project.
+            </summary>
+            <param name="projectSpecifier">The project to check.</param>
+            <param name="sessionToken"></param>
+            <returns>The list of parameters (if any).</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.ReadAuditRecords(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.Int32,System.Int32)">
+            <summary>
+            Reads all the specified number of audit events.
+            </summary>
+            <param name="startPosition">The starting position.</param>
+            <param name="numberOfRecords">The number of records to read.</param>
+            <param name="serverSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns>A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.AuditRecord"/>s containing the audit details.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.ReadAuditRecords(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.Int32,System.Int32,ThoughtWorks.CruiseControl.Remote.Security.AuditFilterBase)">
+            <summary>
+            Reads the specified number of filtered audit events.
+            </summary>
+            <param name="startPosition">The starting position.</param>
+            <param name="numberOfRecords">The number of records to read.</param>
+            <param name="filter">The filter to use.</param>
+            <param name="serverSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns>A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.AuditRecord"/>s containing the audit details that match the filter.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.ProcessMessage(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.String)">
+            <summary>
+            Processes a message for a server.
+            </summary>
+            <param name="serverSpecifer">The server.</param>
+            <param name="action">The action.</param>
+            <param name="message">The message.</param>
+            <returns>The response.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.GetFreeDiskSpace(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier)">
+            <summary>
+            Retrieve the amount of free disk space.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.RetrievePackageList(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            List the available packages for a project.
+            </summary>
+            <param name="projectSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.RetrievePackageList(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IBuildSpecifier,System.String)">
+            <summary>
+            List the available packages for a build.
+            </summary>
+            <param name="buildSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.TakeStatusSnapshot(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            Takes a status snapshot of a project.
+            </summary>
+            <param name="projectSpecifier">The project.</param>
+            <param name="sessionToken"></param>
+            <returns>The snapshot of the current status.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.IFarmService.GetLinkedSiteId(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String,System.String)">
+            <summary>
+            Retrieves the identifier for a project on a linked site.
+            </summary>
+            <param name="projectSpecifier">The project to retrieve the identifier for.</param>
+            <param name="siteName">The name of the linked site.</param>
+            <param name="sessionId"></param>
+            <returns>The identifier of the other site.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.GetLog(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IBuildSpecifier,System.String)">
+            <summary>
+            Gets the log.
+            </summary>
+            <param name="buildSpecifier">The build specifier.</param>
+            <param name="sessionToken">The session token.</param>
+            <returns>The log data.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ChangePassword(System.String,System.String,System.String,System.String)">
+            <summary>
+            Changes the current user's password.
+            </summary>
+            <param name="server"></param>
+            <param name="sessionToken"></param>
+            <param name="oldPassword"></param>
+            <param name="newPassword"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ResetPassword(System.String,System.String,System.String,System.String)">
+            <summary>
+            Resets a user's password.
+            </summary>
+            <param name="server"></param>
+            <param name="sessionToken"></param>
+            <param name="userName"></param>
+            <param name="newPassword"></param>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.GetServerSecurity(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String)">
+            <summary>
+            Retrieves the configuration for security on a server.
+            </summary>
+            <param name="serverSpecifier">The server to get the configuration from.</param>
+            <param name="sessionToken"></param>
+            <returns>An XML fragment containing the security configuration.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ListAllUsers(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String)">
+            <summary>
+            Lists all the users who have been defined on a server.
+            </summary>
+            <param name="serverSpecifier">The server to get the users from.</param>
+            <param name="sessionToken"></param>
+            <returns>
+            A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.UserDetails"/> containing the details on all the users
+            who have been defined.
+            </returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.DiagnoseSecurityPermissions(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String,System.String)">
+            <summary>
+            Checks the security permissions for a user for a project.
+            </summary>
+            <param name="projectSpecifier">The project to check.</param>
+            <param name="userName">The name of the user.</param>
+            <param name="sessionToken"></param>
+            <returns>A set of diagnostics information.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.DiagnoseSecurityPermissions(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.String)">
+            <summary>
+            Checks the security permissions for a user for a server.
+            </summary>
+            <param name="serverSpecifier">The server to check.</param>
+            <param name="userName">The name of the user.</param>
+            <param name="sessionToken"></param>
+            <returns>A set of diagnostics information.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ListBuildParameters(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            Lists the build parameters for a project.
+            </summary>
+            <param name="projectSpecifier">The project to check.</param>
+            <param name="sessionToken"></param>
+            <returns>The list of parameters (if any).</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ReadAuditRecords(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.Int32,System.Int32)">
+            <summary>
+            Reads all the specified number of audit events.
+            </summary>
+            <param name="startPosition">The starting position.</param>
+            <param name="serverSpecifier"></param>
+            <param name="sessionToken"></param>
+            <param name="numberOfRecords">The number of records to read.</param>
+            <returns>A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.AuditRecord"/>s containing the audit details.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ReadAuditRecords(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.Int32,System.Int32,ThoughtWorks.CruiseControl.Remote.Security.AuditFilterBase)">
+            <summary>
+            Reads the specified number of filtered audit events.
+            </summary>
+            <param name="startPosition">The starting position.</param>
+            <param name="numberOfRecords">The number of records to read.</param>
+            <param name="filter">The filter to use.</param>
+            <param name="serverSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns>A list of <see cref="T:ThoughtWorks.CruiseControl.Remote.Security.AuditRecord"/>s containing the audit details that match the filter.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.ProcessMessage(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier,System.String,System.String)">
+            <summary>
+            Processes a message for a server.
+            </summary>
+            <param name="serverSpecifer">The server the request is for.</param>
+            <param name="action">The action to process.</param>
+            <param name="message">The message containing the details of the request.</param>
+            <returns>The response to the request.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.GetFreeDiskSpace(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IServerSpecifier)">
+            <summary>
+            Retrieve the amount of free disk space.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.RetrievePackageList(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            List the available packages for a project.
+            </summary>
+            <param name="projectSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.RetrievePackageList(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IBuildSpecifier,System.String)">
+            <summary>
+            List the available packages for a build.
+            </summary>
+            <param name="buildSpecifier"></param>
+            <param name="sessionToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.TakeStatusSnapshot(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String)">
+            <summary>
+            Takes a status snapshot of a project.
+            </summary>
+            <param name="projectSpecifier">The project.</param>
+            <param name="sessionToken"></param>
+            <returns>The snapshot of the current status.</returns>
+        </member>
+        <member name="M:ThoughtWorks.CruiseControl.WebDashboard.ServerConnection.ServerAggregatingCruiseManagerWrapper.GetLinkedSiteId(ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation.IProjectSpecifier,System.String,System.String)">
+            <summary>
+            Retrieves the identifier for a project on a linked site.
+            </summary>
+            <param name="projectSpecifier">The project to retrieve the identifier for.</param>
+            <param name="siteName">The name of the linked site.</param>
+            <param name="sessionId"></param>
+            <returns>The identifier of the other site.</returns>
+        </member>
+    </members>
+</doc>
