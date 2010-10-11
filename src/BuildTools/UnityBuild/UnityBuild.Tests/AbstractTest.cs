@@ -12,6 +12,8 @@ namespace UnityBuild.Tests
     {
         private static readonly string _TempDir;
         private static readonly string _ThisDir;
+        private static readonly string _SolutionFilePath;
+        private static readonly string _SampleVcProjFilePath;
 
         static AbstractTest()
         {
@@ -21,6 +23,18 @@ namespace UnityBuild.Tests
                 );
 
             _TempDir = Path.Combine(_ThisDir, "Temp");
+
+            _SolutionFilePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory
+                , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src\Earlgrey.sln"
+            );
+            _SolutionFilePath = Path.GetFullPath(_SolutionFilePath);
+
+            _SampleVcProjFilePath = Path.Combine(
+               AppDomain.CurrentDomain.BaseDirectory
+               , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src\Earlgrey\Earlgrey.vcproj"
+           );
+            _SampleVcProjFilePath = Path.GetFullPath(_SampleVcProjFilePath);
         }
 
         [SetUp]
@@ -48,5 +62,16 @@ namespace UnityBuild.Tests
         {
             get { return _ThisDir; }
         }
+
+        public static string SolutionFilePath
+        {
+            get { return _SolutionFilePath;  }
+        }
+
+        public static string SampleVcProjFilePath
+        {
+            get { return _SampleVcProjFilePath; }
+        }
+
     }
 }
