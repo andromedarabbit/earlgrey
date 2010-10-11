@@ -668,10 +668,10 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="NotUsed"
+				Name="UnityBuildTest-Excluded"
 				>
 				<File
-					RelativePath=".\NotUsed.cpp"
+					RelativePath=".\src\ThrowError.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
