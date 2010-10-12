@@ -29,7 +29,12 @@
 </Target>
 
 <Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate;">	
-	<CallTarget Targets="$(BuildConditionForCI); TestAlone" />
+	<!-- <CallTarget Targets="$(BuildConditionForCI); TestAlone" /> -->
+	
+	<MSBuild 
+		Projects="msbuild-deploy.xml" 
+		Properties="Configuration=$(Configuration);BuildCondition=$(BuildConditionForCI); SvnUsername=$(SvnUsername);SvnLocalRootPath=$(SvnLocalRootPath)"/>
+
 </Target>
 
 </Project>
