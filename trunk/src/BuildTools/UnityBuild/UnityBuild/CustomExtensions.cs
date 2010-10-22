@@ -22,7 +22,6 @@ namespace UnityBuild
                 );
         }
 
-        /*
         public static void ExcludeFromBuild(this FileType file)
         {
             foreach(var item in file.Items)
@@ -31,14 +30,15 @@ namespace UnityBuild
                 Debug.Assert(item is ConfigurationType);
 
                 var configuration = (ConfigurationType) item;
-                XmlAttribute attr = configuration.AnyAttr.First(attr => attr.Name == "ExcludedFromBuild" && attr.Value == "true");
+                XmlAttribute excludeAttr = configuration.AnyAttr.First(attr => attr.Name == "ExcludedFromBuild" && attr.Value == "true");
                 
-                if(attr != null)
+                if (excludeAttr != null)
                     continue;
-
+                
                 // ((XmlAttributeCollection)configuration.AnyAttr).
+                 
             }
         } 
-         * */
+   
     }
 }

@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileType.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="VcProjectConverter.cs" />
@@ -64,10 +65,8 @@
     <Compile Include="TextAppend.cs" />
     <Compile Include="Properties\UnityBuild.cs" />
     <Compile Include="VcProject.cs" />
-    <Compile Include="VisualStudioProjectType.cs">
-      <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="CustomExtensions.cs" />
+    <Compile Include="VcSolution.cs" />
+    <Compile Include="VisualStudioProjectType.designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

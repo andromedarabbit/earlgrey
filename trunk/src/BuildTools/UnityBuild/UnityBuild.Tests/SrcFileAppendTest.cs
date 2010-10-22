@@ -18,14 +18,14 @@ namespace UnityBuild.Tests
             Project earlgreyProject = GetEarlgreyProject();
 
             var vcProject = new VcProject(earlgreyProject);
-            vcProject.Initialize();
+            vcProject.Load();
 
             Assert.IsNotNull(vcProject.Summary);
             Assert.AreEqual(vcProject.Summary, earlgreyProject);
 
             Assert.IsNotNull(vcProject.Details);
-            Assert.AreEqual(2, vcProject.Details.Platforms.Length); // WIN32, x64
-            Assert.AreEqual(4, vcProject.Details.Configurations.Length);
+            Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
+            Assert.AreEqual(4, vcProject.Details.Configurations.Count);
         }
 
      
@@ -35,7 +35,7 @@ namespace UnityBuild.Tests
             Project earlgreyProject = GetEarlgreyProject();
 
             var vcProject = new VcProject(earlgreyProject);
-            vcProject.Initialize();
+            vcProject.Load();
 
             var details = vcProject.Details;
 
@@ -43,19 +43,19 @@ namespace UnityBuild.Tests
             Assert.IsNotNull(projectDir);
             Assert.IsTrue(Directory.Exists(projectDir));
 
-            object[] filesAndFilters = details.Files;
+            IEnumerable<object> filesAndFilters = details.Files;
             MergeRootSrcFiles(projectDir, filesAndFilters);
         }
 
-        private static void MergeRootSrcFiles(string projectDir, object[] filesAndFilters)
+        private static void MergeRootSrcFiles(string projectDir, IEnumerable<object> filesAndFilters)
         {
             var parentFilters = new LinkedList<FilterType>();
             MergeRootSrcFiles(projectDir, filesAndFilters, parentFilters);
         }
 
-        private static void MergeRootSrcFiles(string projectDir, object[] filesAndFilters, IEnumerable<FilterType> parentFilters)
+        private static void MergeRootSrcFiles(string projectDir, IEnumerable<object> filesAndFilters, IEnumerable<FilterType> parentFilters)
         {
-            if (filesAndFilters == null || filesAndFilters.Length == 0)
+            if (filesAndFilters == null || filesAndFilters.Count() == 0)
                 return;
 
             // string 
@@ -81,7 +81,7 @@ namespace UnityBuild.Tests
                     if (fileOrFilter is FileType)
                     {
                         FileType file = (FileType)fileOrFilter;
-                        if (file.IsSrcFile() == false)
+                        if (file.IsSrcFile == false)
                             continue;
 
  //                       // TODO: 임시 코드

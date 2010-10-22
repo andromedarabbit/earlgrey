@@ -25,7 +25,7 @@ namespace UnityBuild
 
         //    _solution = solution;
         //    _projectSummary = projectSummary;
-        //}
+        //
 
         public VcProject(Project projectSummary)
         {
@@ -37,18 +37,18 @@ namespace UnityBuild
             _projectSummary = projectSummary;
         }
 
-        public void Initialize()
+        public void Load()
         {
             Debug.Assert(File.Exists(_projectSummary.FullPath));
+            Debug.Assert(_projectDetails == null);
+            
+            _projectDetails = VisualStudioProjectType.LoadFromFile(_projectSummary.FullPath);
+            Debug.Assert(_projectDetails != null);
+        }
 
-            using (TextReader tr = new StreamReader(_projectSummary.FullPath))
-            {
-                _projectDetails = (VisualStudioProjectType)(
-                    new XmlSerializer(typeof(VisualStudioProjectType))
-                ).Deserialize(tr);
-                
-                Debug.Assert(_projectDetails != null);
-            }
+        public void Save()
+        {
+            _projectDetails.SaveToFile(_projectSummary.FullPath);
         }
 
         //public SolutionFile Solution
@@ -76,6 +76,19 @@ namespace UnityBuild
                 Debug.Assert(_projectSummary != null);
                 return _projectSummary;
             }
+        }
+
+        public PropertyLineHashList ConfigurationPlatforms
+        {
+            get
+            {
+                return this.Summary.ProjectConfigurationPlatformsLines;
+            }
+        }
+
+        public bool HasConfigurationPlatform(string configurationPlatformName)
+        {
+            return ConfigurationPlatforms.Contains(configurationPlatformName);
         }
     }
 }
