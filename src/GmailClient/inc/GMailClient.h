@@ -5,6 +5,7 @@
 #include "tstring.h"
 #include "SmtpClient.h"
 
+//  TODO: 닷넷에선 C# 이고 유니코드를  쓰니까 TCHAR 이 아닌 WCHAR 을 쓰는 게 좋겠다.
 namespace Earlgrey
 {
 	namespace Extension
