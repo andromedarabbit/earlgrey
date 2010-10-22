@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractTest.cs" />
-    <Compile Include="CustomExtensionsTest.cs" />
+    <Compile Include="FileTypeTest.cs" />
     <Compile Include="NumberProviderTest.cs" />
     <Compile Include="SolutionReaderTest.cs" />
     <Compile Include="SrcFileAppendTest.cs" />
@@ -65,6 +65,7 @@
     </Compile>
     <Compile Include="TextFileAppendTest.cs" />
     <Compile Include="VcProjectTest.cs" />
+    <Compile Include="VcSolutionTest.cs" />
     <Compile Include="VisualStudioProjectTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>

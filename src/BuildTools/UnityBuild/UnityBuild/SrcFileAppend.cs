@@ -135,7 +135,7 @@ namespace UnityBuild
         public void MergeSrcFile(FileType file)
         {
             Debug.Assert(file != null);
-            Debug.Assert(file.IsSrcFile());
+            Debug.Assert(file.IsSrcFile);
 
             string filePath = Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath));
             Debug.Assert(File.Exists(filePath));

@@ -31,6 +31,15 @@
     <!--       any unrecognized attribute will be ignored. -->
     <xs:anyAttribute processContents="skip" />
   </xs:complexType>
+
+  <xs:complexType name="BuildConfigurationType">
+    <xs:complexContent>
+      <xs:extension base="ConfigurationType">
+        <xs:attribute name="ExcludedFromBuild" type="xs:boolean" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="FilterType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="Filter" type="FilterType" />
@@ -41,10 +50,11 @@
     <!--       any unrecognized attribute will be ignored. -->
     <xs:anyAttribute processContents="skip" />
   </xs:complexType>
+
   <xs:complexType name="FileType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="File" type="FileType" />
-      <xs:element name="FileConfiguration" type="ConfigurationType" />
+      <xs:element name="FileConfiguration" type="BuildConfigurationType" />
     </xs:choice>
     <xs:attribute name="RelativePath" type="xs:string" use="required" />
     <!-- NOTE: all other attributes are properties of that particular file object. -->
