@@ -80,6 +80,7 @@
     <Compile Include="Subversion\diffTest.cs" />
     <Compile Include="Subversion\SvnDiffTest.cs" />
     <Compile Include="Subversion\SvnPathResolverTest.cs" />
+    <Compile Include="Subversion\SvnRevertTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">

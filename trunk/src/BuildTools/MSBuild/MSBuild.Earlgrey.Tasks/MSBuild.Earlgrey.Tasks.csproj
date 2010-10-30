@@ -118,6 +118,7 @@
     <Compile Include="Subversion\SvnPathResolver.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Subversion\SvnRevert.cs" />
     <Compile Include="Subversion\SvnSwitch.cs">
       <SubType>Code</SubType>
     </Compile>
