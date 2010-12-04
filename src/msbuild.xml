@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
+<PropertyGroup>
+	<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504-bin\Release</MSBuildCommunityTasksPath>
+</PropertyGroup>
+
+<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+
+
 <!-- 플랫폼 판단 -->
 <Choose> 
 	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v3.5' ">
@@ -57,6 +64,10 @@
 <!-- 단위 테스트 바이너리 -->
 <ItemGroup>
 	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Test.exe">
+		<Options>--gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot; --gtest_filter=-*Performance*:*Mail</Options>
+	</UnitTestBinaries>
+	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Database.Test.exe">
+		<Options>--gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;</Options>
 	</UnitTestBinaries>
 </ItemGroup>
 
@@ -85,9 +96,23 @@
 	<Message Text="타겟: Rebuild" />
 </Target>
 
-<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
+<Target Name="PrepareDatabase">
+	<ExecuteDDL 
+		ConnectionString="Server=.\SQLEXPRESS;Database=master;Trusted_Connection=Yes;" 
+		Files="$(RootDir)\Earlgrey.Database.Test\MSSQL-Tables.sql" 
+		ContinueOnError="false" 
+	/>
+</Target>
+
+<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts; PrepareDatabase">
 	<Message Text="타겟: TestAlone" />
-	<Exec Command="&quot;%(UnitTestBinaries.FullPath)&quot; --gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot; --gtest_filter=-*Performance*:*Mail*" WorkingDirectory="$(BinDir)" ContinueOnError="true"  IgnoreExitCode="true" />
+	
+	<Exec 
+		Command="&quot;%(UnitTestBinaries.FullPath)&quot; %(UnitTestBinaries.Options)" 
+		WorkingDirectory="$(BinDir)" 
+		ContinueOnError="true"  
+		IgnoreExitCode="true" 
+		/>
 </Target>
 
 </Project>
