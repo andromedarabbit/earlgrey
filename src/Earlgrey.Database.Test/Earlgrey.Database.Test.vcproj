@@ -494,14 +494,11 @@
 			>
 			<File
 				RelativePath=".\Earlgrey.Database.Test.ini"
+				DeploymentContent="true"
 				>
 			</File>
 			<File
-				RelativePath=".\MySQL-CreateTables.bat"
-				>
-			</File>
-			<File
-				RelativePath=".\MySQL-Tables.sql"
+				RelativePath=".\MSSQL-Tables.sql"
 				>
 			</File>
 			<File

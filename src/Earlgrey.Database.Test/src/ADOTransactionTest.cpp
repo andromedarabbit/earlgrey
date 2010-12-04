@@ -27,7 +27,7 @@ namespace Test {
 		ASSERT_TRUE(connection.IsConnected());
 
 		// 기존 값 확인하기
-		const _txstring selectText = _T("select unique_key from earlgrey_test.single_column_table limit 1");
+		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
 		Command selectCmd(selectText, connection);
 
 		const long uniqueKey = selectCmd.ExecuteScalar<long>();
@@ -39,7 +39,7 @@ namespace Test {
 		const long uniqueKeyUpdated = uniqueKey + 1;
 
 		_txstringstream ss;
-		ss << _T("update `earlgrey_test`.`single_column_table` set unique_key=") << uniqueKeyUpdated;
+		ss << _T("update single_column_table set unique_key=") << uniqueKeyUpdated;
 
 		const _txstring updateText = ss.str();
 		Command updateCmd(updateText, connection);
@@ -73,7 +73,7 @@ namespace Test {
 		ASSERT_TRUE(connection.IsConnected());
 
 		// 기존 값 확인하기
-		const _txstring selectText = _T("select unique_key from earlgrey_test.single_column_table limit 1");
+		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
 		Command selectCmd(selectText, connection);
 
 		const long uniqueKey = selectCmd.ExecuteScalar<long>();
@@ -85,7 +85,7 @@ namespace Test {
 		const long uniqueKeyUpdated = uniqueKey + 1;
 
 		_txstringstream ss;
-		ss << _T("update `earlgrey_test`.`single_column_table` set unique_key=") << uniqueKeyUpdated;
+		ss << _T("update single_column_table set unique_key=") << uniqueKeyUpdated;
 
 		const _txstring updateText = ss.str();
 		Command updateCmd(updateText, connection);
@@ -121,7 +121,7 @@ namespace Test {
 
 		
 		// 기존 값 확인하기
-		const _txstring selectText = _T("select unique_key from earlgrey_test.single_column_table limit 1");
+		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
 		Command selectCmd(selectText, connection);
 
 		const long uniqueKey = selectCmd.ExecuteScalar<long>();
@@ -134,7 +134,7 @@ namespace Test {
 			const long uniqueKeyUpdated = uniqueKey + 1;
 
 			_txstringstream ss;
-			ss << _T("update `earlgrey_test`.`single_column_table` set unique_key=") << uniqueKeyUpdated;
+			ss << _T("update single_column_table set unique_key=") << uniqueKeyUpdated;
 
 			const _txstring updateText = ss.str();
 			Command updateCmd(updateText, connection);
