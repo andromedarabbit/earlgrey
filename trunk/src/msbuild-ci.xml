@@ -1,11 +1,5 @@
 ﻿<Project DefaultTargets="BuildForCI" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-<PropertyGroup>
-	<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504-bin\Release</MSBuildCommunityTasksPath>
-</PropertyGroup>
-
-<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
-
 <Import Project="msbuild.xml"/>
 
 <!-- 서브버전 -->

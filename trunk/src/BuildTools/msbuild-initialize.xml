@@ -5,7 +5,7 @@
 	>
 
 <PropertyGroup>
-	<RootDir>$(MSBuildProjectDirectory)</RootDir>
+	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->
