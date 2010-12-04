@@ -27,7 +27,7 @@ namespace Test {
 		ASSERT_TRUE(connection.Open(connectionString));
 		ASSERT_TRUE(connection.IsConnected());
 
-		const _txstring cmdText = _T("select * from earlgrey_test.simple_table_1");
+		const _txstring cmdText = _T("select * from simple_table_1");
 		Command cmd(cmdText, connection);
 
 		std::tr1::shared_ptr<DataReader> reader = cmd.ExecuteReader();
@@ -94,7 +94,7 @@ namespace Test {
 		ASSERT_TRUE(connection.Open(connectionString));
 		ASSERT_TRUE(connection.IsConnected());
 
-		const _txstring cmdText = _T("select `name` from `earlgrey_test`.`simple_table_1` limit 1");
+		const _txstring cmdText = _T("select top 1 name from simple_table_1");
 		Command cmd(cmdText, connection);
 
 		_txstring name = cmd.ExecuteScalar<_txstring>();
@@ -110,7 +110,7 @@ namespace Test {
 		ASSERT_TRUE(connection.Open(connectionString));
 		ASSERT_TRUE(connection.IsConnected());
 
-		const _txstring selectText = _T("select unique_key from earlgrey_test.single_column_table limit 1");
+		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
 		Command selectCmd(selectText, connection);
 
 		const long uniqueKey = selectCmd.ExecuteScalar<long>();
@@ -119,7 +119,7 @@ namespace Test {
 		const long uniqueKeyExpected = uniqueKey + 1;
 			
 		_txstringstream ss;
-		ss << _T("update `earlgrey_test`.`single_column_table` set unique_key=") << uniqueKeyExpected;
+		ss << _T("update single_column_table set unique_key=") << uniqueKeyExpected;
 
 		const _txstring updateText = ss.str();
 		Command updateCmd(updateText, connection);
@@ -141,7 +141,7 @@ namespace Test {
 		ASSERT_TRUE(connection.Open(connectionString));
 		ASSERT_TRUE(connection.IsConnected());
 
-		const _txstring cmdText = _T("select invalid_column from earlgrey_test.simple_table_1");
+		const _txstring cmdText = _T("select invalid_column from simple_table_1");
 		Command cmd(cmdText, connection);
 
 		ASSERT_THROW(cmd.ExecuteReader(), std::exception);
@@ -155,7 +155,7 @@ namespace Test {
 		ASSERT_TRUE(connection.Open(connectionString));
 		ASSERT_TRUE(connection.IsConnected());
 
-		const _txstring cmdText = _T("select * from earlgrey_test.simple_table_1");
+		const _txstring cmdText = _T("select * from simple_table_1");
 		Command cmd(cmdText, connection);
 
 		std::tr1::shared_ptr<DataReader> reader = cmd.ExecuteReader();
