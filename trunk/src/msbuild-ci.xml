@@ -84,7 +84,7 @@
 </Target>
 
 <Target Name="BuildForCI" DependsOnTargets="DetermineBuildConditionForCI; SrcUpdate">
-	<CallTarget Targets="$(BuildConditionForCI); TestAlone" />
+	<CallTarget Targets="$(BuildConditionForCI);" />
 </Target>
 
 </Project>
