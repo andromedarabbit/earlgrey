@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
 {
     [TestFixture]
-    public class BetterSvnDiffTests
+    public class BetterSvnDiffTest
     {
  
         [Test]
