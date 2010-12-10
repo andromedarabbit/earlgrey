@@ -41,6 +41,8 @@
     </Reference>
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -68,6 +70,10 @@
     <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
+    <Compile Include="SqlServer2005\GetRegisteredGroups.cs" />
+    <Compile Include="SqlServer2005\RegisterGroup.cs" />
+    <Compile Include="SqlServer2005\RegisterGroups.cs" />
+    <Compile Include="SqlServer2005\UnregisterGroup.cs" />
     <Compile Include="Str\Replace.cs" />
     <Compile Include="Subversion\BetterSvnDiff.cs" />
     <Compile Include="IO\DeleteSharedFolder.cs" />

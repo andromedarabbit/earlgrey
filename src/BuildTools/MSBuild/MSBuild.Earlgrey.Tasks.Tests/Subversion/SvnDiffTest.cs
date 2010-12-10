@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
 {
     [TestFixture]
-    public class SvnDiffTests
+    public class SvnDiffTest
     {
         [Test]
         public void ExecuteWithNoArgumentsWillFail()
