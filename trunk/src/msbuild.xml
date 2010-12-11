@@ -85,7 +85,7 @@
 	<RemoveDir Directories="$(OutputDir)" />  
 </Target>  
 
-<Target Name="Build" DependsOnTargets="TestAlone">
+<Target Name="Build">
 	<Message Text="타겟: Build " />
 	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
 	
