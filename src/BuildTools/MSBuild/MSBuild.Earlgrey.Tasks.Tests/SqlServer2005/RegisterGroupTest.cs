@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Build.Framework;
-using Microsoft.SqlServer.Management.Smo;
-using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 using MSBuild.Earlgrey.Tasks.SqlServer2005;
 using NUnit.Framework;
 
@@ -25,23 +22,70 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
         [Test]
         public void RegisterGroupToRootPath()
         {
-            RegisterGroup instance = new RegisterGroup();
-            instance.BuildEngine = new MockBuildEngine();
-            instance.Name = "RegisterGroupsTest.RegisterGroupToRootPath";
+            const string groupName = "RegisterGroupsTest.RegisterGroupToRootPath";
+            
+            RegisterGroup registerInstance = new RegisterGroup();
+            registerInstance.BuildEngine = new MockBuildEngine();
+            registerInstance.Name = groupName;
 
-            Assert.IsFalse(instance.Execute());
+            Assert.IsTrue(registerInstance.Execute());
+
+            UnregisterGroup unregister = new UnregisterGroup();
+            unregister.BuildEngine = new MockBuildEngine();
+            unregister.Name = groupName;
+
+            Assert.IsTrue(unregister.Execute());
         }
 
         [Test]
-        public void RegisterGroupUnderParentGroup()
+        public void CreateRecursively()
         {
-            RegisterGroup instance = new RegisterGroup();
-            instance.BuildEngine = new MockBuildEngine();
-            // instance.Name = "Goupr3";
-            instance.Name = "Group4";
-            instance.Path = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
-            
-            Assert.IsFalse(instance.Execute());
+            const string groupName = "Group4";
+            const string groupPath = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
+
+            RegisterGroup registerInstance = new RegisterGroup();
+            registerInstance.BuildEngine = new MockBuildEngine();
+            registerInstance.Name = groupName;
+            registerInstance.Path = groupPath;
+            registerInstance.CreateRecursively = false;
+
+            Assert.IsFalse(registerInstance.Execute());
+        }
+
+        [Test]
+        public void RegisterGroupRecursively()
+        {
+            const string groupName = "Group4";
+            const string groupPath = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
+
+            RegisterGroup registerInstance = new RegisterGroup();
+            registerInstance.BuildEngine = new MockBuildEngine();
+            registerInstance.Name = groupName;
+            registerInstance.Path = groupPath;
+            registerInstance.CreateRecursively = true;
+
+            Assert.IsTrue(registerInstance.Execute());
+
+            UnregisterGroup unregister = new UnregisterGroup();
+            unregister.BuildEngine = new MockBuildEngine();
+            unregister.Name = groupName;
+            unregister.Path = groupPath;
+
+            Assert.IsTrue(unregister.Execute());
+
+            UnregisterGroup unregister2 = new UnregisterGroup();
+            unregister2.BuildEngine = new MockBuildEngine();
+
+            unregister2.Name = "Group2";
+            unregister2.Path = "ServerGroup[@Name=''Local Instances'']";
+            Assert.IsTrue(unregister2.Execute());
+
+            UnregisterGroup unregister3 = new UnregisterGroup();
+            unregister3.BuildEngine = new MockBuildEngine();
+
+            unregister3.Name = "Local Instances";
+            unregister3.Path = "";
+            Assert.IsTrue(unregister3.Execute());
         }
 
     }

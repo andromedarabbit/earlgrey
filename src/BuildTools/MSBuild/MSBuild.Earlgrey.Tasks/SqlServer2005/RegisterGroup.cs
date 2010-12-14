@@ -17,11 +17,15 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         private string _description;
         private string _path;
 
+        private bool _createRecursively;
+
         public RegisterGroup()
         {
             _name = null;
             _description = string.Empty;
             _path = string.Empty;
+
+            _createRecursively = false;
         }
 
         protected override bool ValidateParameters()
@@ -43,14 +47,73 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
                 CreateGroup(_name, _description);                
                 return true;
             }
+            
+            if (_createRecursively == false)
+            {
+                return CreateGroup();
+            }
 
-            ServerGroupCollection groups = SmoApplication.SqlServerRegistrations.ServerGroups;
-            ServerGroup parentGroup = FindParentGroup(groups);
-            if(parentGroup == null)
-                return false;
+            // "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
+            CreateGroupsRecursively();
 
-            CreateGroup(parentGroup, _name, _description);
             return true;
+        }
+
+        private string FullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_path))
+                    return "ServerGroup[@Name=''" + _name + "'']";
+
+                return _path + "/ServerGroup[@Name=''" + _name + "'']";
+            }
+        }
+
+        private void CreateGroupsRecursively()
+        {
+            string[] pathStrings = FullPath.Split('/');
+            string path = string.Empty;
+            
+            ServerGroup parentGroup = null;
+            
+            foreach (var pathString in pathStrings)
+            {
+                Trace.Assert(pathString.StartsWith("ServerGroup"));
+                
+                // path = path + pathString;
+                string groupName = pathString.Replace("ServerGroup[@Name=''", string.Empty).Replace("'']", string.Empty);
+                    ;
+
+                ServerGroup group = null;
+                if (RegisteredServerHelper.FindGroup(path, groupName, out group) == false)
+                {
+                    if (parentGroup == null)
+                        group = new ServerGroup(groupName);
+                    else
+                        group = new ServerGroup(parentGroup, groupName);
+
+                    group.Create();
+                }
+
+                path = path + "/" + pathString;
+                parentGroup = group;
+            }
+        }
+
+        private bool CreateGroup()
+        {
+            try
+            {
+                ServerGroup parentGroup = RegisteredServerHelper.FindParentGroup(_path);
+                CreateGroup(parentGroup, _name, _description);
+                return true;
+            }
+            catch (ApplicationException appEx)
+            {
+                Log.LogError(appEx.Message);
+                return false;
+            }                       
         }
 
         private static void CreateGroup(string name, string description)
@@ -67,26 +130,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             var group = new ServerGroup(parent, name);
             group.Description = description;
             group.Create();
-        }
-
-        private ServerGroup FindParentGroup(ServerGroupCollection groups)
-        {
-            if (groups == null)
-                return null;
-
-            foreach(ServerGroup group in groups)
-            {
-                // if (group.Parent == null)
-                //    continue;
-                
-                if(group.Path.Equals(_path, StringComparison.CurrentCultureIgnoreCase))
-                    return group.Parent;
-
-                var result = FindParentGroup(group.ServerGroups);
-                if(result != null)
-                    return result;
-            }
-            return null;
         }
 
         [Required]
@@ -108,5 +151,10 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             set { _path = value.Trim(); }
         }
 
+        public bool CreateRecursively
+        {
+            get { return _createRecursively; }
+            set { _createRecursively = value; }
+        }
     }
 }

@@ -79,8 +79,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BuildScripts.cs" />
     <Compile Include="SqlServer2005\GetRegisteredGroupsTest.cs" />
+    <Compile Include="SqlServer2005\RegisteredServerHelperTest.cs" />
     <Compile Include="SqlServer2005\RegisterGroupTest.cs" />
-    <Compile Include="SqlServer2005\DeregisterGroupTest.cs" />
+    <Compile Include="SqlServer2005\UnregisterGroupTest.cs" />
+    <Compile Include="SqlServer2005\RegisterServerTest.cs" />
+    <Compile Include="SqlServer2005\UnregisterServerTest.cs" />
     <Compile Include="Subversion\BetterSvnDiffTest.cs" />
     <Compile Include="Subversion\diffTest.cs" />
     <Compile Include="Subversion\SvnDiffTest.cs" />
@@ -140,6 +143,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="IO\BuildScripts\PathHelperTest.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServer2005\BuildScripts\RegisteredServersTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Subversion\Sample\DiffXmlSummaryExample.xml">

@@ -70,10 +70,12 @@
     <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
+    <Compile Include="SqlServer2005\RegisteredServerHelper.cs" />
     <Compile Include="SqlServer2005\GetRegisteredGroups.cs" />
     <Compile Include="SqlServer2005\RegisterGroup.cs" />
-    <Compile Include="SqlServer2005\RegisterGroups.cs" />
+    <Compile Include="SqlServer2005\RegisterServer.cs" />
     <Compile Include="SqlServer2005\UnregisterGroup.cs" />
+    <Compile Include="SqlServer2005\UnregisterServer.cs" />
     <Compile Include="Str\Replace.cs" />
     <Compile Include="Subversion\BetterSvnDiff.cs" />
     <Compile Include="IO\DeleteSharedFolder.cs" />
