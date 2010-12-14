@@ -13,11 +13,12 @@
 		<UnregisterGroup  Name="EarlgreyTestGroup" />	
 	</Target>
 
-	<Target Name="TestCase-RegisterGroupRecursively-ExpectFalse">
-		<RegisterGroup  
-			Name="Group2" 
+	<Target Name="TestCase-RegisterServerRecursively-ExpectTrue">
+		<RegisterServer  
+			Name="Server1" 
 			Path="ServerGroup[@Name=''EarlgreyTestGroup'']/ServerGroup[@Name=''Group1'']"
 			/>
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
 	</Target>
 	
 	<Target Name="TestCase-RegisterGroupRecursively-ExpectTrue">
