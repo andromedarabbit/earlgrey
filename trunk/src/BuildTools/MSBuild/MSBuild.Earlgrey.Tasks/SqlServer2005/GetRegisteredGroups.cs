@@ -10,7 +10,7 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
-
+    // \ref http://www.sqldbatips.com/print.asp?ID=45
     public class GetRegisteredGroups : AbstractTask
     {
         private List<TaskItem> _names;
@@ -34,7 +34,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         [Output]
         public ITaskItem[] Names
         {
-            // get { return _names.ToArray(); }
             get
             {
                 Trace.Assert(_names != null);

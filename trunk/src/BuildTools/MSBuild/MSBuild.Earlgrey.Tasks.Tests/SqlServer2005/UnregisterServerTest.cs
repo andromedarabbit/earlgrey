@@ -2,25 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Build.Framework;
 using MSBuild.Earlgrey.Tasks.SqlServer2005;
 using NUnit.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
 {
     [TestFixture]
-    public class GetRegisteredGroupsTest
+    public class UnregisterGroupTest
     {
         [Test]
-        public void Test()
+        public void RequireName()
         {
-            GetRegisteredGroups instance = new GetRegisteredGroups();
+            UnregisterGroup instance = new UnregisterGroup();
             instance.BuildEngine = new MockBuildEngine();
 
-            Assert.IsTrue(instance.Execute());
-
-            ITaskItem[] names = instance.Names;
-            Assert.IsNotNull(names); 
+            Assert.IsFalse(instance.Execute());
         }
     }
 }
+

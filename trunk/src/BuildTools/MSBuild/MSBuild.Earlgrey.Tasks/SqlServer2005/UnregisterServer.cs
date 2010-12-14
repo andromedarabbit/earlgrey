@@ -9,12 +9,12 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
 
-    public class UnregisterGroup : AbstractTask
+    public class UnregisterServer : AbstractTask
     {
         private string _name;
         private string _path;
 
-        public UnregisterGroup()
+        public UnregisterServer()
         {
             _name = null;
             _path = string.Empty;
@@ -34,33 +34,34 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         {
             Trace.Assert(string.IsNullOrEmpty(_name) == false);
 
-            if (_path == string.Empty)
+            if(_path == string.Empty)
             {
-                DeleteGroup(_name);
+                DeleteServer(_name);                
                 return true;
             }
 
-            try
-            {
-                ServerGroup group = RegisteredServerHelper.FindGroup(_path, _name);
-                group.Drop();
-            }
-            catch(ApplicationException appEx)
-            {
-                Log.LogError(appEx.Message);
+            ServerGroup parentGroup = RegisteredServerHelper.FindParentGroup(_path);
+            if(parentGroup == null)
                 return false;
-            }
-           
+
+            DeleteServer(parentGroup, _name);
             return true;
         }
 
-        private static void DeleteGroup(string name)
+        private static void DeleteServer(string name)
         {
-            var group = new ServerGroup(name);
-            group.Drop();
+            var server = new RegisteredServer(name);
+            server.Drop();            
         }
 
-      
+        private static void DeleteServer(ServerGroup parent, string name)
+        {
+            Debug.Assert(parent != null);
+
+            var server = new RegisteredServer(parent, name);
+            server.Drop();
+        }
+
         [Required]
         public string Name
         {
