@@ -17,6 +17,8 @@
 		<RegisterServer  
 			Name="Server1" 
 			Path="ServerGroup[@Name=''EarlgreyTestGroup'']/ServerGroup[@Name=''Group1'']"
+			ServerInstance=".\SQLEXPRESS"
+			CreateRecursively="true"
 			/>
 		<UnregisterGroup  Name="EarlgreyTestGroup" />	
 	</Target>
