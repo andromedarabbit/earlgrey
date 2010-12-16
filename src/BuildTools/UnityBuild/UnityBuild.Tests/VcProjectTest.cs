@@ -12,6 +12,19 @@ namespace UnityBuild.Tests
     [TestFixture]
     public class VcProjectTest : AbstractTest
     {
+        
+        public override void SetUp()
+        {
+            base.SetUp();
+            Revert();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+            Revert();
+        }
+
         [Test]
         public void ReadProjectDetails()
         {
@@ -29,7 +42,6 @@ namespace UnityBuild.Tests
         }
 
 
-        [Ignore]
         [Test]
         public void CopyPlatformConfiguration()
         {
@@ -38,13 +50,15 @@ namespace UnityBuild.Tests
             var vcProject = new VcProject(earlgreyProject);
             vcProject.Load();
 
-            string srcConfigurationPlatformName = "Debug|WIn32";
+            const string srcConfigurationPlatformName = "Debug|WIn32";
+            const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
 
             Assert.IsTrue(
                 vcProject.HasConfigurationPlatform(srcConfigurationPlatformName)
                 );
 
             
+            vcProject.CopyConfigurationPlatform(srcConfigurationPlatformName, dstConfigurationPlatformName);
 
             vcProject.Save();
         }
