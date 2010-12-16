@@ -5,6 +5,10 @@ using System.Text;
 using System.IO;
 using CWDev.SLNTools.Core;
 using Earlgrey;
+using Microsoft.Build.Framework;
+using Microsoft.Build.Utilities;
+using MSBuild.Earlgrey.Tasks;
+using MSBuild.Earlgrey.Tasks.Subversion;
 using NUnit.Framework;
 
 namespace UnityBuild.Tests
@@ -15,6 +19,8 @@ namespace UnityBuild.Tests
         private static readonly string _ThisDir;
         private static readonly string _SolutionFilePath;
         private static readonly string _SampleVcProjFilePath;
+        private static readonly string _TrunkFolderPath;
+        private static readonly string _VendorFolderPath;
 
         static AbstractTest()
         {
@@ -36,6 +42,12 @@ namespace UnityBuild.Tests
                , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src\Earlgrey\Earlgrey.vcproj"
            );
             _SampleVcProjFilePath = Path.GetFullPath(_SampleVcProjFilePath);
+
+            _TrunkFolderPath = Path.Combine(_SolutionFilePath, @"..\");
+            _TrunkFolderPath = Path.GetFullPath(_TrunkFolderPath);
+
+            _VendorFolderPath = Path.Combine(_TrunkFolderPath, @"vendor");
+            _VendorFolderPath = Path.GetFullPath(_VendorFolderPath);
         }
 
         [SetUp]
@@ -53,6 +65,35 @@ namespace UnityBuild.Tests
             if (Directory.Exists(_TempDir))
                 Directory.Delete(_TempDir, true);
         }
+
+        protected static void Revert()
+        {
+            string srcPath = Path.GetFullPath(
+              Path.Combine(TaskUtility.ThisAssemblyDirectory, @"..\..\UnityBuild\UnitTestSample\src\")
+              );
+
+            Revert(srcPath);
+
+
+            string venderPath = Path.GetFullPath(
+             Path.Combine(srcPath, @"..\vendor\")
+             );
+
+            Revert(venderPath);
+        }
+
+        private static void Revert(string path)
+        {
+            SvnRevert cmd = new SvnRevert();
+            cmd.BuildEngine = new MockBuildEngine();
+
+            cmd.Paths = new ITaskItem[1];
+            cmd.Paths[0] = new TaskItem(path);
+
+            cmd.Recursive = true;
+            Assert.IsTrue(cmd.Execute());
+        }
+
 
         protected static Project GetEarlgreyProject()
         {
@@ -89,5 +130,14 @@ namespace UnityBuild.Tests
             get { return _SampleVcProjFilePath; }
         }
 
+        public static string TrunkFolderPath
+        {
+            get { return _TrunkFolderPath; }
+        }
+
+        public static string VendorFolderPath
+        {
+            get { return _VendorFolderPath; }
+        }
     }
 }

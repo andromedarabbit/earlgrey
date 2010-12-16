@@ -48,6 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileType.cs" />
+    <Compile Include="AbstractConfigurationNameConverter.cs" />
+    <Compile Include="AbstractProjectConfigurationNameConverter.cs" />
+    <Compile Include="AbstractSolutionConfigurationNameConverter.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="VcProjectConverter.cs" />
