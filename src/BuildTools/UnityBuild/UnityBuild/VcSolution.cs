@@ -82,16 +82,46 @@ namespace UnityBuild
             Trace.Assert(string.IsNullOrEmpty(solutionConfigurationName) == false);
             Trace.Assert(string.IsNullOrEmpty(solutionPlatformName) == false);
 
-            string configurationPlatformName = solutionConfigurationName + "|" + solutionPlatformName;
+            string configurationPlatformName = AbstractConfigurationNameConverter.GetConfigurationPlatform(solutionConfigurationName, solutionPlatformName);
 
             if (HasSolutionConfigurationPlatform(configurationPlatformName) == false)
                 throw new ArgumentException(); // TODO: 그냥 정상 상황으로 처리해서 return할까?
 
             
-           if(ConfigurationPlatforms.Remove(configurationPlatformName) == false)
-           {
-               
-           }
+            if(ConfigurationPlatforms.Remove(configurationPlatformName) == false)
+                throw new ApplicationException();
+
+        }
+
+        internal IEnumerable<string> ConfigurationPlatformNames
+        {
+            get
+            {
+                return ConfigurationPlatforms.Select(item => item.Name);
+            }
+        }
+
+        public void CopySolutaionConfigurationPlatform(
+            AbstractSolutionConfigurationNameConverter solutionConverter
+            , AbstractProjectConfigurationNameConverter projectConverter
+            )
+        {
+            foreach (string configurationPlatform in ConfigurationPlatformNames.ToList())
+            {
+                string platformName;
+                string configurationName; 
+                string property;
+
+                AbstractConfigurationNameConverter.SplitConfigurationPlatform(
+                    configurationPlatform, out configurationName, out platformName, out property
+                    );
+
+                Debug.Assert(string.IsNullOrEmpty(platformName) == false);
+                Debug.Assert(string.IsNullOrEmpty(configurationName) == false);
+                Debug.Assert(string.IsNullOrEmpty(property));
+
+                CopySolutaionConfigurationPlatform(configurationName, platformName, solutionConverter, projectConverter);
+            }
         }
 
         public void CopySolutaionConfigurationPlatform(
@@ -192,7 +222,6 @@ namespace UnityBuild
                         );
                 }
                 
-                // project.Save();
             }
 
         }

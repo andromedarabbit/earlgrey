@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractConfigurationNameConverterTest.cs" />
     <Compile Include="AbstractTest.cs" />
     <Compile Include="FileTypeTest.cs" />
     <Compile Include="NumberProviderTest.cs" />

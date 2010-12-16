@@ -10,17 +10,46 @@ namespace UnityBuild
     {
         public abstract string GetNewName(string configurationName);
 
-        public static string GetNewName(string configurationPlatformName, AbstractConfigurationNameConverter converter)
+        internal static string GetConfigurationPlatform(string configuration, string platform)
+        {
+            return configuration + "|" + platform;
+        }
+
+        internal static string GetConfigurationPlatform(string configuration, string platform, string property)
+        {
+            if (string.IsNullOrEmpty(property))
+                return GetConfigurationPlatform(configuration, platform);
+
+            Debug.Assert(property == "Build.0" || property == "ActiveCfg");
+
+            return GetConfigurationPlatform(configuration, platform) + "." + property;
+        }
+
+        internal static string GetNewName(string configurationPlatformName, AbstractConfigurationNameConverter converter)
         {
             Debug.Assert(string.IsNullOrEmpty(configurationPlatformName) == false);
             Debug.Assert(converter != null);
 
+            string projectPlatformName;
+            string projectProperty;
+            string projectConfigurationName;
+
+            SplitConfigurationPlatform(configurationPlatformName, out projectConfigurationName, out projectPlatformName, out projectProperty);
+
+            string newProjectConfigurationName = converter.GetNewName(projectConfigurationName);
+            Debug.Assert(string.IsNullOrEmpty(newProjectConfigurationName) == false);
+
+            return GetConfigurationPlatform(newProjectConfigurationName, projectPlatformName, projectProperty);            
+        }
+
+        internal static void SplitConfigurationPlatform(string configurationPlatformName, out string projectConfigurationName, out string projectPlatformName, out string projectProperty)
+        {
             string[] tokens = configurationPlatformName.Split(new char[] { '|' }, 2, StringSplitOptions.RemoveEmptyEntries);
             Debug.Assert(tokens.Length == 2);
 
-            string projectConfigurationName = tokens[0];
-            string projectPlatformName = tokens[1];
-            string projectProperty = string.Empty;
+            projectConfigurationName = tokens[0];
+            projectPlatformName = tokens[1];
+            projectProperty = string.Empty;
             Debug.Assert(string.IsNullOrEmpty(projectConfigurationName) == false);
             Debug.Assert(string.IsNullOrEmpty(projectPlatformName) == false);
 
@@ -35,18 +64,7 @@ namespace UnityBuild
                 Debug.Assert(string.IsNullOrEmpty(projectConfigurationName) == false);
                 Debug.Assert(string.IsNullOrEmpty(projectPlatformName) == false);
             }
-
-
-            string newProjectConfigurationName = converter.GetNewName(projectConfigurationName);
-            Debug.Assert(string.IsNullOrEmpty(newProjectConfigurationName) == false);
-
-            string newName = newProjectConfigurationName + "|" + projectPlatformName;
-            if (projectProperty.Length > 0)
-            {
-                newName = newName + "." + projectProperty;
-            }
-            return newName;
+          
         }
-
     }
 }
