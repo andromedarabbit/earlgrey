@@ -124,80 +124,8 @@ namespace UnityBuild.Tests
             }
         }
 
-        [Test]
-        public void CopySolutionConfigurationPlatform()
-        {
-            const string srcSolutionConfigurationName = "Debug";
-            const string srcSolutionPlatformName = "Win32";
-
-            CopySolutionConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
-        }
-
-        [Test]
-        public void CopySpecificSolutionConfigurationPlatforms()
-        {
-            string[] srcSolutionConfigurationNames = new string[] {"Debug", "Release"};
-            string[] srcSolutionPlatformNames = new string[] {"Win32", "x64"};
-
-            foreach(string configurationName in srcSolutionConfigurationNames)
-            {
-                foreach(string platformName in srcSolutionPlatformNames)
-                {
-                    CopySolutionConfigurationPlatform(configurationName, platformName);        
-                }
-            }
-        }
-
-        private static void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName, string srcSolutionPlatformName)
-        {
-            var vcSolution = new VcSolution(SolutionFilePath);
-            vcSolution.Load();
-
-            var solutionConverter = new SolutionConfigurationNameConverter();
-            var projectConverter = new ProjectConfigurationNameConverter();
-
-            vcSolution.CopySolutionConfigurationPlatform(
-                srcSolutionConfigurationName
-                , srcSolutionPlatformName
-                , solutionConverter
-                , projectConverter
-                );
-
-            vcSolution.Save();
-        }
-
-        /*
-        [Test]
-        public void DeleteSolutionConfigurationPlatform()
-        {
-            const string solutionConfigurationName = "Debug";
-            const string solutionPlatformName = "x64";
-
-            var vcSolution = new VcSolution(SolutionFilePath);
-            vcSolution.Load();
-
-            vcSolution.DeleteSolutionConfigurationPlatform(solutionConfigurationName, solutionPlatformName);
-
-            vcSolution.Save();
-        }
-        */
-
-        [Test]
-        public void CopySolutionConfigurationPlatforms()
-        {
-            var vcSolution = new VcSolution(SolutionFilePath);
-            vcSolution.Load();
-
-            var solutionConverter = new SolutionConfigurationNameConverter();
-            var projectConverter = new ProjectConfigurationNameConverter();
-
-            vcSolution.CopySolutionConfigurationPlatform(
-                solutionConverter
-                , projectConverter
-                );
-
-            vcSolution.Save();
-        }
+      
+     
     }
 }
 

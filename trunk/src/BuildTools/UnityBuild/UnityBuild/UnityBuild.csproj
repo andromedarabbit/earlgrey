@@ -70,6 +70,7 @@
     <Compile Include="Properties\UnityBuild.cs" />
     <Compile Include="VcProject.cs" />
     <Compile Include="VcSolution.cs" />
+    <Compile Include="VcSolutionCopy.cs" />
     <Compile Include="VisualStudioProjectType.designer.cs" />
   </ItemGroup>
   <ItemGroup>

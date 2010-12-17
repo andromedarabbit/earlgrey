@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="TextFileAppendTest.cs" />
     <Compile Include="VcProjectTest.cs" />
+    <Compile Include="VcSolutionCopyTest.cs" />
     <Compile Include="VcSolutionTest.cs" />
     <Compile Include="VisualStudioProjectTypeTest.cs" />
   </ItemGroup>

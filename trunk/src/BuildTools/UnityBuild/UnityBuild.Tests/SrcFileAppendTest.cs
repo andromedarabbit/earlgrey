@@ -84,12 +84,6 @@ namespace UnityBuild.Tests
                         if (file.IsSrcFile == false)
                             continue;
 
- //                       // TODO: 임시 코드
- //                       if (file.RelativePath.EndsWith("NotUsed.cpp"))
- //                       {    
- //bool d=file.IsExcludedFromBuild();
- //                       }
-
                         merger.MergeSrcFile(file);
                     }
 
