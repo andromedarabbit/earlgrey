@@ -51,14 +51,9 @@ namespace UnityBuild.Tests
 
             VcSolutionCopy copy = new VcSolutionCopy(vcSolution);
 
-            var solutionConverter = new VcSolutionTest.SolutionConfigurationNameConverter();
-            var projectConverter = new VcSolutionTest.ProjectConfigurationNameConverter();
-
             copy.CopySolutionConfigurationPlatform(
                 srcSolutionConfigurationName
                 , srcSolutionPlatformName
-                , solutionConverter
-                , projectConverter
                 );
 
             vcSolution.Save();
@@ -72,13 +67,7 @@ namespace UnityBuild.Tests
 
             VcSolutionCopy copy = new VcSolutionCopy(vcSolution);
 
-            var solutionConverter = new VcSolutionTest.SolutionConfigurationNameConverter();
-            var projectConverter = new VcSolutionTest.ProjectConfigurationNameConverter();
-
-            copy.CopySolutionConfigurationPlatform(
-                solutionConverter
-                , projectConverter
-                );
+            copy.CopySolutionConfigurationPlatform();
 
             vcSolution.Save();
         }
