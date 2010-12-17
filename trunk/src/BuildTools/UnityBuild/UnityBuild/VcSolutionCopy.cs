@@ -10,11 +10,40 @@ namespace UnityBuild
     internal class VcSolutionCopy
     {
         private readonly VcSolution _solution;
+        private AbstractSolutionConfigurationNameConverter _solutionConverter;
+        private AbstractProjectConfigurationNameConverter _projectConverter;
 
         internal VcSolutionCopy(VcSolution solution)
+            : this(solution, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
+        {
+           
+        }
+
+        internal VcSolutionCopy(
+            VcSolution solution
+            , AbstractSolutionConfigurationNameConverter solutionConverter
+            , AbstractProjectConfigurationNameConverter projectConverter
+          )
         {
             Debug.Assert(solution != null);
+            Debug.Assert(solutionConverter != null);
+            Debug.Assert(projectConverter != null);
+
             this._solution = solution;
+            this._solutionConverter = solutionConverter;
+            this._projectConverter = projectConverter;
+        }
+
+        public AbstractSolutionConfigurationNameConverter SolutionConverter
+        {
+            get { return _solutionConverter; }
+            set { _solutionConverter = value; }
+        }
+
+        public AbstractProjectConfigurationNameConverter ProjectConverter
+        {
+            get { return _projectConverter; }
+            set { _projectConverter = value; }
         }
 
         internal IEnumerable<string> ConfigurationPlatformNames
@@ -35,10 +64,7 @@ namespace UnityBuild
             return _solution.HasSolutionConfigurationPlatform(configurationPlatformName);
         }
 
-        public void CopySolutionConfigurationPlatform(
-          AbstractSolutionConfigurationNameConverter solutionConverter
-          , AbstractProjectConfigurationNameConverter projectConverter
-          )
+        public void CopySolutionConfigurationPlatform()
         {
             foreach (string configurationPlatform in ConfigurationPlatformNames.ToList())
             {
@@ -54,22 +80,15 @@ namespace UnityBuild
                 Debug.Assert(string.IsNullOrEmpty(configurationName) == false);
                 Debug.Assert(string.IsNullOrEmpty(property));
 
-                CopySolutionConfigurationPlatform(configurationName, platformName, solutionConverter, projectConverter, true);
+                CopySolutionConfigurationPlatform(configurationName, platformName, true);
             }
         }
 
-        public void CopySolutionConfigurationPlatform(
-            string srcSolutionConfigurationName
-            , string srcSolutionPlatformName
-            , AbstractSolutionConfigurationNameConverter solutionConverter
-            , AbstractProjectConfigurationNameConverter projectConverter
-            )
+        public void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName, string srcSolutionPlatformName)
         {
             CopySolutionConfigurationPlatform(
                 srcSolutionConfigurationName
                 , srcSolutionPlatformName
-                , solutionConverter
-                , projectConverter
                 , false
                 );
         }
@@ -77,18 +96,16 @@ namespace UnityBuild
         private void CopySolutionConfigurationPlatform(
             string srcSolutionConfigurationName
             , string srcSolutionPlatformName
-            , AbstractSolutionConfigurationNameConverter solutionConverter
-            , AbstractProjectConfigurationNameConverter projectConverter
             , bool skipIfConfigurationAlreadyExists
             )
         {
             Trace.Assert(string.IsNullOrEmpty(srcSolutionConfigurationName) == false);
             Trace.Assert(string.IsNullOrEmpty(srcSolutionPlatformName) == false);
             // Trace.Assert(string.IsNullOrEmpty(dstConfigurationName) == false);
-            Trace.Assert(solutionConverter != null);
-            Trace.Assert(projectConverter != null);
+            Trace.Assert(_solutionConverter != null);
+            Trace.Assert(_projectConverter != null);
 
-            string dstConfigurationName = solutionConverter.GetNewName(srcSolutionConfigurationName);
+            string dstConfigurationName = _solutionConverter.GetNewName(srcSolutionConfigurationName);
 
             string srcConfigurationPlatformName =
                 AbstractConfigurationNameConverter.GetConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
@@ -132,7 +149,7 @@ namespace UnityBuild
                     {
                         string newSolutionName = AbstractConfigurationNameConverter.GetNewName(
                             activeConfiguration.Name
-                            , solutionConverter
+                            , _solutionConverter
                             );
 
                         newConfigurations.Add(
@@ -144,7 +161,7 @@ namespace UnityBuild
                 {
                     foreach (var activeConfiguration in activeConfigurations)
                     {
-                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, solutionConverter, projectConverter);
+                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, _solutionConverter, _projectConverter);
                         Debug.Assert(newConfiguration != null);
 
                         newConfigurations.Add(newConfiguration);
@@ -176,7 +193,7 @@ namespace UnityBuild
 
                     project.CopyConfigurationPlatform(
                         projectName
-                        , AbstractConfigurationNameConverter.GetNewName(projectName, projectConverter)
+                        , AbstractConfigurationNameConverter.GetNewName(projectName, _projectConverter)
                         );
                 }
 
