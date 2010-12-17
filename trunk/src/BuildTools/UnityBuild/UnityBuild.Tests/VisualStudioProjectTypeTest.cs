@@ -31,21 +31,6 @@ namespace UnityBuild.Tests
         [Test]
         public void DeserializeVcProjectTest()
         {
-            // VisualStudioProjectType project = null;
-
-            // string requestXsdNameSpace = string.Empty;
-     
-            // Create a validating XML reader and validate...
-//             var context = new XmlParserContext(null, null, "", XmlSpace.None);
-//             // var vr = new XmlValidatingReader(SampleVcProjFilePath, XmlNodeType.Element, context);
-//             var vr = new XmlValidatingReader(SampleVcProjFilePath, XmlNodeType.Element, context);
-//             vr.ValidationType = ValidationType.Schema;
-//             vr.Schemas.Add(requestXsdNameSpace, XsdFilePath);
-//             vr.ValidationEventHandler += new ValidationEventHandler(ValidationEventHandler);
-//             while (vr.Read())
-//             {
-           // }
-
             // Read in the input XML in a TextReader...
             using (TextReader tr = new StreamReader(SampleVcProjFilePath))
             {
@@ -56,12 +41,6 @@ namespace UnityBuild.Tests
 
                 Assert.IsNotNull(project);
             }
-
-        }
-
-        static void ValidationEventHandler(object sender, ValidationEventArgs e)
-        {
-            throw new NotImplementedException();
         }
         
     }
