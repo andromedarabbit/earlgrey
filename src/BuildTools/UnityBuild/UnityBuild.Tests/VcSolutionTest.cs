@@ -59,8 +59,7 @@ namespace UnityBuild.Tests
         private static void AddNewSolutionConfigurationPlatform(VcSolution vcSolution, string dstPlatformConfigurationName, string dstPlatformConfigurationValue)
         {
             const string srcPlatformConfigurationName = "Debug|Win32";
-            // string srcPlatformConfigurationValue = "Debug|Win32";
-
+            
             var configurationPlatforms = vcSolution.ConfigurationPlatforms;
             Assert.IsTrue(
                 vcSolution.HasSolutionConfigurationPlatform(srcPlatformConfigurationName)
@@ -70,7 +69,6 @@ namespace UnityBuild.Tests
                 vcSolution.HasSolutionConfigurationPlatform(dstPlatformConfigurationName)
                 );
 
-            // var srcPlatformConfiguration = configurationPlatforms[srcPlatformConfigurationName];
             var dstPlatformConfiguration = new PropertyLine(dstPlatformConfigurationName, dstPlatformConfigurationValue);
 
             configurationPlatforms.Add(dstPlatformConfiguration);

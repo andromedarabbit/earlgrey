@@ -179,11 +179,6 @@ namespace UnityBuild
                 // VCProject 파일 수정
                 var projectNames = activeConfigurations.Select(configItem => configItem.Value).Distinct();
 
-
-                //IEnumerable<VcProject> result = _solution.VcProjects.FindAll(item => item.Summary == projectSummary);
-                //Debug.Assert(result.Count() == 1);
-
-                //VcProject project = result.First();
                 VcProject project = _solution.FindVcProject(projectSummary);
 
                 foreach (var projectName in projectNames)
