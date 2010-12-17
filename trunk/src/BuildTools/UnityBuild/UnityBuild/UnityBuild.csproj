@@ -48,10 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder.cs" />
+    <Compile Include="FilesMerge.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="AbstractConfigurationNameConverter.cs" />
     <Compile Include="AbstractProjectConfigurationNameConverter.cs" />
     <Compile Include="AbstractSolutionConfigurationNameConverter.cs" />
+    <Compile Include="FilterMerge.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="ProjectConfigurationNameConverter.cs" />
