@@ -18,9 +18,13 @@ namespace UnityBuild.Tests
         private static readonly string _TempDir;
         private static readonly string _ThisDir;
         private static readonly string _SolutionFilePath;
+        private static readonly string _SolutionFileDir;
         private static readonly string _SampleVcProjFilePath;
         private static readonly string _TrunkFolderPath;
         private static readonly string _VendorFolderPath;
+
+        private static readonly string _EarlgreyProjectFIlePath;
+
 
         static AbstractTest()
         {
@@ -31,11 +35,17 @@ namespace UnityBuild.Tests
 
             _TempDir = Path.Combine(_ThisDir, "Temp");
 
-            _SolutionFilePath = Path.Combine(
+            _SolutionFileDir = Path.Combine(
                 AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src\Earlgrey.sln"
+                , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src"
             );
-            _SolutionFilePath = Path.GetFullPath(_SolutionFilePath);
+            _SolutionFileDir = Path.GetFullPath(_SolutionFileDir);
+
+            _SolutionFilePath = Path.Combine(
+                _SolutionFileDir
+                , "Earlgrey.sln"
+            );
+            // _SolutionFilePath = Path.GetFullPath(_SolutionFilePath);
 
             _SampleVcProjFilePath = Path.Combine(
                AppDomain.CurrentDomain.BaseDirectory
@@ -47,7 +57,10 @@ namespace UnityBuild.Tests
             _TrunkFolderPath = Path.GetFullPath(_TrunkFolderPath);
 
             _VendorFolderPath = Path.Combine(_TrunkFolderPath, @"vendor");
-            _VendorFolderPath = Path.GetFullPath(_VendorFolderPath);
+            // _VendorFolderPath = Path.GetFullPath(_VendorFolderPath);
+
+            Project earlgreyProject = GetEarlgreyProject();
+            _EarlgreyProjectFIlePath = Path.Combine(_SolutionFileDir, earlgreyProject.RelativePath);
         }
 
         [SetUp]
@@ -109,7 +122,6 @@ namespace UnityBuild.Tests
             return earlgreyProject;
         }
 
-
         public static string TempDir
         {
             get { return _TempDir; }
@@ -120,9 +132,19 @@ namespace UnityBuild.Tests
             get { return _ThisDir; }
         }
 
+        public static string SolutionFileDir
+        {
+            get { return _SolutionFileDir; }
+        }
+
         public static string SolutionFilePath
         {
             get { return _SolutionFilePath;  }
+        }
+
+        public static string EarlgreySolutionFileText
+        {
+            get { return File.ReadAllText(_SolutionFilePath); }
         }
 
         public static string SampleVcProjFilePath
@@ -139,5 +161,11 @@ namespace UnityBuild.Tests
         {
             get { return _VendorFolderPath; }
         }
+
+        public static string EarlgreyProjectFileText
+        {
+            get { return File.ReadAllText(_EarlgreyProjectFIlePath); }
+        }
+
     }
 }

@@ -4,28 +4,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Xml.Serialization;
 using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
     internal class VcProject
     {
-        // private readonly SolutionFile _solution;
         private readonly Project _projectSummary;
         private VisualStudioProjectType _projectDetails;
-
-        //public VcProject(SolutionFile solution, Project projectSummary)
-        //{
-        //    Debug.Assert(solution != null);
-        //    Debug.Assert(projectSummary != null);
-        //    Debug.Assert(
-        //        projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.VisualC
-        //        );
-
-        //    _solution = solution;
-        //    _projectSummary = projectSummary;
-        //
 
         public VcProject(Project projectSummary) 
         {
@@ -85,6 +71,57 @@ namespace UnityBuild
                     ) > 0;
         }
 
+        public void DeleteConfigurationPlatform(string name)
+        {
+            Trace.Assert(string.IsNullOrEmpty(name) == false);
+
+            ConfigurationType configuration = GetConfiguration(name);
+            if (configuration == null)
+                throw new ArgumentException();
+
+            // 개별 파일 속성
+            DeleteConfigurationPlatformInFiles(_projectDetails.Files, name);
+
+            // 공통 속성
+            IEnumerable<ConfigurationType> configurationsFound = _projectDetails.Configurations.Where(
+                item => item.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)
+                );
+
+            Debug.Assert(configurationsFound.Count() == 1);
+
+            _projectDetails.Configurations.Remove(
+                configurationsFound.First()
+                );
+
+        }
+
+        // TODO: 그러고 보니 프로젝트 지우면 파일 속성은 함께 날아가는 것 아닌가?
+        private static void DeleteConfigurationPlatformInFiles(IEnumerable<object> items, string name)
+        {
+            foreach (object item in items)
+            {
+                Debug.Assert((item is FileType) || (item is FilterType));
+                if (item is FileType)
+                {
+                    FileType file = (FileType)item;
+                    DeleteConfigurationPlatformoInFileBuildConfiguration(file.Items, name);
+                }
+
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    DeleteConfigurationPlatformInFiles(filter.Items, name);
+                }
+            }
+        }
+        
+        private static void DeleteConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string name)
+        {
+            int count = fileBuildConfigurations.RemoveAll(
+                item => ((BuildConfigurationType)item).Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)                    
+                );
+        }
+
         public void CopyConfigurationPlatform(string srcName, string dstName)
         {
             Trace.Assert(string.IsNullOrEmpty(srcName) == false);
@@ -108,7 +145,7 @@ namespace UnityBuild
 
         }
 
-        private void CopyConfigurationPlatformInFiles(IEnumerable<object> items, string srcName, string dstName)
+        private static void CopyConfigurationPlatformInFiles(IEnumerable<object> items, string srcName, string dstName)
         {
             foreach (object item in items)
             {
@@ -131,7 +168,7 @@ namespace UnityBuild
             }
         }
 
-        private void CopyConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string srcName, string dstName)
+        private static void CopyConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string srcName, string dstName)
         {
             // TODO: 이름이 같은 구성 값은 하나 뿐이어야 할 것 같지만 안전하게 List 로 관리한다. 일단은....
             List<object> newBuildConfigurations = new List<object>();
@@ -152,6 +189,11 @@ namespace UnityBuild
 
             fileBuildConfigurations.AddRange(newBuildConfigurations);
             
+        }
+
+        internal bool HasConfiguration(string name)
+        {
+            return GetConfiguration(name) != null;
         }
 
         private ConfigurationType GetConfiguration(string srcName)

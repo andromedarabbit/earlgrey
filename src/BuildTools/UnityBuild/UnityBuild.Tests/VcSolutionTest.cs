@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Earlgrey;
-using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
-using MSBuild.Earlgrey.Tasks;
-using MSBuild.Earlgrey.Tasks.Subversion;
 using CWDev.SLNTools.Core;
 using NUnit.Framework;
 
@@ -33,14 +28,14 @@ namespace UnityBuild.Tests
         [Test]
         public void LoadTest()
         {
-            var vcSolution = new VcSolution(AbstractTest.SolutionFilePath);
+            var vcSolution = new VcSolution(SolutionFilePath);
             vcSolution.Load();
         }
 
         [Test]
         public void GetConfigurationPlatforms()
         {
-            var vcSolution = new VcSolution(AbstractTest.SolutionFilePath);
+            var vcSolution = new VcSolution(SolutionFilePath);
             vcSolution.Load();
 
             IEnumerable<string> names = vcSolution.ConfigurationPlatformNames;
@@ -50,7 +45,7 @@ namespace UnityBuild.Tests
         [Test]
         public void CreateNewSolutionConfigurationPlatform()
         {
-            var vcSolution = new VcSolution(AbstractTest.SolutionFilePath);
+            var vcSolution = new VcSolution(SolutionFilePath);
             vcSolution.Load();
 
             const string dstSolutionConfigurationPlatformName = "Debug-UnityBuild|Win32";
@@ -83,17 +78,49 @@ namespace UnityBuild.Tests
 
         public class ProjectConfigurationNameConverter : AbstractProjectConfigurationNameConverter
         {
+            private const string Suffix = "-UnityBuild";
+
             public override string GetNewName(string name)
             {
-                return name + "-UnityBuild";
+                if(name == null)
+                    throw new ArgumentNullException();
+
+                if(name.Length == 0)
+                    throw new ArgumentException();
+
+                return name + Suffix;
+            }
+
+            public override string GetOldName(string name)
+            {
+                if(name.EndsWith(Suffix) == false)
+                    throw new ArgumentException();
+
+                return name + Suffix;
             }
         }
 
         public class SolutionConfigurationNameConverter : AbstractSolutionConfigurationNameConverter
         {
+            private const string Suffix = "-UnityBuild";
+
             public override string GetNewName(string name)
             {
-                return name + "-UnityBuild";
+                if (name == null)
+                    throw new ArgumentNullException();
+
+                if (name.Length == 0)
+                    throw new ArgumentException();
+
+                return name + Suffix;
+            }
+
+            public override string GetOldName(string name)
+            {
+                if (name.EndsWith(Suffix) == false)
+                    throw new ArgumentException();
+
+                return name + Suffix;
             }
         }
 
@@ -129,7 +156,7 @@ namespace UnityBuild.Tests
             var solutionConverter = new SolutionConfigurationNameConverter();
             var projectConverter = new ProjectConfigurationNameConverter();
 
-            vcSolution.CopySolutaionConfigurationPlatform(
+            vcSolution.CopySolutionConfigurationPlatform(
                 srcSolutionConfigurationName
                 , srcSolutionPlatformName
                 , solutionConverter
@@ -139,7 +166,7 @@ namespace UnityBuild.Tests
             vcSolution.Save();
         }
 
-        [Ignore]
+        /*
         [Test]
         public void DeleteSolutionConfigurationPlatform()
         {
@@ -152,10 +179,9 @@ namespace UnityBuild.Tests
             vcSolution.DeleteSolutionConfigurationPlatform(solutionConfigurationName, solutionPlatformName);
 
             vcSolution.Save();
-
         }
+        */
 
-        [Ignore]
         [Test]
         public void CopySolutionConfigurationPlatforms()
         {
@@ -165,7 +191,7 @@ namespace UnityBuild.Tests
             var solutionConverter = new SolutionConfigurationNameConverter();
             var projectConverter = new ProjectConfigurationNameConverter();
 
-            vcSolution.CopySolutaionConfigurationPlatform(
+            vcSolution.CopySolutionConfigurationPlatform(
                 solutionConverter
                 , projectConverter
                 );
