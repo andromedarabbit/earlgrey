@@ -74,6 +74,15 @@ namespace UnityBuild
             return ConfigurationPlatforms.Contains(configurationPlatformName);
         }
 
+        internal IEnumerable<string> ConfigurationPlatformNames
+        {
+            get
+            {
+                return ConfigurationPlatforms.Select(item => item.Name);
+            }
+        }
+
+        /*
         public void DeleteSolutionConfigurationPlatform(
             string solutionConfigurationName
             , string solutionPlatformName
@@ -88,20 +97,18 @@ namespace UnityBuild
                 throw new ArgumentException(); // TODO: 그냥 정상 상황으로 처리해서 return할까?
 
             
+
+            // 파일에서 구성 플랫폼 값 제거하기
+            // 프로젝트에서 구성 플랫폼 값 제거하기
+            // 솔루션 파일에서 구성 플랫폼 값 제거하기
+
             if(ConfigurationPlatforms.Remove(configurationPlatformName) == false)
                 throw new ApplicationException();
 
         }
+         * */
 
-        internal IEnumerable<string> ConfigurationPlatformNames
-        {
-            get
-            {
-                return ConfigurationPlatforms.Select(item => item.Name);
-            }
-        }
-
-        public void CopySolutaionConfigurationPlatform(
+        public void CopySolutionConfigurationPlatform(
             AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
             )
@@ -120,15 +127,32 @@ namespace UnityBuild
                 Debug.Assert(string.IsNullOrEmpty(configurationName) == false);
                 Debug.Assert(string.IsNullOrEmpty(property));
 
-                CopySolutaionConfigurationPlatform(configurationName, platformName, solutionConverter, projectConverter);
+                CopySolutionConfigurationPlatform(configurationName, platformName, solutionConverter, projectConverter, true);
             }
         }
 
-        public void CopySolutaionConfigurationPlatform(
+        public void CopySolutionConfigurationPlatform(
             string srcSolutionConfigurationName
             , string srcSolutionPlatformName
             , AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
+            )
+        {
+            CopySolutionConfigurationPlatform(
+                srcSolutionConfigurationName
+                , srcSolutionPlatformName
+                , solutionConverter
+                , projectConverter
+                , false
+                );
+        }
+
+        private void CopySolutionConfigurationPlatform(
+            string srcSolutionConfigurationName
+            , string srcSolutionPlatformName
+            , AbstractSolutionConfigurationNameConverter solutionConverter
+            , AbstractProjectConfigurationNameConverter projectConverter
+            , bool skipIfConfigurationAlreadyExists
             )
         {
             Trace.Assert(string.IsNullOrEmpty(srcSolutionConfigurationName) == false);
@@ -139,11 +163,13 @@ namespace UnityBuild
 
             string dstConfigurationName = solutionConverter.GetNewName(srcSolutionConfigurationName);
 
-            string srcConfigurationPlatformName = srcSolutionConfigurationName + "|" + srcSolutionPlatformName;
-            string dstConfigurationPlatformName = dstConfigurationName + "|" + srcSolutionPlatformName;
+            string srcConfigurationPlatformName = 
+                AbstractConfigurationNameConverter.GetConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
+            string dstConfigurationPlatformName = 
+                AbstractConfigurationNameConverter.GetConfigurationPlatform(dstConfigurationName, srcSolutionPlatformName);
             string dstConfigurationPlatformValue = dstConfigurationPlatformName;
 
-            if(HasSolutionConfigurationPlatform(srcConfigurationPlatformName) == false)
+            if (HasSolutionConfigurationPlatform(srcConfigurationPlatformName) == false)
                 throw new ArgumentException();
 
             if (HasSolutionConfigurationPlatform(dstConfigurationPlatformName) == true)
@@ -158,7 +184,8 @@ namespace UnityBuild
             // 솔루션 파일 내의 프로젝트 설정 변경
             foreach(var projectSummary in _summary.Projects)
             {
-                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
+                // TODO: 폴더 안에 프로젝트가 있는 경우는 어떻하려고?
+                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder) 
                     continue;
 
                 // 원본 SolutionConfigurationPlatform 에 해당하는 활성화된 ProjectConfigurationPlatform 을 찾는다.
@@ -216,6 +243,9 @@ namespace UnityBuild
 
                 foreach (var projectName in projectNames)
                 {
+                    if (skipIfConfigurationAlreadyExists == true && project.HasConfiguration(projectName) == true)
+                        continue;   
+
                     project.CopyConfigurationPlatform(
                         projectName
                         , AbstractConfigurationNameConverter.GetNewName(projectName, projectConverter)

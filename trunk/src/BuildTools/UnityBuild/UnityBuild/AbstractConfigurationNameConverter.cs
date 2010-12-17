@@ -9,6 +9,7 @@ namespace UnityBuild
     public abstract class AbstractConfigurationNameConverter
     {
         public abstract string GetNewName(string configurationName);
+        public abstract string GetOldName(string configurationName);
 
         internal static string GetConfigurationPlatform(string configuration, string platform)
         {
