@@ -57,6 +57,7 @@ namespace UnityBuild
             // TODO: 하드코딩
             FilterType newFilter = new FilterType();
             newFilter.Name = "UnityBuild";
+            newFilter.NameSpecified = true;
             _filter.Items.Add(newFilter);
 
             FilesMerge filesMerge = new FilesMerge(_project, newFilter, Files.ToList());

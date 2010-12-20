@@ -11,9 +11,10 @@ namespace UnityBuild
         private readonly string _solutionFilePath;
         private readonly VcSolution _vcSolution;
 
-        private readonly AbstractSolutionConfigurationNameConverter _solutionConverter;
-        private readonly AbstractProjectConfigurationNameConverter _projectConverter;
+        private AbstractSolutionConfigurationNameConverter _solutionConverter;
+        private AbstractProjectConfigurationNameConverter _projectConverter;
 
+        private readonly List<string> _projectNamesExcluded;
 
         public Builder(
             string solutionFilePath
@@ -30,6 +31,8 @@ namespace UnityBuild
             _projectConverter = projectConverter;
 
             _vcSolution = new VcSolution(_solutionFilePath);
+
+            _projectNamesExcluded = new List<string>();
         }
 
         public Builder(
@@ -44,11 +47,38 @@ namespace UnityBuild
             get { return _solutionFilePath; }
         }
 
+        public AbstractSolutionConfigurationNameConverter SolutionConverter
+        {
+            get { return _solutionConverter; }
+            set { _solutionConverter = value; }
+        }
+
+        public AbstractProjectConfigurationNameConverter ProjectConverter
+        {
+            get { return _projectConverter; }
+            set { _projectConverter = value; }
+        }
+
+        public void ExcludeProject(string projectName)
+        {
+            _projectNamesExcluded.Add(projectName);
+        }
+
+        public void ExcludeProjects(IEnumerable<string> projectNames)
+        {
+            _projectNamesExcluded.AddRange(projectNames);
+        }
+
         public void Open()
         {
             _vcSolution.Load();
 
             VcSolutionCopy copy = new VcSolutionCopy(_vcSolution, _solutionConverter, _projectConverter);
+            if(_projectNamesExcluded.Count > 0)
+            {
+                
+            }
+
             copy.CopySolutionConfigurationPlatform();
 
             foreach (VcProject project in _vcSolution.VcProjects)

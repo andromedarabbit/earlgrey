@@ -18,8 +18,7 @@ namespace UnityBuild.Tests
 
             FileType throwErrorCpp = GetThrowErrorCpp();
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
-        }
-
+        }       
 
         [Test]
         public void IncludeFromBuild()
@@ -28,8 +27,10 @@ namespace UnityBuild.Tests
 
             FileType throwErrorCpp = GetThrowErrorCpp();
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
+
             throwErrorCpp.IncludeInBuild(configurationPlatform);
             Assert.IsFalse(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
+
             throwErrorCpp.ExcludeFromBuild(configurationPlatform);
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
         }
@@ -39,20 +40,28 @@ namespace UnityBuild.Tests
         {
             FileType throwErrorCpp = GetThrowErrorCpp();
             Assert.IsTrue(throwErrorCpp.IsSrcFile);
+
+            FileType earlgreyH = GetEarlgreyH();
+            Assert.IsFalse(earlgreyH.IsSrcFile);
+        }
+
+        private static FileType GetEarlgreyH()
+        {
+            IEnumerable<FilterType> filters = GetRootFilters();
+
+            var headerFileFilter = filters.Where(filter => filter.Name == "Header Files").First();
+            var result = from fileOrFilter in headerFileFilter.Items
+                         where fileOrFilter is FileType
+                               && ((FileType) fileOrFilter).RelativePath.EndsWith("Earlgrey.h")
+                         select (FileType) fileOrFilter
+                ;
+
+            return result.First();
         }
 
         private static FileType GetThrowErrorCpp()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
-
-            var details = vcProject.Details;
-
-            var filters = from fileOrFilter in details.Files
-                          where fileOrFilter is FilterType
-                          select (FilterType)fileOrFilter;
+            IEnumerable<FilterType> filters = GetRootFilters();
 
             var sourceFileFilter = filters.Where(filter => filter.Name == "Source Files").First();
             var sourceFileSubFilters = from fileOrFilter in sourceFileFilter.Items
@@ -67,6 +76,20 @@ namespace UnityBuild.Tests
                                 ;
 
             return throwErrorCppResult.First();
+        }
+
+        private static IEnumerable<FilterType> GetRootFilters()
+        {
+            Project earlgreyProject = GetEarlgreyProject();
+
+            var vcProject = new VcProject(earlgreyProject);
+            vcProject.Load();
+
+            var details = vcProject.Details;
+
+            return from fileOrFilter in details.Files
+                   where fileOrFilter is FilterType
+                   select (FilterType)fileOrFilter;
         }
     }
 }
