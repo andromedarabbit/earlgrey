@@ -10,6 +10,7 @@ namespace UnityBuild
     {
         public abstract string GetNewName(string configurationName);
         public abstract string GetOldName(string configurationName);
+        public abstract bool IsNewName(string configurationName);
 
         internal static string GetConfigurationPlatform(string configuration, string platform)
         {
@@ -66,6 +67,23 @@ namespace UnityBuild
                 Debug.Assert(string.IsNullOrEmpty(projectPlatformName) == false);
             }
           
+        }
+
+        internal static string GetConfiguration(string configurationPlatform)
+        {
+            string platformName;
+            string configurationName;
+            string property;
+
+            SplitConfigurationPlatform(
+                configurationPlatform, out configurationName, out platformName, out property
+                );
+
+            Debug.Assert(string.IsNullOrEmpty(platformName) == false);
+            Debug.Assert(string.IsNullOrEmpty(configurationName) == false);
+            Debug.Assert(string.IsNullOrEmpty(property));
+
+            return configurationName;
         }
     }
 }

@@ -8,18 +8,6 @@ namespace UnityBuild.Tests
 {
     public class VcSolutionCopyTest : AbstractTest
     {
-        public override void SetUp()
-        {
-            base.SetUp();
-            Revert();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-            Revert();
-        }
-
         [Test]
         public void CopySolutionConfigurationPlatform()
         {

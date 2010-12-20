@@ -66,6 +66,8 @@ namespace UnityBuild.Tests
         [SetUp]
         public virtual void SetUp()
         {
+            Revert();
+
             if(Directory.Exists(_TempDir))
                 Directory.Delete(_TempDir, true);
 
@@ -77,6 +79,8 @@ namespace UnityBuild.Tests
         {
             if (Directory.Exists(_TempDir))
                 Directory.Delete(_TempDir, true);
+
+            Revert();
         }
 
         protected static void Revert()

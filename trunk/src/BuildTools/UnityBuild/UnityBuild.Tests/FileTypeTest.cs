@@ -12,15 +12,30 @@ namespace UnityBuild.Tests
     public class FileTypeTest : AbstractTest
     {
         [Test]
-        public void ExcludedFromBuildTest()
+        public void ExcludedFromBuild()
         {
+            const string configurationPlatform = "Debug|Win32";
+
             FileType throwErrorCpp = GetThrowErrorCpp();
-            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild);
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
         }
 
 
         [Test]
-        public void IsSrcFileTest()
+        public void IncludeFromBuild()
+        {
+            const string configurationPlatform = "Debug|Win32";
+
+            FileType throwErrorCpp = GetThrowErrorCpp();
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
+            throwErrorCpp.IncludeInBuild(configurationPlatform);
+            Assert.IsFalse(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
+            throwErrorCpp.ExcludeFromBuild(configurationPlatform);
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
+        }
+
+        [Test]
+        public void IsSrcFile()
         {
             FileType throwErrorCpp = GetThrowErrorCpp();
             Assert.IsTrue(throwErrorCpp.IsSrcFile);

@@ -4,29 +4,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
-    internal class FilterMerge
+    internal class VcProjectMerge
     {
-        private readonly Project _project;
-        private readonly FilterType _filter;
+        private readonly VcProject _project;
 
-        public FilterMerge(Project project, FilterType filter)
+        public VcProjectMerge(VcProject project)
         {
             Debug.Assert(project != null);
-            Debug.Assert(filter != null);
 
             _project = project;
-            _filter = filter;
         }
 
         private IEnumerable<FilterType> Filters
         {
             get
             {
-                IEnumerable<FilterType> filters = from item in _filter.Items
+                IEnumerable<FilterType> filters = from item in _project.Details.Files
                                                   where item is FilterType
                                                   select (FilterType)item
                                               ;
@@ -38,7 +34,7 @@ namespace UnityBuild
         {
             get
             {
-                IEnumerable<FileType> files = from item in _filter.Items
+                IEnumerable<FileType> files = from item in _project.Details.Files
                                               where item is FileType
                                               select (FileType)item
                                               ;
@@ -50,16 +46,16 @@ namespace UnityBuild
         {
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_project, filter);
+                FilterMerge filterMerge = new FilterMerge(_project.Summary, filter);
                 filterMerge.Merge();
             }
-            
+
             // TODO: 하드코딩
             FilterType newFilter = new FilterType();
             newFilter.Name = "UnityBuild";
-            _filter.Items.Add(newFilter);
+            _project.Details.Files.Add(newFilter);
 
-            FilesMerge filesMerge = new FilesMerge(_project, newFilter, Files.ToList());
+            FilesMerge filesMerge = new FilesMerge(_project.Summary, newFilter, Files.ToList());
             filesMerge.Merge();
         }
     }

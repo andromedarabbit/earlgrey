@@ -61,6 +61,11 @@ namespace UnityBuild
             return result.First();
         }
 
+        internal IEnumerable<VcProject> VcProjects
+        {
+            get { return _vcProjects; }
+        }
+
         public void Save()
         {
             foreach (var project in _vcProjects)

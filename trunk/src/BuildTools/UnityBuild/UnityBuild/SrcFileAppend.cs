@@ -7,7 +7,6 @@ using System.Text;
 
 namespace UnityBuild
 {
-
     internal class SrcFileAppend : IDisposable
     {
         private readonly string _dstFilePath;
@@ -116,21 +115,21 @@ namespace UnityBuild
 
             _dstFileStream.Dispose();
 
+
             if (_deleteZeroSizeFile == false)
                 return;
 
-            if (File.Exists(_dstFilePath) == false)
+            FileInfo fileInfo = new FileInfo(_dstFilePath);
+            if (fileInfo.Exists == false)
+                return;
+
+            if (fileInfo.Length > 0)
                 return;
 
             File.Delete(_dstFilePath);
         }
 
         #endregion
-
-        //public static bool IsSrcFile(FileType file)
-        //{
-        //    return Properties.UnityBuild.Default.IsSourceFile(file.RelativePath);
-        //}
 
         public void MergeSrcFile(FileType file)
         {

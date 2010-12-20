@@ -13,18 +13,6 @@ namespace UnityBuild.Tests
     [TestFixture]
     public class VcSolutionTest : AbstractTest
     {
-        public override void SetUp()
-        {
-            base.SetUp();
-            Revert();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-            Revert();
-        }
-
         [Test]
         public void LoadTest()
         {

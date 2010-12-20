@@ -57,6 +57,7 @@
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="ProjectConfigurationNameConverter.cs" />
+    <Compile Include="VcProjectMerge.cs" />
     <Compile Include="SolutionConfigurationNameConverter.cs" />
     <Compile Include="VcProjectConverter.cs" />
     <Compile Include="SrcFileAppend.cs" />

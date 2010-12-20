@@ -153,10 +153,6 @@ namespace UnityBuild
                 if (item is FileType)
                 {
                     FileType file = (FileType)item;
-                    //if (file.RelativePath.EndsWith("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase))
-                    //{
-
-                    //}
                     CopyConfigurationPlatformoInFileBuildConfiguration(file.Items, srcName, dstName);
                 }
 
@@ -201,6 +197,45 @@ namespace UnityBuild
             return _projectDetails.Configurations.Find(
                 item => item.Name.Equals(srcName, StringComparison.CurrentCultureIgnoreCase)
                 );
+        }
+
+        public void ExcludeFromBuild(string configurationPlatformName, IEnumerable<object> items)
+        {
+            foreach (object item in items)
+            {
+                Debug.Assert((item is FileType) || (item is FilterType));
+                if (item is FileType)
+                {
+                    FileType file = (FileType)item;
+                    if(file.IsSrcFile == false)
+                        continue;
+                    
+                    file.ExcludeFromBuild(configurationPlatformName);
+                }
+
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    ExcludeFromBuild(configurationPlatformName, filter.Items);
+                }
+            }
+        }
+
+        public void ExcludeFromBuild(string configurationPlatformName)
+        {
+            ExcludeFromBuild(configurationPlatformName, _projectDetails.Files);
+        }
+
+        public void ExcludeFromBuild(AbstractProjectConfigurationNameConverter projectConverter)
+        {
+            foreach(ConfigurationType configuration in _projectDetails.Configurations)
+            {
+                string configurationName = AbstractConfigurationNameConverter.GetConfiguration(configuration.Name);
+                if(projectConverter.IsNewName(configurationName) == false)
+                    continue;
+                
+                ExcludeFromBuild(configuration.Name);
+            }
         }
     }
 }
