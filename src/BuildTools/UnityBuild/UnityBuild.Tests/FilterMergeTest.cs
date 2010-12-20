@@ -57,6 +57,8 @@ namespace UnityBuild.Tests
 
             Assert.IsNotNull(MergedSourceFiles);
             Assert.Greater(MergedSourceFiles.Length, 3);
+
+            vcProject.Save();
         }
     }
 }

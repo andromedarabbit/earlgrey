@@ -13,6 +13,8 @@ namespace UnityBuild
         private AbstractSolutionConfigurationNameConverter _solutionConverter;
         private AbstractProjectConfigurationNameConverter _projectConverter;
 
+        private readonly List<string> _projectNamesExcluded;
+
         internal VcSolutionCopy(VcSolution solution)
             : this(solution, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
         {
@@ -32,6 +34,8 @@ namespace UnityBuild
             this._solution = solution;
             this._solutionConverter = solutionConverter;
             this._projectConverter = projectConverter;
+
+            this._projectNamesExcluded = new List<string>();
         }
 
         public AbstractSolutionConfigurationNameConverter SolutionConverter
@@ -44,6 +48,16 @@ namespace UnityBuild
         {
             get { return _projectConverter; }
             set { _projectConverter = value; }
+        }
+
+        public void ExcludeProject(string projectName)
+        {
+            _projectNamesExcluded.Add(projectName);
+        }
+
+        public void ExcludeProjects(IEnumerable<string> projectNames)
+        {
+            _projectNamesExcluded.AddRange(projectNames);
         }
 
         internal IEnumerable<string> ConfigurationPlatformNames
@@ -93,7 +107,20 @@ namespace UnityBuild
                 );
         }
 
-        private void CopySolutionConfigurationPlatform(
+        private bool IsExcluded(Project project)
+        {
+            if (project.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
+                return true;
+
+            // project.ProjectName.Equals()
+            int count = _projectNamesExcluded.Count(
+                name => name.Equals(project.ProjectName, StringComparison.CurrentCultureIgnoreCase)
+                );
+
+            return count > 0;
+        }
+
+        internal void CopySolutionConfigurationPlatform(
             string srcSolutionConfigurationName
             , string srcSolutionPlatformName
             , bool skipIfConfigurationAlreadyExists
@@ -129,7 +156,8 @@ namespace UnityBuild
             foreach (var projectSummary in _solution.Summary.Projects)
             {
                 // TODO: 폴더 안에 프로젝트가 있는 경우는 어떻하려고?
-                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
+                // if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
+                if (IsExcluded(projectSummary))
                     continue;
 
                 // 원본 SolutionConfigurationPlatform 에 해당하는 활성화된 ProjectConfigurationPlatform 을 찾는다.
@@ -143,7 +171,8 @@ namespace UnityBuild
 
                 // 활성화된 VCProject 의 복사본을 만든다.
                 List<PropertyLine> newConfigurations = new List<PropertyLine>(activeConfigurations.Count());
-                if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
+                // if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
+                if (IsExcluded(projectSummary))
                 {
                     foreach (var activeConfiguration in activeConfigurations)
                     {
@@ -172,7 +201,8 @@ namespace UnityBuild
                 projectSummary.ProjectConfigurationPlatformsLines.AddRange(newConfigurations);
 
 
-                if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
+                // if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
+                if (IsExcluded(projectSummary))
                     continue;
 
 

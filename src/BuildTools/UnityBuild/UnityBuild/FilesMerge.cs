@@ -41,7 +41,6 @@ namespace UnityBuild
                 string directory = Path.GetDirectoryName(file.RelativePath);
                 _filesByPath[directory].Add(file);
             }
-            // _filesByPath = _files.ToDictionary(item => Path.GetDirectoryName(item.RelativePath));
         }
 
         private string GetNextFileName()
@@ -70,12 +69,19 @@ namespace UnityBuild
 
         public void Merge()
         {
+            if (_files.Count == 0)
+                return;
+
+            _parentFilter.ItemsSpecified = true;
+
             List<FileType> newFiles = new List<FileType>(_filesByPath.Keys.Count * 2);
 
             foreach(string relativeDir in _filesByPath.Keys)
             {                
                 FileType newFile = new FileType();
                 newFile.RelativePath = GetNextFilePath(relativeDir);
+                newFile.RelativePathSpecified = true;
+
                 _parentFilter.Items.Add(newFile);
                 newFiles.Add(newFile);
 

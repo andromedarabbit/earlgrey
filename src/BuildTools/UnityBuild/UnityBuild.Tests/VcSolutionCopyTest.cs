@@ -42,6 +42,7 @@ namespace UnityBuild.Tests
             copy.CopySolutionConfigurationPlatform(
                 srcSolutionConfigurationName
                 , srcSolutionPlatformName
+                , true
                 );
 
             vcSolution.Save();
