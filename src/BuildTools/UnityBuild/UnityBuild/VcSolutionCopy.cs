@@ -177,18 +177,28 @@ namespace UnityBuild
 
 
                 // VCProject 파일 수정
-                var projectNames = activeConfigurations.Select(configItem => configItem.Value).Distinct();
+                var projectConfigurationPlatforms = projectSummary.ProjectConfigurationPlatformsLines.Select(configItem => configItem.Value).Distinct();
 
                 VcProject project = _solution.FindVcProject(projectSummary);
 
-                foreach (var projectName in projectNames)
+                foreach (var projectConfigurationPlatform in projectConfigurationPlatforms)
                 {
-                    if (skipIfConfigurationAlreadyExists == true && project.HasConfiguration(projectName) == true)
+                    string projectConfiguration =
+                        AbstractConfigurationNameConverter.GetConfiguration(projectConfigurationPlatform);
+                   
+                    if (_projectConverter.IsNewName(projectConfiguration) == true)
                         continue;
 
+                    string newProjectConfigurationPlatform =
+                        AbstractConfigurationNameConverter.GetNewName(projectConfigurationPlatform, _projectConverter);
+
+                    if (skipIfConfigurationAlreadyExists == true && project.HasConfiguration(newProjectConfigurationPlatform) == true)
+                        continue;
+                    
+
                     project.CopyConfigurationPlatform(
-                        projectName
-                        , AbstractConfigurationNameConverter.GetNewName(projectName, _projectConverter)
+                        projectConfigurationPlatform
+                        , newProjectConfigurationPlatform
                         );
                 }
 

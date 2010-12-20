@@ -8,14 +8,23 @@ namespace UnityBuild
 {
     public partial class FileType 
     {
-        public bool ExcludedFromBuild
+        //public bool ExcludedFromBuild
+        //{
+        //    get
+        //    {
+        //        return this.Items.Any(
+        //            configurationType => ((BuildConfigurationType)configurationType).ExcludedFromBuild == true
+        //            );
+        //    }
+        //}
+
+        public bool ExcludedFromBuild(string buildConfigurationName)
         {
-            get
-            {
-                return this.Items.Any(
-                    configurationType => ((BuildConfigurationType)configurationType).ExcludedFromBuild == true
-                    );
-            }
+            BuildConfigurationType buildConfiguration = GetBuildConfiguration(buildConfigurationName);
+            if (buildConfiguration == null)
+                return false;
+
+            return buildConfiguration.ExcludedFromBuild;
         }
 
         public bool IsSrcFile
@@ -28,31 +37,64 @@ namespace UnityBuild
 
         public void ExcludeFromBuild(string buildConfigurationName)
         {
-            var result = from item in this.Items
-                                     where item is BuildConfigurationType 
-                                     && ((BuildConfigurationType)item).Name.Equals(buildConfigurationName, StringComparison.CurrentCultureIgnoreCase) == true
-                                     select (BuildConfigurationType)item;
-
-            if(result.Count() == 0)
-                throw new Exception("Not Found!");
-
-            var buildConfiguration = result.First();
-            buildConfiguration.ExcludedFromBuild = true;
+            ExcludeOrInclude(buildConfigurationName, true);
         }
 
-        public void ExcludeFromBuild()
+        private void ExcludeOrInclude(string buildConfigurationName, bool exclude)
         {
-            foreach (var item in this.Items)
-            {
-                Debug.Assert(item != null);
-                Debug.Assert(item is BuildConfigurationType); // FileType 도 가능한데 그런 경우를 실제로 보지 못 했기에 방어적 차원에서...
+            BuildConfigurationType buildConfiguration = GetBuildConfiguration(buildConfigurationName);
+            if(buildConfiguration == null)
+                buildConfiguration = AddBuildConfiguration(buildConfigurationName);
+            buildConfiguration.ExcludedFromBuild = exclude;
+            buildConfiguration.ExcludedFromBuildSpecified = true;
 
-                var configuration = (BuildConfigurationType)item;
-                //if(configuration.ExcludedFromBuild)
-                //    continue;
+            this.ItemsSpecified = true;
+        }
 
-                configuration.ExcludedFromBuild = true;
-            }
-        } 
+        private BuildConfigurationType GetBuildConfiguration(string buildConfigurationName)
+        {
+            var result = from item in this.Items
+                         where item is BuildConfigurationType
+                         && ((BuildConfigurationType)item).Name.Equals(buildConfigurationName, StringComparison.CurrentCultureIgnoreCase) == true
+                         select (BuildConfigurationType)item;
+
+            if (result.Count() > 0)
+                return result.First();
+
+            return null;
+        }
+
+        private BuildConfigurationType AddBuildConfiguration(string buildConfigurationName)
+        {
+            BuildConfigurationType buildConfiguration = new BuildConfigurationType();
+            buildConfiguration.Name = buildConfigurationName;
+            buildConfiguration.NameSpecified = true;
+            this.Items.Add(buildConfiguration);
+
+            ConfigurationTypeTool tool = new ConfigurationTypeTool();
+            tool.Name = "VCCLCompilerTool";
+            tool.NameSpecified = true;
+            buildConfiguration.Tool.Add(tool);
+            buildConfiguration.ToolSpecified = true;
+
+            return buildConfiguration;
+        }
+
+        //public void ExcludeFromBuild()
+        //{
+        //    foreach (var item in this.Items)
+        //    {
+        //        Debug.Assert(item != null);
+        //        Debug.Assert(item is BuildConfigurationType); // FileType 도 가능한데 그런 경우를 실제로 보지 못 했기에 방어적 차원에서...
+
+        //        var configuration = (BuildConfigurationType)item;
+        //        configuration.ExcludedFromBuild = true;
+        //    }
+        //} 
+
+        public void IncludeInBuild(string buildConfigurationName)
+        {
+            ExcludeOrInclude(buildConfigurationName, false);
+        }
     }
 }

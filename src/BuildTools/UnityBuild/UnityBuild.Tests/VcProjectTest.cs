@@ -12,19 +12,6 @@ namespace UnityBuild.Tests
     [TestFixture]
     public class VcProjectTest : AbstractTest
     {
-        
-        public override void SetUp()
-        {
-            base.SetUp();
-            Revert();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-            Revert();
-        }
-
         [Test]
         public void ReadProjectDetails()
         {

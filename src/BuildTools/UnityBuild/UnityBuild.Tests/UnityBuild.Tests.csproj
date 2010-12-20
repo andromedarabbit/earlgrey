@@ -56,7 +56,10 @@
   <ItemGroup>
     <Compile Include="AbstractConfigurationNameConverterTest.cs" />
     <Compile Include="AbstractTest.cs" />
+    <Compile Include="BuilderTest.cs" />
+    <Compile Include="FilesMergeTest.cs" />
     <Compile Include="FileTypeTest.cs" />
+    <Compile Include="FilterMergeTest.cs" />
     <Compile Include="NumberProviderTest.cs" />
     <Compile Include="SolutionReaderTest.cs" />
     <Compile Include="SrcFileAppendTest.cs" />
@@ -68,6 +71,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="TextFileAppendTest.cs" />
+    <Compile Include="VcProjectMergeTest.cs" />
     <Compile Include="VcProjectTest.cs" />
     <Compile Include="VcSolutionCopyTest.cs" />
     <Compile Include="VcSolutionTest.cs" />

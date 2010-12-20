@@ -9,6 +9,11 @@ namespace UnityBuild
     {
         private const string Suffix = "-UnityBuild";
 
+        public override bool IsNewName(string configurationName)
+        {
+            return configurationName.EndsWith(Suffix, StringComparison.CurrentCultureIgnoreCase);
+        }
+
         public override string GetNewName(string name)
         {
             if (name == null)
