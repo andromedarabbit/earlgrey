@@ -343,10 +343,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\inc\xlist.h"
-				>
-			</File>
 			<Filter
 				Name="ExternalLib"
 				>
@@ -703,6 +699,10 @@
 			</File>
 			<File
 				RelativePath=".\inc\Uncopyable.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\xlist.h"
 				>
 			</File>
 			<Filter
