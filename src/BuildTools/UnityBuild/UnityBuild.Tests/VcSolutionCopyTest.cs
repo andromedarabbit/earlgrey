@@ -61,6 +61,20 @@ namespace UnityBuild.Tests
             vcSolution.Save();
         }
 
-     
+        [Test]
+        public void CopySolutionConfigurationPlatformsWithExceptions()
+        {
+            var vcSolution = new VcSolution(SolutionFilePath);
+            vcSolution.Load();
+
+            VcSolutionCopy copy = new VcSolutionCopy(vcSolution);
+            copy.ExcludeProject("gtest");
+            copy.ExcludeProject("StackWalker_VC9");
+
+            copy.CopySolutionConfigurationPlatform();
+
+            vcSolution.Save();
+        }
+
     }
 }
