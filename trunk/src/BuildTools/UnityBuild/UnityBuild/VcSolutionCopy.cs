@@ -112,7 +112,6 @@ namespace UnityBuild
             if (project.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
                 return true;
 
-            // project.ProjectName.Equals()
             int count = _projectNamesExcluded.Count(
                 name => name.Equals(project.ProjectName, StringComparison.CurrentCultureIgnoreCase)
                 );
@@ -156,8 +155,7 @@ namespace UnityBuild
             foreach (var projectSummary in _solution.Summary.Projects)
             {
                 // TODO: 폴더 안에 프로젝트가 있는 경우는 어떻하려고?
-                // if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
-                if (IsExcluded(projectSummary))
+                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)                
                     continue;
 
                 // 원본 SolutionConfigurationPlatform 에 해당하는 활성화된 ProjectConfigurationPlatform 을 찾는다.
