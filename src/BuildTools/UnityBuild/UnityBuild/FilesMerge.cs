@@ -11,22 +11,28 @@ namespace UnityBuild
     internal class FilesMerge
     {
         private readonly Project _project;
-        private readonly FilterType _parentFilter;
+        // private readonly FilterType _parentFilter;
         private readonly ICollection<FileType> _files;
         private readonly Dictionary<string, List<FileType>> _filesByPath;
 
-        public FilesMerge(Project project, FilterType parentFilter, ICollection<FileType> files)
+        private readonly List<string> _buildConfigurationExcluded;
+
+        // public FilesMerge(Project project, FilterType parentFilter, ICollection<FileType> files)
+        public FilesMerge(Project project, ICollection<FileType> files)
         {
             Debug.Assert(project != null);
-            Debug.Assert(parentFilter != null);
+            // Debug.Assert(parentFilter != null);
             Debug.Assert(files != null);
             
             _project = project;
-            _parentFilter = parentFilter;
+            // _parentFilter = parentFilter;
             _files = files;
 
             _filesByPath = new Dictionary<string, List<FileType>>();
 
+            _buildConfigurationExcluded = new List<string>();
+            
+            // FilesByPath
             var result = from file in _files
                                select Path.GetDirectoryName(file.RelativePath)
                 ;
@@ -41,6 +47,16 @@ namespace UnityBuild
                 string directory = Path.GetDirectoryName(file.RelativePath);
                 _filesByPath[directory].Add(file);
             }
+        }
+
+        public void ExcludeBuildConfiguration(string buildConfiguration)
+        {
+            _buildConfigurationExcluded.Add(buildConfiguration);
+        }
+
+        public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
+        {
+            _buildConfigurationExcluded.AddRange(buildConfigurations);
         }
 
         private string GetNextFileName()
@@ -67,26 +83,18 @@ namespace UnityBuild
             return Path.GetFullPath(Path.Combine(ProjectDir, relativePath));
         }
 
-        public void Merge()
+        public List<FileType> Merge()
         {
             if (_files.Count == 0)
-                return;
-
-            _parentFilter.ItemsSpecified = true;
+                return new List<FileType>();
 
             List<FileType> newFiles = new List<FileType>(_filesByPath.Keys.Count * 2);
 
             foreach(string relativeDir in _filesByPath.Keys)
             {                
-                FileType newFile = new FileType();
-                newFile.RelativePath = GetNextFilePath(relativeDir);
-                newFile.RelativePathSpecified = true;
-
-                _parentFilter.Items.Add(newFile);
-                newFiles.Add(newFile);
-
+                FileType newFile = GetNewFile(relativeDir);                
+                
                 string absolutePath = GetAbsolutePath(newFile.RelativePath);
-
                 using (SrcFileAppend merger = new SrcFileAppend(absolutePath, ProjectDir, true))
                 {
                     merger.Open();
@@ -96,9 +104,21 @@ namespace UnityBuild
                         if (file.IsSrcFile == false)
                             continue;
 
-                        merger.MergeSrcFile(file);
+                        //IEnumerable<string> buildConfigurations = file.BuildConfigurationsWhenExcludedFromBuild;
+                        //if (buildConfigurations.Count() > 0)
+                        //{
+
+                        //    continue;
+                        //}
+
+                        merger.AddSrcFile(file);
                     }
-                }                
+
+                    if(merger.Merge() == false)
+                        continue;
+                }
+
+                newFiles.Add(newFile);
             }
 
             foreach (var file in newFiles)
@@ -107,6 +127,21 @@ namespace UnityBuild
                 _filesByPath[key].Add(file);
                 _files.Add(file);
             }
+
+            return newFiles;
+        }
+
+        private FileType GetNewFile(string relativeDir)
+        {
+            FileType newFile = new FileType();
+            newFile.RelativePath = GetNextFilePath(relativeDir);
+            newFile.RelativePathSpecified = true;
+
+            foreach (string buildConfigurationExcluded in _buildConfigurationExcluded)
+            {
+                newFile.ExcludeFromBuild(buildConfigurationExcluded);
+            }
+            return newFile;
         }
     }
 }

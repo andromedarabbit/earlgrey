@@ -29,13 +29,11 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            var details = vcProject.Details;
-
             string projectDir = Path.GetDirectoryName(vcProject.Summary.FullPath);
             Assert.IsNotNull(projectDir);
             Assert.IsTrue(Directory.Exists(projectDir));
 
-            IEnumerable<object> filesAndFilters = details.Files;
+            IEnumerable<object> filesAndFilters = vcProject.Details.Files;
             MergeRootSrcFiles(projectDir, filesAndFilters);
         }
 
@@ -76,7 +74,7 @@ namespace UnityBuild.Tests
                         if (file.IsSrcFile == false)
                             continue;
 
-                        merger.MergeSrcFile(file);
+                        merger.AddSrcFile(file);
                     }
 
                     if (fileOrFilter is FilterType)

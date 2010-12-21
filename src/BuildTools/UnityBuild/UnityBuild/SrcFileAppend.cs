@@ -11,8 +11,12 @@ namespace UnityBuild
     {
         private readonly string _dstFilePath;
         private readonly string _projectDir;
-        private FileStream _dstFileStream;
-        private readonly bool _deleteZeroSizeFile;
+        // private FileStream _dstFileStream;
+        // private readonly bool _deleteZeroSizeFile;
+
+        private TextFile _dstTextFile;
+
+        private readonly List<FileType> _srcFiles;
 
         public SrcFileAppend(string dstFilePath, string projectDir)
             : this(dstFilePath, projectDir, true)
@@ -27,8 +31,10 @@ namespace UnityBuild
 
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
-            _dstFileStream = null;
-            _deleteZeroSizeFile = deleteZeroSizeFile;
+            // _dstFileStream = null;
+            // _deleteZeroSizeFile = deleteZeroSizeFile;
+            // _dstTextFile = new TextFile(_dstFilePath);
+            _srcFiles = new List<FileType>();
         }
 
         public string DstFilePath
@@ -36,7 +42,7 @@ namespace UnityBuild
             get { return _dstFilePath; }
         }
 
-        public string ProjectDir                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        public string ProjectDir
         {
             get { return _projectDir; }
         }
@@ -45,18 +51,18 @@ namespace UnityBuild
         {
             Debug.Assert(Directory.Exists(_projectDir));
 
-            _dstFileStream = File.Open(_dstFilePath, FileMode.Create);
+            // _dstFileStream = File.Open(_dstFilePath, FileMode.Create);
         }
 
-        public bool IsOpen
-        {
-            get { return _dstFileStream != null; }
-        }
+        //public bool IsOpen
+        //{
+        //    get { return _dstFileStream != null; }
+        //}
 
-        public bool DeleteZeroSizeFile
-        {
-            get { return _deleteZeroSizeFile; }
-        }
+        //public bool DeleteZeroSizeFile
+        //{
+        //    get { return _deleteZeroSizeFile; }
+        //}
 
         #region IDisposable
 
@@ -94,7 +100,7 @@ namespace UnityBuild
                 if (disposing)
                 {
                     // Dispose managed resources.
-                    DisposeDstFileStream();
+                    // DisposeDstFileStream();
                 }
 
                 // Call the appropriate methods to clean up
@@ -108,42 +114,59 @@ namespace UnityBuild
             }
         }
 
-        private void DisposeDstFileStream()
-        {
-            if (_dstFileStream == null)
-                return;
+        //private void DisposeDstFileStream()
+        //{
+        //    //if (_dstFileStream == null)
+        //    //    return;
 
-            _dstFileStream.Dispose();
+        //    //_dstFileStream.Dispose();
 
 
-            if (_deleteZeroSizeFile == false)
-                return;
+        //    if (_deleteZeroSizeFile == false)
+        //        return;
 
-            FileInfo fileInfo = new FileInfo(_dstFilePath);
-            if (fileInfo.Exists == false)
-                return;
+        //    FileInfo fileInfo = new FileInfo(_dstFilePath);
+        //    if (fileInfo.Exists == false)
+        //        return;
 
-            if (fileInfo.Length > 0)
-                return;
+        //    // if (fileInfo.Length > 0)
+        //        // return;
 
-            File.Delete(_dstFilePath);
-        }
+            
+
+        //    File.Delete(_dstFilePath);
+        //}
 
         #endregion
 
-        public void MergeSrcFile(FileType file)
+        public void AddSrcFile(FileType file)
         {
             Debug.Assert(file != null);
             Debug.Assert(file.IsSrcFile);
 
-            string filePath = Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath));
-            Debug.Assert(File.Exists(filePath));
+            _srcFiles.Add(file);
+        }
 
-            using (FileStream src = File.Open(filePath, FileMode.Open))
-            {
-                StreamAppend append = new StreamAppend(src, _dstFileStream);
-                append.Merge();
-            }
+        public bool Merge()
+        {
+            if (_srcFiles.Count == 0)
+                return false;
+
+            IEnumerable<TextFile> srcTextFiles
+                = _srcFiles.Select(file
+                    => new TextFile(Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath)), Encoding.Default)
+                    );
+
+            if(File.Exists(_dstFilePath))
+                File.Delete(_dstFilePath);
+
+            _dstTextFile = new TextFile(_dstFilePath, Encoding.Default);
+            TextFileAppend append = new TextFileAppend(_dstTextFile, srcTextFiles.ToArray());
+
+            append.Delimiter = Environment.NewLine + Environment.NewLine;
+            append.Merge();
+
+            return true;
         }
     }
 

@@ -14,7 +14,14 @@ namespace UnityBuild.Tests
             const string srcSolutionConfigurationName = "Debug";
             const string srcSolutionPlatformName = "Win32";
 
+            const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
+
             CopySolutionConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
+
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
         }
 
         [Test]

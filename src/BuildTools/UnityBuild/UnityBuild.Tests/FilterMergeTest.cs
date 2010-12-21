@@ -35,21 +35,50 @@ namespace UnityBuild.Tests
         public void MergeFilterSourceFiles()
         {
             VcProject vcProject = GetEarlgreyVcProject();
-
-            var details = vcProject.Details;
-
-            string projectDir = Path.GetDirectoryName(vcProject.Summary.FullPath);
-            Assert.IsNotNull(projectDir);
-            Assert.IsTrue(Directory.Exists(projectDir));
-
-            IEnumerable<object> filesAndFilters = details.Files;
             var sourceFilesFilter = FindFilter(vcProject, "Source Files");
 
             FilterMerge instance = new FilterMerge(vcProject.Summary, sourceFilesFilter);
-            instance.Merge();
+            List<IFilterOrFile> filterOrFiles = instance.Merge();
 
-            Assert.IsNotNull(MergedSourceFiles);
-            Assert.Greater(MergedSourceFiles.Length, 3);
+
+            string dir = Path.GetDirectoryName(vcProject.Summary.FullPath);
+            string[] filesFound = Directory.GetFiles(dir, "UnityBuild-*cpp", SearchOption.AllDirectories);
+
+            Assert.IsNotNull(filesFound);
+            Assert.Greater(filesFound.Length, 3);
+        }
+
+        [Test]
+        public void CheckAddedItems()
+        {
+            VcProject vcProject = GetEarlgreyVcProject();
+            var sourceFilesFilter = FindFilter(vcProject, "Source Files");
+
+            FilterMerge instance = new FilterMerge(vcProject.Summary, sourceFilesFilter);
+            List<IFilterOrFile> filterOrFiles = instance.Merge();
+
+            Assert.Greater(filterOrFiles.Count, 3);
+
+
+            IEnumerable<FilterType> filtersAdded 
+                = filterOrFiles.Where(item => item is FilterType).Select(item => (FilterType)item);
+
+            IEnumerable<FileType> filesAdded
+                = filterOrFiles.Where(item => item is FileType).Select(item => (FileType)item);
+
+
+            Assert.IsTrue(
+                filtersAdded.All(item => item.Name == "UnityBuild")
+                );
+
+            CollectionAssert.AllItemsAreUnique(filesAdded);
+
+            Assert.IsTrue(
+               filesAdded.All(file => Path.GetFileName(file.RelativePath).StartsWith("UnityBuild-"))
+               );
+            Assert.IsTrue(
+                filesAdded.All(file => file.IsSrcFile == true)
+                );
         }
     }
 }

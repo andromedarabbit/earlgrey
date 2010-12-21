@@ -58,5 +58,21 @@ namespace UnityBuild.Tests
         {
             return FindFile(vcProject, "ThrowError.cpp");
         }    
+
+        [Test]
+        public void CreatePrecompiledHeader()
+        {
+            const string configurationPlatform = "Debug|Win32";
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            FileType stdafxCpp = FindFile(vcProject, "stdafx.cpp");
+            Assert.IsTrue(stdafxCpp.CreatePrecompiledHeader(configurationPlatform));
+
+            FileType throwErrorCpp = GetThrowErrorCpp(vcProject);
+            Assert.IsFalse(throwErrorCpp.CreatePrecompiledHeader(configurationPlatform));
+
+            FileType earlgreyH = GetEarlgreyH(vcProject);
+            Assert.IsFalse(earlgreyH.CreatePrecompiledHeader(configurationPlatform));
+        }
     }
 }

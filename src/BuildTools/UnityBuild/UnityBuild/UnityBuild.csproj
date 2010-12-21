@@ -54,9 +54,13 @@
     <Compile Include="AbstractProjectConfigurationNameConverter.cs" />
     <Compile Include="AbstractSolutionConfigurationNameConverter.cs" />
     <Compile Include="FilterMerge.cs" />
+    <Compile Include="FilterType.cs" />
+    <Compile Include="IFilterOrFile.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="ProjectConfigurationNameConverter.cs" />
+    <Compile Include="TextReaderCollection.cs" />
+    <Compile Include="TextReaders.cs" />
     <Compile Include="VcProjectMerge.cs" />
     <Compile Include="SolutionConfigurationNameConverter.cs" />
     <Compile Include="VcProjectConverter.cs" />
