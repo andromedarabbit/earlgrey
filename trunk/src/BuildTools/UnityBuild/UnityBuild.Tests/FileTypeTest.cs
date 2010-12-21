@@ -15,8 +15,9 @@ namespace UnityBuild.Tests
         public void ExcludedFromBuild()
         {
             const string configurationPlatform = "Debug|Win32";
+            VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType throwErrorCpp = GetThrowErrorCpp();
+            FileType throwErrorCpp = GetThrowErrorCpp(vcProject);
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
         }       
 
@@ -24,8 +25,9 @@ namespace UnityBuild.Tests
         public void IncludeFromBuild()
         {
             const string configurationPlatform = "Debug|Win32";
+            VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType throwErrorCpp = GetThrowErrorCpp();
+            FileType throwErrorCpp = GetThrowErrorCpp(vcProject);
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(configurationPlatform));
 
             throwErrorCpp.IncludeInBuild(configurationPlatform);
@@ -38,58 +40,23 @@ namespace UnityBuild.Tests
         [Test]
         public void IsSrcFile()
         {
-            FileType throwErrorCpp = GetThrowErrorCpp();
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            FileType throwErrorCpp = GetThrowErrorCpp(vcProject);
             Assert.IsTrue(throwErrorCpp.IsSrcFile);
 
-            FileType earlgreyH = GetEarlgreyH();
+            FileType earlgreyH = GetEarlgreyH(vcProject);
             Assert.IsFalse(earlgreyH.IsSrcFile);
         }
 
-        private static FileType GetEarlgreyH()
+        private static FileType GetEarlgreyH(VcProject vcProject)
         {
-            IEnumerable<FilterType> filters = GetRootFilters();
-
-            var headerFileFilter = filters.Where(filter => filter.Name == "Header Files").First();
-            var result = from fileOrFilter in headerFileFilter.Items
-                         where fileOrFilter is FileType
-                               && ((FileType) fileOrFilter).RelativePath.EndsWith("Earlgrey.h")
-                         select (FileType) fileOrFilter
-                ;
-
-            return result.First();
+            return FindFile(vcProject, "Earlgrey.h");
         }
 
-        private static FileType GetThrowErrorCpp()
+        private static FileType GetThrowErrorCpp(VcProject vcProject)
         {
-            IEnumerable<FilterType> filters = GetRootFilters();
-
-            var sourceFileFilter = filters.Where(filter => filter.Name == "Source Files").First();
-            var sourceFileSubFilters = from fileOrFilter in sourceFileFilter.Items
-                                       where fileOrFilter is FilterType
-                                       select (FilterType)fileOrFilter;
-
-            var excludedFilter = sourceFileSubFilters.Where(filter => filter.Name == "UnityBuildTest-Excluded").First();
-
-            var throwErrorCppResult = from file in excludedFilter.Items
-                                      where file is FileType
-                                      select (FileType)file
-                                ;
-
-            return throwErrorCppResult.First();
-        }
-
-        private static IEnumerable<FilterType> GetRootFilters()
-        {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
-
-            var details = vcProject.Details;
-
-            return from fileOrFilter in details.Files
-                   where fileOrFilter is FilterType
-                   select (FilterType)fileOrFilter;
-        }
+            return FindFile(vcProject, "ThrowError.cpp");
+        }    
     }
 }

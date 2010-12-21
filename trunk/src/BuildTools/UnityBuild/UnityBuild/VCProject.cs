@@ -8,7 +8,7 @@ using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
-    internal class VcProject
+    public class VcProject
     {
         private readonly Project _projectSummary;
         private VisualStudioProjectType _projectDetails;

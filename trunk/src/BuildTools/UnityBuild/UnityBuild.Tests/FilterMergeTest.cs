@@ -34,31 +34,22 @@ namespace UnityBuild.Tests
         [Test]
         public void MergeFilterSourceFiles()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             var details = vcProject.Details;
 
-            string projectDir = Path.GetDirectoryName(earlgreyProject.FullPath);
+            string projectDir = Path.GetDirectoryName(vcProject.Summary.FullPath);
             Assert.IsNotNull(projectDir);
             Assert.IsTrue(Directory.Exists(projectDir));
 
             IEnumerable<object> filesAndFilters = details.Files;
-            var sourceFilesFilter = from item in filesAndFilters
-                                    where item is FilterType
-                                          && ((FilterType)item).Name == "Source Files"
-                                    select (FilterType)item
-                ;
+            var sourceFilesFilter = FindFilter(vcProject, "Source Files");
 
-            FilterMerge instance = new FilterMerge(earlgreyProject, sourceFilesFilter.First());
+            FilterMerge instance = new FilterMerge(vcProject.Summary, sourceFilesFilter);
             instance.Merge();
 
             Assert.IsNotNull(MergedSourceFiles);
             Assert.Greater(MergedSourceFiles.Length, 3);
-
-            vcProject.Save();
         }
     }
 }
