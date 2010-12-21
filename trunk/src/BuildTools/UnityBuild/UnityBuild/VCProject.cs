@@ -199,7 +199,7 @@ namespace UnityBuild
                 );
         }
 
-        public void ExcludeFromBuild(string configurationPlatformName, IEnumerable<object> items)
+        private void ExcludeFromBuild(string configurationPlatformName, IEnumerable<object> items)
         {
             foreach (object item in items)
             {
@@ -207,7 +207,7 @@ namespace UnityBuild
                 if (item is FileType)
                 {
                     FileType file = (FileType)item;
-                    if(file.IsSrcFile == false)
+                    if(file.IsSrcFile == false || file.CreatePrecompiledHeader(configurationPlatformName) == true)
                         continue;
                     
                     file.ExcludeFromBuild(configurationPlatformName);
@@ -221,11 +221,12 @@ namespace UnityBuild
             }
         }
 
-        public void ExcludeFromBuild(string configurationPlatformName)
+        private void ExcludeFromBuild(string configurationPlatformName)
         {
             ExcludeFromBuild(configurationPlatformName, _projectDetails.Files);
         }
 
+        // TODO: projectConverter 대신 깔끔하게 delegate 를 매개변수로 받는 게 낫지 않을까?
         public void ExcludeFromBuild(AbstractProjectConfigurationNameConverter projectConverter)
         {
             foreach(ConfigurationType configuration in _projectDetails.Configurations)

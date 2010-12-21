@@ -14,9 +14,29 @@ namespace UnityBuild.Tests
         {
             using(Builder builder = new Builder(SolutionFilePath))
             {
+                builder.ExcludeProject("gtest");
+                builder.ExcludeProject("StackWalker_VC9");
+
                 builder.Open();
                 builder.Dispose();
             }
+
+            string[] dstConfigurationPlatformNames
+                = new string[]
+                      {
+                          "Debug-UnityBuild|Win32", "Release-UnityBuild|Win32", "Debug-UnityBuild|x64",
+                          "Release-UnityBuild|x64"
+                      }
+                ;                
+
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
+            foreach (var dstConfigurationPlatformName in dstConfigurationPlatformNames)
+            {
+                Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));    
+            }
+            
             
         }
     }

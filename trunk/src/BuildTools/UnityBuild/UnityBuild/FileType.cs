@@ -6,9 +6,9 @@ using System.Text;
 
 namespace UnityBuild
 {
-    public partial class FileType 
+    public partial class FileType : IFilterOrFile
     {
-        //public bool ExcludedFromBuild
+        //public bool ExcludedFromBuildInSomeCase
         //{
         //    get
         //    {
@@ -17,6 +17,20 @@ namespace UnityBuild
         //            );
         //    }
         //}
+
+        public IEnumerable<string> BuildConfigurationsWhenExcludedFromBuild
+        {
+            get
+            {
+                var result = from configuration in this.Items
+                             where ((BuildConfigurationType) configuration).ExcludedFromBuild == true
+                             select ((BuildConfigurationType) configuration).Name
+                    ;
+
+                return result;
+            }
+        }
+
 
         public bool ExcludedFromBuild(string buildConfigurationName)
         {
@@ -33,6 +47,42 @@ namespace UnityBuild
             {
                 return Properties.UnityBuild.Default.IsSourceFile(this.RelativePath);
             }
+        }
+
+        public bool CreatePrecompiledHeader(string configurationBuild)
+        {
+            IEnumerable<BuildConfigurationType> buildConfigurations = from item in this.Items
+                         where item is BuildConfigurationType
+                         && ((BuildConfigurationType) item).Name.Equals(configurationBuild, StringComparison.CurrentCultureIgnoreCase) == true
+                         select (BuildConfigurationType) item
+                ;
+
+            if(buildConfigurations.Count() == 0)
+                return false;
+
+            
+            foreach(BuildConfigurationType buildConfiguration in buildConfigurations)
+            {
+                if(buildConfiguration.Tool == null || buildConfiguration.Tool.Count == 0)
+                    continue;
+                
+                foreach(ConfigurationTypeTool tool in buildConfiguration.Tool)
+                {
+                    if(tool.AnyAttr == null || tool.AnyAttr.Count == 0)
+                        continue;
+
+                    int indexFound = tool.AnyAttr.FindIndex(
+                        xmlAttribute => xmlAttribute.Name == "UsePrecompiledHeader"
+                        );
+
+                    if(indexFound < 0)
+                        continue;
+
+                    return tool.AnyAttr[indexFound].Value == "1";
+                }
+            }
+
+            return false;
         }
 
         public void ExcludeFromBuild(string buildConfigurationName)

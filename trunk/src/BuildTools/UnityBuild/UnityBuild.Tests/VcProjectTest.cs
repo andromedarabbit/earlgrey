@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using CWDev.SLNTools.Core;
 using NUnit.Framework;
 
 namespace UnityBuild.Tests
@@ -42,6 +39,10 @@ namespace UnityBuild.Tests
             vcProject.Save();
 
             Assert.GreaterOrEqual(EarlgreyProjectFileText.IndexOf(dstConfigurationPlatformName, StringComparison.CurrentCultureIgnoreCase), 0);
+            
+            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(srcConfigurationPlatformName));
+            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
         }
         
         [Test]

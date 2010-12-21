@@ -23,15 +23,19 @@ namespace UnityBuild.Tests
                               where item is FileType
                               select (FileType) item
                               ;
-
-            FilterType newFilter = new FilterType();
-            newFilter.Name = "UnityBuild";
-            newFilter.NameSpecified = true;
             
-            FilesMerge instance = new FilesMerge(vcProject.Summary, newFilter, sourceFiles.ToList());
-            instance.Merge();
+            // FilesMerge instance = new FilesMerge(vcProject.Summary, newFilter, sourceFiles.ToList());
+            FilesMerge instance = new FilesMerge(vcProject.Summary, sourceFiles.ToList());
+            List<FileType> filesAdded = instance.Merge();
 
-            Assert.Greater(newFilter.Items.Count, 1);
+            Assert.GreaterOrEqual(filesAdded.Count, 1);
+            CollectionAssert.AllItemsAreUnique(filesAdded);
+            Assert.IsTrue(
+                filesAdded.All(file => Path.GetFileName(file.RelativePath).StartsWith("UnityBuild-"))
+                );
+            Assert.IsTrue(
+                filesAdded.All(file => file.IsSrcFile == true)
+                );
         }
     }
 }

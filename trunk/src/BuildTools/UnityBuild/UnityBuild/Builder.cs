@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
@@ -15,6 +16,8 @@ namespace UnityBuild
         private AbstractProjectConfigurationNameConverter _projectConverter;
 
         private readonly List<string> _projectNamesExcluded;
+
+        // private bool _preservePrecompiledHeaders;
 
         public Builder(
             string solutionFilePath
@@ -33,6 +36,8 @@ namespace UnityBuild
             _vcSolution = new VcSolution(_solutionFilePath);
 
             _projectNamesExcluded = new List<string>();
+
+        //    _preservePrecompiledHeaders = true;
         }
 
         public Builder(
@@ -41,6 +46,12 @@ namespace UnityBuild
             : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
         {
         }
+
+        //public bool PreservePrecompiledHeaders
+        //{
+        //    get { return _preservePrecompiledHeaders; }
+        //    set { _preservePrecompiledHeaders = value; }
+        //}
 
         public string SolutionFilePath
         {
@@ -69,6 +80,17 @@ namespace UnityBuild
             _projectNamesExcluded.AddRange(projectNames);
         }
 
+        private bool IsExcluded(VcProject project)
+        {
+            string projectName = project.Summary.ProjectName;
+
+            int count = _projectNamesExcluded.Count(
+                name => name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) == true
+                );
+
+            return count > 0;
+        }
+
         public void Open()
         {
             _vcSolution.Load();
@@ -76,17 +98,24 @@ namespace UnityBuild
             VcSolutionCopy copy = new VcSolutionCopy(_vcSolution, _solutionConverter, _projectConverter);
             if(_projectNamesExcluded.Count > 0)
             {
-                
+                copy.ExcludeProjects(_projectNamesExcluded);
             }
-
             copy.CopySolutionConfigurationPlatform();
 
             foreach (VcProject project in _vcSolution.VcProjects)
             {
-                project.ExcludeFromBuild(_projectConverter);
+                if (IsExcluded(project) == true)
+                    continue;
 
-                // VcProjectMerge projectMerge = new VcProjectMerge(project);
-                // projectMerge.Merge();
+               
+
+                // UnityBuild 용 소스 코드는 기존 빌드의 빌드 대상에서 제외함
+                VcProjectMerge projectMerge = new VcProjectMerge(project);
+                projectMerge.ExcludeFromBuild(_projectConverter);
+                List<IFilterOrFile> itemsAdded = projectMerge.Merge();
+
+                // UnityBuild 시 기존 소스 코드를 빌드 대상에서 제외함
+                project.ExcludeFromBuild(_projectConverter);
             }
             
         }

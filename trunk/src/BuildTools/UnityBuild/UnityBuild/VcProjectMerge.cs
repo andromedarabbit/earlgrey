@@ -10,12 +10,36 @@ namespace UnityBuild
     internal class VcProjectMerge
     {
         private readonly VcProject _project;
+        private readonly List<string> _buildConfigurationExcluded;
 
         public VcProjectMerge(VcProject project)
         {
             Debug.Assert(project != null);
 
             _project = project;
+            _buildConfigurationExcluded = new List<string>();
+        }
+
+        //public void ExcludeBuildConfiguration(string buildConfiguration)
+        //{
+        //    _buildConfigurationExcluded.Add(buildConfiguration);
+        //}
+
+        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
+        //{
+        //    _buildConfigurationExcluded.AddRange(buildConfigurations);
+        //}
+
+        public void ExcludeFromBuild(AbstractProjectConfigurationNameConverter projectConverter)
+        {
+            foreach (ConfigurationType configuration in _project.Details.Configurations)
+            {
+                string configurationName = AbstractConfigurationNameConverter.GetConfiguration(configuration.Name);
+                if (projectConverter.IsNewName(configurationName) == true)
+                    continue;
+
+                _buildConfigurationExcluded.Add(configuration.Name);
+            }
         }
 
         private IEnumerable<FilterType> Filters
@@ -42,21 +66,36 @@ namespace UnityBuild
             }
         }
 
-        public void Merge()
+        public List<IFilterOrFile> Merge()
         {
+            List<IFilterOrFile> itemsAdded = new List<IFilterOrFile>();
+
             foreach (var filter in Filters)
             {
                 FilterMerge filterMerge = new FilterMerge(_project.Summary, filter);
-                filterMerge.Merge();
+                filterMerge.ExcludeBuildConfigurations(_buildConfigurationExcluded);
+                itemsAdded.AddRange(filterMerge.Merge());
             }
 
-            // TODO: 하드코딩
-            FilterType newFilter = new FilterType();
-            newFilter.Name = "UnityBuild";
-            _project.Details.Files.Add(newFilter);
+            // TODO: 하드코딩  
 
-            FilesMerge filesMerge = new FilesMerge(_project.Summary, newFilter, Files.ToList());
-            filesMerge.Merge();
+            // FilesMerge filesMerge = new FilesMerge(_project.Summary, newFilter, Files.ToList());
+            FilesMerge filesMerge = new FilesMerge(_project.Summary, Files.ToList());
+            filesMerge.ExcludeBuildConfigurations(_buildConfigurationExcluded);
+
+            List<FileType> filesAdded = filesMerge.Merge();
+            if (filesAdded.Count > 0)
+            {
+                FilterType newFilter = new FilterType();
+                newFilter.Name = "UnityBuild";
+                newFilter.NameSpecified = true;
+                newFilter.ItemsSpecified = true;
+
+                _project.Details.Files.Add(newFilter);
+                itemsAdded.AddRange(filesAdded.ToArray());
+            }
+
+            return itemsAdded;
         }
     }
 }

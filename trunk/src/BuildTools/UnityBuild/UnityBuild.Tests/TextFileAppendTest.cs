@@ -74,6 +74,22 @@ namespace UnityBuild.Tests
         }
 
         [Test]
+        public void AppendAnsiEncodedFile()
+        {
+            Encoding dstEncoding = Encoding.UTF7;
+
+            TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
+
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1);
+            append.Merge();
+
+            string mergedText = File.ReadAllText(_dstFilePath, dstEncoding);
+            Assert.IsFalse(string.IsNullOrEmpty(mergedText));
+            Assert.AreEqual("베이시스트", mergedText);
+        }
+
+
+        [Test]
         public void AppendAnsiEncodedFileAndUtf8EncodedFile()
         {
             Encoding dstEncoding = Encoding.UTF7;
@@ -88,6 +104,40 @@ namespace UnityBuild.Tests
             Assert.IsFalse(string.IsNullOrEmpty(mergedText));
             Assert.AreEqual("베이시스트빅터 우튼", mergedText);
         }
+
+        [Test]
+        public void AppendAnsiEncodedFileWithDelimiter()
+        {
+            Encoding dstEncoding = Encoding.UTF7;
+
+            TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
+
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1);
+            append.Delimiter = "-";
+            append.Merge();
+
+            string mergedText = File.ReadAllText(_dstFilePath, dstEncoding);
+            Assert.IsFalse(string.IsNullOrEmpty(mergedText));
+            Assert.AreEqual("베이시스트", mergedText);
+        }
+
+        [Test]
+        public void Delimiter()
+        {
+            Encoding dstEncoding = Encoding.UTF7;
+
+            TextFile dstFile = new TextFile(_dstFilePath, dstEncoding);
+
+            TextFileAppend append = new TextFileAppend(dstFile, _textFileAnsiEncoded1, _textFileAnsiEncoded2);
+            append.Delimiter = "-";
+            append.Merge();
+
+
+            string mergedText = File.ReadAllText(_dstFilePath, dstEncoding);
+            Assert.IsFalse(string.IsNullOrEmpty(mergedText));
+            Assert.AreEqual("베이시스트-빅터 우튼", mergedText);
+        }
+
 
 
         [Test]
