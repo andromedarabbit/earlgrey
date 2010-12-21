@@ -15,13 +15,9 @@ namespace UnityBuild.Tests
         [Test]
         public void ReadProjectDetails()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             Assert.IsNotNull(vcProject.Summary);
-            Assert.AreEqual(vcProject.Summary, earlgreyProject);
 
             Assert.IsNotNull(vcProject.Details);
             Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
@@ -31,10 +27,7 @@ namespace UnityBuild.Tests
         [Test]
         public void CopyPlatformConfiguration()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             const string srcConfigurationPlatformName = "Debug|WIn32";
             const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
@@ -54,10 +47,7 @@ namespace UnityBuild.Tests
         [Test]
         public void DeleteConfigurationPlatform()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             const string configurationPlatformName = "Debug|WIn32";
 

@@ -112,18 +112,88 @@ namespace UnityBuild.Tests
         }
 
 
-        protected static Project GetEarlgreyProject()
+        protected static Project GetProject(string projectName)
         {
             SolutionFile slnFile = SolutionFile.FromFile(SolutionFilePath);
 
             var result = from project in slnFile.Projects
-                         where project.ProjectName == "Earlgrey"
+                         where project.ProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase)
                          select project
                 ;
 
             var earlgreyProject = result.First();
             Assert.IsNotNull(earlgreyProject);
             return earlgreyProject;
+        }
+
+        protected static VcProject GetVcProject(string projectName)
+        {
+            VcProject vcProject = new VcProject(GetProject(projectName));
+            vcProject.Load();
+            return vcProject;
+        }
+
+        protected static Project GetEarlgreyProject()
+        {
+            return GetProject("Earlgrey");
+        }
+
+        protected static VcProject GetEarlgreyVcProject()
+        {
+            return GetVcProject("Earlgrey");
+        }
+
+
+        protected static FileType FindFile(VcProject vcProject, string fileName)
+        {
+            return FindFile(vcProject.Details.Files, fileName);
+        }
+
+        private static FileType FindFile(IEnumerable<object> items, string fileName)
+        {
+            foreach(object item in items)
+            {
+                if(item is FileType)
+                {
+                    FileType file = (FileType) item;
+                    if(file.RelativePath.EndsWith(fileName) == true)
+                        return file;
+                }
+
+                if(item is FilterType)
+                {
+                    FilterType filter = (FilterType) item;
+                    FileType fileFound = FindFile(filter.Items, fileName);
+                    if (fileFound != null)
+                        return fileFound;
+                }
+            }
+
+            return null;
+        }
+
+        protected static FilterType FindFilter(VcProject vcProject, string fileName)
+        {
+            return FindFilter(vcProject.Details.Files, fileName);
+        }
+
+        private static FilterType FindFilter(IEnumerable<object> items, string filterName)
+        {
+            foreach (object item in items)
+            {            
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    if(filter.Name.Equals(filterName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        return filter;
+
+                    FilterType filterFound = FindFilter(filter.Items, filterName);
+                    if (filterFound != null)
+                        return filterFound;
+                }
+            }
+
+            return null;
         }
 
         public static string TempDir

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using CWDev.SLNTools.Core;
 using NUnit.Framework;
 
 namespace UnityBuild.Tests
@@ -15,13 +14,9 @@ namespace UnityBuild.Tests
         [Test]
         public void ReadProjectDetails()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             Assert.IsNotNull(vcProject.Summary);
-            Assert.AreEqual(vcProject.Summary, earlgreyProject);
 
             Assert.IsNotNull(vcProject.Details);
             Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
@@ -32,14 +27,11 @@ namespace UnityBuild.Tests
         [Test]
         public void MergeRootFiles()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             var details = vcProject.Details;
 
-            string projectDir = Path.GetDirectoryName(earlgreyProject.FullPath);
+            string projectDir = Path.GetDirectoryName(vcProject.Summary.FullPath);
             Assert.IsNotNull(projectDir);
             Assert.IsTrue(Directory.Exists(projectDir));
 

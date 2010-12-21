@@ -34,10 +34,7 @@ namespace UnityBuild.Tests
         [Test]
         public void MergeFilterSourceFiles()
         {
-            Project earlgreyProject = GetEarlgreyProject();
-
-            var vcProject = new VcProject(earlgreyProject);
-            vcProject.Load();
+            VcProject vcProject = GetEarlgreyVcProject();
 
             VcProjectMerge instance = new VcProjectMerge(vcProject);
             instance.Merge();
