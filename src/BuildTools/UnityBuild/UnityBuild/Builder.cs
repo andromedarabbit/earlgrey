@@ -107,15 +107,13 @@ namespace UnityBuild
                 if (IsExcluded(project) == true)
                     continue;
 
-               
+                // UnityBuild 시 기존 소스 코드를 빌드 대상에서 제외함
+                project.ExcludeFromBuild(_projectConverter);
 
                 // UnityBuild 용 소스 코드는 기존 빌드의 빌드 대상에서 제외함
                 VcProjectMerge projectMerge = new VcProjectMerge(project);
                 projectMerge.ExcludeFromBuild(_projectConverter);
                 List<IFilterOrFile> itemsAdded = projectMerge.Merge();
-
-                // UnityBuild 시 기존 소스 코드를 빌드 대상에서 제외함
-                project.ExcludeFromBuild(_projectConverter);
             }
             
         }
