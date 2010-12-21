@@ -26,7 +26,7 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            const string srcConfigurationPlatformName = "Debug|WIn32";
+            const string srcConfigurationPlatformName = "Debug|Win32";
             const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
 
             Assert.IsTrue(
@@ -50,7 +50,7 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            const string configurationPlatformName = "Debug|WIn32";
+            const string configurationPlatformName = "Debug|Win32";
 
             Assert.IsTrue(
                 vcProject.HasConfigurationPlatform(configurationPlatformName)
@@ -66,6 +66,28 @@ namespace UnityBuild.Tests
                  );
 
             Assert.AreEqual(-1, EarlgreyProjectFileText.IndexOf(configurationPlatformName, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        [Test]
+        public void GetPrecompiledHeaderOptionOfProjectEarlgrey()
+        {
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            const string configurationPlatformName = "Release|x64";
+
+            PrecompiledHeaderOptions option = vcProject.GetPrecompiledHeaderOption(configurationPlatformName);
+            Assert.AreEqual(PrecompiledHeaderOptions.Use, option);
+        }
+
+        [Test]
+        public void GetPrecompiledHeaderOption()
+        {
+            VcProject vcProject = GetVcProject("gtest");
+
+            const string configurationPlatformName = "Debug|Win32";
+
+            PrecompiledHeaderOptions option = vcProject.GetPrecompiledHeaderOption(configurationPlatformName);
+            Assert.AreEqual(PrecompiledHeaderOptions.None, option);
         }
     }
 }

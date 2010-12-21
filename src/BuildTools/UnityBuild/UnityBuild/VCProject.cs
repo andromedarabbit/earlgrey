@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using CWDev.SLNTools.Core;
 
 namespace UnityBuild
@@ -69,6 +70,32 @@ namespace UnityBuild
                 _projectDetails.Configurations.Count(
                     item => item.Name.Equals(configurationPlatformName, StringComparison.CurrentCultureIgnoreCase)
                     ) > 0;
+        }
+
+        public PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatformName)
+        {
+            ConfigurationType configuration = GetConfiguration(configurationPlatformName);
+            if (configuration == null)
+                return PrecompiledHeaderOptions.None;
+
+            IEnumerable<ConfigurationTypeTool> tools = from item in configuration.Tool
+                                                       where item.Name == "VCCLCompilerTool"
+                                                       select item;
+
+            if(tools.Count() == 0)
+                return PrecompiledHeaderOptions.None;
+
+            Debug.Assert(tools.Count() == 1);
+
+            ConfigurationTypeTool tool = tools.First();
+            IEnumerable<XmlAttribute> usePrecompiledHeaderAttributes = tool.AnyAttr.Where(attr => attr.Name == "UsePrecompiledHeader");
+            if (usePrecompiledHeaderAttributes.Count() == 0)
+                return PrecompiledHeaderOptions.None;
+
+            Debug.Assert(usePrecompiledHeaderAttributes.Count() == 1);
+
+            XmlAttribute usePrecompiledHeaderAttribute = usePrecompiledHeaderAttributes.First();
+            return (PrecompiledHeaderOptions)int.Parse(usePrecompiledHeaderAttribute.Value);
         }
 
         public void DeleteConfigurationPlatform(string name)
@@ -199,7 +226,7 @@ namespace UnityBuild
                 );
         }
 
-        private void ExcludeFromBuild(string configurationPlatformName, IEnumerable<object> items)
+        private static void ExcludeFromBuild(string configurationPlatformName, IEnumerable<object> items)
         {
             foreach (object item in items)
             {

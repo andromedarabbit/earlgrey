@@ -14,8 +14,9 @@ namespace UnityBuild.Tests
         {
             using(Builder builder = new Builder(SolutionFilePath))
             {
-                builder.ExcludeProject("gtest");
-                builder.ExcludeProject("StackWalker_VC9");
+                // TODO: 임시 주석
+                //builder.ExcludeProject("gtest");
+                //builder.ExcludeProject("StackWalker_VC9");
 
                 builder.Open();
                 builder.Dispose();
@@ -24,8 +25,7 @@ namespace UnityBuild.Tests
             string[] dstConfigurationPlatformNames
                 = new string[]
                       {
-                          "Debug-UnityBuild|Win32", "Release-UnityBuild|Win32", "Debug-UnityBuild|x64",
-                          "Release-UnityBuild|x64"
+                          "Debug-UnityBuild|Win32", "Release-UnityBuild|Win32", "Debug-UnityBuild|x64", "Release-UnityBuild|x64"
                       }
                 ;                
 

@@ -58,6 +58,7 @@
     <Compile Include="IFilterOrFile.cs" />
     <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
+    <Compile Include="PrecompiledHeaderOptions.cs" />
     <Compile Include="ProjectConfigurationNameConverter.cs" />
     <Compile Include="TextReaderCollection.cs" />
     <Compile Include="TextReaders.cs" />
