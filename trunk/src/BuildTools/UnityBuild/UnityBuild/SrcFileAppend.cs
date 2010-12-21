@@ -14,17 +14,17 @@ namespace UnityBuild
         // private FileStream _dstFileStream;
         // private readonly bool _deleteZeroSizeFile;
 
-        private TextFile _dstTextFile;
+        // private TextFile _dstTextFile;
 
         private readonly List<FileType> _srcFiles;
 
-        public SrcFileAppend(string dstFilePath, string projectDir)
-            : this(dstFilePath, projectDir, true)
-        {
+        //public SrcFileAppend(string dstFilePath, string projectDir)
+        //    : this(dstFilePath, projectDir, true)
+        //{
 
-        }
+        //}
 
-        public SrcFileAppend(string dstFilePath, string projectDir, bool deleteZeroSizeFile)
+        public SrcFileAppend(string dstFilePath, string projectDir) //, bool deleteZeroSizeFile)
         {
             Debug.Assert(string.IsNullOrEmpty(dstFilePath) == false);
             Debug.Assert(Directory.Exists(projectDir));
@@ -152,19 +152,33 @@ namespace UnityBuild
             if (_srcFiles.Count == 0)
                 return false;
 
-            IEnumerable<TextFile> srcTextFiles
-                = _srcFiles.Select(file
-                    => new TextFile(Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath)), Encoding.Default)
+            //IEnumerable<TextFile> srcTextFiles
+            //    = _srcFiles.Select(file
+            //        => new TextFile(Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath)), Encoding.Default)
+            //        );
+
+            IEnumerable<string> srcFileNames = _srcFiles.Select(
+                    file => Path.GetFileName(file.RelativePath)
                     );
 
             if(File.Exists(_dstFilePath))
                 File.Delete(_dstFilePath);
 
-            _dstTextFile = new TextFile(_dstFilePath, Encoding.Default);
-            TextFileAppend append = new TextFileAppend(_dstTextFile, srcTextFiles.ToArray());
+            // _dstTextFile = new TextFile(_dstFilePath, Encoding.Default);
+            //TextFileAppend append = new TextFileAppend(_dstTextFile, srcTextFiles.ToArray());
 
-            append.Delimiter = Environment.NewLine + Environment.NewLine;
-            append.Merge();
+            //append.Delimiter = Environment.NewLine + Environment.NewLine;
+            //append.Merge();
+            using (StreamWriter sw = new StreamWriter(_dstFilePath, true, Encoding.Default))
+            {
+                // TODO: 하드코딩
+                // sw.WriteLine("#include \"stdafx.h\"");
+
+                foreach (string srcFileName in srcFileNames)
+                {
+                    sw.WriteLine("#include \"" + srcFileName + "\"");
+                }
+            }
 
             return true;
         }

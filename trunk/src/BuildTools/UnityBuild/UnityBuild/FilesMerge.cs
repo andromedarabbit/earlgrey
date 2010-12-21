@@ -95,7 +95,7 @@ namespace UnityBuild
                 FileType newFile = GetNewFile(relativeDir);                
                 
                 string absolutePath = GetAbsolutePath(newFile.RelativePath);
-                using (SrcFileAppend merger = new SrcFileAppend(absolutePath, ProjectDir, true))
+                using (SrcFileAppend merger = new SrcFileAppend(absolutePath, ProjectDir)) // , true))
                 {
                     merger.Open();
 

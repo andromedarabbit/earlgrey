@@ -56,7 +56,7 @@ namespace UnityBuild.Tests
             if (File.Exists(dstFilePath))
                 File.Delete(dstFilePath);
 
-            using (SrcFileAppend merger = new SrcFileAppend(dstFilePath, projectDir, true))
+            using (SrcFileAppend merger = new SrcFileAppend(dstFilePath, projectDir)) // , true))
             {
                 merger.Open();
 
