@@ -11,18 +11,9 @@ namespace UnityBuild
     {
         private readonly string _dstFilePath;
         private readonly string _projectDir;
-        // private FileStream _dstFileStream;
-        // private readonly bool _deleteZeroSizeFile;
-
-        // private TextFile _dstTextFile;
 
         private readonly List<FileType> _srcFiles;
 
-        //public SrcFileAppend(string dstFilePath, string projectDir)
-        //    : this(dstFilePath, projectDir, true)
-        //{
-
-        //}
 
         public SrcFileAppend(string dstFilePath, string projectDir) //, bool deleteZeroSizeFile)
         {
@@ -31,9 +22,6 @@ namespace UnityBuild
 
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
-            // _dstFileStream = null;
-            // _deleteZeroSizeFile = deleteZeroSizeFile;
-            // _dstTextFile = new TextFile(_dstFilePath);
             _srcFiles = new List<FileType>();
         }
 
@@ -50,19 +38,7 @@ namespace UnityBuild
         public void Open()
         {
             Debug.Assert(Directory.Exists(_projectDir));
-
-            // _dstFileStream = File.Open(_dstFilePath, FileMode.Create);
         }
-
-        //public bool IsOpen
-        //{
-        //    get { return _dstFileStream != null; }
-        //}
-
-        //public bool DeleteZeroSizeFile
-        //{
-        //    get { return _deleteZeroSizeFile; }
-        //}
 
         #region IDisposable
 
@@ -100,7 +76,6 @@ namespace UnityBuild
                 if (disposing)
                 {
                     // Dispose managed resources.
-                    // DisposeDstFileStream();
                 }
 
                 // Call the appropriate methods to clean up
@@ -113,29 +88,6 @@ namespace UnityBuild
                 _disposed = true;
             }
         }
-
-        //private void DisposeDstFileStream()
-        //{
-        //    //if (_dstFileStream == null)
-        //    //    return;
-
-        //    //_dstFileStream.Dispose();
-
-
-        //    if (_deleteZeroSizeFile == false)
-        //        return;
-
-        //    FileInfo fileInfo = new FileInfo(_dstFilePath);
-        //    if (fileInfo.Exists == false)
-        //        return;
-
-        //    // if (fileInfo.Length > 0)
-        //        // return;
-
-            
-
-        //    File.Delete(_dstFilePath);
-        //}
 
         #endregion
 
@@ -152,23 +104,13 @@ namespace UnityBuild
             if (_srcFiles.Count == 0)
                 return false;
 
-            //IEnumerable<TextFile> srcTextFiles
-            //    = _srcFiles.Select(file
-            //        => new TextFile(Path.GetFullPath(Path.Combine(_projectDir, file.RelativePath)), Encoding.Default)
-            //        );
-
             IEnumerable<string> srcFileNames = _srcFiles.Select(
-                    file => Path.GetFileName(file.RelativePath)
+                    file => file.FileName
                     );
 
             if(File.Exists(_dstFilePath))
                 File.Delete(_dstFilePath);
 
-            // _dstTextFile = new TextFile(_dstFilePath, Encoding.Default);
-            //TextFileAppend append = new TextFileAppend(_dstTextFile, srcTextFiles.ToArray());
-
-            //append.Delimiter = Environment.NewLine + Environment.NewLine;
-            //append.Merge();
             using (StreamWriter sw = new StreamWriter(_dstFilePath, true, Encoding.Default))
             {
                 // TODO: 하드코딩

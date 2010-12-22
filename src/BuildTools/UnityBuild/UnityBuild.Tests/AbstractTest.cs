@@ -156,7 +156,7 @@ namespace UnityBuild.Tests
                 if(item is FileType)
                 {
                     FileType file = (FileType) item;
-                    if(file.RelativePath.EndsWith(fileName) == true)
+                    if(file.RelativePath.EndsWith(fileName,StringComparison.CurrentCultureIgnoreCase) == true)
                         return file;
                 }
 

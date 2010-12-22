@@ -72,30 +72,98 @@ namespace UnityBuild
                     ) > 0;
         }
 
-        public PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatformName)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatformName)
         {
             ConfigurationType configuration = GetConfiguration(configurationPlatformName);
             if (configuration == null)
-                return PrecompiledHeaderOptions.None;
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
             IEnumerable<ConfigurationTypeTool> tools = from item in configuration.Tool
                                                        where item.Name == "VCCLCompilerTool"
                                                        select item;
 
             if(tools.Count() == 0)
-                return PrecompiledHeaderOptions.None;
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
             Debug.Assert(tools.Count() == 1);
 
             ConfigurationTypeTool tool = tools.First();
-            IEnumerable<XmlAttribute> usePrecompiledHeaderAttributes = tool.AnyAttr.Where(attr => attr.Name == "UsePrecompiledHeader");
-            if (usePrecompiledHeaderAttributes.Count() == 0)
-                return PrecompiledHeaderOptions.None;
 
-            Debug.Assert(usePrecompiledHeaderAttributes.Count() == 1);
+            PrecompiledHeaderOptions options = PrecompiledHeaderOptions.CreateInstance(tool);
+            if (options.UsePrecompiledHeader != UsePrecompiledHeaderOptions.InheritFromProject)
+            {
+                if(string.IsNullOrEmpty(options.PrecompiledHeaderFile))
+                    options.PrecompiledHeaderFile = @"$(IntDir)\$(TargetName).pch";
+                
+                if(string.IsNullOrEmpty(options.PrecompiledHeaderThrough))
+                    options.PrecompiledHeaderThrough = "StdAfx.h";
 
-            XmlAttribute usePrecompiledHeaderAttribute = usePrecompiledHeaderAttributes.First();
-            return (PrecompiledHeaderOptions)int.Parse(usePrecompiledHeaderAttribute.Value);
+                return options;
+            }
+
+            return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
+        }
+
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationBuild, FileType file)
+        {
+            if (file.IsSrcFile == false)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
+
+            PrecompiledHeaderOptions fileOption = file.GetPrecompiledHeaderOption(configurationBuild);
+            if (fileOption.UsePrecompiledHeader == UsePrecompiledHeaderOptions.None)
+            {
+                return fileOption;
+            }
+
+            PrecompiledHeaderOptions projectOptions = GetPrecompiledHeaderOption(configurationBuild);
+
+            if (fileOption.UsePrecompiledHeader == UsePrecompiledHeaderOptions.InheritFromProject)
+                fileOption.UsePrecompiledHeader = projectOptions.UsePrecompiledHeader;
+
+            if (string.IsNullOrEmpty(fileOption.PrecompiledHeaderFile))
+                fileOption.PrecompiledHeaderFile = projectOptions.PrecompiledHeaderFile;
+            if (string.IsNullOrEmpty(fileOption.PrecompiledHeaderThrough))
+                fileOption.PrecompiledHeaderThrough = projectOptions.PrecompiledHeaderThrough;
+
+            return fileOption;            
+        }
+
+        // 이름은 Headers 인데 실제론 /Yc 옵션이 적용된 .cpp 파일을 반환한다.
+        public IEnumerable<FileType> GetPrecompiledHeaders(string configurationPlatform)
+        {
+            Debug.Assert(string.IsNullOrEmpty(configurationPlatform) == false);
+
+            List<FileType> filesFound = new List<FileType>();
+            GetPrecompiledHeaders(configurationPlatform, _projectDetails.Files, filesFound);
+            return filesFound;
+        }
+
+        private void GetPrecompiledHeaders(string configurationPlatform, IEnumerable<object> items, List<FileType> filesFound)
+        {
+            Debug.Assert(filesFound != null);
+
+            if(items.Count() == 0)
+                return;
+
+            foreach (object item in items)
+            {
+                Debug.Assert((item is FileType) || (item is FilterType));
+                if (item is FileType)
+                {
+                    FileType file = (FileType)item;
+                    PrecompiledHeaderOptions options = GetPrecompiledHeaderOption(configurationPlatform, file);
+                    if(options.UsePrecompiledHeader != UsePrecompiledHeaderOptions.Create)
+                        continue;
+                    
+                    filesFound.Add(file);
+                }
+
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    GetPrecompiledHeaders(configurationPlatform, filter.Items, filesFound);
+                }
+            }
         }
 
         public void DeleteConfigurationPlatform(string name)
@@ -234,9 +302,13 @@ namespace UnityBuild
                 if (item is FileType)
                 {
                     FileType file = (FileType)item;
-                    if(file.IsSrcFile == false || file.CreatePrecompiledHeader(configurationPlatformName) == true)
+                    if (file.IsSrcFile == false)
                         continue;
-                    
+
+                    PrecompiledHeaderOptions options = file.GetPrecompiledHeaderOption(configurationPlatformName);
+                    if(options.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                        continue;
+
                     file.ExcludeFromBuild(configurationPlatformName);
                 }
 
