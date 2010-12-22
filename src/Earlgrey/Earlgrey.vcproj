@@ -344,6 +344,50 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\src\stdafx2.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\inc\xlist.h"
 				>
 			</File>
@@ -713,6 +757,42 @@
 				<File
 					RelativePath=".\src\UnityBuildTest-SubDir1\Dummy.cpp"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
@@ -743,6 +823,10 @@
 			</File>
 			<File
 				RelativePath=".\inc\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\stdafx2.h"
 				>
 			</File>
 			<File
