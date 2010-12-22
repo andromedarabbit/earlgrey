@@ -81,6 +81,11 @@ namespace UnityBuild.Tests
             FileType earlgreyH = GetEarlgreyH(vcProject);
             PrecompiledHeaderOptions earlgreyHOptions = earlgreyH.GetPrecompiledHeaderOption(configurationPlatform);
             Assert.AreEqual(UsePrecompiledHeaderOptions.None, earlgreyHOptions.UsePrecompiledHeader);
+
+            FileType noPrecompiledHeaderCpp = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+            PrecompiledHeaderOptions noPrecompiledHeaderCppOptions = noPrecompiledHeaderCpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.None, noPrecompiledHeaderCppOptions.UsePrecompiledHeader);
+            
         }
     }
 }

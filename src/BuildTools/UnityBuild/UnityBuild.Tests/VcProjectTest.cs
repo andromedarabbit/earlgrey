@@ -125,6 +125,13 @@ namespace UnityBuild.Tests
                 UsePrecompiledHeaderOptions.None, earlgreyHOptions.UsePrecompiledHeader
                 );
             Assert.IsTrue(string.IsNullOrEmpty(earlgreyHOptions.PrecompiledHeaderThrough));
+
+            FileType noPrecompiledHeaderCpp = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+            PrecompiledHeaderOptions noPrecompiledHeaderCppOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, noPrecompiledHeaderCpp);
+            Assert.AreEqual(
+               UsePrecompiledHeaderOptions.None, noPrecompiledHeaderCppOptions.UsePrecompiledHeader
+               );
+            Assert.IsTrue(string.IsNullOrEmpty(noPrecompiledHeaderCppOptions.PrecompiledHeaderThrough));
         }
 
         [Test]
