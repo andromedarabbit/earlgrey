@@ -44,24 +44,51 @@ namespace UnityBuild
             set { _precompiledHeaderFile = value; }
         }
 
-        // public static PrecompiledHeaderOptions CreateInstance(List<ConfigurationTypeTool> tools)
+        
+        public void FillConfigurationTypeTool(ConfigurationTypeTool tool)
+        {
+            Debug.Assert(tool.Name == "VCCLCompilerTool");
+            Debug.Assert(tool.NameSpecified == true);
+            Debug.Assert(tool.AnyAttr != null);
+
+            // tool.AnyAttrSpecified = true;
+            
+            if( _usePrecompiledHeader == UsePrecompiledHeaderOptions.InheritFromProject )
+            {
+                tool.AnyAttr.Clear();
+                tool.AnyAttrSpecified = false;
+                return;
+            }
+
+            tool.AnyAttrSpecified = true;
+
+            //if( GetUsePrecompiledHeader(tool.AnyAttr) == UsePrecompiledHeaderOptions.InheritFromProject )
+            //{
+                
+                
+            //}
+
+            throw new NotImplementedException();
+        }
+        
         public static PrecompiledHeaderOptions CreateInstance(ConfigurationTypeTool tool)
         {
-            // if(tools.Count == 0)
-                // return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
             Debug.Assert(tool.Name == "VCCLCompilerTool");
+            Debug.Assert(tool.NameSpecified == true);
+            Debug.Assert(tool.AnyAttr != null);
 
-            if (tool.AnyAttr == null || tool.AnyAttr.Count == 0)
+            //if (tool.AnyAttr.Count == 0)
+            if(tool.UsePrecompiledHeaderSpecified == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
             PrecompiledHeaderOptions options = new PrecompiledHeaderOptions();
-            options.UsePrecompiledHeader = GetUsePrecompiledHeader(tool.AnyAttr);
-            options.PrecompiledHeaderThrough = GetPrecompiledHeaderThrough(tool.AnyAttr);
-            options.PrecompiledHeaderFile = GetPrecompiledHeaderFile(tool.AnyAttr);
+            options.UsePrecompiledHeader = (UsePrecompiledHeaderOptions)Enum.Parse(typeof(UsePrecompiledHeaderOptions), tool.UsePrecompiledHeader);// GetUsePrecompiledHeader(tool.AnyAttr);
+            options.PrecompiledHeaderThrough = tool.PrecompiledHeaderThrough; // GetPrecompiledHeaderThrough(tool.AnyAttr);
+            options.PrecompiledHeaderFile = tool.PrecompiledHeaderFile; // GetPrecompiledHeaderFile(tool.AnyAttr);
 
             return options;
         }
-
+        /*
         private static UsePrecompiledHeaderOptions GetUsePrecompiledHeader(List<XmlAttribute> attributes)
         {
             int indexFound = attributes.FindIndex(
@@ -97,6 +124,6 @@ namespace UnityBuild
 
             return attributes[indexFound].Value;
         }
-
+        */
     }
 }

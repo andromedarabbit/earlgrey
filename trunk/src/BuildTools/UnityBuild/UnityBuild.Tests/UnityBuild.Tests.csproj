@@ -70,6 +70,7 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="TestSetUp.cs" />
     <Compile Include="TextFileAppendTest.cs" />
     <Compile Include="VcProjectMergeTest.cs" />
     <Compile Include="VcProjectTest.cs" />

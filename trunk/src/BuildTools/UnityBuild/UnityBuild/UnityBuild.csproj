@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder.cs" />
+    <Compile Include="ConfigurationTypeTool.cs" />
     <Compile Include="FilesMerge.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="AbstractConfigurationNameConverter.cs" />
