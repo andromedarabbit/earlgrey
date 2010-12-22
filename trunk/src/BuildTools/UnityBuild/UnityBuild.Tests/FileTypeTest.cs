@@ -60,19 +60,27 @@ namespace UnityBuild.Tests
         }    
 
         [Test]
-        public void CreatePrecompiledHeader()
+        public void GetPrecompiledHeaderOption()
         {
             const string configurationPlatform = "Debug|Win32";
             VcProject vcProject = GetEarlgreyVcProject();
 
             FileType stdafxCpp = FindFile(vcProject, "stdafx.cpp");
-            Assert.IsTrue(stdafxCpp.CreatePrecompiledHeader(configurationPlatform));
+            PrecompiledHeaderOptions stdafxCppOptions = stdafxCpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.Create, stdafxCppOptions.UsePrecompiledHeader);
 
+            FileType stdafx2Cpp = FindFile(vcProject, "stdafx2.cpp");
+            PrecompiledHeaderOptions stdafx2CppOptions = stdafx2Cpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.Create, stdafx2CppOptions.UsePrecompiledHeader);
+
+            // 미리 컴파일된 헤더의 적용 여부는 VcProject 가 반환하는 기본 값과 파일의 값을 대조해야만 정확히 판단 가능하다.
             FileType throwErrorCpp = GetThrowErrorCpp(vcProject);
-            Assert.IsFalse(throwErrorCpp.CreatePrecompiledHeader(configurationPlatform));
+            PrecompiledHeaderOptions throwErrorCppOptions = throwErrorCpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.InheritFromProject, throwErrorCppOptions.UsePrecompiledHeader);
 
             FileType earlgreyH = GetEarlgreyH(vcProject);
-            Assert.IsFalse(earlgreyH.CreatePrecompiledHeader(configurationPlatform));
+            PrecompiledHeaderOptions earlgreyHOptions = earlgreyH.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.None, earlgreyHOptions.UsePrecompiledHeader);
         }
     }
 }

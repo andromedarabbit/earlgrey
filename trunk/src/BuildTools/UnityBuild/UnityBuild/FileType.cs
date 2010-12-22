@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -8,16 +9,6 @@ namespace UnityBuild
 {
     public partial class FileType : IFilterOrFile
     {
-        //public bool ExcludedFromBuildInSomeCase
-        //{
-        //    get
-        //    {
-        //        return this.Items.Any(
-        //            configurationType => ((BuildConfigurationType)configurationType).ExcludedFromBuild == true
-        //            );
-        //    }
-        //}
-
         public IEnumerable<string> BuildConfigurationsWhenExcludedFromBuild
         {
             get
@@ -49,40 +40,36 @@ namespace UnityBuild
             }
         }
 
-        public bool CreatePrecompiledHeader(string configurationBuild)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationBuild)
         {
+            if(IsSrcFile == false)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
+
             IEnumerable<BuildConfigurationType> buildConfigurations = from item in this.Items
-                         where item is BuildConfigurationType
-                         && ((BuildConfigurationType) item).Name.Equals(configurationBuild, StringComparison.CurrentCultureIgnoreCase) == true
-                         select (BuildConfigurationType) item
+                                                                      where item is BuildConfigurationType
+                                                                      && ((BuildConfigurationType)item).Name.Equals(configurationBuild, StringComparison.CurrentCultureIgnoreCase) == true
+                                                                      select (BuildConfigurationType)item
                 ;
 
-            if(buildConfigurations.Count() == 0)
-                return false;
+            if (buildConfigurations.Count() == 0)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
+            Debug.Assert(buildConfigurations.Count() == 1);
             
-            foreach(BuildConfigurationType buildConfiguration in buildConfigurations)
-            {
-                if(buildConfiguration.Tool == null || buildConfiguration.Tool.Count == 0)
-                    continue;
-                
-                foreach(ConfigurationTypeTool tool in buildConfiguration.Tool)
-                {
-                    if(tool.AnyAttr == null || tool.AnyAttr.Count == 0)
-                        continue;
+            BuildConfigurationType buildConfiguration = buildConfigurations.First();
+            
+            //if (buildConfiguration.Tool == null || buildConfiguration.Tool.Count == 0)
+            //    return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
-                    int indexFound = tool.AnyAttr.FindIndex(
-                        xmlAttribute => xmlAttribute.Name == "UsePrecompiledHeader"
-                        );
+            IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
+            if(tools.Count() == 0)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
-                    if(indexFound < 0)
-                        continue;
+            Debug.Assert(tools.Count() == 1);
 
-                    return tool.AnyAttr[indexFound].Value == "1";
-                }
-            }
+            ConfigurationTypeTool tool = tools.First();
 
-            return false;
+            return PrecompiledHeaderOptions.CreateInstance(tool);            
         }
 
         public void ExcludeFromBuild(string buildConfigurationName)
@@ -130,21 +117,15 @@ namespace UnityBuild
             return buildConfiguration;
         }
 
-        //public void ExcludeFromBuild()
-        //{
-        //    foreach (var item in this.Items)
-        //    {
-        //        Debug.Assert(item != null);
-        //        Debug.Assert(item is BuildConfigurationType); // FileType 도 가능한데 그런 경우를 실제로 보지 못 했기에 방어적 차원에서...
-
-        //        var configuration = (BuildConfigurationType)item;
-        //        configuration.ExcludedFromBuild = true;
-        //    }
-        //} 
-
         public void IncludeInBuild(string buildConfigurationName)
         {
             ExcludeOrInclude(buildConfigurationName, false);
         }
+
+        public string FileName
+        {
+            get { return Path.GetFileName(this.RelativePath); }
+        }
+
     }
 }

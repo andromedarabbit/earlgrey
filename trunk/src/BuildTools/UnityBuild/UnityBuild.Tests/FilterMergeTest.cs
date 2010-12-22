@@ -74,7 +74,7 @@ namespace UnityBuild.Tests
             CollectionAssert.AllItemsAreUnique(filesAdded);
 
             Assert.IsTrue(
-               filesAdded.All(file => Path.GetFileName(file.RelativePath).StartsWith("UnityBuild-"))
+               filesAdded.All(file => file.FileName.StartsWith("UnityBuild-"))
                );
             Assert.IsTrue(
                 filesAdded.All(file => file.IsSrcFile == true)
