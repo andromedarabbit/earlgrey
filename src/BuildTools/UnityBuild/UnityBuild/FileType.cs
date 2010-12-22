@@ -40,26 +40,14 @@ namespace UnityBuild
             }
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationBuild)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
         {
             if(IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
-            IEnumerable<BuildConfigurationType> buildConfigurations = from item in this.Items
-                                                                      where item is BuildConfigurationType
-                                                                      && ((BuildConfigurationType)item).Name.Equals(configurationBuild, StringComparison.CurrentCultureIgnoreCase) == true
-                                                                      select (BuildConfigurationType)item
-                ;
-
-            if (buildConfigurations.Count() == 0)
+            BuildConfigurationType buildConfiguration = GetBuildConfiguration(configurationPlatform);
+            if (buildConfiguration == null)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
-
-            Debug.Assert(buildConfigurations.Count() == 1);
-            
-            BuildConfigurationType buildConfiguration = buildConfigurations.First();
-            
-            //if (buildConfiguration.Tool == null || buildConfiguration.Tool.Count == 0)
-            //    return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
             IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
             if(tools.Count() == 0)
@@ -70,6 +58,36 @@ namespace UnityBuild
             ConfigurationTypeTool tool = tools.First();
 
             return PrecompiledHeaderOptions.CreateInstance(tool);            
+        }
+
+        internal 
+            void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options)
+        {
+            if(IsSrcFile == false)
+                throw new ApplicationException();
+
+            
+            BuildConfigurationType buildConfiguration = GetBuildConfiguration(configurationPlatform);
+            if (buildConfiguration == null)
+                buildConfiguration = AddBuildConfiguration(configurationPlatform);
+
+            IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
+            ConfigurationTypeTool vcclcCompiler = null;
+            if(tools.Count() > 0)
+            {
+                Debug.Assert(tools.Count() == 1);
+                vcclcCompiler = tools.First();
+            }
+
+            if(vcclcCompiler == null)
+            {
+                vcclcCompiler = new ConfigurationTypeTool();
+                vcclcCompiler.Name = "VCCLCompilerTool";
+                vcclcCompiler.NameSpecified = true;
+                buildConfiguration.Tool.Add(vcclcCompiler);
+            }
+
+
         }
 
         public void ExcludeFromBuild(string buildConfigurationName)

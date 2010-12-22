@@ -66,9 +66,9 @@ namespace UnityBuild.Tests
         [SetUp]
         public virtual void SetUp()
         {
-            Revert();
+            // Revert();
 
-            if(Directory.Exists(_TempDir))
+            if (Directory.Exists(_TempDir))
                 Directory.Delete(_TempDir, true);
 
             Directory.CreateDirectory(_TempDir);
@@ -83,7 +83,7 @@ namespace UnityBuild.Tests
             Revert();
         }
 
-        protected static void Revert()
+        internal  static void Revert()
         {
             string srcPath = Path.GetFullPath(
               Path.Combine(TaskUtility.ThisAssemblyDirectory, @"..\..\UnityBuild\UnitTestSample\src\")

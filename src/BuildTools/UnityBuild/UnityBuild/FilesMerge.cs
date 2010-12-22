@@ -104,13 +104,6 @@ namespace UnityBuild
                         if (file.IsSrcFile == false)
                             continue;
 
-                        //IEnumerable<string> buildConfigurations = file.BuildConfigurationsWhenExcludedFromBuild;
-                        //if (buildConfigurations.Count() > 0)
-                        //{
-
-                        //    continue;
-                        //}
-
                         merger.AddSrcFile(file);
                     }
 
@@ -141,6 +134,9 @@ namespace UnityBuild
             {
                 newFile.ExcludeFromBuild(buildConfigurationExcluded);
             }
+
+
+
             return newFile;
         }
     }
