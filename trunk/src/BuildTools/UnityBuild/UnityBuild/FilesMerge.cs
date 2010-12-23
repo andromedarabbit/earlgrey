@@ -10,27 +10,42 @@ namespace UnityBuild
 {
     internal class FilesMerge
     {
-        private readonly Project _project;
+        // private readonly Project _project;
         // private readonly FilterType _parentFilter;
+        private readonly string _projectDirectory;
         private readonly ICollection<FileType> _files;
         private readonly Dictionary<string, List<FileType>> _filesByPath;
 
-        private readonly List<string> _buildConfigurationExcluded;
+        private readonly List<string> _buildConfigurations;
+        private readonly List<string> _buildConfigurationsExcluded;
 
         // public FilesMerge(Project project, FilterType parentFilter, ICollection<FileType> files)
-        public FilesMerge(Project project, ICollection<FileType> files)
+        // public FilesMerge(Project project, ICollection<FileType> files)
+        public FilesMerge(string projectDirectory, ICollection<FileType> files, IEnumerable<string> buildConfigurations)
+            : this(projectDirectory, files, buildConfigurations, new List<string>())
         {
-            Debug.Assert(project != null);
+            
+        }
+
+        public FilesMerge(string projectDirectory, ICollection<FileType> files, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded)
+        {
+            // Debug.Assert(project != null);
             // Debug.Assert(parentFilter != null);
+            Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(files != null);
             
-            _project = project;
+            // _project = project;
             // _parentFilter = parentFilter;
+            _projectDirectory = projectDirectory;
             _files = files;
 
             _filesByPath = new Dictionary<string, List<FileType>>();
 
-            _buildConfigurationExcluded = new List<string>();
+            _buildConfigurations = new List<string>();
+            _buildConfigurations.AddRange(buildConfigurations);
+
+            _buildConfigurationsExcluded = new List<string>();
+            _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
             
             // FilesByPath
             var result = from file in _files
@@ -49,38 +64,39 @@ namespace UnityBuild
             }
         }
 
-        public void ExcludeBuildConfiguration(string buildConfiguration)
-        {
-            _buildConfigurationExcluded.Add(buildConfiguration);
-        }
+        //public void ExcludeBuildConfiguration(string buildConfiguration)
+        //{
+        //    _buildConfigurationsExcluded.Add(buildConfiguration);
+        //}
 
-        public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
-        {
-            _buildConfigurationExcluded.AddRange(buildConfigurations);
-        }
+        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
+        //{
+        //    _buildConfigurationsExcluded.AddRange(buildConfigurations);
+        //}
 
-        private string GetNextFileName()
+        private static string GetNextFileName()
         {
             NumberProvider.Instance.Next();
             return string.Format("UnityBuild-{0}.cpp", NumberProvider.Instance.NoString);
         }
 
-        private string GetNextFilePath(string directory)
+        private static string GetNextFilePath(string directory)
         {
             return Path.Combine(directory, GetNextFileName());
         }
 
-        private string ProjectDir
-        {
-            get
-            {
-                return Path.GetDirectoryName(_project.FullPath);
-            }
-        }
+        //private string ProjectDir
+        //{
+        //    get
+        //    {
+        //        // return Path.GetDirectoryName(_project.FullPath);
+        //        return _projectDirectory;
+        //    }
+        //}
 
         private string GetAbsolutePath(string relativePath)
         {
-            return Path.GetFullPath(Path.Combine(ProjectDir, relativePath));
+            return Path.GetFullPath(Path.Combine(_projectDirectory, relativePath));
         }
 
         public List<FileType> Merge()
@@ -95,14 +111,14 @@ namespace UnityBuild
                 FileType newFile = GetNewFile(relativeDir);                
                 
                 string absolutePath = GetAbsolutePath(newFile.RelativePath);
-                using (SrcFileAppend merger = new SrcFileAppend(absolutePath, ProjectDir)) // , true))
+                using (SrcFileAppend merger = new SrcFileAppend(absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded)) // , true))
                 {
                     merger.Open();
 
                     foreach (var file in _filesByPath[relativeDir])
                     {
                         if (file.IsSrcFile == false)
-                            continue;
+                            continue;                        
 
                         merger.AddSrcFile(file);
                     }
@@ -130,12 +146,16 @@ namespace UnityBuild
             newFile.RelativePath = GetNextFilePath(relativeDir);
             newFile.RelativePathSpecified = true;
 
-            foreach (string buildConfigurationExcluded in _buildConfigurationExcluded)
+            foreach (string buildConfigurationExcluded in _buildConfigurationsExcluded)
             {
                 newFile.ExcludeFromBuild(buildConfigurationExcluded);
             }
 
-
+            PrecompiledHeaderOptions options = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
+            foreach (string configurationPlatform in _buildConfigurations)
+            {
+                newFile.SetPrecompiledHeaderOption(configurationPlatform, options);
+            }
 
             return newFile;
         }

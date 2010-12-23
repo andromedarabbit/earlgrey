@@ -37,7 +37,7 @@ namespace UnityBuild.Tests
             VcProject vcProject = GetEarlgreyVcProject();
             var sourceFilesFilter = FindFilter(vcProject, "Source Files");
 
-            FilterMerge instance = new FilterMerge(vcProject.Summary, sourceFilesFilter);
+            FilterMerge instance = new FilterMerge(vcProject.Directory, sourceFilesFilter, vcProject.ConfigurationPlatformNames);
             List<IFilterOrFile> filterOrFiles = instance.Merge();
 
 
@@ -54,7 +54,7 @@ namespace UnityBuild.Tests
             VcProject vcProject = GetEarlgreyVcProject();
             var sourceFilesFilter = FindFilter(vcProject, "Source Files");
 
-            FilterMerge instance = new FilterMerge(vcProject.Summary, sourceFilesFilter);
+            FilterMerge instance = new FilterMerge(vcProject.Directory, sourceFilesFilter, vcProject.ConfigurationPlatformNames);
             List<IFilterOrFile> filterOrFiles = instance.Merge();
 
             Assert.Greater(filterOrFiles.Count, 3);

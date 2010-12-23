@@ -222,12 +222,17 @@ namespace UnityBuild
 
                     if (skipIfConfigurationAlreadyExists == true && project.HasConfiguration(newProjectConfigurationPlatform) == true)
                         continue;
-                    
 
-                    project.CopyConfigurationPlatform(
-                        projectConfigurationPlatform
-                        , newProjectConfigurationPlatform
-                        );
+                    VcProjectCopy projectCopy = 
+                        new VcProjectCopy(project, projectConfigurationPlatform, newProjectConfigurationPlatform);
+
+                    // TODO: 하드코딩
+                    string definition = "UNITYBUILD_" + newProjectConfigurationPlatform.ToUpper();
+                    definition = definition.Replace("|", "_");
+                    definition = definition.Replace("-", "_");
+
+                    projectCopy.AddPreprocessorDefinition(definition);
+                    projectCopy.CopyConfigurationPlatform();
                 }
 
             }

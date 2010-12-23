@@ -14,8 +14,18 @@ namespace UnityBuild
 
         private readonly List<FileType> _srcFiles;
 
+        private readonly List<string> _buildConfigurations;
+        private readonly List<string> _buildConfigurationsExcluded;
 
-        public SrcFileAppend(string dstFilePath, string projectDir) //, bool deleteZeroSizeFile)
+            
+        public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
+            : this(dstFilePath, projectDir, buildConfigurations, new List<string>())
+        {
+            
+        }
+
+        public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded) //, bool deleteZeroSizeFile)
+        // public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
         {
             Debug.Assert(string.IsNullOrEmpty(dstFilePath) == false);
             Debug.Assert(Directory.Exists(projectDir));
@@ -23,6 +33,13 @@ namespace UnityBuild
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
             _srcFiles = new List<FileType>();
+
+
+            _buildConfigurations = new List<string>();
+            _buildConfigurations.AddRange(buildConfigurations);
+
+            _buildConfigurationsExcluded = new List<string>();
+            _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
         }
 
         public string DstFilePath
@@ -104,10 +121,6 @@ namespace UnityBuild
             if (_srcFiles.Count == 0)
                 return false;
 
-            IEnumerable<string> srcFileNames = _srcFiles.Select(
-                    file => file.FileName
-                    );
-
             if(File.Exists(_dstFilePath))
                 File.Delete(_dstFilePath);
 
@@ -115,15 +128,59 @@ namespace UnityBuild
             {
                 // TODO: 하드코딩
                 // sw.WriteLine("#include \"stdafx.h\"");
-
-                foreach (string srcFileName in srcFileNames)
+                foreach (FileType srcFile in _srcFiles)
                 {
-                    sw.WriteLine("#include \"" + srcFileName + "\"");
+                    WriteInclude(sw, srcFile);
                 }
             }
 
             return true;
         }
+
+        private void WriteInclude(TextWriter sw, FileType srcFile)
+        {
+            // IEnumerable<string> configurationsExcluded = srcFile.BuildConfigurationsWhenExcludedFromBuild; // Unity
+            // build - all
+            // ex - not unity
+
+            var configurationsIncluded = _buildConfigurations.Where(
+                item => _buildConfigurationsExcluded.Contains(item, StringComparer.CurrentCultureIgnoreCase)
+                );
+
+            IEnumerable<string> configurationsExcluded = srcFile.BuildConfigurationsWhenExcludedFromBuild.Where(
+                item => configurationsIncluded.Contains(item, StringComparer.CurrentCultureIgnoreCase)
+                );
+
+
+
+            if (configurationsExcluded.Count() == 0)
+            {
+                sw.WriteLine("#include \"" + srcFile.FileName + "\"");
+                return;
+            }
+
+            foreach (string configurationPlatform in _buildConfigurations)
+            {
+                bool exclude = 
+                    configurationsExcluded.Contains(configurationPlatform, StringComparer.CurrentCultureIgnoreCase);
+                WriteInclude(sw, configurationPlatform, srcFile.FileName, exclude);
+            }
+        }
+
+
+        private static void WriteInclude(TextWriter sw, string configurationPlatform, string srcFileName, bool exclude)
+        {
+            // TODO: 하드코딩, 중복 코드
+            string definition = "UNITYBUILD_" + configurationPlatform.ToUpper();
+            definition = definition.Replace("|", "_");
+            definition = definition.Replace("-", "_");
+
+            sw.WriteLine("#ifdef " + definition);
+            if(exclude == false)
+                sw.WriteLine("#include \"" + srcFileName + "\"");
+            sw.WriteLine("#endif");
+        }
     }
 
 }
+

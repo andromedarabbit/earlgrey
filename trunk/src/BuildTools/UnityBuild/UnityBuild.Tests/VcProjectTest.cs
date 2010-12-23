@@ -21,30 +21,6 @@ namespace UnityBuild.Tests
             Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
             Assert.AreEqual(4, vcProject.Details.Configurations.Count);
         }
-
-        [Test]
-        public void CopyPlatformConfiguration()
-        {
-            VcProject vcProject = GetEarlgreyVcProject();
-
-            const string srcConfigurationPlatformName = "Debug|Win32";
-            const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
-
-            Assert.IsTrue(
-                vcProject.HasConfigurationPlatform(srcConfigurationPlatformName)
-                );
-            Assert.AreEqual(-1, EarlgreyProjectFileText.IndexOf(dstConfigurationPlatformName, StringComparison.CurrentCultureIgnoreCase));
-
-            vcProject.CopyConfigurationPlatform(srcConfigurationPlatformName, dstConfigurationPlatformName);
-
-            vcProject.Save();
-
-            Assert.GreaterOrEqual(EarlgreyProjectFileText.IndexOf(dstConfigurationPlatformName, StringComparison.CurrentCultureIgnoreCase), 0);
-            
-            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
-            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(srcConfigurationPlatformName));
-            Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
-        }
         
         [Test]
         public void DeleteConfigurationPlatform()

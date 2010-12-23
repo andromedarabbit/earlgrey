@@ -87,5 +87,53 @@ namespace UnityBuild.Tests
             Assert.AreEqual(UsePrecompiledHeaderOptions.None, noPrecompiledHeaderCppOptions.UsePrecompiledHeader);
             
         }
+
+        [Test]
+        public void SetPrecompiledHeaderOptionOfStdAfxCpp()
+        {
+            const string configurationPlatform = "Release|Win32";
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            // 변경 전
+            FileType cpp = FindFile(vcProject, "stdafx.cpp");
+            PrecompiledHeaderOptions options = cpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.Create, options.UsePrecompiledHeader);
+            Assert.AreEqual(string.Empty, options.PrecompiledHeaderThrough); // 파일에선 기본 값 상속시 빈 문자열을 가짐
+
+            // 변경 
+            PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.Use);
+            newOptions.PrecompiledHeaderThrough = "stdafx2.h";
+            newOptions.PrecompiledHeaderFile = options.PrecompiledHeaderFile;
+            cpp.SetPrecompiledHeaderOption(configurationPlatform, newOptions);
+
+            // 변경 후
+            options = cpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.Use, options.UsePrecompiledHeader);
+            Assert.AreEqual("stdafx2.h", options.PrecompiledHeaderThrough);
+        }
+
+        [Test]
+        public void SetPrecompiledHeaderOptionOfNoPreCompiledHeaderH()
+        {
+            const string configurationPlatform = "Release|Win32";
+            VcProject vcProject = GetEarlgreyVcProject();
+
+            // 변경 전
+            FileType cpp = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+            PrecompiledHeaderOptions options = cpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.None, options.UsePrecompiledHeader);
+            Assert.AreEqual(string.Empty, options.PrecompiledHeaderThrough);
+
+            // 변경 
+            PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.Create);
+            newOptions.PrecompiledHeaderThrough = "stdafx.h";
+            newOptions.PrecompiledHeaderFile = options.PrecompiledHeaderFile;
+            cpp.SetPrecompiledHeaderOption(configurationPlatform, newOptions);
+
+            // 변경 후
+            options = cpp.GetPrecompiledHeaderOption(configurationPlatform);
+            Assert.AreEqual(UsePrecompiledHeaderOptions.Create, options.UsePrecompiledHeader);
+            Assert.AreEqual("stdafx.h", options.PrecompiledHeaderThrough);
+        }
     }
 }

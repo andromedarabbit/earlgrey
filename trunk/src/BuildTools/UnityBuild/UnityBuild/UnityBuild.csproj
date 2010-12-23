@@ -64,6 +64,7 @@
     <Compile Include="TextReaderCollection.cs" />
     <Compile Include="TextReaders.cs" />
     <Compile Include="UsePrecompiledHeaderOptions.cs" />
+    <Compile Include="VcProjectCopy.cs" />
     <Compile Include="VcProjectMerge.cs" />
     <Compile Include="SolutionConfigurationNameConverter.cs" />
     <Compile Include="VcProjectConverter.cs" />
