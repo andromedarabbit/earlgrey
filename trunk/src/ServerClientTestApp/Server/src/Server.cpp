@@ -11,6 +11,7 @@
 #include "tiostream.h"
 #include "UserInputHandlers.h"
 
+#include "Shellapi.h" // CommandLineToArgvW
 
 using namespace std;
 using namespace Earlgrey;
