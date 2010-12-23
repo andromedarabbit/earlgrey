@@ -36,7 +36,7 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            VcProjectMerge instance = new VcProjectMerge(vcProject);
+            VcProjectMerge instance = new VcProjectMerge(vcProject, new ProjectConfigurationNameConverter());
             List<IFilterOrFile> filterOrFiles = instance.Merge();
 
             Assert.IsNotNull(MergedSourceFiles);

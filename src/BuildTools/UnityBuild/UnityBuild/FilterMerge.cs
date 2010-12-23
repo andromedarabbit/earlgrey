@@ -10,31 +10,53 @@ namespace UnityBuild
 {
     internal class FilterMerge
     {
-        private readonly Project _project;
+        private readonly string _projectDirectory;
         private readonly FilterType _filter;
 
-        private readonly List<string> _buildConfigurationExcluded;
+        private readonly List<string> _buildConfigurationsExcluded;
+        private readonly List<string> _buildConfigurations;
 
 
-        public FilterMerge(Project project, FilterType filter)
+        public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations)
+            : this(projectDirectory, filter, buildConfigurations, new List<string>())
         {
-            Debug.Assert(project != null);
+            
+        }
+
+        public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded)
+        {
+            Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(filter != null);
 
-            _project = project;
+            _projectDirectory = projectDirectory;
             _filter = filter;
-            _buildConfigurationExcluded = new List<string>();
+            
+            _buildConfigurations = new List<string>();
+            _buildConfigurations.AddRange(buildConfigurations);
+
+            _buildConfigurationsExcluded = new List<string>();
+            _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
         }
 
-        public void ExcludeBuildConfiguration(string buildConfiguration)
-        {
-            _buildConfigurationExcluded.Add(buildConfiguration);
-        }
+        //public void ExcludeBuildConfiguration(string buildConfiguration)
+        //{
+        //    _buildConfigurationsExcluded.Add(buildConfiguration);
+        //}
 
-        public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
-        {
-            _buildConfigurationExcluded.AddRange(buildConfigurations);
-        }
+        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
+        //{
+        //    _buildConfigurationsExcluded.AddRange(buildConfigurations);
+        //}
+
+        //public void BuildConfiguration(string buildConfiguration)
+        //{
+        //    _buildConfigurations.Add(buildConfiguration);
+        //}
+
+        //public void BuildConfiguration(IEnumerable<string> buildConfigurations)
+        //{
+        //    _buildConfigurations.AddRange(buildConfigurations);
+        //}
 
         private IEnumerable<FilterType> Filters
         {
@@ -66,15 +88,15 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_project, filter);
-                filterMerge.ExcludeBuildConfigurations(_buildConfigurationExcluded);
+                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded);
+                // filterMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
                 filesOrFiltersAdded.AddRange(filterMerge.Merge());
             }
             
             // TODO: 하드코딩
             // FilesMerge filesMerge = new FilesMerge(_project, newFilter, Files.ToList());
-            FilesMerge filesMerge = new FilesMerge(_project, Files.ToList());
-            filesMerge.ExcludeBuildConfigurations(_buildConfigurationExcluded);
+            FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded);
+            // filesMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
 
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)

@@ -111,8 +111,8 @@ namespace UnityBuild
                 project.ExcludeFromBuild(_projectConverter);
 
                 // UnityBuild 용 소스 코드는 기존 빌드의 빌드 대상에서 제외함
-                VcProjectMerge projectMerge = new VcProjectMerge(project);
-                projectMerge.ExcludeFromBuild(_projectConverter);
+                VcProjectMerge projectMerge = new VcProjectMerge(project, copy.ProjectConverter);
+                // projectMerge.ExcludeFromBuild(copy.ProjectConverter);
                 List<IFilterOrFile> itemsAdded = projectMerge.Merge();
             }
             

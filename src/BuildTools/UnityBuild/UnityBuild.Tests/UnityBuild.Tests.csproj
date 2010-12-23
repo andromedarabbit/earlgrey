@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="TestSetUp.cs" />
     <Compile Include="TextFileAppendTest.cs" />
+    <Compile Include="VcProjectCopyTest.cs" />
     <Compile Include="VcProjectMergeTest.cs" />
     <Compile Include="VcProjectTest.cs" />
     <Compile Include="VcSolutionCopyTest.cs" />

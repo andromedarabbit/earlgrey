@@ -25,7 +25,7 @@ namespace UnityBuild.Tests
                               ;
             
             // FilesMerge instance = new FilesMerge(vcProject.Summary, newFilter, sourceFiles.ToList());
-            FilesMerge instance = new FilesMerge(vcProject.Summary, sourceFiles.ToList());
+            FilesMerge instance = new FilesMerge(vcProject.Directory, sourceFiles.ToList(), vcProject.ConfigurationPlatformNames);
             List<FileType> filesAdded = instance.Merge();
 
             Assert.GreaterOrEqual(filesAdded.Count, 1);

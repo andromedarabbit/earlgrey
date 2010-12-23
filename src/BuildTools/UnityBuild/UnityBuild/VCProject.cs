@@ -56,12 +56,25 @@ namespace UnityBuild
             }
         }
 
+        public string Directory
+        {
+            get
+            {
+                return Path.GetDirectoryName(this._projectSummary.FullPath);
+            }
+        }
+
         public PropertyLineHashList ConfigurationPlatforms
         {
             get
             {
                 return this.Summary.ProjectConfigurationPlatformsLines;
             }
+        }
+
+        public IEnumerable<string> ConfigurationPlatformNames
+        {
+            get { return this.Details.Configurations.Select(item => item.Name); }
         }
 
         public bool HasConfigurationPlatform(string configurationPlatformName)
@@ -72,9 +85,47 @@ namespace UnityBuild
                     ) > 0;
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatformName)
+        internal
+         void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options, FileType file)
         {
-            ConfigurationType configuration = GetConfiguration(configurationPlatformName);
+            if (file.IsSrcFile == false)
+                throw new ApplicationException();
+
+            // PrecompiledHeaderOptions orginalOptions = GetPrecompiledHeaderOption(configurationPlatform, file);
+            PrecompiledHeaderOptions projectOptions = GetPrecompiledHeaderOption(configurationPlatform);
+            if(options == projectOptions)
+            {
+                file.SetPrecompiledHeaderOption(
+                    configurationPlatform, new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject)
+                    );
+                return;
+            }
+
+
+            PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
+            if(options.UsePrecompiledHeader != projectOptions.UsePrecompiledHeader)
+            {
+                newOptions.UsePrecompiledHeader = options.UsePrecompiledHeader;
+            }
+
+            if(options.PrecompiledHeaderFile.Equals(projectOptions.PrecompiledHeaderFile, StringComparison.CurrentCultureIgnoreCase) == false)
+            {
+                newOptions.PrecompiledHeaderFile = options.PrecompiledHeaderFile;
+            }
+
+            if(options.PrecompiledHeaderThrough.Equals(projectOptions.PrecompiledHeaderThrough, StringComparison.CurrentCultureIgnoreCase) == false)
+            {
+                newOptions.PrecompiledHeaderThrough = options.PrecompiledHeaderThrough;
+            }
+
+            file.SetPrecompiledHeaderOption(
+                    configurationPlatform, newOptions
+                    );
+        }
+
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
+        {
+            ConfigurationType configuration = GetConfiguration(configurationPlatform);
             if (configuration == null)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
@@ -104,18 +155,18 @@ namespace UnityBuild
             return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationBuild, FileType file)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, FileType file)
         {
             if (file.IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
-            PrecompiledHeaderOptions fileOption = file.GetPrecompiledHeaderOption(configurationBuild);
+            PrecompiledHeaderOptions fileOption = file.GetPrecompiledHeaderOption(configurationPlatform);
             if (fileOption.UsePrecompiledHeader == UsePrecompiledHeaderOptions.None)
             {
                 return fileOption;
             }
 
-            PrecompiledHeaderOptions projectOptions = GetPrecompiledHeaderOption(configurationBuild);
+            PrecompiledHeaderOptions projectOptions = GetPrecompiledHeaderOption(configurationPlatform);
 
             if (fileOption.UsePrecompiledHeader == UsePrecompiledHeaderOptions.InheritFromProject)
                 fileOption.UsePrecompiledHeader = projectOptions.UsePrecompiledHeader;
@@ -217,77 +268,14 @@ namespace UnityBuild
                 );
         }
 
-        public void CopyConfigurationPlatform(string srcName, string dstName)
-        {
-            Trace.Assert(string.IsNullOrEmpty(srcName) == false);
-            Trace.Assert(string.IsNullOrEmpty(dstName) == false);
-
-            ConfigurationType configuration = GetConfiguration(srcName);
-            if(configuration == null)
-                throw new ArgumentException();
-
-            ConfigurationType dstConfiguration = GetConfiguration(dstName);
-            if (dstConfiguration != null)
-                throw new ArgumentException();
-            
-            // 공통 속성
-            ConfigurationType newConfiguration = configuration.Clone();
-            newConfiguration.Name = dstName;
-            _projectDetails.Configurations.Add(newConfiguration);
-
-            // 개별 파일 속성
-            CopyConfigurationPlatformInFiles(_projectDetails.Files, srcName, dstName);
-
-        }
-
-        private static void CopyConfigurationPlatformInFiles(IEnumerable<object> items, string srcName, string dstName)
-        {
-            foreach (object item in items)
-            {
-                Debug.Assert( (item is FileType) || (item is FilterType) );
-                if (item is FileType)
-                {
-                    FileType file = (FileType)item;
-                    CopyConfigurationPlatformoInFileBuildConfiguration(file.Items, srcName, dstName);
-                }
-
-                if (item is FilterType)
-                {
-                    FilterType filter = (FilterType) item;
-                    CopyConfigurationPlatformInFiles(filter.Items, srcName, dstName);
-                }
-            }
-        }
-
-        private static void CopyConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string srcName, string dstName)
-        {
-            // TODO: 이름이 같은 구성 값은 하나 뿐이어야 할 것 같지만 안전하게 List 로 관리한다. 일단은....
-            List<object> newBuildConfigurations = new List<object>();
-
-            foreach (var item in fileBuildConfigurations)
-            {
-                Debug.Assert(item is BuildConfigurationType);
-                
-                BuildConfigurationType buildConfiguration = (BuildConfigurationType) (item);
-                if(buildConfiguration.Name.Equals(srcName,StringComparison.CurrentCultureIgnoreCase) == false)
-                    continue;
-
-                BuildConfigurationType newBuildConfiguration = (BuildConfigurationType)buildConfiguration.Clone();
-                newBuildConfiguration.Name = dstName;
-                newBuildConfigurations.Add(newBuildConfiguration);
-            }
-
-
-            fileBuildConfigurations.AddRange(newBuildConfigurations);
-            
-        }
+      
 
         internal bool HasConfiguration(string name)
         {
             return GetConfiguration(name) != null;
         }
 
-        private ConfigurationType GetConfiguration(string srcName)
+        internal ConfigurationType GetConfiguration(string srcName)
         {
             return _projectDetails.Configurations.Find(
                 item => item.Name.Equals(srcName, StringComparison.CurrentCultureIgnoreCase)

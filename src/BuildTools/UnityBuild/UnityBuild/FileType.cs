@@ -60,26 +60,26 @@ namespace UnityBuild
             return PrecompiledHeaderOptions.CreateInstance(tool);            
         }
 
-        internal 
+        internal
             void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options)
         {
-            if(IsSrcFile == false)
+            if (IsSrcFile == false)
                 throw new ApplicationException();
 
-            
+
             BuildConfigurationType buildConfiguration = GetBuildConfiguration(configurationPlatform);
             if (buildConfiguration == null)
                 buildConfiguration = AddBuildConfiguration(configurationPlatform);
 
             IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
             ConfigurationTypeTool vcclcCompiler = null;
-            if(tools.Count() > 0)
+            if (tools.Count() > 0)
             {
                 Debug.Assert(tools.Count() == 1);
                 vcclcCompiler = tools.First();
             }
 
-            if(vcclcCompiler == null)
+            if (vcclcCompiler == null)
             {
                 vcclcCompiler = new ConfigurationTypeTool();
                 vcclcCompiler.Name = "VCCLCompilerTool";
@@ -87,7 +87,19 @@ namespace UnityBuild
                 buildConfiguration.Tool.Add(vcclcCompiler);
             }
 
+            vcclcCompiler.UsePrecompiledHeader = ((int)options.UsePrecompiledHeader).ToString();
 
+            if (string.IsNullOrEmpty(options.PrecompiledHeaderFile) == false)
+            {
+                vcclcCompiler.PrecompiledHeaderFile = options.PrecompiledHeaderFile;
+                vcclcCompiler.PrecompiledHeaderFileSpecified = true;
+            }
+
+            if (string.IsNullOrEmpty(options.PrecompiledHeaderThrough) == false)
+            {
+                vcclcCompiler.PrecompiledHeaderThrough = options.PrecompiledHeaderThrough;
+                vcclcCompiler.PrecompiledHeaderThroughSpecified = true;
+            }
         }
 
         public void ExcludeFromBuild(string buildConfigurationName)
@@ -145,5 +157,7 @@ namespace UnityBuild
             get { return Path.GetFileName(this.RelativePath); }
         }
 
+
+   
     }
 }
