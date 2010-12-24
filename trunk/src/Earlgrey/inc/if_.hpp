@@ -16,5 +16,11 @@ namespace Earlgrey
 		{ 
 			typedef Else type; 
 		};
+
+		template <typename T>
+		struct Type2Type
+		{
+			typedef T OriginalType;
+		};
 	}
 }

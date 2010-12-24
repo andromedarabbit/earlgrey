@@ -2,6 +2,7 @@
 #include "Connector.h"
 #include "Connection.h"
 #include "Dns.h"
+#include "shared_ptr_helper.h"
 
 
 namespace Earlgrey
@@ -73,7 +74,7 @@ namespace Earlgrey
 			return true;
 		}
 
-		std::tr1::shared_ptr<BinaryConnection> connection(new BinaryConnection());
+		std::tr1::shared_ptr<Connection> connection = make_ptr(new Connection());
 		connection->Initialize( _Socket );
 
 		// TODO: 어딘가에 Connection 객체를 등록해야 함

@@ -110,7 +110,7 @@ namespace Earlgrey {
 		socket.SetReceiveBufferSize( 0 );
 		socket.SetSendBufferSize( 0 );
 
-		Connection<DefaultReader, DefaultWriter>* connection = new Connection<DefaultReader, DefaultWriter>();
+		Connection* connection = new Connection();
 		connection->Initialize( socket );
 
 		return EXIT_SUCCESS;

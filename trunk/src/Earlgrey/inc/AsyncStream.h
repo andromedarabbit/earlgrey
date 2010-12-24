@@ -14,11 +14,12 @@ namespace Earlgrey
 	
 	//! 비동기 I/O Stream
 	/*!
-		IOCP 입출력을 처리한다.
+		IOCP 입출력을 처리한다. 버퍼와 결과 정보가 읽기용과 쓰기용이 따로 분리돼 있다.
 	*/
 	class AsyncStream : public CompletionHandler
 	{
 	public:
+
 		//! operation 초기화
 		/*!
 			\param handle I/O를 처리할 socket
@@ -46,7 +47,6 @@ namespace Earlgrey
 		virtual void HandleEvent(AsyncResult* Result);
 
 		NetworkBuffer* GetReadBuffer();
-
 		NetworkBuffer* GetWriteBuffer();
 
 	protected:
