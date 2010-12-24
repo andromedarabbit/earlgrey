@@ -474,11 +474,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\InputStreamTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\IPAddressTest.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\ListenerTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\OutputStreamTest.cpp"
 					>
 				</File>
 				<File

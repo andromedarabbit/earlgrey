@@ -300,10 +300,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\Connection.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\Listener.cpp"
 				>
 			</File>
@@ -479,6 +475,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\Connection.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Connector.cpp"
 					>
 				</File>
@@ -488,6 +488,10 @@
 				</File>
 				<File
 					RelativePath=".\src\Dns.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\InputStream.cpp"
 					>
 				</File>
 				<File
@@ -504,6 +508,10 @@
 				</File>
 				<File
 					RelativePath=".\src\IPHostEntry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\OutputStream.cpp"
 					>
 				</File>
 				<File
@@ -1117,6 +1125,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\InputStream.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\IOCP.h"
 					>
 				</File>
@@ -1146,6 +1158,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\NetworkStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\OutputStream.h"
 					>
 				</File>
 				<File

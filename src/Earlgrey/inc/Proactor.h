@@ -68,7 +68,8 @@ namespace Earlgrey
 	{
 		friend class WinProactor;
 	public:
-		AsyncResult()
+		AsyncResult() 
+			: _Handle(INVALID_SOCKET), _Handler(NULL)
 		{
 		}
 
