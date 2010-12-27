@@ -7,5 +7,7 @@ namespace UnityBuild
 {
     public interface IFilterOrFile
     {
+        bool IsFilter { get; }
+        bool IsFile { get; }
     }
 }

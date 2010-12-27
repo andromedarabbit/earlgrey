@@ -7,5 +7,18 @@ namespace UnityBuild
 {
     public partial class FilterType : IFilterOrFile
     {
+        #region IFilterOrFile member impletations
+
+        public bool IsFilter
+        {
+            get { return false; }
+        }
+
+        public bool IsFile
+        {
+            get { return true; }
+        }
+
+        #endregion 
     }
 }
