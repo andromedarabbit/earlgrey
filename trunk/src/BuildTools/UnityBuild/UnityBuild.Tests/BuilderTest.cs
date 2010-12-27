@@ -12,7 +12,7 @@ namespace UnityBuild.Tests
         [Test]
         public void Run()
         {
-            using(Builder builder = new Builder(SolutionFilePath))
+            using (Builder builder = new Builder(SolutionFilePath))
             {
                 // TODO: 임시 주석
                 //builder.ExcludeProject("gtest");
@@ -27,17 +27,17 @@ namespace UnityBuild.Tests
                       {
                           "Debug-UnityBuild|Win32", "Release-UnityBuild|Win32", "Debug-UnityBuild|x64", "Release-UnityBuild|x64"
                       }
-                ;                
+                ;
 
             VcProject vcProject = GetEarlgreyVcProject();
 
             FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
             foreach (var dstConfigurationPlatformName in dstConfigurationPlatformNames)
             {
-                Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));    
+                Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
             }
-            
-            
+
+
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Builder.cs" />
     <Compile Include="ConfigurationTypeTool.cs" />
     <Compile Include="FilesMerge.cs" />
+    <Compile Include="FilesMergeKey.cs" />
     <Compile Include="FileType.cs" />
     <Compile Include="AbstractConfigurationNameConverter.cs" />
     <Compile Include="AbstractProjectConfigurationNameConverter.cs" />
@@ -84,6 +85,9 @@
     <Compile Include="VcProject.cs" />
     <Compile Include="VcSolution.cs" />
     <Compile Include="VcSolutionCopy.cs" />
+    <Compile Include="VisualStudioProjectType.cs">
+      <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
+    </Compile>
     <Compile Include="VisualStudioProjectType.designer.cs" />
   </ItemGroup>
   <ItemGroup>

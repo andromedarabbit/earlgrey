@@ -9,6 +9,8 @@ namespace UnityBuild
 {
     public partial class FileType : IFilterOrFile
     {
+        private Dictionary<string, PrecompiledHeaderOptions> _precompiledHeaderOptions;
+
         public IEnumerable<string> BuildConfigurationsWhenExcludedFromBuild
         {
             get
@@ -161,6 +163,39 @@ namespace UnityBuild
         {
             get { return Path.GetDirectoryName(this.RelativePath); }
         }
-   
+
+        private Dictionary<string, PrecompiledHeaderOptions> InternalPrecompiledHeaderOptions
+        {
+            get
+            {
+                if(_precompiledHeaderOptions == null)
+                    _precompiledHeaderOptions = new Dictionary<string, PrecompiledHeaderOptions>();
+                return _precompiledHeaderOptions;
+            }
+        }
+
+        public void AddPrecompiledHeaderOptions(string configurationPlatform, PrecompiledHeaderOptions options)
+        {
+            InternalPrecompiledHeaderOptions[configurationPlatform.ToUpper()] = options;
+        }
+
+        public PrecompiledHeaderOptions GetPrecompiledHeaderOptions(string configurationPlatform)
+        {
+            return InternalPrecompiledHeaderOptions[configurationPlatform];
+        }
+
+        #region IFilterOrFile member impletations
+
+        public bool IsFilter
+        {
+            get { return true; }
+        }
+
+        public bool IsFile
+        {
+            get { return false; }
+        }
+
+        #endregion 
     }
 }

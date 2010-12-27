@@ -79,8 +79,8 @@ namespace UnityBuild
             get
             {
                 IEnumerable<FileType> files = from item in _project.Details.Files
-                                              where item is FileType
-                                              select (FileType)item
+                                                      where item is FileType
+                                                      select (FileType)item
                                               ;
                 return files;
             }
