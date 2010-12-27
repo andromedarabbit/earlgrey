@@ -157,7 +157,10 @@ namespace UnityBuild
             get { return Path.GetFileName(this.RelativePath); }
         }
 
-
+        public string RelativeDir
+        {
+            get { return Path.GetDirectoryName(this.RelativePath); }
+        }
    
     }
 }
