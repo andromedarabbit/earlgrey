@@ -1,11 +1,11 @@
 #include "stdafx.h"
 #include "Receiver.h"
 #include "AsyncStream.h"
-
+#include "NetworkBuffer.h"
 
 namespace Earlgrey
 {
-	Receiver::Receiver(AsyncStream* Stream) : _Stream(Stream)
+	Receiver::Receiver(AsyncStream* Stream) : _Stream(Stream), _Start(0), _End(0)
 	{
 	}
 
@@ -21,13 +21,15 @@ namespace Earlgrey
 			return;
 		}
 
-		// TODO: 패킷을 모두 받은 후 핸들러를 호출한다.
-
 		NetworkBuffer* buffer = _Stream->GetReadBuffer();
 		DWORD readBytes = Result->GetBytesTransferred();
+		buffer->OnReceived( readBytes );
 
-		readBytes;
-		buffer;
+		if (!HandlePacket( buffer ))
+		{
+			_Stream->Close();
+			return;
+		}
 
 		_Stream->Read();
 	}
@@ -36,4 +38,11 @@ namespace Earlgrey
 	{
 		// TODO: Connection 객체를 제거한다.
 	}
+
+	bool Receiver::HandlePacket( NetworkBuffer* buffer )
+	{
+		UNREFERENCED_PARAMETER( buffer );
+		return true;
+	}
+
 }

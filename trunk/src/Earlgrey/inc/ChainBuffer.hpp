@@ -25,11 +25,7 @@ namespace Earlgrey
 			typename basic_buffer_iterator< chain_buffer<T, A> > 
 			iterator;
 		
-		typedef basic_buffer<T, A >                         buffer_type;
-		typedef buffer_type*                                buffer_pointer;
-		typedef const buffer_type*                          buffer_const_pointer;
-		typedef buffer_type&                                buffer_reference;
-		typedef const buffer_type&                          buffer_const_reference;
+		typedef std::vector<T, A>							buffer_type;
 
 		typedef typename buffer_type::size_type             size_type;
 		typedef typename buffer_type::allocator_type        allocator_type;
@@ -39,13 +35,10 @@ namespace Earlgrey
 		typedef typename buffer_type::const_pointer         const_pointer;
 		typedef typename buffer_type::value_type            value_type;
 
-		typedef std::list<buffer_pointer, A>                buffer_list_type;
-		typedef 
-			typename allocator_type::rebind<buffer_type>::other 
-			buffer_allocator_type;
+		typedef std::list<buffer_type, A>					buffer_list_type;
 
 		typedef std::tr1::tuple<pointer, size_t>			buffer_node_desc_type;
-		typedef std::vector<buffer_node_desc_type>			desc_vector_type;
+		typedef std::vector<buffer_node_desc_type, A>		desc_vector_type;
 		
 		static const size_type DEFAULT_INITIAL_BUFFERSIZE = 16;
 
@@ -63,6 +56,11 @@ namespace Earlgrey
 		reference back();
 		const_reference back() const;
 
+		buffer_type* front_buffer();
+		buffer_type* back_buffer();
+		void pop_front_buffer();
+		void pop_back_buffer();
+
 		reference       operator[](size_type n);
 		const_reference operator[](size_type n) const;
 
@@ -71,13 +69,12 @@ namespace Earlgrey
 
 		void set(const_pointer ptr, size_type length);
 		void append(const_pointer ptr, size_type length);
+		void increase_size(size_type length);
 		void copy_to(chain_buffer& rhs) const;
 		bool get(size_type offset, pointer ptr, size_type length);
 		void get_descriptions(desc_vector_type& desc_vector);
 
-		
-		buffer_node_desc_type expand(size_t size);
-		void increase_tail_size(size_t length);
+		desc_vector_type expand(size_t size);
 
 		void clear();
 		bool empty() const;
@@ -87,37 +84,34 @@ namespace Earlgrey
 		iterator end();
 
 	private:
-		buffer_pointer new_buffer(size_type initial_capacity);
+		typename buffer_list_type::pointer _new_buffer(size_t length);
 
 	private:
 		allocator_type m_allocator;	
 		buffer_list_type m_buffer_list;
-		buffer_allocator_type m_buffer_allocator;
+		size_type m_size;
+		size_type m_capacity;
 	};
 
-	//! \note 생성자 호출시 m_buffer_allocator.construct() 를 이용하는 게 표준이다. 
-	// 하지만 construct()는 복사 생성자를 호출하기 때문에 직접 생성자를 호출하는 방식을 택했다.
 	template <typename T, typename A>
-	inline 
-		typename chain_buffer<T,A>::buffer_pointer chain_buffer<T,A>::new_buffer(
-			size_type initial_capacity
-			)
+	inline typename chain_buffer<T,A>::buffer_list_type::pointer chain_buffer<T,A>::_new_buffer(size_t length)
 	{
-		// 메모리 할당
-		buffer_pointer newBuffer = m_buffer_allocator.allocate(1);
-		
-		// 생성자 호출
-		newBuffer->buffer_type::basic_buffer(initial_capacity, m_allocator);
-		return newBuffer;
+		m_buffer_list.push_back( buffer_type() );
+
+		buffer_list_type::reference buffer = m_buffer_list.back();
+		buffer.resize( length );
+		m_capacity += length;
+
+		return &buffer;
 	}
 
 	template <typename T, typename A>
 	inline
 		chain_buffer<T,A>::chain_buffer(size_type initial_capacity, const allocator_type &allocator)
-		: m_allocator(allocator)
+		: m_allocator(allocator), m_size(0), m_capacity(0)
 	{
 		EARLGREY_ASSERT(initial_capacity > 0);
-		m_buffer_list.push_back( new_buffer(initial_capacity) );
+		_new_buffer( initial_capacity );
 	}
 
 	template <typename T, typename A>
@@ -131,24 +125,14 @@ namespace Earlgrey
 	inline
 		typename chain_buffer<T,A>::size_type chain_buffer<T,A>::capacity() const
 	{
-		size_type capacity = 0;
-		for(buffer_list_type::const_iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
-		{
-			capacity += (*it)->capacity();
-		}
-		return capacity;
+		return m_capacity;
 	}
 
 	template <typename T, typename A>
 	inline
 		typename chain_buffer<T,A>::size_type chain_buffer<T,A>::size() const
 	{
-		size_type size = 0;
-		for(buffer_list_type::const_iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
-		{
-			size += (*it)->size();
-		}
-		return size;
+		return m_size;
 	}
 
 	template <typename T, typename A>
@@ -188,6 +172,55 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
+		typename chain_buffer<T,A>::buffer_type* chain_buffer<T,A>::front_buffer()
+	{
+		return &(m_buffer_list.front());
+	}
+
+	template <typename T, typename A>
+	inline
+		typename chain_buffer<T,A>::buffer_type* chain_buffer<T,A>::back_buffer()
+	{
+		return &(m_buffer_list.back());
+	}
+
+	template <typename T, typename A>
+	inline void chain_buffer<T,A>::pop_front_buffer()
+	{
+		size_type size = m_buffer_list.front().size();
+		if (m_size < size)
+		{
+			m_size = 0;
+		}
+		else 
+		{
+			m_size -= size;
+		}
+		m_capacity -= size;
+		
+		m_buffer_list.pop_front();
+	}
+
+	template <typename T, typename A>
+	inline void chain_buffer<T,A>::pop_back_buffer()
+	{
+		size_type size = m_buffer_list.back().size();
+		size_type remainder = capacity() - size();
+		if (remainder < size)
+		{
+			m_size -= (size - remainder);
+		}
+		else
+		{
+			m_size -= size;
+		}
+		m_capacity -= size;
+
+		m_buffer_list.pop_back();
+	}
+
+	template <typename T, typename A>
+	inline
 		typename chain_buffer<T,A>::reference chain_buffer<T,A>::operator[] (size_type n)
 	{
 		return const_cast<typename chain_buffer<T,A>::reference>(
@@ -206,19 +239,16 @@ namespace Earlgrey
 		buffer_list_type::const_iterator it = m_buffer_list.begin();
 		for(; it != m_buffer_list.end(); it++)
 		{
-			size_type cur_size = (*it)->size();
+			size_type cur_size = it->size();
 			if(pos < cur_size)
 			{
-				buffer_pointer found = (*it);
-				return (*found)[pos];
+				break;
 			}
 
 			pos = pos - cur_size;
 		}
 
-		it--;
-		buffer_pointer found = (*it);
-		return (*found)[pos];
+		return (*it)[pos];
 	}
 
 
@@ -241,16 +271,33 @@ namespace Earlgrey
 	inline
 		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
-		buffer_pointer lastBuffer = m_buffer_list.back();
-
-		if(lastBuffer->capacity() - lastBuffer->size() < length)
+		size_type remainder = length, bufRemainder = capacity() - size();
+		buffer_list_type::pointer buffer = &(m_buffer_list.back());
+		EARLGREY_ASSERT(capacity() >= size());
+		if (0 == bufRemainder)
 		{
 			size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
-			lastBuffer = new_buffer(buffer_size);
-			m_buffer_list.push_back(lastBuffer);
+			buffer = _new_buffer( buffer_size );
+			memcpy_s( &(*buffer)[0], buffer_size * sizeof(T), ptr, length * sizeof(T) );
+			m_size += length;
+			return;
 		}
 
-		lastBuffer->append(ptr, length);
+		if (length <= bufRemainder)
+		{
+			memcpy_s( &(*buffer)[buffer->size() - bufRemainder], bufRemainder * sizeof(T), ptr, length * sizeof(T) );
+			m_size += length;
+			return;
+		}
+
+		memcpy_s( &(*buffer)[buffer->size() - bufRemainder], bufRemainder * sizeof(T), ptr, bufRemainder * sizeof(T) );
+		remainder -= bufRemainder;
+		m_size += bufRemainder;
+
+		size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
+		buffer = _new_buffer( buffer_size );
+		memcpy_s( &(*buffer)[0], buffer_size * sizeof(T), ptr + bufRemainder, remainder * sizeof(T) );
+		m_size += remainder;
 	}
 
 	template <typename T, typename A>
@@ -262,13 +309,28 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
+		void chain_buffer<T,A>::increase_size(size_type length)
+	{
+		if (size() + length > capacity())
+		{
+			throw std::out_of_range("Parameter out of range");
+		}
+		m_size += length;
+	}
+
+	template <typename T, typename A>
+	inline
 		void chain_buffer<T,A>::copy_to(chain_buffer& rhs) const
 	{
 		rhs.clear();
 
-		for(buffer_list_type::const_iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
+		size_type remainder = m_size;
+
+		for(buffer_list_type::const_iterator it = m_buffer_list.begin(); 
+			it != m_buffer_list.end(); 
+			it++)
 		{
-			rhs.append( (*it)->data(), (*it)->size() );
+			rhs.append( &(*it)[0], (remainder -= std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION( it->size(), remainder )) );
 		}
 	}
 
@@ -276,14 +338,9 @@ namespace Earlgrey
 	inline
 		void chain_buffer<T,A>::clear()
 	{
-		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
-		{
-			// delete *it;
-			m_buffer_allocator.destroy(*it);
-			m_buffer_allocator.deallocate(*it, 1);
-		}
-		
 		m_buffer_list.clear();
+		m_size = 0;
+		m_capacity = 0;
 	}
 
 	template <typename T, typename A>
@@ -296,18 +353,17 @@ namespace Earlgrey
 		buffer_list_type::const_iterator it = m_buffer_list.begin();
 		while(it != m_buffer_list.end())
 		{
-			size_type cur_size = (*it)->size();
+			size_type cur_size = it->size();
 			if(pos < cur_size)
 			{
-				buffer_pointer found = (*it);
 				size_type size_after_offset = cur_size - pos;
 				size_type erase_size = std::min( size_after_offset, length_to_erase );
 
-				found->erase( pos, erase_size );
+				it->erase( pos, erase_size );
 				length_to_erase -= erase_size;
 				pos = 0;
 
-				if (found->size() == 0)
+				if (it->size() == 0)
 				{
 					it = m_buffer_list.erase( it );
 				}
@@ -332,36 +388,64 @@ namespace Earlgrey
 		{
 			return false;
 		}
-		memcpy_s( ptr, length, &(*this)[offset], length );
+
+		size_type pos = offset, remainder = length;
+		size_type cur_size = 0, size_to_copy = 0;
+		buffer_list_type::const_iterator it = m_buffer_list.begin();
+		for (; it != m_buffer_list.end(); it++)
+		{
+			cur_size = it->size();
+			if (pos >= cur_size)
+			{
+				pos -= cur_size;
+				continue;
+			}
+
+			size_to_copy = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (cur_size-pos, remainder);
+			memcpy_s( ptr + length - remainder, remainder * sizeof(T), &(*it)[pos], size_to_copy * sizeof(T) );
+
+			remainder -= size_to_copy;
+
+			if (0 == remainder)
+			{
+				break;
+			}
+			pos = 0;
+		}
+
 		return true;
 	}
 
 	template <typename T, typename A>
 	inline
-		typename chain_buffer<T,A>::buffer_node_desc_type
+		typename chain_buffer<T,A>::desc_vector_type
 			chain_buffer<T,A>::expand(size_t length)
 	{
-		buffer_pointer lastBuffer = m_buffer_list.back();
-		pointer p = &lastBuffer->at( lastBuffer->size() -1);
-		size_t bufSize = lastBuffer->capacity() - lastBuffer->size();
+		desc_vector_type desc_list;
+		size_type remainder = length;
+		size_type buf_remainder = capacity() - size();
 
-		if(bufSize < length)
+		if (0 == buf_remainder)
 		{
-			size_type buffer_size = std::max EARLGREY_PREVENT_MACRO_SUBSTITUTION (length, size() * 2);
-			lastBuffer = new_buffer(buffer_size);
-			m_buffer_list.push_back(lastBuffer);
-			p = &lastBuffer->at( 0 );
-			bufSize = lastBuffer->capacity();
+			buffer_list_type::pointer buffer = _new_buffer( length );
+			desc_list.push_back( buffer_node_desc_type( &(*buffer)[0], length ) );
 		}
-		return chain_buffer<T,A>::buffer_node_desc_type( p, bufSize );
-	}
+		else 
+		{
+			buffer_list_type::reference lastBuffer = m_buffer_list.back();
+			pointer p = &lastBuffer[lastBuffer.size() - buf_remainder];
 
-	template <typename T, typename A>
-	inline
-		void chain_buffer<T,A>::increase_tail_size(size_t length)
-	{
-		buffer_pointer lastBuffer = m_buffer_list.back();
-		lastBuffer->resize_noset( lastBuffer->size() + length );
+			desc_list.push_back( buffer_node_desc_type( p, buf_remainder ) );
+
+			if (remainder > buf_remainder)
+			{
+				remainder -= buf_remainder;
+				buffer_list_type::pointer buffer = _new_buffer( remainder );
+				desc_list.push_back( buffer_node_desc_type( &(*buffer)[0], remainder ) );
+			}
+		}
+		
+		return desc_list;
 	}
 
 	template <typename T, typename A>
@@ -372,7 +456,7 @@ namespace Earlgrey
 
 		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
 		{
-			desc_vector.push_back( buffer_node_desc_type( (*it)->data(), (*it)->size() ) );
+			desc_vector.push_back( buffer_node_desc_type( &(*it)[0], it->size() ) );
 		}
 	}
 

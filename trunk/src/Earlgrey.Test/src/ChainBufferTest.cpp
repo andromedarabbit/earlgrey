@@ -60,7 +60,7 @@ namespace Earlgrey
 
 		TEST(ChainBufferTest, AutoResize)
 		{
-			const int COUNT = 2;
+			const int COUNT = 3;
 
 			chain_buffer<TCHAR> buf(5);
 
@@ -75,7 +75,7 @@ namespace Earlgrey
 
 			for(int i = 0; i < COUNT; i++)
 			{
-				buf.set(tempStr + 0, _countof(tempStr));
+				buf.set(tempStr, _countof(tempStr));
 			}
 
 			//// front
@@ -112,9 +112,35 @@ namespace Earlgrey
 			
 			ASSERT_TRUE(it == buf.end());
 
+			TCHAR buf_get[5 * COUNT];
+
+			buf.get( 0, buf_get, 5 * COUNT );
+			
+			for(int i = 0; i < COUNT; i++)
+			{
+				ASSERT_EQ(_T('A'), buf_get[i * 5]);
+				ASSERT_EQ(_T('B'), buf_get[i * 5 + 1]);
+				ASSERT_EQ(_T('C'), buf_get[i * 5 + 2]);
+				ASSERT_EQ(_T('D'), buf_get[i * 5 + 3]);
+				ASSERT_EQ(_T('\0'), buf_get[i * 5 + 4]);
+			}
+
+			chain_buffer<TCHAR>::desc_vector_type desc_vec = buf.expand( 20 );
+			chain_buffer<TCHAR>::desc_vector_type::const_iterator iter = desc_vec.begin();
+			size_t expanded_total = 0;
+			for (; iter != desc_vec.end(); iter++)
+			{
+				expanded_total += std::tr1::get<1>( *iter );
+			}
+
+			ASSERT_EQ( 20, expanded_total );
+
+			size_t size = buf.size();
+			buf.increase_size( 20 );
+			ASSERT_EQ( 20, buf.size() - size );
 		}
 
-		TEST(ChainBufferTest, BasicBufferUseWithStlDefaultAllocator)
+		/*TEST(ChainBufferTest, BasicBufferUseWithStlDefaultAllocator)
 		{
 			basic_buffer< BYTE, StlDefaultAllocator<BYTE>::Type >* bbuf = new basic_buffer<BYTE>(1);
 			BYTE tempStr = 'a';
@@ -132,7 +158,7 @@ namespace Earlgrey
 
 			chain_buffer< basic_buffer< BYTE, std::allocator<BYTE> >, std::allocator<basic_buffer< BYTE, std::allocator<BYTE>> > > buf(1024);
 			buf.set(bbuf, bbuf->size());
-		}
+		}*/
 
 
 	}
