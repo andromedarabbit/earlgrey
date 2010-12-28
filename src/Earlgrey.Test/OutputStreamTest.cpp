@@ -86,4 +86,5 @@ TEST(OutputStreamTest, OperatorTest)
 	std::wstring wstr;
 
 	os << c << i16 << i32 << i64 << uc << ui16 << ui32 << ui64 << str << wstr;
+	os.Flush();
 }

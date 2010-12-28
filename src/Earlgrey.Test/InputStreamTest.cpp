@@ -15,17 +15,17 @@ public:
 	}
 
 protected:
-	virtual void Read(char& value)
+	virtual void Read(char value)
 	{
 		value;
 	}
 
-	virtual void Read(short& value)
+	virtual void Read(short value)
 	{
 		value;
 	}
 
-	virtual void Read(int& value)
+	virtual void Read(int value)
 	{
 		value;
 	}
@@ -35,17 +35,17 @@ protected:
 		value;
 	}
 
-	virtual void Read(unsigned char& value)
+	virtual void Read(unsigned char value)
 	{
 		value;
 	}
 
-	virtual void Read(unsigned short& value)
+	virtual void Read(unsigned short value)
 	{
 		value;
 	}
 
-	virtual void Read(unsigned int& value)
+	virtual void Read(unsigned int value)
 	{
 		value;
 	}

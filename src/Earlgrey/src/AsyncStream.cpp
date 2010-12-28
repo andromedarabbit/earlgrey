@@ -63,7 +63,7 @@ namespace Earlgrey
 
 		INT ret = WSASend(_handle, 
 			SocketBuffer, 
-			_bufferForWrite->GetBufferSize(),
+			EARLGREY_NUMERIC_CAST<DWORD>(_bufferForWrite->GetBufferSize()),
 			&SentBytes, 
 			0, 
 			_resultForWrite->GetOverlapped(), 

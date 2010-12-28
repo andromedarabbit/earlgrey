@@ -511,6 +511,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\NetworkBuffer.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\OutputStream.cpp"
 					>
 				</File>
@@ -1154,10 +1158,6 @@
 				</File>
 				<File
 					RelativePath=".\inc\NetworkBuffer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\inc\NetworkStream.h"
 					>
 				</File>
 				<File

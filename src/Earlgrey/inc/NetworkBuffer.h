@@ -8,19 +8,7 @@
 
 namespace Earlgrey
 {
-	/*class NetworkBufferBase : public basic_buffer<BYTE>
-	{
-	public:
-		const static DWORD NETWORK_BUFFER_BASE_DEFAULT_SIZE = 1024;
-
-		explicit NetworkBufferBase(DWORD DefaultSize = NETWORK_BUFFER_BASE_DEFAULT_SIZE)
-			:basic_buffer<BYTE>(DefaultSize)
-		{}
-
-		~NetworkBufferBase() {}
-	};*/
-
-	class NetworkBuffer
+	class NetworkBuffer 
 	{
 	public:
 		const static DWORD NETWORK_BUFFER_DEFAULT_SIZE = 1024;
@@ -29,107 +17,47 @@ namespace Earlgrey
 		typedef BufferType::size_type	SizeType;
 
 		//! chain_buffer의 initial capacity 를 설정한다.
-		explicit NetworkBuffer(DWORD DefaultSize = NETWORK_BUFFER_DEFAULT_SIZE)
-			: _ChainBuffer(DefaultSize)
-		{
-		}
+		explicit NetworkBuffer(DWORD DefaultSize = NETWORK_BUFFER_DEFAULT_SIZE);
 
-		NetworkBuffer(const NetworkBuffer& rhs)
-		{
-			rhs._ChainBuffer.copy_to( _ChainBuffer );
-		}
+		NetworkBuffer(const NetworkBuffer& rhs);
 
-		~NetworkBuffer()
-		{
-			_ChainBuffer.clear();
-		}
+		~NetworkBuffer();
 
-		NetworkBuffer& operator=(const NetworkBuffer& rhs)
-		{
-			rhs._ChainBuffer.copy_to( _ChainBuffer );
-			return *this;
-		}
+		NetworkBuffer& operator=(const NetworkBuffer& rhs);
 
 		//! 특정 크기만큼 버퍼를 확장한 후 소켓버퍼를 얻는다.
-		/*!
-			Capacity만 확장한 상태의 버퍼를 소켓버퍼에 설정한다.
-			SendBuffer와는 달리 chain_buffer의 마지막 buffer 노드만을 사용한다.
-		*/
-		WSABUF* GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE)
-		{
-			EARLGREY_ASSERT( Size > 0 );
+		WSABUF* GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE);
 
-			WSABUF* SockBuf = new WSABUF;
-
-			BufferType::buffer_node_desc_type desc = _ChainBuffer.expand( Size );
-			SockBuf->buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( desc ));
-			SockBuf->len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( desc ));
-
-			return SockBuf;
-		}
+		//! 버퍼에 기록된 내용을 WSABUF 배열 형태로 가져온다.
+		WSABUF* GetSockSendBuffer();
 
 		//! 수신이 완료되면 size를 증가시켜준다.
-		void OnReceived(DWORD Transferred)
-		{
-			_ChainBuffer.increase_tail_size( Transferred );
-		}
+		void OnReceived(DWORD Transferred);
 
-		WSABUF* GetSockSendBuffer()
-		{
-			WSABUF* SocketBuffer = new WSABUF[_ChainBuffer.chain_size()];//! TODO : shared_ptr?
+		size_t GetBufferSize() const;
 
-			chain_buffer<BYTE>::desc_vector_type desc_vector;
-			_ChainBuffer.get_descriptions( desc_vector );
+		size_t GetBufferCapacity() const;
 
-			DWORD i = 0;
-			chain_buffer<BYTE>::desc_vector_type::const_iterator it = desc_vector.begin();
-			for(; it != desc_vector.end(); it++, i++)
-			{
-				SocketBuffer[i].buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( *it ));
-				SocketBuffer[i].len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( *it ));
-			}
+		void Erase(chain_buffer<BYTE>::size_type Size);
 
-			return SocketBuffer;
-		}
+		void Clear();
 
-		DWORD GetBufferSize() const
-		{
-			return EARLGREY_NUMERIC_CAST<DWORD>(_ChainBuffer.size());
-		}
+		BOOL SetValue(const BYTE* InValue, size_t Size);
 
-		DWORD GetBufferCapacity() const
-		{
-			return EARLGREY_NUMERIC_CAST<DWORD>(_ChainBuffer.capacity());
-		}
-
-		void Erase(chain_buffer<BYTE>::size_type Size)
-		{
-			Size;
-		}
-
-		void Clear()
-		{
-			_ChainBuffer.clear();
-		}
-
-		BOOL SetValue(const BYTE* InValue, DWORD InSize)
-		{
-			_ChainBuffer.set( InValue, InSize );
-			return TRUE;
-		}
-
-		BOOL GetValue(DWORD& Offset, BYTE* OutValue, DWORD InSize)
-		{
-			bool result = _ChainBuffer.get( static_cast<size_t>(Offset), OutValue, InSize );
-			Offset += InSize;
-			return result;
-		}
+		BOOL GetValue(size_t Offset, BYTE* OutValue, size_t Size);
 
 		// TODO 임시?
-		LPCTSTR ToString()
-		{
-			return _T("");
-		}
+		LPCTSTR ToString();
+
+		//! 사용하지 않는 버퍼 노드를 제거한다. 
+		/*
+			읽기용 버퍼일 경우에는 이미 읽는 버퍼를 더 이상 유지할 필요가 없다.
+
+			\param ValidIndex 유효한 버퍼의 시작 인덱스
+
+			\return 줄어든 버퍼의 크기
+		*/
+		size_t Shrink(size_t ValidIndex);
 
 	private:
 		BufferType _ChainBuffer;

@@ -309,6 +309,8 @@ namespace Earlgrey
 		{
 			memcpy_s( new_buf, new_buf_size, m_buffer, offset * sizeof(value_type) );
 		}
+
+		//! TODO: 만들다 말았음..
 	}
 
 	template <typename T, typename A>
