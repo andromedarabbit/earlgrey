@@ -33,7 +33,7 @@ TEST(NetworkBufferTest, ReadWriteTest)
 	EXPECT_EQ( 0,  buffer->GetBufferSize() );
 
 	WSABUF* wsabuf = buffer->GetSockRecvBuffer();
-	EXPECT_GE( 1024, buffer->GetBufferCapacity() );
+	EXPECT_GE( EARLGREY_NUMERIC_CAST<size_t>(1024), buffer->GetBufferCapacity() );
 	buffer->OnReceived( 100 );
 	EXPECT_EQ( 100, buffer->GetBufferSize() );
 
