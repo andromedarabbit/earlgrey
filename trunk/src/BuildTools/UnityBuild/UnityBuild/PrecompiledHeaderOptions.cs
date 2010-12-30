@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace UnityBuild
 {
-    public class PrecompiledHeaderOptions
+    public class PrecompiledHeaderOptions : IEquatable<PrecompiledHeaderOptions>
     {
         private UsePrecompiledHeaderOptions _usePrecompiledHeader;
         private string _precompiledHeaderThrough;
@@ -44,33 +44,6 @@ namespace UnityBuild
             set { _precompiledHeaderFile = value; }
         }
 
-        
-        public void FillConfigurationTypeTool(ConfigurationTypeTool tool)
-        {
-            Debug.Assert(tool.Name == "VCCLCompilerTool");
-            Debug.Assert(tool.NameSpecified == true);
-            Debug.Assert(tool.AnyAttr != null);
-
-            // tool.AnyAttrSpecified = true;
-            
-            if( _usePrecompiledHeader == UsePrecompiledHeaderOptions.InheritFromProject )
-            {
-                tool.AnyAttr.Clear();
-                tool.AnyAttrSpecified = false;
-                return;
-            }
-
-            tool.AnyAttrSpecified = true;
-
-            //if( GetUsePrecompiledHeader(tool.AnyAttr) == UsePrecompiledHeaderOptions.InheritFromProject )
-            //{
-                
-                
-            //}
-
-            throw new NotImplementedException();
-        }
-        
         public static PrecompiledHeaderOptions CreateInstance(ConfigurationTypeTool tool)
         {
             Debug.Assert(tool.Name == "VCCLCompilerTool");
@@ -88,42 +61,41 @@ namespace UnityBuild
 
             return options;
         }
-        /*
-        private static UsePrecompiledHeaderOptions GetUsePrecompiledHeader(List<XmlAttribute> attributes)
+     
+        #region IEquatable implementations
+
+        public bool Equals(PrecompiledHeaderOptions other)
         {
-            int indexFound = attributes.FindIndex(
-                xmlAttribute => xmlAttribute.Name == "UsePrecompiledHeader"
-                );
+            if(_usePrecompiledHeader != other._usePrecompiledHeader)
+                return false;
 
-            if (indexFound < 0)
-                return UsePrecompiledHeaderOptions.InheritFromProject;
+            if(_precompiledHeaderThrough.Equals(other._precompiledHeaderThrough, StringComparison.CurrentCultureIgnoreCase) == false)
+                return false;
 
-            return (UsePrecompiledHeaderOptions)int.Parse(
-                attributes[indexFound].Value
-                );
+            if (_precompiledHeaderFile.Equals(other._precompiledHeaderFile, StringComparison.CurrentCultureIgnoreCase) == false)
+                return false;
+
+            return true;
         }
 
-        private static string GetPrecompiledHeaderThrough(List<XmlAttribute> attributes)
+        #endregion 
+
+        public override bool Equals(object obj)
         {
-            return GetStringValueFromAttributes(attributes, "PrecompiledHeaderThrough");
+            PrecompiledHeaderOptions options = obj as PrecompiledHeaderOptions;
+            if (options == null)
+                return false;
+
+            return Equals(options);
         }
 
-        private static string GetPrecompiledHeaderFile(List<XmlAttribute> attributes)
+        public override int GetHashCode()
         {
-            return GetStringValueFromAttributes(attributes, "PrecompiledHeaderFile");
+            return _usePrecompiledHeader.GetHashCode()
+                   & _precompiledHeaderThrough.ToLower().GetHashCode()
+                   & _precompiledHeaderFile.ToLower().GetHashCode()
+                ;
         }
 
-        private static string GetStringValueFromAttributes(List<XmlAttribute> attributes, string key)
-        {
-            int indexFound = attributes.FindIndex(
-                xmlAttribute => xmlAttribute.Name == key
-                );
-
-            if (indexFound < 0)
-                return string.Empty;
-
-            return attributes[indexFound].Value;
-        }
-        */
     }
 }

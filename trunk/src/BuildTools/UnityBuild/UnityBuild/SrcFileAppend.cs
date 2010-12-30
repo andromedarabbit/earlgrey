@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -9,6 +10,7 @@ namespace UnityBuild
 {
     internal class SrcFileAppend : IDisposable
     {
+        private readonly List<KeyValuePair<string, PrecompiledHeaderOptions>> _stdafxs;
         private readonly string _dstFilePath;
         private readonly string _projectDir;
 
@@ -18,17 +20,20 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurationsExcluded;
 
             
-        public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
-            : this(dstFilePath, projectDir, buildConfigurations, new List<string>())
+        public SrcFileAppend(IList<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
+            : this(stdafxs, dstFilePath, projectDir, buildConfigurations, new List<string>())
         {
             
         }
 
-        public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded) //, bool deleteZeroSizeFile)
-        // public SrcFileAppend(string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
+        public SrcFileAppend(
+            IList<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded
+            )
         {
             Debug.Assert(string.IsNullOrEmpty(dstFilePath) == false);
             Debug.Assert(Directory.Exists(projectDir));
+
+            _stdafxs = new List<KeyValuePair<string, PrecompiledHeaderOptions>>(stdafxs);
 
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
@@ -126,8 +131,21 @@ namespace UnityBuild
 
             using (StreamWriter sw = new StreamWriter(_dstFilePath, true, Encoding.Default))
             {
-                // TODO: 하드코딩
-                // sw.WriteLine("#include \"stdafx.h\"");
+                IEnumerable<string> stdAfxFileNames =
+                        _stdafxs
+                        .Select(item => item.Value)
+                        .Where(item => item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Use || item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                        .Select(item => item.PrecompiledHeaderThrough)
+                        .Distinct()
+                        ;
+
+                Debug.Assert(stdAfxFileNames.Count() < 2);
+
+                if(stdAfxFileNames.Count() == 1)
+                {
+                    sw.WriteLine("#include \"" + stdAfxFileNames.First() + "\"");
+                }
+
                 foreach (FileType srcFile in _srcFiles)
                 {
                     WriteInclude(sw, srcFile);

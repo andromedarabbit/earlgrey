@@ -194,7 +194,7 @@ namespace UnityBuild
                     if ((_preprocessorDefinitions.Equals(value) != true))
                     {
                         this._preprocessorDefinitions = value;
-                        this._preprocessorDefinitionsSpecified = string.IsNullOrEmpty(_preprocessorDefinitions);
+                        this._preprocessorDefinitionsSpecified = string.IsNullOrEmpty(_preprocessorDefinitions) == false;
 
                         this.OnPropertyChanged("PreprocessorDefinitions");
                     }
@@ -202,7 +202,7 @@ namespace UnityBuild
                 else
                 {
                     this._preprocessorDefinitions = value;
-                    this._preprocessorDefinitionsSpecified = string.IsNullOrEmpty(_preprocessorDefinitions);
+                    this._preprocessorDefinitionsSpecified = string.IsNullOrEmpty(_preprocessorDefinitions) == false;
 
                     this.OnPropertyChanged("PreprocessorDefinitions");
                 }
@@ -231,6 +231,8 @@ namespace UnityBuild
 
         public void AddPreprocessorDefinition(string definition)
         {
+            Debug.Assert(string.IsNullOrEmpty(definition) == false);
+
             if (_preprocessorDefinitions.Length != 0)
                 PreprocessorDefinitions = PreprocessorDefinitions + ";";
             PreprocessorDefinitions = PreprocessorDefinitions + definition;

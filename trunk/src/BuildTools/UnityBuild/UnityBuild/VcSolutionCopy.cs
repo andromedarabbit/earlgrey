@@ -227,7 +227,7 @@ namespace UnityBuild
                         new VcProjectCopy(project, projectConfigurationPlatform, newProjectConfigurationPlatform);
 
                     // TODO: 하드코딩
-                    string definition = "UNITYBUILD_" + newProjectConfigurationPlatform.ToUpper();
+                    string definition = "UNITYBUILD_" + projectConfigurationPlatform.ToUpper();
                     definition = definition.Replace("|", "_");
                     definition = definition.Replace("-", "_");
 

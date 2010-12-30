@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -28,6 +29,7 @@ namespace UnityBuild
             
             _projectDirectory = projectDirectory;
             _files = files;
+            // _keys = new List<FilesMergeKey>(_files.Count);
 
             _buildConfigurations = new List<string>();
             _buildConfigurations.AddRange(buildConfigurations);
@@ -35,16 +37,6 @@ namespace UnityBuild
             _buildConfigurationsExcluded = new List<string>();
             _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
         }
-
-        //public void ExcludeBuildConfiguration(string buildConfiguration)
-        //{
-        //    _buildConfigurationsExcluded.Add(buildConfiguration);
-        //}
-
-        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
-        //{
-        //    _buildConfigurationsExcluded.AddRange(buildConfigurations);
-        //}
 
         private static string GetNextFileName()
         {
@@ -67,25 +59,36 @@ namespace UnityBuild
             if (_files.Count == 0)
                 return new List<FileType>();
 
+            // TODO: 임시 테스트 코드
+            if(_files.Where(item => item.FileName.EndsWith("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase)).Count() > 0)
+            {
+                
+            }
 
-            IEnumerable<IGrouping<string, FileType>> filesByPaths = _files.GroupBy(file => file.RelativeDir);
+            IEnumerable<KeyValuePair<FilesMergeKey, FileType>> keyValues
+                = _files.Select(file => new KeyValuePair<FilesMergeKey, FileType>(new FilesMergeKey(file), file));
+
+            IEnumerable<IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>>> filesByPaths
+                = keyValues.GroupBy(pair => pair.Key);
+
 
             List<FileType> newFiles = new List<FileType>();
-            foreach (IGrouping<string, FileType> filesByPath in filesByPaths)
+            foreach (IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>> filesByPath in filesByPaths)
             {
-                // FileType newFile = GetNewFile(relativeDir);                
-                string relativeDir = filesByPath.Key;
-                FileType newFile = GetNewFile(relativeDir);
+                FilesMergeKey key = filesByPath.Key;           
+                string relativeDir = key.RelativeDir;
+                FileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
                 
                 string absolutePath = GetAbsolutePath(newFile.RelativePath);
-                using (SrcFileAppend merger = new SrcFileAppend(absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded))
+                using (SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded))
                 {
                     merger.Open();
 
-                    foreach (FileType file in filesByPath)
+                    foreach (KeyValuePair<FilesMergeKey, FileType> fileByPath in filesByPath)
                     {
+                        FileType file = fileByPath.Value;
                         if (file.IsSrcFile == false)
-                            continue;                        
+                            continue;           
 
                         merger.AddSrcFile(file);
                     }
@@ -105,7 +108,7 @@ namespace UnityBuild
             return newFiles;
         }
 
-        private FileType GetNewFile(string relativeDir)
+        private FileType GetNewFile(string relativeDir, IList<KeyValuePair<string, PrecompiledHeaderOptions>> options)
         {
             FileType newFile = new FileType();
             newFile.RelativePath = GetNextFilePath(relativeDir);
@@ -116,10 +119,9 @@ namespace UnityBuild
                 newFile.ExcludeFromBuild(buildConfigurationExcluded);
             }
 
-            PrecompiledHeaderOptions options = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
-            foreach (string configurationPlatform in _buildConfigurations)
+            foreach (KeyValuePair<string, PrecompiledHeaderOptions> keyValuePair in options)
             {
-                newFile.SetPrecompiledHeaderOption(configurationPlatform, options);
+                newFile.SetPrecompiledHeaderOption(keyValuePair.Key, keyValuePair.Value);
             }
 
             return newFile;
