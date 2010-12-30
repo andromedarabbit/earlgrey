@@ -8,6 +8,9 @@
 #include "Console.h"
 #include "SingleAppInstance.h"
 #include "numeric_cast.hpp"
+#include "NetServerEvent.h"
+#include "ServerPacketHandler.h"
+#include "shared_ptr_helper.h"
 
 using namespace Earlgrey;
 using namespace Earlgrey::ServiceProcess;
@@ -99,6 +102,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	const IPEndPoint localEP(localAddress, 9879);
 
 	m_server.ExclusiveAddressUse(false);
+	m_server.Initialize( make_ptr(new (alloc<NetServerEvent>()) NetServerEvent()), make_ptr(new (alloc<ServerPacketHandler>()) ServerPacketHandler()) );
 	if(m_server.Listen( localEP ) == FALSE)
 	{
 		throw std::exception("");

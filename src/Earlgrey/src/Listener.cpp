@@ -2,6 +2,8 @@
 #include "Listener.h"
 #include "Executor.h"
 #include "Connection.h"
+#include "shared_ptr_helper.h"
+#include "INetEvent.h"
 
 #pragma comment(lib, "ws2_32.lib")
 
@@ -78,6 +80,9 @@ namespace Earlgrey {
 
 	bool Listener::DoTask()
 	{
+		EARLGREY_ASSERT( _NetEvent.get() );
+		EARLGREY_ASSERT( _PacketHandler.get() );
+
 		// Accept 이벤트가 왔으므로 처리한다
 
 		// 이벤트를 다시 받을 수 있도록 핸들을 리셋시킨다.
@@ -85,11 +90,17 @@ namespace Earlgrey {
 
 		// Accept 처리는 IOCP 스레드에서 하도록 한다.
 		IocpExecutorSingleton::Instance().Execute(
-			RunnableBuilder::NewRunnable(new AcceptCompleteHandler(_Socket.GetHandle()))
+			RunnableBuilder::NewRunnable(new AcceptCompleteHandler(_Socket.GetHandle(), _NetEvent, _PacketHandler))
 			);		
 
 		// 핸들을 계속 유지해야 하므로 false를 리턴한다.
 		return false;
+	}
+
+	void Listener::Initialize( std::tr1::shared_ptr<INetEvent> NetEvent, std::tr1::shared_ptr<IPacketHandler> PacketHandler )
+	{
+		_PacketHandler = PacketHandler;
+		_NetEvent = NetEvent;
 	}
 
 	DWORD AcceptCompleteHandler::Run()
@@ -110,9 +121,23 @@ namespace Earlgrey {
 		socket.SetReceiveBufferSize( 0 );
 		socket.SetSendBufferSize( 0 );
 
-		Connection* connection = new Connection();
-		connection->Initialize( socket );
+		std::tr1::shared_ptr<Connection> connection = make_ptr(new (alloc<Connection>()) Connection());
+		connection->Initialize( socket, _NetEvent, _PacketHandler );
+
+		_NetEvent->OnConnected( connection );
 
 		return EXIT_SUCCESS;
 	}
+
+	AcceptCompleteHandler::AcceptCompleteHandler( 
+		SOCKET ListenSocket, 
+		std::tr1::shared_ptr<INetEvent> NetEvent, 
+		std::tr1::shared_ptr<IPacketHandler> PacketHandler ) 
+		: _ListenSocket( ListenSocket ), _NetEvent(NetEvent), _PacketHandler(PacketHandler)
+	{
+		EARLGREY_ASSERT(ListenSocket != INVALID_SOCKET);
+		EARLGREY_ASSERT( _NetEvent.get() );
+		EARLGREY_ASSERT( _PacketHandler.get() );
+	}
+
 }

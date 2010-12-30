@@ -6,7 +6,7 @@ using namespace Earlgrey;
 
 TEST(NetworkBufferTest, ReadWriteTest)
 {
-	std::tr1::shared_ptr<NetworkBuffer> buffer = make_ptr(new NetworkBuffer());
+	std::tr1::shared_ptr<NetworkBuffer> buffer = make_ptr(new (alloc<NetworkBuffer>()) NetworkBuffer());
 
 	int i32 = 100;
 	std::wstring wstr = L"으라차차!";
@@ -32,10 +32,10 @@ TEST(NetworkBufferTest, ReadWriteTest)
 	buffer->Clear();
 	EXPECT_EQ( 0,  buffer->GetBufferSize() );
 
-	WSABUF* wsabuf = buffer->GetSockRecvBuffer();
+	std::pair<WSABUF*,DWORD> wsabuf = buffer->GetSockRecvBuffer();
 	EXPECT_GE( EARLGREY_NUMERIC_CAST<size_t>(1024), buffer->GetBufferCapacity() );
 	buffer->OnReceived( 100 );
 	EXPECT_EQ( 100, buffer->GetBufferSize() );
 
-	delete[] wsabuf;
+	delete[] wsabuf.first;
 }

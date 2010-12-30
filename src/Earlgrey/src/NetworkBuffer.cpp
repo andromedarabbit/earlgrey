@@ -21,7 +21,7 @@ namespace Earlgrey {
 		return *this;
 	}
 
-	WSABUF* NetworkBuffer::GetSockRecvBuffer( SizeType Size /*= NETWORK_BUFFER_DEFAULT_SIZE*/ )
+	std::pair<WSABUF*, DWORD> NetworkBuffer::GetSockRecvBuffer( SizeType Size /*= NETWORK_BUFFER_DEFAULT_SIZE*/ )
 	{
 		EARLGREY_ASSERT( Size > 0 );
 
@@ -31,13 +31,14 @@ namespace Earlgrey {
 
 		WSABUF* SockBuf = new WSABUF[desc.size()];
 
-		for (int i = 0; iter != desc.end(); iter++, i++)
+		DWORD i = 0;
+		for (; iter != desc.end(); iter++, i++)
 		{
 			SockBuf[i].buf = reinterpret_cast<CHAR*>(std::tr1::get<0>( *iter ));
 			SockBuf[i].len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( *iter ));
 		}			
 
-		return SockBuf;
+		return std::make_pair( SockBuf, i );
 	}
 
 	void NetworkBuffer::OnReceived( DWORD Transferred )

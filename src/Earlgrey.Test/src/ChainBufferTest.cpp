@@ -138,6 +138,12 @@ namespace Earlgrey
 			size_t size = buf.size();
 			buf.increase_size( 20 );
 			ASSERT_EQ( 20, buf.size() - size );
+
+			buf.expand( 1024 );
+			buf.increase_size( 1024 );
+
+			buf.expand( 1024 );
+			buf.increase_size( 1024 );
 		}
 
 		/*TEST(ChainBufferTest, BasicBufferUseWithStlDefaultAllocator)

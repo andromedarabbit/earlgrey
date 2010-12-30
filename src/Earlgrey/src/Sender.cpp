@@ -2,10 +2,12 @@
 #include "Sender.h"
 #include "NetworkBuffer.h"
 #include "AsyncStream.h"
+#include "INetEvent.h"
 
 namespace Earlgrey
 {
-	Sender::Sender(AsyncStream* Stream) : _Stream(Stream)
+	Sender::Sender(AsyncStream* Stream, std::tr1::shared_ptr<INetEvent> NetEvent) 
+		: _Stream(Stream), _NetEvent(NetEvent)
 	{
 	}
 
@@ -18,7 +20,6 @@ namespace Earlgrey
 	{
 		if (Result->GetBytesTransferred() == 0)
 		{
-			//OnDisconnected();
 			return;
 		}
 		if (Result->GetBytesTransferred() == _Stream->GetWriteBuffer()->GetBufferSize())

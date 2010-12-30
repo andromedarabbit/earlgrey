@@ -98,11 +98,11 @@ namespace Earlgrey
 	{
 		m_buffer_list.push_back( buffer_type() );
 
-		buffer_list_type::reference buffer = m_buffer_list.back();
-		buffer.resize( length );
+		buffer_list_type::pointer buffer = &(m_buffer_list.back());
+		buffer->resize( length );
 		m_capacity += length;
 
-		return &buffer;
+		return buffer;
 	}
 
 	template <typename T, typename A>
@@ -432,8 +432,8 @@ namespace Earlgrey
 		}
 		else 
 		{
-			buffer_list_type::reference lastBuffer = m_buffer_list.back();
-			pointer p = &lastBuffer[lastBuffer.size() - buf_remainder];
+			buffer_list_type::pointer lastBuffer = &(m_buffer_list.back());
+			pointer p = &(*lastBuffer)[lastBuffer->size() - buf_remainder];
 
 			desc_list.push_back( buffer_node_desc_type( p, buf_remainder ) );
 

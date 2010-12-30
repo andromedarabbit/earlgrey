@@ -5,6 +5,7 @@
 #include "numeric_cast.hpp"
 #include "AppSettings.h"
 #include "CompletionHandler.h"
+#include <sstream>
 
 namespace Earlgrey
 {
@@ -52,6 +53,11 @@ namespace Earlgrey
 			//error
 			return FALSE;
 		}
+
+		std::wostringstream out;
+		out.setf( std::ios::hex );
+		out << L"Handler Registered Handle = 0x" << Handle << L", CompletionHandler* = 0x" << CompleteHandler << L"\r\n";
+		OutputDebugStringW( out.str().c_str() );
 		return TRUE;
 	}
 
@@ -74,7 +80,7 @@ namespace Earlgrey
 	BOOL WinProactor::HandleEvent(DWORD milliseconds)
 	{
 		DWORD				Transferred = 0;;
-		LPOVERLAPPED		Overlapped;
+		LPOVERLAPPED		Overlapped = NULL;
 		CompletionHandler*	Handler = NULL;
 		
 		BOOL Result = GetQueuedCompletionStatus(_IOCompletionPort, &Transferred, (PULONG_PTR)&Handler, &Overlapped, milliseconds);

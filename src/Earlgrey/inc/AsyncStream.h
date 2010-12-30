@@ -29,20 +29,12 @@ namespace Earlgrey
 		*/
 		void Initialize(SOCKET handle, CompletionHandler* readHandler, CompletionHandler* writeHandler, Proactor* proactor);
 
-		//! post된 I/O 요청을 취소한다.
-		void Cancel()
-		{
-		}
-
 		bool Read();
 
 		bool Write();
 
 		//! 핸들(소켓)을 닫는다.
-		void Close()
-		{
-			closesocket( _handle );
-		}
+		void Close();
 
 		virtual void HandleEvent(AsyncResult* Result);
 
