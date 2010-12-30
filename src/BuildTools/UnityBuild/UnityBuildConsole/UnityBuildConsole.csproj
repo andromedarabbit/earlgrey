@@ -62,10 +62,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\vendor\CommandLineParserLibrary\v1.8\src\libcmdline\CommandLine.csproj">
+      <Project>{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}</Project>
+      <Name>CommandLine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UnityBuild\UnityBuild.csproj">
       <Project>{6A1163E6-6D8C-4DB1-83F9-0384AEA7298D}</Project>
       <Name>UnityBuild %28UnityBuild\UnityBuild%29</Name>

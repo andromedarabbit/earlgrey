@@ -57,6 +57,7 @@
     <Compile Include="AbstractConfigurationNameConverterTest.cs" />
     <Compile Include="AbstractTest.cs" />
     <Compile Include="BuilderTest.cs" />
+    <Compile Include="FilesMergeKeyTest.cs" />
     <Compile Include="FilesMergeTest.cs" />
     <Compile Include="FileTypeTest.cs" />
     <Compile Include="FilterMergeTest.cs" />

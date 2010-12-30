@@ -184,6 +184,11 @@ namespace UnityBuild
             return InternalPrecompiledHeaderOptions[configurationPlatform];
         }
 
+        public IDictionary<string, PrecompiledHeaderOptions> GetPrecompiledHeaderOptions()
+        {
+            return InternalPrecompiledHeaderOptions;
+        }
+
         #region IFilterOrFile member impletations
 
         public bool IsFilter

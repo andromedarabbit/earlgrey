@@ -10,14 +10,11 @@ namespace UnityBuild
     public class Builder : IDisposable
     {
         private readonly string _solutionFilePath;
-        private readonly VcSolution _vcSolution;
 
         private AbstractSolutionConfigurationNameConverter _solutionConverter;
         private AbstractProjectConfigurationNameConverter _projectConverter;
 
         private readonly List<string> _projectNamesExcluded;
-
-        // private bool _preservePrecompiledHeaders;
 
         public Builder(
             string solutionFilePath
@@ -33,11 +30,7 @@ namespace UnityBuild
             _solutionConverter = solutionConverter;
             _projectConverter = projectConverter;
 
-            _vcSolution = new VcSolution(_solutionFilePath);
-
             _projectNamesExcluded = new List<string>();
-
-        //    _preservePrecompiledHeaders = true;
         }
 
         public Builder(
@@ -46,12 +39,6 @@ namespace UnityBuild
             : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
         {
         }
-
-        //public bool PreservePrecompiledHeaders
-        //{
-        //    get { return _preservePrecompiledHeaders; }
-        //    set { _preservePrecompiledHeaders = value; }
-        //}
 
         public string SolutionFilePath
         {
@@ -92,17 +79,13 @@ namespace UnityBuild
         }
 
         public void Open()
-        {
-            _vcSolution.Load();
+        {            
+            CreateUnityBuildConfigurationPlatforms();
 
-            VcSolutionCopy copy = new VcSolutionCopy(_vcSolution, _solutionConverter, _projectConverter);
-            if(_projectNamesExcluded.Count > 0)
-            {
-                copy.ExcludeProjects(_projectNamesExcluded);
-            }
-            copy.CopySolutionConfigurationPlatform();
+            VcSolution vcSolution = new VcSolution(_solutionFilePath);
+            vcSolution.Load();
 
-            foreach (VcProject project in _vcSolution.VcProjects)
+            foreach (VcProject project in vcSolution.VcProjects)
             {
                 if (IsExcluded(project) == true)
                     continue;
@@ -111,11 +94,27 @@ namespace UnityBuild
                 project.ExcludeFromBuild(_projectConverter);
 
                 //// UnityBuild 용 소스 코드는 기존 빌드의 빌드 대상에서 제외함
-                VcProjectMerge projectMerge = new VcProjectMerge(project, copy.ProjectConverter);
+                VcProjectMerge projectMerge = new VcProjectMerge(project, _projectConverter);
                 //// projectMerge.ExcludeFromBuild(copy.ProjectConverter);
                 List<IFilterOrFile> itemsAdded = projectMerge.Merge();
             }
+
+            vcSolution.Save();
+        }
+
+        private void CreateUnityBuildConfigurationPlatforms()
+        {
+            VcSolution vcSolution = new VcSolution(_solutionFilePath);
+            vcSolution.Load();
+
+            VcSolutionCopy copy = new VcSolutionCopy(vcSolution, _solutionConverter, _projectConverter);
+            if(_projectNamesExcluded.Count > 0)
+            {
+                copy.ExcludeProjects(_projectNamesExcluded);
+            }
+            copy.CopySolutionConfigurationPlatform();
             
+            vcSolution.Save();
         }
 
         #region IDisposable
@@ -154,7 +153,7 @@ namespace UnityBuild
                 if (disposing)
                 {
                     // Dispose managed resources.
-                    _vcSolution.Save();
+                    
                 }
 
                 // Call the appropriate methods to clean up

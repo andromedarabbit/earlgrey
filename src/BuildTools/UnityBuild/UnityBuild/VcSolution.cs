@@ -34,11 +34,16 @@ namespace UnityBuild
         {
             _summary = SolutionFile.FromFile(_solutionFilePath);
 
-            CacheVcProjects();
+            if(CacheVcProjects() == 0)
+            {
+                throw new ApplicationException("The solution file has no Visual C++ projects.");
+            }
         }
 
-        private void CacheVcProjects()
+        private int CacheVcProjects()
         {
+            Debug.Assert(_vcProjects.Count == 0);
+            
             foreach(var projectSummary in _summary.Projects)
             {
                 if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
@@ -49,6 +54,8 @@ namespace UnityBuild
 
                 _vcProjects.Add(vcProject);
             }
+
+            return _vcProjects.Count;
         }
 
         internal VcProject FindVcProject(Project project)
@@ -73,6 +80,8 @@ namespace UnityBuild
                 project.Save();
             }
             _summary.Save();
+
+            // CacheVcProjects();
         }
 
         public PropertyLineHashList ConfigurationPlatforms

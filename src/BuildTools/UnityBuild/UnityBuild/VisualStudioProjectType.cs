@@ -31,7 +31,7 @@ namespace UnityBuild
 
 
         internal
-            void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options, FileType file)
+         void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options, FileType file)
         {
             if (file.IsSrcFile == false)
                 throw new ApplicationException();
@@ -169,12 +169,17 @@ namespace UnityBuild
 
         private void ExtendFiles(List<object> srcFiles)
         {
+            if(srcFiles == null)
+                return;
+
             foreach (object item in srcFiles)
             {
                 Debug.Assert(item is FileType || item is FilterType);
                 
                 if(item is FilterType)
                 {
+                    FilterType filter = item as FilterType;
+                    ExtendFiles(filter.Items);
                     continue;
                 }
                 
@@ -202,9 +207,9 @@ namespace UnityBuild
                     if (file.IsSrcFile == false)
                         continue;
 
-                    PrecompiledHeaderOptions options = file.GetPrecompiledHeaderOption(configurationPlatformName);
-                    if (options.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
-                        continue;
+                    //PrecompiledHeaderOptions options = file.GetPrecompiledHeaderOption(configurationPlatformName);
+                    //if (options.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                    //    continue;
 
                     file.ExcludeFromBuild(configurationPlatformName);
                 }
