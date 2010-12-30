@@ -71,12 +71,14 @@ namespace Earlgrey
 		AsyncResult() 
 			: _Handle(INVALID_SOCKET), _Handler(NULL)
 		{
+			ZeroMemory( &_overlapped, sizeof(_overlapped) );
 		}
 
 		//! I/O 와 상관 없는 객체를 큐에 넣을 때 사용하는 생성자
 		AsyncResult(CompletionHandler* Handler)
 			: _Handle(INVALID_SOCKET), _Handler(Handler)
 		{
+			ZeroMemory( &_overlapped, sizeof(_overlapped) );
 		}
 
 		//! I/O 처리에 사용하는 생성자
@@ -84,6 +86,7 @@ namespace Earlgrey
 			: _Handle(Handle), _Handler(Handler)
 		{
 			EARLGREY_ASSERT( Handle != INVALID_SOCKET );
+			ZeroMemory( &_overlapped, sizeof(_overlapped) );
 		}
 
 		DWORD GetBytesTransferred() const

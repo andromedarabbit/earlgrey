@@ -26,7 +26,7 @@ namespace Earlgrey
 		NetworkBuffer& operator=(const NetworkBuffer& rhs);
 
 		//! 특정 크기만큼 버퍼를 확장한 후 소켓버퍼를 얻는다.
-		WSABUF* GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE);
+		std::pair<WSABUF*, DWORD> GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE);
 
 		//! 버퍼에 기록된 내용을 WSABUF 배열 형태로 가져온다.
 		WSABUF* GetSockSendBuffer();

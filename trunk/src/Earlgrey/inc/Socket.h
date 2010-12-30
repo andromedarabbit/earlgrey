@@ -156,7 +156,7 @@ namespace Earlgrey
 		static void UninitializeSockets();
 
 	private:
-		friend class Connector;
+		friend class SocketHelper;
 
 #ifdef EARLGREY_UNIT_TEST
 		FRIEND_TEST(SocketTest, CreateTcpSocket);

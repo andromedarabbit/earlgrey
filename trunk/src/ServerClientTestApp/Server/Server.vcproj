@@ -459,6 +459,26 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="InterfaceImplement"
+			>
+			<File
+				RelativePath=".\src\NetServerEvent.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\NetServerEvent.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ServerPacketHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\ServerPacketHandler.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

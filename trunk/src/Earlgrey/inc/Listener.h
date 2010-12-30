@@ -5,6 +5,9 @@
 
 namespace Earlgrey {
 
+	class INetEvent;
+	class IPacketHandler;
+
 	//! Accept 이벤트가 왔을 때 관련 처리를 한다.
 	/*!
 		! IOCP 스레드에서 수행된다.
@@ -14,16 +17,14 @@ namespace Earlgrey {
 	class AcceptCompleteHandler : public IRunnable
 	{
 	public:
-		explicit AcceptCompleteHandler(SOCKET ListenSocket)
-			: _ListenSocket( ListenSocket )
-		{
-			EARLGREY_ASSERT(ListenSocket != INVALID_SOCKET);
-		}
+		explicit AcceptCompleteHandler(SOCKET ListenSocket, std::tr1::shared_ptr<INetEvent> NetEvent, std::tr1::shared_ptr<IPacketHandler> PacketHandler);
 
 		virtual DWORD Run();
 
 	private:
 		Socket _ListenSocket;
+		std::tr1::shared_ptr<INetEvent> _NetEvent;
+		std::tr1::shared_ptr<IPacketHandler> _PacketHandler;
 	};
 
 	class Listener : public IWaitHandler 
@@ -31,6 +32,8 @@ namespace Earlgrey {
 	public:
 		explicit Listener(void);
 		virtual ~Listener(void);
+
+		void Initialize(std::tr1::shared_ptr<INetEvent> NetEvent, std::tr1::shared_ptr<IPacketHandler> PacketHandler);
 
 		// BOOL Listen(USHORT Port);
 		BOOL Listen(const IPEndPoint& localEP);
@@ -51,6 +54,8 @@ namespace Earlgrey {
 		HANDLE _AcceptEvent;
 		bool m_Active;
 		bool _ExclusiveAddressUse;
+		std::tr1::shared_ptr<INetEvent> _NetEvent;
+		std::tr1::shared_ptr<IPacketHandler> _PacketHandler;
 	};
 
 	class Server : public Listener

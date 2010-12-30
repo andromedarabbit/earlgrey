@@ -2,10 +2,15 @@
 #include "Receiver.h"
 #include "AsyncStream.h"
 #include "NetworkBuffer.h"
+#include "INetEvent.h"
+#include "IPacketHandler.h"
 
 namespace Earlgrey
 {
-	Receiver::Receiver(AsyncStream* Stream) : _Stream(Stream), _Start(0), _End(0)
+	Receiver::Receiver(AsyncStream* Stream, 
+		std::tr1::shared_ptr<INetEvent> NetEvent, 
+		std::tr1::shared_ptr<IPacketHandler> PacketHandler) 
+		: _Stream(Stream), _Start(0), _End(0), _NetEvent(NetEvent), _PacketHandler(PacketHandler)
 	{
 	}
 
@@ -15,34 +20,44 @@ namespace Earlgrey
 
 	void Receiver::HandleEvent(AsyncResult* Result)
 	{
+		EARLGREY_ASSERT( _NetEvent );
+		EARLGREY_ASSERT( _PacketHandler );
+
 		if (Result->GetBytesTransferred() == 0)
 		{
-			OnDisconnected();
+			_NetEvent->OnDisconnected();
 			return;
 		}
 
 		NetworkBuffer* buffer = _Stream->GetReadBuffer();
 		DWORD readBytes = Result->GetBytesTransferred();
 		buffer->OnReceived( readBytes );
+		_End += readBytes;
 
-		if (!HandlePacket( buffer ))
+		size_t HandledSize = 0;
+
+		if (!_PacketHandler->Handle( buffer, _Start, _End, HandledSize ))
 		{
 			_Stream->Close();
+			_NetEvent->OnDisconnected();
 			return;
 		}
 
-		_Stream->Read();
-	}
+		EARLGREY_ASSERT( _End - _Start >= HandledSize );
+		if (_End - _Start < HandledSize)
+		{
+			_Stream->Close();
+			_NetEvent->OnDisconnected();
+			return;
+		}
 
-	void Receiver::OnDisconnected()
-	{
-		// TODO: Connection 객체를 제거한다.
-	}
+		_Start += HandledSize;
 
-	bool Receiver::HandlePacket( NetworkBuffer* buffer )
-	{
-		UNREFERENCED_PARAMETER( buffer );
-		return true;
+		if (!_Stream->Read())
+		{
+			// Read() 에서 이미 Close() 가 호출된 상태임
+			_NetEvent->OnDisconnected();
+		}
 	}
 
 }

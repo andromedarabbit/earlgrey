@@ -3,6 +3,7 @@
 #include "NetworkBuffer.h"
 #include "Socket.h"
 #include "Proactor.h"
+#include <sstream>
 
 
 namespace Earlgrey
@@ -23,17 +24,21 @@ namespace Earlgrey
 
 	bool AsyncStream::Read()
 	{
-		WSABUF* SocketBuffers = _bufferForRead->GetSockRecvBuffer();	// 크기가 NETWORK_BUFFER_DEFAULT_SIZE인 버퍼
-		DWORD ReceivedBytes;
+		std::pair<WSABUF*,DWORD> SocketBuffers = _bufferForRead->GetSockRecvBuffer();	// 크기가 NETWORK_BUFFER_DEFAULT_SIZE인 버퍼
 		DWORD Flags = 0;
 
 		INT ret = WSARecv(_handle, 
-			SocketBuffers, 
-			1,
-			&ReceivedBytes, 
+			SocketBuffers.first, 
+			SocketBuffers.second,
+			NULL, 
 			&Flags, 
 			_resultForRead->GetOverlapped(), 
 			NULL);
+
+		std::wostringstream out;
+		out.setf( std::ios::hex );
+		out << L"POST Recv Overlapped = 0x" << _resultForRead->GetOverlapped() << L"\r\n";
+		OutputDebugStringW( out.str().c_str() );
 
 		if(SOCKET_ERROR == ret)
 		{
@@ -42,7 +47,7 @@ namespace Earlgrey
 			{
 				if (WSAECONNRESET == ErrCode)
 				{
-					// normal error
+					// forcibly closed by remote host; remote host uses hard(abortive) close
 				}
 				else
 				{
@@ -100,4 +105,15 @@ namespace Earlgrey
 	{
 		return _bufferForWrite.get();
 	}
+
+	void AsyncStream::Close()
+	{
+		LINGER l = {0};
+		l.l_onoff = 1;
+		l.l_linger = 0;
+
+		setsockopt( _handle, SOL_SOCKET, SO_LINGER, (CHAR*) &l, sizeof(l) );
+		closesocket( _handle );
+	}
+
 }

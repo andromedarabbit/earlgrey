@@ -12,6 +12,7 @@
 #include "UserInputHandlers.h"
 
 #include "Shellapi.h" // CommandLineToArgvW
+#include "shared_ptr_helper.h"
 
 using namespace std;
 using namespace Earlgrey;
@@ -150,6 +151,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// Run as a console application
 	ArgContainerType args;
 	getArgs(args);
+
+	{
+		std::tr1::shared_ptr<int> i = make_ptr(new (alloc<int>()) int());
+	}
 
 	for(ArgContainerType::iterator it = args.begin(); it != args.end(); it++)
 	{

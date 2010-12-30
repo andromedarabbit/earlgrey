@@ -304,6 +304,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\SocketHelper.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -699,6 +703,10 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\SocketHelper.h"
 				>
 			</File>
 			<File
@@ -1129,11 +1137,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\INetEvent.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\InputStream.h"
 					>
 				</File>
 				<File
 					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPacketHandler.h"
 					>
 				</File>
 				<File

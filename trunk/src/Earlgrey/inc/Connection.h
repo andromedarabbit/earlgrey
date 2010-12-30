@@ -19,8 +19,13 @@ namespace Earlgrey {
 		virtual ~Connection(void);
 
 		// TODO: 궁극적으론 소켓 핸들을 직접 받는 메서드는 없애는 게 좋다.
-		bool Initialize(const Socket& socket);
-		bool Initialize(SOCKET socket);
+		bool Initialize(const Socket& socket, 
+			std::tr1::shared_ptr<INetEvent> NetEvent, 
+			std::tr1::shared_ptr<IPacketHandler> PacketHandler);
+
+		bool Initialize(SOCKET socket, 
+			std::tr1::shared_ptr<INetEvent> NetEvent, 
+			std::tr1::shared_ptr<IPacketHandler> PacketHandler);
 
 		NetworkBuffer* GetReadBuffer()
 		{

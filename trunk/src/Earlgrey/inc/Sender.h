@@ -5,11 +5,13 @@
 namespace Earlgrey
 {
 	class AsyncStream;
+	class NetEvent;
+	class INetEvent;
 
 	class Sender : public CompletionHandler
 	{
 	public:
-		explicit Sender(AsyncStream* Stream);
+		explicit Sender(AsyncStream* StreamNetEvent, std::tr1::shared_ptr<INetEvent> NetEvent);
 
 		virtual ~Sender();
 
@@ -17,5 +19,6 @@ namespace Earlgrey
 
 	private:
 		AsyncStream* _Stream;
+		std::tr1::shared_ptr<INetEvent> _NetEvent;
 	};
 }
