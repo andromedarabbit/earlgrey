@@ -20,6 +20,7 @@ namespace Earlgrey
 		m_PoolCount = 0;
 		m_AllocCount = 0;
 		m_PhysicalAlloc = 0;
+		m_TotalAllocCount = 0;
 	}
 
 	void SlabAllocator::MemoryBlockPool::SetGlobalPool(MemoryBlockChunkList* ChunkList)
@@ -48,6 +49,8 @@ namespace Earlgrey
 		Chunk.Tail->Next = m_MemoryBlockList;
 		m_MemoryBlockList = Chunk.Head;
 
+		EARLGREY_ASSERT( static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
+
 		m_PoolCount += Chunk.BlockCount;
 
 		return TRUE;
@@ -66,6 +69,7 @@ namespace Earlgrey
 		for(;;)
 		{
 			RegionPointer->BlockSize = UserBlockSize;
+			EARLGREY_ASSERT( RegionPointer->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
 			void* NextPointer = ((BYTE*)RegionPointer) + m_BlockSize;
 			if(NextPointer > EndOfRegion)
 			{
@@ -83,6 +87,7 @@ namespace Earlgrey
 
 	SimpleMemoryBlock* SlabAllocator::MemoryBlockPool::PopMemoryBlock()
 	{
+		bool allocated = false;
 		if(NULL == m_MemoryBlockList)
 		{
 			BOOL AllocResult = AllocBlocksFromChunkList() || AllocBlocksFromVirtualAlloc();
@@ -90,10 +95,16 @@ namespace Earlgrey
 			{
 				throw std::bad_alloc();
 			}
+
+			allocated = true;
 		}
+
+		EARLGREY_ASSERT( static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
 
 		SimpleMemoryBlock* Block = m_MemoryBlockList;
 		m_MemoryBlockList = m_MemoryBlockList->Next;
+
+		EARLGREY_ASSERT( static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
 
 		++m_AllocCount;
 		++m_TotalAllocCount;
@@ -123,6 +134,8 @@ namespace Earlgrey
 		}
 
 		m_MemoryBlockList = Block->Next;
+		EARLGREY_ASSERT( static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
+
 		Block->Next = NULL;
 		Chunk.Tail = Block;
 		Chunk.ChunkSize = m_BlockSize;

@@ -351,6 +351,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\ConnectionContainer.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ReadMe.txt"
 				>
 			</File>
@@ -417,6 +421,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\inc\ConnectionContainer.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
@@ -478,6 +486,10 @@
 				RelativePath=".\inc\ServerPacketHandler.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Containers"
+			>
 		</Filter>
 	</Files>
 	<Globals>

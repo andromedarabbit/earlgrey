@@ -14,7 +14,7 @@ namespace Earlgrey
 	{
 	public:
 		explicit Receiver(
-			AsyncStream* Stream, 
+			std::tr1::shared_ptr<AsyncStream> Stream, 
 			std::tr1::shared_ptr<INetEvent> NetEvent, 
 			std::tr1::shared_ptr<IPacketHandler> PacketHandler);
 
@@ -23,7 +23,7 @@ namespace Earlgrey
 		// CompletionHandler Interface
 		void HandleEvent(AsyncResult* Result);
 	protected:
-		AsyncStream* _Stream;
+		std::tr1::shared_ptr<AsyncStream> _Stream;
 		std::tr1::shared_ptr<INetEvent> _NetEvent;
 		std::tr1::shared_ptr<IPacketHandler> _PacketHandler;
 		size_t _Start;	//!< 버퍼에서 처리할 데이터의 시작 위치

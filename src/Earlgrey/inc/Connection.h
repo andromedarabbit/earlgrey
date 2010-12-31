@@ -38,9 +38,9 @@ namespace Earlgrey {
 		}
 
 	private:
-		std::auto_ptr<AsyncStream> _Stream;		//!< IOCP 입출력 처리 객체
-		std::auto_ptr<Receiver> _Receiver;		//!< 패킷 수신 완료 처리자
-		std::auto_ptr<Sender> _Sender;			//!< 패킷 전송 완료 처리자
+		std::tr1::shared_ptr<AsyncStream> _Stream;		//!< IOCP 입출력 처리 객체
+		std::tr1::shared_ptr<Receiver> _Receiver;		//!< 패킷 수신 완료 처리자
+		std::tr1::shared_ptr<Sender> _Sender;			//!< 패킷 전송 완료 처리자
 	};
 
 	
