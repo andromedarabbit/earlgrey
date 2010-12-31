@@ -6,7 +6,7 @@
 
 namespace Earlgrey
 {
-	Sender::Sender(AsyncStream* Stream, std::tr1::shared_ptr<INetEvent> NetEvent) 
+	Sender::Sender(std::tr1::shared_ptr<AsyncStream> Stream, std::tr1::shared_ptr<INetEvent> NetEvent) 
 		: _Stream(Stream), _NetEvent(NetEvent)
 	{
 	}

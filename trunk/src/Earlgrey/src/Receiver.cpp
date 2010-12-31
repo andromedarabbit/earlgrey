@@ -7,7 +7,8 @@
 
 namespace Earlgrey
 {
-	Receiver::Receiver(AsyncStream* Stream, 
+	Receiver::Receiver(
+		std::tr1::shared_ptr<AsyncStream> Stream, 
 		std::tr1::shared_ptr<INetEvent> NetEvent, 
 		std::tr1::shared_ptr<IPacketHandler> PacketHandler) 
 		: _Stream(Stream), _Start(0), _End(0), _NetEvent(NetEvent), _PacketHandler(PacketHandler)
@@ -29,14 +30,18 @@ namespace Earlgrey
 			return;
 		}
 
+		size_t oldEnd = _End;
+
 		NetworkBuffer* buffer = _Stream->GetReadBuffer();
 		DWORD readBytes = Result->GetBytesTransferred();
 		buffer->OnReceived( readBytes );
 		_End += readBytes;
 
+		EARLGREY_ASSERT( _End - oldEnd < 100 );
+
 		size_t HandledSize = 0;
 
-		if (!_PacketHandler->Handle( buffer, _Start, _End, HandledSize ))
+		if (!_PacketHandler->Handle( _Stream, buffer, _Start, _End, HandledSize ))
 		{
 			_Stream->Close();
 			_NetEvent->OnDisconnected();

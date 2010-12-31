@@ -25,5 +25,7 @@
 
 #include <map>
 #include <vector>
+#include <set>
 
 #include "Earlgrey.h"
+#include "loki/Singleton.h"

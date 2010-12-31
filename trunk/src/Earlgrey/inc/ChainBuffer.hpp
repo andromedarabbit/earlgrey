@@ -432,16 +432,28 @@ namespace Earlgrey
 		}
 		else 
 		{
-			buffer_list_type::pointer lastBuffer = &(m_buffer_list.back());
-			pointer p = &(*lastBuffer)[lastBuffer->size() - buf_remainder];
-
-			desc_list.push_back( buffer_node_desc_type( p, buf_remainder ) );
-
-			if (remainder > buf_remainder)
+			buffer_list_type::reverse_iterator riter = m_buffer_list.rbegin();
+			for (; riter != m_buffer_list.rend(); riter++)
 			{
-				remainder -= buf_remainder;
-				buffer_list_type::pointer buffer = _new_buffer( remainder );
-				desc_list.push_back( buffer_node_desc_type( &(*buffer)[0], remainder ) );
+				if (riter->size() >= buf_remainder)
+				{
+					desc_list.push_back( buffer_node_desc_type( &(*riter)[riter->size() - buf_remainder], buf_remainder ) );
+					remainder -= buf_remainder;
+					break;
+				}
+				desc_list.push_back( buffer_node_desc_type( &(*riter)[0], riter->size() ) );
+				buf_remainder -= riter->size();
+				remainder -= riter->size();
+			}
+
+			std::reverse( desc_list.begin(), desc_list.end() );
+
+			if (remainder > 0)
+			{
+				// 새 버퍼를 만들 경우엔 요청한 크기만큼의 버퍼를 만든다.
+				// 이렇게 해야 작은 크기의 버퍼가 여러개 만들어지는 것을 막을 수 있다.
+				buffer_list_type::pointer buffer = _new_buffer( length );
+				desc_list.push_back( buffer_node_desc_type( &(*buffer)[0], length ) );
 			}
 		}
 		
