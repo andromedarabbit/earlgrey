@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using CommandLine;
 
-namespace UnityBuildConsole
+namespace UnityBuild.ConsoleUi
 {
     sealed class Options
     {

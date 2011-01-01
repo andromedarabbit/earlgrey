@@ -7,7 +7,7 @@ using System.Text;
 using CommandLine;
 using UnityBuild;
 
-namespace UnityBuildConsole
+namespace UnityBuild.ConsoleUi
 {
     class Program
     {
