@@ -207,9 +207,9 @@ namespace UnityBuild
                     if (file.IsSrcFile == false)
                         continue;
 
-                    //PrecompiledHeaderOptions options = file.GetPrecompiledHeaderOption(configurationPlatformName);
-                    //if (options.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
-                    //    continue;
+                    PrecompiledHeaderOptions options = file.GetPrecompiledHeaderOption(configurationPlatformName);
+                    if (options.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                        continue;
 
                     file.ExcludeFromBuild(configurationPlatformName);
                 }

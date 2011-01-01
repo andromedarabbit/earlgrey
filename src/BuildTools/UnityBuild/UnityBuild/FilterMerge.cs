@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
@@ -38,26 +37,6 @@ namespace UnityBuild
             _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
         }
 
-        //public void ExcludeBuildConfiguration(string buildConfiguration)
-        //{
-        //    _buildConfigurationsExcluded.Add(buildConfiguration);
-        //}
-
-        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
-        //{
-        //    _buildConfigurationsExcluded.AddRange(buildConfigurations);
-        //}
-
-        //public void BuildConfiguration(string buildConfiguration)
-        //{
-        //    _buildConfigurations.Add(buildConfiguration);
-        //}
-
-        //public void BuildConfiguration(IEnumerable<string> buildConfigurations)
-        //{
-        //    _buildConfigurations.AddRange(buildConfigurations);
-        //}
-
         private IEnumerable<FilterType> Filters
         {
             get
@@ -89,15 +68,12 @@ namespace UnityBuild
             foreach (var filter in Filters)
             {
                 FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded);
-                // filterMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
-                filesOrFiltersAdded.AddRange(filterMerge.Merge());
+                 filesOrFiltersAdded.AddRange(filterMerge.Merge());
             }
             
             // TODO: 하드코딩
-            // FilesMerge filesMerge = new FilesMerge(_project, newFilter, Files.ToList());
             FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded);
-            // filesMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
-
+      
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {

@@ -14,12 +14,6 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
-        //public VcProjectMerge(VcProject project)
-        //    : this(project, null)
-        //{
-
-        //}
-
         public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter)
         {
             Debug.Assert(project != null);
@@ -30,27 +24,11 @@ namespace UnityBuild
 
             _buildConfigurations.AddRange(_project.ConfigurationPlatformNames);
 
-            //if(projectConverter != null)
-            //{
-            //    _projectConverter = projectConverter;
-            //    ExcludeFromBuild();
-            //}
             _projectConverter = projectConverter;
             ExcludeFromBuild();
         }
 
-        //public void ExcludeBuildConfiguration(string buildConfiguration)
-        //{
-        //    _buildConfigurationExcluded.Add(buildConfiguration);
-        //}
-
-        //public void ExcludeBuildConfigurations(IEnumerable<string> buildConfigurations)
-        //{
-        //    _buildConfigurationExcluded.AddRange(buildConfigurations);
-        //}
-
-
-        private void ExcludeFromBuild() // AbstractProjectConfigurationNameConverter projectConverter)
+        private void ExcludeFromBuild()
         {
             foreach (ConfigurationType configuration in _project.Details.Configurations)
             {
@@ -93,16 +71,12 @@ namespace UnityBuild
             foreach (var filter in Filters)
             {
                 FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations, _buildConfigurationsExcluded);
-                // filterMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
                 itemsAdded.AddRange(filterMerge.Merge());
             }
 
             // TODO: 하드코딩  
-
-            // FilesMerge filesMerge = new FilesMerge(_project.Summary, newFilter, Files.ToList());
             FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded);
-            // filesMerge.ExcludeBuildConfigurations(_buildConfigurationsExcluded);
-
+      
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
