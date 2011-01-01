@@ -60,6 +60,8 @@ namespace UnityBuild.ConsoleUi
                     
                     builder.Open();
                 }
+
+                Console.WriteLine("done!");
             }
             catch (Exception ex)
             {

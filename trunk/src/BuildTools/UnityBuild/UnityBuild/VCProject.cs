@@ -29,7 +29,7 @@ namespace UnityBuild
             Debug.Assert(File.Exists(_projectSummary.FullPath));
             Debug.Assert(_projectDetails == null);
             
-            _projectDetails = VisualStudioProjectType.LoadFromFile(_projectSummary.FullPath);
+            _projectDetails = VisualStudioProjectType.LoadFromFile(_projectSummary.FullPath, Encoding.Default);
             Debug.Assert(_projectDetails != null);
 
             _projectDetails.Initialize();
@@ -37,7 +37,7 @@ namespace UnityBuild
 
         public void Save()
         {
-            _projectDetails.SaveToFile(_projectSummary.FullPath);
+            _projectDetails.SaveToFile(_projectSummary.FullPath, Encoding.UTF8);
         }
 
         public VisualStudioProjectType Details

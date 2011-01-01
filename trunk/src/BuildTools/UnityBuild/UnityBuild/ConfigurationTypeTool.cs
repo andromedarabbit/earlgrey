@@ -33,10 +33,10 @@ namespace UnityBuild
             }
             set
             {
-                Debug.Assert(this.nameField == "VCCLCompilerTool");
-
                 if ((this._usePrecompiledHeader != null))
                 {
+                    Debug.Assert(this.nameField == "VCCLCompilerTool");
+
                     if ((_usePrecompiledHeader.Equals(value) != true))
                     {
                         this._usePrecompiledHeader = value;
@@ -45,16 +45,15 @@ namespace UnityBuild
                         this.OnPropertyChanged("UsePrecompiledHeader");
                     }
                 }
-                else
+                else // will be used by a serializer
                 {
-                    this._usePrecompiledHeader = value;
-                    UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption != UsePrecompiledHeaderOptions.InheritFromProject;
-
+                    this._usePrecompiledHeader = value;                    
                     this.OnPropertyChanged("UsePrecompiledHeader");
                 }
             }
         }
 
+        [XmlIgnore()]
         public UsePrecompiledHeaderOptions UsePrecompiledHeaderOption
         {
             get
@@ -95,10 +94,10 @@ namespace UnityBuild
             }
             set
             {
-                Debug.Assert(this.nameField == "VCCLCompilerTool");
-
                 if ((this._precompiledHeaderFile != null))
                 {
+                    Debug.Assert(this.nameField == "VCCLCompilerTool");
+
                     if ((_precompiledHeaderFile.Equals(value) != true))
                     {
                         this._precompiledHeaderFile = value;
@@ -140,10 +139,10 @@ namespace UnityBuild
             }
             set
             {
-                Debug.Assert(this.nameField == "VCCLCompilerTool");
-
                 if ((this._precompiledHeaderThrough != null))
                 {
+                    Debug.Assert(this.nameField == "VCCLCompilerTool");
+
                     if ((_precompiledHeaderThrough.Equals(value) != true))
                     {
                         this._precompiledHeaderThrough = value;
@@ -187,10 +186,10 @@ namespace UnityBuild
             }
             set
             {
-                Debug.Assert(this.nameField == "VCCLCompilerTool");
-
                 if ((this._preprocessorDefinitions != null))
                 {
+                    Debug.Assert(this.nameField == "VCCLCompilerTool");
+
                     if ((_preprocessorDefinitions.Equals(value) != true))
                     {
                         this._preprocessorDefinitions = value;

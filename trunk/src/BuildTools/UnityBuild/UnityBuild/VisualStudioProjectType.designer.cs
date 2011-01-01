@@ -61,6 +61,9 @@ namespace UnityBuild
                 memoryStream = new System.IO.MemoryStream();
                 System.Xml.XmlWriterSettings xmlWriterSettings = new System.Xml.XmlWriterSettings();
                 xmlWriterSettings.Encoding = encoding;
+                xmlWriterSettings.Indent = true;
+                xmlWriterSettings.IndentChars = "\t";
+                xmlWriterSettings.NewLineOnAttributes = true;
                 System.Xml.XmlWriter xmlWriter = XmlWriter.Create(memoryStream, xmlWriterSettings);
                 Serializer.Serialize(xmlWriter, this);
                 memoryStream.Seek(0, System.IO.SeekOrigin.Begin);

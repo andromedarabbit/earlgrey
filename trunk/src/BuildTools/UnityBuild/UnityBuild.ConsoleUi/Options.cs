@@ -6,6 +6,11 @@ using CommandLine;
 
 namespace UnityBuild.ConsoleUi
 {
+    /*
+     * Future features
+     * - Source code encoding
+     * - Copy a solution and project files 
+     * */
     sealed class Options
     {
         private const string InputFileSwitch = "i";
