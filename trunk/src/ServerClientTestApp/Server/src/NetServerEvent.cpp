@@ -12,5 +12,10 @@ NetServerEvent::~NetServerEvent(void)
 
 void NetServerEvent::OnConnected( std::tr1::shared_ptr<Earlgrey::Connection> connection )
 {
-	ConnectionsSingleton::Instance().Add( connection );
+	this->_Id = ConnectionsSingleton::Instance().Add( connection );
+}
+
+void NetServerEvent::OnDisconnected()
+{
+	ConnectionsSingleton::Instance().Remove( this->_Id );
 }

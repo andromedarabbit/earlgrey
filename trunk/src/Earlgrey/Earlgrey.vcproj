@@ -721,10 +721,6 @@
 				RelativePath=".\inc\Uncopyable.h"
 				>
 			</File>
-			<File
-				RelativePath=".\inc\xlist.h"
-				>
-			</File>
 			<Filter
 				Name="ExternalLib"
 				>
@@ -1318,6 +1314,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\xdeque.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xlist.h"
 					>
 				</File>
 				<File
