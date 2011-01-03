@@ -272,7 +272,7 @@ namespace Earlgrey
 		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
 	{
 		size_type remainder = length, bufRemainder = capacity() - size();
-		buffer_list_type::pointer buffer = &(m_buffer_list.back());
+		buffer_list_type::pointer buffer = NULL;
 		EARLGREY_ASSERT(capacity() >= size());
 		if (0 == bufRemainder)
 		{
@@ -282,6 +282,8 @@ namespace Earlgrey
 			m_size += length;
 			return;
 		}
+
+		buffer = &(m_buffer_list.back());
 
 		if (length <= bufRemainder)
 		{
@@ -466,9 +468,14 @@ namespace Earlgrey
 	{
 		typedef typename chain_buffer<T,A>::buffer_node_desc_type buffer_node_desc_type;
 
-		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end(); it++)
+		size_t remainder = size();
+		size_t used_size = 0;
+
+		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end() && remainder > 0; it++)
 		{
-			desc_vector.push_back( buffer_node_desc_type( &(*it)[0], it->size() ) );
+			used_size = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION ( it->size(), remainder );
+			desc_vector.push_back( buffer_node_desc_type( &(*it)[0], used_size ) );
+			remainder -= used_size;
 		}
 	}
 

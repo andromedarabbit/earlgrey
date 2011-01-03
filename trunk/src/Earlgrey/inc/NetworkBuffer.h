@@ -29,7 +29,7 @@ namespace Earlgrey
 		std::pair<WSABUF*, DWORD> GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE);
 
 		//! 버퍼에 기록된 내용을 WSABUF 배열 형태로 가져온다.
-		WSABUF* GetSockSendBuffer();
+		std::pair<WSABUF*, size_t> GetSockSendBuffer();
 
 		//! 수신이 완료되면 size를 증가시켜준다.
 		void OnReceived(DWORD Transferred);

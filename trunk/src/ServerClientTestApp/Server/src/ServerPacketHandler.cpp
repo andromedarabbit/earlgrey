@@ -35,9 +35,9 @@ bool ServerPacketHandler::Handle( std::tr1::shared_ptr<Earlgrey::AsyncStream> St
 			iter++;
 			if (10 == *iter)
 			{
-				HandledSize = static_cast<size_t>( &(*iter) - &buf[0] );
+				HandledSize = static_cast<size_t>( &(*iter) - &buf[0] + 1 );
 				Stream->GetWriteBuffer()->SetValue( &buf[0], HandledSize );
-				Stream->Write();
+				EARLGREY_VERIFY( Stream->Write() );
 			}
 		}
 	}

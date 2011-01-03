@@ -63,12 +63,12 @@ namespace Earlgrey
 
 	bool AsyncStream::Write()
 	{
-		WSABUF*	SocketBuffer = _bufferForWrite->GetSockSendBuffer();
+		std::pair<WSABUF*,size_t> SocketBuffer = _bufferForWrite->GetSockSendBuffer();
 		DWORD	SentBytes;		
 
 		INT ret = WSASend(_handle, 
-			SocketBuffer, 
-			EARLGREY_NUMERIC_CAST<DWORD>(_bufferForWrite->GetBufferSize()),
+			SocketBuffer.first, 
+			EARLGREY_NUMERIC_CAST<DWORD>(SocketBuffer.second),
 			&SentBytes, 
 			0, 
 			_resultForWrite->GetOverlapped(), 
