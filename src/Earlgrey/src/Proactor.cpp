@@ -54,10 +54,6 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		std::wostringstream out;
-		out.setf( std::ios::hex );
-		out << L"Handler Registered Handle = 0x" << Handle << L", CompletionHandler* = 0x" << CompleteHandler << L"\r\n";
-		OutputDebugStringW( out.str().c_str() );
 		return TRUE;
 	}
 

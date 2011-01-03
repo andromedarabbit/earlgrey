@@ -9,23 +9,29 @@ class Connection;
 class ConnectionContainer
 {
 public:
-	typedef std::set<std::tr1::shared_ptr<Earlgrey::Connection>> ConnectionSetType;
+	typedef Earlgrey::xmap<LONG, std::tr1::shared_ptr<Earlgrey::Connection>>::Type ConnectionMapType;
 
 	ConnectionContainer(void);
 	~ConnectionContainer(void);
 
-	void Add(std::tr1::shared_ptr<Earlgrey::Connection> connection)
+	LONG Add(std::tr1::shared_ptr<Earlgrey::Connection> connection)
 	{
-		_Connections.insert( connection );
+		Earlgrey::ScopedLock<> lock( _Lock );
+		LONG Id = InterlockedIncrement( &_Id );
+		_Connections.insert( std::make_pair( Id, connection ) );
+		return Id;
 	}
 
-	void Remove(std::tr1::shared_ptr<Earlgrey::Connection> connection)
+	void Remove(LONG Id)
 	{
-		_Connections.erase( connection );
+		Earlgrey::ScopedLock<> lock( _Lock );
+		_Connections.erase( Id );
 	}
 
 private:
-	ConnectionSetType _Connections;
+	Loki::Mutex _Lock;
+	ConnectionMapType _Connections;
+	volatile LONG _Id;
 };
 
 

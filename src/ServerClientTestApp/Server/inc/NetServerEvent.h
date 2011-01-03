@@ -13,8 +13,8 @@ public:
 	virtual void OnConnected(std::tr1::shared_ptr<Earlgrey::Connection> connection);
 
 	//! 연결이 끊겼을 때 호출된다.
-	virtual void OnDisconnected() 
-	{
+	virtual void OnDisconnected();
 
-	}
+private:
+	LONG _Id;
 };

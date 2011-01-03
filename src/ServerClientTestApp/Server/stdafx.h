@@ -29,3 +29,5 @@
 
 #include "Earlgrey.h"
 #include "loki/Singleton.h"
+#include "xmap.h"
+#include "ScopedLock.h"

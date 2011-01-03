@@ -35,11 +35,6 @@ namespace Earlgrey
 			_resultForRead->GetOverlapped(), 
 			NULL);
 
-		std::wostringstream out;
-		out.setf( std::ios::hex );
-		out << L"POST Recv Overlapped = 0x" << _resultForRead->GetOverlapped() << L"\r\n";
-		OutputDebugStringW( out.str().c_str() );
-
 		if(SOCKET_ERROR == ret)
 		{
 			INT ErrCode = WSAGetLastError();
