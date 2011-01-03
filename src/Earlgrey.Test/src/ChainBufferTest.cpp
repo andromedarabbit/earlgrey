@@ -58,6 +58,18 @@ namespace Earlgrey
 
 		}
 
+		TEST(ChainBufferTest, GetDescription)
+		{
+			chain_buffer<BYTE> buf(1024);
+			buf.append( (const BYTE*)"hello", 5 );
+
+			chain_buffer<BYTE>::desc_vector_type descs;
+			buf.get_descriptions( descs ); 
+
+			EXPECT_EQ( 1, descs.size() );
+			EXPECT_EQ( 5, std::tr1::get<1>( descs[0] ) );
+		}
+
 		TEST(ChainBufferTest, AutoResize)
 		{
 			const int COUNT = 3;

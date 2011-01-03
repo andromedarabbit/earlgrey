@@ -104,7 +104,7 @@ namespace Earlgrey
 		SimpleMemoryBlock* Block = m_MemoryBlockList;
 		m_MemoryBlockList = m_MemoryBlockList->Next;
 
-		EARLGREY_ASSERT( static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
+		EARLGREY_ASSERT( m_MemoryBlockList == NULL || static_cast<SimpleMemoryBlock*>(m_MemoryBlockList)->BlockSize == m_BlockSize - sizeof(SimpleMemoryBlock) );
 
 		++m_AllocCount;
 		++m_TotalAllocCount;

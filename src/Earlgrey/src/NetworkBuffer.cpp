@@ -46,7 +46,7 @@ namespace Earlgrey {
 		_ChainBuffer.increase_size( Transferred );
 	}
 
-	WSABUF* NetworkBuffer::GetSockSendBuffer()
+	std::pair<WSABUF*, size_t> NetworkBuffer::GetSockSendBuffer()
 	{
 		WSABUF* SocketBuffer = new WSABUF[_ChainBuffer.chain_size()];
 
@@ -61,7 +61,7 @@ namespace Earlgrey {
 			SocketBuffer[i].len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( *it ));
 		}
 
-		return SocketBuffer;
+		return std::make_pair( SocketBuffer, desc_vector.size() );
 	}
 
 	size_t NetworkBuffer::GetBufferSize() const
