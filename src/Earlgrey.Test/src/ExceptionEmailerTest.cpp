@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#define EXP_STL
 #include "GmailClient.h"
 #include "MailMessage.h"
 #include "Environment.h"

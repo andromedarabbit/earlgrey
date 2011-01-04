@@ -1,5 +1,12 @@
 #pragma once 
-#include <ios>
+#if (_MSC_VER >= 1600)
+#	pragma warning(push)
+#	pragma warning(disable: 4996)
+#	include <ios>
+#	pragma warning(pop)
+#else
+#	include <ios>
+#endif
 
 namespace Earlgrey
 {

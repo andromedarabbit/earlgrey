@@ -16,7 +16,11 @@
 #include <tchar.h>
 #include <stdlib.h>
 #include <crtdbg.h>
+
+#pragma warning(push)
+#pragma warning(disable: 4996)
 #include <memory>
+#pragma warning(pop)
 
 #include <Winsock2.h>
 

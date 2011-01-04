@@ -11,7 +11,18 @@
 #include <tchar.h>
 #include <map>
 #include <vector>
+
+#if (_MSC_VER >= 1600)
+#pragma warning(push)
+#pragma warning(disable: 4996)
+#endif
+
 #include <string>
+
+#if (_MSC_VER >= 1600)
+#pragma warning(pop)
+#endif
+
 #include <queue>
 #include <array>
 

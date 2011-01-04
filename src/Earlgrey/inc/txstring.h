@@ -1,7 +1,10 @@
 #pragma once
 #include "StlCustomAllocator.hpp"
 
+#pragma warning(push)
+#pragma warning(disable: 4996)
 #include <string>
+#pragma warning(pop)
 
 
 namespace Earlgrey

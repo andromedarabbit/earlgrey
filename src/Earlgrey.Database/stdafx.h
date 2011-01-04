@@ -15,3 +15,12 @@
 #define NOMINMAX // min, max 매크로 없애기
 #include <windows.h>
 #include <tchar.h>
+
+#if (_MSC_VER >= 1600)
+#	pragma warning(push)
+#	pragma warning(disable: 4996)
+#	include <memory>
+#	pragma warning(pop)
+#else
+#	include <memory>
+#endif
