@@ -5,6 +5,13 @@
 #include "tstring.h"
 #include "SmtpClient.h"
 
+#if (_MSC_VER >= 1600)
+#	pragma warning(push)
+#	pragma warning(disable: 4251 4231)
+#endif
+
+
+
 //  TODO: 닷넷에선 C# 이고 유니코드를  쓰니까 TCHAR 이 아닌 WCHAR 을 쓰는 게 좋겠다.
 namespace Earlgrey
 {
@@ -32,3 +39,7 @@ namespace Earlgrey
 		};
 	}
 }
+
+#if (_MSC_VER >= 1600)
+#	pragma warning(pop)
+#endif

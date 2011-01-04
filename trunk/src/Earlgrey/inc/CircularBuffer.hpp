@@ -3,7 +3,6 @@
 #include "EarlgreyAssert.h"
 #include "StlCustomAllocator.hpp"
 #include "BasicBufferIterator.hpp"
-// #include <memory> // std::autoptr
 
 
 namespace Earlgrey

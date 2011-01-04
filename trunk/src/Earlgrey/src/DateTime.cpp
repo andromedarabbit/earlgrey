@@ -5,7 +5,15 @@
 #include "TimeSpan.h"
 
 #include "txsstream.h"
+
+#if (_MSC_VER >= 1600)
+#pragma warning(push)
+#pragma warning(disable: 4996)
+#endif
 #include <iomanip>
+#if (_MSC_VER >= 1600)
+#pragma warning(pop)
+#endif
 
 namespace Earlgrey
 {

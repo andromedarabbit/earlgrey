@@ -21,7 +21,7 @@
 #pragma warning( push )
 #pragma warning( disable : 4512 )
 #pragma warning( disable : 499 )
-#pragma warning( disable : 4127 )
+#pragma warning( disable : 4127 4996 )
 
 #include <gtest/gtest.h>
 

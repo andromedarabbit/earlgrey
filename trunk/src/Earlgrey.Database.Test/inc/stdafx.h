@@ -23,7 +23,12 @@
 #pragma warning( disable : 4512 )
 #pragma warning( disable : 499 )
 #pragma warning( disable : 4127 )
-#include <gtest/gtest.h>
+#if (_MSC_VER >= 1600)
+#	pragma warning(disable: 4996)
+#	include <gtest/gtest.h>
+#else
+#	include <gtest/gtest.h>
+#endif
 #pragma warning( pop )
 
 #include "Uncopyable.h"

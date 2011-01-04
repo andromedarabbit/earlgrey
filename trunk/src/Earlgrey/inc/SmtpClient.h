@@ -1,6 +1,12 @@
 #pragma once
-#include "txstring.h"
+//#include "txstring.h"
 #include "MailMessage.h"
+
+#if (_MSC_VER >= 1600)
+#	pragma warning(push)
+#	pragma warning(disable: 4251 4231)
+#endif
+
 
 namespace Earlgrey
 {
@@ -39,3 +45,7 @@ namespace Earlgrey
 
 	} // !Mail
 } // !Earlgrey
+
+#if (_MSC_VER >= 1600)
+#	pragma warning(pop)
+#endif

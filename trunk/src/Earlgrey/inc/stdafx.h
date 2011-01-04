@@ -10,7 +10,15 @@
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 
 #define _CRT_SECURE_DEPRECATE_MEMORY
-#include <memory>
+
+#if (_MSC_VER >= 1600)
+#	pragma warning(push)
+#	pragma warning(disable: 4996)
+#	include <memory>
+#	pragma warning(pop)
+#else
+#	include <memory>
+#endif
 
 #include <stdlib.h>
 #include <stdio.h>
