@@ -62,6 +62,7 @@
     <Compile Include="FileTypeTest.cs" />
     <Compile Include="FilterMergeTest.cs" />
     <Compile Include="NumberProviderTest.cs" />
+    <Compile Include="ProjectFileNameConverterTest.cs" />
     <Compile Include="SolutionReaderTest.cs" />
     <Compile Include="SrcFileAppendTest.cs" />
     <Compile Include="StreamAppendTest.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="VcProjectMergeTest.cs" />
     <Compile Include="VcProjectTest.cs" />
     <Compile Include="VcSolutionCopyTest.cs" />
+    <Compile Include="VcSolutionFileCopy.cs" />
     <Compile Include="VcSolutionTest.cs" />
     <Compile Include="VisualStudioProjectTypeTest.cs" />
   </ItemGroup>
