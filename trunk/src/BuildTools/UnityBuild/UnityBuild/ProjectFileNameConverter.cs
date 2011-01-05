@@ -19,17 +19,18 @@ namespace UnityBuild
 
         public virtual bool IsNewName(string name)
         {
-            Debug.Assert(string.IsNullOrEmpty(name) == false);
+            if(string.IsNullOrEmpty(name))
+                throw new ArgumentException();
 
             string extension = Path.GetExtension(name);
             if(string.IsNullOrEmpty(extension))
                 throw new ArgumentException();
 
-            // if(ExtensionsAllowed.Contains())
+            if (ExtensionsAllowed.Contains(extension, StringComparer.CurrentCultureIgnoreCase) == false)
+                return false;
 
-
-            // return name.EndsWith(Suffix, StringComparison.CurrentCultureIgnoreCase);
-            throw new NotImplementedException();
+            string fileNamePart = Path.GetFileNameWithoutExtension(name);
+            return fileNamePart.EndsWith(Suffix, StringComparison.CurrentCultureIgnoreCase);
         }
 
         public virtual string GetNewName(string name)
@@ -40,7 +41,16 @@ namespace UnityBuild
             if (name.Length == 0)
                 throw new ArgumentException();
 
-            return name + Suffix;
+            // return name + Suffix;
+            string directoryPart = Path.GetDirectoryName(name);
+            string fileNamePart = Path.GetFileNameWithoutExtension(name);
+            string fileExtensionPart = Path.GetExtension(name);
+
+            string newFileNamePart = fileNamePart + Suffix;
+
+            string newFileName = newFileNamePart + fileExtensionPart;
+
+            return Path.Combine(directoryPart, newFileName);
         }
 
         public virtual string GetOldName(string name)

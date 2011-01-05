@@ -27,7 +27,11 @@ namespace UnityBuild.ConsoleUi
             + " For instance, -" + ExcludedProjectsSwitch + "\"Earlgrey\"" + ExcludedProjectsSeparatorString + "\"Earlgrey.Test\""
             ;
         private const bool ExcludedProjectsRequired = false;
-        
+
+        private const string CopySolutionSwitch = "c";
+        private const string CopySolutionLongSwitch = "copy";
+        private const string CopySolutionHelp = "Copy the solution/projects and use them.";
+        private const bool CopySolutionRequired = false;
 
         private const string VerboseSwitch = "v";
         private const string VerboseLongSwitch = "verbose";
@@ -43,10 +47,14 @@ namespace UnityBuild.ConsoleUi
         [Option(VerboseSwitch, VerboseLongSwitch, Required = VerboseRequired, HelpText = VerboseHelp)]
         public bool Verbose;
 
+        [Option(CopySolutionSwitch, CopySolutionLongSwitch, Required = CopySolutionRequired, HelpText = CopySolutionHelp)]
+        public bool CopySolution;
+
         public Options()
         {
             InputFile = null;
             ExcludedProjects = null;
+            CopySolution = false;
             Verbose = false;
         }
 
@@ -62,6 +70,10 @@ namespace UnityBuild.ConsoleUi
             usage.Append(" -" + ExcludedProjectsSwitch + ", --" + ExcludedProjectsLongSwitch + " ");
             usage.AppendLine(GetRquiredString(ExcludedProjectsRequired));                
             usage.AppendLine("   " + ExcludedProjectsHelp);
+
+            usage.Append(" -" + CopySolutionSwitch + ", --" + CopySolutionLongSwitch + " ");
+            usage.AppendLine(GetRquiredString(CopySolutionRequired));
+            usage.AppendLine("   " + CopySolutionHelp);
 
             usage.Append(" -" + VerboseSwitch + ", --" + VerboseLongSwitch + " ");
             usage.AppendLine(GetRquiredString(VerboseRequired));

@@ -53,7 +53,7 @@ namespace UnityBuild.ConsoleUi
 
             try
             {
-                using (Builder builder = new Builder(SolutionFilePath))
+                using (Builder builder = new Builder(SolutionFilePath, _options.CopySolution))
                 {
                     if(_options.HasExcludedProjects())
                         builder.ExcludeProjects(_options.ExcludedProjects);

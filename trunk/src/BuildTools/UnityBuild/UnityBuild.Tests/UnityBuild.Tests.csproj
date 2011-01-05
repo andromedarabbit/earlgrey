@@ -78,7 +78,7 @@
     <Compile Include="VcProjectMergeTest.cs" />
     <Compile Include="VcProjectTest.cs" />
     <Compile Include="VcSolutionCopyTest.cs" />
-    <Compile Include="VcSolutionFileCopy.cs" />
+    <Compile Include="VcSolutionFileCopyTest.cs" />
     <Compile Include="VcSolutionTest.cs" />
     <Compile Include="VisualStudioProjectTypeTest.cs" />
   </ItemGroup>

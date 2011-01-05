@@ -80,8 +80,6 @@ namespace UnityBuild
                 project.Save();
             }
             _summary.Save();
-
-            // CacheVcProjects();
         }
 
         public PropertyLineHashList ConfigurationPlatforms
@@ -105,31 +103,7 @@ namespace UnityBuild
             }
         }
 
-        /*
-        public void DeleteSolutionConfigurationPlatform(
-            string solutionConfigurationName
-            , string solutionPlatformName
-            )
-        {
-            Trace.Assert(string.IsNullOrEmpty(solutionConfigurationName) == false);
-            Trace.Assert(string.IsNullOrEmpty(solutionPlatformName) == false);
 
-            string configurationPlatformName = AbstractConfigurationNameConverter.GetConfigurationPlatform(solutionConfigurationName, solutionPlatformName);
-
-            if (HasSolutionConfigurationPlatform(configurationPlatformName) == false)
-                throw new ArgumentException(); // TODO: 그냥 정상 상황으로 처리해서 return할까?
-
-            
-
-            // 파일에서 구성 플랫폼 값 제거하기
-            // 프로젝트에서 구성 플랫폼 값 제거하기
-            // 솔루션 파일에서 구성 플랫폼 값 제거하기
-
-            if(ConfigurationPlatforms.Remove(configurationPlatformName) == false)
-                throw new ApplicationException();
-
-        }
-         * */
 
     }
 }
