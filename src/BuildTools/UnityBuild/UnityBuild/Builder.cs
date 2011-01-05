@@ -9,6 +9,7 @@ namespace UnityBuild
 {
     public class Builder : IDisposable
     {
+        private readonly bool _copySolution;
         private readonly string _solutionFilePath;
 
         private AbstractSolutionConfigurationNameConverter _solutionConverter;
@@ -20,6 +21,7 @@ namespace UnityBuild
             string solutionFilePath
             , AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
+            , bool copySolution
             )
         {
             Debug.Assert(string.IsNullOrEmpty(solutionFilePath) == false);
@@ -29,21 +31,31 @@ namespace UnityBuild
             _solutionFilePath = solutionFilePath;
             _solutionConverter = solutionConverter;
             _projectConverter = projectConverter;
+            _copySolution = copySolution;
 
             _projectNamesExcluded = new List<string>();
         }
 
         public Builder(
-            string solutionFilePath
-            )
-            : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
+           string solutionFilePath
+            , bool copySolution
+           )
+            : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter(), copySolution)
         {
         }
 
-        public string SolutionFilePath
+
+        public Builder(
+            string solutionFilePath
+            )
+            : this(solutionFilePath, false)
         {
-            get { return _solutionFilePath; }
         }
+
+        //public string SolutionFilePath
+        //{
+        //    get { return _solutionFilePath; }
+        //}
 
         public AbstractSolutionConfigurationNameConverter SolutionConverter
         {
@@ -78,11 +90,22 @@ namespace UnityBuild
             return count > 0;
         }
 
-        public void Open()
-        {            
-            CreateUnityBuildConfigurationPlatforms();
+        private string CopySolution()
+        {
+            if (_copySolution == false)
+                return _solutionFilePath;
 
-            VcSolution vcSolution = new VcSolution(_solutionFilePath);
+            VcSolutionFileCopy fileCopy = new VcSolutionFileCopy(_solutionFilePath);
+            return fileCopy.Copy();
+        }
+
+        public void Open()
+        {
+            string solutionFilePath = CopySolution();
+
+            CreateUnityBuildConfigurationPlatforms(solutionFilePath);
+
+            VcSolution vcSolution = new VcSolution(solutionFilePath);
             vcSolution.Load();
 
             foreach (VcProject project in vcSolution.VcProjects)
@@ -102,9 +125,9 @@ namespace UnityBuild
             vcSolution.Save();
         }
 
-        private void CreateUnityBuildConfigurationPlatforms()
+        private void CreateUnityBuildConfigurationPlatforms(string solutionFilePath)
         {
-            VcSolution vcSolution = new VcSolution(_solutionFilePath);
+            VcSolution vcSolution = new VcSolution(solutionFilePath);
             vcSolution.Load();
 
             VcSolutionCopy copy = new VcSolutionCopy(vcSolution, _solutionConverter, _projectConverter);
