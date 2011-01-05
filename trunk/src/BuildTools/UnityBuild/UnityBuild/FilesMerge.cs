@@ -59,12 +59,6 @@ namespace UnityBuild
             if (_files.Count == 0)
                 return new List<FileType>();
 
-            // TODO: 임시 테스트 코드
-            if(_files.Where(item => item.FileName.EndsWith("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase)).Count() > 0)
-            {
-                
-            }
-
             IEnumerable<KeyValuePair<FilesMergeKey, FileType>> keyValues
                 = _files.Select(file => new KeyValuePair<FilesMergeKey, FileType>(new FilesMergeKey(file), file));
 
