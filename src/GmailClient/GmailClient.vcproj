@@ -63,6 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -131,6 +132,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -198,6 +200,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -266,6 +269,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
