@@ -2,8 +2,6 @@
 #include "Log.h"
 #include "EarlgreyAssert.h"
 
-using namespace std::tr1;
-
 namespace Earlgrey
 {
 	_txstring Log::ErrorMessage(DWORD errorCode, HMODULE source)

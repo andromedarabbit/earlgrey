@@ -4,8 +4,6 @@
 
 namespace Earlgrey
 {
-	using namespace std::tr1;
-
 	Timer::Timer(TimerCallback callback, StatePtr state, TimeSpan dueTime, TimeSpan period, ThreadIdType tid)
 		: m_callback(callback)
 		, m_state(state)
