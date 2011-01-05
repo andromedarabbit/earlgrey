@@ -45,12 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OptimizationLevel.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\vendor\CommandLineParserLibrary\v1.8\src\libcmdline\CommandLine.csproj">
+    <ProjectReference Include="..\..\..\..\vendor\CommandLineParserLibrary\v1.8.0.5\src\libcmdline\CommandLine.csproj">
       <Project>{5DEA2811-2FFA-4959-830B-CAD3ACACABEB}</Project>
       <Name>CommandLine</Name>
     </ProjectReference>

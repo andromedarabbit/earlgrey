@@ -50,12 +50,16 @@ namespace UnityBuild.ConsoleUi
         [Option(CopySolutionSwitch, CopySolutionLongSwitch, Required = CopySolutionRequired, HelpText = CopySolutionHelp)]
         public bool CopySolution;
 
+        [Option("o", "optimization", Required = false, HelpText = "Possible values are 'Normal' and 'Best'.")]
+        public OptimizationLevel Optimization;
+
         public Options()
         {
             InputFile = null;
             ExcludedProjects = null;
             CopySolution = false;
             Verbose = false;
+            Optimization = OptimizationLevel.Normal;
         }
 
         [HelpOption(HelpText = "Display this help screen.")]
@@ -126,6 +130,29 @@ namespace UnityBuild.ConsoleUi
         public override string ToString()
         {
             return GetSummary();
+        }
+
+        public BuilderOptions GetBuilderOptions()
+        {
+            BuilderOptions builderOptions = new BuilderOptions();
+            builderOptions.CopySolution = this.CopySolution;
+            builderOptions.GroupByFilter = this.NeedToGroupByFilter;
+
+            if (this.HasExcludedProjects())
+                builderOptions.ExcludeProjects(this.ExcludedProjects);
+            
+            return builderOptions;
+        }
+
+        private bool NeedToGroupByFilter
+        {
+            get
+            {
+                if(Optimization == OptimizationLevel.Best)
+                    return false;
+
+                return true;
+            }
         }
     }
 }

@@ -53,11 +53,10 @@ namespace UnityBuild.ConsoleUi
 
             try
             {
-                using (Builder builder = new Builder(SolutionFilePath, _options.CopySolution))
+                BuilderOptions builderOptions = _options.GetBuilderOptions();
+
+                using (Builder builder = new Builder(SolutionFilePath, builderOptions))
                 {
-                    if(_options.HasExcludedProjects())
-                        builder.ExcludeProjects(_options.ExcludedProjects);
-                    
                     builder.Open();
                 }
 

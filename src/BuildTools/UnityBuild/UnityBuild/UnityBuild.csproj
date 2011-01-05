@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuilderOptions.cs" />
     <Compile Include="IProjectFileNameConverter.cs" />
     <Compile Include="Builder.cs" />
     <Compile Include="ConfigurationTypeTool.cs" />
