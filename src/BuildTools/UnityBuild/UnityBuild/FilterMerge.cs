@@ -15,14 +15,22 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurationsExcluded;
         private readonly List<string> _buildConfigurations;
 
+        // private readonly FilterType _rootFilter;
 
         public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations)
             : this(projectDirectory, filter, buildConfigurations, new List<string>())
+            // : this(projectDirectory, filter, buildConfigurations, new List<string>(), null)
         {
             
         }
 
         public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded)
+        //    : this(projectDirectory, filter, buildConfigurations, buildConfigurationsExcluded, null)
+        //{
+            
+        //}
+
+        //public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded, FilterType rootFilter)
         {
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(filter != null);
@@ -35,6 +43,8 @@ namespace UnityBuild
 
             _buildConfigurationsExcluded = new List<string>();
             _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
+
+            // _rootFilter = rootFilter;
         }
 
         private IEnumerable<FilterType> Filters
@@ -67,8 +77,8 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded);
-                 filesOrFiltersAdded.AddRange(filterMerge.Merge());
+                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded); //, _rootFilter);
+                filesOrFiltersAdded.AddRange(filterMerge.Merge());
             }
             
             // TODO: 하드코딩
@@ -77,18 +87,41 @@ namespace UnityBuild
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
-                FilterType newFilter = new FilterType();
+                FilterType parentFilter = GetParentFilter(filesOrFiltersAdded);
+                parentFilter.Items.AddRange(filesAdded.ToArray());
+                filesOrFiltersAdded.AddRange(filesAdded.ToArray());
+            }
+            return filesOrFiltersAdded;
+        }
+
+        private FilterType GetParentFilter(List<IFilterOrFile> filesOrFiltersAdded)
+        {
+            //if (_rootFilter != null)
+            //    return _rootFilter;
+
+            FilterType newFilter = null;
+
+            var result = _filter.Items
+                .Where(item => item is FilterType && ((FilterType)item).Name.Equals("UnityBuild") == true)
+                .Select(item => (FilterType)item);
+            if(result.Count() > 0)
+            {
+                Debug.Assert(result.Count() == 1);
+                newFilter = result.First();
+            }
+
+            if (newFilter == null)
+            {
+                newFilter = new FilterType();
                 newFilter.Name = "UnityBuild";
                 newFilter.NameSpecified = true;
                 newFilter.ItemsSpecified = true;
 
                 _filter.Items.Add(newFilter);
-                newFilter.Items.AddRange(filesAdded.ToArray());
-                
                 filesOrFiltersAdded.Add(newFilter);
-                filesOrFiltersAdded.AddRange(filesAdded.ToArray());
             }
-            return filesOrFiltersAdded;
+
+            return newFilter;
         }
     }
 }
