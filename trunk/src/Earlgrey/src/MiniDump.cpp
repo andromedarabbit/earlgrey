@@ -11,8 +11,6 @@
 #include "RAII.h"
 #include "Macros.h"
 
-using namespace std;
-using namespace std::tr1;	
 
 namespace Earlgrey
 {
@@ -68,6 +66,9 @@ namespace Earlgrey
 
 	void MiniDump::HandleException(LPEXCEPTION_POINTERS exceptionPtrs)
 	{
+		using namespace std;
+		using namespace std::tr1;	
+
 		EARLGREY_ASSERT(exceptionPtrs != NULL);
 		
 		// Open a dump file
