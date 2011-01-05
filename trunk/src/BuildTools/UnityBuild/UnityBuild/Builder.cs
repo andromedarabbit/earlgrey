@@ -3,44 +3,40 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
     public class Builder : IDisposable
     {
-        private readonly bool _copySolution;
+        private readonly BuilderOptions _options;
         private readonly string _solutionFilePath;
 
         private AbstractSolutionConfigurationNameConverter _solutionConverter;
-        private AbstractProjectConfigurationNameConverter _projectConverter;
-
-        private readonly List<string> _projectNamesExcluded;
+        private AbstractProjectConfigurationNameConverter _projectConverter;        
 
         public Builder(
             string solutionFilePath
             , AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
-            , bool copySolution
+            , BuilderOptions options
             )
         {
             Debug.Assert(string.IsNullOrEmpty(solutionFilePath) == false);
             Debug.Assert(solutionConverter != null);
             Debug.Assert(projectConverter != null);
+            Debug.Assert(options != null);
             
             _solutionFilePath = solutionFilePath;
             _solutionConverter = solutionConverter;
             _projectConverter = projectConverter;
-            _copySolution = copySolution;
-
-            _projectNamesExcluded = new List<string>();
+            _options = options;
         }
 
         public Builder(
            string solutionFilePath
-            , bool copySolution
+            , BuilderOptions options
            )
-            : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter(), copySolution)
+            : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter(), options)
         {
         }
 
@@ -48,14 +44,9 @@ namespace UnityBuild
         public Builder(
             string solutionFilePath
             )
-            : this(solutionFilePath, false)
+            : this(solutionFilePath, new BuilderOptions())
         {
         }
-
-        //public string SolutionFilePath
-        //{
-        //    get { return _solutionFilePath; }
-        //}
 
         public AbstractSolutionConfigurationNameConverter SolutionConverter
         {
@@ -69,30 +60,15 @@ namespace UnityBuild
             set { _projectConverter = value; }
         }
 
-        public void ExcludeProject(string projectName)
-        {
-            _projectNamesExcluded.Add(projectName);
-        }
-
-        public void ExcludeProjects(IEnumerable<string> projectNames)
-        {
-            _projectNamesExcluded.AddRange(projectNames);
-        }
-
         private bool IsExcluded(VcProject project)
         {
             string projectName = project.Summary.ProjectName;
-
-            int count = _projectNamesExcluded.Count(
-                name => name.Equals(projectName, StringComparison.CurrentCultureIgnoreCase) == true
-                );
-
-            return count > 0;
+            return _options.IsExcluded(projectName);
         }
 
         private string CopySolution()
         {
-            if (_copySolution == false)
+            if (_options.CopySolution == false)
                 return _solutionFilePath;
 
             VcSolutionFileCopy fileCopy = new VcSolutionFileCopy(_solutionFilePath);
@@ -131,9 +107,9 @@ namespace UnityBuild
             vcSolution.Load();
 
             VcSolutionCopy copy = new VcSolutionCopy(vcSolution, _solutionConverter, _projectConverter);
-            if(_projectNamesExcluded.Count > 0)
+            if (_options.ExcludedProjects.Count() > 0)
             {
-                copy.ExcludeProjects(_projectNamesExcluded);
+                copy.ExcludeProjects(_options.ExcludedProjects);
             }
             copy.CopySolutionConfigurationPlatform();
             
