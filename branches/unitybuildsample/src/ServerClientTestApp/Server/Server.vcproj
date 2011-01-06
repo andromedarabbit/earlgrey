@@ -1,1 +1,869 @@
-﻿<?xml version="1.0" encoding="utf-8"?><VisualStudioProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TargetFrameworkVersion="196613" ProjectGUID="{39D97D39-26BD-4016-B8B6-6F594F7E9302}" RootNamespace="Server" ProjectType="Visual C++" Version="9.00" Keyword="Win32Proj" Name="Server"><Platforms><Platform Name="Win32" /><Platform Name="x64" /></Platforms><ToolFiles /><Configurations><Configuration OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin" IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)" ConfigurationType="1" CharacterSet="1" Name="Debug|Win32"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" /><Tool Name="VCCLCompilerTool" Optimization="0" AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc" PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS" MinimalRebuild="true" BasicRuntimeChecks="3" SmallerTypeCheck="true" RuntimeLibrary="3" UsePrecompiledHeader="2" WarningLevel="4" WarnAsError="true" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLinkerTool" AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;" LinkIncremental="2" AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs" UACExecutionLevel="2" GenerateDebugInformation="true" SubSystem="2" LargeAddressAware="2" TargetMachine="1" /><Tool Name="VCALinkTool" /><Tool Name="VCManifestTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCAppVerifierTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin" IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)" ConfigurationType="1" CharacterSet="1" Name="Debug|x64"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" TargetEnvironment="3" /><Tool Name="VCCLCompilerTool" Optimization="0" AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc" PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS" MinimalRebuild="true" BasicRuntimeChecks="3" SmallerTypeCheck="true" RuntimeLibrary="3" UsePrecompiledHeader="2" WarningLevel="4" WarnAsError="true" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLinkerTool" AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;" LinkIncremental="2" AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs" UACExecutionLevel="2" GenerateDebugInformation="true" SubSystem="2" LargeAddressAware="2" TargetMachine="17" /><Tool Name="VCALinkTool" /><Tool Name="VCManifestTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCAppVerifierTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin" IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)" ConfigurationType="1" CharacterSet="1" WholeProgramOptimization="1" Name="Release|Win32"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" /><Tool Name="VCCLCompilerTool" Optimization="2" EnableIntrinsicFunctions="true" AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc" PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS" RuntimeLibrary="2" EnableFunctionLevelLinking="true" UsePrecompiledHeader="2" WarningLevel="4" WarnAsError="true" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLinkerTool" AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;" LinkIncremental="1" AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs" UACExecutionLevel="2" GenerateDebugInformation="true" SubSystem="2" LargeAddressAware="2" OptimizeReferences="2" EnableCOMDATFolding="2" TargetMachine="1" /><Tool Name="VCALinkTool" /><Tool Name="VCManifestTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCAppVerifierTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin" IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)" ConfigurationType="1" CharacterSet="1" WholeProgramOptimization="1" Name="Release|x64"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" TargetEnvironment="3" /><Tool Name="VCCLCompilerTool" Optimization="2" EnableIntrinsicFunctions="true" AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc" PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS" RuntimeLibrary="2" EnableFunctionLevelLinking="true" UsePrecompiledHeader="2" WarningLevel="4" WarnAsError="true" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLinkerTool" AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;" LinkIncremental="1" AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs" UACExecutionLevel="2" GenerateDebugInformation="true" SubSystem="2" LargeAddressAware="2" OptimizeReferences="2" EnableCOMDATFolding="2" TargetMachine="17" /><Tool Name="VCALinkTool" /><Tool Name="VCManifestTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCAppVerifierTool" /><Tool Name="VCPostBuildEventTool" /></Configuration></Configurations><References><ProjectReference RelativePathToProject=".\GmailClient\GmailClient.vcproj" ReferencedProjectIdentifier="{540889A0-C756-44A8-A1AB-536EE7276D70}" /></References><Files><Filter Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx" UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}" Name="Source Files"><File RelativePath=".\ReadMe.txt" /><File RelativePath=".\src\Server.cpp" /><File RelativePath=".\src\ServerService.cpp" /><File RelativePath=".\stdafx.cpp"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" UsePrecompiledHeader="1" /></FileConfiguration></File><File RelativePath=".\src\UserInputHandlers.cpp" /><File RelativePath=".\src\Win32ServiceRunnable.cpp" /><File RelativePath=".\src\Win32ServiceSettings.cpp" /></Filter><Filter Filter="h;hpp;hxx;hm;inl;inc;xsd" UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}" Name="Header Files"><File RelativePath=".\resource.h" /><File RelativePath=".\inc\ServerConnection.h" /><File RelativePath=".\inc\ServerService.h" /><File RelativePath=".\stdafx.h" /><File RelativePath=".\targetver.h" /><File RelativePath=".\inc\UserInputHandlers.h" /><File RelativePath=".\inc\Win32ServiceRunnable.h" /><File RelativePath=".\inc\Win32ServiceSettings.h" /></Filter><Filter Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav" UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}" Name="Resource Files"><File RelativePath=".\DefaultResources.rc" /></Filter></Files><Globals /></VisualStudioProject>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	TargetFrameworkVersion="196613"
+	ProjectGUID="{39D97D39-26BD-4016-B8B6-6F594F7E9302}"
+	RootNamespace="Server"
+	ProjectType="Visual C++"
+	Version="9.00"
+	Keyword="Win32Proj"
+	Name="Server">
+	<Platforms>
+		<Platform
+			Name="Win32" />
+		<Platform
+			Name="x64" />
+	</Platforms>
+	<ToolFiles />
+	<Configurations>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			Name="Debug|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNITYBUILD_DEBUG_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				TargetMachine="1" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			Name="Debug|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNITYBUILD_DEBUG_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				TargetMachine="17" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			Name="Release|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;UNITYBUILD_RELEASE_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			Name="Release|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;UNITYBUILD_RELEASE_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			Name="Debug-UnityBuild|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNITYBUILD_DEBUG_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				TargetMachine="17" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			Name="Debug-UnityBuild|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNITYBUILD_DEBUG_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				TargetMachine="1" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			Name="Release-UnityBuild|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;UNITYBUILD_RELEASE_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="1"
+			CharacterSet="1"
+			WholeProgramOptimization="1"
+			Name="Release-UnityBuild|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories=".\inc;..\..\Earlgrey\inc;..\..\..\vendor\boost_1_42_0;..\..\GMailClient\inc"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				WarningLevel="4"
+				WarnAsError="true"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="2"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;UNITYBUILD_RELEASE_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="&quot;$(OutDir)\GmailClient.lib&quot;"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\..\vendor\boost_1_42_0\libs"
+				UACExecutionLevel="2"
+				GenerateDebugInformation="true"
+				SubSystem="2"
+				LargeAddressAware="2"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCManifestTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCAppVerifierTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+	</Configurations>
+	<References>
+		<ProjectReference
+			RelativePathToProject=".\GmailClient\GmailClient.vcproj"
+			ReferencedProjectIdentifier="{540889A0-C756-44A8-A1AB-536EE7276D70}" />
+	</References>
+	<Files>
+		<Filter
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Source Files">
+			<File
+				RelativePath=".\ReadMe.txt" />
+			<File
+				RelativePath=".\src\Server.cpp">
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\ServerService.cpp">
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\stdafx.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\UserInputHandlers.cpp">
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\Win32ServiceRunnable.cpp">
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\src\Win32ServiceSettings.cpp">
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32"
+					ExcludedFromBuild="true">
+					<Tool
+						Name="VCCLCompilerTool" />
+				</FileConfiguration>
+			</File>
+			<Filter
+				Name="UnityBuild">
+				<File
+					RelativePath=".\src\UnityBuild-00069.cpp">
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DEBUG-UNITYBUILD|X64">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DEBUG-UNITYBUILD|WIN32">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="RELEASE-UNITYBUILD|X64">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="RELEASE-UNITYBUILD|WIN32">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\UnityBuild-00070.cpp">
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|x64"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|x64"
+						ExcludedFromBuild="true">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DEBUG-UNITYBUILD|X64">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DEBUG-UNITYBUILD|WIN32">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="RELEASE-UNITYBUILD|X64">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+					<FileConfiguration
+						Name="RELEASE-UNITYBUILD|WIN32">
+						<Tool
+							Name="VCCLCompilerTool"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
+							PrecompiledHeaderThrough="StdAfx.h" />
+					</FileConfiguration>
+				</File>
+			</Filter>
+		</Filter>
+		<Filter
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Name="Header Files">
+			<File
+				RelativePath=".\resource.h" />
+			<File
+				RelativePath=".\inc\ServerConnection.h" />
+			<File
+				RelativePath=".\inc\ServerService.h" />
+			<File
+				RelativePath=".\stdafx.h" />
+			<File
+				RelativePath=".\targetver.h" />
+			<File
+				RelativePath=".\inc\UserInputHandlers.h" />
+			<File
+				RelativePath=".\inc\Win32ServiceRunnable.h" />
+			<File
+				RelativePath=".\inc\Win32ServiceSettings.h" />
+		</Filter>
+		<Filter
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			Name="Resource Files">
+			<File
+				RelativePath=".\DefaultResources.rc" />
+		</Filter>
+	</Files>
+	<Globals />
+</VisualStudioProject>

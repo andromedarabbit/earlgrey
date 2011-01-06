@@ -18,39 +18,49 @@ namespace UnityBuild.ConsoleUi
         private const string InputFileHelp = "Solution file path.";
         private const bool InputFileRequired = true;
 
+        [Option(InputFileSwitch, InputFileLongSwitch, Required = InputFileRequired, HelpText = InputFileHelp)] 
+        public string InputFile;
+
+
         private const string ExcludedProjectsSwitch = "e";
         private const string ExcludedProjectsLongSwitch = "exclude";
         private const char ExcludedProjectsSeparator = ';';
         private const string ExcludedProjectsSeparatorString = ";";
-        private const string ExcludedProjectsHelp 
+        private const string ExcludedProjectsHelp
             = "Visual C++ project names you want to exclude. Separated by a ';'."
             + " For instance, -" + ExcludedProjectsSwitch + "\"Earlgrey\"" + ExcludedProjectsSeparatorString + "\"Earlgrey.Test\""
             ;
         private const bool ExcludedProjectsRequired = false;
 
-        private const string CopySolutionSwitch = "c";
-        private const string CopySolutionLongSwitch = "copy";
-        private const string CopySolutionHelp = "Copy the solution/projects and use them.";
-        private const bool CopySolutionRequired = false;
+
+        [OptionList(ExcludedProjectsSwitch, ExcludedProjectsLongSwitch, Required = ExcludedProjectsRequired, HelpText = ExcludedProjectsHelp, Separator = ExcludedProjectsSeparator)] 
+        public IList<string> ExcludedProjects;
+
 
         private const string VerboseSwitch = "v";
         private const string VerboseLongSwitch = "verbose";
         private const string VerboseHelp = "Print details during execution.";
         private const bool VerboseRequired = false;
 
-        [Option(InputFileSwitch, InputFileLongSwitch, Required = InputFileRequired, HelpText = InputFileHelp)] 
-        public string InputFile;
-
-        [OptionList(ExcludedProjectsSwitch, ExcludedProjectsLongSwitch, Required = ExcludedProjectsRequired, HelpText = ExcludedProjectsHelp, Separator = ExcludedProjectsSeparator)] 
-        public IList<string> ExcludedProjects;
-
         [Option(VerboseSwitch, VerboseLongSwitch, Required = VerboseRequired, HelpText = VerboseHelp)]
         public bool Verbose;
+
+
+        private const string CopySolutionSwitch = "c";
+        private const string CopySolutionLongSwitch = "copy";
+        private const string CopySolutionHelp = "Copy the solution/projects and use them.";
+        private const bool CopySolutionRequired = false;
 
         [Option(CopySolutionSwitch, CopySolutionLongSwitch, Required = CopySolutionRequired, HelpText = CopySolutionHelp)]
         public bool CopySolution;
 
-        [Option("o", "optimization", Required = false, HelpText = "Possible values are 'Normal' and 'Best'.")]
+
+        private const string OptimizationSwitch = "o";
+        private const string OptimizationLongSwitch = "optimization";
+        private const string OptimizationHelp = "Possible values are 'Normal' and 'Best'.";
+        private const bool OptimizationRequired = false;
+
+        [Option(OptimizationSwitch, OptimizationLongSwitch, Required = OptimizationRequired, HelpText = OptimizationHelp)]
         public OptimizationLevel Optimization;
 
         public Options()
@@ -78,6 +88,10 @@ namespace UnityBuild.ConsoleUi
             usage.Append(" -" + CopySolutionSwitch + ", --" + CopySolutionLongSwitch + " ");
             usage.AppendLine(GetRquiredString(CopySolutionRequired));
             usage.AppendLine("   " + CopySolutionHelp);
+
+            usage.Append(" -" + OptimizationSwitch + ", --" + OptimizationLongSwitch + " ");
+            usage.AppendLine(GetRquiredString(OptimizationRequired));
+            usage.AppendLine("   " + OptimizationHelp);
 
             usage.Append(" -" + VerboseSwitch + ", --" + VerboseLongSwitch + " ");
             usage.AppendLine(GetRquiredString(VerboseRequired));
@@ -107,8 +121,14 @@ namespace UnityBuild.ConsoleUi
         {
             StringBuilder summary = new StringBuilder();
             summary.AppendLine("[Switches]");
-            summary.AppendLine(" * Input file path is \"" + InputFile + "\".");
+            summary.Append(" * Input file path is \"" + InputFile + "\"");
             
+            if(CopySolution == true)
+            {
+                summary.AppendLine(", its copied version will be converted and used");
+            }
+            summary.AppendLine(".");
+
             if(HasExcludedProjects())
             {
                 summary.Append( " * Following projects are excluded : ");
@@ -123,7 +143,9 @@ namespace UnityBuild.ConsoleUi
                 summary.AppendLine(" * Verbose mode is turned on.");
             else
                 summary.AppendLine(" * Verbose mode is turned off.");
-
+            
+            summary.AppendLine(string.Format(" * Current optimization level is '{0}'.", Optimization));
+            
             return summary.ToString();
         }
         

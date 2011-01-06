@@ -1,1 +1,739 @@
-﻿<?xml version="1.0" encoding="utf-8"?><VisualStudioProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" TargetFrameworkVersion="131072" ProjectGUID="{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}" RootNamespace="gtest" ProjectType="Visual C++" Version="9.00" Keyword="Win32Proj" Name="gtest"><Platforms><Platform Name="Win32" /><Platform Name="x64" /></Platforms><ToolFiles /><Configurations><Configuration OutputDirectory="Debug" IntermediateDirectory="Debug" ConfigurationType="4" InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops" CharacterSet="2" Name="Debug|Win32"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" /><Tool Name="VCCLCompilerTool" Optimization="0" PreprocessorDefinitions="WIN32;_DEBUG;_LIB" MinimalRebuild="true" BasicRuntimeChecks="3" RuntimeLibrary="3" UsePrecompiledHeader="0" WarningLevel="3" Detect64BitPortabilityProblems="false" DebugInformationFormat="4" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLibrarianTool" OutputFile="$(OutDir)/gtestd.lib" /><Tool Name="VCALinkTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="$(PlatformName)\$(ConfigurationName)" IntermediateDirectory="$(PlatformName)\$(ConfigurationName)" ConfigurationType="4" InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops" CharacterSet="2" Name="Debug|x64"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" TargetEnvironment="3" /><Tool Name="VCCLCompilerTool" Optimization="0" PreprocessorDefinitions="WIN32;_DEBUG;_LIB" MinimalRebuild="true" BasicRuntimeChecks="3" RuntimeLibrary="3" UsePrecompiledHeader="0" WarningLevel="3" Detect64BitPortabilityProblems="false" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLibrarianTool" OutputFile="$(OutDir)/gtestd.lib" /><Tool Name="VCALinkTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="Release" IntermediateDirectory="Release" ConfigurationType="4" InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops" CharacterSet="2" Name="Release|Win32"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" /><Tool Name="VCCLCompilerTool" PreprocessorDefinitions="WIN32;NDEBUG;_LIB" RuntimeLibrary="2" UsePrecompiledHeader="0" WarningLevel="3" Detect64BitPortabilityProblems="false" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLibrarianTool" OutputFile="$(OutDir)/gtest.lib" /><Tool Name="VCALinkTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCPostBuildEventTool" /></Configuration><Configuration OutputDirectory="$(PlatformName)\$(ConfigurationName)" IntermediateDirectory="$(PlatformName)\$(ConfigurationName)" ConfigurationType="4" InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops" CharacterSet="2" Name="Release|x64"><Tool Name="VCPreBuildEventTool" /><Tool Name="VCCustomBuildTool" /><Tool Name="VCXMLDataGeneratorTool" /><Tool Name="VCWebServiceProxyGeneratorTool" /><Tool Name="VCMIDLTool" TargetEnvironment="3" /><Tool Name="VCCLCompilerTool" PreprocessorDefinitions="WIN32;NDEBUG;_LIB" RuntimeLibrary="2" UsePrecompiledHeader="0" WarningLevel="3" Detect64BitPortabilityProblems="false" DebugInformationFormat="3" /><Tool Name="VCManagedResourceCompilerTool" /><Tool Name="VCResourceCompilerTool" /><Tool Name="VCPreLinkEventTool" /><Tool Name="VCLibrarianTool" OutputFile="$(OutDir)/gtest.lib" /><Tool Name="VCALinkTool" /><Tool Name="VCXDCMakeTool" /><Tool Name="VCBscMakeTool" /><Tool Name="VCFxCopTool" /><Tool Name="VCPostBuildEventTool" /></Configuration></Configurations><References /><Files><Filter Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx" UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}" Name="Source Files"><File RelativePath="..\src\gtest-death-test.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File><File RelativePath="..\src\gtest-filepath.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File><File RelativePath="..\src\gtest-port.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File><File RelativePath="..\src\gtest-test-part.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File><File RelativePath="..\src\gtest-typed-test.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File><File RelativePath="..\src\gtest.cc"><FileConfiguration Name="Debug|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Debug|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|Win32"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration><FileConfiguration Name="Release|x64"><Tool Name="VCCLCompilerTool" AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" /></FileConfiguration></File></Filter><Filter Filter="h;hpp;hxx;hm;inl;inc;xsd" UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}" Name="Header Files"><File RelativePath="..\include\gtest\internal\gtest-death-test-internal.h" /><File RelativePath="..\include\gtest\gtest-death-test.h" /><File RelativePath="..\include\gtest\internal\gtest-filepath.h" /><File RelativePath="..\src\gtest-internal-inl.h" /><File RelativePath="..\include\gtest\internal\gtest-internal.h" /><File RelativePath="..\include\gtest\gtest-message.h" /><File RelativePath="..\include\gtest\internal\gtest-port.h" /><File RelativePath="..\include\gtest\gtest-spi.h" /><File RelativePath="..\include\gtest\internal\gtest-string.h" /><File RelativePath="..\include\gtest\gtest.h" /><File RelativePath="..\include\gtest\gtest_pred_impl.h" /><File RelativePath="..\include\gtest\gtest_prod.h" /></Filter></Files><Globals /></VisualStudioProject>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VisualStudioProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	TargetFrameworkVersion="131072"
+	ProjectGUID="{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
+	RootNamespace="gtest"
+	ProjectType="Visual C++"
+	Version="9.00"
+	Keyword="Win32Proj"
+	Name="gtest">
+	<Platforms>
+		<Platform
+			Name="Win32" />
+		<Platform
+			Name="x64" />
+	</Platforms>
+	<ToolFiles />
+	<Configurations>
+		<Configuration
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Debug|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtestd.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Debug|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtestd.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Release|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtest.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Release|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtest.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Debug-UnityBuild|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtestd.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="Debug"
+			IntermediateDirectory="Debug"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Debug-UnityBuild|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="4"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtestd.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Release-UnityBuild|x64">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3" />
+			<Tool
+				Name="VCCLCompilerTool"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_X64" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtest.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+		<Configuration
+			OutputDirectory="Release"
+			IntermediateDirectory="Release"
+			ConfigurationType="4"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			Name="Release-UnityBuild|Win32">
+			<Tool
+				Name="VCPreBuildEventTool" />
+			<Tool
+				Name="VCCustomBuildTool" />
+			<Tool
+				Name="VCXMLDataGeneratorTool" />
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool" />
+			<Tool
+				Name="VCMIDLTool" />
+			<Tool
+				Name="VCCLCompilerTool"
+				RuntimeLibrary="2"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+				UsePrecompiledHeader="0"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_WIN32" />
+			<Tool
+				Name="VCManagedResourceCompilerTool" />
+			<Tool
+				Name="VCResourceCompilerTool" />
+			<Tool
+				Name="VCPreLinkEventTool" />
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)/gtest.lib" />
+			<Tool
+				Name="VCALinkTool" />
+			<Tool
+				Name="VCXDCMakeTool" />
+			<Tool
+				Name="VCBscMakeTool" />
+			<Tool
+				Name="VCFxCopTool" />
+			<Tool
+				Name="VCPostBuildEventTool" />
+		</Configuration>
+	</Configurations>
+	<References />
+	<Files>
+		<Filter
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			Name="Source Files">
+			<File
+				RelativePath="..\src\gtest-death-test.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gtest-filepath.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gtest-port.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gtest-test-part.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gtest-typed-test.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gtest.cc">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|x64">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release-UnityBuild|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="&quot;..&quot;;&quot;..\include&quot;" />
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			Name="Header Files">
+			<File
+				RelativePath="..\include\gtest\internal\gtest-death-test-internal.h" />
+			<File
+				RelativePath="..\include\gtest\gtest-death-test.h" />
+			<File
+				RelativePath="..\include\gtest\internal\gtest-filepath.h" />
+			<File
+				RelativePath="..\src\gtest-internal-inl.h" />
+			<File
+				RelativePath="..\include\gtest\internal\gtest-internal.h" />
+			<File
+				RelativePath="..\include\gtest\gtest-message.h" />
+			<File
+				RelativePath="..\include\gtest\internal\gtest-port.h" />
+			<File
+				RelativePath="..\include\gtest\gtest-spi.h" />
+			<File
+				RelativePath="..\include\gtest\internal\gtest-string.h" />
+			<File
+				RelativePath="..\include\gtest\gtest.h" />
+			<File
+				RelativePath="..\include\gtest\gtest_pred_impl.h" />
+			<File
+				RelativePath="..\include\gtest\gtest_prod.h" />
+		</Filter>
+	</Files>
+	<Globals />
+</VisualStudioProject>
