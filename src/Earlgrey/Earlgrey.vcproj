@@ -1,138 +1,180 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<VisualStudioProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	TargetFrameworkVersion="196613"
-	ProjectGUID="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
-	RootNamespace="Earlgrey"
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
+	Name="Earlgrey"
+	ProjectGUID="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
+	RootNamespace="Earlgrey"
 	Keyword="Win32Proj"
-	Name="Earlgrey">
+	TargetFrameworkVersion="196613"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32" />
+			Name="Win32"
+		/>
 		<Platform
-			Name="x64" />
+			Name="x64"
+		/>
 	</Platforms>
-	<ToolFiles />
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
+			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
 			CharacterSet="1"
-			Name="Debug|Win32">
+			>
 			<Tool
-				Name="VCPreBuildEventTool" />
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool" />
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool" />
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
-			<Tool
-				Name="VCMIDLTool" />
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
-				RuntimeLibrary="3"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_WIN32" />
-			<Tool
-				Name="VCManagedResourceCompilerTool" />
-			<Tool
-				Name="VCResourceCompilerTool" />
-			<Tool
-				Name="VCPreLinkEventTool" />
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
-			<Tool
-				Name="VCALinkTool" />
-			<Tool
-				Name="VCXDCMakeTool" />
-			<Tool
-				Name="VCBscMakeTool" />
-			<Tool
-				Name="VCFxCopTool" />
-			<Tool
-				Name="VCPostBuildEventTool" />
-		</Configuration>
-		<Configuration
-			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="1"
-			Name="Debug|x64">
-			<Tool
-				Name="VCPreBuildEventTool" />
-			<Tool
-				Name="VCCustomBuildTool" />
-			<Tool
-				Name="VCXMLDataGeneratorTool" />
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
-				TargetEnvironment="3" />
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
 				RuntimeLibrary="3"
+				UsePrecompiledHeader="2"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_X64" />
+			/>
 			<Tool
-				Name="VCManagedResourceCompilerTool" />
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool" />
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool" />
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;"
+			/>
 			<Tool
-				Name="VCALinkTool" />
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCXDCMakeTool" />
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCBscMakeTool" />
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCFxCopTool" />
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool" />
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
+			Name="Debug|x64"
+			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
+			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="3"
+				UsePrecompiledHeader="2"
+				WarningLevel="4"
+				WarnAsError="true"
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
-			Name="Release|Win32">
+			>
 			<Tool
-				Name="VCPreBuildEventTool" />
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool" />
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool" />
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
-				Name="VCMIDLTool" />
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
@@ -140,53 +182,69 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
 				CallingConvention="0"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_WIN32" />
+			/>
 			<Tool
-				Name="VCManagedResourceCompilerTool" />
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool" />
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool" />
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;"
+			/>
 			<Tool
-				Name="VCALinkTool" />
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCXDCMakeTool" />
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCBscMakeTool" />
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCFxCopTool" />
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool" />
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
+			Name="Release|x64"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
-			Name="Release|x64">
+			>
 			<Tool
-				Name="VCPreBuildEventTool" />
+				Name="VCPreBuildEventTool"
+			/>
 			<Tool
-				Name="VCCustomBuildTool" />
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool" />
+				Name="VCXMLDataGeneratorTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
-				TargetEnvironment="3" />
+				TargetEnvironment="3"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
@@ -194,3924 +252,1275 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
+				UsePrecompiledHeader="2"
 				WarningLevel="4"
 				WarnAsError="true"
 				Detect64BitPortabilityProblems="false"
 				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_X64" />
+			/>
 			<Tool
-				Name="VCManagedResourceCompilerTool" />
+				Name="VCManagedResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool" />
+				Name="VCResourceCompilerTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool" />
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
-			<Tool
-				Name="VCALinkTool" />
-			<Tool
-				Name="VCXDCMakeTool" />
-			<Tool
-				Name="VCBscMakeTool" />
-			<Tool
-				Name="VCFxCopTool" />
-			<Tool
-				Name="VCPostBuildEventTool" />
-		</Configuration>
-		<Configuration
-			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="1"
-			Name="Debug-UnityBuild|x64">
-			<Tool
-				Name="VCPreBuildEventTool" />
-			<Tool
-				Name="VCCustomBuildTool" />
-			<Tool
-				Name="VCXMLDataGeneratorTool" />
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3" />
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
-				RuntimeLibrary="3"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_X64" />
-			<Tool
-				Name="VCManagedResourceCompilerTool" />
-			<Tool
-				Name="VCResourceCompilerTool" />
-			<Tool
-				Name="VCPreLinkEventTool" />
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
+				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;"
+			/>
 			<Tool
-				Name="VCALinkTool" />
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCXDCMakeTool" />
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCBscMakeTool" />
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCFxCopTool" />
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool" />
-		</Configuration>
-		<Configuration
-			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="1"
-			Name="Debug-UnityBuild|Win32">
-			<Tool
-				Name="VCPreBuildEventTool" />
-			<Tool
-				Name="VCCustomBuildTool" />
-			<Tool
-				Name="VCXMLDataGeneratorTool" />
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
-			<Tool
-				Name="VCMIDLTool" />
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				SmallerTypeCheck="true"
-				RuntimeLibrary="3"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;UNITYBUILD_DEBUG_WIN32" />
-			<Tool
-				Name="VCManagedResourceCompilerTool" />
-			<Tool
-				Name="VCResourceCompilerTool" />
-			<Tool
-				Name="VCPreLinkEventTool" />
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
-			<Tool
-				Name="VCALinkTool" />
-			<Tool
-				Name="VCXDCMakeTool" />
-			<Tool
-				Name="VCBscMakeTool" />
-			<Tool
-				Name="VCFxCopTool" />
-			<Tool
-				Name="VCPostBuildEventTool" />
-		</Configuration>
-		<Configuration
-			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			Name="Release-UnityBuild|x64">
-			<Tool
-				Name="VCPreBuildEventTool" />
-			<Tool
-				Name="VCCustomBuildTool" />
-			<Tool
-				Name="VCXMLDataGeneratorTool" />
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
-			<Tool
-				Name="VCMIDLTool"
-				TargetEnvironment="3" />
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_X64" />
-			<Tool
-				Name="VCManagedResourceCompilerTool" />
-			<Tool
-				Name="VCResourceCompilerTool" />
-			<Tool
-				Name="VCPreLinkEventTool" />
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
-			<Tool
-				Name="VCALinkTool" />
-			<Tool
-				Name="VCXDCMakeTool" />
-			<Tool
-				Name="VCBscMakeTool" />
-			<Tool
-				Name="VCFxCopTool" />
-			<Tool
-				Name="VCPostBuildEventTool" />
-		</Configuration>
-		<Configuration
-			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
-			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="4"
-			CharacterSet="1"
-			WholeProgramOptimization="1"
-			Name="Release-UnityBuild|Win32">
-			<Tool
-				Name="VCPreBuildEventTool" />
-			<Tool
-				Name="VCCustomBuildTool" />
-			<Tool
-				Name="VCXMLDataGeneratorTool" />
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool" />
-			<Tool
-				Name="VCMIDLTool" />
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.3.0\include&quot;;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				WarningLevel="4"
-				WarnAsError="true"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-				CallingConvention="0"
-				UsePrecompiledHeader="2"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;UNITYBUILD_RELEASE_WIN32" />
-			<Tool
-				Name="VCManagedResourceCompilerTool" />
-			<Tool
-				Name="VCResourceCompilerTool" />
-			<Tool
-				Name="VCPreLinkEventTool" />
-			<Tool
-				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs;&quot;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;" />
-			<Tool
-				Name="VCALinkTool" />
-			<Tool
-				Name="VCXDCMakeTool" />
-			<Tool
-				Name="VCBscMakeTool" />
-			<Tool
-				Name="VCFxCopTool" />
-			<Tool
-				Name="VCPostBuildEventTool" />
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
-	<References />
+	<References>
+	</References>
 	<Files>
 		<Filter
+			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			Name="Source Files">
+			>
 			<File
-				RelativePath=".\src\Connection.cpp">
+				RelativePath=".\src\Connection.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\Listener.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\stdafx.cpp"
+				>
 				<FileConfiguration
-					Name="Debug-UnityBuild|x64"
-					ExcludedFromBuild="true">
+					Name="Debug|Win32"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug-UnityBuild|Win32"
-					ExcludedFromBuild="true">
+					Name="Debug|x64"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-UnityBuild|x64"
-					ExcludedFromBuild="true">
+					Name="Release|Win32"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-UnityBuild|Win32"
-					ExcludedFromBuild="true">
+					Name="Release|x64"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\Listener.cpp">
+				RelativePath=".\src\stdafx2.cpp"
+				>
 				<FileConfiguration
-					Name="Debug-UnityBuild|x64"
-					ExcludedFromBuild="true">
+					Name="Debug|Win32"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug-UnityBuild|Win32"
-					ExcludedFromBuild="true">
+					Name="Debug|x64"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-UnityBuild|x64"
-					ExcludedFromBuild="true">
+					Name="Release|Win32"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release-UnityBuild|Win32"
-					ExcludedFromBuild="true">
+					Name="Release|x64"
+					>
 					<Tool
-						Name="VCCLCompilerTool" />
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="StdAfx2.h"
+						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\src\stdafx.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-UnityBuild|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-UnityBuild|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-UnityBuild|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-UnityBuild|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1" />
-				</FileConfiguration>
+				RelativePath=".\inc\xlist.h"
+				>
 			</File>
-			<File
-				RelativePath=".\src\stdafx2.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-UnityBuild|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug-UnityBuild|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-UnityBuild|x64">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release-UnityBuild|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-						PrecompiledHeaderThrough="StdAfx2.h" />
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\inc\xlist.h" />
 			<Filter
-				Name="ExternalLib">
+				Name="ExternalLib"
+				>
 				<Filter
-					Name="Loki">
+					Name="Loki"
+					>
 					<File
-						RelativePath=".\src\Loki\Singleton.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<Filter
-						Name="UnityBuild">
-						<File
-							RelativePath=".\src\Loki\UnityBuild-00001.cpp">
-							<FileConfiguration
-								Name="Debug|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Debug|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-						</File>
-					</Filter>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="ProcessThread">
-				<File
-					RelativePath=".\src\EarlgreyProcess.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Executor.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\NoLock.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\ProcessModule.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Thread.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\ThreadId.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\ThreadLocal.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\ThreadRunnable.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Timer.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\TimerManager.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\TimerRunnable.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00002.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
+						RelativePath=".\src\Loki\Singleton.cpp"
+						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Diagnostics">
+				Name="ProcessThread"
+				>
 				<File
-					RelativePath=".\src\EarlgreyAssert.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\EarlgreyProcess.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\FileVersionInfo.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\Executor.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\RuntimeCheck.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\NoLock.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessModule.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Thread.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadId.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadLocal.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ThreadRunnable.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Timer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimerManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimerRunnable.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Diagnostics"
+				>
+				<File
+					RelativePath=".\src\EarlgreyAssert.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\FileVersionInfo.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\RuntimeCheck.cpp"
+					>
 				</File>
 				<Filter
-					Name="UnhandledExceptionHandler">
+					Name="UnhandledExceptionHandler"
+					>
 					<File
-						RelativePath=".\src\ExceptionEMailer.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\ExceptionEMailer.cpp"
+						>
 					</File>
 					<File
-						RelativePath=".\src\GlobalExceptionHandler.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\GlobalExceptionHandler.cpp"
+						>
 					</File>
 					<File
-						RelativePath=".\src\MiniDump.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\MiniDump.cpp"
+						>
 					</File>
 					<File
-						RelativePath=".\src\StackWriter.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\StackWriter.cpp"
+						>
 					</File>
-					<Filter
-						Name="UnityBuild">
-						<File
-							RelativePath=".\src\UnityBuild-00003.cpp">
-							<FileConfiguration
-								Name="Debug|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Debug|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-						</File>
-					</Filter>
 				</Filter>
 				<Filter
-					Name="Log">
+					Name="Log"
+					>
 					<File
-						RelativePath=".\src\EventLog.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\EventLog.cpp"
+						>
 					</File>
 					<File
-						RelativePath=".\src\Log.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
+						RelativePath=".\src\Log.cpp"
+						>
 					</File>
 					<File
-						RelativePath=".\src\Logger.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<Filter
-						Name="UnityBuild">
-						<File
-							RelativePath=".\src\UnityBuild-00004.cpp">
-							<FileConfiguration
-								Name="Debug|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Debug|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00005.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
+						RelativePath=".\src\Logger.cpp"
+						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Memory">
+				Name="Memory"
+				>
 				<File
-					RelativePath=".\src\MemoryBlock.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\MemoryBlock.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\SlabAllocator.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\SlabAllocator.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Network"
+				>
+				<File
+					RelativePath=".\src\Acceptor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\AsyncStream.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Connector.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Disconnector.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Dns.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IOCP.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPAddress.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPGlobalProperties.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IPHostEntry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PacketHandler.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Proactor.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Receiver.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Sender.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SmtpClient.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Socket.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SystemTcpStatistics.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WaitEvent.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\WindowsFirewall.cpp"
+					>
 				</File>
 				<Filter
-					Name="UnityBuild">
+					Name="Mail"
+					>
+				</Filter>
+			</Filter>
+			<Filter
+				Name="RTTI"
+				>
+			</Filter>
+			<Filter
+				Name="Algorithm"
+				>
+				<File
+					RelativePath=".\src\lockfree.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SinglyLinkedList.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="System"
+				>
+				<File
+					RelativePath=".\src\Application.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\COMHelper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Console.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DateTime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Environment.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\File.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Path.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessInitializer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Registry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\RegistryKey.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SingleAppInstance.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StringHelper.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimeSpan.cpp"
+					>
+				</File>
+				<Filter
+					Name="Win32Service"
+					>
 					<File
-						RelativePath=".\src\UnityBuild-00006.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
+						RelativePath=".\src\ServiceBase.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ServiceHelper.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ServiceInstaller.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\ServiceSettings.cpp"
+						>
 					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Network">
+				Name="StlCustom"
+				>
 				<File
-					RelativePath=".\src\Acceptor.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\tiostream.cpp"
+					>
 				</File>
-				<File
-					RelativePath=".\src\AsyncStream.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Connector.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Disconnector.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Dns.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IOCP.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IPAddress.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IPGlobalProperties.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IPHostEntry.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\PacketHandler.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Proactor.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Receiver.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Sender.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\SmtpClient.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Socket.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\SystemTcpStatistics.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\WaitEvent.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\WindowsFirewall.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="Mail" />
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00007.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
-				Name="RTTI" />
-			<Filter
-				Name="Algorithm">
+				Name="Configuration"
+				>
 				<File
-					RelativePath=".\src\lockfree.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\DefaultAppSettings.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\src\SinglyLinkedList.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
+					RelativePath=".\src\IniReader.cpp"
+					>
 				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00008.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
+				<File
+					RelativePath=".\src\IniSection.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
-				Name="System">
+				Name="UnityBuildTest-Excluded"
+				>
 				<File
-					RelativePath=".\src\Application.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\COMHelper.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Console.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\DateTime.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Environment.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\File.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Path.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\ProcessInitializer.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\Registry.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\RegistryKey.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\SingleAppInstance.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\StringHelper.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\TimeSpan.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="Win32Service">
-					<File
-						RelativePath=".\src\ServiceBase.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\src\ServiceHelper.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\src\ServiceInstaller.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\src\ServiceSettings.cpp">
-						<FileConfiguration
-							Name="Debug-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release-UnityBuild|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-					<Filter
-						Name="UnityBuild">
-						<File
-							RelativePath=".\src\UnityBuild-00009.cpp">
-							<FileConfiguration
-								Name="Debug|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Debug|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|Win32"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="Release|x64"
-								ExcludedFromBuild="true">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="DEBUG-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|X64">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-							<FileConfiguration
-								Name="RELEASE-UNITYBUILD|WIN32">
-								<Tool
-									Name="VCCLCompilerTool"
-									PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-									PrecompiledHeaderThrough="StdAfx.h" />
-							</FileConfiguration>
-						</File>
-					</Filter>
-				</Filter>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00010.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="StlCustom">
-				<File
-					RelativePath=".\src\tiostream.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00011.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Configuration">
-				<File
-					RelativePath=".\src\DefaultAppSettings.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IniReader.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\IniSection.cpp">
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00012.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="UnityBuildTest-Excluded">
-				<File
-					RelativePath=".\src\ThrowError.cpp">
+					RelativePath=".\src\ThrowError.cpp"
+					>
 					<FileConfiguration
 						Name="Debug|Win32"
-						ExcludedFromBuild="true">
+						ExcludedFromBuild="true"
+						>
 						<Tool
-							Name="VCCLCompilerTool" />
+							Name="VCCLCompilerTool"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|x64"
-						ExcludedFromBuild="true">
+						ExcludedFromBuild="true"
+						>
 						<Tool
-							Name="VCCLCompilerTool" />
+							Name="VCCLCompilerTool"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
-						ExcludedFromBuild="true">
+						ExcludedFromBuild="true"
+						>
 						<Tool
-							Name="VCCLCompilerTool" />
+							Name="VCCLCompilerTool"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|x64"
-						ExcludedFromBuild="true">
+						ExcludedFromBuild="true"
+						>
 						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool" />
+							Name="VCCLCompilerTool"
+						/>
 					</FileConfiguration>
 				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuild-00013.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-				</Filter>
 			</Filter>
 			<Filter
-				Name="UnityBuildTest-SubDir1">
+				Name="UnityBuildTest-SubDir1"
+				>
 				<File
-					RelativePath=".\src\UnityBuildTest-SubDir1\Dummy.cpp">
-					<FileConfiguration
-						Name="Debug|Win32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\NoPrecompiledHeader.cpp">
-					<FileConfiguration
-						Name="Debug|Win32">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release-UnityBuild|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0" />
-					</FileConfiguration>
-				</File>
-				<Filter
-					Name="UnityBuild">
-					<File
-						RelativePath=".\src\UnityBuildTest-SubDir1\UnityBuild-00014.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool"
-								PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-								PrecompiledHeaderThrough="StdAfx.h" />
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\src\UnityBuild-00015.cpp">
-						<FileConfiguration
-							Name="Debug|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|Win32"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Release|x64"
-							ExcludedFromBuild="true">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="DEBUG-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|X64">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-						<FileConfiguration
-							Name="RELEASE-UNITYBUILD|WIN32">
-							<Tool
-								Name="VCCLCompilerTool" />
-						</FileConfiguration>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
-				Name="UnityBuild">
-				<File
-					RelativePath=".\src\UnityBuild-00016.cpp">
+					RelativePath=".\src\UnityBuildTest-SubDir1\Dummy.cpp"
+					>
 					<FileConfiguration
 						Name="Debug|Win32"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|x64"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|x64"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							PrecompiledHeaderThrough="StdAfx2.h"
+							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
+						/>
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\src\UnityBuild-00017.cpp">
+					RelativePath=".\src\NoPrecompiledHeader.cpp"
+					>
 					<FileConfiguration
 						Name="Debug|Win32"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							UsePrecompiledHeader="0"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Debug|x64"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							UsePrecompiledHeader="0"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
+							UsePrecompiledHeader="0"
+						/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|x64"
-						ExcludedFromBuild="true">
+						>
 						<Tool
 							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName).pch"
-							PrecompiledHeaderThrough="StdAfx.h" />
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\src\UnityBuild-00018.cpp">
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Debug|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|x64"
-						ExcludedFromBuild="true">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="DEBUG-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|X64">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
-					</FileConfiguration>
-					<FileConfiguration
-						Name="RELEASE-UNITYBUILD|WIN32">
-						<Tool
-							Name="VCCLCompilerTool"
-							PrecompiledHeaderFile="$(IntDir)\$(TargetName)2.pch"
-							PrecompiledHeaderThrough="StdAfx2.h" />
+							UsePrecompiledHeader="0"
+						/>
 					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
+			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			Name="Header Files">
+			>
 			<File
-				RelativePath=".\inc\BuildConfiguration.h" />
+				RelativePath=".\inc\BuildConfiguration.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\Earlgrey.h" />
+				RelativePath=".\inc\Earlgrey.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\EarlgreyPrivate.h" />
+				RelativePath=".\inc\EarlgreyPrivate.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\Macros.h" />
+				RelativePath=".\inc\Macros.h"
+				>
+			</File>
 			<File
-				RelativePath=".\resource.h" />
+				RelativePath=".\resource.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\stdafx.h" />
+				RelativePath=".\inc\stdafx.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\stdafx2.h" />
+				RelativePath=".\inc\stdafx2.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\targetver.h" />
+				RelativePath=".\inc\targetver.h"
+				>
+			</File>
 			<File
-				RelativePath=".\inc\Uncopyable.h" />
+				RelativePath=".\inc\Uncopyable.h"
+				>
+			</File>
 			<Filter
-				Name="ExternalLib">
+				Name="ExternalLib"
+				>
 				<File
-					RelativePath=".\inc\ThreadLocalSingleton.hpp" />
+					RelativePath=".\inc\ThreadLocalSingleton.hpp"
+					>
+				</File>
 				<Filter
-					Name="Loki">
+					Name="Loki"
+					>
 					<File
-						RelativePath=".\inc\loki\LokiExport.h" />
+						RelativePath=".\inc\loki\LokiExport.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\loki\Singleton.h" />
+						RelativePath=".\inc\loki\Singleton.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\loki\Threads.h" />
+						RelativePath=".\inc\loki\Threads.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="ProcessThread">
+				Name="ProcessThread"
+				>
 				<File
-					RelativePath=".\inc\EarlgreyProcess.h" />
+					RelativePath=".\inc\EarlgreyProcess.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Executor.h" />
+					RelativePath=".\inc\Executor.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Lock.h" />
+					RelativePath=".\inc\Lock.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Mutex.h" />
+					RelativePath=".\inc\Mutex.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\NoLock.h" />
+					RelativePath=".\inc\NoLock.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ProcessInitializer.h" />
+					RelativePath=".\inc\ProcessInitializer.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ProcessModule.h" />
+					RelativePath=".\inc\ProcessModule.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Runnable.h" />
+					RelativePath=".\inc\Runnable.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ScopedLock.h" />
+					RelativePath=".\inc\ScopedLock.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Thread.h" />
+					RelativePath=".\inc\Thread.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ThreadGroup.h" />
+					RelativePath=".\inc\ThreadGroup.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ThreadId.h" />
+					RelativePath=".\inc\ThreadId.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ThreadLocal.hpp" />
+					RelativePath=".\inc\ThreadLocal.hpp"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ThreadMessage.h" />
+					RelativePath=".\inc\ThreadMessage.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\ThreadRunnable.h" />
+					RelativePath=".\inc\ThreadRunnable.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Timer.h" />
+					RelativePath=".\inc\Timer.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\TimerCallback.h" />
+					RelativePath=".\inc\TimerCallback.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\TimerManager.h" />
+					RelativePath=".\inc\TimerManager.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\TimerRunnable.h" />
+					RelativePath=".\inc\TimerRunnable.h"
+					>
+				</File>
 			</Filter>
 			<Filter
-				Name="Diagnostics">
+				Name="Diagnostics"
+				>
 				<File
-					RelativePath=".\inc\EarlgreyAssert.h" />
+					RelativePath=".\inc\EarlgreyAssert.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\FileVersionInfo.h" />
+					RelativePath=".\inc\FileVersionInfo.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\RuntimeCheck.h" />
+					RelativePath=".\inc\RuntimeCheck.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\StaticAssert.h" />
+					RelativePath=".\inc\StaticAssert.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\UserDefinedCompilerMessage.h" />
+					RelativePath=".\inc\UserDefinedCompilerMessage.h"
+					>
+				</File>
 				<Filter
-					Name="UnhandledExceptionHandler">
+					Name="UnhandledExceptionHandler"
+					>
 					<File
-						RelativePath=".\inc\ExceptionEMailer.h" />
+						RelativePath=".\inc\ExceptionEMailer.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\GlobalExceptionHandler.h" />
+						RelativePath=".\inc\GlobalExceptionHandler.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\MiniDump.h" />
+						RelativePath=".\inc\MiniDump.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\StackWriter.h" />
+						RelativePath=".\inc\StackWriter.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\UnhandledExceptionHandler.h" />
+						RelativePath=".\inc\UnhandledExceptionHandler.h"
+						>
+					</File>
 				</Filter>
 				<Filter
-					Name="Log">
+					Name="Log"
+					>
 					<File
-						RelativePath=".\inc\EventLog.h" />
+						RelativePath=".\inc\EventLog.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\Log.h" />
+						RelativePath=".\inc\Log.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\Logger.h" />
-				</Filter>
-			</Filter>
-			<Filter
-				Name="Memory">
-				<File
-					RelativePath=".\inc\BasicBuffer.hpp" />
-				<File
-					RelativePath=".\inc\BasicBufferIterator.hpp" />
-				<File
-					RelativePath=".\inc\BinaryReader.hpp" />
-				<File
-					RelativePath=".\inc\BinaryWriter.hpp" />
-				<File
-					RelativePath=".\inc\ChainBuffer.hpp" />
-				<File
-					RelativePath=".\inc\CircularBuffer.hpp" />
-				<File
-					RelativePath=".\inc\GreedyAllocator.h" />
-				<File
-					RelativePath=".\inc\LFHAllocator.h" />
-				<File
-					RelativePath=".\inc\MemoryAllocator.h" />
-				<File
-					RelativePath=".\inc\MemoryAllocatorBase.h" />
-				<File
-					RelativePath=".\inc\MemoryBlock.h" />
-				<File
-					RelativePath=".\inc\MemoryConfig.h" />
-				<File
-					RelativePath=".\inc\MemoryMath.h" />
-				<File
-					RelativePath=".\inc\NetworkReader.hpp" />
-				<File
-					RelativePath=".\inc\NetworkWriter.hpp" />
-				<File
-					RelativePath=".\inc\SimpleBuffer.hpp" />
-				<File
-					RelativePath=".\inc\SinglyList.h" />
-				<File
-					RelativePath=".\inc\SlabAllocator.h" />
-				<File
-					RelativePath=".\inc\StackAllocator.h" />
-				<File
-					RelativePath=".\inc\StackMemoryManager.h" />
-				<File
-					RelativePath=".\inc\StlCustomAllocator.hpp" />
-				<File
-					RelativePath=".\inc\StlGreedyAllocator.hpp" />
-				<File
-					RelativePath=".\inc\StlStackAllocator.hpp" />
-				<File
-					RelativePath=".\inc\TBBAllocator.h" />
-				<File
-					RelativePath=".\inc\ThreadLocalAllocator.h" />
-			</Filter>
-			<Filter
-				Name="System">
-				<File
-					RelativePath=".\inc\Application.h" />
-				<File
-					RelativePath=".\inc\COMHelper.h" />
-				<File
-					RelativePath=".\inc\Console.h" />
-				<File
-					RelativePath=".\inc\DateTime.h" />
-				<File
-					RelativePath=".\inc\DateTimeKind.h" />
-				<File
-					RelativePath=".\inc\DayOfWeek.h" />
-				<File
-					RelativePath=".\inc\Environment.h" />
-				<File
-					RelativePath=".\inc\EventProducer.h" />
-				<File
-					RelativePath=".\inc\File.h" />
-				<File
-					RelativePath=".\inc\lexical_cast.hpp" />
-				<File
-					RelativePath=".\inc\Path.h" />
-				<File
-					RelativePath=".\inc\RAII.h" />
-				<File
-					RelativePath=".\inc\Registry.h" />
-				<File
-					RelativePath=".\inc\RegistryKey.h" />
-				<File
-					RelativePath=".\inc\SingleAppInstance.h" />
-				<File
-					RelativePath=".\inc\StringComparison.hpp" />
-				<File
-					RelativePath=".\inc\StringHelper.h" />
-				<File
-					RelativePath=".\inc\TimeSpan.h" />
-				<Filter
-					Name="Win32Service">
-					<File
-						RelativePath=".\inc\PowerBroadcastStatus.h" />
-					<File
-						RelativePath=".\inc\ServiceBase.h" />
-					<File
-						RelativePath=".\inc\ServiceHelper.h" />
-					<File
-						RelativePath=".\inc\ServiceInstaller.h" />
-					<File
-						RelativePath=".\inc\ServiceSettings.h" />
+						RelativePath=".\inc\Logger.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="PAL">
+				Name="Memory"
+				>
 				<File
-					RelativePath=".\inc\PAL_Windows.h" />
+					RelativePath=".\inc\BasicBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\BasicBufferIterator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\BinaryReader.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\BinaryWriter.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ChainBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\CircularBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\GreedyAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\LFHAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryAllocatorBase.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryBlock.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryConfig.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\MemoryMath.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkReader.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkWriter.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SimpleBuffer.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SinglyList.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SlabAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StackAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StackMemoryManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlCustomAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlGreedyAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\StlStackAllocator.hpp"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TBBAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\ThreadLocalAllocator.h"
+					>
+				</File>
 			</Filter>
 			<Filter
-				Name="Network">
+				Name="System"
+				>
 				<File
-					RelativePath=".\inc\Acceptor.h" />
+					RelativePath=".\inc\Application.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\AsyncStream.h" />
+					RelativePath=".\inc\COMHelper.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\CompletionHandler.h" />
+					RelativePath=".\inc\Console.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Connection.h" />
+					RelativePath=".\inc\DateTime.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Connector.h" />
+					RelativePath=".\inc\DateTimeKind.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Disconnector.h" />
+					RelativePath=".\inc\DayOfWeek.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Dns.h" />
+					RelativePath=".\inc\Environment.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IOCP.h" />
+					RelativePath=".\inc\EventProducer.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IPAddress.h" />
+					RelativePath=".\inc\File.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IPEndPoint.h" />
+					RelativePath=".\inc\lexical_cast.hpp"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IPGlobalProperties.h" />
+					RelativePath=".\inc\Path.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IPHostEntry.h" />
+					RelativePath=".\inc\RAII.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Listener.h" />
+					RelativePath=".\inc\Registry.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\NetworkBuffer.h" />
+					RelativePath=".\inc\RegistryKey.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\NetworkStream.h" />
+					RelativePath=".\inc\SingleAppInstance.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\PacketHandler.h" />
+					RelativePath=".\inc\StringComparison.hpp"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Proactor.h" />
+					RelativePath=".\inc\StringHelper.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\Receiver.h" />
-				<File
-					RelativePath=".\inc\Sender.h" />
-				<File
-					RelativePath=".\inc\Socket.h" />
-				<File
-					RelativePath=".\inc\SystemTcpStatistics.h" />
-				<File
-					RelativePath=".\inc\WaitEvent.h" />
-				<File
-					RelativePath=".\inc\WindowsFirewall.h" />
+					RelativePath=".\inc\TimeSpan.h"
+					>
+				</File>
 				<Filter
-					Name="Mail">
+					Name="Win32Service"
+					>
 					<File
-						RelativePath=".\inc\Attachment.h" />
+						RelativePath=".\inc\PowerBroadcastStatus.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\MailAddress.h" />
+						RelativePath=".\inc\ServiceBase.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\MailMessage.h" />
+						RelativePath=".\inc\ServiceHelper.h"
+						>
+					</File>
 					<File
-						RelativePath=".\inc\SmtpClient.h" />
+						RelativePath=".\inc\ServiceInstaller.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\ServiceSettings.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
-				Name="RTTI" />
-			<Filter
-				Name="Algorithm">
+				Name="PAL"
+				>
 				<File
-					RelativePath=".\inc\lockfree.h" />
-				<File
-					RelativePath=".\inc\LockfreePointer.h" />
-				<File
-					RelativePath=".\inc\LockfreeQueue.hpp" />
-				<File
-					RelativePath=".\inc\LockfreeStack.hpp" />
-				<File
-					RelativePath=".\inc\SinglyList.h" />
-				<File
-					RelativePath=".\inc\taskqueue.h" />
+					RelativePath=".\inc\PAL_Windows.h"
+					>
+				</File>
 			</Filter>
 			<Filter
-				Name="Metaprogramming">
+				Name="Network"
+				>
 				<File
-					RelativePath=".\inc\if_.hpp" />
+					RelativePath=".\inc\Acceptor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\AsyncStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\CompletionHandler.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Connection.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Connector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Disconnector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Dns.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IOCP.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPAddress.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPEndPoint.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPGlobalProperties.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IPHostEntry.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Listener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\NetworkStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\PacketHandler.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Proactor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Receiver.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Sender.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Socket.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\SystemTcpStatistics.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\WaitEvent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\WindowsFirewall.h"
+					>
+				</File>
+				<Filter
+					Name="Mail"
+					>
+					<File
+						RelativePath=".\inc\Attachment.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\MailAddress.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\MailMessage.h"
+						>
+					</File>
+					<File
+						RelativePath=".\inc\SmtpClient.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
-				Name="Math">
-				<File
-					RelativePath=".\inc\EarlgreyMath.h" />
-				<File
-					RelativePath=".\inc\numeric_cast.hpp" />
+				Name="RTTI"
+				>
 			</Filter>
 			<Filter
-				Name="StlCustom">
+				Name="Algorithm"
+				>
 				<File
-					RelativePath=".\inc\shared_ptr_helper.h" />
+					RelativePath=".\inc\lockfree.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\tios.h" />
+					RelativePath=".\inc\LockfreePointer.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\tiostream.h" />
+					RelativePath=".\inc\LockfreeQueue.hpp"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\tsstream.h" />
+					RelativePath=".\inc\LockfreeStack.hpp"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\tstring.h" />
+					RelativePath=".\inc\SinglyList.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\txsstream.h" />
-				<File
-					RelativePath=".\inc\txstring.h" />
-				<File
-					RelativePath=".\inc\xdeque.h" />
-				<File
-					RelativePath=".\inc\xmap.h" />
-				<File
-					RelativePath=".\inc\xqueue.h" />
-				<File
-					RelativePath=".\inc\xset.h" />
-				<File
-					RelativePath=".\inc\xstack.h" />
-				<File
-					RelativePath=".\inc\xvector.h" />
+					RelativePath=".\inc\taskqueue.h"
+					>
+				</File>
 			</Filter>
 			<Filter
-				Name="Object" />
+				Name="Metaprogramming"
+				>
+				<File
+					RelativePath=".\inc\if_.hpp"
+					>
+				</File>
+			</Filter>
 			<Filter
-				Name="IO" />
+				Name="Math"
+				>
+				<File
+					RelativePath=".\inc\EarlgreyMath.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\numeric_cast.hpp"
+					>
+				</File>
+			</Filter>
 			<Filter
-				Name="Configuration">
+				Name="StlCustom"
+				>
 				<File
-					RelativePath=".\inc\AppSettings.h" />
+					RelativePath=".\inc\shared_ptr_helper.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\DefaultAppSettings.h" />
+					RelativePath=".\inc\tios.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IniReader.h" />
+					RelativePath=".\inc\tiostream.h"
+					>
+				</File>
 				<File
-					RelativePath=".\inc\IniSection.h" />
+					RelativePath=".\inc\tsstream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\tstring.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\txsstream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\txstring.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xdeque.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xmap.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xqueue.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xset.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xstack.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\xvector.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Object"
+				>
+			</Filter>
+			<Filter
+				Name="IO"
+				>
+			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\inc\AppSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\DefaultAppSettings.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IniReader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\IniSection.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
+			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			Name="Resource Files">
+			>
 			<File
-				RelativePath=".\EargreyResources.rc" />
+				RelativePath=".\EargreyResources.rc"
+				>
+			</File>
 		</Filter>
 		<File
-			RelativePath=".\ReadMe.txt" />
+			RelativePath=".\ReadMe.txt"
+			>
+		</File>
 	</Files>
-	<Globals />
+	<Globals>
+	</Globals>
 </VisualStudioProject>
