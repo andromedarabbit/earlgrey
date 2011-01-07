@@ -47,7 +47,8 @@ namespace UnityBuild
                 }
                 else // will be used by a serializer
                 {
-                    this._usePrecompiledHeader = value;                    
+                    this._usePrecompiledHeader = value;
+                    UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption != UsePrecompiledHeaderOptions.InheritFromProject;
                     this.OnPropertyChanged("UsePrecompiledHeader");
                 }
             }

@@ -139,7 +139,13 @@ namespace UnityBuild
             }
 
             foreach (KeyValuePair<string, PrecompiledHeaderOptions> keyValuePair in options)
-            {
+            {                
+                if(keyValuePair.Value.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                {
+                    PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(keyValuePair.Value);
+                    newOptions.UsePrecompiledHeader = UsePrecompiledHeaderOptions.Use;
+                    continue;
+                }
                 newFile.SetPrecompiledHeaderOption(keyValuePair.Key, keyValuePair.Value);
             }
 

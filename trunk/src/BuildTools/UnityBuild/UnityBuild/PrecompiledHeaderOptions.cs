@@ -26,6 +26,13 @@ namespace UnityBuild
             _precompiledHeaderFile = string.Empty;
         }
 
+        public PrecompiledHeaderOptions(PrecompiledHeaderOptions obj)
+        {
+            this._usePrecompiledHeader = obj._usePrecompiledHeader;
+            this._precompiledHeaderThrough = obj._precompiledHeaderThrough;
+            this._precompiledHeaderFile = obj._precompiledHeaderFile;
+        }
+
         public UsePrecompiledHeaderOptions UsePrecompiledHeader
         {
             get { return _usePrecompiledHeader; }
