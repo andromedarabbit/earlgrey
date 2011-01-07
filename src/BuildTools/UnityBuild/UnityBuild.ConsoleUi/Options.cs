@@ -63,6 +63,15 @@ namespace UnityBuild.ConsoleUi
         [Option(OptimizationSwitch, OptimizationLongSwitch, Required = OptimizationRequired, HelpText = OptimizationHelp)]
         public OptimizationLevel Optimization;
 
+        private const string MaxFilesPerFileSwitch = "m";
+        private const string MaxFilesPerFileLongSwitch = "MaxFiles";
+        private const string MaxFilesPerFileHelp = "The maximum number of source files included in a new .cpp file for UnityBuild.";
+        private const bool MaxFilesPerFileRequired = false;
+
+        [Option(MaxFilesPerFileSwitch, MaxFilesPerFileLongSwitch, Required = MaxFilesPerFileRequired, HelpText = MaxFilesPerFileHelp)]
+        public int MaxFilesPerFile;
+
+
         public Options()
         {
             InputFile = null;
@@ -70,6 +79,7 @@ namespace UnityBuild.ConsoleUi
             CopySolution = false;
             Verbose = false;
             Optimization = OptimizationLevel.Normal;
+            MaxFilesPerFile = 0;
         }
 
         [HelpOption(HelpText = "Display this help screen.")]
@@ -92,6 +102,10 @@ namespace UnityBuild.ConsoleUi
             usage.Append(" -" + OptimizationSwitch + ", --" + OptimizationLongSwitch + " ");
             usage.AppendLine(GetRquiredString(OptimizationRequired));
             usage.AppendLine("   " + OptimizationHelp);
+
+            usage.Append(" -" + MaxFilesPerFileSwitch + ", --" + MaxFilesPerFileLongSwitch + " ");
+            usage.AppendLine(GetRquiredString(MaxFilesPerFileRequired));
+            usage.AppendLine("   " + MaxFilesPerFileHelp);
 
             usage.Append(" -" + VerboseSwitch + ", --" + VerboseLongSwitch + " ");
             usage.AppendLine(GetRquiredString(VerboseRequired));
@@ -139,6 +153,9 @@ namespace UnityBuild.ConsoleUi
                 summary.AppendLine();
             }
 
+            if (MaxFilesPerFile > 0)
+                summary.AppendLine(" * Maximum number of source files included in a new .cpp file is " + MaxFilesPerFile + ".");
+
             if (Verbose)
                 summary.AppendLine(" * Verbose mode is turned on.");
             else
@@ -159,6 +176,7 @@ namespace UnityBuild.ConsoleUi
             BuilderOptions builderOptions = new BuilderOptions();
             builderOptions.CopySolution = this.CopySolution;
             builderOptions.GroupByFilter = this.NeedToGroupByFilter;
+            builderOptions.MaxFilesPerFile = this.MaxFilesPerFile;
 
             if (this.HasExcludedProjects())
                 builderOptions.ExcludeProjects(this.ExcludedProjects);
