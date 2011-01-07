@@ -16,26 +16,51 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
-        public FilesMerge(string projectDirectory, ICollection<FileType> files, IEnumerable<string> buildConfigurations)
-            : this(projectDirectory, files, buildConfigurations, new List<string>())
+        private readonly int _maxFilesPerFile;
+
+        public FilesMerge(
+            string projectDirectory,
+            ICollection<FileType> files, 
+            IEnumerable<string> buildConfigurations
+            )
+            : this(projectDirectory, files, buildConfigurations, new List<string>(), 0)
         {
             
         }
 
-        public FilesMerge(string projectDirectory, ICollection<FileType> files, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded)
+        public FilesMerge(
+            string projectDirectory, 
+            ICollection<FileType> files,
+            IEnumerable<string> buildConfigurations,
+            IEnumerable<string> buildConfigurationsExcluded
+            )
+            : this(projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
+        {
+
+        }
+
+        public FilesMerge(
+            string projectDirectory, 
+            ICollection<FileType> files, 
+            IEnumerable<string> buildConfigurations, 
+            IEnumerable<string> buildConfigurationsExcluded,
+            int maxFilesPerFile
+            )
         {
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(files != null);
-            
+            Debug.Assert(maxFilesPerFile >= 0);
+
             _projectDirectory = projectDirectory;
             _files = files;
-            // _keys = new List<FilesMergeKey>(_files.Count);
-
+           
             _buildConfigurations = new List<string>();
             _buildConfigurations.AddRange(buildConfigurations);
 
             _buildConfigurationsExcluded = new List<string>();
             _buildConfigurationsExcluded.AddRange(buildConfigurationsExcluded);
+
+            _maxFilesPerFile = maxFilesPerFile;
         }
 
         private static string GetNextFileName()

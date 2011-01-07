@@ -9,12 +9,14 @@ namespace UnityBuild
     {
         private bool _copySolution;
         private bool _groupByFilter;
+        private int _maxFilesPerFile;
         private readonly List<string> _projectNamesExcluded;
 
         public BuilderOptions()
         {
             _copySolution = false;
             _groupByFilter = true;
+            _maxFilesPerFile = 0;
 
             _projectNamesExcluded = new List<string>();
         }
@@ -31,6 +33,17 @@ namespace UnityBuild
             set { _groupByFilter = value; }
         }
 
+        public int MaxFilesPerFile
+        {
+            get { return _maxFilesPerFile; }
+            set
+            {
+                if(value < 0)
+                    throw new ArgumentException();
+                _maxFilesPerFile = value;
+            }
+        }
+
         public IEnumerable<string> ExcludedProjects
         {
             get { return _projectNamesExcluded; }
@@ -45,7 +58,6 @@ namespace UnityBuild
         {
             _projectNamesExcluded.AddRange(projectNames);
         }
-
 
         public bool IsExcluded(string projectName)
         {
