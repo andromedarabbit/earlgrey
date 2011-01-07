@@ -1,4 +1,5 @@
 #pragma once
+#include "Thread.h"
 #include "taskqueue.h"
 #include "CompletionHandler.h"
 #include "NoLock.h"
