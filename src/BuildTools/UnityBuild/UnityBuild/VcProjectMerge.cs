@@ -16,14 +16,16 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurationsExcluded;
 
         private readonly FilterType _unityBuildFilter;
+        
+        private readonly int _maxFilesPerFile;
 
         public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter)
-            : this(project, projectConverter, true)
+            : this(project, projectConverter, true, 0)
         {
             
         }
 
-        public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter, bool groupByFilter)
+        public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter, bool groupByFilter, int maxFilesPerFile)
         {
             Debug.Assert(project != null);
 
@@ -42,6 +44,8 @@ namespace UnityBuild
             _unityBuildFilter.ItemsSpecified = true;
 
             ExcludeFromBuild();
+
+            _maxFilesPerFile = maxFilesPerFile;
         }
 
         private void ExcludeFromBuild()
@@ -97,7 +101,7 @@ namespace UnityBuild
 
             // TODO: 하드코딩  
             List<FileType> files = GetAllSrcFiles();
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded);
+            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count == 0)
@@ -148,12 +152,12 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations, _buildConfigurationsExcluded); //, _unityBuildFilter);
+                FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
                 itemsAdded.AddRange(filterMerge.Merge());
             }
 
             // TODO: 하드코딩  
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded);
+            FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
             
 
             List<FileType> filesAdded = filesMerge.Merge();
