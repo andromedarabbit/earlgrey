@@ -92,31 +92,18 @@ namespace UnityBuild
 
 
             List<FileType> newFiles = new List<FileType>();
+
             foreach (IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>> filesByPath in filesByPaths)
             {
-                FilesMergeKey key = filesByPath.Key;           
-                string relativeDir = key.RelativeDir;
-                FileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
-                
-                string absolutePath = GetAbsolutePath(newFile.RelativePath);
-                using (SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded))
+                int numberOfFiles = _maxFilesPerFile;
+                if (_maxFilesPerFile == 0)
+                    numberOfFiles = filesByPath.Count();
+
+                var fileGroup = GetEnumerableOfEnumerables(filesByPath, numberOfFiles);
+                foreach (IEnumerable<KeyValuePair<FilesMergeKey, FileType>> item in fileGroup)
                 {
-                    merger.Open();
-
-                    foreach (KeyValuePair<FilesMergeKey, FileType> fileByPath in filesByPath)
-                    {
-                        FileType file = fileByPath.Value;
-                        if (file.IsSrcFile == false)
-                            continue;           
-
-                        merger.AddSrcFile(file);
-                    }
-
-                    if(merger.Merge() == false)
-                        continue;
+                    MergeFiles(item, newFiles);
                 }
-
-                newFiles.Add(newFile);
             }
 
             foreach (var file in newFiles)
@@ -125,6 +112,72 @@ namespace UnityBuild
             }
 
             return newFiles;
+        }
+
+        // private void MergeFiles(IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>> filesByPath, List<FileType> newFiles)
+        private void MergeFiles(IEnumerable<KeyValuePair<FilesMergeKey, FileType>> filesByPath, List<FileType> newFiles)
+        {
+            if (filesByPath.Count() == 0)
+                return;
+
+
+            // FilesMergeKey key = filesByPath.Key;
+            FilesMergeKey key = filesByPath.First().Key;
+            string relativeDir = key.RelativeDir;
+            FileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
+
+            string absolutePath = GetAbsolutePath(newFile.RelativePath);
+            using (
+                SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath,
+                                                         _projectDirectory, _buildConfigurations,
+                                                         _buildConfigurationsExcluded))
+            {
+                merger.Open();
+
+                foreach (KeyValuePair<FilesMergeKey, FileType> fileByPath in filesByPath)
+                {
+                    FileType file = fileByPath.Value;
+                    if (file.IsSrcFile == false)
+                        continue;
+
+                    merger.AddSrcFile(file);
+                }
+
+                if (merger.Merge() == false)
+                    return;
+            }
+
+            newFiles.Add(newFile);
+        }
+
+        private static IEnumerable<IEnumerable<T>> GetEnumerableOfEnumerables<T>(IEnumerable<T> enumerable, int groupSize)
+        {
+            // The list to return.
+            List<T> list = new List<T>(groupSize);
+
+            // Cycle through all of the items.
+            foreach (T item in enumerable)
+            {
+                // Add the item.
+                list.Add(item);
+
+                // If the list has the number of elements, return that.
+                if (list.Count == groupSize)
+                {
+                    // Return the list.
+                    yield return list;
+
+                    // Set the list to a new list.
+                    list = new List<T>(groupSize);
+                }
+            }
+
+            // Return the remainder if there is any,
+            if (list.Count != 0)
+            {
+                // Return the list.
+                yield return list;
+            }
         }
 
         private FileType GetNewFile(string relativeDir, IList<KeyValuePair<string, PrecompiledHeaderOptions>> options)
