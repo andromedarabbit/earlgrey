@@ -13,11 +13,11 @@ namespace UnityBuild
         private readonly string _delimiter;
         private int _count;
 
-        public TextReaders(TextFile[] srcFiles, string delimiter)
+        public TextReaders(IEnumerable<TextFile> srcFiles, string delimiter)
         {
             Debug.Assert(srcFiles != null);
 
-            _srcFiles = srcFiles.Select(file => file.GetTextReader()).ToArray();
+            this._srcFiles = srcFiles.Select(file => file.GetTextReader()).ToArray();
             this._delimiter = delimiter;
             this._count = -1;
         }
@@ -31,8 +31,8 @@ namespace UnityBuild
                 if (_delimiter == null)
                     return _srcFiles[_count];
 
-                if (_count % 2 == 0)
-                    return _srcFiles[_count / 2];
+                if (_count%2 == 0)
+                    return _srcFiles[_count/2];
 
                 return new StringReader(_delimiter);
             }
@@ -40,10 +40,7 @@ namespace UnityBuild
 
         object System.Collections.IEnumerator.Current
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { throw new NotImplementedException(); }
         }
 
         // TODO: 땜빵
@@ -55,13 +52,10 @@ namespace UnityBuild
             if (string.IsNullOrEmpty(_delimiter) == true && _srcFiles.Length <= (_count + 1))
                 return false;
 
-            // if (string.IsNullOrEmpty(_delimiter) == false && _srcFiles.Length <= (_count - 1) / 2)
             if (string.IsNullOrEmpty(_delimiter) == false)
             {
-                if(_count >= (_srcFiles.Length * 2 - 1) - 1)
+                if (_count >= (_srcFiles.Length*2 - 1) - 1)
                     return false;
-
-
             }
 
             _count++;
@@ -80,6 +74,5 @@ namespace UnityBuild
                 file.Dispose();
             }
         }
-
     }
 }

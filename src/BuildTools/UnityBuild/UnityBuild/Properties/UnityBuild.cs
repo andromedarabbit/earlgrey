@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace UnityBuild.Properties 
+namespace UnityBuild.Properties
 {
     internal sealed partial class UnityBuild //  : global::System.Configuration.ApplicationSettingsBase
     {
@@ -15,10 +15,10 @@ namespace UnityBuild.Properties
             if (string.IsNullOrEmpty(filePathExtension))
                 return false;
 
-            foreach(var extension in SourceFileExtensions)
+            foreach (var extension in SourceFileExtensions)
             {
                 // if(filePath.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                if(filePathExtension.Equals(extension, StringComparison.CurrentCultureIgnoreCase))
+                if (filePathExtension.Equals(extension, StringComparison.CurrentCultureIgnoreCase))
                     return true;
             }
             return false;

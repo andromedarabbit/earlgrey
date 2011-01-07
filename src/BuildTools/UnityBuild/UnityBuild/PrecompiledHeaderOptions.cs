@@ -16,7 +16,6 @@ namespace UnityBuild
         public PrecompiledHeaderOptions()
             : this(UsePrecompiledHeaderOptions.None)
         {
-            
         }
 
         public PrecompiledHeaderOptions(UsePrecompiledHeaderOptions usePrecompiledHeader)
@@ -57,35 +56,40 @@ namespace UnityBuild
             Debug.Assert(tool.NameSpecified == true);
             Debug.Assert(tool.AnyAttr != null);
 
-            //if (tool.AnyAttr.Count == 0)
-            if(tool.UsePrecompiledHeaderSpecified == false)
+            if (tool.UsePrecompiledHeaderSpecified == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
             PrecompiledHeaderOptions options = new PrecompiledHeaderOptions();
-            options.UsePrecompiledHeader = (UsePrecompiledHeaderOptions)Enum.Parse(typeof(UsePrecompiledHeaderOptions), tool.UsePrecompiledHeader);// GetUsePrecompiledHeader(tool.AnyAttr);
-            options.PrecompiledHeaderThrough = tool.PrecompiledHeaderThrough; // GetPrecompiledHeaderThrough(tool.AnyAttr);
-            options.PrecompiledHeaderFile = tool.PrecompiledHeaderFile; // GetPrecompiledHeaderFile(tool.AnyAttr);
+            options.UsePrecompiledHeader =
+                (UsePrecompiledHeaderOptions)
+                Enum.Parse(typeof (UsePrecompiledHeaderOptions), tool.UsePrecompiledHeader);
+            options.PrecompiledHeaderThrough = tool.PrecompiledHeaderThrough;
+            options.PrecompiledHeaderFile = tool.PrecompiledHeaderFile;
 
             return options;
         }
-     
+
         #region IEquatable implementations
 
         public bool Equals(PrecompiledHeaderOptions other)
         {
-            if(_usePrecompiledHeader != other._usePrecompiledHeader)
+            if (_usePrecompiledHeader != other._usePrecompiledHeader)
                 return false;
 
-            if(_precompiledHeaderThrough.Equals(other._precompiledHeaderThrough, StringComparison.CurrentCultureIgnoreCase) == false)
+            if (
+                _precompiledHeaderThrough.Equals(other._precompiledHeaderThrough,
+                                                 StringComparison.CurrentCultureIgnoreCase) == false)
                 return false;
 
-            if (_precompiledHeaderFile.Equals(other._precompiledHeaderFile, StringComparison.CurrentCultureIgnoreCase) == false)
+            if (
+                _precompiledHeaderFile.Equals(other._precompiledHeaderFile, StringComparison.CurrentCultureIgnoreCase) ==
+                false)
                 return false;
 
             return true;
         }
 
-        #endregion 
+        #endregion
 
         public override bool Equals(object obj)
         {
@@ -103,6 +107,5 @@ namespace UnityBuild
                    & _precompiledHeaderFile.ToLower().GetHashCode()
                 ;
         }
-
     }
 }

@@ -7,6 +7,5 @@ namespace UnityBuild
 {
     public abstract class AbstractProjectConfigurationNameConverter : AbstractConfigurationNameConverter
     {
-        
     }
 }

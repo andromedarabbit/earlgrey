@@ -73,7 +73,6 @@
     <Compile Include="SolutionConfigurationNameConverter.cs" />
     <Compile Include="VcProjectConverter.cs" />
     <Compile Include="SrcFileAppend.cs" />
-    <Compile Include="Text.cs" />
     <Compile Include="TextFile.cs" />
     <Compile Include="TextFileAppend.cs" />
     <Compile Include="StreamAppend.cs" />
@@ -83,7 +82,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>UnityBuild.settings</DependentUpon>
     </Compile>
-    <Compile Include="TextAppend.cs" />
     <Compile Include="Properties\UnityBuild.cs" />
     <Compile Include="VcProject.cs" />
     <Compile Include="VcSolution.cs" />

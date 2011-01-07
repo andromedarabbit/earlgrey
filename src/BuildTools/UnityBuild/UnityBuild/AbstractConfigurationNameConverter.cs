@@ -36,17 +36,20 @@ namespace UnityBuild
             string projectProperty;
             string projectConfigurationName;
 
-            SplitConfigurationPlatform(configurationPlatformName, out projectConfigurationName, out projectPlatformName, out projectProperty);
+            SplitConfigurationPlatform(configurationPlatformName, out projectConfigurationName, out projectPlatformName,
+                                       out projectProperty);
 
             string newProjectConfigurationName = converter.GetNewName(projectConfigurationName);
             Debug.Assert(string.IsNullOrEmpty(newProjectConfigurationName) == false);
 
-            return GetConfigurationPlatform(newProjectConfigurationName, projectPlatformName, projectProperty);            
+            return GetConfigurationPlatform(newProjectConfigurationName, projectPlatformName, projectProperty);
         }
 
-        internal static void SplitConfigurationPlatform(string configurationPlatformName, out string projectConfigurationName, out string projectPlatformName, out string projectProperty)
+        internal static void SplitConfigurationPlatform(string configurationPlatformName,
+                                                        out string projectConfigurationName,
+                                                        out string projectPlatformName, out string projectProperty)
         {
-            string[] tokens = configurationPlatformName.Split(new char[] { '|' }, 2, StringSplitOptions.RemoveEmptyEntries);
+            string[] tokens = configurationPlatformName.Split(new char[] {'|'}, 2, StringSplitOptions.RemoveEmptyEntries);
             Debug.Assert(tokens.Length == 2);
 
             projectConfigurationName = tokens[0];
@@ -59,14 +62,14 @@ namespace UnityBuild
             {
                 Debug.Assert(projectPlatformName.Count(c => c == '.') < 3);
 
-                string[] platformNameAndProperty = projectPlatformName.Split(new char[] { '.' }, 2, StringSplitOptions.RemoveEmptyEntries);
+                string[] platformNameAndProperty = projectPlatformName.Split(new char[] {'.'}, 2,
+                                                                             StringSplitOptions.RemoveEmptyEntries);
                 projectPlatformName = platformNameAndProperty[0];
                 projectProperty = platformNameAndProperty[1];
 
                 Debug.Assert(string.IsNullOrEmpty(projectConfigurationName) == false);
                 Debug.Assert(string.IsNullOrEmpty(projectPlatformName) == false);
             }
-          
         }
 
         internal static string GetConfiguration(string configurationPlatform)

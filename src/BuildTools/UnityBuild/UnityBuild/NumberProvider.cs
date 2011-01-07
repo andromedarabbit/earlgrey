@@ -17,10 +17,7 @@ namespace UnityBuild
 
         public static NumberProvider Instance
         {
-            get
-            {
-                return Nested.instance;
-            }
+            get { return Nested.instance; }
         }
 
         private static class Nested
@@ -73,7 +70,7 @@ namespace UnityBuild
             get
             {
                 Debug.Assert(_currentNo >= MinNo && _currentNo <= MaxNo);
-                  
+
                 return _currentNo;
             }
         }

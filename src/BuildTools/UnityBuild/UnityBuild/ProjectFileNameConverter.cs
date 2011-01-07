@@ -7,7 +7,7 @@ using System.Text;
 
 namespace UnityBuild
 {
-    public class ProjectFileNameConverter : IProjectFileNameConverter 
+    public class ProjectFileNameConverter : IProjectFileNameConverter
     {
         private const string Suffix = "-UnityBuild";
         private static readonly string[] ExtensionsAllowed;
@@ -19,11 +19,11 @@ namespace UnityBuild
 
         public virtual bool IsNewName(string name)
         {
-            if(string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
                 throw new ArgumentException();
 
             string extension = Path.GetExtension(name);
-            if(string.IsNullOrEmpty(extension))
+            if (string.IsNullOrEmpty(extension))
                 throw new ArgumentException();
 
             if (ExtensionsAllowed.Contains(extension, StringComparer.CurrentCultureIgnoreCase) == false)

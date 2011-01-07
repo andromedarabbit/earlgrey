@@ -20,14 +20,13 @@ namespace UnityBuild
         internal VcSolutionFileCopy(string solutionFilePath)
             : this(solutionFilePath, new ProjectFileNameConverter(), true)
         {
-
         }
 
         internal VcSolutionFileCopy(
             string solutionFilePath
             , IProjectFileNameConverter projectFileNameConverter
             , bool overwrite
-          )
+            )
         {
             Debug.Assert(string.IsNullOrEmpty(solutionFilePath) == false);
             Debug.Assert(projectFileNameConverter != null);
@@ -70,10 +69,10 @@ namespace UnityBuild
         public string Copy()
         {
             SolutionFile solution = GetNewSolution();
-            
+
             foreach (Project project in solution.Projects)
             {
-                if(project.RelativePath.EndsWith(".vcproj", StringComparison.CurrentCultureIgnoreCase) == false)
+                if (project.RelativePath.EndsWith(".vcproj", StringComparison.CurrentCultureIgnoreCase) == false)
                     continue;
 
                 string newRelativePath = _projectFileNameConverter.GetNewName(project.RelativePath);
@@ -100,9 +99,6 @@ namespace UnityBuild
             string newSolutionFilePath = Path.Combine(directory, newSolutionFileName);
             File.Copy(_solutionFilePath, newSolutionFilePath, _overwrite);
 
-            // VcSolution solution = new VcSolution(newSolutionFilePath);
-            // solution.Load();
-            // return solution;
             return SolutionFile.FromFile(newSolutionFilePath);
         }
     }

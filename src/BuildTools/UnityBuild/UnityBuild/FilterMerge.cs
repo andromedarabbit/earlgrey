@@ -17,20 +17,29 @@ namespace UnityBuild
 
         private readonly int _maxFilesPerFile;
 
-        public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations)
-            : this(projectDirectory, filter, buildConfigurations, new List<string>(), 0)   
+        public FilterMerge(
+            string projectDirectory
+            , FilterType filter
+            , IEnumerable<string> buildConfigurations
+            )
+            : this(projectDirectory, filter, buildConfigurations, new List<string>(), 0)
         {
-            
         }
 
-        public FilterMerge(string projectDirectory, FilterType filter, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded, int maxFilesPerFile)
+        public FilterMerge(
+            string projectDirectory
+            , FilterType filter
+            , IEnumerable<string> buildConfigurations
+            , IEnumerable<string> buildConfigurationsExcluded
+            , int maxFilesPerFile
+            )
         {
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(filter != null);
 
             _projectDirectory = projectDirectory;
             _filter = filter;
-            
+
             _buildConfigurations = new List<string>();
             _buildConfigurations.AddRange(buildConfigurations);
 
@@ -46,8 +55,8 @@ namespace UnityBuild
             {
                 IEnumerable<FilterType> filters = from item in _filter.Items
                                                   where item is FilterType
-                                                  select (FilterType)item
-                                              ;
+                                                  select (FilterType) item
+                    ;
                 return filters;
             }
         }
@@ -57,9 +66,9 @@ namespace UnityBuild
             get
             {
                 IEnumerable<FileType> files = from item in _filter.Items
-                                                      where item is FileType
-                                                      select (FileType)item
-                                              ;
+                                              where item is FileType
+                                              select (FileType) item
+                    ;
                 return files;
             }
         }
@@ -70,13 +79,15 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
+                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations,
+                                                          _buildConfigurationsExcluded, _maxFilesPerFile);
                 filesOrFiltersAdded.AddRange(filterMerge.Merge());
             }
-            
+
             // TODO: 하드코딩
-            FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
-      
+            FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations,
+                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
+
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
@@ -92,9 +103,9 @@ namespace UnityBuild
             FilterType newFilter = null;
 
             var result = _filter.Items
-                .Where(item => item is FilterType && ((FilterType)item).Name.Equals("UnityBuild") == true)
-                .Select(item => (FilterType)item);
-            if(result.Count() > 0)
+                .Where(item => item is FilterType && ((FilterType) item).Name.Equals("UnityBuild") == true)
+                .Select(item => (FilterType) item);
+            if (result.Count() > 0)
             {
                 Debug.Assert(result.Count() == 1);
                 newFilter = result.First();

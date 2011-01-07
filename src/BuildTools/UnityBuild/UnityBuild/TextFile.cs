@@ -28,7 +28,6 @@ namespace UnityBuild
         public TextFile(string filePath)
             : this(filePath, null)
         {
-
         }
 
         public TextFile(string filePath, Encoding fileEncoding)
@@ -74,24 +73,8 @@ namespace UnityBuild
 
                 return _fileEncoding;
             }
-            set
-            {
-                _fileEncoding = value;
-            }
+            set { _fileEncoding = value; }
         }
-
-        //public bool IsValid()
-        //{
-        //    if(string.IsNullOrEmpty(_filePath))
-        //        return false;
-
-        //    if(File.Exists(_filePath) == false)
-        //        return false;
-
-        //    // Debug.Assert(_fileEncoding != null);
-
-        //    return true;
-        //}
 
         public TextReader GetTextReader()
         {

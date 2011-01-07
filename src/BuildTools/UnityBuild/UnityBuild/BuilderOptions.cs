@@ -38,7 +38,7 @@ namespace UnityBuild
             get { return _maxFilesPerFile; }
             set
             {
-                if(value < 0)
+                if (value < 0)
                     throw new ArgumentException();
                 _maxFilesPerFile = value;
             }
@@ -67,6 +67,5 @@ namespace UnityBuild
 
             return count > 0;
         }
-
     }
 }

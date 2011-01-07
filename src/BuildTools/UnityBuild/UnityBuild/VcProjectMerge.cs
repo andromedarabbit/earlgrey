@@ -10,22 +10,29 @@ namespace UnityBuild
     internal class VcProjectMerge
     {
         private readonly bool _groupByFilter;
-        private readonly VcProject _project;        
+        private readonly VcProject _project;
         private readonly AbstractProjectConfigurationNameConverter _projectConverter;
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
         private readonly FilterType _unityBuildFilter;
-        
+
         private readonly int _maxFilesPerFile;
 
-        public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter)
+        public VcProjectMerge(
+            VcProject project
+            , AbstractProjectConfigurationNameConverter projectConverter
+            )
             : this(project, projectConverter, true, 0)
         {
-            
         }
 
-        public VcProjectMerge(VcProject project, AbstractProjectConfigurationNameConverter projectConverter, bool groupByFilter, int maxFilesPerFile)
+        public VcProjectMerge(
+            VcProject project
+            , AbstractProjectConfigurationNameConverter projectConverter
+            , bool groupByFilter
+            , int maxFilesPerFile
+            )
         {
             Debug.Assert(project != null);
 
@@ -66,8 +73,8 @@ namespace UnityBuild
             {
                 IEnumerable<FilterType> filters = from item in _project.Details.Files
                                                   where item is FilterType
-                                                  select (FilterType)item
-                                              ;
+                                                  select (FilterType) item
+                    ;
                 return filters;
             }
         }
@@ -77,9 +84,9 @@ namespace UnityBuild
             get
             {
                 IEnumerable<FileType> files = from item in _project.Details.Files
-                                                      where item is FileType
-                                                      select (FileType)item
-                                              ;
+                                              where item is FileType
+                                              select (FileType) item
+                    ;
                 return files;
             }
         }
@@ -101,19 +108,20 @@ namespace UnityBuild
 
             // TODO: 하드코딩  
             List<FileType> files = GetAllSrcFiles();
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
+            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations,
+                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
 
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count == 0)
                 return itemsAdded;
-            
+
             if (_project.Details.Files.Contains(_unityBuildFilter) == false)
             {
                 _project.Details.Files.Add(_unityBuildFilter);
             }
             _unityBuildFilter.Items.AddRange(filesAdded.ToArray());
             itemsAdded.AddRange(filesAdded.ToArray());
-        
+
             return itemsAdded;
         }
 
@@ -131,14 +139,14 @@ namespace UnityBuild
 
             foreach (object item in items)
             {
-                if(item is FileType)
+                if (item is FileType)
                 {
                     FileType file = (FileType) item;
-                    if(file.IsSrcFile)
+                    if (file.IsSrcFile)
                         files.Add(file);
                 }
 
-                if(item is FilterType)
+                if (item is FilterType)
                 {
                     FilterType filter = item as FilterType;
                     GetAllSrcFiles(filter.Items, files);
@@ -152,13 +160,15 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
+                FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations,
+                                                          _buildConfigurationsExcluded, _maxFilesPerFile);
                 itemsAdded.AddRange(filterMerge.Merge());
             }
 
             // TODO: 하드코딩  
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
-            
+            FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations,
+                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
+
 
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
@@ -172,6 +182,5 @@ namespace UnityBuild
 
             return itemsAdded;
         }
-
     }
 }

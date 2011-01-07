@@ -31,7 +31,8 @@ namespace UnityBuild
 
 
         internal
-         void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options, FileType file)
+            void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options,
+                                            FileType file)
         {
             if (file.IsSrcFile == false)
                 throw new ApplicationException();
@@ -46,25 +47,30 @@ namespace UnityBuild
             }
 
 
-            PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
+            PrecompiledHeaderOptions newOptions =
+                new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
             if (options.UsePrecompiledHeader != projectOptions.UsePrecompiledHeader)
             {
                 newOptions.UsePrecompiledHeader = options.UsePrecompiledHeader;
             }
 
-            if (options.PrecompiledHeaderFile.Equals(projectOptions.PrecompiledHeaderFile, StringComparison.CurrentCultureIgnoreCase) == false)
+            if (
+                options.PrecompiledHeaderFile.Equals(projectOptions.PrecompiledHeaderFile,
+                                                     StringComparison.CurrentCultureIgnoreCase) == false)
             {
                 newOptions.PrecompiledHeaderFile = options.PrecompiledHeaderFile;
             }
 
-            if (options.PrecompiledHeaderThrough.Equals(projectOptions.PrecompiledHeaderThrough, StringComparison.CurrentCultureIgnoreCase) == false)
+            if (
+                options.PrecompiledHeaderThrough.Equals(projectOptions.PrecompiledHeaderThrough,
+                                                        StringComparison.CurrentCultureIgnoreCase) == false)
             {
                 newOptions.PrecompiledHeaderThrough = options.PrecompiledHeaderThrough;
             }
 
             file.SetPrecompiledHeaderOption(
-                    configurationPlatform, newOptions
-                    );
+                configurationPlatform, newOptions
+                );
         }
 
 
@@ -134,7 +140,8 @@ namespace UnityBuild
             return filesFound;
         }
 
-        private void GetPrecompiledHeaders(string configurationPlatform, IEnumerable<object> items, List<FileType> filesFound)
+        private void GetPrecompiledHeaders(string configurationPlatform, IEnumerable<object> items,
+                                           List<FileType> filesFound)
         {
             Debug.Assert(filesFound != null);
 
@@ -146,7 +153,7 @@ namespace UnityBuild
                 Debug.Assert((item is FileType) || (item is FilterType));
                 if (item is FileType)
                 {
-                    FileType file = (FileType)item;
+                    FileType file = (FileType) item;
                     PrecompiledHeaderOptions options = GetPrecompiledHeaderOption(configurationPlatform, file);
                     if (options.UsePrecompiledHeader != UsePrecompiledHeaderOptions.Create)
                         continue;
@@ -156,7 +163,7 @@ namespace UnityBuild
 
                 if (item is FilterType)
                 {
-                    FilterType filter = (FilterType)item;
+                    FilterType filter = (FilterType) item;
                     GetPrecompiledHeaders(configurationPlatform, filter.Items, filesFound);
                 }
             }
@@ -169,30 +176,29 @@ namespace UnityBuild
 
         private void ExtendFiles(List<object> srcFiles)
         {
-            if(srcFiles == null)
+            if (srcFiles == null)
                 return;
 
             foreach (object item in srcFiles)
             {
                 Debug.Assert(item is FileType || item is FilterType);
-                
-                if(item is FilterType)
+
+                if (item is FilterType)
                 {
                     FilterType filter = item as FilterType;
                     ExtendFiles(filter.Items);
                     continue;
                 }
-                
+
                 FileType file = (FileType) item;
-                                
-                foreach(string configurationPlatform in ConfigurationPlatformNames)
+
+                foreach (string configurationPlatform in ConfigurationPlatformNames)
                 {
                     PrecompiledHeaderOptions precompiledHeaderOptions =
                         this.GetPrecompiledHeaderOption(configurationPlatform, file);
                     file.AddPrecompiledHeaderOptions(configurationPlatform, precompiledHeaderOptions);
                 }
             }
-
         }
 
 
@@ -203,7 +209,7 @@ namespace UnityBuild
                 Debug.Assert((item is FileType) || (item is FilterType));
                 if (item is FileType)
                 {
-                    FileType file = (FileType)item;
+                    FileType file = (FileType) item;
                     if (file.IsSrcFile == false)
                         continue;
 
@@ -216,7 +222,7 @@ namespace UnityBuild
 
                 if (item is FilterType)
                 {
-                    FilterType filter = (FilterType)item;
+                    FilterType filter = (FilterType) item;
                     ExcludeFromBuild(configurationPlatformName, filter.Items);
                 }
             }
@@ -261,7 +267,6 @@ namespace UnityBuild
             this.Configurations.Remove(
                 configurationsFound.First()
                 );
-
         }
 
         // TODO: 그러고 보니 프로젝트 지우면 파일 속성은 함께 날아가는 것 아닌가?
@@ -272,22 +277,23 @@ namespace UnityBuild
                 Debug.Assert((item is FileType) || (item is FilterType));
                 if (item is FileType)
                 {
-                    FileType file = (FileType)item;
+                    FileType file = (FileType) item;
                     DeleteConfigurationPlatformoInFileBuildConfiguration(file.Items, name);
                 }
 
                 if (item is FilterType)
                 {
-                    FilterType filter = (FilterType)item;
+                    FilterType filter = (FilterType) item;
                     DeleteConfigurationPlatformInFiles(filter.Items, name);
                 }
             }
         }
 
-        private static void DeleteConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string name)
+        private static void DeleteConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations,
+                                                                                 string name)
         {
             int count = fileBuildConfigurations.RemoveAll(
-                item => ((BuildConfigurationType)item).Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)
+                item => ((BuildConfigurationType) item).Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)
                 );
         }
     }
