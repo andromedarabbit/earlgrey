@@ -12,7 +12,7 @@ namespace UnityBuild
     {
         private readonly string _projectDirectory;
         private readonly ICollection<FileType> _files;
-        
+
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
@@ -20,29 +20,27 @@ namespace UnityBuild
 
         public FilesMerge(
             string projectDirectory,
-            ICollection<FileType> files, 
+            ICollection<FileType> files,
             IEnumerable<string> buildConfigurations
             )
             : this(projectDirectory, files, buildConfigurations, new List<string>(), 0)
         {
-            
         }
 
         public FilesMerge(
-            string projectDirectory, 
+            string projectDirectory,
             ICollection<FileType> files,
             IEnumerable<string> buildConfigurations,
             IEnumerable<string> buildConfigurationsExcluded
             )
             : this(projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
         {
-
         }
 
         public FilesMerge(
-            string projectDirectory, 
-            ICollection<FileType> files, 
-            IEnumerable<string> buildConfigurations, 
+            string projectDirectory,
+            ICollection<FileType> files,
+            IEnumerable<string> buildConfigurations,
             IEnumerable<string> buildConfigurationsExcluded,
             int maxFilesPerFile
             )
@@ -53,7 +51,7 @@ namespace UnityBuild
 
             _projectDirectory = projectDirectory;
             _files = files;
-           
+
             _buildConfigurations = new List<string>();
             _buildConfigurations.AddRange(buildConfigurations);
 
@@ -114,14 +112,11 @@ namespace UnityBuild
             return newFiles;
         }
 
-        // private void MergeFiles(IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>> filesByPath, List<FileType> newFiles)
         private void MergeFiles(IEnumerable<KeyValuePair<FilesMergeKey, FileType>> filesByPath, List<FileType> newFiles)
         {
             if (filesByPath.Count() == 0)
                 return;
 
-
-            // FilesMergeKey key = filesByPath.Key;
             FilesMergeKey key = filesByPath.First().Key;
             string relativeDir = key.RelativeDir;
             FileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
@@ -130,7 +125,8 @@ namespace UnityBuild
             using (
                 SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath,
                                                          _projectDirectory, _buildConfigurations,
-                                                         _buildConfigurationsExcluded))
+                                                         _buildConfigurationsExcluded)
+                )
             {
                 merger.Open();
 
@@ -150,7 +146,8 @@ namespace UnityBuild
             newFiles.Add(newFile);
         }
 
-        private static IEnumerable<IEnumerable<T>> GetEnumerableOfEnumerables<T>(IEnumerable<T> enumerable, int groupSize)
+        private static IEnumerable<IEnumerable<T>> GetEnumerableOfEnumerables<T>(IEnumerable<T> enumerable,
+                                                                                 int groupSize)
         {
             // The list to return.
             List<T> list = new List<T>(groupSize);
@@ -180,7 +177,8 @@ namespace UnityBuild
             }
         }
 
-        private FileType GetNewFile(string relativeDir, IList<KeyValuePair<string, PrecompiledHeaderOptions>> options)
+        private FileType GetNewFile(string relativeDir,
+                                    IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> options)
         {
             FileType newFile = new FileType();
             newFile.RelativePath = GetNextFilePath(relativeDir);
@@ -192,8 +190,8 @@ namespace UnityBuild
             }
 
             foreach (KeyValuePair<string, PrecompiledHeaderOptions> keyValuePair in options)
-            {                
-                if(keyValuePair.Value.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+            {
+                if (keyValuePair.Value.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
                 {
                     PrecompiledHeaderOptions newOptions = new PrecompiledHeaderOptions(keyValuePair.Value);
                     newOptions.UsePrecompiledHeader = UsePrecompiledHeaderOptions.Use;

@@ -36,30 +36,28 @@ namespace UnityBuild
 
         public bool IsSrcFile
         {
-            get
-            {
-                return Properties.UnityBuild.Default.IsSourceFile(this.RelativePath);
-            }
+            get { return Properties.UnityBuild.Default.IsSourceFile(this.RelativePath); }
         }
 
         internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
         {
-            if(IsSrcFile == false)
+            if (IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
 
             BuildConfigurationType buildConfiguration = GetBuildConfiguration(configurationPlatform);
             if (buildConfiguration == null)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
-            IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
-            if(tools.Count() == 0)
+            IEnumerable<ConfigurationTypeTool> tools =
+                buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
+            if (tools.Count() == 0)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
 
             Debug.Assert(tools.Count() == 1);
 
             ConfigurationTypeTool tool = tools.First();
 
-            return PrecompiledHeaderOptions.CreateInstance(tool);            
+            return PrecompiledHeaderOptions.CreateInstance(tool);
         }
 
         internal
@@ -73,7 +71,8 @@ namespace UnityBuild
             if (buildConfiguration == null)
                 buildConfiguration = AddBuildConfiguration(configurationPlatform);
 
-            IEnumerable<ConfigurationTypeTool> tools = buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
+            IEnumerable<ConfigurationTypeTool> tools =
+                buildConfiguration.Tool.Where(item => item.Name == "VCCLCompilerTool");
             ConfigurationTypeTool vcclcCompiler = null;
             if (tools.Count() > 0)
             {
@@ -89,7 +88,7 @@ namespace UnityBuild
                 buildConfiguration.Tool.Add(vcclcCompiler);
             }
 
-            vcclcCompiler.UsePrecompiledHeader = ((int)options.UsePrecompiledHeader).ToString();
+            vcclcCompiler.UsePrecompiledHeader = ((int) options.UsePrecompiledHeader).ToString();
 
             if (string.IsNullOrEmpty(options.PrecompiledHeaderFile) == false)
             {
@@ -103,7 +102,6 @@ namespace UnityBuild
                 vcclcCompiler.PrecompiledHeaderThroughSpecified = true;
             }
 
-            // _precompiledHeaderOptions[configurationPlatform] = options;
             InternalPrecompiledHeaderOptions.Add(configurationPlatform, options);
         }
 
@@ -115,7 +113,7 @@ namespace UnityBuild
         private void ExcludeOrInclude(string buildConfigurationName, bool exclude)
         {
             BuildConfigurationType buildConfiguration = GetBuildConfiguration(buildConfigurationName);
-            if(buildConfiguration == null)
+            if (buildConfiguration == null)
                 buildConfiguration = AddBuildConfiguration(buildConfigurationName);
             buildConfiguration.ExcludedFromBuild = exclude;
             buildConfiguration.ExcludedFromBuildSpecified = true;
@@ -127,8 +125,11 @@ namespace UnityBuild
         {
             var result = from item in this.Items
                          where item is BuildConfigurationType
-                         && ((BuildConfigurationType)item).Name.Equals(buildConfigurationName, StringComparison.CurrentCultureIgnoreCase) == true
-                         select (BuildConfigurationType)item;
+                               &&
+                               ((BuildConfigurationType) item).Name.Equals(buildConfigurationName,
+                                                                           StringComparison.CurrentCultureIgnoreCase) ==
+                               true
+                         select (BuildConfigurationType) item;
 
             if (result.Count() > 0)
                 return result.First();
@@ -171,7 +172,7 @@ namespace UnityBuild
         {
             get
             {
-                if(_precompiledHeaderOptions == null)
+                if (_precompiledHeaderOptions == null)
                     _precompiledHeaderOptions = new Dictionary<string, PrecompiledHeaderOptions>();
                 return _precompiledHeaderOptions;
             }
@@ -204,6 +205,6 @@ namespace UnityBuild
             get { return true; }
         }
 
-        #endregion 
+        #endregion
     }
 }

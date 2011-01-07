@@ -6,7 +6,7 @@ using System.Text;
 
 namespace UnityBuild
 {
-    class FilesMergeKey : IEquatable<FilesMergeKey>
+    internal class FilesMergeKey : IEquatable<FilesMergeKey>
     {
         private readonly string _relativeDir;
         private readonly List<KeyValuePair<string, PrecompiledHeaderOptions>> _precompiledHeaderOptions;
@@ -14,19 +14,16 @@ namespace UnityBuild
         public FilesMergeKey(FileType file)
             : this(file.RelativeDir, file.GetPrecompiledHeaderOptions())
         {
-            
         }
 
-        // public FilesMergeKey(string relativeDir, string precompileHeaderThrough)
         public FilesMergeKey(string relativeDir, IDictionary<string, PrecompiledHeaderOptions> precompiledHeaderOptions)
         {
             Debug.Assert(string.IsNullOrEmpty(relativeDir) == false);
 
             _relativeDir = relativeDir;
 
-            _precompiledHeaderOptions = 
+            _precompiledHeaderOptions =
                 new List<KeyValuePair<string, PrecompiledHeaderOptions>>(precompiledHeaderOptions);
-            
         }
 
         public string RelativeDir
@@ -63,7 +60,7 @@ namespace UnityBuild
         public override bool Equals(object obj)
         {
             FilesMergeKey key = obj as FilesMergeKey;
-            if(key == null)
+            if (key == null)
                 return false;
 
             return Equals(key);
@@ -73,17 +70,15 @@ namespace UnityBuild
         {
             int hashCode = _relativeDir.ToLower().GetHashCode();
 
-            foreach (KeyValuePair<string, PrecompiledHeaderOptions> precompiledHeaderOption in _precompiledHeaderOptions)
+            foreach (KeyValuePair<string, PrecompiledHeaderOptions> precompiledHeaderOption in _precompiledHeaderOptions
+                )
             {
-                hashCode = hashCode 
-                    & precompiledHeaderOption.Key.ToLower().GetHashCode() 
-                    & precompiledHeaderOption.Value.GetHashCode();
+                hashCode = hashCode
+                           & precompiledHeaderOption.Key.ToLower().GetHashCode()
+                           & precompiledHeaderOption.Value.GetHashCode();
             }
 
             return hashCode;
         }
-
-      
     }
 }
-

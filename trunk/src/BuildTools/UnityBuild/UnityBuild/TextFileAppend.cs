@@ -6,7 +6,6 @@ using System.Linq;
 
 namespace UnityBuild
 {
-
     public class TextFileAppend
     {
         private readonly TextFile _dstFile;
@@ -15,7 +14,6 @@ namespace UnityBuild
         public TextFileAppend(TextFile dstFile, params TextFile[] srcFiles)
         {
             Debug.Assert(dstFile != null);
-            // Debug.Assert(srcFiles != null);
 
             _dstFile = dstFile;
             _srcFiles = srcFiles;
@@ -25,26 +23,22 @@ namespace UnityBuild
 
         public bool CreateEmptyDstFileIfNoSrcFileSpecified { get; set; }
 
-        public string Delimiter
-        {
-            get;
-            set;
-        }
+        public string Delimiter { get; set; }
 
-      
+
         public void Merge()
         {
-            if(_srcFiles == null && _srcFiles.Length == 0 && CreateEmptyDstFileIfNoSrcFileSpecified == false)
+            if ((_srcFiles == null || _srcFiles.Length == 0) && (CreateEmptyDstFileIfNoSrcFileSpecified == false))
             {
                 return;
             }
 
-            int bufferSize = 1024*1024; // TODO: 임시
+            const int bufferSize = 1024*1024; // TODO: 임시
             char[] buffer = new char[bufferSize];
 
-            using(var sw = new StreamWriter(_dstFile.FilePath, true, _dstFile.FileEncoding, bufferSize))
+            using (var sw = new StreamWriter(_dstFile.FilePath, true, _dstFile.FileEncoding, bufferSize))
             {
-                using(TextReaderCollection readers = new TextReaderCollection(_srcFiles, Delimiter))
+                using (TextReaderCollection readers = new TextReaderCollection(_srcFiles, Delimiter))
                 {
                     foreach (var reader in readers)
                     {
@@ -54,7 +48,5 @@ namespace UnityBuild
                 }
             }
         }
-
-
     }
 }

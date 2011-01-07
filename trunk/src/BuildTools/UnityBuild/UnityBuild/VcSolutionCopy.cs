@@ -18,14 +18,13 @@ namespace UnityBuild
         internal VcSolutionCopy(VcSolution solution)
             : this(solution, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
         {
-           
         }
 
         internal VcSolutionCopy(
             VcSolution solution
             , AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
-          )
+            )
         {
             Debug.Assert(solution != null);
             Debug.Assert(solutionConverter != null);
@@ -62,10 +61,7 @@ namespace UnityBuild
 
         internal IEnumerable<string> ConfigurationPlatformNames
         {
-            get
-            {
-                return _solution.ConfigurationPlatformNames;
-            }
+            get { return _solution.ConfigurationPlatformNames; }
         }
 
         internal PropertyLineHashList ConfigurationPlatforms
@@ -98,7 +94,8 @@ namespace UnityBuild
             }
         }
 
-        public void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName, string srcSolutionPlatformName)
+        public void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName,
+                                                      string srcSolutionPlatformName)
         {
             CopySolutionConfigurationPlatform(
                 srcSolutionConfigurationName
@@ -134,9 +131,11 @@ namespace UnityBuild
             string dstConfigurationName = _solutionConverter.GetNewName(srcSolutionConfigurationName);
 
             string srcConfigurationPlatformName =
-                AbstractConfigurationNameConverter.GetConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
+                AbstractConfigurationNameConverter.GetConfigurationPlatform(srcSolutionConfigurationName,
+                                                                            srcSolutionPlatformName);
             string dstConfigurationPlatformName =
-                AbstractConfigurationNameConverter.GetConfigurationPlatform(dstConfigurationName, srcSolutionPlatformName);
+                AbstractConfigurationNameConverter.GetConfigurationPlatform(dstConfigurationName,
+                                                                            srcSolutionPlatformName);
             string dstConfigurationPlatformValue = dstConfigurationPlatformName;
 
             if (HasSolutionConfigurationPlatform(srcConfigurationPlatformName) == false)
@@ -155,7 +154,7 @@ namespace UnityBuild
             foreach (var projectSummary in _solution.Summary.Projects)
             {
                 // TODO: 폴더 안에 프로젝트가 있는 경우는 어떻하려고?
-                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)                
+                if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
                     continue;
 
                 // 원본 SolutionConfigurationPlatform 에 해당하는 활성화된 ProjectConfigurationPlatform 을 찾는다.
@@ -163,8 +162,10 @@ namespace UnityBuild
                 // - 활성화되지 않은 경우에도 SolutionConfigurationPlatform.ActiveCfg 는 복사해야 한다.
                 IEnumerable<PropertyLine> activeConfigurations =
                     projectSummary.ProjectConfigurationPlatformsLines.Where(
-                        propertyLine => propertyLine.Name.StartsWith(srcConfigurationPlatformName, StringComparison.CurrentCultureIgnoreCase)
-                    );
+                        propertyLine =>
+                        propertyLine.Name.StartsWith(srcConfigurationPlatformName,
+                                                     StringComparison.CurrentCultureIgnoreCase)
+                        );
 
 
                 // 활성화된 VCProject 의 복사본을 만든다.
@@ -188,12 +189,12 @@ namespace UnityBuild
                 {
                     foreach (var activeConfiguration in activeConfigurations)
                     {
-                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, _solutionConverter, _projectConverter);
+                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, _solutionConverter,
+                                                                            _projectConverter);
                         Debug.Assert(newConfiguration != null);
 
                         newConfigurations.Add(newConfiguration);
                     }
-
                 }
 
                 projectSummary.ProjectConfigurationPlatformsLines.AddRange(newConfigurations);
@@ -205,7 +206,8 @@ namespace UnityBuild
 
 
                 // VCProject 파일 수정
-                var projectConfigurationPlatforms = projectSummary.ProjectConfigurationPlatformsLines.Select(configItem => configItem.Value).Distinct();
+                var projectConfigurationPlatforms =
+                    projectSummary.ProjectConfigurationPlatformsLines.Select(configItem => configItem.Value).Distinct();
 
                 VcProject project = _solution.FindVcProject(projectSummary);
 
@@ -213,17 +215,18 @@ namespace UnityBuild
                 {
                     string projectConfiguration =
                         AbstractConfigurationNameConverter.GetConfiguration(projectConfigurationPlatform);
-                   
+
                     if (_projectConverter.IsNewName(projectConfiguration) == true)
                         continue;
 
                     string newProjectConfigurationPlatform =
                         AbstractConfigurationNameConverter.GetNewName(projectConfigurationPlatform, _projectConverter);
 
-                    if (skipIfConfigurationAlreadyExists == true && project.HasConfiguration(newProjectConfigurationPlatform) == true)
+                    if (skipIfConfigurationAlreadyExists == true &&
+                        project.HasConfiguration(newProjectConfigurationPlatform) == true)
                         continue;
 
-                    VcProjectCopy projectCopy = 
+                    VcProjectCopy projectCopy =
                         new VcProjectCopy(project, projectConfigurationPlatform, newProjectConfigurationPlatform);
 
                     // TODO: 하드코딩
@@ -234,9 +237,7 @@ namespace UnityBuild
                     projectCopy.AddPreprocessorDefinition(definition);
                     projectCopy.CopyConfigurationPlatform();
                 }
-
             }
-
         }
 
         private static PropertyLine GetNewConfiguration(

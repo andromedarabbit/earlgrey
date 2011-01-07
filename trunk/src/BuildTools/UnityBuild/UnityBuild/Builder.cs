@@ -12,7 +12,7 @@ namespace UnityBuild
         private readonly string _solutionFilePath;
 
         private AbstractSolutionConfigurationNameConverter _solutionConverter;
-        private AbstractProjectConfigurationNameConverter _projectConverter;        
+        private AbstractProjectConfigurationNameConverter _projectConverter;
 
         public Builder(
             string solutionFilePath
@@ -25,7 +25,7 @@ namespace UnityBuild
             Debug.Assert(solutionConverter != null);
             Debug.Assert(projectConverter != null);
             Debug.Assert(options != null);
-            
+
             _solutionFilePath = solutionFilePath;
             _solutionConverter = solutionConverter;
             _projectConverter = projectConverter;
@@ -33,10 +33,12 @@ namespace UnityBuild
         }
 
         public Builder(
-           string solutionFilePath
+            string solutionFilePath
             , BuilderOptions options
-           )
-            : this(solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter(), options)
+            )
+            : this(
+                solutionFilePath, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter(),
+                options)
         {
         }
 
@@ -93,7 +95,8 @@ namespace UnityBuild
                 project.ExcludeFromBuild(_projectConverter);
 
                 //// UnityBuild 용 소스 코드는 기존 빌드의 빌드 대상에서 제외함
-                VcProjectMerge projectMerge = new VcProjectMerge(project, _projectConverter, _options.GroupByFilter, _options.MaxFilesPerFile);
+                VcProjectMerge projectMerge = new VcProjectMerge(project, _projectConverter, _options.GroupByFilter,
+                                                                 _options.MaxFilesPerFile);
                 List<IFilterOrFile> itemsAdded = projectMerge.Merge();
             }
 
@@ -111,7 +114,7 @@ namespace UnityBuild
                 copy.ExcludeProjects(_options.ExcludedProjects);
             }
             copy.CopySolutionConfigurationPlatform();
-            
+
             vcSolution.Save();
         }
 
@@ -151,7 +154,6 @@ namespace UnityBuild
                 if (disposing)
                 {
                     // Dispose managed resources.
-                    
                 }
 
                 // Call the appropriate methods to clean up

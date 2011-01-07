@@ -14,7 +14,7 @@ namespace UnityBuild
         private readonly Project _projectSummary;
         private VisualStudioProjectType _projectDetails;
 
-        public VcProject(Project projectSummary) 
+        public VcProject(Project projectSummary)
         {
             Debug.Assert(projectSummary != null);
             Debug.Assert(
@@ -28,7 +28,7 @@ namespace UnityBuild
         {
             Debug.Assert(File.Exists(_projectSummary.FullPath));
             Debug.Assert(_projectDetails == null);
-            
+
             _projectDetails = VisualStudioProjectType.LoadFromFile(_projectSummary.FullPath, Encoding.Default);
             Debug.Assert(_projectDetails != null);
 
@@ -51,8 +51,8 @@ namespace UnityBuild
 
         public Project Summary
         {
-            get 
-            { 
+            get
+            {
                 Debug.Assert(_projectSummary != null);
                 return _projectSummary;
             }
@@ -60,18 +60,12 @@ namespace UnityBuild
 
         public string Directory
         {
-            get
-            {
-                return Path.GetDirectoryName(this._projectSummary.FullPath);
-            }
+            get { return Path.GetDirectoryName(this._projectSummary.FullPath); }
         }
 
         public PropertyLineHashList ConfigurationPlatforms
         {
-            get
-            {
-                return this.Summary.ProjectConfigurationPlatformsLines;
-            }
+            get { return this.Summary.ProjectConfigurationPlatformsLines; }
         }
 
         public IEnumerable<string> ConfigurationPlatformNames
@@ -85,7 +79,8 @@ namespace UnityBuild
         }
 
         internal
-         void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options, FileType file)
+            void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options,
+                                            FileType file)
         {
             _projectDetails.SetPrecompiledHeaderOption(configurationPlatform, options, file);
         }

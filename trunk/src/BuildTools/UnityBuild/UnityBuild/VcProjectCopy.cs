@@ -32,11 +32,8 @@ namespace UnityBuild
             _additionalPreprocessorDefinitions.Add(definition);
         }
 
-        public void CopyConfigurationPlatform() // string srcName, string dstName)
+        public void CopyConfigurationPlatform()
         {
-            //Trace.Assert(string.IsNullOrEmpty(srcName) == false);
-            //Trace.Assert(string.IsNullOrEmpty(dstName) == false);
-
             ConfigurationType configuration = _vcProject.GetConfiguration(_srcConfigurationPlatform);
             if (configuration == null)
                 throw new ArgumentException();
@@ -49,21 +46,20 @@ namespace UnityBuild
             ConfigurationType newConfiguration = configuration.Clone();
             newConfiguration.Name = _dstConfigurationPlatform;
 
-            if(_additionalPreprocessorDefinitions.Count > 0)
+            if (_additionalPreprocessorDefinitions.Count > 0)
                 AddPreprocessorDefinitions(newConfiguration);
 
 
             _vcProject.Details.Configurations.Add(newConfiguration);
 
             // 개별 파일 속성
-            CopyConfigurationPlatformInFiles(_vcProject.Details.Files); //, _srcConfigurationPlatform, _dstConfigurationPlatform);
-
+            CopyConfigurationPlatformInFiles(_vcProject.Details.Files);
         }
 
         private void AddPreprocessorDefinitions(ConfigurationType newConfiguration)
         {
             ConfigurationTypeTool vcclCompiler = GetVCCLCompiler(newConfiguration);
-            if(vcclCompiler == null)
+            if (vcclCompiler == null)
             {
                 vcclCompiler = new ConfigurationTypeTool();
                 vcclCompiler.Name = "VCCLCompilerTool";
@@ -75,7 +71,7 @@ namespace UnityBuild
         private static ConfigurationTypeTool GetVCCLCompiler(ConfigurationType configuration)
         {
             var result = configuration.Tool.Where(item => item.Name == "VCCLCompilerTool");
-            if(result.Count() == 0)
+            if (result.Count() == 0)
                 return null;
 
             Debug.Assert(result.Count() == 1);
@@ -83,27 +79,25 @@ namespace UnityBuild
             return result.First();
         }
 
-        // private static void CopyConfigurationPlatformInFiles(IEnumerable<object> items) // , string srcName, string dstName)
-        private void CopyConfigurationPlatformInFiles(IEnumerable<object> items) // , string srcName, string dstName)
+        private void CopyConfigurationPlatformInFiles(IEnumerable<object> items)
         {
             foreach (object item in items)
             {
                 Debug.Assert((item is FileType) || (item is FilterType));
                 if (item is FileType)
                 {
-                    FileType file = (FileType)item;
-                    CopyConfigurationPlatformoInFileBuildConfiguration(file.Items); //, _srcConfigurationPlatform, _dstConfigurationPlatform);
+                    FileType file = (FileType) item;
+                    CopyConfigurationPlatformoInFileBuildConfiguration(file.Items);
                 }
 
                 if (item is FilterType)
                 {
-                    FilterType filter = (FilterType)item;
-                    CopyConfigurationPlatformInFiles(filter.Items); // , _srcConfigurationPlatform, _dstConfigurationPlatform);
+                    FilterType filter = (FilterType) item;
+                    CopyConfigurationPlatformInFiles(filter.Items);
                 }
             }
         }
 
-        // private static void CopyConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations, string srcName, string dstName)
         private void CopyConfigurationPlatformoInFileBuildConfiguration(List<object> fileBuildConfigurations)
         {
             // TODO: 이름이 같은 구성 값은 하나 뿐이어야 할 것 같지만 안전하게 List 로 관리한다. 일단은....
@@ -113,18 +107,19 @@ namespace UnityBuild
             {
                 Debug.Assert(item is BuildConfigurationType);
 
-                BuildConfigurationType buildConfiguration = (BuildConfigurationType)(item);
-                if (buildConfiguration.Name.Equals(_srcConfigurationPlatform, StringComparison.CurrentCultureIgnoreCase) == false)
+                BuildConfigurationType buildConfiguration = (BuildConfigurationType) (item);
+                if (
+                    buildConfiguration.Name.Equals(_srcConfigurationPlatform, StringComparison.CurrentCultureIgnoreCase) ==
+                    false)
                     continue;
 
-                BuildConfigurationType newBuildConfiguration = (BuildConfigurationType)buildConfiguration.Clone();
+                BuildConfigurationType newBuildConfiguration = (BuildConfigurationType) buildConfiguration.Clone();
                 newBuildConfiguration.Name = _dstConfigurationPlatform;
                 newBuildConfigurations.Add(newBuildConfiguration);
             }
 
 
             fileBuildConfigurations.AddRange(newBuildConfigurations);
-
         }
     }
 }

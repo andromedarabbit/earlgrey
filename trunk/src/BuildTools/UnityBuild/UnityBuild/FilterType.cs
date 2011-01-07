@@ -19,6 +19,6 @@ namespace UnityBuild
             get { return false; }
         }
 
-        #endregion 
+        #endregion
     }
 }

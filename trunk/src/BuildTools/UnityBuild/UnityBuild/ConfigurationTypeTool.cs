@@ -40,7 +40,8 @@ namespace UnityBuild
                     if ((_usePrecompiledHeader.Equals(value) != true))
                     {
                         this._usePrecompiledHeader = value;
-                        UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption != UsePrecompiledHeaderOptions.InheritFromProject;
+                        UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption !=
+                                                        UsePrecompiledHeaderOptions.InheritFromProject;
 
                         this.OnPropertyChanged("UsePrecompiledHeader");
                     }
@@ -48,7 +49,8 @@ namespace UnityBuild
                 else // will be used by a serializer
                 {
                     this._usePrecompiledHeader = value;
-                    UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption != UsePrecompiledHeaderOptions.InheritFromProject;
+                    UsePrecompiledHeaderSpecified = UsePrecompiledHeaderOption !=
+                                                    UsePrecompiledHeaderOptions.InheritFromProject;
                     this.OnPropertyChanged("UsePrecompiledHeader");
                 }
             }
@@ -61,9 +63,9 @@ namespace UnityBuild
             {
                 Debug.Assert(this.nameField == "VCCLCompilerTool");
 
-                return (UsePrecompiledHeaderOptions)Enum.Parse(
-                            typeof(UsePrecompiledHeaderOptions), _usePrecompiledHeader
-                            );
+                return (UsePrecompiledHeaderOptions) Enum.Parse(
+                    typeof (UsePrecompiledHeaderOptions), _usePrecompiledHeader
+                                                         );
             }
         }
 
@@ -174,7 +176,6 @@ namespace UnityBuild
         }
 
 
-
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string PreprocessorDefinitions
         {
@@ -226,7 +227,7 @@ namespace UnityBuild
 
         public string[] GetPreprocessorDefinitions()
         {
-            return _preprocessorDefinitions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            return _preprocessorDefinitions.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
         }
 
         public void AddPreprocessorDefinition(string definition)

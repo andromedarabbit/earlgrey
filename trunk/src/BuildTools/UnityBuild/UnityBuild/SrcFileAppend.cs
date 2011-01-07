@@ -19,15 +19,16 @@ namespace UnityBuild
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
-            
-        public SrcFileAppend(IList<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations)
+
+        public SrcFileAppend(IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath,
+                             string projectDir, IEnumerable<string> buildConfigurations)
             : this(stdafxs, dstFilePath, projectDir, buildConfigurations, new List<string>())
         {
-            
         }
 
         public SrcFileAppend(
-            IList<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath, string projectDir, IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded
+            IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> stdafxs, string dstFilePath, string projectDir,
+            IEnumerable<string> buildConfigurations, IEnumerable<string> buildConfigurationsExcluded
             )
         {
             Debug.Assert(string.IsNullOrEmpty(dstFilePath) == false);
@@ -126,22 +127,25 @@ namespace UnityBuild
             if (_srcFiles.Count == 0)
                 return false;
 
-            if(File.Exists(_dstFilePath))
+            if (File.Exists(_dstFilePath))
                 File.Delete(_dstFilePath);
 
             using (StreamWriter sw = new StreamWriter(_dstFilePath, true, Encoding.Default))
             {
                 IEnumerable<string> stdAfxFileNames =
-                        _stdafxs
+                    _stdafxs
                         .Select(item => item.Value)
-                        .Where(item => item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Use || item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
+                        .Where(
+                            item =>
+                            item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Use ||
+                            item.UsePrecompiledHeader == UsePrecompiledHeaderOptions.Create)
                         .Select(item => item.PrecompiledHeaderThrough)
                         .Distinct()
-                        ;
+                    ;
 
                 Debug.Assert(stdAfxFileNames.Count() < 2);
 
-                if(stdAfxFileNames.Count() == 1)
+                if (stdAfxFileNames.Count() == 1)
                 {
                     sw.WriteLine("#include \"" + stdAfxFileNames.First() + "\"");
                 }
@@ -170,7 +174,6 @@ namespace UnityBuild
                 );
 
 
-
             if (configurationsExcluded.Count() == 0)
             {
                 sw.WriteLine("#include \"" + srcFile.FileName + "\"");
@@ -179,7 +182,7 @@ namespace UnityBuild
 
             foreach (string configurationPlatform in _buildConfigurations)
             {
-                bool exclude = 
+                bool exclude =
                     configurationsExcluded.Contains(configurationPlatform, StringComparer.CurrentCultureIgnoreCase);
                 WriteInclude(sw, configurationPlatform, srcFile.FileName, exclude);
             }
@@ -194,11 +197,9 @@ namespace UnityBuild
             definition = definition.Replace("-", "_");
 
             sw.WriteLine("#ifdef " + definition);
-            if(exclude == false)
+            if (exclude == false)
                 sw.WriteLine("#include \"" + srcFileName + "\"");
             sw.WriteLine("#endif");
         }
     }
-
 }
-

@@ -6,12 +6,11 @@ using System.Text;
 
 namespace UnityBuild
 {
-
     internal class TextReaderCollection : IEnumerable<TextReader>, IDisposable
     {
         private readonly TextReaders _internalCollection;
 
-        public TextReaderCollection(TextFile[] srcFiles, string delimiter)
+        public TextReaderCollection(IEnumerable<TextFile> srcFiles, string delimiter)
         {
             _internalCollection = new TextReaders(srcFiles, delimiter);
         }
@@ -31,5 +30,4 @@ namespace UnityBuild
             _internalCollection.Dispose();
         }
     }
-
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
-
 using CWDev.SLNTools.Core;
 
 namespace UnityBuild
@@ -16,14 +15,14 @@ namespace UnityBuild
         private readonly List<VcProject> _vcProjects;
 
         public VcSolution(string solutionFilePath)
-        {            
+        {
             _solutionFilePath = solutionFilePath;
             _vcProjects = new List<VcProject>();
         }
 
         public SolutionFile Summary
         {
-            get 
+            get
             {
                 Debug.Assert(_summary != null);
                 return _summary;
@@ -34,7 +33,7 @@ namespace UnityBuild
         {
             _summary = SolutionFile.FromFile(_solutionFilePath);
 
-            if(CacheVcProjects() == 0)
+            if (CacheVcProjects() == 0)
             {
                 throw new ApplicationException("The solution file has no Visual C++ projects.");
             }
@@ -43,8 +42,8 @@ namespace UnityBuild
         private int CacheVcProjects()
         {
             Debug.Assert(_vcProjects.Count == 0);
-            
-            foreach(var projectSummary in _summary.Projects)
+
+            foreach (var projectSummary in _summary.Projects)
             {
                 if (projectSummary.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
                     continue;
@@ -84,10 +83,7 @@ namespace UnityBuild
 
         public PropertyLineHashList ConfigurationPlatforms
         {
-            get
-            {
-                return this.Summary.GlobalSections["SolutionConfigurationPlatforms"].PropertyLines;
-            }
+            get { return this.Summary.GlobalSections["SolutionConfigurationPlatforms"].PropertyLines; }
         }
 
         public bool HasSolutionConfigurationPlatform(string configurationPlatformName)
@@ -97,15 +93,7 @@ namespace UnityBuild
 
         internal IEnumerable<string> ConfigurationPlatformNames
         {
-            get
-            {
-                return ConfigurationPlatforms.Select(item => item.Name);
-            }
+            get { return ConfigurationPlatforms.Select(item => item.Name); }
         }
-
-
-
     }
 }
-
-

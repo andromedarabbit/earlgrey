@@ -11,5 +11,4 @@ namespace UnityBuild
         string GetOldName(string fileName);
         bool IsNewName(string fileName);
     }
-
 }
