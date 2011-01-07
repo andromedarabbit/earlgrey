@@ -11,12 +11,12 @@ namespace UnityBuild
 
         public bool IsFilter
         {
-            get { return false; }
+            get { return true; }
         }
 
         public bool IsFile
         {
-            get { return true; }
+            get { return false; }
         }
 
         #endregion 

@@ -102,6 +102,9 @@ namespace UnityBuild
                 vcclcCompiler.PrecompiledHeaderThrough = options.PrecompiledHeaderThrough;
                 vcclcCompiler.PrecompiledHeaderThroughSpecified = true;
             }
+
+            // _precompiledHeaderOptions[configurationPlatform] = options;
+            InternalPrecompiledHeaderOptions.Add(configurationPlatform, options);
         }
 
         public void ExcludeFromBuild(string buildConfigurationName)
@@ -193,12 +196,12 @@ namespace UnityBuild
 
         public bool IsFilter
         {
-            get { return true; }
+            get { return false; }
         }
 
         public bool IsFile
         {
-            get { return false; }
+            get { return true; }
         }
 
         #endregion 
