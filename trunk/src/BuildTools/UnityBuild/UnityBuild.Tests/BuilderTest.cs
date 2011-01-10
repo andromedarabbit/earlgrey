@@ -18,7 +18,7 @@ namespace UnityBuild.Tests
                 //builder.ExcludeProject("gtest");
                 //builder.ExcludeProject("StackWalker_VC9");
 
-                builder.Open();
+                builder.Run();
                 builder.Dispose();
             }
 

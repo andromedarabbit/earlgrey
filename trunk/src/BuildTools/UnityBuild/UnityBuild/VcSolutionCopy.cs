@@ -7,16 +7,10 @@ using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
-    internal class VcSolutionCopy
+    internal class VcSolutionCopy : AbstractVcSolutionModify
     {
-        private readonly VcSolution _solution;
-        private AbstractSolutionConfigurationNameConverter _solutionConverter;
-        private AbstractProjectConfigurationNameConverter _projectConverter;
-
-        private readonly List<string> _projectNamesExcluded;
-
         internal VcSolutionCopy(VcSolution solution)
-            : this(solution, new SolutionConfigurationNameConverter(), new ProjectConfigurationNameConverter())
+            : base(solution)
         {
         }
 
@@ -24,54 +18,9 @@ namespace UnityBuild
             VcSolution solution
             , AbstractSolutionConfigurationNameConverter solutionConverter
             , AbstractProjectConfigurationNameConverter projectConverter
-            )
+        )
+            : base(solution, solutionConverter, projectConverter)
         {
-            Debug.Assert(solution != null);
-            Debug.Assert(solutionConverter != null);
-            Debug.Assert(projectConverter != null);
-
-            this._solution = solution;
-            this._solutionConverter = solutionConverter;
-            this._projectConverter = projectConverter;
-
-            this._projectNamesExcluded = new List<string>();
-        }
-
-        public AbstractSolutionConfigurationNameConverter SolutionConverter
-        {
-            get { return _solutionConverter; }
-            set { _solutionConverter = value; }
-        }
-
-        public AbstractProjectConfigurationNameConverter ProjectConverter
-        {
-            get { return _projectConverter; }
-            set { _projectConverter = value; }
-        }
-
-        public void ExcludeProject(string projectName)
-        {
-            _projectNamesExcluded.Add(projectName);
-        }
-
-        public void ExcludeProjects(IEnumerable<string> projectNames)
-        {
-            _projectNamesExcluded.AddRange(projectNames);
-        }
-
-        internal IEnumerable<string> ConfigurationPlatformNames
-        {
-            get { return _solution.ConfigurationPlatformNames; }
-        }
-
-        internal PropertyLineHashList ConfigurationPlatforms
-        {
-            get { return _solution.ConfigurationPlatforms; }
-        }
-
-        internal bool HasSolutionConfigurationPlatform(string configurationPlatformName)
-        {
-            return _solution.HasSolutionConfigurationPlatform(configurationPlatformName);
         }
 
         public void CopySolutionConfigurationPlatform()
@@ -104,18 +53,6 @@ namespace UnityBuild
                 );
         }
 
-        private bool IsExcluded(Project project)
-        {
-            if (project.ProjectTypeGuid != KnownProjectTypeGuid.VisualC)
-                return true;
-
-            int count = _projectNamesExcluded.Count(
-                name => name.Equals(project.ProjectName, StringComparison.CurrentCultureIgnoreCase)
-                );
-
-            return count > 0;
-        }
-
         internal void CopySolutionConfigurationPlatform(
             string srcSolutionConfigurationName
             , string srcSolutionPlatformName
@@ -125,10 +62,10 @@ namespace UnityBuild
             Trace.Assert(string.IsNullOrEmpty(srcSolutionConfigurationName) == false);
             Trace.Assert(string.IsNullOrEmpty(srcSolutionPlatformName) == false);
             // Trace.Assert(string.IsNullOrEmpty(dstConfigurationName) == false);
-            Trace.Assert(_solutionConverter != null);
-            Trace.Assert(_projectConverter != null);
+            Trace.Assert(SolutionConverter != null);
+            Trace.Assert(ProjectConverter != null);
 
-            string dstConfigurationName = _solutionConverter.GetNewName(srcSolutionConfigurationName);
+            string dstConfigurationName = SolutionConverter.GetNewName(srcSolutionConfigurationName);
 
             string srcConfigurationPlatformName =
                 AbstractConfigurationNameConverter.GetConfigurationPlatform(srcSolutionConfigurationName,
@@ -151,7 +88,7 @@ namespace UnityBuild
 
 
             // 솔루션 파일 내의 프로젝트 설정 변경
-            foreach (var projectSummary in _solution.Summary.Projects)
+            foreach (var projectSummary in Solution.Summary.Projects)
             {
                 // TODO: 폴더 안에 프로젝트가 있는 경우는 어떻하려고?
                 if (projectSummary.ProjectTypeGuid == KnownProjectTypeGuid.SolutionFolder)
@@ -177,7 +114,7 @@ namespace UnityBuild
                     {
                         string newSolutionName = AbstractConfigurationNameConverter.GetNewName(
                             activeConfiguration.Name
-                            , _solutionConverter
+                            , SolutionConverter
                             );
 
                         newConfigurations.Add(
@@ -189,8 +126,8 @@ namespace UnityBuild
                 {
                     foreach (var activeConfiguration in activeConfigurations)
                     {
-                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, _solutionConverter,
-                                                                            _projectConverter);
+                        PropertyLine newConfiguration = GetNewConfiguration(activeConfiguration, SolutionConverter,
+                                                                            ProjectConverter);
                         Debug.Assert(newConfiguration != null);
 
                         newConfigurations.Add(newConfiguration);
@@ -209,18 +146,18 @@ namespace UnityBuild
                 var projectConfigurationPlatforms =
                     projectSummary.ProjectConfigurationPlatformsLines.Select(configItem => configItem.Value).Distinct();
 
-                VcProject project = _solution.FindVcProject(projectSummary);
+                VcProject project = Solution.FindVcProject(projectSummary);
 
                 foreach (var projectConfigurationPlatform in projectConfigurationPlatforms)
                 {
                     string projectConfiguration =
                         AbstractConfigurationNameConverter.GetConfiguration(projectConfigurationPlatform);
 
-                    if (_projectConverter.IsNewName(projectConfiguration) == true)
+                    if (ProjectConverter.IsNewName(projectConfiguration) == true)
                         continue;
 
                     string newProjectConfigurationPlatform =
-                        AbstractConfigurationNameConverter.GetNewName(projectConfigurationPlatform, _projectConverter);
+                        AbstractConfigurationNameConverter.GetNewName(projectConfigurationPlatform, ProjectConverter);
 
                     if (skipIfConfigurationAlreadyExists == true &&
                         project.HasConfiguration(newProjectConfigurationPlatform) == true)
