@@ -3,8 +3,8 @@
 
 namespace Earlgrey
 {
-	namespace Test
-	{
+	//namespace Test
+	//{
 #ifdef _DEBUG
 		TEST(StackAllocatorTest, AllocAndFree) 
 		{
@@ -33,5 +33,5 @@ namespace Earlgrey
 			ASSERT_EQ(UINT_MAX, charArray[0]);
 		}
 #endif
-	}
+	//}
 }

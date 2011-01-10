@@ -2,11 +2,21 @@
 #include "Uncopyable.h"
 #include "StackMemoryManager.h"
 
+#ifdef EARLGREY_UNIT_TEST
+#include <gtest/gtest_prod.h>
+#endif
+
+
 namespace Earlgrey
 {
 	//! \todo 힙에 할당 못하게 해야 한다. Effective C++ 2권.
 	class StackAllocator : private Uncopyable
 	{
+#ifdef EARLGREY_UNIT_TEST
+		friend class StackAllocatorTest;
+		FRIEND_TEST(StackAllocatorTest, CalculateAlignment);
+#endif
+
 	public:
 		typedef StackMemoryManager::size_type size_type;
 
