@@ -72,10 +72,19 @@ namespace UnityBuild.ConsoleUi
         public int MaxFilesPerFile;
 
 
+        private const string RemoveUnityBuildSwitch = "r";
+        private const string RemoveUnityBuildLongSwitch = "Remove";
+        private const string RemoveUnityBuildHelp = "Remove 'UnityBuild' configurations from the solution and its projects.";
+        private const bool RemoveUnityBuildRequired = false;
+
+        [Option(RemoveUnityBuildSwitch, RemoveUnityBuildLongSwitch, Required = RemoveUnityBuildRequired, HelpText = RemoveUnityBuildHelp)]
+        public bool RemoveUnityBuild;
+
+
         public Options()
         {
             InputFile = null;
-            ExcludedProjects = null;
+            ExcludedProjects = new List<string>();
             CopySolution = false;
             Verbose = false;
             Optimization = OptimizationLevel.Normal;
@@ -107,6 +116,10 @@ namespace UnityBuild.ConsoleUi
             usage.AppendLine(GetRquiredString(MaxFilesPerFileRequired));
             usage.AppendLine("   " + MaxFilesPerFileHelp);
 
+            usage.Append(" -" + RemoveUnityBuildSwitch + ", --" + RemoveUnityBuildLongSwitch + " ");
+            usage.AppendLine(GetRquiredString(RemoveUnityBuildRequired));
+            usage.AppendLine("   " + RemoveUnityBuildHelp);
+
             usage.Append(" -" + VerboseSwitch + ", --" + VerboseLongSwitch + " ");
             usage.AppendLine(GetRquiredString(VerboseRequired));
             usage.AppendLine("   " + VerboseHelp);
@@ -136,6 +149,14 @@ namespace UnityBuild.ConsoleUi
             StringBuilder summary = new StringBuilder();
             summary.AppendLine("[Switches]");
             summary.Append(" * Input file path is \"" + InputFile + "\"");
+
+            if(RemoveUnityBuild == true)
+            {
+                summary.AppendLine(
+                    "Remove option is turned on. Other switches except -e that might be specified will be ignored!"
+                    );
+
+            }
 
             if (CopySolution == true)
             {

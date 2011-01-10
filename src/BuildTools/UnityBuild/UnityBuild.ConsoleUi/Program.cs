@@ -19,10 +19,19 @@ namespace UnityBuild.ConsoleUi
             _options = options;
         }
 
+        static ICommandLineParser CreateCommandLineParser()
+        {
+            var settings = new CommandLineParserSettings();
+            settings.CaseSensitive = false;
+            settings.HelpWriter = Console.Error;
+
+            return new CommandLineParser(settings);
+        }
+
         static int Main(string[] args)
         {
             Options options = new Options();
-            ICommandLineParser parser = new CommandLineParser();
+            ICommandLineParser parser = CreateCommandLineParser();
             if (parser.ParseArguments(args, options) == false)
             {
                 Console.WriteLine(options.GetUsage());
@@ -53,14 +62,22 @@ namespace UnityBuild.ConsoleUi
 
             try
             {
+                if(_options.RemoveUnityBuild)
+                {
+                    RemoveUnityBuildConfigurations();
+                    Console.WriteLine("removed!");
+                    return 0;
+                }
+
                 BuilderOptions builderOptions = _options.GetBuilderOptions();
 
                 using (Builder builder = new Builder(SolutionFilePath, builderOptions))
                 {
-                    builder.Open();
+                    builder.Run();
                 }
 
-                Console.WriteLine("done!");
+                Console.WriteLine("converted!");
+                return 0;
             }
             catch (Exception ex)
             {
@@ -70,8 +87,22 @@ namespace UnityBuild.ConsoleUi
                 Console.Error.WriteLine();
                 return 1;
             }
-            
-            return 0;
+        }
+
+        private void RemoveUnityBuildConfigurations()
+        {
+            VcSolution solution = new VcSolution(SolutionFilePath);
+            solution.Load();
+
+            VcSolutionDelete solutionDelete = new VcSolutionDelete(solution);
+
+            if (_options.ExcludedProjects.Count() > 0)
+            {
+                solutionDelete.ExcludeProjects(_options.ExcludedProjects);
+            }
+            solutionDelete.DeleteSolutionConfigurationPlatform();
+
+            solution.Save();
         }
     }
 }

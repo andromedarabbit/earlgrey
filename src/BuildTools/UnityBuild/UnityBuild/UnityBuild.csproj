@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractVcSolutionModify.cs" />
     <Compile Include="BuilderOptions.cs" />
     <Compile Include="IProjectFileNameConverter.cs" />
     <Compile Include="Builder.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="TextReaders.cs" />
     <Compile Include="UsePrecompiledHeaderOptions.cs" />
     <Compile Include="VcProjectCopy.cs" />
+    <Compile Include="VcProjectDelete.cs" />
     <Compile Include="VcProjectMerge.cs" />
     <Compile Include="SolutionConfigurationNameConverter.cs" />
     <Compile Include="VcProjectConverter.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="VcProject.cs" />
     <Compile Include="VcSolution.cs" />
     <Compile Include="VcSolutionCopy.cs" />
+    <Compile Include="VcSolutionDelete.cs" />
     <Compile Include="VcSolutionFileCopy.cs" />
     <Compile Include="VisualStudioProjectType.cs">
       <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>

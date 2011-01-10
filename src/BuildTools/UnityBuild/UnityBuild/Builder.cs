@@ -77,9 +77,11 @@ namespace UnityBuild
             return fileCopy.Copy();
         }
 
-        public void Open()
+        public void Run()
         {
             string solutionFilePath = CopySolution();
+
+            DeleteExistingUnityBuildCOnfigurationPlatforms(solutionFilePath);
 
             CreateUnityBuildConfigurationPlatforms(solutionFilePath);
 
@@ -105,17 +107,36 @@ namespace UnityBuild
 
         private void CreateUnityBuildConfigurationPlatforms(string solutionFilePath)
         {
-            VcSolution vcSolution = new VcSolution(solutionFilePath);
-            vcSolution.Load();
+            VcSolution solution = new VcSolution(solutionFilePath);
+            solution.Load();
 
-            VcSolutionCopy copy = new VcSolutionCopy(vcSolution, _solutionConverter, _projectConverter);
+            VcSolutionCopy copy 
+                = new VcSolutionCopy(solution, _solutionConverter, _projectConverter);
+            
             if (_options.ExcludedProjects.Count() > 0)
             {
                 copy.ExcludeProjects(_options.ExcludedProjects);
             }
             copy.CopySolutionConfigurationPlatform();
 
-            vcSolution.Save();
+            solution.Save();
+        }
+
+        private void DeleteExistingUnityBuildCOnfigurationPlatforms(string solutionFilePath)
+        {
+            VcSolution solution = new VcSolution(solutionFilePath);
+            solution.Load();
+
+            VcSolutionDelete solutionDelete = 
+                new VcSolutionDelete(solution, _solutionConverter, _projectConverter);
+
+            if (_options.ExcludedProjects.Count() > 0)
+            {
+                solutionDelete.ExcludeProjects(_options.ExcludedProjects);
+            }
+            solutionDelete.DeleteSolutionConfigurationPlatform();
+
+            solution.Save();
         }
 
         #region IDisposable
