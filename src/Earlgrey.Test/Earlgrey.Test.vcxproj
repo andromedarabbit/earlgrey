@@ -245,6 +245,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     <ClCompile Include="src\RegistryTest.cpp" />
     <ClCompile Include="src\SharedPtrHelperTest.cpp" />
     <ClCompile Include="src\SingleAppInstanceTest.cpp" />
+    <ClCompile Include="src\StackMemoryManagerTest.cpp" />
     <ClCompile Include="src\StringHelperTest.cpp" />
     <ClCompile Include="src\TaskQueueTest.cpp" />
     <ClCompile Include="src\TimeSpanTest.cpp" />
@@ -252,11 +253,11 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     <ClCompile Include="src\TempTest.cpp" />
     <ClCompile Include="src\ConnectionTest.cpp" />
     <ClCompile Include="src\DNSTest.cpp" />
-    <ClCompile Include="InputStreamTest.cpp" />
+    <ClCompile Include="src\InputStreamTest.cpp" />
     <ClCompile Include="src\IPAddressTest.cpp" />
     <ClCompile Include="src\ListenerTest.cpp" />
-    <ClCompile Include="NetworkBufferTest.cpp" />
-    <ClCompile Include="OutputStreamTest.cpp" />
+    <ClCompile Include="src\NetworkBufferTest.cpp" />
+    <ClCompile Include="src\OutputStreamTest.cpp" />
     <ClCompile Include="src\SocketTest.cpp" />
     <ClCompile Include="src\SystemTcpStatisticsTest.cpp" />
     <ClCompile Include="src\WindowsFirewallTest.cpp" />

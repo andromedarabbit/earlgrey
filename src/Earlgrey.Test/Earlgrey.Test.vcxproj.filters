@@ -129,19 +129,10 @@
     <ClCompile Include="src\DNSTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
-    <ClCompile Include="InputStreamTest.cpp">
-      <Filter>소스 파일\Network</Filter>
-    </ClCompile>
     <ClCompile Include="src\IPAddressTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
     <ClCompile Include="src\ListenerTest.cpp">
-      <Filter>소스 파일\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="NetworkBufferTest.cpp">
-      <Filter>소스 파일\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="OutputStreamTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
     <ClCompile Include="src\SocketTest.cpp">
@@ -254,6 +245,18 @@
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp">
       <Filter>헤더 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackMemoryManagerTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputStreamTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkBufferTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OutputStreamTest.cpp">
+      <Filter>소스 파일\Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

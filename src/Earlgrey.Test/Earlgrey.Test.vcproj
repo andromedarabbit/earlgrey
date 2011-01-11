@@ -474,7 +474,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\InputStreamTest.cpp"
+					RelativePath=".\src\InputStreamTest.cpp"
 					>
 				</File>
 				<File
@@ -486,11 +486,11 @@
 					>
 				</File>
 				<File
-					RelativePath=".\NetworkBufferTest.cpp"
+					RelativePath=".\src\NetworkBufferTest.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\OutputStreamTest.cpp"
+					RelativePath=".\src\OutputStreamTest.cpp"
 					>
 				</File>
 				<File
