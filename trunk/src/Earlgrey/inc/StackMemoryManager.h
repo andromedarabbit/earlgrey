@@ -6,12 +6,23 @@
 
 #include <memory>
 
+#ifdef EARLGREY_UNIT_TEST
+#include <gtest/gtest_prod.h>
+#endif
+
+
 namespace Earlgrey
 {
 	class StackMemoryManager : private Uncopyable
 	{
 		// friend struct Loki::CreateUsingNew<StackMemoryManager>;
 		friend class StackAllocator;
+
+#ifdef EARLGREY_UNIT_TEST
+		friend class StackMemoryManagerTest;
+		FRIEND_TEST(StackMemoryManagerTest, Alloc);
+		FRIEND_TEST(StackMemoryManagerTest, AllocNotWithAlignmentSize);
+#endif
 
 	public:
 		typedef size_t    size_type;
