@@ -3,10 +3,6 @@
 
 namespace Earlgrey
 {
-	GlobalExceptionHandler::HandlerCollectionType GlobalExceptionHandler::m_Handlers;
-
-	BOOL GlobalExceptionHandler::m_Initialized = FALSE;
-
 	void GlobalExceptionHandler::Initialize()
 	{
 		// Catches the unhandled exception and handle it!
@@ -35,15 +31,26 @@ namespace Earlgrey
 
 	LONG WINAPI GlobalExceptionHandler::HandleException(LPEXCEPTION_POINTERS exceptionPtr)
 	{
+		GlobalExceptionHandlerSingleton::Instance().InvokeAllHandler( exceptionPtr );
+		
+		// Return from UnhandledExceptionFilter and execute the associated exception handler. 
+		// This usually results in process termination.
+		return EXCEPTION_EXECUTE_HANDLER; 
+	}
+
+	void GlobalExceptionHandler::InvokeAllHandler(LPEXCEPTION_POINTERS exceptionPtr)
+	{
 		HandlerCollectionType::const_iterator it = m_Handlers.begin();
 
 		for( ; it != m_Handlers.end(); it++)
 		{
 			(*it)->HandleException(exceptionPtr);
 		}
-
-		// Return from UnhandledExceptionFilter and execute the associated exception handler. 
-		// This usually results in process termination.
-		return EXCEPTION_EXECUTE_HANDLER; 
 	}
+
+	GlobalExceptionHandler::GlobalExceptionHandler() : m_Initialized(FALSE)
+	{
+
+	}
+
 }
