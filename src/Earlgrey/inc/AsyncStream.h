@@ -19,6 +19,7 @@ namespace Earlgrey
 	class AsyncStream : public CompletionHandler
 	{
 	public:
+		explicit AsyncStream();
 
 		//! operation √ ±‚»≠
 		/*!

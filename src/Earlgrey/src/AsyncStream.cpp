@@ -24,6 +24,11 @@ namespace Earlgrey
 
 	bool AsyncStream::Read()
 	{
+		if (_bufferForRead.get())
+		{
+			return false;
+		}
+
 		std::pair<WSABUF*,DWORD> SocketBuffers = _bufferForRead->GetSockRecvBuffer();	// 크기가 NETWORK_BUFFER_DEFAULT_SIZE인 버퍼
 		DWORD Flags = 0;
 
@@ -58,6 +63,11 @@ namespace Earlgrey
 
 	bool AsyncStream::Write()
 	{
+		if (!_bufferForWrite.get())
+		{
+			return false;
+		}
+
 		std::pair<WSABUF*,size_t> SocketBuffer = _bufferForWrite->GetSockSendBuffer();
 		DWORD	SentBytes;		
 
@@ -109,6 +119,10 @@ namespace Earlgrey
 
 		setsockopt( _handle, SOL_SOCKET, SO_LINGER, (CHAR*) &l, sizeof(l) );
 		closesocket( _handle );
+	}
+
+	AsyncStream::AsyncStream() : _handle(NULL), _proactor(NULL)
+	{
 	}
 
 }

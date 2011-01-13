@@ -30,13 +30,13 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		GlobalExceptionHandler::Initialize();
+		GlobalExceptionHandlerSingleton::Instance().Initialize();
 
 		AppSettings::UnhandledExceptionCollectionPtr handlers = m_AppSettings.UnhandledExceptions();
 		AppSettings::UnhandledExceptionCollection::const_iterator it = handlers->begin();
 		for( ; it != handlers->end(); it++)
 		{
-			GlobalExceptionHandler::Register(*it);
+			GlobalExceptionHandlerSingleton::Instance().Register(*it);
 		}
 		
 		// RuntimeCheck È°¼ºÈ­
@@ -105,7 +105,7 @@ namespace Earlgrey
 			(*i)->Join();
 		}
 		m_WaitThreads.clear();
-		GlobalExceptionHandler::UnregisterAll();
+		GlobalExceptionHandlerSingleton::Instance().UnregisterAll();
 	}
 
 	BOOL Application::CheckAppInstance()

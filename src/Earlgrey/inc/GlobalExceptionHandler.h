@@ -8,24 +8,27 @@ namespace Earlgrey
 {
 	class GlobalExceptionHandler : private Uncopyable
 	{
-	private:
 		typedef UnhandledExceptionHandler::HandlerPtrType HandlerPtrType;
 		typedef std::vector<HandlerPtrType> HandlerCollectionType;
+	public:
+		GlobalExceptionHandler();
 
-		explicit GlobalExceptionHandler();
-
-		static HandlerCollectionType m_Handlers;
-
-
-	public: // public methods
-		static BOOL Initialized();
-		static void Initialize();
-		static void Register(HandlerPtrType handler);
-		static void UnregisterAll();
+		BOOL Initialized();
+		void Initialize();
+		void Register(HandlerPtrType handler);
+		void UnregisterAll();
+		void InvokeAllHandler(LPEXCEPTION_POINTERS exceptionPtr);
 
 	private: // private methods
 		static LONG WINAPI HandleException(LPEXCEPTION_POINTERS exceptionPtr);
-		static BOOL m_Initialized;
+		BOOL m_Initialized;
+		HandlerCollectionType m_Handlers;
 	};
+
+	typedef Loki::SingletonHolder<
+		GlobalExceptionHandler,
+		Loki::CreateUsingNew,
+		Loki::LongevityLifetime::DieDirectlyBeforeLast
+	> GlobalExceptionHandlerSingleton;
 }
 
