@@ -43,9 +43,6 @@ namespace Earlgrey
 		ThreadTasks m_threadTasks;
 	};
 
-	typedef
-		Loki::SingletonHolder<TimerManager, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
-		TimerManagerSingleton
-		;
+	typedef Loki::SingletonHolder<TimerManager> TimerManagerSingleton;
 
 }

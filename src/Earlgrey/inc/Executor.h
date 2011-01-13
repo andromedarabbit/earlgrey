@@ -61,10 +61,7 @@ namespace Earlgrey
 		ThreadTasks m_threadTasks;
 	};
 
-	typedef
-		Loki::SingletonHolder<Executor, Loki::CreateUsingNew, Loki::DefaultLifetime,  Loki::SingleThreaded, NoLock> 
-		IocpExecutorSingleton
-		;
+	typedef Loki::SingletonHolder<Executor> IocpExecutorSingleton;
 
 
 	class ExecutorTaskRunnerInvoker 
