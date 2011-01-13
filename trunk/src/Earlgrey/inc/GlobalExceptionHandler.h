@@ -11,7 +11,7 @@ namespace Earlgrey
 		typedef UnhandledExceptionHandler::HandlerPtrType HandlerPtrType;
 		typedef std::vector<HandlerPtrType> HandlerCollectionType;
 	public:
-		GlobalExceptionHandler();
+		explicit GlobalExceptionHandler();
 
 		BOOL Initialized();
 		void Initialize();
