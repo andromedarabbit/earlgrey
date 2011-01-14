@@ -1,0 +1,43 @@
+﻿<Project DefaultTargets="SymbolIndex" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Import Project="msbuild.xml"/>
+
+<PropertyGroup>
+	<PerlRootDir>$(RootDir)\..\..\vendor\strawberry-perl-5.12.1.0-portable</PerlRootDir>
+	<PerlZip>$(PerlRootDir).zip</PerlZip>
+
+	<DebuggingToolsRootDir>$(RootDir)\..\..\vendor\BuildTool\Debugging Tools for Windows</DebuggingToolsRootDir>
+	<DebuggingToolsDir Condition="'$(PROCESSOR_ARCHITECTURE)' == 'AMD64'">$(DebuggingToolsRootDir)\x64</DebuggingToolsDir>
+	<DebuggingToolsDir Condition="'$(PROCESSOR_ARCHITECTURE)' != 'AMD64'">$(DebuggingToolsRootDir)\x86</DebuggingToolsDir>
+	<DebuggingToolsZip>$(DebuggingToolsDir).zip</DebuggingToolsZip>
+</PropertyGroup>
+
+<Target Name="UnzipPerl">
+	 <Unzip 
+		ZipFileName="$(PerlZip)" 
+		TargetDirectory="$(PerlRootDir)"
+		Condition="!Exists('$(PerlRootDir)')"
+		/>
+</Target>
+
+<Target Name="UnzipSymbolIndexTool" DependsOnTargets="UnzipPerl">
+	 <Unzip 
+		ZipFileName="$(DebuggingToolsZip)" 
+		TargetDirectory="$(DebuggingToolsRootDir)"
+		Condition="!Exists('$(DebuggingToolsDir)')"
+		/>
+</Target>
+
+<Target Name="PrepareSymbolIndexTool" DependsOnTargets="UnzipSymbolIndexTool">
+</Target>
+
+<Target Name="SymbolIndex" DependsOnTargets="PrepareSymbolIndexTool">
+	<Exec
+		Command="$(Quot)$(DebuggingToolsDir)\srcsrv\svnindex.cmd$(Quot) /debug /source=$(Quot)$(RootDir)$(Quot) /symbols=$(Quot)$(BinDir)$(Quot)"
+		ContinueOnError="false" 
+		IgnoreExitCode="false"
+		/>
+</Target>
+
+</Project>
+	
