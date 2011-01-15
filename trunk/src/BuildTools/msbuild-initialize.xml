@@ -6,6 +6,7 @@
 
 <PropertyGroup>
 	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
+	<TreeRootDir>$(RootDir)\..\..</TreeRootDir>
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->
