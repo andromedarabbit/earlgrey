@@ -12,6 +12,11 @@
 	<DebuggingToolsZip>$(DebuggingToolsDir).zip</DebuggingToolsZip>
 </PropertyGroup>
 
+<PropertyGroup>
+	<SymbolStorageDir Condition="'$(SymbolStorageDir)' == ''">$(RootDir)\$(OutputDir)\Symbols</SymbolStorageDir>
+	<SymbolProjectName Condition="'$(SymbolProjectName)' ==''">EarlGrey</SymbolProjectName>
+</PropertyGroup>
+
 <Target Name="UnzipPerl">
 	 <Unzip 
 		ZipFileName="$(PerlZip)" 
@@ -34,6 +39,16 @@
 <Target Name="SymbolIndex" DependsOnTargets="PrepareSymbolIndexTool">
 	<Exec
 		Command="$(Quot)$(DebuggingToolsDir)\srcsrv\svnindex.cmd$(Quot) /debug /source=$(Quot)$(RootDir)$(Quot) /symbols=$(Quot)$(RootDir)\$(BinDir)$(Quot)"
+		WorkingDirectory="$(TreeRootDir)"
+		ContinueOnError="false" 
+		IgnoreExitCode="false"
+		/>
+</Target>
+
+
+<Target Name="SymbolStore" DependsOnTargets="SymbolIndex">
+	<Exec
+		Command="$(Quot)$(DebuggingToolsDir)\symstore.exe$(Quot) add /o /r /f $(Quot)$(RootDir)\$(BinDir)$(Quot) /s $(Quot)$(SymbolStorageDir)$(Quot) /t $(SymbolProjectName) /compress"
 		WorkingDirectory="$(TreeRootDir)"
 		ContinueOnError="false" 
 		IgnoreExitCode="false"
