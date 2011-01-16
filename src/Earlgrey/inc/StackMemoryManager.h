@@ -22,7 +22,8 @@ namespace Earlgrey
 		friend class StackMemoryManagerTest;
 		FRIEND_TEST(StackMemoryManagerTest, Alloc);
 		FRIEND_TEST(StackMemoryManagerTest, AllocNotWithAlignmentSize);
-		FRIEND_TEST(StackMemoryManagerTest, InternalFragmentation);
+		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory);
+		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory2);
 #endif
 
 	public:
@@ -85,14 +86,12 @@ namespace Earlgrey
 		{
 			EARLGREY_ASSERT(size > 0);
 			EARLGREY_ASSERT(alignment <= DEFAULT_ALIGNMENT);
-			// EARLGREY_ASSERT( (alignment & (alignment - 1)) == 0 );
 			EARLGREY_ASSERT( Math::IsPowerOf2(alignment) == TRUE );
 			EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
 			
-			
 			EARLGREY_ASSERT(m_current_pos == Math::NewMemoryAligmentOffset(alignment, m_current_pos));
+
 			pointer memblock = (BYTE*) (m_buffer_begin + m_current_pos);
-			// m_current_pos += size;
 			m_current_pos = Math::NewMemoryAligmentOffset(alignment, m_current_pos + size);
 
 			EARLGREY_ASSERT((m_buffer_begin + m_current_pos) <= m_buffer_end);
@@ -102,8 +101,6 @@ namespace Earlgrey
 
 		inline void free(void * memblock)
 		{
-			// EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
-
 			UNREFERENCED_PARAMETER(memblock);
 			// do nothing
 		}
