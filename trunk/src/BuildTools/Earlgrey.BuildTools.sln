@@ -17,9 +17,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScript
 		msbuild-deploy-internal.xml = msbuild-deploy-internal.xml
 		msbuild-deploy.xml = msbuild-deploy.xml
 		msbuild-initialize.xml = msbuild-initialize.xml
+		msbuild-symbol.xml = msbuild-symbol.xml
 		msbuild-thirdparties.xml = msbuild-thirdparties.xml
 		msbuild-unittests.xml = msbuild-unittests.xml
 		msbuild.xml = msbuild.xml
+		..\SetEnvironment_Win32.bat = ..\SetEnvironment_Win32.bat
+		..\SetEnvironment_x64.bat = ..\SetEnvironment_x64.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Scripts", "MSBuild\MSBuild.Earlgrey.Scripts\MSBuild.Earlgrey.Scripts.csproj", "{7D7CF82B-B8B3-4D66-A066-0704B45CBF60}"

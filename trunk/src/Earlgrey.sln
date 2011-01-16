@@ -64,9 +64,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{4AC86211-7E51-47FB-B8BB-A4B446033BA2}"
 	ProjectSection(SolutionItems) = preProject
 		msbuild-ci.xml = msbuild-ci.xml
+		msbuild-symbol.xml = msbuild-symbol.xml
 		msbuild.xml = msbuild.xml
 		MSBuild_Win32.bat = MSBuild_Win32.bat
 		MSBuild_x64.bat = MSBuild_x64.bat
+		SetEnvironment_Win32.bat = SetEnvironment_Win32.bat
+		SetEnvironment_x64.bat = SetEnvironment_x64.bat
 	EndProjectSection
 EndProject
 Global
