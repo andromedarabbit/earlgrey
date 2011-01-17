@@ -17,6 +17,8 @@ namespace Earlgrey
 	{
 		// friend struct Loki::CreateUsingNew<StackMemoryManager>;
 		friend class StackAllocator;
+		friend void *Malloca(const size_t size);
+		friend void Freea(void *memblock);
 
 #ifdef EARLGREY_UNIT_TEST
 		friend class StackMemoryManagerTest;
@@ -24,6 +26,7 @@ namespace Earlgrey
 		FRIEND_TEST(StackMemoryManagerTest, AllocNotWithAlignmentSize);
 		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory);
 		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory2);
+		FRIEND_TEST(StackMemoryManagerTest, ZeroSizeAllocation);
 #endif
 
 	public:
@@ -84,15 +87,19 @@ namespace Earlgrey
 
 		inline void * malloc(size_type size, size_type alignment = DEFAULT_ALIGNMENT)
 		{
-			EARLGREY_ASSERT(size > 0);
+			EARLGREY_ASSERT(size >= 0);
 			EARLGREY_ASSERT(alignment <= DEFAULT_ALIGNMENT);
 			EARLGREY_ASSERT( Math::IsPowerOf2(alignment) == TRUE );
 			EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
 			
 			EARLGREY_ASSERT(m_current_pos == Math::NewMemoryAligmentOffset(alignment, m_current_pos));
 
-			pointer memblock = (BYTE*) (m_buffer_begin + m_current_pos);
-			m_current_pos = Math::NewMemoryAligmentOffset(alignment, m_current_pos + size);
+			pointer memblock = static_cast<pointer> (m_buffer_begin + m_current_pos);
+
+			size_type sizeNeeded = size;
+			if(size == 0)
+				sizeNeeded = 1;
+			m_current_pos = Math::NewMemoryAligmentOffset(alignment, m_current_pos + sizeNeeded);
 
 			EARLGREY_ASSERT((m_buffer_begin + m_current_pos) <= m_buffer_end);
 
