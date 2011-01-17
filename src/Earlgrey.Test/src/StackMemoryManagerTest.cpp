@@ -93,5 +93,28 @@ namespace Earlgrey
 		manager.Unmark(0);
 	}
 
+	TEST(StackMemoryManagerTest, ZeroSizeAllocation) 
+	{
+		const size_t capacity = StackMemoryManager::DEFAULT_ALIGNMENT * 2;
+		StackMemoryManager manager(capacity);
+		ASSERT_EQ(0, manager.m_current_pos);
+		ASSERT_EQ(capacity, manager.m_buffer_end - manager.m_buffer_begin);
+
+		manager.Mark();
+
+		const size_t bytes = 0;
+		void * pointer = 
+			manager.malloc(bytes, StackMemoryManager::DEFAULT_ALIGNMENT);
+		ASSERT_TRUE(pointer != NULL);
+		ASSERT_EQ(StackMemoryManager::DEFAULT_ALIGNMENT, manager.m_current_pos);
+
+		pointer = 
+			manager.malloc(bytes, StackMemoryManager::DEFAULT_ALIGNMENT);
+		ASSERT_TRUE(pointer != NULL);
+		ASSERT_EQ(StackMemoryManager::DEFAULT_ALIGNMENT * 2, manager.m_current_pos);
+
+		manager.Unmark(0);
+	}
+
 	//}
 }
