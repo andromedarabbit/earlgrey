@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ks_c_5601-1987"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
@@ -962,6 +962,10 @@
 				</File>
 				<File
 					RelativePath=".\inc\SlabAllocator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StackAllocator.cpp"
 					>
 				</File>
 				<File

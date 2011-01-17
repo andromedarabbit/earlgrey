@@ -4,6 +4,8 @@
 #include "Executor.h"
 #include "TimerManager.h"
 
+#include "StackAllocator.h"
+
 namespace Earlgrey
 {
 	ThreadRunnable::ThreadRunnable() 		
@@ -25,6 +27,8 @@ namespace Earlgrey
 	{
 		while(MeetsStopCondition() == FALSE)
 		{
+			StackAllocator allocator;
+
 			ExecutorTaskRunnerInvoker Invoker; 
 			//IocpExecutorSingleton::Instance().DoTasks();
 			TimerManagerSingleton::Instance().DoTasks();
