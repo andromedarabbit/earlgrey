@@ -74,4 +74,9 @@ namespace Earlgrey
 
 	// #define EARLGREY_ALLOA(bytes) \
 	//	Earlgrey::StackAllocator stackAlloc; 
+
+	void *Malloca(const size_t size);
+	void Freea(void *memblock);
+
+
 }
