@@ -6,7 +6,7 @@ using namespace Earlgrey;
 
 TEST(NetworkBufferTest, ReadWriteTest)
 {
-	std::tr1::shared_ptr<NetworkBuffer> buffer = make_ptr(new (alloc<NetworkBuffer>()) NetworkBuffer());
+	std::tr1::shared_ptr<NetworkBuffer> buffer = make_ptr(new NetworkBuffer());
 
 	int i32 = 100;
 	std::wstring wstr = L"으라차차!";

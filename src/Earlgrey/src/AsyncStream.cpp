@@ -12,9 +12,8 @@ namespace Earlgrey
 	void AsyncStream::Initialize(SOCKET handle, CompletionHandler* readHandler, CompletionHandler* writeHandler, Proactor* proactor)
 	{
 		_resultForRead.reset( new AsyncResult( handle, readHandler ) );
-		_resultForWrite.reset( new AsyncResult( handle, writeHandler ) );
 		_bufferForRead.reset( new NetworkBuffer() );
-		_bufferForWrite.reset( new NetworkBuffer() );
+		_writeHandler = writeHandler;
 
 		_handle = handle;
 		_proactor = proactor;
@@ -24,7 +23,8 @@ namespace Earlgrey
 
 	bool AsyncStream::Read()
 	{
-		if (_bufferForRead.get())
+		EARLGREY_ASSERT(_bufferForRead.get());
+		if (!_bufferForRead.get())
 		{
 			return false;
 		}
@@ -61,22 +61,71 @@ namespace Earlgrey
 		return true;
 	}
 
-	bool AsyncStream::Write()
+	void AsyncStream::_Write(std::tr1::shared_ptr<NetworkBuffer> buffer)
 	{
-		if (!_bufferForWrite.get())
+		EARLGREY_ASSERT(buffer.get());
+		if (!buffer.get())
 		{
-			return false;
+			return;
+		}
+		_ResultList.push_back( new AsyncResult( _handle, _writeHandler, buffer ) );
+
+		return _WriteRemainder();
+	}
+
+	void AsyncStream::HandleEvent( AsyncResult* Result )
+	{
+		Result->HandleEvent();
+	}
+
+	NetworkBuffer* AsyncStream::GetReadBuffer()
+	{
+		return _bufferForRead.get();
+	}
+
+	void AsyncStream::Close()
+	{
+		LINGER l = {0};
+		l.l_onoff = 1;
+		l.l_linger = 0;
+
+		setsockopt( _handle, SOL_SOCKET, SO_LINGER, (CHAR*) &l, sizeof(l) );
+		closesocket( _handle );
+	}
+
+	AsyncStream::AsyncStream() : _handle(NULL), _proactor(NULL), _Sending(false)
+	{
+	}
+
+	void AsyncStream::_WriteRemainder()
+	{
+		if (_Sending)
+		{
+			return;
+		}
+		if (_ResultList.empty())
+		{
+			return;
 		}
 
-		std::pair<WSABUF*,size_t> SocketBuffer = _bufferForWrite->GetSockSendBuffer();
-		DWORD	SentBytes;		
+		AsyncResult* result = _ResultList.front();
+		EARLGREY_ASSERT(result);
+
+		_Send( result );
+	}
+
+	bool AsyncStream::_Send(AsyncResult* Result)
+	{
+		DWORD SentBytes = 0;
+
+		std::pair<WSABUF*,size_t> SocketBuffer = Result->GetWriteBuffer();
 
 		INT ret = WSASend(_handle, 
 			SocketBuffer.first, 
 			EARLGREY_NUMERIC_CAST<DWORD>(SocketBuffer.second),
 			&SentBytes, 
 			0, 
-			_resultForWrite->GetOverlapped(), 
+			Result->GetOverlapped(), 
 			NULL);
 
 		if (SOCKET_ERROR == ret) 
@@ -93,36 +142,30 @@ namespace Earlgrey
 				return false;
 			} 
 		}
+		_Sending = true;
 		return true;
 	}
 
-	void AsyncStream::HandleEvent( AsyncResult* Result )
+	void AsyncStream::Write( std::tr1::shared_ptr<NetworkBuffer> buffer )
 	{
-		Result->HandleEvent();
+		this->InvokeMethod( &AsyncStream::_Write, buffer );
 	}
 
-	NetworkBuffer* AsyncStream::GetReadBuffer()
+	void AsyncStream::OnSent( AsyncResult* Result )
 	{
-		return _bufferForRead.get();
+		this->InvokeMethod( &AsyncStream::_OnSent, Result );
 	}
 
-	NetworkBuffer* AsyncStream::GetWriteBuffer()
+	void AsyncStream::_OnSent( AsyncResult* Result )
 	{
-		return _bufferForWrite.get();
-	}
-
-	void AsyncStream::Close()
-	{
-		LINGER l = {0};
-		l.l_onoff = 1;
-		l.l_linger = 0;
-
-		setsockopt( _handle, SOL_SOCKET, SO_LINGER, (CHAR*) &l, sizeof(l) );
-		closesocket( _handle );
-	}
-
-	AsyncStream::AsyncStream() : _handle(NULL), _proactor(NULL)
-	{
+		if (Result->SentCompleted())
+		{
+			EARLGREY_ASSERT( Result == _ResultList.front() );
+			_ResultList.pop_front();
+			delete Result;
+		}
+		_Sending = false;
+		_WriteRemainder();
 	}
 
 }

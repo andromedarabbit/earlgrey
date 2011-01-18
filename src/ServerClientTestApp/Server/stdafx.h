@@ -35,3 +35,5 @@
 #include "loki/Singleton.h"
 #include "xmap.h"
 #include "ScopedLock.h"
+#include "shared_ptr_helper.h"
+#include "xlist.h"

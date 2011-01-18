@@ -22,10 +22,7 @@ namespace Earlgrey
 		{
 			return;
 		}
-		if (Result->GetBytesTransferred() == _Stream->GetWriteBuffer()->GetBufferSize())
-		{
-			_Stream->GetWriteBuffer()->Clear();
-		}
-	}
 
+		_Stream->OnSent( Result );
+	}
 }

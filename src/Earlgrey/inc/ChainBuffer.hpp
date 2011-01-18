@@ -72,7 +72,10 @@ namespace Earlgrey
 		void increase_size(size_type length);
 		void copy_to(chain_buffer& rhs) const;
 		bool get(size_type offset, pointer ptr, size_type length);
-		void get_descriptions(desc_vector_type& desc_vector);
+
+		// 네트워크 버퍼를 얻기 위해 사용하는데 이것때문에 일반화하긴 어려울듯... 
+		// 차라리 네트워크 버퍼는 chain_buffer 대신 다른걸 사용하는게 나을지도...
+		void get_descriptions(size_type offset, desc_vector_type& desc_vector);
 
 		desc_vector_type expand(size_t size);
 
@@ -464,17 +467,35 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
-		void chain_buffer<T,A>::get_descriptions(typename chain_buffer<T,A>::desc_vector_type& desc_vector)
+		void chain_buffer<T,A>::get_descriptions(size_type offset, typename chain_buffer<T,A>::desc_vector_type& desc_vector)
 	{
 		typedef typename chain_buffer<T,A>::buffer_node_desc_type buffer_node_desc_type;
 
 		size_t remainder = size();
 		size_t used_size = 0;
+		size_t remainder_offset = offset;
 
 		for(buffer_list_type::iterator it = m_buffer_list.begin(); it != m_buffer_list.end() && remainder > 0; it++)
 		{
-			used_size = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION ( it->size(), remainder );
-			desc_vector.push_back( buffer_node_desc_type( &(*it)[0], used_size ) );
+			if (remainder_offset > 0)
+			{
+				if (remainder_offset > it->size())
+				{
+					remainder -= it->size();
+					remainder_offset -= it->size();
+					continue;
+				}
+				remainder -= remainder_offset;
+				used_size = it->size() - remainder_offset;
+				desc_vector.push_back( buffer_node_desc_type( &(*it)[remainder_offset], used_size ) );
+				remainder_offset = 0;
+			}
+			else
+			{
+				used_size = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION ( it->size(), remainder );
+				desc_vector.push_back( buffer_node_desc_type( &(*it)[0], used_size ) );
+			}			
+			
 			remainder -= used_size;
 		}
 	}
