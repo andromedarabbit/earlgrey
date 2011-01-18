@@ -51,13 +51,13 @@ namespace Earlgrey {
 	};
 
 	template<typename T>
-	void* alloc()
+	inline void* alloc()
 	{
 		StlDefaultAllocator<T>::Type allocator;
 		return allocator.allocate(1);
 	}
 
-	void free(void* p)
+	inline void free(void* p)
 	{
 		StlDefaultAllocator<char>::Type allocator;
 		allocator.deallocate( reinterpret_cast<char*>(p), 0 );
