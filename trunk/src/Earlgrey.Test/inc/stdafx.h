@@ -36,3 +36,5 @@
 #include <array>
 #include "xmap.h"
 #include "loki/Singleton.h"
+#include "shared_ptr_helper.h"
+#include "xlist.h"

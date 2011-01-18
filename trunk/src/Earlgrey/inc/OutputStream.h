@@ -3,6 +3,7 @@
 namespace Earlgrey {
 
 	class AsyncStream;
+	class NetworkBuffer;
 
 	class OutputStream
 	{
@@ -32,6 +33,7 @@ namespace Earlgrey {
 
 	protected:
 		std::tr1::shared_ptr<AsyncStream> _Stream;
+		std::tr1::shared_ptr<NetworkBuffer> _Buffer;
 	};
 
 }

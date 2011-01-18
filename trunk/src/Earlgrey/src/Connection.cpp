@@ -1,6 +1,5 @@
 #include "StdAfx.h"
 #include "Connection.h"
-#include "shared_ptr_helper.h"
 
 namespace Earlgrey {
 
@@ -25,14 +24,13 @@ namespace Earlgrey {
 		std::tr1::shared_ptr<INetEvent> NetEvent, 
 		std::tr1::shared_ptr<IPacketHandler> PacketHandler)
 	{
-		_Stream = make_ptr(new (alloc<AsyncStream>()) AsyncStream() );
-		_Sender = make_ptr(new (alloc<Sender>()) Sender( _Stream, NetEvent ) );
-		_Receiver = make_ptr(new (alloc<Receiver>()) Receiver( _Stream, NetEvent, PacketHandler ) );
+		_Stream = make_ptr( new AsyncStream() );
+		_Sender = make_ptr( new Sender( _Stream, NetEvent ) );
+		_Receiver = make_ptr( new Receiver( _Stream, NetEvent, PacketHandler ) );
 
 		_Stream->Initialize( socket, _Receiver.get(), _Sender.get(), &ProactorSingleton::Instance() );
 		_Stream->Read();
 
 		return true;
 	}
-
 }

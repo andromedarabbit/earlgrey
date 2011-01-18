@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "CompletionHandler.h"
+#include "taskqueue.h"
 
 namespace Earlgrey
 {
@@ -16,8 +17,9 @@ namespace Earlgrey
 	/*!
 		IOCP 입출력을 처리한다. 버퍼와 결과 정보가 읽기용과 쓰기용이 따로 분리돼 있다.
 	*/
-	class AsyncStream : public CompletionHandler
+	class AsyncStream : public CompletionHandler, public Algorithm::Lockfree::TaskQueue<void()>
 	{
+		typedef xlist<AsyncResult*>::Type ResultListType;
 	public:
 		explicit AsyncStream();
 
@@ -32,7 +34,8 @@ namespace Earlgrey
 
 		bool Read();
 
-		bool Write();
+		//! 버퍼에 있는 데이터 전송을 요청한다.
+		void Write(std::tr1::shared_ptr<NetworkBuffer> buffer);
 
 		//! 핸들(소켓)을 닫는다.
 		void Close();
@@ -40,15 +43,36 @@ namespace Earlgrey
 		virtual void HandleEvent(AsyncResult* Result);
 
 		NetworkBuffer* GetReadBuffer();
-		NetworkBuffer* GetWriteBuffer();
 
-	protected:
+		//! 전송 완료 이벤트가 오면 호출된다.
+		void OnSent(AsyncResult* Result);
+	private:
+		//! 버퍼에 있는 데이터를 전송한다.
+		void _Write(std::tr1::shared_ptr<NetworkBuffer> buffer);
+
+		//! 버퍼에 남은 데이터를 보낸다.
+		/*!
+			Sender 는 전송 완료 이벤트를 받아 전송되지 않은 데이터가 남아 있을 경우 그 데이터를 다시 보낸다.
+		*/
+		void _WriteRemainder();
+
+		bool _Send(AsyncResult* result);
+		
+		void _OnSent(AsyncResult* Result);
+
+	private:
 		SOCKET _handle;
 		Proactor* _proactor;
+
+		//! 읽기를 위한 버퍼와 결과 객체는 쓰기 버퍼와는 달리 하나만 있으면 된다.
 		std::auto_ptr<NetworkBuffer> _bufferForRead;
-		std::auto_ptr<NetworkBuffer> _bufferForWrite;
 		std::auto_ptr<AsyncResult> _resultForRead;
-		std::auto_ptr<AsyncResult> _resultForWrite;
+
+		//! 이 데이터는 task queue 로 보호돼야 한다.
+		CompletionHandler* _writeHandler;
+		ResultListType _ResultList;
+		bool _Sending;
+
 	};
 
 }

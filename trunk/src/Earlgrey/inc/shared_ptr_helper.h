@@ -57,6 +57,12 @@ namespace Earlgrey {
 		return allocator.allocate(1);
 	}
 
+	void free(void* p)
+	{
+		StlDefaultAllocator<char>::Type allocator;
+		allocator.deallocate( reinterpret_cast<char*>(p), 0 );
+	}
+
 	template<typename T>
 	std::tr1::shared_ptr<T> make_ptr(T* p)
 	{
@@ -80,3 +86,4 @@ namespace Earlgrey {
 			StlDefaultAllocator<T>::Type() );
 	}
 }
+

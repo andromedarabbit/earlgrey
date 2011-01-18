@@ -11,16 +11,22 @@ namespace Earlgrey
 	class NetworkBuffer 
 	{
 	public:
+		// new/delete 연산자 오버로딩 default allocator 를 사용하도록 한다.
+		static void* operator new(size_t size);
+		static void operator delete(void* p);
+		static void* operator new[](size_t size);
+		static void operator delete[](void* p);
+
+	public:
 		const static DWORD NETWORK_BUFFER_DEFAULT_SIZE = 1024;
 
 		typedef chain_buffer<BYTE>		BufferType;
 		typedef BufferType::size_type	SizeType;
+		typedef std::tr1::shared_ptr<NetworkBuffer> SharedPtr;
 
 		//! chain_buffer의 initial capacity 를 설정한다.
 		explicit NetworkBuffer(DWORD DefaultSize = NETWORK_BUFFER_DEFAULT_SIZE);
-
 		NetworkBuffer(const NetworkBuffer& rhs);
-
 		~NetworkBuffer();
 
 		NetworkBuffer& operator=(const NetworkBuffer& rhs);
@@ -29,10 +35,16 @@ namespace Earlgrey
 		std::pair<WSABUF*, DWORD> GetSockRecvBuffer(SizeType Size = NETWORK_BUFFER_DEFAULT_SIZE);
 
 		//! 버퍼에 기록된 내용을 WSABUF 배열 형태로 가져온다.
-		std::pair<WSABUF*, size_t> GetSockSendBuffer();
+		std::pair<WSABUF*, DWORD> GetSockSendBuffer();
 
 		//! 수신이 완료되면 size를 증가시켜준다.
 		void OnReceived(DWORD Transferred);
+
+		//! 전송이 완료되면 전송된 크기를 누적시킨다.
+		void OnSent(DWORD Transferred);
+
+		//! 전송이 완료됐는지 검사한다.
+		bool SentCompleted() const;
 
 		size_t GetBufferSize() const;
 
@@ -59,7 +71,12 @@ namespace Earlgrey
 		*/
 		size_t Shrink(size_t ValidIndex);
 
+		static SharedPtr Create();
+
 	private:
 		BufferType _ChainBuffer;
+		size_t _SentSize;
 	};
+
+	typedef NetworkBuffer::SharedPtr NetworkBufferPtr;
 }

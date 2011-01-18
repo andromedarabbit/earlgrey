@@ -6,6 +6,7 @@
 #include "AppSettings.h"
 #include "CompletionHandler.h"
 #include <sstream>
+#include "NetworkBuffer.h"
 
 namespace Earlgrey
 {
@@ -184,4 +185,71 @@ namespace Earlgrey
 	{
 		_Handler->HandleEvent( this );
 	}
+
+	AsyncResult::AsyncResult() : _Handle(INVALID_SOCKET), _Handler(NULL)
+	{
+		ZeroMemory( &_overlapped, sizeof(_overlapped) );
+	}
+
+	AsyncResult::AsyncResult( CompletionHandler* Handler ) : _Handle(INVALID_SOCKET), _Handler(Handler)
+	{
+		ZeroMemory( &_overlapped, sizeof(_overlapped) );
+	}
+
+	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler ) : _Handle(Handle), _Handler(Handler)
+	{
+		EARLGREY_ASSERT( Handle != INVALID_SOCKET );
+		ZeroMemory( &_overlapped, sizeof(_overlapped) );
+	}
+
+	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler, BufferPtr Buffer ) : _Handle(Handle), _Handler(Handler), _Buffer(Buffer)
+	{
+		EARLGREY_ASSERT( Handle != INVALID_SOCKET );
+		ZeroMemory( &_overlapped, sizeof(_overlapped) );
+	}
+
+	std::pair<WSABUF*,DWORD> AsyncResult::GetWriteBuffer()
+	{
+		EARLGREY_ASSERT(_Buffer.get());
+		if (!_Buffer.get())
+		{
+			return std::make_pair<WSABUF*,DWORD>(NULL,0);
+		}
+		return _Buffer->GetSockSendBuffer();
+	}
+
+	void AsyncResult::UpdateSentSize()
+	{
+		EARLGREY_ASSERT(_Buffer.get());
+		_Buffer->OnSent( _BytesTransferred );
+		if (_Buffer->SentCompleted())
+		{
+			_Buffer.reset();
+		}
+	}
+
+	bool AsyncResult::SentCompleted()
+	{
+		UpdateSentSize();
+		return !_Buffer.get();
+	}
+
+	void* AsyncResult::operator new( size_t size )
+	{
+		UNREFERENCED_PARAMETER(size);
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		void* p = allocator.allocate(1);
+		if (!p)
+		{
+			throw std::bad_alloc();
+		}
+		return p;
+	}
+
+	void AsyncResult::operator delete( void* p )
+	{
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		return allocator.deallocate(reinterpret_cast<AsyncResult*>(p), 0);
+	}
+
 }

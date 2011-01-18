@@ -64,10 +64,10 @@ namespace Earlgrey
 			buf.append( (const BYTE*)"hello", 5 );
 
 			chain_buffer<BYTE>::desc_vector_type descs;
-			buf.get_descriptions( descs ); 
+			buf.get_descriptions( 1, descs ); 
 
 			EXPECT_EQ( 1, descs.size() );
-			EXPECT_EQ( 5, std::tr1::get<1>( descs[0] ) );
+			EXPECT_EQ( 4, std::tr1::get<1>( descs[0] ) );
 		}
 
 		TEST(ChainBufferTest, AutoResize)

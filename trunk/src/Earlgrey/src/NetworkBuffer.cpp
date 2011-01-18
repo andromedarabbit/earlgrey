@@ -5,7 +5,7 @@ namespace Earlgrey {
 
 
 	NetworkBuffer::NetworkBuffer( DWORD DefaultSize /*= NETWORK_BUFFER_DEFAULT_SIZE*/ ) 
-		: _ChainBuffer(DefaultSize)
+		: _ChainBuffer(DefaultSize), _SentSize(0)
 	{
 
 	}
@@ -46,12 +46,12 @@ namespace Earlgrey {
 		_ChainBuffer.increase_size( Transferred );
 	}
 
-	std::pair<WSABUF*, size_t> NetworkBuffer::GetSockSendBuffer()
+	std::pair<WSABUF*, DWORD> NetworkBuffer::GetSockSendBuffer()
 	{
 		WSABUF* SocketBuffer = new WSABUF[_ChainBuffer.chain_size()];
 
 		chain_buffer<BYTE>::desc_vector_type desc_vector;
-		_ChainBuffer.get_descriptions( desc_vector );
+		_ChainBuffer.get_descriptions( _SentSize, desc_vector );
 
 		DWORD i = 0;
 		chain_buffer<BYTE>::desc_vector_type::const_iterator it = desc_vector.begin();
@@ -61,7 +61,7 @@ namespace Earlgrey {
 			SocketBuffer[i].len = EARLGREY_NUMERIC_CAST<ULONG>(std::tr1::get<1>( *it ));
 		}
 
-		return std::make_pair( SocketBuffer, desc_vector.size() );
+		return std::make_pair( SocketBuffer, EARLGREY_NUMERIC_CAST<DWORD>(desc_vector.size()) );
 	}
 
 	size_t NetworkBuffer::GetBufferSize() const
@@ -121,6 +121,57 @@ namespace Earlgrey {
 	NetworkBuffer::~NetworkBuffer()
 	{
 		_ChainBuffer.clear();
+	}
+
+	NetworkBuffer::SharedPtr NetworkBuffer::Create()
+	{
+		return make_ptr(new NetworkBuffer());
+	}
+
+	void NetworkBuffer::OnSent( DWORD Transferred )
+	{
+		_SentSize += Transferred;
+	}
+
+	bool NetworkBuffer::SentCompleted() const
+	{
+		return _SentSize == _ChainBuffer.size();
+	}
+
+	void* NetworkBuffer::operator new( size_t size )
+	{
+		UNREFERENCED_PARAMETER(size);
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		void* p = allocator.allocate(1);
+		if (!p)
+		{
+			throw std::bad_alloc();
+		}
+		return p;
+	}
+
+	void* NetworkBuffer::operator new[]( size_t size )
+	{
+		UNREFERENCED_PARAMETER(size);
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		void* p = allocator.allocate(1);
+		if (!p)
+		{
+			throw std::bad_alloc();
+		}
+		return p;
+	}
+
+	void NetworkBuffer::operator delete[]( void* p )
+	{
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		return allocator.deallocate(reinterpret_cast<AsyncResult*>(p), 0);
+	}
+
+	void NetworkBuffer::operator delete( void* p )
+	{
+		StlDefaultAllocator<AsyncResult>::Type allocator;
+		return allocator.deallocate(reinterpret_cast<AsyncResult*>(p), 0);
 	}
 
 }

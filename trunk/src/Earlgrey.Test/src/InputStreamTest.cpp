@@ -69,7 +69,7 @@ protected:
 
 TEST(InputStreamTest, OperatorTest)
 {
-	std::tr1::shared_ptr<AsyncStream> stream = make_ptr(new (alloc<AsyncStream>()) AsyncStream());
+	std::tr1::shared_ptr<AsyncStream> stream = make_ptr(new AsyncStream());
 	ConcreteInputStream is(stream);
 
 	char c = 0;
