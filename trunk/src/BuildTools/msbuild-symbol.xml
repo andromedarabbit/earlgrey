@@ -3,7 +3,7 @@
 <Import Project="msbuild.xml"/>
 
 <PropertyGroup>
-	<PerlRootDir>$(TreeRootDir)\vendor\strawberry-perl-5.12.1.0-portable</PerlRootDir>
+	<PerlRootDir>$(TreeRootDir)\vendor\BuildTool\strawberry-perl-5.12.1.0-portable</PerlRootDir>
 	<PerlZip>$(PerlRootDir).zip</PerlZip>
 
 	<DebuggingToolsRootDir>$(TreeRootDir)\vendor\BuildTool\Debugging Tools for Windows</DebuggingToolsRootDir>
@@ -19,7 +19,7 @@
 
 <Target Name="UnzipPerl">
 	 <Unzip 
-		ZipFileName="$(PerlZip)" 
+		ZipFileName="$(Quot)$(PerlZip)$(Quot)" 
 		TargetDirectory="$(PerlRootDir)"
 		Condition="!Exists('$(PerlRootDir)')"
 		/>
