@@ -18,7 +18,7 @@ namespace Earlgrey
 			const TCHAR* ABCD = _T("ABCD");
 			TCHAR tempStr[5];
 			_tcscpy_s( tempStr, _countof(tempStr), ABCD );
-			buf.set(tempStr + 0, _countof(tempStr));
+			buf.append(tempStr + 0, _countof(tempStr));
 
 			// operator[]
 			const TCHAR& thirdChar = buf[2];
@@ -56,6 +56,27 @@ namespace Earlgrey
 			it++;
 			ASSERT_TRUE(it == buf.end());
 
+			//// replace
+			buf.set( 1, _T("EF"), 2 ); // we want it to be "AEFD"
+			chain_buffer<TCHAR>::iterator it2 = buf.begin();
+
+			ASSERT_EQ(_T('A'), *it2);
+
+			it2++;
+			ASSERT_EQ(_T('E'), *it2);
+
+			it2++;
+			ASSERT_EQ(_T('F'), *it2);
+
+			it2++;
+			ASSERT_EQ(_T('D'), *it2);
+
+			it2++;
+			ASSERT_EQ(_T('\0'), *it2);
+
+			it2++;
+			ASSERT_TRUE(it2 == buf.end());
+
 		}
 
 		TEST(ChainBufferTest, GetDescription)
@@ -87,7 +108,7 @@ namespace Earlgrey
 
 			for(int i = 0; i < COUNT; i++)
 			{
-				buf.set(tempStr, _countof(tempStr));
+				buf.append(tempStr, _countof(tempStr));
 			}
 
 			//// front

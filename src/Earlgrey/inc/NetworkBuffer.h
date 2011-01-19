@@ -54,7 +54,8 @@ namespace Earlgrey
 
 		void Clear();
 
-		BOOL SetValue(const BYTE* InValue, size_t Size);
+		BOOL SetValue(size_t Offset, const BYTE* InValue, size_t Size);
+		void AppendValue(const BYTE* InValue, size_t Size);
 
 		BOOL GetValue(size_t Offset, BYTE* OutValue, size_t Size);
 

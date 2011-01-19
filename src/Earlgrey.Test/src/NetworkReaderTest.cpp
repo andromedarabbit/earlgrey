@@ -73,7 +73,7 @@ namespace Earlgrey
 
 			BUFFER_T buf(128);
 			int intMaxValue = INT_MAX;
-			buf.set((BYTE*)&intMaxValue, sizeof(intMaxValue));
+			buf.append((BYTE*)&intMaxValue, sizeof(intMaxValue));
 
 			int intMinValue = INT_MIN;
 			buf.append((BYTE*)&intMinValue, sizeof(intMinValue));
@@ -95,7 +95,7 @@ namespace Earlgrey
 
 			BUFFER_T buf(128);
 			float maxValue = std::numeric_limits<float>::max() / 2;
-			buf.set((BYTE*)&maxValue, sizeof(maxValue));
+			buf.append((BYTE*)&maxValue, sizeof(maxValue));
 
 			float minValue = std::numeric_limits<float>::min() / 3;
 			buf.append((BYTE*)&minValue, sizeof(minValue));
@@ -117,7 +117,7 @@ namespace Earlgrey
 
 			BUFFER_T buf(128);
 			double maxValue = std::numeric_limits<double>::max() / 4;
-			buf.set((BYTE*)&maxValue, sizeof(maxValue));
+			buf.append((BYTE*)&maxValue, sizeof(maxValue));
 
 			double minValue = std::numeric_limits<double>::min() / 5;
 			buf.append((BYTE*)&minValue, sizeof(minValue));

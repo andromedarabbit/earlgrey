@@ -11,10 +11,10 @@ TEST(NetworkBufferTest, ReadWriteTest)
 	int i32 = 100;
 	std::wstring wstr = L"으라차차!";
 
-	buffer->SetValue( reinterpret_cast<const BYTE*>(&i32), sizeof(int) );
+	buffer->AppendValue( reinterpret_cast<const BYTE*>(&i32), sizeof(int) );
 	EXPECT_EQ( sizeof(int), buffer->GetBufferSize() );
 
-	buffer->SetValue( reinterpret_cast<const BYTE*>(wstr.c_str()), wstr.size() * sizeof(WCHAR) );
+	buffer->AppendValue( reinterpret_cast<const BYTE*>(wstr.c_str()), wstr.size() * sizeof(WCHAR) );
 	EXPECT_EQ( sizeof(int) + wstr.length() * sizeof(WCHAR), buffer->GetBufferSize() );
 
 	i32 = 0;

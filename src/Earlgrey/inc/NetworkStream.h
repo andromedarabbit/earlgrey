@@ -33,10 +33,10 @@ namespace Earlgrey {
 		static BOOL Write(NetworkBuffer& Buffer, const _txstring& Value)
 		{
 			DWORD Length = EARLGREY_NUMERIC_CAST<DWORD>( Value.size() );
-			Buffer.SetValue( reinterpret_cast<const BYTE*>( &Length ), sizeof(DWORD) );
+			Buffer.AppendValue( reinterpret_cast<const BYTE*>( &Length ), sizeof(DWORD) );
 			if (Length > 0)
 			{
-				Buffer.SetValue( reinterpret_cast<const BYTE*>( Value.c_str() ), Length * sizeof(TCHAR) );
+				Buffer.AppendValue( reinterpret_cast<const BYTE*>( Value.c_str() ), Length * sizeof(TCHAR) );
 			}
 			return TRUE;
 		}
@@ -80,7 +80,7 @@ namespace Earlgrey {
 		//! \todo modify to set ANSI characters into NetworkBuffer
 		static void WriteString(NetworkBuffer& Buffer, const _txstring& Str)
 		{
-			Buffer.SetValue( reinterpret_cast<const BYTE*>( Str.c_str() ), EARLGREY_NUMERIC_CAST<DWORD>(Str.length() * sizeof(TCHAR)) );
+			Buffer.AppendValue( reinterpret_cast<const BYTE*>( Str.c_str() ), EARLGREY_NUMERIC_CAST<DWORD>(Str.length() * sizeof(TCHAR)) );
 		}
 
 		template<typename T>

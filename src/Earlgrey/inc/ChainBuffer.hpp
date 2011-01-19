@@ -67,7 +67,7 @@ namespace Earlgrey
 		reference       at(size_type n);
 		const_reference at(size_type n) const;
 
-		void set(const_pointer ptr, size_type length);
+		void set(size_type offset, const_pointer ptr, size_type length);
 		void append(const_pointer ptr, size_type length);
 		void increase_size(size_type length);
 		void copy_to(chain_buffer& rhs) const;
@@ -272,7 +272,7 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
-		void chain_buffer<T,A>::set(const_pointer ptr, size_type length)
+		void chain_buffer<T,A>::append(const_pointer ptr, size_type length)
 	{
 		size_type remainder = length, bufRemainder = capacity() - size();
 		buffer_list_type::pointer buffer = NULL;
@@ -307,9 +307,30 @@ namespace Earlgrey
 
 	template <typename T, typename A>
 	inline
-		void chain_buffer<T,A>::append(const_pointer ptr, size_type length)
+		void chain_buffer<T,A>::set(size_type offset, const_pointer ptr, size_type length)
 	{
-		set( ptr, length );
+		EARLGREY_ASSERT(offset + length <= size());
+		if (offset + length <= size())
+		{
+			throw std::out_of_range("Parameter out of range");
+		}
+
+		size_type remainder = offset, set_remainder = length;
+		buffer_list_type::pointer buffer = NULL;
+		buffer_list_type::iterator it = m_buffer_list.begin();
+		for (; it != m_buffer_list.end() && set_remainder > 0; it++)
+		{
+			buffer = &(*it);
+			if (buffer->size() > remainder)
+			{
+				size_t size_to_copy = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (set_remainder , buffer->size() - remainder);
+				memcpy_s( &(*buffer)[remainder], buffer->size() - remainder, ptr, size_to_copy );
+				set_remainder -= size_to_copy;
+				continue;
+			}
+
+			remainder -= buffer->size();
+		}
 	}
 
 	template <typename T, typename A>
