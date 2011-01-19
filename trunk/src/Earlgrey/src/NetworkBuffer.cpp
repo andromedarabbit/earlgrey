@@ -84,9 +84,9 @@ namespace Earlgrey {
 		_ChainBuffer.clear();
 	}
 
-	BOOL NetworkBuffer::SetValue( const BYTE* InValue, size_t Size )
+	BOOL NetworkBuffer::SetValue( size_t Offset, const BYTE* InValue, size_t Size )
 	{
-		_ChainBuffer.set( InValue, Size );
+		_ChainBuffer.set( Offset, InValue, Size );
 		return TRUE;
 	}
 
@@ -160,6 +160,11 @@ namespace Earlgrey {
 			throw std::bad_alloc();
 		}
 		return p;
+	}
+
+	void NetworkBuffer::AppendValue( const BYTE* InValue, size_t Size )
+	{
+		_ChainBuffer.append( InValue, Size );
 	}
 
 	void NetworkBuffer::operator delete[]( void* p )
