@@ -37,6 +37,9 @@ namespace Earlgrey {
 			return _Stream;
 		}
 
+		//! tag 값을 설정한다. 이 값은 INetEvent::OnDisconnecte() 메서드의 파라미터로 넘어간다.
+		void SetTag(__int64 tag);
+
 	private:
 		std::tr1::shared_ptr<AsyncStream> _Stream;		//!< IOCP 입출력 처리 객체
 		std::tr1::shared_ptr<Receiver> _Receiver;		//!< 패킷 수신 완료 처리자

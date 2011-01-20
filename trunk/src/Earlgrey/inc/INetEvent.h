@@ -3,6 +3,7 @@
 namespace Earlgrey {
 
 	class Connection;
+	class AsyncStream;
 
 	class INetEvent
 	{
@@ -11,7 +12,7 @@ namespace Earlgrey {
 		virtual void OnConnected(std::tr1::shared_ptr<Connection> connection) = 0;
 
 		//! 연결이 끊겼을 때 호출된다.
-		virtual void OnDisconnected() = 0;
+		virtual void OnDisconnected(__int64 tag) = 0;
 	};
 
 }
