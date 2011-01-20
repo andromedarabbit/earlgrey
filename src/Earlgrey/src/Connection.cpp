@@ -33,4 +33,14 @@ namespace Earlgrey {
 
 		return true;
 	}
+
+	void Connection::SetTag( __int64 tag )
+	{
+		EARLGREY_ASSERT(_Stream.get());
+		if (_Stream.get())
+		{
+			_Stream->SetTag( tag );
+		}
+	}
+
 }
