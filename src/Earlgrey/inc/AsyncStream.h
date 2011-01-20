@@ -44,8 +44,19 @@ namespace Earlgrey
 
 		NetworkBuffer* GetReadBuffer();
 
+
 		//! 전송 완료 이벤트가 오면 호출된다.
 		void OnSent(AsyncResult* Result);
+
+		void SetTag(__int64 Tag)
+		{
+			_Tag = Tag;
+		}
+
+		__int64 GetTag() const
+		{
+			return _Tag;
+		}
 	private:
 		//! 버퍼에 있는 데이터를 전송한다.
 		void _Write(std::tr1::shared_ptr<NetworkBuffer> buffer);
@@ -72,6 +83,8 @@ namespace Earlgrey
 		CompletionHandler* _writeHandler;
 		ResultListType _ResultList;
 		bool _Sending;
+
+		__int64 _Tag; //!< 사용자가 임의로 사용하는 값; Connection ID 등을 담아 둘 수 있다.
 
 	};
 

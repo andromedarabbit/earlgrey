@@ -32,6 +32,11 @@ namespace Earlgrey {
 			return _Stream->GetReadBuffer();
 		}
 
+		std::tr1::shared_ptr<AsyncStream> GetStream()
+		{
+			return _Stream;
+		}
+
 	private:
 		std::tr1::shared_ptr<AsyncStream> _Stream;		//!< IOCP 입출력 처리 객체
 		std::tr1::shared_ptr<Receiver> _Receiver;		//!< 패킷 수신 완료 처리자

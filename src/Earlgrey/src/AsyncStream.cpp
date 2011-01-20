@@ -93,7 +93,7 @@ namespace Earlgrey
 		closesocket( _handle );
 	}
 
-	AsyncStream::AsyncStream() : _handle(NULL), _proactor(NULL), _Sending(false)
+	AsyncStream::AsyncStream() : _handle(NULL), _proactor(NULL), _Sending(false), _Tag(0L)
 	{
 	}
 
