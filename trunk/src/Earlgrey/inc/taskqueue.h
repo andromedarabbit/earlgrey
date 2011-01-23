@@ -324,15 +324,14 @@ namespace Earlgrey {
 					TaskHolder* taskHolder = NULL;
 					EARLGREY_ASSERT(CAS( &_IsRunning, 1L, 1L ) == 1L);
 
-					for (;;) {
+					/*for (;;) {
 						taskHolder = NULL;
 
-						// 이걸 호출하지 않으면 _qlen이 1인데도 Dequeue() 가 false 를 리턴하여 루프를 빠져나올 수 있다.
-						// 그렇게 되면 이후의 Post() 는 task를 큐잉만 한다.
-						_q.MoveTail();
 						bool hasTask = _q.Dequeue( taskHolder );
 						if (hasTask) break;
-					}
+					}*/
+					taskHolder = NULL;
+					_q.Dequeue( taskHolder );
 					EARLGREY_ASSERT(taskHolder != NULL);
 
 					(*taskHolder)();
