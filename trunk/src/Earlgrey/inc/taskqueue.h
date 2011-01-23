@@ -331,7 +331,7 @@ namespace Earlgrey {
 						if (hasTask) break;
 					}*/
 					taskHolder = NULL;
-					_q.Dequeue( taskHolder );
+					EARLGREY_VERIFY(_q.Dequeue( taskHolder ));
 					EARLGREY_ASSERT(taskHolder != NULL);
 
 					(*taskHolder)();
