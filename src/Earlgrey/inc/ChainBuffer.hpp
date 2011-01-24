@@ -310,7 +310,7 @@ namespace Earlgrey
 		void chain_buffer<T,A>::set(size_type offset, const_pointer ptr, size_type length)
 	{
 		EARLGREY_ASSERT(offset + length <= size());
-		if (offset + length <= size())
+		if (offset + length > size())
 		{
 			throw std::out_of_range("Parameter out of range");
 		}
