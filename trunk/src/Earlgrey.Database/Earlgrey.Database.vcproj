@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\boost_1_42_0&quot;"
+				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\Optionals\boost_1_45_0&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -110,7 +110,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\boost_1_42_0&quot;"
+				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\Optionals\boost_1_45_0&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -132,7 +132,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -179,7 +179,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\boost_1_42_0&quot;"
+				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\Optionals\boost_1_45_0&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -199,7 +199,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -247,7 +247,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\boost_1_42_0&quot;"
+				AdditionalIncludeDirectories="./inc;&quot;$(ProjectDir)..\Earlgrey\inc&quot;;&quot;$(ProjectDir)..\..\vendor\Optionals\boost_1_45_0&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -267,7 +267,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalLibraryDirectories="..\..\vendor\boost_1_42_0\libs"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 			/>
 			<Tool
 				Name="VCALinkTool"

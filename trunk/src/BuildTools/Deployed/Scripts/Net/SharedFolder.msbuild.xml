@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project
+	ToolsVersion="3.5"
+	InitialTargets=""
+	DefaultTargets=""
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+  >
+  <Import Project="..\Configuration.msbuild.xml"/>
+
+  <PropertyGroup>
+    <SwitchUser Condition="'$(UserId)' != ''">/USER:</SwitchUser>
+    
+    <SwitchGrant Condition="'$(UserId)' != ''">/GRANT:</SwitchGrant>
+    <Permission Condition="'$(Permission)' == ''">READ</Permission>
+    <Privilege Condition="'$(SwitchGrant)' != '' AND '$(Permission)' != ''">,$(Permission)</Privilege>
+    
+    <SwitchUsers Condition="'$(Users)' == ''">/UNLIMITED</SwitchUsers>
+    <SwitchUsers Condition="'$(Users)' != ''">/USERS:</SwitchUsers>
+    
+    <SwitchRemark Condition="'$(Remark)' != ''">/REMARK:</SwitchRemark>
+    <Description Condition="'$(Remark)' != ''">$(Quot)$(Remark)$(Quot)</Description>
+
+    <ResetExistingOne>false</ResetExistingOne>
+    
+    <CreateLocalFolder Condition="'$(CreateLocalFolder)' != ''">false</CreateLocalFolder>
+    <DeleteLocalFolder Condition="'$(DeleteLocalFolder)' != ''">false</DeleteLocalFolder>
+
+    <StopOnError Condition="'$(StopOnError)' != ''">true</StopOnError>
+  </PropertyGroup>
+
+  
+  <Target Name="ShareFolder">
+    <Error Text="Invalid privilege keword '$(Privilege)'"
+           Condition="'$(Privilege)' != '' AND '$(Privilege)' != 'READ' AND '$(Privilege)' != 'CHANGE' AND '$(Privilege)' != 'FULL'"
+           />
+
+    <MakeDir Directories="$(LocalPath)" 
+             Condition="!Exists('$(LocalPath)') AND '$(CreateLocalFolder)' == 'true'"
+             />
+
+    <Exec Command="NET SHARE $(Quot)$(FolderUri)$(Quot) /DELETE"
+          Condition="'$(ResetExistingOne)'"
+          IgnoreExitCode="true"
+          />
+    
+    <Exec Command="NET SHARE $(FolderUri)=$(Quot)$(LocalPath)$(Quot) $(SwitchGrant)$(UserId)$(Privilege) $(SwitchUsers)$(Users) $(SwitchRemark)$(Description)" />
+    
+  </Target>
+
+  <Target Name="DeleteSharedFolder">
+    <Exec Command="NET SHARE $(Quot)$(FolderUri)$(Quot) /DELETE" />
+
+    <Exec Command="RMDIR /S /Q $(Quot)$(LocalPath)$(Quot)" />
+  </Target>
+  
+  <Target Name="LogonToSharedFolder">
+    <Exec Command="NET USE $(Quot)$(FolderUri)$(Quot) $(Password) $(SwitchUser)$(UserId)"
+          Timeout="30000" />
+  </Target>
+
+  <Target Name="LogoutFromSharedFolder">
+    <Exec Command="net use /delete $(FolderUri)" />
+  </Target>
+  
+</Project>
