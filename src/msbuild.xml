@@ -2,10 +2,10 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
 <PropertyGroup>
-	<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504-bin\Release</MSBuildCommunityTasksPath>
+	<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildTools\Deployed</MSBuildCommunityTasksPath>
 </PropertyGroup>
 
-<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets"/>
+<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
 
 
 <!-- 플랫폼 판단 -->
@@ -34,6 +34,9 @@
 	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
 	<BinDir>$(OutputDir)\Bin</BinDir>
 	<ObjDir>$(OutputDir)\Obj</ObjDir>
+	
+	<BuildConfigurationFilePath>$(RootDir)\Earlgrey\inc\BuildConfiguration.h</BuildConfigurationFilePath>
+	<UseBoost Condition=" '$(UseBoost)' == '' ">false</UseBoost>
 </PropertyGroup>
 
 <!-- 특별한 문자열 -->  
@@ -72,6 +75,11 @@
 	</UnitTestBinaries>
 </ItemGroup>
 
+<!-- 선택적 라이브러리 -->
+<ItemGroup>
+	<OptionalLibs Include="$(RootDir)\..\vendor\Optionals\*.7z" />
+	<OptionalLibs Include="$(RootDir)\..\vendor\Optionals\*.zip" />
+</ItemGroup>
 
 <Target Name="CleanUnitTestArtifacts">
 	<Message Text="타겟: CleanUnitTestArtifacts" />
@@ -86,7 +94,16 @@
 	<RemoveDir Directories="$(OutputDir)" />  
 </Target>  
 
-<Target Name="Build">
+<Target Name="PrepareOptionals" Condition="'$(UseBoost)' == 'true'">
+	<SevenZip.Unpack 
+		ZipFilePath="%(OptionalLibs.FullPath)" 
+		TargetDir="%(OptionalLibs.RootDir)%(OptionalLibs.Directory)" 
+		Overwrite="false" 
+		Condition="!Exists('%(OptionalLibs.RootDir)%(OptionalLibs.Directory)')"
+		/>
+</Target>
+
+<Target Name="Build" DependsOnTargets="PrepareOptionals">
 	<Message Text="타겟: Build " />
 	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
 	
@@ -95,14 +112,14 @@
 
 <Target Name="Rebuild" DependsOnTargets="Clean; Build">
 	<Message Text="타겟: Rebuild" />
-</Target>
-
+</Target>            
+			
 <Target Name="PrepareDatabase">
 	<ExecuteDDL 
 		ConnectionString="Server=.\SQLEXPRESS;Database=master;Trusted_Connection=Yes;" 
 		Files="$(RootDir)\Earlgrey.Database.Test\MSSQL-Tables.sql" 
 		ContinueOnError="false" 
-	/>
+	/>            
 </Target>
 
 <Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts; PrepareDatabase">

@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -114,7 +114,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -182,7 +182,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -251,7 +251,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				WarningLevel="4"
