@@ -76,10 +76,10 @@
 </ItemGroup>
 
 <!-- 선택적 라이브러리 -->
-<ItemGroup>
-	<OptionalLibs Include="$(RootDir)\..\vendor\Optionals\*.7z" />
-	<OptionalLibs Include="$(RootDir)\..\vendor\Optionals\*.zip" />
-</ItemGroup>
+<PropertyGroup>
+	<OptionalLibsRootDir>$(RootDir)\..\vendor\Optionals</OptionalLibsRootDir>
+</PropertyGroup>
+
 
 <Target Name="CleanUnitTestArtifacts">
 	<Message Text="타겟: CleanUnitTestArtifacts" />
@@ -94,12 +94,32 @@
 	<RemoveDir Directories="$(OutputDir)" />  
 </Target>  
 
-<Target Name="PrepareOptionals" Condition="'$(UseBoost)' == 'true'">
+<Target Name="PrepareOptionals" Condition="'$(UseBoost)' == 'true'"> 
+	<WebDownload 
+		FileUri="http://sourceforge.net/projects/boost/files/boost/1.45.0/boost_1_45_0.7z/download" 
+        FileName="$(OptionalLibsRootDir)\boost_1_45_0.7z" 
+		Condition="!Exists('$(OptionalLibsRootDir)\boost_1_45_0.7z')"
+		/>
+
+	<FileUpdate Files="$(RootDir)\Earlgrey\inc\BuildConfiguration.h"
+		Regex="^/\*\s+{BuildTool}"
+		ReplacementText="// /* {BuildTool}" 
+		Encoding="euc-kr"
+		Multiline="true"
+		/>
+		
+	<FileUpdate Files="$(RootDir)\Earlgrey\inc\BuildConfiguration.h"
+		Regex="^{BuildTool} \*\/"
+		ReplacementText="// {BuildTool} */" 
+		Encoding="euc-kr"
+		Multiline="true"
+		/>
+            
 	<SevenZip.Unpack 
-		ZipFilePath="%(OptionalLibs.FullPath)" 
-		TargetDir="%(OptionalLibs.RootDir)%(OptionalLibs.Directory)" 
+		ZipFilePath="$(OptionalLibsRootDir)\boost_1_45_0.7z" 
+		TargetDir="$(OptionalLibsRootDir)" 
 		Overwrite="false" 
-		Condition="!Exists('%(OptionalLibs.RootDir)%(OptionalLibs.Directory)')"
+		Condition="!Exists('$(OptionalLibsRootDir)\boost_1_45_0')"
 		/>
 </Target>
 

@@ -7,6 +7,11 @@
 #endif 
 
 // Do not remove or uncomment the following lines, which are for build scripts!
+/* {BuildTool}
+#ifndef EARLGREY_BUILD_USE_BOOST
+#define EARLGREY_BUILD_USE_BOOST
+#endif 
+{BuildTool} */
 
 // Major build configuration
 // EARLGREY_BUILD_MODE_SAFE
