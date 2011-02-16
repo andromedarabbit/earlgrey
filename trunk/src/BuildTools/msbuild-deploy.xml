@@ -9,15 +9,23 @@
 
 <!-- 배포 폴더 -->
 <PropertyGroup>
-	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\MSBuildExtension</DeploymentDir>
+	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\Deployment</DeploymentDir>
+	<MSBuildExtensionDeploymentDir>$(DeploymentDir)\MSBuildExtension</MSBuildExtensionDeploymentDir>
+	<UnityBuildDeploymentDir>$(DeploymentDir)\UnityBuild</UnityBuildDeploymentDir>
 </PropertyGroup>
 
 <Target Name="Deploy" DependsOnTargets="$(BuildCondition);">
 	<MSBuild 
-			Projects="$(RootDir)\msbuild-deploy-internal.xml" 
-			Targets="CopyFiles" 
-			Properties="DeploymentDir=$(DeploymentDir);BinDir=$(BinDir)"
-		/>
+		Projects="$(RootDir)\msbuild-deploy-msbuildextensions.xml" 
+		Targets="CopyFiles" 
+		Properties="DeploymentDir=$(MSBuildExtensionDeploymentDir);BinDir=$(BinDir)"
+	/>
+		
+	<MSBuild 
+		Projects="$(RootDir)\msbuild-deploy-unitybuild.xml" 
+		Targets="CopyFiles" 
+		Properties="DeploymentDir=$(UnityBuildDeploymentDir);BinDir=$(BinDir)"
+	/>
 		
 	<CallTarget Targets="TestAlone" />
 </Target>

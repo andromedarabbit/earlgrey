@@ -6,8 +6,8 @@
 
 	
 	<ItemGroup>
-		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
-		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
+		<TestAssembly Include="$(BinDir)\*.Tests.dll" />
+		
 	</ItemGroup>
 
 	<Target Name="VerifyProperties">
