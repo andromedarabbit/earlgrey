@@ -61,7 +61,7 @@ namespace UnityBuild
         {
             get
             {
-                Debug.Assert(this.nameField == "VCCLCompilerTool");
+                // Debug.Assert(this.nameField == "VCCLCompilerTool");
 
                 return (UsePrecompiledHeaderOptions) Enum.Parse(
                     typeof (UsePrecompiledHeaderOptions), _usePrecompiledHeader
