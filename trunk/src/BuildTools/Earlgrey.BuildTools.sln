@@ -14,7 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{8C57DDC2-1BC9-4CAB-9DA4-E2C629348D8C}"
 	ProjectSection(SolutionItems) = preProject
 		msbuild-ci.xml = msbuild-ci.xml
-		msbuild-deploy-internal.xml = msbuild-deploy-internal.xml
+		msbuild-deploy-msbuildextensions.xml = msbuild-deploy-msbuildextensions.xml
+		msbuild-deploy-unitybuild.xml = msbuild-deploy-unitybuild.xml
 		msbuild-deploy.xml = msbuild-deploy.xml
 		msbuild-initialize.xml = msbuild-initialize.xml
 		msbuild-symbol.xml = msbuild-symbol.xml
