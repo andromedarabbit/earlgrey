@@ -57,9 +57,18 @@
     <DevEnv>devenv</DevEnv>  
 </PropertyGroup> 
 
+<!-- UnityBuild -->
+<PropertyGroup>
+	<UseUnityBuild Condition="'$(UseUnityBuild)' ==''">false</UseUnityBuild>
+</PropertyGroup>
+
 <!-- 빌드 대상 -->
 <ItemGroup>
-	<ProjectReferences Include="Earlgrey.sln">
+	<ProjectReferences Include="Earlgrey.sln" Condition="'$(UseUnityBuild)' == 'true'">
+		<Configuration>$(Configuration)</Configuration>
+		<Platform>$(Platform)</Platform>
+	</ProjectReferences>
+	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' != 'true'">
 		<Configuration>$(Configuration)</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
@@ -123,7 +132,15 @@
 		/>
 </Target>
 
-<Target Name="Build" DependsOnTargets="PrepareOptionals">
+<Target Name="PrepareUnityBuild">
+	<Exec 
+		Command="&quot;$(MSBuildProjectDirectory)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;%(ProjectReferences.FullPath)&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
+		WorkingDirectory="%(ProjectReferences.RootDir)%(ProjectReferences.Directory)"
+		/>
+		
+</Target>
+
+<Target Name="Build" DependsOnTargets="PrepareOptionals; PrepareUnityBuild">
 	<Message Text="타겟: Build " />
 	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
 	
