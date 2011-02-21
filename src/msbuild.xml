@@ -134,8 +134,8 @@
 
 <Target Name="PrepareUnityBuild">
 	<Exec 
-		Command="&quot;$(MSBuildProjectDirectory)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;%(ProjectReferences.FullPath)&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
-		WorkingDirectory="%(ProjectReferences.RootDir)%(ProjectReferences.Directory)"
+		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
+		WorkingDirectory="$(RootDir)"
 		/>
 		
 </Target>
