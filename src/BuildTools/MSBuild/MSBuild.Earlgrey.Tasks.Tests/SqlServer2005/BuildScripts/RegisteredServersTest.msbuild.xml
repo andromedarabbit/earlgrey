@@ -32,4 +32,17 @@
 		<UnregisterGroup  Name="EarlgreyTestGroup" />	
 	</Target>
 
+	<Target Name="TestCase-RegisterGroupRecursivelyWithDetails-ExpectTrue">
+		<SqlServer2005.RegisterServer
+			Name="Dev-KR"
+			ServerInstance="CombatDevDbKr.nexon.dev"
+			Description=""
+			Path="ServerGroup[@Name=''EarlgreyTestGroup'']"
+			Login="combat_admin"
+			LoginSecure="false"
+			Password="fx01gdb"
+			CreateRecursively="true"
+		/>
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
+	</Target>
 </Project>
