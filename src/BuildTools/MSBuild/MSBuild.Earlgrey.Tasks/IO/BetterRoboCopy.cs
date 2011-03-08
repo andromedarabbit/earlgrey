@@ -2,12 +2,69 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using Microsoft.Build.Utilities;
 using Earlgrey;
 
 namespace MSBuild.Earlgrey.Tasks.IO
 {
     public class BetterRoboCopy : MSBuild.Community.Tasks.RoboCopy
     {
+        /*  
+          /MAXAGE:n :: 최대 파일 사용 기간 - n일/날짜보다 오래된 파일을 제외합니다.
+          /MINAGE:n :: 최소 파일 사용 기간 - n일/날짜보다 최신 파일을 제외합니다.
+          /MAXLAD:n :: 최대 마지막 액세스 날짜 - n 이후에 사용되지 않은 파일을 제외합니다.
+          /MINLAD:n :: 최소 마지막 액세스 날짜 - n 이후에 사용된 파일을 제외합니다.
+                       n이 1900보다 크면 n은 n일과 같고 그렇지 않으면 n은 YYYYMMDD 날짜입니다.
+         * */
+
+        private const string MAXAGE_SWITCH_NAME = "/MAXAGE:";
+        private const string MINAGE_SWITCH_NAME = "/MINAGE:";
+        private const string MAXLAD_SWITCH_NAME = "/MAXLAD:";
+        private const string MINLAD_SWITCH_NAME = "/MINLAD:";
+
+        private string _maxAgeString;
+        private string _minAgeString;
+        private string _maxLadString;
+        private string _minLadString;
+
+        public string MaxAge
+        {
+            get { return _maxAgeString; }
+            set { _maxAgeString = value; }
+        }
+
+        public string MinAge
+        {
+            get { return _minAgeString; }
+            set { _minAgeString = value; }
+        }
+
+        public string MaxLad
+        {
+            get { return _maxLadString; }
+            set { _maxLadString = value; }
+        }
+
+        public string MinLad
+        {
+            get { return _minLadString; }
+            set { _minLadString = value; }
+        }
+
+        
+        protected override string GenerateCommandLineCommands()
+        {
+            CommandLineBuilder builder = new CommandLineBuilder();
+            builder.AppendSwitchIfNotNull(MAXAGE_SWITCH_NAME, _maxAgeString);
+            builder.AppendSwitchIfNotNull(MINAGE_SWITCH_NAME, _minAgeString);
+            builder.AppendSwitchIfNotNull(MAXLAD_SWITCH_NAME, _maxLadString);
+            builder.AppendSwitchIfNotNull(MINLAD_SWITCH_NAME, _minLadString);
+
+            string commands = base.GenerateCommandLineCommands();
+            return commands + " " + builder.ToString();
+        }
+
+
         protected override string GenerateFullPathToTool()
         {
             string fullPathToTool = base.GenerateFullPathToTool();
