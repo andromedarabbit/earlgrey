@@ -84,6 +84,11 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             }
         }
 
+        public static ServerGroup FindGroup(string fullPath)
+        {
+            return FindGroup(GetParentGroupPath(fullPath), GetLastChildGroupName(fullPath));
+        }
+
         public static ServerGroup FindGroup(string path, string groupName)
         {
             if (string.IsNullOrEmpty(path) == false && string.IsNullOrEmpty(groupName))
@@ -124,5 +129,68 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
                 );
         }
 
+        public static string GetLastChildGroupName(string path)
+        {
+            string groupPath = GetLastChildGroupPath(path);
+            return GetGroupNameFromPath(groupPath);
+        }
+
+        private static string GetLastChildGroupPath(string path)
+        {
+            Trace.Assert(string.IsNullOrEmpty(path) == false);
+
+            if (string.IsNullOrEmpty(path))
+                return string.Empty;
+
+            int index = path.LastIndexOf("/ServerGroup[@Name=''", StringComparison.CurrentCultureIgnoreCase);
+            if (index < 0)
+            {
+                index = path.LastIndexOf("ServerGroup[@Name=''", StringComparison.CurrentCultureIgnoreCase);
+                if (index < 0)
+                    throw new ArgumentException();
+
+                // "ServerGroup[@Name=''Local Instances'']
+                return path;
+            }
+
+            // "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
+            return path.Substring(index + 1).Trim('/');
+        }
+
+
+        public static string GetParentGroupPath(String path)
+        {
+            Trace.Assert(string.IsNullOrEmpty(path) == false);
+
+            if (string.IsNullOrEmpty(path))
+                return string.Empty;
+
+            int index = path.LastIndexOf("/ServerGroup[@Name=''", StringComparison.CurrentCultureIgnoreCase);
+            if (index < 0)
+            {
+                index = path.LastIndexOf("ServerGroup[@Name=''", StringComparison.CurrentCultureIgnoreCase);
+                if (index < 0)
+                    throw new ArgumentException();
+
+                // "ServerGroup[@Name=''Local Instances'']
+                return string.Empty;
+            }
+
+            // "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
+            return path.Substring(0, index + 1).Trim('/');
+        }
+
+        public static string GetGroupNameFromPath(string groupPath)
+        {
+            int indexOpen = groupPath.IndexOf("''");
+            Debug.Assert(indexOpen > -1);
+            indexOpen = indexOpen + 2;
+
+            int indexClose = groupPath.LastIndexOf("''");
+            Debug.Assert(indexClose > -1);
+            Debug.Assert(indexClose > indexOpen);
+
+            return groupPath.Substring(indexOpen, indexClose - indexOpen);
+        }
     }
 }

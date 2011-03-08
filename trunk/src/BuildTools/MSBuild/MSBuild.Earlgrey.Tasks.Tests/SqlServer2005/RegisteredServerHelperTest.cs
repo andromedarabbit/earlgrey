@@ -60,5 +60,51 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
 
             Assert.IsTrue(unregister.Execute());
         }
+
+        [Test]
+        public void GetLastChildGroupName1()
+        {
+            const string path = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Instance'']";
+            string lastChildGroupName = RegisteredServerHelper.GetLastChildGroupName(
+                path
+                );
+
+            Assert.AreEqual("Instance", lastChildGroupName);
+        }
+
+        [Test]
+        public void GetLastChildGroupName2()
+        {
+            const string path = @"ServerGroup[@Name=''Local Instance'']";
+            string lastChildGroupName = RegisteredServerHelper.GetLastChildGroupName(
+                path
+                );
+
+            Assert.AreEqual("Local Instance", lastChildGroupName);
+        }
+
+
+
+        [Test]
+        public void GetParentGroupName1()
+        {
+            const string path = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Instance'']";
+            string parentGroupPath = RegisteredServerHelper.GetParentGroupPath(
+                path
+                );
+
+            Assert.AreEqual("ServerGroup[@Name=''Local Instances'']", parentGroupPath);
+        }
+
+        [Test]
+        public void GetParentGroupName2()
+        {
+            const string path = @"ServerGroup[@Name=''Local Instance'']";
+            string parentGroupPath = RegisteredServerHelper.GetParentGroupPath(
+                path
+                );
+
+            Assert.AreEqual(string.Empty, parentGroupPath);
+        }
     }
 }

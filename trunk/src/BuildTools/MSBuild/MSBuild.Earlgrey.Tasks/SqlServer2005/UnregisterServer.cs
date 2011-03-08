@@ -40,7 +40,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
                 return true;
             }
 
-            ServerGroup parentGroup = RegisteredServerHelper.FindParentGroup(_path);
+            string parentGroupPath = RegisteredServerHelper.GetParentGroupPath(_path);
+            ServerGroup parentGroup = RegisteredServerHelper.FindParentGroup(parentGroupPath);
             if(parentGroup == null)
                 return false;
 

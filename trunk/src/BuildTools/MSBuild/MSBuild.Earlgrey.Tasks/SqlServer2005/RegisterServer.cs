@@ -26,6 +26,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         public  RegisterServer()
         {
             _name = null;
+            _serverInstance = string.Empty;
             _description = string.Empty;
             _path = string.Empty;
             _login = string.Empty;
@@ -65,38 +66,38 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 
             if (_createRecursively == true)
             {
-                RegisterGroup registerGroup = new RegisterGroup();
-                registerGroup.BuildEngine = this.BuildEngine;
-                registerGroup.CreateRecursively = true;
-                registerGroup.Path = _path;
-                registerGroup.Name = Name;
-
-                if(registerGroup.Execute() == false)
-                {
+                if (CreateGroupsRecursively() == false) 
                     return false;
-                }
             }
-            ServerGroup parentGroup = RegisteredServerHelper.FindParentGroup(_path);
-            if (parentGroup == null)
-                return false;
 
-
+            ServerGroup parentGroup = RegisteredServerHelper.FindGroup(_path);
             CreateServer(parentGroup);
             return true;
         }
 
-        //private string ParentPath
-        //{
-        //    get
-        //    {
-        //        Trace.Assert(string.IsNullOrEmpty(_path) == false);
+        private bool CreateGroupsRecursively()
+        {
+            if (string.IsNullOrEmpty(_path))
+                return true;
 
-        //        // "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
-        //        int index = _path.LastIndexOf("ServerGroup[@Name=''", StringComparison.CurrentCultureIgnoreCase) + 1;
-        //        string 
-        //    }
-        //}
+            string parentGroupPath = RegisteredServerHelper.GetParentGroupPath(_path);
+            string lastChildGroupPath = RegisteredServerHelper.GetLastChildGroupName(_path);
 
+
+            RegisterGroup registerGroup = new RegisterGroup();
+            registerGroup.BuildEngine = this.BuildEngine;
+            registerGroup.CreateRecursively = true;
+            registerGroup.Path = parentGroupPath;
+            registerGroup.Name = lastChildGroupPath;
+
+            if(registerGroup.Execute() == false)
+            {
+                return false;
+            }
+            return true;
+        }
+
+    
         private void CreateServer()
         {
             RegisteredServer server = new RegisteredServer(_name);
@@ -119,10 +120,10 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             server.Description = _description;
             server.Login = _login;
             server.LoginSecure = _loginSecure;
-
+            
             // http://www.vcskicks.com/secure-string.php
             SecureString password = new SecureString();
-            for (int i = 0; i < password.Length; i++)
+            for (int i = 0; i < _password.Length; i++)
             {
                 password.AppendChar(_password[i]);
             }
