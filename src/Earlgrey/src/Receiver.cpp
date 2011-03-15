@@ -34,14 +34,10 @@ namespace Earlgrey
 			return;
 		}
 
-		size_t oldEnd = _End;
-
 		NetworkBuffer* buffer = _Stream->GetReadBuffer();
 		DWORD readBytes = Result->GetBytesTransferred();
 		buffer->OnReceived( readBytes );
 		_End += readBytes;
-
-		EARLGREY_ASSERT( _End - oldEnd < 100 );
 
 		size_t HandledSize = 0;
 
