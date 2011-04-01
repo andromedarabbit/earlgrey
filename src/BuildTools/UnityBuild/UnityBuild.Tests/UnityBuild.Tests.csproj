@@ -105,19 +105,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UnityBuildTestResources\TextFileAnsiEncoded1.txt">
+    <Content Include="Temp\UnityBuildTestResources\TextFileAnsiEncoded1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UnityBuildTestResources\TextFileAnsiEncoded2.txt">
+    <Content Include="Temp\UnityBuildTestResources\TextFileAnsiEncoded2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UnityBuildTestResources\TextFileEmpty.txt">
+    <Content Include="Temp\UnityBuildTestResources\TextFileEmpty.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UnityBuildTestResources\TextFileUtf8Encoded1.txt">
+    <Content Include="Temp\UnityBuildTestResources\TextFileUtf8Encoded1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="UnityBuildTestResources\TextFileUtf8Encoded2.txt">
+    <Content Include="Temp\UnityBuildTestResources\TextFileUtf8Encoded2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

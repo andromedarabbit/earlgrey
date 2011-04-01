@@ -30,14 +30,14 @@ namespace UnityBuild.Tests
         {
             _ThisDir = Path.Combine(
                 TaskUtility.ThisAssemblyDirectory
-                , @"UnityBuildTestResources"
+                , @"Temp\UnityBuildTestResources"
                 );
 
             _TempDir = Path.Combine(_ThisDir, "Temp");
 
             _SolutionFileDir = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src"
+                TaskUtility.BaseDirectory
+                , @"..\..\UnityBuild\UnitTestSample\src"
             );
             _SolutionFileDir = Path.GetFullPath(_SolutionFileDir);
 
@@ -48,8 +48,8 @@ namespace UnityBuild.Tests
             // _SolutionFilePath = Path.GetFullPath(_SolutionFilePath);
 
             _SampleVcProjFilePath = Path.Combine(
-               AppDomain.CurrentDomain.BaseDirectory
-               , @"..\..\..\BuildTools\UnityBuild\UnitTestSample\src\Earlgrey\Earlgrey.vcproj"
+               TaskUtility.BaseDirectory
+               , @"..\..\UnityBuild\UnitTestSample\src\Earlgrey\Earlgrey.vcproj"
            );
             _SampleVcProjFilePath = Path.GetFullPath(_SampleVcProjFilePath);
 
@@ -83,7 +83,7 @@ namespace UnityBuild.Tests
             Revert();
         }
 
-        internal  static void Revert()
+        internal static void Revert()
         {
             string srcPath = Path.GetFullPath(
               Path.Combine(TaskUtility.ThisAssemblyDirectory, @"..\..\UnityBuild\UnitTestSample\src\")
