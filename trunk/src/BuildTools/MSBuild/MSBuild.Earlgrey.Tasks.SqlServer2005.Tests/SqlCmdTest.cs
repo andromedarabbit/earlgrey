@@ -15,7 +15,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
         {
             SqlCmd instance = new SqlCmd();
             instance.BuildEngine = new MockBuildEngine();
-
             instance.Server = @"localhost\SQLEXPRESS";
             instance.DbName = "master";
             instance.Query = "SELECT * FROM INFORMATION_SCHEMA.TABLES;";
@@ -28,7 +27,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
         {
             SqlCmd instance = new SqlCmd();
             instance.BuildEngine = new MockBuildEngine();
-
             instance.Server = @"localhost\SQLEXPRESS";
 
             Assert.IsTrue(instance.Execute());

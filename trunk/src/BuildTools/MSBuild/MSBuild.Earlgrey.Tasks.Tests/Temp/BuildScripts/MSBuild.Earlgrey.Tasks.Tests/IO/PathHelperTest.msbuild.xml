@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
-    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
