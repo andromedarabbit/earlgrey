@@ -7,6 +7,8 @@
 	
 	<ItemGroup>
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
+		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2005.Tests.dll" />
+		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2008.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\UnityBuild.Tests.dll" /> 
 	</ItemGroup>

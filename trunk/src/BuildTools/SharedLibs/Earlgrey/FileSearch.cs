@@ -32,6 +32,36 @@ namespace Earlgrey
             throw new FileNotFoundException();
         }
 
+        public static IEnumerable<string> FindAll(string fileName)
+        {
+            HashSet<string> filesFound = new HashSet<string>();
+
+            if (File.Exists(fileName))
+            {
+                string filePath = Path.Combine(
+                    Environment.CurrentDirectory, fileName
+                    );
+                filesFound.Add(filePath);
+            }
+
+            string pathFromEnv = Environment.GetEnvironmentVariable("PATH");
+            if (string.IsNullOrEmpty(pathFromEnv))
+                return filesFound;
+
+            string[] paths = pathFromEnv.Split(';');
+            foreach (var path in paths)
+            {
+                if (string.IsNullOrEmpty(path))
+                    continue;
+
+                string fullPath = Path.Combine(path, fileName);
+                if (File.Exists(fullPath))
+                    filesFound.Add(fullPath);
+            }
+
+            return filesFound;
+        }
+
         public static string FindFirst(string rootDir, string pattern)
         {
             foreach (string dir in Directory.GetDirectories(rootDir, "*", SearchOption.AllDirectories))
@@ -54,12 +84,13 @@ namespace Earlgrey
 
         private static void Search(string rootDir, string pattern, List<string> files)
         {
-            foreach (string dir in Directory.GetDirectories(rootDir))
+            foreach (string file in Directory.GetFiles(rootDir, pattern))
             {
-                foreach (string file in Directory.GetFiles(dir, pattern))
-                {
-                    files.Add(file);
-                }
+                files.Add(file);
+            }
+
+            foreach (string dir in Directory.GetDirectories(rootDir)){
+                
                 Search(dir, pattern, files);
             }
         }

@@ -17,6 +17,11 @@
 	<MSBuildCommunityTasksTargets>$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargets>
 </PropertyGroup>
 
+<!-- 선택적 라이브러리 -->
+<PropertyGroup>
+	<TempOptionalLibsRootDir>..\..\vendor\Optionals</TempOptionalLibsRootDir>
+</PropertyGroup>
+
 <ItemGroup>
 	<DeployFiles Include="$(MSBuildCommunityTasksBin)\ICSharpCode.SharpZipLib.dll" />
 	<DeployFiles Include="$(MSBuildCommunityTasksBin)\Microsoft.VisualStudio.SourceSafe.Interop.dll" />
@@ -24,6 +29,9 @@
 	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xml" />
 	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xsd" />
 </ItemGroup>
+
+
+<Import Project="$(MSBuildCommunityTasksTargets)"/>
 
 <Target Name="BuildMSBuildCommunityTasks">
 	<Copy 
@@ -52,7 +60,33 @@
 		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(BinDir)\$(Quot) " />
 </Target>
 
-<Target Name="PrepareThirdParties" DependsOnTargets="DeployMSBuildCommunityTasks">
+<Target Name="GetOptionalLibsRootDir">
+	<ConvertToAbsolutePath Paths="$(TempOptionalLibsRootDir)">
+		<Output TaskParameter="AbsolutePaths" PropertyName="OptionalLibsRootDir"/>
+	</ConvertToAbsolutePath>
+</Target>
+
+<Target Name="PrepareOptionals" DependsOnTargets="GetOptionalLibsRootDir"> 
+	<!-- 
+		Microsoft SQL Server 2008 Management Objects 
+		http://www.microsoft.com/downloads/ko-kr/details.aspx?FamilyID=C6C3E9EF-BA29-4A43-8D69-A2BED18FE73C
+	-->
+	<WebDownload 
+		FileUri="http://go.microsoft.com/fwlink/?LinkId=123708$(Ampersand)clcid=0x412"
+		FileName="$(OptionalLibsRootDir)\SharedManagementObjects-x86.msi" 
+		Condition="!Exists('$(OptionalLibsRootDir)\SharedManagementObjects-x86.msi')"
+		/>
+    
+	<MakeDir Directories="$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects" />
+	
+	<Exec 
+		Command="msiexec /a $(Quot)SharedManagementObjects-x86.msi$(Quot) /qb TARGETDIR=$(Quot)$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects$(Quot)"
+		WorkingDirectory="$(OptionalLibsRootDir)" 
+	/>
+	
+</Target>
+
+<Target Name="PrepareThirdParties" DependsOnTargets="PrepareOptionals; DeployMSBuildCommunityTasks">
 </Target>
 
 </Project>

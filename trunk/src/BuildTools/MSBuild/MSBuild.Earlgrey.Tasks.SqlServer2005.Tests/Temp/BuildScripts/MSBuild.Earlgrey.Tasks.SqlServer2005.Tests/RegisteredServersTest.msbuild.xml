@@ -3,10 +3,11 @@
 
 	<PropertyGroup>
 		<RootDir>$(MSBuildProjectDirectory)</RootDir>
-		<MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+		<MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..</MSBuildEarlgreyTasksPath>
 	</PropertyGroup>
 
 	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2005.Targets"/>
 
 	<Target Name="TestCase-RegisterGroupUnderRootPath-ExpectTrue">
 		<RegisterGroup  Name="EarlgreyTestGroup" />			

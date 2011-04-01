@@ -5,7 +5,7 @@ using System.Text;
 using MSBuild.Earlgrey.Tasks.SqlServer2005;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
+namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
 {
     [TestFixture]
     public class UnregisterServerTest
