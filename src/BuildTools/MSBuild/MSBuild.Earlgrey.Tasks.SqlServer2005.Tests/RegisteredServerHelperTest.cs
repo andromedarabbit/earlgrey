@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
+namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
 {
     using MSBuild.Earlgrey.Tasks.SqlServer2005;
 

@@ -5,7 +5,7 @@ using System.Text;
 using MSBuild.Earlgrey.Tasks.SqlServer2005;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
+namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
 {
     [TestFixture]
     public class RegisterServerTest
@@ -46,12 +46,15 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
             const string serverName = "UnitTest-RegisterServerUnderParentGroup";
             const string groupPath = "ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']";
 
+            UnregisterLocalInstancesGroup();
+            
             RegisterServer registerInstance = new RegisterServer();
             registerInstance.BuildEngine = new MockBuildEngine();
             registerInstance.Name = serverName;
             registerInstance.Path = groupPath;
             registerInstance.ServerInstance = @".\SQLEXPRESS";
             registerInstance.CreateRecursively = true;
+                       
 
             Assert.IsTrue(registerInstance.Execute());
             
@@ -62,6 +65,11 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
            
             Assert.IsTrue(unregister.Execute());
 
+            UnregisterLocalInstancesGroup();
+        }
+
+        private static void UnregisterLocalInstancesGroup()
+        {
             UnregisterGroup unregisterGroup = new UnregisterGroup();
             unregisterGroup.BuildEngine = new MockBuildEngine();
             unregisterGroup.Name = "Local Instances";
@@ -69,9 +77,6 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
 
             Assert.IsTrue(unregisterGroup.Execute());
         }
-
-       
-
     }
 }
 

@@ -31,12 +31,6 @@
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnPathResolver" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" />
-
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.GetRegisteredGroups" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterGroup" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterGroup" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterServer" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterServer" />
  
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Community.Tasks.Targets"/>
   

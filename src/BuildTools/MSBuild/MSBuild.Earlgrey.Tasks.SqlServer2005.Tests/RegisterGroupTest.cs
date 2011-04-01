@@ -5,7 +5,7 @@ using System.Text;
 using MSBuild.Earlgrey.Tasks.SqlServer2005;
 using NUnit.Framework;
 
-namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
+namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
 {
     [TestFixture]
     public class RegisterGroupTest
@@ -23,13 +23,20 @@ namespace MSBuild.Earlgrey.Tasks.Tests.SqlServer2005
         public void RegisterGroupToRootPath()
         {
             const string groupName = "RegisterGroupsTest.RegisterGroupToRootPath";
-            
+
+            UnregisterGroupForRegisterGroupToRootPathTest(groupName);
+
             RegisterGroup registerInstance = new RegisterGroup();
             registerInstance.BuildEngine = new MockBuildEngine();
             registerInstance.Name = groupName;
 
             Assert.IsTrue(registerInstance.Execute());
 
+            UnregisterGroupForRegisterGroupToRootPathTest(groupName);
+        }
+
+        private static void UnregisterGroupForRegisterGroupToRootPathTest(string groupName)
+        {
             UnregisterGroup unregister = new UnregisterGroup();
             unregister.BuildEngine = new MockBuildEngine();
             unregister.Name = groupName;

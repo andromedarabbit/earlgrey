@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using Microsoft.Build.Framework;
-using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
@@ -129,7 +128,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             }
             password.MakeReadOnly();
             server.SecurePassword = password;
-            
         }
 
         [Required]
