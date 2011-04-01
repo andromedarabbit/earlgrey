@@ -20,8 +20,8 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.IniFile
             reader.BuildEngine = new MockBuildEngine();
 
             string iniFilePath = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory
-                , @"IO\BuildScripts\IniFileTest.Blanks.msbuild.ini"
+                BuildScripts.TestScriptsFolder
+                , @"IO\IniFileTest.Blanks.msbuild.ini"
                 );
 
             reader.FilePath = new TaskItem(iniFilePath);

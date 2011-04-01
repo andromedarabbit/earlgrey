@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
-    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
@@ -12,6 +12,6 @@
   <Target Name="TestCase-ZipPack-ExpectTrue">
     <Delete Files="IO.zip" />
     
-    <Zip.Pack SrcFolder="..\..\IO" ZipFilePath="IO.zip" Excludes="IniFileTest*" />
+    <Zip.Pack SrcFolder="..\..\..\IO" ZipFilePath="IO.zip" Excludes="IniFileTest*" />
   </Target>    
 </Project>

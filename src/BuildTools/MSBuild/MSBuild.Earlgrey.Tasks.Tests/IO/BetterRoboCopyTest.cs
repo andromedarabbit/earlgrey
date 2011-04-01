@@ -17,11 +17,11 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
         static BetterBetterRoboCopyTest()
         {
             SrcDir = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory
+                BuildScripts.TestRootFolder
                 , @"IO\BetterRoboCopySrcFolder1"
                 );
             DstDir = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory
+                BuildScripts.TestRootFolder
                 , @"IO\BetterRoboCopyDstFolder1"
                 );
         }

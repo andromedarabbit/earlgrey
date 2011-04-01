@@ -15,7 +15,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
         static DiffTest()
         {
             string sampleDiffFilePath = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory
+               BuildScripts.TestRootFolder
                 , @"Subversion\Sample\DiffXmlSummaryExample.xml"
                 );
 

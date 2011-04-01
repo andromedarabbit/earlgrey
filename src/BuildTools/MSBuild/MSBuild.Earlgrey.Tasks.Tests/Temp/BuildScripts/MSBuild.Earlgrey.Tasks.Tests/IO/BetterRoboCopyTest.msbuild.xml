@@ -3,23 +3,23 @@
 
   <PropertyGroup>
     <RootDir>$(MSBuildProjectDirectory)</RootDir>
-    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
 
   <Target Name="TestCase-CopyFileWithParentDirectoryTest-ExpectTrue">
-    <Delete Files="$(RootDir)\..\BetterRoboCopyDstFolder1" />
+    <Delete Files="$(RootDir)\..\..\..\IO\BetterRoboCopyDstFolder1" />
     
     <BetterRoboCopy
-      SourceFolder="$(RootDir)\..\BetterRoboCopySrcFolder1"
-      DestinationFolder="$(RootDir)\..\BetterRoboCopyDstFolder1"
+      SourceFolder="$(RootDir)\..\..\..\IO\BetterRoboCopySrcFolder1"
+      DestinationFolder="$(RootDir)\..\..\..\IO\BetterRoboCopyDstFolder1"
       SourceFiles="*.*"
       Options="/R:3"
 		/>
 
     <Error
       Text="Parent folder not found!"
-      Condition="!Exists('$(RootDir)\..\BetterRoboCopyDstFolder1')" />
+      Condition="!Exists('$(RootDir)\..\..\..\IO\BetterRoboCopyDstFolder1')" />
   </Target> 
 </Project>

@@ -44,26 +44,6 @@
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Tasks" />
     <Reference Include="Microsoft.Build.Utilities" />
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.RegisteredServers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Smo.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.SmoExtended, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.SmoExtended.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=2.5.1.9189, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\vendor\NUnit 2.5.1\bin\net-2.0\framework\nunit.framework.dll</HintPath>
@@ -82,9 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IO\BuildScripts\IniFileTest.msbuild.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Compile Include="IO\Compression\SevenZip\ZipTest.cs" />
     <Compile Include="IO\DeleteSharedFolderTest.cs" />
     <Compile Include="IO\IniFile\GetSectionsTest.cs" />
@@ -121,63 +98,66 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IO\BuildScripts\IniFileTestWithNoGlobalSection.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\BetterRoboCopyTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\BetterRoboCopyTest.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest-GetSection.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\SetMetadata.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest-SetValue.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\SharedFolderTest.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest.ANSIEncoded.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\IniFileTest-SetValue.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\IniFileTest-GetSection.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTestWithNoGlobalSection.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\IniFileTest.ANSIEncoded.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\PathHelperTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\ZipPack.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\SetMetadata.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BetterRoboCopySrcFolder1\TextFile.txt">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\SevenZipPack.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\SevenZipPack.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\SharedFolderTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ItemGroup\BuildScripts\ItemsHelperTest.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\ZipPack.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="IO\BuildScripts\PathHelperTest.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\ItemGroup\ItemsHelperTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Subversion\Sample\DiffXmlSummaryExample.xml">
+    <Content Include="Temp\IO\BetterRoboCopySrcFolder1\TextFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Subversion\Sample\한글 폴더\한글 파일.txt">
+    <Content Include="Temp\Subversion\Sample\DiffXmlSummaryExample.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\Subversion\Sample\한글 폴더\한글 파일.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Include="IO\BuildScripts\IniFileTest.ANSIEncoded.msbuild.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="IO\BuildScripts\IniFileTest.msbuild.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="IO\BuildScripts\IniFileTestWithNoGlobalSection.msbuild.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="IO\BuildScripts\IniFileTest.Blanks.msbuild.ini">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="MSBuild.Community.Tasks.snk" />
+    <None Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest.ANSIEncoded.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest.Blanks.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTest.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\IniFileTestWithNoGlobalSection.msbuild.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -19,7 +19,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.Compression.Zip
 
         static ZipTest()
         {
-            TempDir = Path.Combine(TaskUtility.ThisAssemblyDirectory, @"PackTest\Temp");
+            TempDir = Path.Combine(BuildScripts.TestRootFolder, @"PackTest\Temp");
             ZipFilePath = Path.Combine(TempDir, "PackTest.Zip");
         }
 
@@ -59,7 +59,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.Compression.Zip
         [Test]
         public void NotOverwrite()
         {
-            string srcFolder = Path.Combine(TaskUtility.ThisAssemblyDirectory, @"IO");
+            string srcFolder = Path.Combine(BuildScripts.TestScriptsFolder, @"IO");
             Assert.IsTrue( PackFolder(srcFolder, true, false) );
             Assert.IsFalse( PackFolder(srcFolder, true, false) );
         }
@@ -67,7 +67,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.Compression.Zip
         [Test]
         public void Overwrite()
         {
-            string srcFolder = Path.Combine(TaskUtility.ThisAssemblyDirectory, @"IO");
+            string srcFolder = Path.Combine(BuildScripts.TestScriptsFolder, @"IO");
             Assert.IsTrue(PackFolder(srcFolder, true, false));
             Assert.IsTrue(PackFolder(srcFolder, true, true));
         }
@@ -75,7 +75,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.Compression.Zip
         [Test]
         public void PackWithExcludePatterns()
         {
-            string srcFolder = Path.Combine(TaskUtility.ThisAssemblyDirectory, @"IO");
+            string srcFolder = Path.Combine(BuildScripts.TestScriptsFolder, @"IO");
             string[] excludes = new []
                                     {
                                         "IniFile*"
@@ -106,7 +106,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO.Compression.Zip
 
         private static void PackFolderIo(bool containsRootDir)
         {
-            string srcFolder = Path.Combine(TaskUtility.ThisAssemblyDirectory, @"IO");
+            string srcFolder = Path.Combine(BuildScripts.TestScriptsFolder, @"IO");
             Assert.IsTrue( PackFolder(srcFolder, containsRootDir, false) );
 
             Unpack();
