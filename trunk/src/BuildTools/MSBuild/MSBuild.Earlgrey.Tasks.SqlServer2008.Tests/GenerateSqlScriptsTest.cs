@@ -76,7 +76,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             string thisClassName = this.GetType().FullName;
             string thisMethodName = thisClassName + "." + MethodBase.GetCurrentMethod().Name;
 
-            string outputDir = Path.Combine(TaskUtility.BaseDirectory, thisMethodName);
+            string outputDir = Path.Combine(BuildScripts.TestRootFolder, thisMethodName);
             if (Directory.Exists(outputDir))
                 Directory.Delete(outputDir, true);
 
