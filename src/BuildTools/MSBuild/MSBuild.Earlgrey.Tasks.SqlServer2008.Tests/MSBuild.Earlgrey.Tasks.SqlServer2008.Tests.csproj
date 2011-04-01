@@ -76,7 +76,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BuildScripts\GenerateSqlScriptsTest.msbuild.xml">
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.SqlServer2008.Tests\GenerateSqlScriptsTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
