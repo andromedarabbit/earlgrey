@@ -25,6 +25,14 @@
 
 		<Delete Files="$(BinDir)\NUnit.Reports.xml" />
 	</Target>
+	
+	<Target Name="PrepareDatabase">
+		<MSBuild 
+			Projects="$(RootDir)\..\msbuild.xml" 
+			Targets="PrepareDatabase"
+			Properties="Configuration=$(Configuration);"
+		/>
+	</Target>
 
 	<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
 		<Message Text="타겟: TestAlone" />

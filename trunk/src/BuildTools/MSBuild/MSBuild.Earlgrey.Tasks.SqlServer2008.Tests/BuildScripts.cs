@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Earlgrey;
 using MSBuild.Earlgrey.TestSupport;
 using NUnit.Framework;
@@ -12,7 +13,14 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
         [Test]
         public void Execute()
         {
-            List<string> files = FileSearch.Search(TaskUtility.ThisAssemblyDirectory, "*.msbuild.xml");
+            var assembly = this.GetType().Assembly;
+            string thisAssemblyName = assembly.GetName().Name;
+
+            string testScriptsFolder = Path.Combine(
+                TaskUtility.ThisAssemblyDirectory
+                , @"Temp\BuildScripts\" + thisAssemblyName
+                );
+            List<string> files = FileSearch.Search(testScriptsFolder, "*.msbuild.xml");
 
             BuildScriptRunner runner = new BuildScriptRunner();
             runner.Execute(files);

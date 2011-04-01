@@ -13,9 +13,12 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005.Tests
         [Test]
         public void Execute()
         {
+            var assembly = this.GetType().Assembly;
+            string thisAssemblyName = assembly.GetName().Name;
+         
             string testScriptsFolder = Path.Combine(
                 TaskUtility.ThisAssemblyDirectory
-                , @"Temp\BuildScripts\MSBuild.Earlgrey.Tasks.SqlServer2005.Tests"
+                , @"Temp\BuildScripts\" + thisAssemblyName
                 );
             List<string> files = FileSearch.Search(testScriptsFolder, "*.msbuild.xml");
 

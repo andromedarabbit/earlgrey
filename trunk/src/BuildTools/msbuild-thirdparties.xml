@@ -82,6 +82,7 @@
 	<Exec 
 		Command="msiexec /a $(Quot)SharedManagementObjects-x86.msi$(Quot) /qb TARGETDIR=$(Quot)$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects\x86$(Quot)"
 		WorkingDirectory="$(OptionalLibsRootDir)" 
+		Condition="!Exists('$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects\x86\SharedManagementObjects-x86.msi')"
 	/>
 	
 </Target>

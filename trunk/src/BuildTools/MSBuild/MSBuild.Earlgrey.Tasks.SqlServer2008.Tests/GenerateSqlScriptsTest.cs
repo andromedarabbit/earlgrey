@@ -17,7 +17,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
         {
             GenerateSqlScripts instance = new GenerateSqlScripts();
             instance.BuildEngine = new MockBuildEngine();
-            instance.Server = "localhost";
+            instance.Server = @"localhost\SQLEXPRESS";
+            
 
             // TODO: 임시
             // instance.Database = "model";
