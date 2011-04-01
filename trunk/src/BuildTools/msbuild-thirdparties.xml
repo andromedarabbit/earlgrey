@@ -77,10 +77,10 @@
 		Condition="!Exists('$(OptionalLibsRootDir)\SharedManagementObjects-x86.msi')"
 		/>
     
-	<MakeDir Directories="$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects" />
+	<MakeDir Directories="$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects\x86" />
 	
 	<Exec 
-		Command="msiexec /a $(Quot)SharedManagementObjects-x86.msi$(Quot) /qb TARGETDIR=$(Quot)$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects$(Quot)"
+		Command="msiexec /a $(Quot)SharedManagementObjects-x86.msi$(Quot) /qb TARGETDIR=$(Quot)$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects\x86$(Quot)"
 		WorkingDirectory="$(OptionalLibsRootDir)" 
 	/>
 	
