@@ -34,7 +34,7 @@
 		/>
 	</Target>
 
-	<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts">
+	<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts; PrepareDatabase">
 		<Message Text="타겟: TestAlone" />
 
 		<Error Text="'%(TestAssembly.FullPath)' not found!"
