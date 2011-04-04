@@ -51,20 +51,25 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             string thisClassName = this.GetType().FullName;
             string thisMethodName = thisClassName + "." + MethodBase.GetCurrentMethod().Name;
             string outputFileName = thisMethodName + ".sql";
+            string outputDir = Path.Combine(BuildScripts.TestRootFolder, thisMethodName);
 
-            RunIncludeIfNotExistsTestOnce(outputFileName, true, "IF NOT EXISTS (SELECT");
+            RunIncludeIfNotExistsTestOnce(outputDir, outputFileName, true, "IF NOT EXISTS (SELECT");
         }
 
-        private static void RunIncludeIfNotExistsTestOnce(string outputFileName, bool includeIfNotExists, string expectedString)
+        private static void RunIncludeIfNotExistsTestOnce(string outputDir, string outputFileName, bool includeIfNotExists, string expectedString)
         {
+            if (Directory.Exists(outputDir))
+                Directory.Delete(outputDir, true);
+
             GenerateSqlScripts instance = CreateInstance();
+            instance.OutputDir = outputDir;
             instance.OutputFileName = outputFileName;
             instance.Overwrite = true;
             instance.IncludeIfNotExists = includeIfNotExists;
 
             Assert.IsTrue(instance.Execute());
-
-            string text = File.ReadAllText(outputFileName);
+         
+            string text = File.ReadAllText(instance.OutputFilePath);
             Assert.IsNotEmpty(text);
 
             Assert.IsTrue(text.Contains(expectedString));
@@ -98,22 +103,26 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             string thisClassName = this.GetType().FullName;
             string thisMethodName = thisClassName + "." + MethodBase.GetCurrentMethod().Name;
             string outputFileName = thisMethodName + ".sql";
+            string outputDir = Path.Combine(BuildScripts.TestRootFolder, thisMethodName);
 
-
-            RunSchemaQualifyTestOnce(outputFileName, false, "CREATE TABLE [simple_table_1]");
-            RunSchemaQualifyTestOnce(outputFileName, true, "CREATE TABLE [dbo].[simple_table_1]");
+            RunSchemaQualifyTestOnce(outputDir, outputFileName, false, "CREATE TABLE [simple_table_1]");
+            RunSchemaQualifyTestOnce(outputDir, outputFileName, true, "CREATE TABLE [dbo].[simple_table_1]");
         }
 
-        private static void RunSchemaQualifyTestOnce(string outputFileName, bool schemaQualify, string expectedString)
+        private static void RunSchemaQualifyTestOnce(string outputDir, string outputFileName, bool schemaQualify, string expectedString)
         {
+            if (Directory.Exists(outputDir))
+                Directory.Delete(outputDir, true);
+
             GenerateSqlScripts instance = CreateInstance();
+            instance.OutputDir = outputDir;
             instance.OutputFileName = outputFileName;
             instance.Overwrite = true;
             instance.SchemaQualify = schemaQualify;
 
             Assert.IsTrue(instance.Execute());
 
-            string text = File.ReadAllText(outputFileName);
+            string text = File.ReadAllText(instance.OutputFilePath);
             Assert.IsNotEmpty(text);
 
             Assert.IsTrue(text.Contains(expectedString));
@@ -142,19 +151,21 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             string thisClassName = this.GetType().FullName;
             string thisMethodName = thisClassName + "." + MethodBase.GetCurrentMethod().Name;
             string outputFileName = thisMethodName + ".sql";
+            string outputDir = Path.Combine(BuildScripts.TestRootFolder, thisMethodName);
+            string outputFilePath = Path.Combine(outputDir, outputFileName);
 
-            RunOnceNoCollationTest(outputFileName, true);
+            RunOnceNoCollationTest(outputDir, outputFileName, true);
 
-            string text = File.ReadAllText(outputFileName);
+            string text = File.ReadAllText(outputFilePath);
             Assert.IsNotEmpty(text);
 
             Assert.IsFalse(
                 text.Contains("COLLATE")
                 );
 
-            RunOnceNoCollationTest(outputFileName, false);
+            RunOnceNoCollationTest(outputDir, outputFileName, false);
 
-            text = File.ReadAllText(outputFileName);
+            text = File.ReadAllText(outputFilePath);
             Assert.IsNotEmpty(text);
 
             Assert.IsTrue(
@@ -163,13 +174,14 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
 
         }
 
-        private static void RunOnceNoCollationTest(string outputFileName, bool noCollation)
+        private static void RunOnceNoCollationTest(string outputDir, string outputFileName, bool noCollation)
         {
-            if (File.Exists(outputFileName))
-                File.Delete(outputFileName);
+            if (Directory.Exists(outputDir))
+                Directory.Delete(outputDir, true);
 
             GenerateSqlScripts instance = CreateInstance();
             instance.Overwrite = true;
+            instance.OutputDir = outputDir;
             instance.OutputFileName = outputFileName;
             instance.NoCollation = noCollation;
             //instance.CopyAllObjects = true;
@@ -180,5 +192,26 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             Assert.IsTrue(File.Exists(instance.OutputFilePath));
         }
 
+        [Test]
+        public void ScriptData()
+        {
+            string thisClassName = this.GetType().FullName;
+            string thisMethodName = thisClassName + "." + MethodBase.GetCurrentMethod().Name;
+            string outputFileName = thisMethodName + ".sql";
+            string outputDir = Path.Combine(BuildScripts.TestRootFolder, thisMethodName);
+
+            if (Directory.Exists(outputDir))
+                Directory.Delete(outputDir, true);
+
+            GenerateSqlScripts instance = CreateInstance();
+            instance.Overwrite = true;
+            instance.OutputDir = outputDir;
+            instance.OutputFileName = outputFileName;
+            instance.ScriptSchema = false;
+            instance.CopyData = true;
+
+            Assert.IsTrue(instance.Execute());
+            Assert.IsTrue(File.Exists(instance.OutputFilePath));
+        }
     }
 }

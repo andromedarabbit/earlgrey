@@ -9,8 +9,50 @@
 	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
   <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2008.Targets"/>
 
-	<Target Name="TestCase-Empty-ExpectTrue">
+	<PropertyGroup>
+		<ConnectionString>Data Source=.\SQLEXPRESS;Initial Catalog=earlgrey_test;Integrated Security=SSPI</ConnectionString>
+		<DatabaseName>earlgrey_test</DatabaseName>
+	</PropertyGroup>
+	<ItemGroup>
+		<Tables1 Include="dbo.simple_table_1" />
+		<!-- <Tables1 Include="dbo.single_column_table" /> -->
+	</ItemGroup>
+
+
+	<Target Name="TestCase-ExcludeSpecificTables-ExpectTrue">
+		<RemoveDir Directories="TestCase-ExcludeSpecificTables-ExpectTrue" />
+
+		<GenerateSqlScripts
+			ConnectionString="$(ConnectionString)"
+			Database="$(DatabaseName)"
+			ExcludeTables="@(Tables1)"
+			OutputDir="TestCase-ExcludeSpecificTables-ExpectTrue"
+			/>
+
+		<Error
+			Condition="Exists('TestCase-ExcludeSpecificTables-ExpectTrue\dbo.simple_table_1.Table.sql')"
+			/>
+		<Error
+				Condition="!Exists('TestCase-ExcludeSpecificTables-ExpectTrue\dbo.single_column_table.Table.sql')"
+			/>
+	</Target>
+	
+	<Target Name="TestCase-IncludeSpecificTables-ExpectTrue">
+		<RemoveDir Directories="TestCase-IncludeSpecificTables-ExpectTrue" />
 		
+		<GenerateSqlScripts
+			ConnectionString="$(ConnectionString)"
+			Database="$(DatabaseName)"
+			IncludeTables="@(Tables1)"
+			OutputDir="TestCase-IncludeSpecificTables-ExpectTrue"
+			/>
+
+		<Error
+			Condition="!Exists('TestCase-IncludeSpecificTables-ExpectTrue\dbo.simple_table_1.Table.sql')"
+			/>
+		<Error
+				Condition="Exists('TestCase-IncludeSpecificTables-ExpectTrue\dbo.single_column_table.Table.sql')"
+			/>
 	</Target>
 
 	
