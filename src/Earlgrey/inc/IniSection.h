@@ -81,11 +81,14 @@ namespace Earlgrey
 		T IniSection::Read(const _txstring& keyName) const
 	{
 		_txstring valueStr = ReadString(keyName); 
-		if(valueStr.empty())
-			throw std::exception("");
 		return EARLGREY_LEXICAL_CAST<T, _txstring>(valueStr);
 	}
 
+	/*
+	typedef 
+		std::basic_string<wchar_t, std::char_traits<wchar_t>, StlDefaultAllocator<wchar_t>::Type > 
+		xwstring;
+	*/
 	template<>
 	inline 
 		_txstring IniSection::Read(const _txstring& keyName) const
