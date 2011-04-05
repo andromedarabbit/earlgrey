@@ -5,12 +5,14 @@
 	>
 
 	
-	<ItemGroup>
+	<ItemGroup>		
+		<TestAssembly Include="$(BinDir)\IniFileParserTests.dll" /> 
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2005.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2008.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\UnityBuild.Tests.dll" /> 
+		
 	</ItemGroup>
 
 	<Target Name="VerifyProperties">
@@ -40,7 +42,9 @@
 		<Error Text="'%(TestAssembly.FullPath)' not found!"
 			Condition="!Exists('%(TestAssembly.FullPath)')"
 			/>
-			
+		
+		<Delete Files="$(BinDir)\NUnit.Reports.xml" />
+		
 		<NUnit
 			ToolPath="$(RootDir)\..\..\vendor\NUnit 2.5.1\bin\net-2.0"
 			Assemblies="@(TestAssembly)"

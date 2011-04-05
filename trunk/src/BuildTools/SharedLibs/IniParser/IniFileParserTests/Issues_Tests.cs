@@ -1,5 +1,5 @@
 using System;
-
+using System.IO;
 using IniParser;
 
 using NUnit.Framework;
@@ -9,8 +9,15 @@ namespace IniFileParserTests
     [TestFixture]
     public class IssuesTest
     {
-        private const string StrBadSectionIniFilePath = @"../../INIFileBADSection.ini";
-        private const string StrBadKeysIniFilePath = @"../../INIFileBADKeys.ini";
+        private readonly string StrBadSectionIniFilePath;
+        private readonly string StrBadKeysIniFilePath;
+
+        public IssuesTest()
+        {
+            StrBadSectionIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileBADSection.ini");
+            StrBadKeysIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileBADKeys.ini");
+        }
+
 
         #region Test Members
 
@@ -90,7 +97,8 @@ namespace IniFileParserTests
 
             Assert.That(data, Is.Not.Null);
             Assert.That(data.Sections.Count, Is.EqualTo(1));
-            Assert.That(data.Sections.GetSectionData("seccion1").Keys.Count, Is.EqualTo(1));
+                        
+            Assert.That(data.Sections.GetSectionData("seccion1").Keys.Count, Is.EqualTo(2));
 
             data = fileParser.LoadFile(StrBadKeysIniFilePath, true);
 

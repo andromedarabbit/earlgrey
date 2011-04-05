@@ -101,7 +101,7 @@ namespace IniParser
                 SectionDataCollection sections = (SectionDataCollection) _currentTmpData.Clone();
                 KeyDataCollection globalSection = sections[GlobalSectionName];
                 if (globalSection == null || globalSection.Count == 0)
-                    Debug.Assert(sections.RemoveSection(GlobalSectionName));
+                    sections.RemoveSection(GlobalSectionName);
                 return new IniData(sections);
             }
             catch (Exception ex)

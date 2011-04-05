@@ -27,8 +27,10 @@ namespace IniParser
         /// <param name="relaxedIniRead">True to try reading bad formed INI files</param>
         public IniData LoadFile(string fileName, bool relaxedIniRead)
         {
-            if (fileName == string.Empty)
+            if (string.IsNullOrEmpty(fileName))
+            {
                 throw new ArgumentException("Bad filename.");
+            }
 
             try
             {

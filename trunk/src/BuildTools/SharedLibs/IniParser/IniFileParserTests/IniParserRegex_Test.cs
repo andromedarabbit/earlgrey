@@ -91,13 +91,15 @@ namespace IniFileParserTests
             const string strGoodTest2 = "   value=hello world!  ";
             const string strGoodTest3 = "     value=hello world!   = hello world!  ";
             const string strGoodTest4 = "value=hello world!  \" ";
+            const string strGoodTest5 = " value value = hello world ";
 
-            const string strBadTest1 = " value value = hello world ";
+            const string strBadTest1 = " value value";
 
             Assert.That(strGoodTest1, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest2, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest3, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest4, Is.StringMatching(_iniParser.KeyValuePairRegexString));
+            Assert.That(strGoodTest5, Is.StringMatching(_iniParser.KeyValuePairRegexString));
 
             Assert.That(strBadTest1, !Is.StringMatching(_iniParser.KeyValuePairRegexString));
         }
@@ -109,13 +111,15 @@ namespace IniFileParserTests
             const string strGoodTest2 = "   value=hello world!  ";
             const string strGoodTest3 = "     value=hello world!   = hello world!  ";
             const string strGoodTest4 = "value=hello world!  \" ";
+            const string strGoodTest5 = " value value = hello world ";
 
-            const string strBadTest1 = " value value = hello world ";
+            const string strBadTest1 = " value value";
 
             Assert.That(strGoodTest1, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest2, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest3, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest4, Is.StringMatching(_iniParser.KeyValuePairRegexString));
+            Assert.That(strGoodTest5, Is.StringMatching(_iniParser.KeyValuePairRegexString));
 
             Assert.That(strBadTest1, !Is.StringMatching(_iniParser.KeyValuePairRegexString));
         }
@@ -127,13 +131,15 @@ namespace IniFileParserTests
             const string strGoodTest2 = "   value=hello world!  ";
             const string strGoodTest3 = "     value=hello world!   = hello world!  ";
             const string strGoodTest4 = "value=hello world!  \" ";
+            const string strGoodTest5 = " value value = hello world ";
 
-            const string strBadTest1 = " value value = hello world ";
+            const string strBadTest1 = " value value";
 
             Assert.That(strGoodTest1, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest2, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest3, Is.StringMatching(_iniParser.KeyValuePairRegexString));
             Assert.That(strGoodTest4, Is.StringMatching(_iniParser.KeyValuePairRegexString));
+            Assert.That(strGoodTest5, Is.StringMatching(_iniParser.KeyValuePairRegexString));
 
             Assert.That(strBadTest1, !Is.StringMatching(_iniParser.KeyValuePairRegexString));
         }
