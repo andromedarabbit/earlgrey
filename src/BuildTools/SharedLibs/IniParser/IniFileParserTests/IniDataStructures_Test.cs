@@ -97,28 +97,17 @@ namespace IniFileParserTests
             Assert.That(sd.Keys.Count, Is.EqualTo(0));
             Assert.That(sd.Keys.ContainsKey(strKeyTest), Is.False);
 
-            //Add invalid key
-            try
-            {
-                sd.Keys.AddKey("invalid key");
-                Assert.That(false);
-            }
-            catch ( Exception ex )
-            {
-                Assert.That(ex, Is.TypeOf(typeof(ArgumentException)));
-            }
+            //Add a key with whitespaces
+            const string keyWIthBlanks = "Key with blanks";
+            sd.Keys.AddKey(keyWIthBlanks);
+            Assert.That(sd.Keys.Count, Is.EqualTo(1));
+            Assert.That(sd.Keys.ContainsKey(keyWIthBlanks), Is.True);
 
-            //Add invalid key
-            try
-            {
-                sd.Keys.AddKey(" invalidKey");
-                Assert.That(false);
-            }
-            catch ( Exception ex )
-            {
-                Assert.That(ex, Is.TypeOf(typeof(ArgumentException)));
-            }
-
+            //Assign value
+            const string valueWIthBlanks = "Value with blanks";
+            sd.Keys.GetKeyData(keyWIthBlanks).Value = valueWIthBlanks;
+            Assert.That(sd.Keys.GetKeyData(keyWIthBlanks).Value, Is.EqualTo(valueWIthBlanks));
+          
             //Access invalid keydata
             Assert.That(sd.Keys["asdf"], Is.Null);
 

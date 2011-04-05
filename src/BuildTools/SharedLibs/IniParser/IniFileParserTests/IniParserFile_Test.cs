@@ -9,14 +9,23 @@ namespace IniFileParserTests
     public class IniParserFileTest
     {
 
-        private readonly string StrGoodIniFilePath = @"../../INIFileGOOD.ini";
-        private readonly string StrBadIniFilePath = @"../../INIFileBAD.ini";
-        private readonly string StrEmptyIniFilePath = @"../../INIFileEmpty.ini";
-        private readonly string StrBadSectionIniFilePath = @"../../INIFileBADSection.ini";
-        private readonly string StrBadKeysIniFilePath = @"../../INIFileBADKeys.ini";
+        private readonly string StrGoodIniFilePath;
+        private readonly string StrBadIniFilePath;
+        private readonly string StrEmptyIniFilePath;
+        private readonly string StrBadSectionIniFilePath;
+        private readonly string StrBadKeysIniFilePath;
 
         private readonly FileIniDataParser _iniParser = new FileIniDataParser();
 
+        public IniParserFileTest()
+        {
+            StrGoodIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileGOOD.ini");
+            StrBadIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileBAD.ini");
+            StrEmptyIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileEmpty.ini");
+            StrBadSectionIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileBADSection.ini");
+            StrBadKeysIniFilePath = Path.Combine(TestSupport.TestScriptsFolder, "INIFileBADKeys.ini");
+        }
+        
         [SetUp]
         public void SetUp()
         {
