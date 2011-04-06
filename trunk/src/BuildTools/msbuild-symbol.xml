@@ -3,10 +3,10 @@
 <Import Project="msbuild.xml"/>
 
 <PropertyGroup>
-	<PerlRootDir>$(TreeRootDir)\vendor\BuildTool\strawberry-perl-5.12.1.0-portable</PerlRootDir>
+	<PerlRootDir>$(VendorDir)\BuildTool\strawberry-perl-5.12.1.0-portable</PerlRootDir>
 	<PerlZip>$(PerlRootDir).zip</PerlZip>
 
-	<DebuggingToolsRootDir>$(TreeRootDir)\vendor\BuildTool\Debugging Tools for Windows</DebuggingToolsRootDir>
+	<DebuggingToolsRootDir>$(VendorDir)\BuildTool\Debugging Tools for Windows</DebuggingToolsRootDir>
 	<DebuggingToolsDir>$(DebuggingToolsRootDir)\x86</DebuggingToolsDir>
 	<DebuggingToolsDir Condition="'$(PROCESSOR_ARCHITECTURE)' == 'AMD64' OR '$(PROCESSOR_ARCHITEW6432)' == 'AMD64'">$(DebuggingToolsRootDir)\x64</DebuggingToolsDir>	
 	<DebuggingToolsZip>$(DebuggingToolsDir).zip</DebuggingToolsZip>
