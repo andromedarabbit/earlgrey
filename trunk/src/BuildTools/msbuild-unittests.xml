@@ -5,12 +5,19 @@
 	>
 
 	
-	<ItemGroup>		
+	<ItemGroup>
+		<!-- Shared -->
 		<TestAssembly Include="$(BinDir)\IniFileParserTests.dll" /> 
+		<TestAssembly Include="$(BinDir)\Earlgrey.Tests.dll" /> 
+		
+		<!-- MSBuild -->
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2005.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Tasks.SqlServer2008.Tests.dll" />
 		<TestAssembly Include="$(BinDir)\MSBuild.Earlgrey.Scripts.Tests.dll" />
+		
+		<!-- UnityBuild -->
+		<TestAssembly Include="$(BinDir)\SlnTools.Tests.dll" /> 
 		<TestAssembly Include="$(BinDir)\UnityBuild.Tests.dll" /> 
 		
 	</ItemGroup>
