@@ -53,7 +53,7 @@
 		<Delete Files="$(BinDir)\NUnit.Reports.xml" />
 		
 		<NUnit
-			ToolPath="$(RootDir)\..\..\vendor\NUnit 2.5.1\bin\net-2.0"
+			ToolPath="$(VendorDir)\NUnit 2.5.1\bin\net-2.0"
 			Assemblies="@(TestAssembly)"
 			OutputXmlFile="$(BinDir)\NUnit.Reports.xml"
 			WorkingDirectory="$(BinDir)"

@@ -7,6 +7,7 @@
 <PropertyGroup>
 	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
 	<TreeRootDir>$(RootDir)\..\..</TreeRootDir>
+	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->

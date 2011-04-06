@@ -7,7 +7,7 @@
 <PropertyGroup>
 	<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 	
-	<MSBuildCommunityTasksRoot>$(RootDir)\..\..\vendor\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
+	<MSBuildCommunityTasksRoot>$(VendorDir)\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
 	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
 	<MSBuildCommunityTasksOutput>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksOutput>
 	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksOutput)\$(Configuration)\bin</MSBuildCommunityTasksBin>
@@ -19,7 +19,7 @@
 
 <!-- 선택적 라이브러리 -->
 <PropertyGroup>
-	<TempOptionalLibsRootDir>..\..\vendor\Optionals</TempOptionalLibsRootDir>
+	<TempOptionalLibsRootDir>$(VendorDir)\Optionals</TempOptionalLibsRootDir>
 </PropertyGroup>
 
 <ItemGroup>

@@ -14,19 +14,55 @@
 	<UnityBuildDeploymentDir>$(DeploymentDir)\UnityBuild</UnityBuildDeploymentDir>
 </PropertyGroup>
 
-<Target Name="Deploy" DependsOnTargets="$(BuildCondition);">
+<PropertyGroup>
+	<VersioningToolDir>$(VendorDir)\BuildTool\Versioning Controlled Build</VersioningToolDir>
+	<VersioningTool>$(VersioningToolDir)\AutoVer.exe</VersioningTool>
+</PropertyGroup>
+
+<Target Name="DeployMSBuildExtensions">
 	<MSBuild 
 		Projects="$(RootDir)\msbuild-deploy-msbuildextensions.xml" 
 		Targets="CopyFiles" 
 		Properties="DeploymentDir=$(MSBuildExtensionDeploymentDir);BinDir=$(BinDir)"
 	/>
-		
-	<MSBuild 
+</Target>
+
+<Target Name="DeployUnityBuild">
+		<MSBuild 
 		Projects="$(RootDir)\msbuild-deploy-unitybuild.xml" 
 		Targets="CopyFiles" 
 		Properties="DeploymentDir=$(UnityBuildDeploymentDir);BinDir=$(BinDir)"
 	/>
+</Target>
+
+<Target Name="GetVersion">
+	
+	<SvnInfo LocalPath="$(RootDir)">
+		<Output TaskParameter="Revision" PropertyName="WorkingCopyRevision" />
+	</SvnInfo>
+	
+	<CreateProperty Value="1.0.0.$(WorkingCopyRevision)">
+		<Output TaskParameter="Value" PropertyName="Version" />
+	</CreateProperty>
+	
+</Target>
+
+<Target Name="UpdateVersions" DependsOnTargets="GetVersion">
+	<Error Condition="'$(Version)' == ''" />
+	<Message Text="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.BuildTools.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S" />
 		
+	<Exec
+		Command="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.BuildTools.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S"
+		WorkingDirectory="$(VersioningToolDir)"
+		/> 
+</Target>
+
+
+<Target 
+	Name="Deploy" 
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild"
+	>
+	
 	<CallTarget Targets="TestAlone" />
 </Target>
 
