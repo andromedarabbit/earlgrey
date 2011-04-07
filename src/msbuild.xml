@@ -27,6 +27,7 @@
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
 	<TreeRootDir>$(RootDir)\..</TreeRootDir>
+	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 	
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>

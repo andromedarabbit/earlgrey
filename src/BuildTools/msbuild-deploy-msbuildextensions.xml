@@ -15,7 +15,7 @@
 	
 	<MSBuildExtensionFile 
 		Include="$(BinDir)\MSBuild.*.Tasks.*;$(BinDir)\MSBuild.*.Tasks.SqlServer*.*; $(BinDir)\MSBuild.Earlgrey*; $(BinDir)\Earlgrey.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll;"
-		Exclude="$(BinDir)\MSBuild*Test*"
+		Exclude="$(BinDir)\MSBuild*Test*;$(BinDir)\*vshost*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
 	</MSBuildExtensionFile>
@@ -23,8 +23,8 @@
 
 <Target Name="CopyFiles">
 	<Copy            
-    SourceFiles="%(MSBuildExtensionFile.FullPath)"
-	  DestinationFolder="%(MSBuildExtensionFile.DstDir)\%(RecursiveDir)"
+		SourceFiles="%(MSBuildExtensionFile.FullPath)"
+		DestinationFolder="%(MSBuildExtensionFile.DstDir)\%(RecursiveDir)"
 	/>
 </Target>
 

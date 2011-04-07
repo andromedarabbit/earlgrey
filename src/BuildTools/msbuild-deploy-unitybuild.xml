@@ -7,7 +7,7 @@
 <ItemGroup>
 	<UnityBuildFile 
 		Include="$(BinDir)\UnityBuild.dll*;$(BinDir)\UnityBuild.pdb;$(BinDir)\UnityBuild.ConsoleUi.*;$(BinDir)\CommandLine*;$(BinDir)\CWDev.SLNTools.Core*;$(BinDir)\Earlgrey.EncodingTools*"
-		Exclude="$(BinDir)\UnityBuild*Test*'$(BinDir)\*vshost*"
+		Exclude="$(BinDir)\UnityBuild*Test*;$(BinDir)\*vshost*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>
 	</UnityBuildFile>

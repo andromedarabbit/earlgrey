@@ -10,8 +10,8 @@
 <!-- 배포 폴더 -->
 <PropertyGroup>
 	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\Deployment</DeploymentDir>
-	<MSBuildExtensionDeploymentDir>$(DeploymentDir)\MSBuildExtension</MSBuildExtensionDeploymentDir>
-	<UnityBuildDeploymentDir>$(DeploymentDir)\UnityBuild</UnityBuildDeploymentDir>
+	<EngineDeploymentDir>$(DeploymentDir)\Engine</EngineDeploymentDir>
+	
 </PropertyGroup>
 
 <PropertyGroup>
@@ -19,21 +19,14 @@
 	<VersioningTool>$(VersioningToolDir)\AutoVer.exe</VersioningTool>
 </PropertyGroup>
 
-<Target Name="DeployMSBuildExtensions">
+<Target Name="DeployEngine">
 	<MSBuild 
-		Projects="$(RootDir)\msbuild-deploy-msbuildextensions.xml" 
+		Projects="$(RootDir)\msbuild-deploy-engine.xml" 
 		Targets="CopyFiles" 
 		Properties="DeploymentDir=$(MSBuildExtensionDeploymentDir);BinDir=$(BinDir)"
 	/>
 </Target>
 
-<Target Name="DeployUnityBuild">
-		<MSBuild 
-		Projects="$(RootDir)\msbuild-deploy-unitybuild.xml" 
-		Targets="CopyFiles" 
-		Properties="DeploymentDir=$(UnityBuildDeploymentDir);BinDir=$(BinDir)"
-	/>
-</Target>
 
 <Target Name="GetVersion">
 	
@@ -49,7 +42,7 @@
 
 <Target Name="UpdateVersions" DependsOnTargets="GetVersion">	
 	<Exec
-		Command="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.BuildTools.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S"
+		Command="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S"
 		WorkingDirectory="$(VersioningToolDir)"
 		/> 
 </Target>
@@ -57,7 +50,7 @@
 
 <Target 
 	Name="Deploy" 
-	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild"
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployEngine"
 	>
 	
 	<CallTarget Targets="TestAlone" />
