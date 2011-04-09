@@ -65,11 +65,11 @@
 
 <!-- 빌드 대상 -->
 <ItemGroup>
-	<ProjectReferences Include="Earlgrey.sln" Condition="'$(UseUnityBuild)' == 'true'">
+	<ProjectReferences Include="Earlgrey.sln" Condition="'$(UseUnityBuild)' != 'true'">
 		<Configuration>$(Configuration)</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
-	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' != 'true'">
+	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' == 'true'">
 		<Configuration>$(Configuration)</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
