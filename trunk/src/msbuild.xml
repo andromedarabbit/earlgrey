@@ -56,11 +56,15 @@
 <!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
 <PropertyGroup>  
     <DevEnv>devenv</DevEnv>  
+	<IncrediBuild>BuildConsole.exe</IncrediBuild>
 </PropertyGroup> 
 
-<!-- UnityBuild -->
+<!-- UnityBuild / IncrediBuild -->
 <PropertyGroup>
 	<UseUnityBuild Condition="'$(UseUnityBuild)' ==''">false</UseUnityBuild>
+	<!-- 
+	<UseIncrediBuild Condition="'$(UseIncrediBuild)' ==''">false</UseIncrediBuild>
+	-->
 </PropertyGroup>
 
 <!-- 빌드 대상 -->
@@ -97,10 +101,49 @@
 	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" ContinueOnError="true" IgnoreExitCode="true" />
 </Target>
 
-<Target Name="Clean">  
-    <Message Text="타겟: Clean" />  
-       
-	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+<Target Name="CleanUsingDevEnv" Condition="'$(UseIncrediBuild)' != 'true'">
+	<Exec 
+		Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+	
+</Target>
+
+<Target Name="CleanUsingIncrediBuild" Condition="'$(UseIncrediBuild)' == 'true'">
+	<Exec 
+		Command="$(IncrediBuild) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target Name="FindIncrediBuild" Condition="'$(UseIncrediBuild)' == ''">
+	<Where FileName="$(IncrediBuild)">
+		<Output TaskParameter="PathsFound" ItemName="IncrediBuildFound" />
+	</Where>
+	
+	<CreateProperty Value="false" Condition="'@(IncrediBuildFound)' == ''">
+		<Output
+			TaskParameter="Value"
+			PropertyName="UseIncrediBuild" 
+		/>
+	</CreateProperty>
+	
+	<CreateProperty Value="true" Condition="'@(IncrediBuildFound)' != ''">
+		<Output
+			TaskParameter="Value"
+			PropertyName="UseIncrediBuild" 
+		/>
+	</CreateProperty>
+</Target>
+
+<Target 
+	Name="Clean" 
+	DependsOnTargets="FindIncrediBuild; CleanUsingDevEnv; CleanUsingIncrediBuild"
+	>  
+	<Message Text="타겟: Clean" />  
+	
 	<RemoveDir Directories="$(OutputDir)" />  
 </Target>  
 
@@ -133,19 +176,35 @@
 		/>
 </Target>
 
-<Target Name="PrepareUnityBuild">
+<Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' != 'true'">
 	<Exec 
 		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
 		WorkingDirectory="$(RootDir)"
 		/>
-		
 </Target>
 
-<Target Name="Build" DependsOnTargets="PrepareOptionals; PrepareUnityBuild">
+<Target Name="BuildUsingDevEnv" Condition="'$(UseIncrediBuild)' != 'true'">
+	<Exec 
+		Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target Name="BuildUsingIncrediBuild" Condition="'$(UseIncrediBuild)' == 'true'">
+	<Exec 
+		Command="$(IncrediBuild) &quot;%(ProjectReferences.FullPath)&quot; /CFG=&quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target 
+	Name="Build" 
+	DependsOnTargets="FindIncrediBuild; PrepareOptionals; PrepareUnityBuild; BuildUsingDevEnv; BuildUsingIncrediBuild"
+	>
 	<Message Text="타겟: Build " />
 	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
-	
-	<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
 </Target>
 
 <Target Name="Rebuild" DependsOnTargets="Clean; Build">
