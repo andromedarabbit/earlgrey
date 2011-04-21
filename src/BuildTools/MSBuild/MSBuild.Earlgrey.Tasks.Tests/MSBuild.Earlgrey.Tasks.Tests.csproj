@@ -69,6 +69,7 @@
     <Compile Include="IO\PathHelperTest.cs" />
     <Compile Include="IO\ShareFolderTest.cs" />
     <Compile Include="IO\Compression\Zip\ZipTest.cs" />
+    <Compile Include="IO\WhereTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
     <Compile Include="OneTimeSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,6 +130,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\ZipPack.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\WhereTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\ItemGroup\ItemsHelperTest.msbuild.xml">

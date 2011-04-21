@@ -67,6 +67,7 @@
     <Compile Include="IO\Compression\SevenZip\Pack.cs" />
     <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
     <Compile Include="IO\PathHelper.cs" />
+    <Compile Include="IO\Where.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
     <Compile Include="Str\Replace.cs" />
     <Compile Include="Subversion\BetterSvnDiff.cs" />
