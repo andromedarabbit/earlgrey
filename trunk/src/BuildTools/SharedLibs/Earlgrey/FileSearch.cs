@@ -8,25 +8,37 @@ namespace Earlgrey
 {
     public static class FileSearch
     {
+        private static IEnumerable<string> DefaultSearchFolders
+        {
+            get 
+            { 
+                List<string> folders = new List<string>();
+                folders.Add(AppDomain.CurrentDomain.BaseDirectory);
+                folders.Add(Environment.SystemDirectory);
+
+                string winDir = Environment.GetEnvironmentVariable("windir");
+                if(string.IsNullOrEmpty(winDir) == false)
+                    folders.Add(winDir);
+
+                string pathFromEnv = Environment.GetEnvironmentVariable("PATH");
+                if (string.IsNullOrEmpty(pathFromEnv))
+                    return folders;
+
+                string[] paths = pathFromEnv.Split(';');
+                folders.AddRange(paths);
+                
+                return folders;
+            }
+        }
+
         //! \todo 이 기능을 여기저기서 쓰니 따로 정리하자.
         public static string FindFirst(string fileName)
         {
-            if (File.Exists(fileName))
-                return fileName;
-
-            string pathFromEnv = Environment.GetEnvironmentVariable("PATH");
-            if (string.IsNullOrEmpty(pathFromEnv))
-                throw new FileNotFoundException();
-
-            string[] paths = pathFromEnv.Split(';');
-            foreach (var path in paths)
+            foreach (var folder in DefaultSearchFolders)
             {
-                if (string.IsNullOrEmpty(path))
-                    continue;
-
-                string fullPath = Path.Combine(path, fileName);
-                if (File.Exists(fullPath))
-                    return fullPath;
+                string filePath = Path.Combine(folder, fileName);
+                if (File.Exists(filePath))
+                    return filePath;
             }
 
             throw new FileNotFoundException();
@@ -34,31 +46,14 @@ namespace Earlgrey
 
         public static IEnumerable<string> FindAll(string fileName)
         {
-            HashSet<string> filesFound = new HashSet<string>();
+            var searchFilePaths = from folder in DefaultSearchFolders
+                         select Path.Combine(folder, fileName)
+                ;
 
-            if (File.Exists(fileName))
-            {
-                string filePath = Path.Combine(
-                    Environment.CurrentDirectory, fileName
-                    );
-                filesFound.Add(filePath);
-            }
-
-            string pathFromEnv = Environment.GetEnvironmentVariable("PATH");
-            if (string.IsNullOrEmpty(pathFromEnv))
-                return filesFound;
-
-            string[] paths = pathFromEnv.Split(';');
-            foreach (var path in paths)
-            {
-                if (string.IsNullOrEmpty(path))
-                    continue;
-
-                string fullPath = Path.Combine(path, fileName);
-                if (File.Exists(fullPath))
-                    filesFound.Add(fullPath);
-            }
-
+            var filesFound = from filePath in searchFilePaths
+                             where File.Exists(filePath) == true
+                             select filePath
+                ;
             return filesFound;
         }
 
