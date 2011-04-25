@@ -9,12 +9,16 @@
 		<DstDir>$(DeploymentDir)\ExternalTools</DstDir>
 	</MSBuildExtensionFile>
 	
+	<MSBuildExtensionFile Include="$(BinDir)\ExternalLibs\**\*">
+		<DstDir>$(DeploymentDir)\ExternalLibs</DstDir>
+	</MSBuildExtensionFile>
+	
 	<MSBuildExtensionFile Include="$(BinDir)\Scripts\**\*">
 		<DstDir>$(DeploymentDir)\Scripts</DstDir>
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile 
-		Include="$(BinDir)\MSBuild.*.Tasks.*;$(BinDir)\MSBuild.*.Tasks.SqlServer*.*; $(BinDir)\MSBuild.Earlgrey*; $(BinDir)\Earlgrey.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll;"
+		Include="$(BinDir)\MSBuild.*.Tasks.*;$(BinDir)\MSBuild.*.Tasks.SqlServer*.*; $(BinDir)\MSBuild.Earlgrey*; $(BinDir)\Earlgrey.*; $(BinDir)\Earlgrey.EncodingTools.*; $(BinDir)\Ionic.*;; $(BinDir)\INIFileParser.*;$(BinDir)\Microsoft.VisualStudio.SourceSafe.Interop.dll"
 		Exclude="$(BinDir)\MSBuild*Test*;$(BinDir)\*vshost*"
 	>
 		<DstDir>$(DeploymentDir)</DstDir>

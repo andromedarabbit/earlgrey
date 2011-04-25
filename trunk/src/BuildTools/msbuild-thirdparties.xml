@@ -19,7 +19,7 @@
 
 <!-- 선택적 라이브러리 -->
 <PropertyGroup>
-	<TempOptionalLibsRootDir>$(VendorDir)\Optionals</TempOptionalLibsRootDir>
+	<TempOptionalLibsRootDir>..\..\vendor\Optionals</TempOptionalLibsRootDir>
 </PropertyGroup>
 
 <ItemGroup>
@@ -60,13 +60,37 @@
 		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(BinDir)\$(Quot) " />
 </Target>
 
-<Target Name="GetOptionalLibsRootDir">
+<Target Name="GetOptionalLibsRootDir" Condition="'$(AlreadyGotOptionalLibsRootDir)' != 'true'">
 	<ConvertToAbsolutePath Paths="$(TempOptionalLibsRootDir)">
 		<Output TaskParameter="AbsolutePaths" PropertyName="OptionalLibsRootDir"/>
 	</ConvertToAbsolutePath>
+	
+	<CreateProperty Value="true">
+		<Output TaskParameter="Value" PropertyName="AlreadyGotOptionalLibsRootDir" />
+	</CreateProperty>
 </Target>
 
-<Target Name="PrepareOptionals" DependsOnTargets="GetOptionalLibsRootDir"> 
+<Target Name="PrepareSharedManagementObjects2005" DependsOnTargets="GetOptionalLibsRootDir">
+	<!-- 
+		Microsoft SQL Server 2005 Management Objects 
+		http://download.microsoft.com/download/4/4/D/44DBDE61-B385-4FC2-A67D-48053B8F9FAD/SQLServer2005_XMO.msi
+	-->
+	<WebDownload 
+		FileUri="http://download.microsoft.com/download/4/4/D/44DBDE61-B385-4FC2-A67D-48053B8F9FAD/SQLServer2005_XMO.msi"
+		FileName="$(OptionalLibsRootDir)\SQLServer2005_XMO-x86.msi" 
+		Condition="!Exists('$(OptionalLibsRootDir)\SQLServer2005_XMO-x86.msi')"
+		/>
+    
+	<MakeDir Directories="$(OptionalLibsRootDir)\Microsoft SQL Server 2005 Management Objects\x86" />
+	
+	<Exec 
+		Command="msiexec /a $(Quot)SQLServer2005_XMO-x86.msi$(Quot) /qb TARGETDIR=$(Quot)$(OptionalLibsRootDir)\Microsoft SQL Server 2005 Management Objects\x86$(Quot)"
+		WorkingDirectory="$(OptionalLibsRootDir)" 
+		Condition="!Exists('$(OptionalLibsRootDir)\Microsoft SQL Server 2005 Management Objects\x86\SQLServer2005_XMO-x86.msi')"
+	/>
+</Target>
+
+<Target Name="PrepareSharedManagementObjects2008" DependsOnTargets="GetOptionalLibsRootDir">
 	<!-- 
 		Microsoft SQL Server 2008 Management Objects 
 		http://www.microsoft.com/downloads/ko-kr/details.aspx?FamilyID=C6C3E9EF-BA29-4A43-8D69-A2BED18FE73C
@@ -84,7 +108,12 @@
 		WorkingDirectory="$(OptionalLibsRootDir)" 
 		Condition="!Exists('$(OptionalLibsRootDir)\Microsoft SQL Server 2008 Management Objects\x86\SharedManagementObjects-x86.msi')"
 	/>
-	
+</Target>
+
+<Target 
+	Name="PrepareOptionals" 
+	DependsOnTargets="PrepareSharedManagementObjects2008; PrepareSharedManagementObjects2005"
+	> 
 </Target>
 
 <Target Name="PrepareThirdParties" DependsOnTargets="PrepareOptionals; DeployMSBuildCommunityTasks">

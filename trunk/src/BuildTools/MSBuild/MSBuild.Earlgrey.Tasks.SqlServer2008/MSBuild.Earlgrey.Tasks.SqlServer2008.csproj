@@ -38,22 +38,27 @@
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.RegisteredServers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Smo.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SmoExtended, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -91,4 +96,12 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PreBuildEvent>call "$(ProjectDir)..\..\..\MSBuild_Win32.bat" "$(ProjectDir)..\..\msbuild.xml" /t:PrepareSharedManagementObjects2008
+
+IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects"
+XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\"
+
+</PreBuildEvent>
+  </PropertyGroup>
 </Project>
