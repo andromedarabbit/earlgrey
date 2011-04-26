@@ -14,6 +14,17 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(MyResolveEventHandler);
         }
 
+        // TODO: Earlgrey.TaskUtility 와 중복 코드
+        private static string ThisAssemblyDirectory
+        {
+            get
+            {
+                Uri currentAssemblyUri = new Uri(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+                string currentAssemblyPath = currentAssemblyUri.LocalPath;
+                return Directory.GetParent(currentAssemblyPath).FullName;
+            }
+        }
+
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
         {
             //This handler is called only when the common language runtime tries to bind to the assembly and fails.
@@ -33,8 +44,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
                 {
                     //Build the path of the assembly from where it has to be loaded.				
                     // strTempAssmbPath = "C:\\Myassemblies\\" + args.Name.Substring(0, args.Name.IndexOf(",")) + ".dll";
-
-                    strTempAssmbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects");
+                    
+                    strTempAssmbPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects");
                     strTempAssmbPath = Path.Combine(strTempAssmbPath, args.Name.Substring(0, args.Name.IndexOf(",")) + ".dll");
 
 
