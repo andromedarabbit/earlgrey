@@ -11,7 +11,7 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
     // \ref http://www.sqldbatips.com/print.asp?ID=45
-    public class GetRegisteredGroups : AbstractTask
+    public class GetRegisteredGroups : AutoResolveTask
     {
         private List<TaskItem> _names;
 

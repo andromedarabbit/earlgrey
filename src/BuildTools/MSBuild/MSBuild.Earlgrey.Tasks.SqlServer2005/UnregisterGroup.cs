@@ -9,7 +9,7 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
 
-    public class UnregisterGroup : AbstractTask
+    public class UnregisterGroup : AutoResolveTask
     {
         private string _name;
         private string _path;

@@ -8,8 +8,7 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
-
-    public class UnregisterServer : AbstractTask
+    public class UnregisterServer : AutoResolveTask
     {
         private string _name;
         private string _path;

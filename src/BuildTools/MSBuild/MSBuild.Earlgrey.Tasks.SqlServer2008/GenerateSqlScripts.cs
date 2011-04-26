@@ -14,7 +14,7 @@ using Microsoft.SqlServer.Management.Smo;
 namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 {
 
-    public class GenerateSqlScripts : AbstractTask
+    public class GenerateSqlScripts : AutoResolveTask
     {
         private string _outputDir;
 
@@ -86,7 +86,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         }
 
         protected override bool ValidateParameters()
-        {
+        {            
             if (IsIncludeTablesSpecified && IsExcludeTablesSpecified)
             {
                 Log.LogError("An option 'IncludeTables' can not be used with an option 'ExcludeTables'.");
@@ -100,6 +100,9 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
             }
             return true;
         }
+
+      
+
 
         protected override bool ExecuteCommand()
         {
