@@ -9,7 +9,7 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
-    public class RegisterServer : AbstractTask
+    public class RegisterServer : AutoResolveTask
     {
         private string _name;
         private string _serverInstance;
