@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="AbstractTask.cs" />
     <Compile Include="AbstractToolTask.cs" />
+    <Compile Include="BetterMessage.cs" />
     <Compile Include="IO\Compression\AbstracUnpack.cs" />
     <Compile Include="IO\Compression\IPack.cs" />
     <Compile Include="IO\Compression\IUnpack.cs" />
