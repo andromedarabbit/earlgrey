@@ -7,6 +7,8 @@
     <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
   </PropertyGroup>
 
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.BetterMessage" />
+	
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.PathHelper" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.ShareFolder" />
