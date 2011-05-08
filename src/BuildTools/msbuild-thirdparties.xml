@@ -167,9 +167,57 @@
 >
 </Target>
 
+
+<Target 
+	Name="CheckIfWinScpPrepared" 
+	DependsOnTargets="GetOptionalLibsRootDir" 
+	Condition="'$(WinScpPrepared)' == ''"
+>
+	<CreateProperty Value="false">
+		<Output 
+			TaskParameter="Value" 
+			PropertyName="WinScpPrepared"
+			Condition="!Exists('$(OptionalLibsRootDir)\winscp432.zip')"
+		/>
+	</CreateProperty>
+	<CreateProperty Value="true">
+		<Output 
+			TaskParameter="Value" 
+			PropertyName="WinScpPrepared"
+			Condition="Exists('$(OptionalLibsRootDir)\winscp432.zip')"
+		/>
+	</CreateProperty>
+</Target>
+
+
+<Target 
+	Name="InstallWinScp"
+	Condition="'$(WinScpPrepared)' != 'true'"
+>
+	<WebDownload 
+		FileUri="http://sourceforge.net/projects/winscp/files/WinSCP/4.3.2/winscp432.zip/download"
+		FileName="$(OptionalLibsRootDir)\winscp432.zip" 
+		/>
+
+	<Unzip 
+		ZipFileName="$(OptionalLibsRootDir)\winscp432.zip"
+		TargetDirectory="$(OptionalLibsRootDir)\WinSCP\v4.3.2"
+		/>
+	
+	<RoboCopy 
+		SourceFolder="$(OptionalLibsRootDir)\WinSCP\v4.3.2"
+		DestinationFolder="$(RootDir)\MSBuild\MSBuild.Earlgrey.Tasks\ExternalTools\WinSCP\v4.3.2"
+		AllSubdirectories="true"
+		/>
+</Target>
+
+<Target Name="PrepareWinScp" DependsOnTargets="CheckIfWinScpPrepared; InstallWinScp">
+
+</Target>
+
 <Target 
 	Name="PrepareOptionals" 
-	DependsOnTargets="PrepareSharedManagementObjects2005; PrepareSharedManagementObjects2008"
+	DependsOnTargets="PrepareWinScp; PrepareSharedManagementObjects2005; PrepareSharedManagementObjects2008"
 	> 
 </Target>
 
