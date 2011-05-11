@@ -204,6 +204,9 @@
 		TargetDirectory="$(OptionalLibsRootDir)\WinSCP\v4.3.2"
 		/>
 	
+</Target>
+
+<Target Name="DeployWinSCP">
 	<RoboCopy 
 		SourceFolder="$(OptionalLibsRootDir)\WinSCP\v4.3.2"
 		DestinationFolder="$(RootDir)\MSBuild\MSBuild.Earlgrey.Tasks\ExternalTools\WinSCP\v4.3.2"
@@ -211,7 +214,7 @@
 		/>
 </Target>
 
-<Target Name="PrepareWinScp" DependsOnTargets="CheckIfWinScpPrepared; InstallWinScp">
+<Target Name="PrepareWinScp" DependsOnTargets="CheckIfWinScpPrepared; InstallWinScp; DeployWinSCP">
 
 </Target>
 

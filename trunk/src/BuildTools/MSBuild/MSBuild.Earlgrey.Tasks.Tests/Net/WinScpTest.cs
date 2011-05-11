@@ -11,18 +11,23 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Net
     [TestFixture]
     public class WinScpTest
     {
-        [Ignore]
+        // [Ignore]
         [Test]
         public void UsingSFTP()
         {
+            // http://www.secureftp-test.com
+
             WinScp instance = new WinScp();
             instance.BuildEngine = new MockBuildEngine();
-            instance.HostName = "andromedarabbit.net";
+            instance.HostName = "ftp.secureftp-test.com";
             instance.ProtocolSFtp = true;
-            instance.Password = "";
-            instance.UserName = "";
-            instance.HostKey = "ssh-rsa 2048 a4:d0:ec:7a:32:33:4e:43:2d:d2:c9:e8:ca:d0:42:c0";
-            instance.ScriptText = "cd /home";
+            instance.Implicit = true;
+            instance.UserName = "test"; 
+            instance.Password = "test";
+            // instance.HostKey = "ssh-rsa 2048 06:54:5d:6b:11:b3:2f:3f:fb:37:a7:2f:92:6f:41:d8:bb:40:2c:08";
+            instance.HostKey = "06:54:5d:6b:11:b3:2f:3f:fb:37:a7:2f:92:6f:41:d8:bb:40:2c:08";
+            instance.ScriptText = "pwd";
+            instance.TimeoutSeconds = 20;
             Assert.IsTrue(instance.Execute());
         }
     }

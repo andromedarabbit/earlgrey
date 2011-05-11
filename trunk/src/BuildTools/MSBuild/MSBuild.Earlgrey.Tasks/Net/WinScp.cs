@@ -46,7 +46,11 @@ namespace MSBuild.Earlgrey.Tasks.Net
             get
             {
                 if (ProtocolSFtp)
+                {
+                    if (Implicit)
+                        return "ftps://";
                     return "sftp://";
+                }
 
                 if (ProtocolScp)
                     return "scp://";
@@ -77,6 +81,26 @@ namespace MSBuild.Earlgrey.Tasks.Net
                 sb.Append(":");
                 sb.Append(InternalPort);
 
+                if (string.IsNullOrEmpty(HostKey) == false)
+                {
+                    sb.Append(" -hostkey=\"");
+                    sb.Append(HostKey);
+                    sb.Append("\"");
+                }
+
+
+                if (Passive)
+                    sb.Append(" -passive");
+
+                if (Implicit)
+                    sb.Append(" -implicit");
+
+                if (ExplicitSsl)
+                    sb.Append(" -explicitssl");
+
+                if (ExplicitTls)
+                    sb.Append(" -explicittls");
+
                 return sb.ToString();
             }
         }
@@ -89,7 +113,11 @@ namespace MSBuild.Earlgrey.Tasks.Net
                     return Port;
 
                 if (ProtocolSFtp)
+                {
+                    if (Implicit)
+                        return 990;
                     return 22;
+                }
                 return 21;
             }
         }
@@ -191,18 +219,6 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
             if(TimeoutSeconds > 0)
                 builder.AppendSwitchIfNotNull("/timeout=", TimeoutSeconds.ToString());
-           
-            if(Passive)
-                builder.AppendSwitch("/passive");
-
-            if(Implicit)
-                builder.AppendSwitch("/implicit");
-
-            if (ExplicitSsl)
-                builder.AppendSwitch("/explicitssl");
-
-            if (ExplicitTls)
-                builder.AppendSwitch("/explicittls");
 
             string commands = base.GenerateCommandLineCommands();
             return commands + " " + builder.ToString();
@@ -223,6 +239,20 @@ namespace MSBuild.Earlgrey.Tasks.Net
         {
             get
             {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("open ");
+                sb.AppendLine(SessionString);
+                sb.AppendLine(Scripts);
+                sb.AppendLine("close");
+                sb.AppendLine("exit");
+                return sb.ToString();
+            }
+        }
+
+        private string Scripts
+        {
+            get
+            {
                 if (string.IsNullOrEmpty(ScriptFile) == false)
                 {
                     return File.ReadAllText(ScriptFile);
@@ -240,17 +270,14 @@ namespace MSBuild.Earlgrey.Tasks.Net
             {
                 using (StreamWriter sw = new StreamWriter(fs, Encoding.UTF8))
                 {
-                    sw.Write("open ");
-                    sw.WriteLine(SessionString);
-                    sw.Write(InternalScriptText);
-                    sw.Write("close");
-                    sw.Write("exit");
+                    sw.WriteLine(InternalScriptText);
                 }
             }
         }
 
         public override bool Execute()
         {
+            Log.LogMessage(MessageImportance.High, InternalScriptText);
             return base.Execute();
         }
         
