@@ -134,7 +134,9 @@
     </None>
     <None Include="ExternalTools\WinSCP\v4.3.2\licence" />
     <None Include="ExternalTools\WinSCP\v4.3.2\readme" />
-    <None Include="ExternalTools\WinSCP\v4.3.2\WinSCP.com" />
+    <None Include="ExternalTools\WinSCP\v4.3.2\WinSCP.com">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="MSBuild.Community.Tasks.snk" />
     <None Include="MSBuild.Earlgrey.Tasks.Targets">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -192,7 +194,9 @@
     <Content Include="ExternalTools\Robocopy\v5.1.2600.26\ROBOCOPY.EXE">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExternalTools\WinSCP\v4.3.2\WinSCP.exe" />
+    <Content Include="ExternalTools\WinSCP\v4.3.2\WinSCP.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
