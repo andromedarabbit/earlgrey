@@ -73,6 +73,11 @@
     <Compile Include="IO\WhereTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
     <Compile Include="Net\WinScpTest.cs" />
+    <Compile Include="Net\WinScpTestHelper.cs" />
+    <Compile Include="Net\WinScpUploadTest.cs" />
+    <Compile Include="Net\WinScpMkDirTest.cs" />
+    <Compile Include="Net\WinScpDownloadTest.cs" />
+    <Compile Include="Net\WinScpRmDirTest.cs" />
     <Compile Include="OneTimeSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BuildScripts.cs" />
@@ -144,6 +149,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\IO\BetterRoboCopySrcFolder1\TextFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\Net\WinScpTest\TextFile10.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\Net\WinScpUploadTest\SubFolder\TextFile3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\Net\WinScpUploadTest\TextFile1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\Net\WinScpUploadTest\TextFile2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\Subversion\Sample\DiffXmlSummaryExample.xml">

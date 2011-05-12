@@ -28,6 +28,10 @@
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.Email" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.WinScp" />
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.WinScpDownload" />
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.WinScpUpload" />
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.WinScpMkDir" />
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.Net.WinScpRmDir" />
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.ItemGroup.ItemsHelper" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.ItemGroup.SetMetadata" />
