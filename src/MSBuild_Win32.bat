@@ -1,6 +1,7 @@
-@echo off
+@ECHO OFF
 SETLOCAL
-call "%~dp0SetEnvironment_Win32.bat"
-call "C:\WINDOWS\Microsoft.NET\Framework\v3.5\msbuild.exe" %*
+SET CURRENT_DIR=%~dp0
+CALL "%CURRENT_DIR%SetEnvironment_Win32.bat"
+CALL "%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe" %*
 SET ERR_LEVEL=%errorlevel%
-exit /b %ERR_LEVEL%
+EXIT /b %ERR_LEVEL%
