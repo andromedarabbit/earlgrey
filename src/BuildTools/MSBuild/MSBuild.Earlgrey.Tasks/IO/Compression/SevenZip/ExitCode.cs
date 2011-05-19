@@ -5,10 +5,10 @@ using System.Text;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
 {
-    internal enum ExitCode
+    internal enum EExitCode
     {
         NoError = 0,
-        WarningNonFataError = 1, // For example, one or more files were locked by some other application, so they were not compressed. 
+        WarningNonFatalError = 1, // For example, one or more files were locked by some other application, so they were not compressed. 
         FatalError = 2, 
         CommandLineError = 7,
         NotEnoughMemoryForOperation = 8,

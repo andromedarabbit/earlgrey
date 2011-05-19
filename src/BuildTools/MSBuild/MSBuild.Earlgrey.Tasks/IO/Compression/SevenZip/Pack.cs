@@ -13,6 +13,8 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
         private string _password;
         private ITaskItem _srcFolder;
 
+        public bool IgnoreWarning { get; set; }
+
         public Pack()
         {
             Overwrite = false;
@@ -87,6 +89,25 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
             }
 
             return base.Execute();
+        }
+
+        protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
+        {
+            Log.LogMessage("Running " + pathToTool + " " + commandLineCommands);
+            return HandleExitCode(
+                base.ExecuteTool(pathToTool, responseFileCommands, commandLineCommands)
+                );
+        }
+
+        private int HandleExitCode(int retValue)
+        {
+            EExitCode exitCode = (EExitCode)(retValue);
+            if (exitCode == EExitCode.WarningNonFatalError && IgnoreWarning == true)
+            {
+                Log.LogWarning(ToolName + " returned with an exit code " + retValue + ", but it was ignored.");
+                return 0;
+            }
+            return retValue;
         }
 
         private CompressionLevel InternalZipLevel
