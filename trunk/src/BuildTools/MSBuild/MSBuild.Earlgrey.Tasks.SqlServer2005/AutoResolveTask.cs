@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using Earlgrey;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
@@ -25,39 +26,34 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             }
         }
 
+        private static string OSBitnessKeyword
+        {
+            get
+            {
+                if (EnvironmentHelper.Is64BitOperatingSystem() == true)
+                    return "x64";
+                return "x86";
+            }
+        }
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
         {
             //This handler is called only when the common language runtime tries to bind to the assembly and fails.
+            
 
-            //Retrieve the list of referenced assemblies in an array of AssemblyName.
-            Assembly MyAssembly, objExecutingAssemblies;
-            string strTempAssmbPath = "";
+            string assemblyNameMissing = args.Name.Substring(0, args.Name.IndexOf(","));
 
-            objExecutingAssemblies = Assembly.GetExecutingAssembly();
-            AssemblyName[] arrReferencedAssmbNames = objExecutingAssemblies.GetReferencedAssemblies();
+            string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects\" + OSBitnessKeyword);
+            
+            assemblyPath = Path.Combine(assemblyPath, assemblyNameMissing + ".dll");
 
-            //Loop through the array of referenced assembly names.
-            foreach (AssemblyName strAssmbName in arrReferencedAssmbNames)
-            {
-                //Check for the assembly names that have raised the "AssemblyResolve" event.
-                if (strAssmbName.FullName.Substring(0, strAssmbName.FullName.IndexOf(",")) == args.Name.Substring(0, args.Name.IndexOf(",")))
-                {
-                    //Build the path of the assembly from where it has to be loaded.				
-                    // strTempAssmbPath = "C:\\Myassemblies\\" + args.Name.Substring(0, args.Name.IndexOf(",")) + ".dll";
-                    
-                    strTempAssmbPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects");
-                    strTempAssmbPath = Path.Combine(strTempAssmbPath, args.Name.Substring(0, args.Name.IndexOf(",")) + ".dll");
+            if (File.Exists(assemblyPath) == false)
+                return null;
 
-
-                    break;
-                }
-
-            }
             //Load the assembly from the specified path. 					
-            MyAssembly = Assembly.LoadFrom(strTempAssmbPath);
+            Assembly assemblyFound = Assembly.LoadFrom(assemblyPath);
 
             //Return the loaded assembly.
-            return MyAssembly;	
+            return assemblyFound;
         }
     }
 }

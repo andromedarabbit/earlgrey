@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSBuild.Earlgrey.Tasks.SqlServer2005</RootNamespace>
     <AssemblyName>MSBuild.Earlgrey.Tasks.SqlServer2005</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0.50727</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,12 +37,12 @@
     <Reference Include="Microsoft.Build.Utilities" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2005 Management Objects\x86\Program Files\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2005 Management Objects\x86\Program Files\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.Smo.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.Smo.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -93,10 +93,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>call "$(ProjectDir)..\..\..\MSBuild_Win32.bat" "$(ProjectDir)..\..\msbuild.xml" /t:PrepareSharedManagementObjects2005
-
-IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects"
-XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Optionals\Microsoft SQL Server 2005 Management Objects\x86\Program Files\Microsoft SQL Server\90\GAC\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects\"
-</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>
