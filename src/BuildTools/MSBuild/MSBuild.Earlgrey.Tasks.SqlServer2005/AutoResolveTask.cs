@@ -26,24 +26,25 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             }
         }
 
-        private static string OSBitnessKeyword
-        {
-            get
-            {
-                if (EnvironmentHelper.Is64BitOperatingSystem() == true)
-                    return "x64";
-                return "x86";
-            }
-        }
+        //private static string OSBitnessKeyword
+        //{
+        //    get
+        //    {
+        //        if (EnvironmentHelper.Is64BitOperatingSystem() == true)
+        //            return "x64";
+        //        return "x86";
+        //    }
+        //}
+
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
         {
             //This handler is called only when the common language runtime tries to bind to the assembly and fails.
-            
+
 
             string assemblyNameMissing = args.Name.Substring(0, args.Name.IndexOf(","));
 
-            string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects\" + OSBitnessKeyword);
-            
+            string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects\x64");
+
             assemblyPath = Path.Combine(assemblyPath, assemblyNameMissing + ".dll");
 
             if (File.Exists(assemblyPath) == false)
