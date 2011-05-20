@@ -102,10 +102,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>
-
-IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects"
-XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\"
+    <PreBuildEvent>IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\x64" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\x64"
+XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\x64\"
 
 </PreBuildEvent>
   </PropertyGroup>
