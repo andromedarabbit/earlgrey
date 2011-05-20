@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+	<assembly>
+		<name>Microsoft.SqlServer.ManagedConnections</name>
+	</assembly>
+	<members>
+		<member name="N:Microsoft.SqlServer.Dts.ManagedConnections">
+			<summary>The <see cref="N:Microsoft.SqlServer.Dts.ManagedConnections"></see> namespace contains connections that are managed connections, contained directly in a connection manager. If <see cref="P:Microsoft.SqlServer.Dts.Runtime.ConnectionManager.InnerObject"></see> is used on these classes, their value is returned. Other connection managers are native, and .<see cref="P:Microsoft.SqlServer.Dts.Runtime.ConnectionManager.InnerObject"></see> returns System.__ComObject. For all connection types, it is recommended that you set properties using <see cref="P:Microsoft.SqlServer.Dts.Runtime.ConnectionManager.Properties"></see>.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn">
+			<summary>Contains the methods and properties used by MSMQ connections. It has been defined with the DtsConnection attribute, <see cref="T:Microsoft.SqlServer.Dts.Runtime.DtsConnectionAttribute"></see>.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn"></see> class. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn"></see> class, and initializes the path to the message queue. </summary>
+			<param name="strPath">The path to the message queue.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.AcquireConnection(System.Object)">
+			<summary>Establishes the MSMQ connection and returns a connection object.</summary>
+			<returns>The connection object containing the MSMQ connection.</returns>
+			<param name="txn">The handle to a transaction type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.LoadFromXML(System.Xml.XmlElement,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Loads connection information from XML.</summary>
+			<param name="rootNode">The node that contains the information to be loaded.</param>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.SaveToXML(System.Xml.XmlDocument,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Saves a component to XML. It is recommended that any changes to the package be saved by using <see cref="M:Microsoft.SqlServer.Dts.Runtime.Package.SaveToXML(System.String@,Microsoft.SqlServer.Dts.Runtime.IDTSEvents)"></see>.</summary>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+			<param name="doc">The XML document to save the information to.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.ConnectionDescription">
+			<summary>Returns the localized description of the connection.</summary>
+			<returns>A String that contains the localized description of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.ConnectionDisplayName">
+			<summary>Returns the localized display name of the connection.</summary>
+			<returns>A String that contains the localized display name of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.ConnectionString">
+			<summary>Gets or sets the connection string for the MSMQ connection.</summary>
+			<returns>A String that contains the connection string for the MSMQ connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.MSMQConn.Path">
+			<summary>Gets or sets the path to the files.</summary>
+			<returns>A String that contains the path to the files.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn">
+			<summary>Contains the methods and properties used by SMO connections.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn"></see> class. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.#ctor(System.Boolean,System.String,System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn"></see> class, initializing the authentication mode, user name, and password. </summary>
+			<param name="UserName">The user name that the connection manager uses.</param>
+			<param name="bUseWindowsAuthentication">A Boolean that specifies whether the connection manager uses Windows Authentication. true if Windows Authentication is used.</param>
+			<param name="Password">The password that the connection manager uses.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.#ctor(System.Boolean,System.String,System.String,System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn"></see> class, initializing the authentication mode, user name, password, and server.</summary>
+			<param name="UserName">The user name that the connection manager uses.</param>
+			<param name="bUseWindowsAuthentication">A Boolean that specifies whether the connection manager uses Windows Authentication. true if Windows Authentication is used.</param>
+			<param name="Password">The password that the connection manager uses.</param>
+			<param name="SqlServerName">The name of the server to which you want to make the SMO connection.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.AcquireConnection(System.Object)">
+			<summary>Establishes the SMO connection and returns a connection object.</summary>
+			<returns>The connection object that contains the SMO connection.</returns>
+			<param name="txn">The handle to a transaction type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.LoadFromXML(System.Xml.XmlElement,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Loads the connection information from XML.</summary>
+			<param name="rootNode">The node that contains the information to be loaded.</param>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.SaveToXML(System.Xml.XmlDocument,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Saves the connection information to XML. It is recommended that any changes to the package be saved by using <see cref="M:Microsoft.SqlServer.Dts.Runtime.Package.SaveToXML(System.String@,Microsoft.SqlServer.Dts.Runtime.IDTSEvents)"></see>.</summary>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+			<param name="doc">The XML document to save the information to.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.ConnectionDescription">
+			<summary>Gets the description of the connection manager for the SMO connection.</summary>
+			<returns>A String that describes the connection manager for the SMO connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.ConnectionDisplayName">
+			<summary>Returns the localized display name of the connection.</summary>
+			<returns>A String that contains the localized display name of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.ConnectionString">
+			<summary>Gets or sets the connection string for the SMO connection.</summary>
+			<returns>A String that contains the connection string for the SMO connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.Password">
+			<summary>Sets the password for the connection, if you do not use Windows Authentication.</summary>
+			<returns>A String that specifies a password for the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.SqlServerName">
+			<summary>Gets or sets a String that contains the name of the SQL Server to which you want to make the SMO connection.</summary>
+			<returns>A String that contains the name of the SQL Server to connect to as an SMO connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.UserName">
+			<summary>Gets or sets the user name for the connection, if you do not use Windows Authentication.</summary>
+			<returns>A String that contains the user name for the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMOServerConn.UseWindowsAuthentication">
+			<summary>Gets or sets a Boolean that indicates if Windows Authentication is used for the connection.</summary>
+			<returns>true if Windows Authentication is used in the connection; otherwise, false.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn">
+			<summary>Contains the methods and properties used by SMTP connections.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn"></see> class. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn"></see> class, initializing the SMPT server name. </summary>
+			<param name="strSmtpServer">A String that contains the SMTP server name.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.#ctor(System.String,System.Boolean,System.Boolean)">
+			<param name="strSmtpServer">A String that contains the SMTP server name.</param>
+			<param name="useWindowsAuthentication">A Boolean indicating that Windows Authentication is used to authenticate access to the server.</param>
+			<param name="EnableSsl">A Boolean indicating whether to encrypt communication using Secure Sockets Layer (SSL) when sending e-mail messages.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.AcquireConnection(System.Object)">
+			<summary>Establishes the SMTP connection and returns a connection object.</summary>
+			<returns>The connection object containing the SMTP connection.</returns>
+			<param name="txn">The handle to a transaction type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.LoadFromXML(System.Xml.XmlElement,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Loads the connection informatoin from XML</summary>
+			<param name="rootNode">The node that contains the information to be loaded.</param>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.SaveToXML(System.Xml.XmlDocument,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Saves the connection information to XML. It is recommended that any changes to the package be saved by using <see cref="M:Microsoft.SqlServer.Dts.Runtime.Package.SaveToXML(System.String@,Microsoft.SqlServer.Dts.Runtime.IDTSEvents)"></see>.</summary>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+			<param name="doc">The XML document to save the information to.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.ConnectionDescription">
+			<summary>Returns the localized description of the connection.</summary>
+			<returns>A String that contains the localized description of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.ConnectionDisplayName">
+			<summary>Returns the localized display name of the connection.</summary>
+			<returns>A String that contains the localized display name of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.ConnectionString">
+			<summary>Gets or sets the connection string for the SMTP connection.</summary>
+			<returns>A String that contains the connection string for the SMTP connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.EnableSsl">
+			<summary>Gets or sets a Boolean indicating whether to encrypt communication using Secure Sockets Layer (SSL) when sending e-mail messages.</summary>
+			<returns>true indicates that communication is encrypted, using Secure Sockets Layer (SSL) when sending e-mail messages. false indicates that encryption is not used.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.SmtpServer">
+			<summary>Gets or sets the name used to connect to the SMTP server.</summary>
+			<returns>A String that contains the name used to connect to the SMTP server. </returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.SMTPConn.UseWindowsAuthentication">
+			<summary>Gets or sets a Boolean indicating whether to access the SMTP server using Windows Authentication.</summary>
+			<returns>true indicates that Windows Authentication is used to authenticate access to the server. false indicates that Windows Authentication is not used.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn">
+			<summary>Contains the methods and properties used by WMI connections.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn"></see> class. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.#ctor(System.String,System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn"></see> class, initializing the WMI server name and namespace. </summary>
+			<param name="Namespace">The namespace that the connection manager uses. </param>
+			<param name="ServerName">The name of the server to connect to as a WMI connection.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.#ctor(System.Boolean,System.String,System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn"></see> class, initializing the authentication mode, user name, and password. </summary>
+			<param name="UserName">The user name that the connection manager uses.</param>
+			<param name="bUseNtAuth">A Boolean that specifies whether the connection manager uses Windows Authentication. true if Windows Authentication is used.</param>
+			<param name="Password">The password that the connection manager uses.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.#ctor(System.Boolean,System.String,System.String,System.String,System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn"></see> class, initializing the authentication mode, user name, password, server, and namespace. </summary>
+			<param name="UserName">The user name that the connection manager uses.</param>
+			<param name="Namespace">The namespace that the connection manager uses.</param>
+			<param name="bUseNtAuth">A Boolean that specifies whether the connection manager uses Windows Authentication. true if Windows Authentication is used.</param>
+			<param name="Password">The password that the connection manager uses.</param>
+			<param name="ServerName">The name of the server to connect to as a WMI connection.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.AcquireConnection(System.Object)">
+			<summary>Establishes the WMI connection and returns a connection object.</summary>
+			<returns>The connection object that contains the WMI connection.</returns>
+			<param name="txn">The handle to a transaction type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.LoadFromXML(System.Xml.XmlElement,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Loads the connection information from XML.</summary>
+			<param name="rootNode">The XMLElement that contains the information to be loaded.</param>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.SaveToXML(System.Xml.XmlDocument,Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents)">
+			<summary>Saves the connection information to XML. It is recommended that any changes to the package be saved by using <see cref="M:Microsoft.SqlServer.Dts.Runtime.Package.SaveToXML(System.String@,Microsoft.SqlServer.Dts.Runtime.IDTSEvents)"></see>.</summary>
+			<param name="events">An object that implements the <see cref="T:Microsoft.SqlServer.Dts.Runtime.IDTSInfoEvents"></see> interface for raising events (errors, warnings, and so on) during persistence.</param>
+			<param name="doc">The XML document to save the information to.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.ConnectionDescription">
+			<summary>Gets a description of the connection manager for the WMI connection.</summary>
+			<returns>A String that describes the connection manager for the WMI connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.ConnectionDisplayName">
+			<summary>Returns the localized display name of the connection.</summary>
+			<returns>A String that contains the localized display name of the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.ConnectionString">
+			<summary>Gets or sets the connection string for the WMI connection.</summary>
+			<returns>A String that contains the connection string for the WMI connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.Namespace">
+			<summary>Gets or sets the WMI namespace.</summary>
+			<returns>A String that contains the WMI namespace.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.Password">
+			<summary>Sets the password for the connection, if you do not use Windows Authentication.</summary>
+			<returns>A String that contains the password for the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.ServerName">
+			<summary>Gets or sets the name of the server to connect to as a WMI connection.</summary>
+			<returns>A String that contains the name of the server to connect to as a WMI connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.UserName">
+			<summary>Gets or sets the user name for the connection, if you do not use Windows Authentication.</summary>
+			<returns>A String that contains the user name for the connection.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Dts.ManagedConnections.WMIConn.UseWindowsAuth">
+			<summary>Gets or sets a Boolean that indicates if Windows Authentication is used for the connection. </summary>
+			<returns>true if Windows Authentication is used in the connection; otherwise, false.</returns>
+		</member>
+	</members>
+</doc>
