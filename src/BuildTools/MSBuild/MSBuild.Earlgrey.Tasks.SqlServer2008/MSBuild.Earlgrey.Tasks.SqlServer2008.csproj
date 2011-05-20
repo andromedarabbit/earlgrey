@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSBuild.Earlgrey.Tasks.SqlServer2008</RootNamespace>
     <AssemblyName>MSBuild.Earlgrey.Tasks.SqlServer2008</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0.50727</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -37,27 +37,27 @@
     <Reference Include="Microsoft.Build.Utilities" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.RegisteredServers, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\Microsoft.SqlServer.Management.RegisteredServers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.Smo.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\Microsoft.SqlServer.Smo.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SmoExtended, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
-      <HintPath>..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\Microsoft.SqlServer.SmoExtended.dll</HintPath>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\Microsoft.SqlServer.SmoExtended.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -79,6 +79,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
+      <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
+      <Name>Earlgrey</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
       <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>
       <Name>MSBuild.Earlgrey.Tasks</Name>
@@ -98,10 +102,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PreBuildEvent>call "$(ProjectDir)..\..\..\MSBuild_Win32.bat" "$(ProjectDir)..\..\msbuild.xml" /t:PrepareSharedManagementObjects2008
+    <PreBuildEvent>
 
 IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects"
-XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Optionals\Microsoft SQL Server 2008 Management Objects\x86\Windows\Gac\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\"
+XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Microsoft SQL Server 2008 Management Objects\x64\Windows\Gac\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2008 Management Objects\"
 
 </PreBuildEvent>
   </PropertyGroup>

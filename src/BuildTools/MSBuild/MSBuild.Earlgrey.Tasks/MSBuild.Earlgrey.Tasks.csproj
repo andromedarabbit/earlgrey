@@ -214,7 +214,9 @@
   <PropertyGroup>
     <PostBuildEvent>XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(SolutionDir)"
 XCOPY /y "$(SolutionDir)..\MSBuild*.bat" "$(OutDir)"
-</PostBuildEvent>
-    <PreBuildEvent>call "$(ProjectDir)..\..\..\MSBuild_Win32.bat" "$(ProjectDir)..\..\msbuild.xml" /t:PrepareWinScp</PreBuildEvent>
+XCOPY /y "$(SolutionDir)..\setenvironment*.bat" "$(SolutionDir)"
+XCOPY /y "$(SolutionDir)..\setenvironment*.bat" "$(OutDir)"</PostBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using Earlgrey;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 {
@@ -13,7 +14,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         {
             AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(MyResolveEventHandler);
         }
-        
+
         // TODO: Earlgrey.TaskUtility 와 중복 코드
         private static string ThisAssemblyDirectory
         {
@@ -25,13 +26,24 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
             }
         }
 
+        private static string OSBitnessKeyword
+        {
+            get
+            {
+                if (EnvironmentHelper.Is64BitOperatingSystem() == true)
+                    return "x64";
+                return "x86";
+            }
+        }
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
         {
             //This handler is called only when the common language runtime tries to bind to the assembly and fails.
 
+
             string assemblyNameMissing = args.Name.Substring(0, args.Name.IndexOf(","));
 
-            string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2008 Management Objects");
+            string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2008 Management Objects\" + OSBitnessKeyword);
+
             assemblyPath = Path.Combine(assemblyPath, assemblyNameMissing + ".dll");
 
             if (File.Exists(assemblyPath) == false)
@@ -41,7 +53,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
             Assembly assemblyFound = Assembly.LoadFrom(assemblyPath);
 
             //Return the loaded assembly.
-            return assemblyFound;	
+            return assemblyFound;
         }
     }
 }
