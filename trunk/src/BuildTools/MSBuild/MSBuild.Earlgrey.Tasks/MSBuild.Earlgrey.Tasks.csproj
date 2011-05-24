@@ -67,6 +67,7 @@
     <Compile Include="IO\Compression\SevenZip\ExtractExistingFileAction.cs" />
     <Compile Include="IO\Compression\SevenZip\Pack.cs" />
     <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
+    <Compile Include="IO\ForFiles.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="IO\Where.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
@@ -194,6 +195,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExternalTools\7za\v4.65\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ExternalTools\ForFiles\v1.1\Forfiles.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ExternalTools\Robocopy\v5.1.2600.26\ROBOCOPY.EXE">

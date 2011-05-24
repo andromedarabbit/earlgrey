@@ -14,6 +14,7 @@
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.ShareFolder" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.DeleteSharedFolder" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.Where" />
+	<UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.ForFiles" />
 
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.IniFile.GetSections" />
   <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.IO.IniFile.GetSection" />
