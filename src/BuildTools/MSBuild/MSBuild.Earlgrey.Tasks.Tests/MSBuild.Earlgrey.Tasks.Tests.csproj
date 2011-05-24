@@ -71,6 +71,7 @@
     <Compile Include="IO\ShareFolderTest.cs" />
     <Compile Include="IO\Compression\Zip\ZipTest.cs" />
     <Compile Include="IO\WhereTest.cs" />
+    <Compile Include="IO\ForFilesTest.cs" />
     <Compile Include="ItemGroup\ItemsHelperTest.cs" />
     <Compile Include="Net\WinScpTest.cs" />
     <Compile Include="Net\WinScpTestHelper.cs" />
@@ -143,6 +144,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\WhereTest.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\IO\ForFilesTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\ItemGroup\ItemsHelperTest.msbuild.xml">

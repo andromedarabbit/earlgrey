@@ -60,7 +60,7 @@
 	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild"
 	>
 	
-	<CallTarget Targets="TestAlone" />
+	<!-- <CallTarget Targets="TestAlone" />-->
 </Target>
 
 </Project>
