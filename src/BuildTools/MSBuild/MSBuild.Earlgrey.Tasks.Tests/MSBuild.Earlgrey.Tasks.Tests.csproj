@@ -82,6 +82,8 @@
     <Compile Include="OneTimeSetUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BuildScripts.cs" />
+    <Compile Include="Sql\GetObjectIdTest.cs" />
+    <Compile Include="Sql\GetUserIdTest.cs" />
     <Compile Include="Subversion\BetterSvnDiffTest.cs" />
     <Compile Include="Subversion\diffTest.cs" />
     <Compile Include="Subversion\SvnDiffTest.cs" />
