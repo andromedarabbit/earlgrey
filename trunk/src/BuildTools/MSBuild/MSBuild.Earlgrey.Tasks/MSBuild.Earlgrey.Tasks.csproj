@@ -77,6 +77,9 @@
     <Compile Include="Net\WinScpUpload.cs" />
     <Compile Include="Net\WinScpDownload.cs" />
     <Compile Include="Net\WinScpRmDir.cs" />
+    <Compile Include="Sql\AbstractGetId.cs" />
+    <Compile Include="Sql\GetObjectId.cs" />
+    <Compile Include="Sql\GetUserId.cs" />
     <Compile Include="Str\Replace.cs" />
     <Compile Include="Subversion\BetterSvnDiff.cs" />
     <Compile Include="IO\DeleteSharedFolder.cs" />
