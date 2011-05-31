@@ -154,6 +154,9 @@
     <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\ItemGroup\ItemsHelperTest.msbuild.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Temp\BuildScripts\MSBuild.Earlgrey.Tasks.Tests\GetObjectIdTest.msbuild.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Temp\IO\BetterRoboCopySrcFolder1\TextFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
