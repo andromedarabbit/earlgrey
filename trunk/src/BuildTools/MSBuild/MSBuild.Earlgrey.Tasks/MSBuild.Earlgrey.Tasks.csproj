@@ -117,6 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Subversion\SvnDelete.cs" />
     <Compile Include="Subversion\SvnDiff.cs">
       <SubType>Code</SubType>
     </Compile>

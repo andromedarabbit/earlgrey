@@ -33,8 +33,12 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Sql
             Assert.AreEqual(names.Count, identities.Length);
 
             Assert.IsTrue(
+                identities.All(item => string.IsNullOrEmpty(item.GetMetadata("Id")) == false)
+                );
+            Assert.IsTrue(
                 identities.All(item => int.Parse(item.GetMetadata("Id")) != 0)
                 );
         }
+
     }
 }

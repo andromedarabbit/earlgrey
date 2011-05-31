@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+	<PropertyGroup>
+		<ConnectionString>Data Source=localhost\SQLEXPRESS; Initial Catalog=master; Integrated Security=SSPI</ConnectionString>
+	</PropertyGroup>
+	
+  <Target Name="TestCase-GetObjectId-ExpectTrue">
+
+		<GetObjectId
+					ConnectionString="$(ConnectionString)"
+					Names="INFORMATION_SCHEMA.TABLES;INFORMATION_SCHEMA.VIEWS"
+		>
+			<Output TaskParameter="Ids" ItemName="Ids" />
+		</GetObjectId>
+
+		<Error Text="What the hell happened!"
+					 Condition="'%(Ids.Id)' == ''"
+					 />
+  </Target>
+
+</Project>

@@ -63,7 +63,8 @@ namespace MSBuild.Earlgrey.Tasks.Sql
                         object returnValue = command.ExecuteScalar();
                         string objectId = returnValue == null ? string.Empty : returnValue.ToString();
 
-                        ITaskItem newItem = new TaskItem(name);
+                        // ITaskItem newItem = new TaskItem(name);
+                        ITaskItem newItem = new TaskItem(name.ItemSpec);                        
                         newItem.SetMetadata("Id", objectId);
                         _identities.Add(newItem);
                     }
