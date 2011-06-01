@@ -74,7 +74,7 @@
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
 	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' == 'true'">
-		<Configuration>$(Configuration)</Configuration>
+		<Configuration>$(Configuration)-UnityBuild</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
 </ItemGroup>
