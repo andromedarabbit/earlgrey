@@ -140,7 +140,7 @@
 
 <Target 
 	Name="Clean" 
-	DependsOnTargets="FindIncrediBuild; CleanUsingDevEnv; CleanUsingIncrediBuild"
+	DependsOnTargets="FindIncrediBuild; PrepareUnityBuild; CleanUsingDevEnv; CleanUsingIncrediBuild"
 	>  
 	<Message Text="타겟: Clean" />  
 	
