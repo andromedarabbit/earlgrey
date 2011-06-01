@@ -299,11 +299,6 @@
 			ReferencedProjectIdentifier="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
 			RelativePathToProject=".\Earlgrey\Earlgrey.vcproj"
 		/>
-		<AssemblyReference
-			RelativePath="System.dll"
-			AssemblyName="System, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
-			MinFrameworkVersion="131072"
-		/>
 	</References>
 	<Files>
 		<Filter
