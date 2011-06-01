@@ -176,7 +176,7 @@
 		/>
 </Target>
 
-<Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' != 'true'">
+<Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' == 'true'">
 	<Exec 
 		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
 		WorkingDirectory="$(RootDir)"
