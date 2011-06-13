@@ -49,6 +49,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public bool ScriptSchema { get; set; }
         public bool Triggers { get; set; }
 
+        public bool AllConstraints { get; set; }
 
 
         public string OutputDir
@@ -80,8 +81,10 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
         #endregion // public properties
 
+        
         public GenerateSqlScripts()
         {
+            this.AllConstraints = true;
             this.ScriptSchema = true;            
         }
 
@@ -223,7 +226,6 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 options.Triggers = this.Triggers;
                 options.IncludeDatabaseContext = this.IncludeDatabaseContext;
                 // options.ScriptData = this.CopyData;
-                
 
                 options.ToFileOnly = true;
                 options.AnsiFile = false;
