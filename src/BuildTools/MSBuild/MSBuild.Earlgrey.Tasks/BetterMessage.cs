@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks
 {
     public class BetterMessage : AbstractTask
     {
-        public string Text { get; set; }
+        public ITaskItem[] Text { get; set; }
         public string Color { get; set; }
 
 
@@ -26,23 +27,32 @@ namespace MSBuild.Earlgrey.Tasks
 
         protected override bool ExecuteCommand()
         {
-            if (string.IsNullOrEmpty(Text))
+            if(Text == null || Text.Length == 0)
             {
                 Console.WriteLine();
-                return true;
-            }
-
-            if (string.IsNullOrEmpty(Color))
-            {
-                Console.WriteLine(Text);
                 return true;
             }
 
             ConsoleColor oldColor = Console.ForegroundColor;
             try
             {
-                Console.ForegroundColor = InternalColor;
-                Console.WriteLine(Text);
+                if (string.IsNullOrEmpty(Color) == false)
+                {
+                    Console.ForegroundColor = InternalColor;
+                }
+
+                foreach (var taskItem in Text)
+                {
+                    string item = taskItem.ItemSpec;
+
+                    if (string.IsNullOrEmpty(item))
+                    {
+                        Console.WriteLine();
+                        continue;
+                    }
+
+                    Console.WriteLine(item);
+                }
             }
             catch (ArgumentException argEx)
             {
@@ -53,7 +63,7 @@ namespace MSBuild.Earlgrey.Tasks
             {
                 Console.ForegroundColor = oldColor;
             }
-            
+
             return true;
         }
     }
