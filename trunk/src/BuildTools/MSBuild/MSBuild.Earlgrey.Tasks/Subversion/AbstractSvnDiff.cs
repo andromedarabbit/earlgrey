@@ -171,7 +171,8 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
 
         internal enum State
         {
-            Added
+            None
+            , Added
             , Modified
             , Deleted
             , Conflict

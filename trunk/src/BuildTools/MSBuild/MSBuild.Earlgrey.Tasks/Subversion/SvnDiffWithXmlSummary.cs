@@ -93,13 +93,20 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
 
             foreach(var path in paths)
             {
+                State state = GetState(path.props);
+                if(state == State.None)
+                    state = GetState(path.item);
+
+                if(state == State.None)
+                    continue;
+
                 var itemChanged = new ItemChanged
                 {
                     KindOf = GetKind(path.kind),
                     Path = GetProperRepositoryPath(path.Value),
-                    StateMarked = GetState(path.item)
+                    StateMarked = state
                 };
-
+                
                 this._itemsChanged.Add(itemChanged);
             }            
         }
@@ -113,6 +120,11 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             throw new Exception("Unknown kind value '" + kindStr + "'!");
         }
 
+        private static State GetProps(string stateStr)
+        {
+            return GetState(stateStr);
+        }
+
         private static State GetState(string stateStr)
         {
             if (stateStr == "added")
@@ -123,6 +135,8 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 return State.Modified;
             if (stateStr == "conflict") // TODO: 'conflict'가 맞는지 확인 안 해봤음
                 return State.Conflict;
+            if (stateStr == "none")
+                return State.None;
             throw new Exception("Unknown state value '" + stateStr + "'!");
         }
     }

@@ -50,6 +50,9 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 while (string.IsNullOrEmpty(line) == false)
                 {
                     string markStr = line.Substring(0, 1);
+                    if(line.Length >= 2)
+                        markStr = line.Substring(0, 2).Trim();
+
                     State state = GetState(markStr);
 
                     string path = line.Substring(1, line.Length - 1).Trim();

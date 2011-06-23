@@ -84,7 +84,12 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             var xmlSummary = _xmlDiff.Summary;
 
             if (plainSummary.Length != xmlSummary.Length)
-                throw new Exception("Svn diffs comparison failed!");
+            {
+                Log.LogError(
+                    string.Format("Svn diffs comparison failed! ({0}:{1})", plainSummary.Length, xmlSummary.Length)
+                    );
+                return false;
+            }
 
             for (int i = 0; i < plainSummary.Length; i++ )
             {
