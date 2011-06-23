@@ -304,7 +304,48 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
             Script(scripter, obj);
 
+            // 마지막 GO 명령 앞에 /r/n 갯수가 매번 달라지는 문제를 강제로 고치는 코드
+            if (SingleOutputFile == false && File.Exists(scripter.Options.FileName))
+            {
+                string text = string.Empty;
+                using (StreamReader sr = new StreamReader(scripter.Options.FileName, scripter.Options.Encoding))
+                {
+                    text = sr.ReadToEnd();                  
+                }
+
+                using (StreamWriter sw = new StreamWriter(scripter.Options.FileName, false, scripter.Options.Encoding))
+                {
+                    string textTrimmed = TrimLineBreaks(text) + "\r\n\r\nGO\r\n";
+                    sw.Write(textTrimmed);
+                }
+            }
+
             return true;
+        }
+
+        internal static string TrimLineBreaks(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            int lastIndexOfGo = text.LastIndexOf("GO", StringComparison.CurrentCultureIgnoreCase);
+            if (lastIndexOfGo < 0)
+                lastIndexOfGo = text.Length;
+
+            int index = lastIndexOfGo;
+            while ((index - 2) > -1)
+            {
+                string lastTwoChars = text.Substring(index - 2, 2);
+                if (lastTwoChars != "\r\n")
+                    break;
+
+                index = index - 2;
+            }
+
+            if (index < 0)
+                return text;
+
+            return text.Substring(0, index);
         }
 
         private void Script(Scripter scripter, ScriptNameObjectBase obj)

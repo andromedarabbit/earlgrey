@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="BuildScripts.cs" />
     <Compile Include="GenerateSqlScriptsTest.cs" />
+    <Compile Include="LineBreakTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
