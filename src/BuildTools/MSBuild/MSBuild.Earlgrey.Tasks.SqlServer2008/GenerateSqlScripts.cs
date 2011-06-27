@@ -225,6 +225,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 options.ScriptSchema = this.ScriptSchema;
                 options.Triggers = this.Triggers;
                 options.IncludeDatabaseContext = this.IncludeDatabaseContext;
+                options.DriAllConstraints = this.AllConstraints;
                 // options.ScriptData = this.CopyData;
 
                 options.ToFileOnly = true;
