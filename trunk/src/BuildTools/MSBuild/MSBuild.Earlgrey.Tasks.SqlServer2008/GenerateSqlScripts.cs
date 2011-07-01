@@ -45,6 +45,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public bool NoCollation { get; set; }
         public bool NonClusteredIndexes { get; set; }
 
+        public bool Permissions { get; set; }
+
         public bool SchemaQualify { get; set; }
         public bool ScriptSchema { get; set; }
         public bool Triggers { get; set; }
@@ -221,11 +223,13 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 options.FullTextIndexes = this.FullTextIndexes;
                 options.NoCollation = this.NoCollation;
                 options.NonClusteredIndexes = this.NonClusteredIndexes;
+                options.Permissions = this.Permissions;
                 options.SchemaQualify = this.SchemaQualify;
                 options.ScriptSchema = this.ScriptSchema;
                 options.Triggers = this.Triggers;
                 options.IncludeDatabaseContext = this.IncludeDatabaseContext;
                 options.DriAllConstraints = this.AllConstraints;
+                
                 // options.ScriptData = this.CopyData;
 
                 options.ToFileOnly = true;
