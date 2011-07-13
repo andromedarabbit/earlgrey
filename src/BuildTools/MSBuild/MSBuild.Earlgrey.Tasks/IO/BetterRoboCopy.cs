@@ -22,10 +22,14 @@ namespace MSBuild.Earlgrey.Tasks.IO
         private const string MAXLAD_SWITCH_NAME = "/MAXLAD:";
         private const string MINLAD_SWITCH_NAME = "/MINLAD:";
 
+        private const string NUMBER_OF_RETRIES_SWITCH_NAME = "/R:";
+
         private string _maxAgeString;
         private string _minAgeString;
         private string _maxLadString;
         private string _minLadString;
+
+        private int _numberOfRetries;
 
         public string MaxAge
         {
@@ -51,7 +55,18 @@ namespace MSBuild.Earlgrey.Tasks.IO
             set { _minLadString = value; }
         }
 
-        
+        public int NumberOfRetries
+        {
+            get { return _numberOfRetries; }
+            set { _numberOfRetries = value; }
+        }
+
+        public BetterRoboCopy()
+            : base()
+        {
+            _numberOfRetries = -1;
+        }
+
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder builder = new CommandLineBuilder();
@@ -59,6 +74,11 @@ namespace MSBuild.Earlgrey.Tasks.IO
             builder.AppendSwitchIfNotNull(MINAGE_SWITCH_NAME, _minAgeString);
             builder.AppendSwitchIfNotNull(MAXLAD_SWITCH_NAME, _maxLadString);
             builder.AppendSwitchIfNotNull(MINLAD_SWITCH_NAME, _minLadString);
+
+            if (_numberOfRetries > -1)
+            {
+                builder.AppendSwitch(NUMBER_OF_RETRIES_SWITCH_NAME + _numberOfRetries);
+            }
 
             string commands = base.GenerateCommandLineCommands();
             return commands + " " + builder.ToString();
