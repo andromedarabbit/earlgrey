@@ -20,6 +20,21 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             SharedFolderName = "MySharedFolderInWonderland";
         }
 
+        [Test]
+        public void LooksLikeButNotInvalidLocalPath()
+        {
+            ShareFolder share = new ShareFolder();
+            share.BuildEngine = new MockBuildEngine();
+
+            const string invalidLocalPath = @"\KiddingMe";
+            share.LocalFolder = new TaskItem(invalidLocalPath);
+            share.Name = SharedFolderName;
+            share.ResetExistingOne = false;
+            share.MakeFolderWhenNotExist = true;
+
+            Assert.IsFalse(share.Execute());
+        }
+
         private static string LocalPath
         {
             get
