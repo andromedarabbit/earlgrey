@@ -61,10 +61,19 @@ namespace MSBuild.Earlgrey.Tasks.IO
             set { _numberOfRetries = value; }
         }
 
+
+        public bool ExcludeHidden { get; set; }
+        public bool ExcludeSystem { get; set; }
+        public bool ExcludeTemporary { get; set; }
+
         public BetterRoboCopy()
             : base()
         {
-            _numberOfRetries = -1;
+            this._numberOfRetries = -1;
+            // base.ExcluedAttributes = "HS"; // Hidden, System
+            this.ExcludeHidden = true;
+            this.ExcludeSystem = true;
+            this.ExcludeTemporary = true;
         }
 
         protected override string GenerateCommandLineCommands()
@@ -78,6 +87,19 @@ namespace MSBuild.Earlgrey.Tasks.IO
             if (_numberOfRetries > -1)
             {
                 builder.AppendSwitch(NUMBER_OF_RETRIES_SWITCH_NAME + _numberOfRetries);
+            }
+
+            if (string.IsNullOrEmpty(ExcluedAttributes))
+            {
+                ExcluedAttributes = string.Empty;
+                if (ExcludeHidden)
+                    ExcluedAttributes += "H";
+
+                if (ExcludeSystem)
+                    ExcluedAttributes += "S";
+
+                if (ExcludeTemporary)
+                    ExcluedAttributes += "T";
             }
 
             string commands = base.GenerateCommandLineCommands();
