@@ -70,5 +70,27 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             // 다소 이상하지만 robocopy 자체가 이런 식으로 구현됐음
             Assert.IsTrue(roboCopy.Execute());
         }
+
+        [Test]
+        public void ExcludeAttributes()
+        {
+            BetterRoboCopy roboCopy = new BetterRoboCopy();
+            roboCopy.BuildEngine = new MockBuildEngine();
+            
+        
+            Assert.IsTrue(roboCopy.ExcludeHidden);
+            Assert.IsTrue(roboCopy.ExcludeSystem);
+            Assert.IsTrue(roboCopy.ExcludeTemporary);
+        
+
+            roboCopy.SourceFolder = SrcDir;
+            roboCopy.DestinationFolder = DstDir;
+            roboCopy.SourceFiles = new[]
+                                 {
+                                     "*.*"
+                                 };
+            Assert.IsTrue(roboCopy.Execute());
+            Assert.IsTrue(Directory.Exists(DstDir));
+        }
     }
 }
