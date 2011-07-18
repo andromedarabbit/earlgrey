@@ -34,6 +34,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public bool ContinueScriptingOnError { get; set; }
         public bool ConvertUserDefinedDataTypesToBaseType { get; set; }
 
+        public string EncodingOrCodePage { get; set; }
+
         public bool ExtendedProperties { get; set; }
         public bool FullTextIndexes { get; set; }
 
@@ -42,11 +44,14 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public bool IncludeHeaders { get; set; }
         public bool Indexes { get; set; }
 
+        public bool NoFileGroup { get; set; }
+
         public bool NoCollation { get; set; }
         public bool NonClusteredIndexes { get; set; }
 
         public bool Permissions { get; set; }
 
+        public bool ScriptDrops { get; set; }
         public bool SchemaQualify { get; set; }
         public bool ScriptSchema { get; set; }
         public bool Triggers { get; set; }
@@ -83,11 +88,30 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
         #endregion // public properties
 
+        internal Encoding InternalEncoding
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(EncodingOrCodePage) == true)
+                {
+                    return Encoding.Unicode;
+                }
+
+                int codePage = 0;
+                if (int.TryParse(EncodingOrCodePage, out codePage) == true)
+                {
+                    return Encoding.GetEncoding(codePage);
+                }
+
+                return Encoding.GetEncoding(EncodingOrCodePage);
+            }
+        }
         
         public GenerateSqlScripts()
         {
             this.AllConstraints = true;
-            this.ScriptSchema = true;            
+            this.ScriptSchema = true;
+            this.NoFileGroup = true;
         }
 
         protected override bool ValidateParameters()
@@ -217,24 +241,27 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 options.ExtendedProperties = this.ExtendedProperties;
                 options.ContinueScriptingOnError = this.ContinueScriptingOnError;
                 options.ConvertUserDefinedDataTypesToBaseType = this.ConvertUserDefinedDataTypesToBaseType;
+                options.IncludeDatabaseContext = this.IncludeDatabaseContext;
                 options.IncludeIfNotExists = this.IncludeIfNotExists;
                 options.IncludeHeaders = this.IncludeHeaders;
                 options.Indexes = this.Indexes;
                 options.FullTextIndexes = this.FullTextIndexes;
                 options.NoCollation = this.NoCollation;
                 options.NonClusteredIndexes = this.NonClusteredIndexes;
+                options.NoFileGroup = this.NoFileGroup;
                 options.Permissions = this.Permissions;
+                options.ScriptDrops = this.ScriptDrops;
                 options.SchemaQualify = this.SchemaQualify;
                 options.ScriptSchema = this.ScriptSchema;
                 options.Triggers = this.Triggers;
-                options.IncludeDatabaseContext = this.IncludeDatabaseContext;
+                
                 options.DriAllConstraints = this.AllConstraints;
                 
                 // options.ScriptData = this.CopyData;
 
                 options.ToFileOnly = true;
                 options.AnsiFile = false;
-                options.Encoding = Encoding.Unicode;
+                options.Encoding = InternalEncoding;
 
 
                 if (SingleOutputFile)
