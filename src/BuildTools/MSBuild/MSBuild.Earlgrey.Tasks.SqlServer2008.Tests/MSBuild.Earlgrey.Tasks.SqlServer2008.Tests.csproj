@@ -57,6 +57,7 @@
     <Compile Include="GenerateSqlScriptsTest.cs" />
     <Compile Include="LineBreakTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EncodingTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
