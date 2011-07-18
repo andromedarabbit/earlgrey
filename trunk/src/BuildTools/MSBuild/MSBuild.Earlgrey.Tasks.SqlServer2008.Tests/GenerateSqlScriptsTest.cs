@@ -40,7 +40,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             instance.Indexes = true;
             instance.NoCollation = true;
             instance.SchemaQualify = true;
-            instance.Triggers = true;
+            instance.ScriptTriggers = true;
 
             Assert.IsTrue(instance.Execute());
         }
@@ -207,7 +207,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
             instance.Overwrite = true;
             instance.OutputDir = outputDir;
             instance.OutputFileName = outputFileName;
-            instance.ScriptSchema = false;
+            instance.ScriptSchemas = false;
             instance.CopyData = true;
 
             Assert.IsTrue(instance.Execute());
