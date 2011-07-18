@@ -41,6 +41,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
         public bool IncludeDatabaseContext { get; set; }
         public bool IncludeIfNotExists { get; set; }
+        // public bool IncludeIfExistsDrop { get; set; }
         public bool IncludeHeaders { get; set; }
         public bool Indexes { get; set; }
 
@@ -51,13 +52,22 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
         public bool Permissions { get; set; }
 
+        public bool ScriptOwner { get; set; }
         public bool ScriptDrops { get; set; }
         public bool SchemaQualify { get; set; }
-        public bool ScriptSchema { get; set; }
-        public bool Triggers { get; set; }
+
+        public bool ScriptTriggers { get; set; }
+        public bool ScriptTables { get; set; }
+        public bool ScriptViews { get; set; }
+        public bool ScriptStoredProcedures { get; set; }
+        public bool ScriptAssemblies { get; set; }
+        public bool ScriptSchemas { get; set; }
+        public bool ScriptUsers { get; set; }
 
         public bool AllConstraints { get; set; }
 
+
+        
 
         public string OutputDir
         {
@@ -82,6 +92,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public bool CopyAllDatabaseTriggers { get; set; }         
         public bool CopyAllSchemas { get; set; }
          * * */
+
         public bool CopyData { get; set; }
 
         // public string[] Includes
@@ -110,8 +121,14 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
         public GenerateSqlScripts()
         {
             this.AllConstraints = true;
-            this.ScriptSchema = true;
+            this.ScriptOwner = true;
+            this.ScriptSchemas = true;
             this.NoFileGroup = true;
+            this.ScriptTables = true;
+            this.ScriptViews = true;
+            this.ScriptStoredProcedures = true;
+            this.ScriptAssemblies = false;
+            this.ScriptUsers = true;
         }
 
         protected override bool ValidateParameters()
@@ -122,7 +139,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 return false;
             }
 
-            if (ScriptSchema == false && CopyData == false)
+            if (ScriptSchemas == false && CopyData == false)
             {
                 Log.LogError("Either of 'ScriptSchema' or 'CopyData' should be 'true'.");
                 return false;
@@ -145,22 +162,22 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
   
             IEnumerable tables = GetTables(database.Tables);
-            if (ScriptSmoCollectionBase(scripter, tables) == false)
+            if (ScriptTables == true && ScriptSmoCollectionBase(scripter, tables) == false)
                 return false;
 
-            if (ScriptSmoCollectionBase(scripter, database.Views) == false)
+            if (ScriptViews == true && ScriptSmoCollectionBase(scripter, database.Views) == false)
                 return false;
 
-            if (ScriptSmoCollectionBase(scripter, database.StoredProcedures) == false)
+            if (ScriptStoredProcedures == true && ScriptSmoCollectionBase(scripter, database.StoredProcedures) == false)
                 return false;
 
-            if (ScriptSmoCollectionBase(scripter, database.Assemblies) == false)
+            if (ScriptAssemblies == true && ScriptSmoCollectionBase(scripter, database.Assemblies) == false)
                 return false;
 
-            // if (ScriptSmoCollectionBase(scripter, database.Schemas) == false)
+            // if (ScriptSchemas == true && ScriptSmoCollectionBase(scripter, database.Schemas) == false)
                 // return false;
 
-            if (ScriptSmoCollectionBase(scripter, database.Users) == false)
+            if (ScriptUsers == true && ScriptSmoCollectionBase(scripter, database.Users) == false)
                 return false;
 
             return true;
@@ -250,10 +267,11 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 options.NonClusteredIndexes = this.NonClusteredIndexes;
                 options.NoFileGroup = this.NoFileGroup;
                 options.Permissions = this.Permissions;
+                options.ScriptOwner = this.ScriptOwner;
                 options.ScriptDrops = this.ScriptDrops;
                 options.SchemaQualify = this.SchemaQualify;
-                options.ScriptSchema = this.ScriptSchema;
-                options.Triggers = this.Triggers;
+                options.ScriptSchema = this.ScriptSchemas;
+                options.Triggers = this.ScriptTriggers;
                 
                 options.DriAllConstraints = this.AllConstraints;
                 
@@ -330,7 +348,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
 
                 if (PrepareOutputFile(filePath) == false)
                     return false;
-
+                
                 scripter.Options.FileName = filePath;
             }
 
@@ -392,8 +410,8 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
                 scripter.Options.ScriptData = false;
                 return;
             }
-         
-            if(this.ScriptSchema == false)
+
+            if (this.ScriptSchemas == false)
                 return;
 
             scripter.Script(new SqlSmoObject[] { obj });            
