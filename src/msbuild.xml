@@ -40,7 +40,8 @@
 	<UseBoost Condition=" '$(UseBoost)' == '' ">false</UseBoost>
 </PropertyGroup>
 
-<!-- 특별한 문자열 -->  
+<!-- 특별한 문자열 --> 
+<!-- XML -->
 <PropertyGroup>  
 	<Semicolon>%3b</Semicolon>  
 	 
@@ -52,6 +53,23 @@
 	<Apostrophe>&apos;</Apostrophe>
 </PropertyGroup>  
 
+<!-- ASCII Escape Values for Formatting Your Output -->
+<PropertyGroup>
+	<!--
+		http://en.csharp-online.net/MSBuild%3A_By_Example%E2%80%94Formatting_Your_Output
+	-->
+	<CarriageReturn>%0D</CarriageReturn>
+	<LineFeed>%0A</LineFeed>
+	<NewLine>$(CarriageReturn)$(LineFeed)</NewLine>
+	<Tab>%09</Tab>
+	<Space>%20</Space>
+	<!-- 
+	<Quot>%22</Quot>
+	<Apostrophe>%27</Apostrophe>
+	<Ampersand>%26</Ampersand>
+	<PercentSign>%25</PercentSign>
+	-->
+</PropertyGroup>
   
 <!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
 <PropertyGroup>  
