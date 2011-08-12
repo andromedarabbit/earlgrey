@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	DefaultTargets="PrepareThirdParties"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<PropertyGroup>
+	<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+	
+	<MSBuildCommunityTasksRoot>$(VendorDir)\BuildTool\MSBuildCommunityTasks</MSBuildCommunityTasksRoot>
+	<MSBuildCommunityTasksDir>$(MSBuildCommunityTasksRoot)\v1.3.0.504</MSBuildCommunityTasksDir>
+	<MSBuildCommunityTasksOutput>$(MSBuildCommunityTasksDir)\build</MSBuildCommunityTasksOutput>
+	<MSBuildCommunityTasksBin>$(MSBuildCommunityTasksOutput)\$(Configuration)\bin</MSBuildCommunityTasksBin>
+	
+	
+	<MSBuildCommunityTasksPath>$(MSBuildCommunityTasksDir)-bin\$(Configuration)</MSBuildCommunityTasksPath>
+	<MSBuildCommunityTasksTargets>$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargets>
+</PropertyGroup>
+
+<!-- 선택적 라이브러리 -->
+<PropertyGroup>
+	<TempOptionalLibsRootDir>..\..\vendor\Optionals</TempOptionalLibsRootDir>
+</PropertyGroup>
+
+<ItemGroup>
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\ICSharpCode.SharpZipLib.dll" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\Microsoft.VisualStudio.SourceSafe.Interop.dll" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.Targets" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xml" />
+	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xsd" />
+</ItemGroup>
+
+
+<Import Project="$(MSBuildCommunityTasksTargets)"/>
+
+<Target Name="BuildMSBuildCommunityTasks">
+	<Copy 
+		SourceFiles="$(MSBuildCommunityTasksRoot)\MissingFiles\ICSharpCode.SharpZipLib.dll"
+		DestinationFolder="$(MSBuildCommunityTasksDir)\Libraries"
+		/>
+	
+	<!-- MSBuild 태스크는 쓰지 말 것: 경로가 꼬인다. -->
+	<Exec 
+		Command="$(Quot)$(MSBuildExeWrapper)$(Quot) MSBuildTasks.proj /t:Build /p:Configuration=$(Configuration)"
+		WorkingDirectory="$(MSBuildCommunityTasksDir)"
+	/>
+</Target>
+
+<Target Name="CleanMSBuildCommunityTasks">
+	<RemoveDir Directories="$(MSBuildCommunityTasksOutput)" />
+</Target>
+
+<Target Name="CleanThirdParties" DependsOnTargets="CleanMSBuildCommunityTasks">
+</Target>
+
+<Target Name="DeployMSBuildCommunityTasks" DependsOnTargets="BuildMSBuildCommunityTasks">
+	<Exec 
+		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(MSBuildCommunityTasksPath)\$(Quot) " />
+	<Exec 
+		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(BinDir)\$(Quot) " />
+</Target>
+
+
+<Target Name="PrepareThirdParties" DependsOnTargets="DeployMSBuildCommunityTasks">
+</Target>
+
+</Project>
+
+		

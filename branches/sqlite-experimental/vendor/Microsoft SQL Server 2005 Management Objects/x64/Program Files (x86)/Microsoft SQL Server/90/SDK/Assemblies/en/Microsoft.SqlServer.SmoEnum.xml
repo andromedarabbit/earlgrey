@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+	<assembly>
+		<name>Microsoft.SqlServer.SmoEnum</name>
+	</assembly>
+	<members>
+		<member name="T:Microsoft.SqlServer.Management.Smo.Dependency">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> class is a base class that is used to derive the node classes in SQL Server Management Objects (SMO) scripting classes.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Dependency.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Dependency.#ctor(Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> class based on the specified dependency.</summary>
+			<param name="dep">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object value that specifies the dependency.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Dependency.Copy">
+			<summary>Returns a copy of the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object that is a copy of the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Dependency.Links">
+			<summary>Gets the dependency list.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> object value that specifies the dependency list.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Dependency.Urn">
+			<summary>Gets or sets the URN value that uniquely identifies a Microsoft SQL Server scriptable object that is represented by a node in a <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyCollection"></see> object or a <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyTree"></see> object.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object value that specifies the SQL Server scriptable object.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> class represents a collection of <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> objects used in dependency discovery operations.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> class. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.#ctor(Microsoft.SqlServer.Management.Smo.DependencyChainCollection)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> class based on an existing dependency chain collection. </summary>
+			<param name="deps">A <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> object that specifies the dependency chain collection.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.Add(Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Adds a <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object to the collection.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> object that specifies the collection after the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object has been added.</returns>
+			<param name="value">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object that is to be added to the <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.Contains(Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Determines whether the specified <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object exists in the referenced collection.</summary>
+			<returns>A Boolean value that specifies whether the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object exists in the referenced collection.If True, the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object exists in the referenced collection.If False, the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object does not exist in the referenced collection.</returns>
+			<param name="value">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object of which the existence in the referenced collection is to be determined.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.CopyTo(Microsoft.SqlServer.Management.Smo.Dependency[],System.Int32)">
+			<summary>Copies the collection objects to a one-dimensional array beginning at the index value specified.</summary>
+			<param name="array">An array of <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> objects </param>
+			<param name="index">An <see cref="T:System.Int32"></see> value that specifies the index value from where to start the copy.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.IndexOf(Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Returns the index position of the specified <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object within the referenced collection.</summary>
+			<returns>An int32 value that specifies the index position of the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object in the referenced collection.</returns>
+			<param name="value">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object for which the index position is to be returned.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.Insert(System.Int32,Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Inserts a <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object in the referenced collection at the specified index position.</summary>
+			<param name="value">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object that is to be inserted into the referenced collection.</param>
+			<param name="index">An <see cref="T:System.Int32"></see> value that specifies the index position at which to insert the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.Remove(Microsoft.SqlServer.Management.Smo.Dependency)">
+			<summary>Removes a <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object from the referenced collection.</summary>
+			<param name="value">A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object that is to be removed from the collection.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.DependencyChainCollection.Item(System.Int32)">
+			<summary>Gets a <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object in the collection by index number.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object value that represents the dependency chain.</returns>
+			<param name="index">An <see cref="T:System.Int32"></see> value that specifies the position of the <see cref="T:Microsoft.SqlServer.Management.Smo.Dependency"></see> object in the <see cref="T:Microsoft.SqlServer.Management.Smo.DependencyChainCollection"></see> collection.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.EnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.EnumeratorException"></see> class represents the exception raised when an error occurs during enumeration operations.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.EnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.EnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.EnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.EnumeratorException"></see> class with the specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.EnumeratorException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.EnumeratorException"></see> class with the specified serialization information and streaming context.</summary>
+			<param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"></see> system object value that specifies the streaming context.</param>
+			<param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> system object value that specifies the serialization information.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.EnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.EnumeratorException"></see> class with the specified message and inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.FilterNode">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.FilterNode.Type">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException"></see> class represents the exception raised when a error occurs during the internal phase of an enumeration operation.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException"></see> class with the specified message text.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Internal Enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InternalEnumeratorException"></see> class with the specified message text and inner exception.</summary>
+			<param name="message">A <see cref="T:System.Boolean"></see> value that specifies the message string for the Internal Enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Internal Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException"></see> class represents the exception raised when a configuration file that is not valid is encountered.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException"></see> class with the specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Configuration File exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidConfigurationFileEnumeratorException"></see> class with the specified message and inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Configuration File exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Invalid Configuration File exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException"></see> class represents the exception raised when an object property is accessed incorrectly.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException"></see> class with the specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Property Usage Enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidPropertyUsageEnumeratorException"></see> class with the specified message and inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the invalid property usage enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> system object value that specifies the inner exception for the Invalid Property Usage Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException"></see> class represents the exception raised when a query expression that is not valid is encountered.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException"></see> class with a specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the invalid query expression enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidQueryExpressionEnumeratorException"></see> class with the specified message and inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Query Expression Enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Invalid Query Expression Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException"></see> class represents the exception raised when the version is not valid.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException"></see> class with the specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Version Enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.InvalidVersionEnumeratorException"></see> class with the specified message and inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Invalid Version Enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Invalid Version Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.NotYetImplementedEnumeratorException">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.ObjectProperty">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.ObjectProperty"></see> object specifies attributes of SQL Server Management Objects (SMO) object properties.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.ObjectProperty.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.ObjectProperty"></see> class.</summary>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.Expensive">
+			<summary>Gets or sets a <see cref="T:System.Boolean"></see> property value that specifies whether the object property is expensive in terms of time taken to load and initialize.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value that specifies whether the property is expensive in terms of time to load. If True, the property is expensive.If False (default), the property is not expensive.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.ExtendedType">
+			<summary>Gets or sets a <see cref="T:System.Boolean"></see> property value that specifies whether the property is an extended property or not.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value that specifies whether the property is an extended property. If True, the property is an extended property.If False (default), the property is an ordinary property.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.Name">
+			<summary>Gets or sets the name of the property.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the name of the property. </returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.ReadOnly">
+			<summary>Gets or sets the <see cref="T:System.Boolean"></see> property value that specifies whether the property is read-only or read/write.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value that specifies whether the property can be modified and retrieved or retrieved only. If True, the property can be retrieved only.If False (default), the property can be modified and retrieved.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.Type">
+			<summary>Gets or sets the type of property.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the type of property.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.ObjectProperty.Usage">
+			<summary>Gets or sets the way in which the property is used.</summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages"></see> object value that specifies the way in which the property is used. </returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages"></see> enumeration contains constant values that specify the ways in which properties are used. </summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.All">
+			<summary>All methods available are used to access the property.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.Filter">
+			<summary>The property is used in filtering operations.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.None">
+			<summary>The property is not used.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.OrderBy">
+			<summary>The property is used in order-by operations.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.Request">
+			<summary>The property is used in request operations.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.ObjectPropertyUsages.Reserved1">
+			<summary>This value reserved for future use.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.OrderBy">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.OrderBy.Direction">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException"></see> class represents the exception raised when an attempt is made to request an enumerator query that is not supported.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException"></see> class with the specified message.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Query Not Supported Enumerator exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.QueryNotSupportedEnumeratorException"></see> class with the specified message and specified inner exception.</summary>
+			<param name="message">A <see cref="T:System.String"></see> value that specifies the message string for the Query Not Supported Enumerator exception.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> object that specifies the inner exception for the Query Not Supported Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException"></see> class represents the exception raised when a SQL Server Management Objects (SMO) operation encounters an unknown property enumerator.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException"></see> class for the specified property.</summary>
+			<param name="propertyName">A <see cref="T:System.String"></see> value that specifies the name of the property that is unknown.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownPropertyEnumeratorException"></see> class for the specified property and with the specified inner exception.</summary>
+			<param name="propertyName">A <see cref="T:System.String"></see> value that specifies the name of the property that is unknown.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> system object value that specifies the inner exception for the Unknown Property Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException"></see> class represents the exception raised when a SQL Server Management Objects (SMO) operation encounters an unknown type enumerator.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException"></see> class for the specified type.</summary>
+			<param name="typeName">A <see cref="T:System.String"></see> value that specifies the name of the unknown type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.UnknownTypeEnumeratorException"></see> class for the specified type and with the specified inner exception.</summary>
+			<param name="typeName">A <see cref="T:System.String"></see> value that specifies the type that is unknown.</param>
+			<param name="innerException">An <see cref="T:System.Exception"></see> system object value that specifies the inner exception for the Unknown Type Enumerator exception.</param>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.Urn">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object provides programmatic access to Uniform Resource Name (URN) addresses that uniquely identify Microsoft SQL Server objects.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> class with the specified object name.</summary>
+			<param name="object">A <see cref="T:System.String"></see> value that specifies the name of the object represented by the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object. </param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.Equals(System.Object)">
+			<summary>Determines whether the referenced object is equal to another specified object.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value that specifies whether the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object is equal to the specified object.If True, the objects are equal.If False (default), the objects are not equal.</returns>
+			<param name="obj">An <see cref="T:System.Object"></see> system object that specifies the other object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.EscapeString(System.String)">
+			<summary>Sets the escape <see cref="T:System.String"></see> for the Uniform Resource Name (URN) address.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the escape string.</returns>
+			<param name="value">A <see cref="T:System.String"></see> value that specifies the escape string.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.Fixed(System.Object)">
+			<summary>Determines whether the object is fixed.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value that specifies whether the object is fixed.If True, the object is fixed.If False (default), the object is not fixed.</returns>
+			<param name="ci">An <see cref="T:System.Object"></see> system value that specifies the object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.GetAttribute(System.String)">
+			<summary>Returns the specified attribute value for the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the attribute value.</returns>
+			<param name="attributeName">A <see cref="T:System.String"></see> value that specifies the attribute name.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.GetAttribute(System.String,System.String)">
+			<summary>Returns the specified attribute value for the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the attribute value.</returns>
+			<param name="type">A <see cref="T:System.String"></see> value that specifies the attribute type.</param>
+			<param name="attributeName">A <see cref="T:System.String"></see> value that specifies the attribute name.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.GetNameForType(System.String)">
+			<summary>Returns the name of a Uniform Resource Name (URN) with the specified type.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the name of the URN value.</returns>
+			<param name="type">A <see cref="T:System.String"></see> value that specifies the URN type.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.op_Equality(Microsoft.SqlServer.Management.Smo.Urn,Microsoft.SqlServer.Management.Smo.Urn)">
+			<summary>Determines whether two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are equal by performing an equality operation.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> object value that specifies whether the two objects are unequal.If True, the two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are equal.If False (default), the two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are not equal.</returns>
+			<param name="a">A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object that specifies one object.</param>
+			<param name="b">A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object that specifies the other object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.op_Inequality(Microsoft.SqlServer.Management.Smo.Urn,Microsoft.SqlServer.Management.Smo.Urn)">
+			<summary>Determines whether two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are unequal by performing an inequality operation.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> object value that specifies whether the two objects are unequal.If True, the two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are unequal.If False (default), the two <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> objects are not unequal.</returns>
+			<param name="a">A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object that specifies one object.</param>
+			<param name="b">A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object that specifies the other object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.Urn.UnEscapeString(System.String)">
+			<summary>Sets the unescape <see cref="T:System.String"></see> for the URN address.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the unescape string.</returns>
+			<param name="value">A <see cref="T:System.String"></see> value that specifies the unescape string.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Urn.Parent">
+			<summary>Gets the Uniform Resource Name (URN) value of the object that is the parent of the object represented by the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object that represents the parent of the object represented by the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Urn.Type">
+			<summary>Gets the type of <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>A string value that specifies the type of <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Urn.Value">
+			<summary>Gets or sets the value of the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>A string value that specifies the Uniform Resource Name (URN) address of the object represented by the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.Urn.XPathExpression">
+			<summary>Gets the XPATH expression that represents the <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.Management.Smo.XPathExpression"></see> object value that specifies the XPATH expression for the referenced <see cref="T:Microsoft.SqlServer.Management.Smo.Urn"></see> object.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.XmlUtility">
+			<summary>This class supports the SQL Server Management Objects infrastructure and is not intended to be used directly from your code.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.XPathException">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.XPathException"></see> class represents the exception raised when a SQL Server Management Objects (SMO) operation encounters an error while handling an Xpath expression.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathException.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.XPathException"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathException.#ctor(System.String)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.XPathException"></see> class with the specified message.</summary>
+			<param name="msg">A <see cref="T:System.String"></see> value that specifies the message that is associated with the Xpath exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.XPathException"></see> class with the specified serialization info and stream context.</summary>
+			<param name="context">A <see cref="T:System.Runtime.Serialization.StreamingContext"></see> system object that specifies the streaming context for the Xpath exception.</param>
+			<param name="info">A <see cref="T:System.Runtime.Serialization.SerializationInfo"></see> system object that specifies the serialization information for the Xpath exception.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathException.#ctor(System.String,System.Exception)">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.XPathException"></see> class with the specified message and inner exception.</summary>
+			<param name="e">An <see cref="T:System.Exception"></see> system object that specifies the inner exception that caused the Xpath exception to be raised.</param>
+			<param name="msg">A <see cref="T:System.String"></see> value that specifies the message that is associated with the Xpath exception.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathException.ErrorCode">
+			<summary>Gets the error code that explains the cause of the Xpath exception.</summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.Management.Smo.XPathExceptionCode"></see> object value that specifies the cause of the Xpath exception.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathException.Message">
+			<summary>Gets the message associated with the Xpath exception.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the message associated with the Xpath exception.</returns>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.BadContext">
+			<summary>The context is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.BadQueryObject">
+			<summary>The query object is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.BooleanExpected">
+			<summary>A <see cref="T:System.Boolean"></see> value was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.ConstantExpected">
+			<summary>A constant value was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.ExpressionExpected">
+			<summary>An expression was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.FunctionExpected">
+			<summary>A function was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidArgument">
+			<summary>An argument that is not valid was supplied.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidDataRecordFilter">
+			<summary>The data record filter is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidName">
+			<summary>The name is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidNodeType">
+			<summary>The node type is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidNumArgs">
+			<summary>The number of arguments is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidPattern">
+			<summary>The pattern is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidPrefix">
+			<summary>The prefix is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidToken">
+			<summary>The token is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.InvalidVariable">
+			<summary>The variable is not valid.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.Last">
+			<summary>Last.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.MovedFromSelection">
+			<summary>The item was moved from the selection.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NodeSetExpected">
+			<summary>A node set was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NodeTestExpected">
+			<summary>A node test was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NoSelectedSet">
+			<summary>No set was selected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NotSupported">
+			<summary>The operation is not supported.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NoXPathActive">
+			<summary>There is no active Xpath.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.NumberExpected">
+			<summary>A number was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.QueryExpected">
+			<summary>A query was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.Success">
+			<summary>Success.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.TestExpected">
+			<summary>A test was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.TokenExpected">
+			<summary>A token was expected.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.UnclosedString">
+			<summary>A string was unclosed.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.UndefinedXsltContext">
+			<summary>The XSLT content was undefined.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.Management.Smo.XPathExceptionCode.UnknownMethod">
+			<summary>The method is unknown.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathExpression.GetAttribute(System.String,System.String)">
+			<summary>Returns the value of the attribute of the Xpath expression.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the attribute value.</returns>
+			<param name="type">A <see cref="T:System.String"></see> value that specifies the type of attribute.</param>
+			<param name="attributeName">A <see cref="T:System.String"></see> value that specifies the name of the attribute.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathExpression.Item(System.Int32)">
+			<summary>Returns the Xpath expression block with the specified index value.</summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock"></see> object value that specifies the Xpath expression block.</returns>
+			<param name="index">An <see cref="T:System.Int32"></see> value that specifies the index position of the Xpath expression block.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathExpression.Length">
+			<summary>Gets the length of the Xpath expression.</summary>
+			<returns>An <see cref="T:System.Int32"></see> value that specifies the length of the Xpath expression.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock">
+			<summary>The <see cref="T:Microsoft.SqlServer.Management.Smo.XpathExpressionBlock"></see> object represents an Xpath expression block.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.#ctor">
+			<summary>Initializes a new instance of the <see cref="T:Microsoft.SqlServer.Management.Smo.XpathExpressionBlock"></see> class.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.Copy">
+			<summary>Makes a copy of the Xpath expression block.</summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.Management.Smo.XpathExpressionBlock"></see> object value that specifies a copy of the original object.</returns>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.GetAttributeFromFilter(System.String)">
+			<summary>Returns an attribute from the filter.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the attribute value.</returns>
+			<param name="attributeName">A <see cref="T:System.String"></see> value that specifies the attribute.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.GetUniqueAttribute(Microsoft.SqlServer.Management.Smo.FilterNode)">
+			<summary>Returns a unique attribute of the specified filter node.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the unique attribute.</returns>
+			<param name="filter">A <see cref="T:Microsoft.SqlServer.Management.Smo.FilterNode"></see> object value that specifies the filter node.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.Filter">
+			<summary>Gets or sets the filter node for the Xpath expression block.</summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.Management.Smo.FilterNode"></see> object value that specifies the filter node for the Xpath expression block.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.FixedProperties">
+			<summary>Gets the fixed properties of the Xpath expression block.</summary>
+			<returns>An <see cref="T:System.Object"></see> object value that specifies the fixed properties.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.Management.Smo.XPathExpressionBlock.Name">
+			<summary>Gets or sets the name of the Xpath expression block.</summary>
+			<returns>A <see cref="T:System.String"></see> value that specifies the name of the Xpath expression block.</returns>
+		</member>
+	</members>
+</doc>

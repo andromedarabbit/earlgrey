@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">.</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksLib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2005.dll</MSBuildEarlgreyTasksLib>
+    <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.GetRegisteredGroups" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterGroup" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterGroup" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterServer" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterServer" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.SqlCmd" />
+  
+</Project>

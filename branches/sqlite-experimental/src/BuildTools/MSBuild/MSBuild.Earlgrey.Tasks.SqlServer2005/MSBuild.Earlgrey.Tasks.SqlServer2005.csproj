@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6A06EBD9-298C-4ACA-A117-670C7D6CEC2C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MSBuild.Earlgrey.Tasks.SqlServer2005</RootNamespace>
+    <AssemblyName>MSBuild.Earlgrey.Tasks.SqlServer2005</AssemblyName>
+    <TargetFrameworkVersion>v2.0.50727</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Any CPU-Debug\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Any CPU-Release\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Build.Utilities" />
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files (x86)\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files (x86)\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.Smo.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoResolveTask.cs" />
+    <Compile Include="GetRegisteredGroups.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteredServerHelper.cs" />
+    <Compile Include="RegisterGroup.cs" />
+    <Compile Include="RegisterServer.cs" />
+    <Compile Include="SqlCmd.cs" />
+    <Compile Include="UnregisterGroup.cs" />
+    <Compile Include="UnregisterServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedLibs\Earlgrey\Earlgrey.csproj">
+      <Project>{6F241072-0AB9-4A9D-8F9B-FC1586D63F8B}</Project>
+      <Name>Earlgrey</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
+      <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>
+      <Name>MSBuild.Earlgrey.Tasks</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MSBuild.Earlgrey.Tasks.SqlServer2005.Targets">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>IF NOT EXIST "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects\x64" MKDIR "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects\x64"
+XCOPY /E /Y "$(ProjectDir)..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files (x86)\Microsoft SQL Server\90\GAC\*.*" "$(TargetDir)ExternalLibs\Microsoft SQL Server 2005 Management Objects\x64"
+</PreBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+  <ItemGroup>
+    <Colors Include="Red" />
+    <Colors Include="Blue" />
+    <Colors Include="Violet" />
+    <Colors Include="Black" />
+  </ItemGroup>
+
+  <Target Name="TestCase-FirstTest-ExpectTrue">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="First" PropertyName="FirstItem" />
+    </ItemsHelper>
+
+    <Error
+      Text="First item should be 'Red', but '$(FirstItem)'!"
+      Condition="'$(FirstItem)' != 'Red'" />
+  </Target>
+
+  <Target Name="TestCase-LastTest-ExpectTrue">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Last" PropertyName="LastItem" />
+    </ItemsHelper>
+
+    <Error
+      Text="Last item should be 'Black', but '$(LastItem)'!"
+      Condition="'$(LastItem)' != 'Black'" />
+  </Target>
+
+  <Target Name="TestCase-CountTest-ExpectTrue">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Count" PropertyName="CountOfItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="The number of items should be '4', but '$(CountOfItems)'!"
+      Condition="'$(CountOfItems)' != '4'" />
+  </Target>
+
+  <Target Name="TestCase-MaxTest-ExpectTrue">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Max" PropertyName="MaxItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="Item with maximum value should be 'Violet', but '$(MaxItems)'!"
+      Condition="'$(MaxItems)' != 'Violet'" />
+  </Target>
+
+  <Target Name="TestCase-MinTest-ExpectTrue">
+    <ItemsHelper Items="@(Colors)">
+      <Output TaskParameter="Min" PropertyName="MinItems" />
+    </ItemsHelper>
+
+    <Error
+      Text="Item with minimum value should be 'Black', but '$(MinItems)'!"
+      Condition="'$(MinItems)' != 'Black'" />
+  </Target>
+
+</Project>

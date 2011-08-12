@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ExpectedKey Include="$(Keys)" />
+  </ItemGroup>
+  
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <Target Name="GetSection">
+    <IniFile.GetSection FilePath="$(IniFile)" Section="$(Section)">
+      <Output TaskParameter="KeyValues" ItemName="KeyValuesInSection" />
+    </IniFile.GetSection>
+
+    <Error Text="Key name '@(ExpectedKey)' expected, but '@(KeyValuesInSection)'." 
+           Condition="'@(KeyValuesInSection)' != '@(ExpectedKey)'" />
+
+    <Error Text="Value '$(Values)' expected, but '@(KeyValuesInSection->'%(Value)')'." Condition="'@(KeyValuesInSection->'%(Value)')' != '$(Values)'" />
+    <!--
+    <Error Text="Comments '$(Comments)' expected, but '@(KeyValuesInSection->'%(Comments)')'." Condition="'@(KeyValuesInSection->'%(Comments)')' != '$(Comments)'" />
+    -->
+  </Target>
+  
+</Project>

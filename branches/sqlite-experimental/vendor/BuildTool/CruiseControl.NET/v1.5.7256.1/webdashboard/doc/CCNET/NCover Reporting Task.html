@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>CruiseControl.NET : NCover Reporting Task</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            CruiseControl.NET : NCover Reporting Task
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on Dec 04, 2009 by <font color="#0050B2">csut017</font>.
+				    </div>
+
+				    <h1><a name="NCoverReportingTask-NCoverProfilerTask"></a>NCover Profiler Task</h1>
+
+<p>Generate a code coverage report using NCover.  </p>
+<div class='panelMacro'><table class='tipMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/check.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td>
+<p>NCover is a commerical application that will profile code while unit tests are running. The tool is available from <a href="http://www.ncover.com/">http://www.ncover.com/</a>.  </p></td></tr></table></div>
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Supported Versions</b><br />
+<p>CruiseControl.NET only supports NCover 3.x currently.  </p></td></tr></table></div>
+
+
+<h2><a name="NCoverReportingTask-Version"></a>Version</h2>
+
+<p>Available from version 1.5</p>
+
+<h2><a name="NCoverReportingTask-Examples"></a>Examples</h2>
+
+<div class="code panel" style="border-style: solid;border-width: 1px;"><div class="codeContent panelContent">
+<pre class="code-xml"><span class="code-tag">&lt;ncoverProfile&gt;</span>
+  <span class="code-tag">&lt;executable&gt;</span>C:\Program Files\NCover\NCover.Console.exe<span class="code-tag">&lt;/executable&gt;</span>
+  <span class="code-tag">&lt;program&gt;</span>tools\nunit\nunit-console.exe<span class="code-tag">&lt;/program&gt;</span>
+  <span class="code-tag">&lt;testProject&gt;</span>myproject.test.dll<span class="code-tag">&lt;/testProject&gt;</span>
+  <span class="code-tag">&lt;workingDir&gt;</span>build\unittests<span class="code-tag">&lt;/workingDir&gt;</span>
+  <span class="code-tag">&lt;includedAssemblies&gt;</span>myproject.*.dll<span class="code-tag">&lt;/includedAssemblies&gt;</span>
+<span class="code-tag">&lt;/ncoverProfile&gt;</span></pre>
+</div></div>
+
+
+<h2><a name="NCoverReportingTask-ConfigurationElements"></a>Configuration Elements</h2>
+
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Element </th>
+<th class='confluenceTh'> Description </th>
+<th class='confluenceTh'> Type </th>
+<th class='confluenceTh'> Required </th>
+<th class='confluenceTh'> Default </th>
+<th class='confluenceTh'> Version </th>
+</tr>
+<tr>
+<td class='confluenceTd'> baseDir </td>
+<td class='confluenceTd'> The base directory to use. All relative parameters will be relative to this parameter.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Project Working Directory </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> buildId </td>
+<td class='confluenceTd'> A custom build id to attach.  <br clear="all" /> <b>Maps to //bi</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> The build label </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> clearFilters </td>
+<td class='confluenceTd'> Should the coverage filters be cleared.  <br clear="all" /> <b>Maps to //ccf</b> </td>
+<td class='confluenceTd'> Boolean </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> coverageFile </td>
+<td class='confluenceTd'> The location to read the coverage date from. If relative, this will be relative to baseDir.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> coverage.xml </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> filters </td>
+<td class='confluenceTd'> The filters to apply.  <br clear="all" /> <b>Maps to //cf</b> </td>
+<td class='confluenceTd'> <a href="Coverage Filter.html" title="Coverage Filter">Coverage Filter</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> description </td>
+<td class='confluenceTd'> Description used for the visualisation of the buildstage, if left empty the process name will be shown.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> The task/publisher name. </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> dynamicValues </td>
+<td class='confluenceTd'> The dynamic values to use for the task.   </td>
+<td class='confluenceTd'> <a href="Dynamic Values.html" title="Dynamic Values">Dynamic Values</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> executable </td>
+<td class='confluenceTd'> The executable to use.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> NCover.Reporting </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> hide </td>
+<td class='confluenceTd'> The elements to hide.  <br clear="all" /> <b>Maps to //hi</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> mergeFile </td>
+<td class='confluenceTd'> The file to store the merged data in. If relative, this will be relative to baseDir.  <br clear="all" /> <b>Maps to //s</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> mergeMode </td>
+<td class='confluenceTd'> The merge mode to use.  <br clear="all" /> <b>Maps to //mfm</b> </td>
+<td class='confluenceTd'> String - one of:
+<ul>
+	<li>Default</li>
+	<li>KeepSourceFilters</li>
+	<li>Destructive</li>
+	<li>AppendFilters</li>
+</ul>
+</td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Default </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> minimumThresholds </td>
+<td class='confluenceTd'> The minimum coverage thresholds.  <br clear="all" /> <b>Maps to //mc</b> </td>
+<td class='confluenceTd'> <a href="Coverage Threshold.html" title="Coverage Threshold">Coverage Threshold</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> numberToReport </td>
+<td class='confluenceTd'> The maximum number of items to report.  <br clear="all" /> <b>Maps to //smf</b> </td>
+<td class='confluenceTd'> Int32 </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> -1 </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> outputDir </td>
+<td class='confluenceTd'> The directory to output the reports to. If relative, this will be relative to baseDir.   </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> projectName </td>
+<td class='confluenceTd'> The project name to use.  <br clear="all" /> <b>Maps to //p</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> reports </td>
+<td class='confluenceTd'> The type of report to generate.  <br clear="all" /> <b>Maps to //or</b> </td>
+<td class='confluenceTd'> String array<br clear="all" />The following values are valid:
+<ul>
+	<li>FullCoverageReport</li>
+	<li>Summary</li>
+	<li>UncoveredCodeSections</li>
+	<li>SymbolSourceCode</li>
+	<li>SymbolSourceCodeClass</li>
+	<li>SymbolSourceCodeClassMethod</li>
+	<li>MethodSourceCode</li>
+	<li>MethodSourceCodeClass</li>
+	<li>MethodSourceCodeClassMethod</li>
+	<li>SymbolModule</li>
+	<li>SymbolModuleNamespace</li>
+	<li>SymbolModuleNamespaceClass</li>
+	<li>SymbolModuleNamespaceClassMethod</li>
+	<li>SymbolCCModuleClassFailedCoverageTop</li>
+	<li>SymbolCCModuleClassCoverageTop</li>
+	<li>MethodModuleNamespaceClass</li>
+	<li>MethodModuleNamespaceClassMethod</li>
+	<li>MethodCCModuleClassFailedCoverageTop</li>
+	<li>MethodCCModuleClassCoverageTop</li>
+</ul>
+</td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> FullCoverageReport </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> satisfactory </td>
+<td class='confluenceTd'> The satisfactory coverage thresholds.  <br clear="all" /> <b>Maps to //sct</b> </td>
+<td class='confluenceTd'> <a href="Coverage Threshold.html" title="Coverage Threshold">Coverage Threshold</a> array </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> sortBy </td>
+<td class='confluenceTd'> The sort order to use.  <br clear="all" /> <b>Maps to //so</b> </td>
+<td class='confluenceTd'> String - one of:
+<ul>
+	<li>None</li>
+	<li>Name</li>
+	<li>ClassLine</li>
+	<li>CoveragePercentageAscending</li>
+	<li>CoveragePercentageDescending</li>
+	<li>UnvisitedSequencePointsAscending</li>
+	<li>UnvisitedSequencePointsDescending</li>
+	<li>VisitCountAscending</li>
+	<li>VisitCountDescending</li>
+	<li>FunctionCoverageAscending</li>
+	<li>FunctionCoverageDescending</li>
+</ul>
+</td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> timeout </td>
+<td class='confluenceTd'> The time-out period in seconds. If the task does no finish running in this time it will be terminated.   </td>
+<td class='confluenceTd'> Int32 </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> 600 </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> uncoveredAmount </td>
+<td class='confluenceTd'> The amount of uncovered items to cover.  <br clear="all" /> <b>Maps to //tu</b> </td>
+<td class='confluenceTd'> Int32 </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> trendInput </td>
+<td class='confluenceTd'> The file to import the trend from.  <br clear="all" /> <b>Maps to //lt</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> trendOutput </td>
+<td class='confluenceTd'> The file to append the trend to.  <br clear="all" /> <b>Maps to //at</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> minimumCoverage </td>
+<td class='confluenceTd'> Whether to use minimum coverage or not.  <br clear="all" /> <b>Maps to //mcsc</b> </td>
+<td class='confluenceTd'> Boolean </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> false </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> workingDir </td>
+<td class='confluenceTd'> The working directory for the executable. If relative, this will be relative to baseDir.  <br clear="all" /> <b>Maps to //w</b> </td>
+<td class='confluenceTd'> String </td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> <em>None</em> </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+<tr>
+<td class='confluenceTd'> xmlReportFilter </td>
+<td class='confluenceTd'> The type of report filtering to use.  <br clear="all" /> <b>Maps to //rdf</b> </td>
+<td class='confluenceTd'> String - one of:
+<ul>
+	<li>Default</li>
+	<li>Assembly</li>
+	<li>Namespace</li>
+</ul>
+</td>
+<td class='confluenceTd'> No </td>
+<td class='confluenceTd'> Default </td>
+<td class='confluenceTd'> 1.5 </td>
+</tr>
+</tbody></table>
+
+<h2><a name="NCoverReportingTask-Notes"></a>Notes</h2>
+
+<p>This task requires a profile to be completed before running. See the <a href="NCover Profiler Task.html" title="NCover Profiler Task">NCover Profiler Task</a>.  <br/>
+This task calls NCover.Reporting to generate the reports. Full details on this tool is available at <a href="http://docs.ncover.com/ref/3-0/ncover-reporting/">http://docs.ncover.com/ref/3-0/ncover-reporting/</a>. Additional details on the mapped arguments can be found there.  </p>
+
+
+<div class='panelMacro'><table class='infoMacro'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="images/icons/emoticons/information.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b>Automatically Generated</b><br />
+<p>Documentation generated on Friday, 4 Dec 2009 at 9:27:03 AM</p></td></tr></table></div>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="http://confluence.public.thoughtworks.org//images/border/border_bottom.gif"><img src="images/border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+		    <tr>
+			    <td align="center"><font color="grey">Document generated by Confluence on May 02, 2010 20:17</font></td>
+		    </tr>
+	    </table>
+    </body>
+</html>

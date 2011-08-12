@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<PropertyGroup>
+	<MSBuildCommunityTasksPath>$(MSBuildProjectDirectory)\BuildTools\Deployed\MSBuildExtension</MSBuildCommunityTasksPath>
+</PropertyGroup>
+
+<Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+
+<!-- 플랫폼 판단 -->
+<Choose> 
+	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v3.5' ">
+		<PropertyGroup>
+			<Is64Bit>true</Is64Bit>
+			<Platform>x64</Platform>
+		</PropertyGroup>
+	</When>
+	<Otherwise>
+		<PropertyGroup>
+			<Is64Bit>false</Is64Bit>
+			<Platform>Win32</Platform>
+		</PropertyGroup>
+	</Otherwise>
+</Choose>
+	
+<PropertyGroup>
+	<RootDir>$(MSBuildProjectDirectory)</RootDir>
+	<TreeRootDir>$(RootDir)\..</TreeRootDir>
+	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
+	
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Any CPU</Platform>
+	<BuildConfiguration>$(Configuration)|$(Platform)</BuildConfiguration>
+	<OutputDir>$(Platform)-$(Configuration)</OutputDir>
+	<BinDir>$(OutputDir)\Bin</BinDir>
+	<ObjDir>$(OutputDir)\Obj</ObjDir>
+	
+	<BuildConfigurationFilePath>$(RootDir)\Earlgrey\inc\BuildConfiguration.h</BuildConfigurationFilePath>
+	<UseBoost Condition=" '$(UseBoost)' == '' ">false</UseBoost>
+</PropertyGroup>
+
+<!-- 특별한 문자열 --> 
+<!-- XML -->
+<PropertyGroup>  
+	<Semicolon>%3b</Semicolon>  
+	 
+	<Ampersand>&amp;</Ampersand>
+	<LeftAngleBracket>&lt;</LeftAngleBracket>
+	<RightAngleBracket>&gt;</RightAngleBracket>
+	<StraightQuotationMark>&quot;</StraightQuotationMark>
+	<Quot>$(StraightQuotationMark)</Quot>
+	<Apostrophe>&apos;</Apostrophe>
+</PropertyGroup>  
+
+<!-- ASCII Escape Values for Formatting Your Output -->
+<PropertyGroup>
+	<!--
+		http://en.csharp-online.net/MSBuild%3A_By_Example%E2%80%94Formatting_Your_Output
+	-->
+	<CarriageReturn>%0D</CarriageReturn>
+	<LineFeed>%0A</LineFeed>
+	<NewLine>$(CarriageReturn)$(LineFeed)</NewLine>
+	<Tab>%09</Tab>
+	<Space>%20</Space>
+	<!-- 
+	<Quot>%22</Quot>
+	<Apostrophe>%27</Apostrophe>
+	<Ampersand>%26</Ampersand>
+	<PercentSign>%25</PercentSign>
+	-->
+</PropertyGroup>
+  
+<!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  
+<PropertyGroup>  
+    <DevEnv>devenv</DevEnv>  
+	<IncrediBuild>BuildConsole.exe</IncrediBuild>
+</PropertyGroup> 
+
+<!-- UnityBuild / IncrediBuild -->
+<PropertyGroup>
+	<UseUnityBuild Condition="'$(UseUnityBuild)' ==''">false</UseUnityBuild>
+	<!-- 
+	<UseIncrediBuild Condition="'$(UseIncrediBuild)' ==''">false</UseIncrediBuild>
+	-->
+</PropertyGroup>
+
+<!-- 빌드 대상 -->
+<ItemGroup>
+	<ProjectReferences Include="Earlgrey.sln" Condition="'$(UseUnityBuild)' != 'true'">
+		<Configuration>$(Configuration)</Configuration>
+		<Platform>$(Platform)</Platform>
+	</ProjectReferences>
+	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' == 'true'">
+		<Configuration>$(Configuration)-UnityBuild</Configuration>
+		<Platform>$(Platform)</Platform>
+	</ProjectReferences>
+</ItemGroup>
+		
+<!-- 단위 테스트 바이너리 -->
+<ItemGroup>
+	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Test.exe">
+		<Options>--gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot; --gtest_filter=-*Performance*:*Mail</Options>
+	</UnitTestBinaries>
+	<UnitTestBinaries Include="$(BinDir)\Earlgrey.Database.Test.exe">
+		<Options>--gtest_output=xml:&quot;GTest.%(UnitTestBinaries.FileName).xml&quot;</Options>
+	</UnitTestBinaries>
+</ItemGroup>
+
+<!-- 선택적 라이브러리 -->
+<PropertyGroup>
+	<OptionalLibsRootDir>$(RootDir)\..\vendor\Optionals</OptionalLibsRootDir>
+</PropertyGroup>
+
+
+<Target Name="CleanUnitTestArtifacts">
+	<Message Text="타겟: CleanUnitTestArtifacts" />
+	
+	<Exec Command="DEL /Q gtest*.xml" WorkingDirectory="$(BinDir)" ContinueOnError="true" IgnoreExitCode="true" />
+</Target>
+
+<Target Name="CleanUsingDevEnv" Condition="'$(UseIncrediBuild)' != 'true'">
+	<Exec 
+		Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+	
+</Target>
+
+<Target Name="CleanUsingIncrediBuild" Condition="'$(UseIncrediBuild)' == 'true'">
+	<Exec 
+		Command="$(IncrediBuild) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target Name="FindIncrediBuild" Condition="'$(UseIncrediBuild)' == ''">
+	<Where FileName="$(IncrediBuild)">
+		<Output TaskParameter="PathsFound" ItemName="IncrediBuildFound" />
+	</Where>
+	
+	<CreateProperty Value="false" Condition="'@(IncrediBuildFound)' == ''">
+		<Output
+			TaskParameter="Value"
+			PropertyName="UseIncrediBuild" 
+		/>
+	</CreateProperty>
+	
+	<CreateProperty Value="true" Condition="'@(IncrediBuildFound)' != ''">
+		<Output
+			TaskParameter="Value"
+			PropertyName="UseIncrediBuild" 
+		/>
+	</CreateProperty>
+</Target>
+
+<Target 
+	Name="Clean" 
+	DependsOnTargets="FindIncrediBuild; PrepareUnityBuild; CleanUsingDevEnv; CleanUsingIncrediBuild"
+	>  
+	<Message Text="타겟: Clean" />  
+	
+	<RemoveDir Directories="$(OutputDir)" />  
+</Target>  
+
+<Target Name="PrepareOptionals" Condition="'$(UseBoost)' == 'true'"> 
+	<WebDownload 
+		FileUri="http://sourceforge.net/projects/boost/files/boost/1.45.0/boost_1_45_0.7z/download" 
+        FileName="$(OptionalLibsRootDir)\boost_1_45_0.7z" 
+		Condition="!Exists('$(OptionalLibsRootDir)\boost_1_45_0.7z')"
+		/>
+
+	<FileUpdate Files="$(RootDir)\Earlgrey\inc\BuildConfiguration.h"
+		Regex="^/\*\s+{BuildTool}"
+		ReplacementText="// /* {BuildTool}" 
+		Encoding="euc-kr"
+		Multiline="true"
+		/>
+		
+	<FileUpdate Files="$(RootDir)\Earlgrey\inc\BuildConfiguration.h"
+		Regex="^{BuildTool} \*\/"
+		ReplacementText="// {BuildTool} */" 
+		Encoding="euc-kr"
+		Multiline="true"
+		/>
+            
+	<SevenZip.Unpack 
+		ZipFilePath="$(OptionalLibsRootDir)\boost_1_45_0.7z" 
+		TargetDir="$(OptionalLibsRootDir)" 
+		Overwrite="false" 
+		Condition="!Exists('$(OptionalLibsRootDir)\boost_1_45_0')"
+		/>
+</Target>
+
+<Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' == 'true'">
+	<Exec 
+		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
+		WorkingDirectory="$(RootDir)"
+		/>
+</Target>
+
+<Target Name="BuildUsingDevEnv" Condition="'$(UseIncrediBuild)' != 'true'">
+	<Exec 
+		Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target Name="BuildUsingIncrediBuild" Condition="'$(UseIncrediBuild)' == 'true'">
+	<Exec 
+		Command="$(IncrediBuild) &quot;%(ProjectReferences.FullPath)&quot; /CFG=&quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" 
+		ContinueOnError="false" 
+		IgnoreExitCode="false" 
+		/> 
+</Target>
+
+<Target 
+	Name="Build" 
+	DependsOnTargets="FindIncrediBuild; PrepareOptionals; PrepareUnityBuild; BuildUsingDevEnv; BuildUsingIncrediBuild"
+	>
+	<Message Text="타겟: Build " />
+	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
+</Target>
+
+<Target Name="Rebuild" DependsOnTargets="Clean; Build">
+	<Message Text="타겟: Rebuild" />
+</Target>            
+			
+<Target Name="PrepareDatabase">
+	<ExecuteDDL 
+		ConnectionString="Server=.\SQLEXPRESS;Database=master;Trusted_Connection=Yes;" 
+		Files="$(RootDir)\Earlgrey.Database.Test\MSSQL-Tables.sql" 
+		ContinueOnError="false" 
+	/>            
+</Target>
+
+<Target Name="TestAlone" DependsOnTargets="CleanUnitTestArtifacts; PrepareDatabase">
+	<Message Text="타겟: TestAlone" />
+	
+	<Exec 
+		Command="&quot;%(UnitTestBinaries.FullPath)&quot; %(UnitTestBinaries.Options)" 
+		WorkingDirectory="$(BinDir)" 
+		ContinueOnError="true"  
+		IgnoreExitCode="true" 
+		/>
+</Target>
+
+</Project>
+
+		

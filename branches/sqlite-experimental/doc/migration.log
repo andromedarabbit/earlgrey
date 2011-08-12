@@ -1,0 +1,21 @@
+C# 프로젝트 모두 제거 후 마이그레이션
+
+GmailClient 프로젝트 파일에 중복된 설정값이 생겨 경고 발생 => 중복되는 값 모두 제거
+
+GmailClient 프로젝트를 재빌드하면 성공함 => ㅎ_ㅎ
+하지만 GmailClient 프로젝트를 그냥 빌드하면 StackWalker 링크에러 발생 => 프로젝트 종속성을 설정하더라도 lib 참조하지 못함; 수동으로 해결; C++ CLI 문제일지도..
+
+Server (샘플) 프로젝트에서 다음과 같은 에러 발생
+ => C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(3051,5): error MSB4006: There is a circular dependency in the target dependency graph involving target "GetCopyToOutputDirectoryItems".
+다음의 링크에 해결 방법이 나와 있음; 아무래도 마이그레이션 버그인듯 
+ => http://connect.microsoft.com/VisualStudio/feedback/details/522854/project-converted-from-vs2005-gets-msb4006-circular-dependency-error-on-build#
+ => Server 속성에서 GmailClient 참조 제거후 빌드 성공
+ 
+Earlgrey.Test 를 빌드하니 많고 같은 string 클래스 관련 링크에러가 뜸. 다음은 그 중 한 에러
+ => gtestd.lib(gtest.obj) : error LNK2019: unresolved external symbol "__declspec(dllimport) public: class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl std::basic_stringstream<char,struct std::char_traits<char>,class std::allocator<char> >::str(void)const " (__imp_?str@?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QEBA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@2@XZ) referenced in function "class testing::internal::String __cdecl testing::internal::StrStreamToString(class std::basic_stringstream<char,struct std::char_traits<char>,class std::allocator<char> > *)" (?StrStreamToString@internal@testing@@YA?AVString@12@PEAV?$basic_stringstream@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+ 
+이 에러는 DLL export 된 클래스에서 사용되는 STL 라이브러리가 export 되지 않아 발생하는 에러이다.
+위의 에러에 대한 해결 방법 : http://support.microsoft.com/kb/168958
+ => 이렇게 하다 저렇게 하다 보니 별로 바꾼것 없이 (런타임 라이브러리만 DLL 로 통일) 그냥 해결됨 ㅡㅡ;;; 원인은 안드로메다에 ㅠㅠ
+
+ 
