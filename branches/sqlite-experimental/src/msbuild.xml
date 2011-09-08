@@ -109,7 +109,7 @@
 
 <!-- 선택적 라이브러리 -->
 <PropertyGroup>
-	<OptionalLibsRootDir>$(RootDir)\..\vendor\Optionals</OptionalLibsRootDir>
+	<OptionalLibsRootDir>$(VendorDir)\Optionals</OptionalLibsRootDir>
 </PropertyGroup>
 
 
@@ -194,6 +194,17 @@
 		/>
 </Target>
 
+
+
+<Target Name="PrepareEngine"> 
+	<SevenZip.Unpack 
+		ZipFilePath="$(VendorDir)\icu 4.8.1.7z" 
+		TargetDir="$(VendorDir)" 
+		Overwrite="false" 
+		Condition="!Exists('$(VendorDir)\icu 4.8.1')"
+		/>
+</Target>
+
 <Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' == 'true'">
 	<Exec 
 		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
@@ -219,7 +230,7 @@
 
 <Target 
 	Name="Build" 
-	DependsOnTargets="FindIncrediBuild; PrepareOptionals; PrepareUnityBuild; BuildUsingDevEnv; BuildUsingIncrediBuild"
+	DependsOnTargets="FindIncrediBuild; PrepareOptionals; PrepareEngine; PrepareUnityBuild; BuildUsingDevEnv; BuildUsingIncrediBuild"
 	>
 	<Message Text="타겟: Build " />
 	<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
