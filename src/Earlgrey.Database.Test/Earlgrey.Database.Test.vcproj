@@ -28,7 +28,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;SET ERR_LEVEL=%errorlevel%&#x0D;&#x0A;IF %ERR_LEVEL% NEQ 0 EXIT /b %ERR_LEVEL%&#x0D;&#x0A;&#x0D;&#x0A;EXIT /b %ERR_LEVEL%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -107,7 +107,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;SET ERR_LEVEL=%errorlevel%&#x0D;&#x0A;IF %ERR_LEVEL% NEQ 0 EXIT /b %ERR_LEVEL%&#x0D;&#x0A;&#x0D;&#x0A;EXIT /b %ERR_LEVEL%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -187,7 +187,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;SET ERR_LEVEL=%errorlevel%&#x0D;&#x0A;IF %ERR_LEVEL% NEQ 0 EXIT /b %ERR_LEVEL%&#x0D;&#x0A;&#x0D;&#x0A;EXIT /b %ERR_LEVEL%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -270,7 +270,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;"
+				CommandLine="xcopy /y &quot;$(ProjectDir)$(ProjectName).ini&quot; &quot;$(TargetDir)&quot;&#x0D;&#x0A;SET ERR_LEVEL=%errorlevel%&#x0D;&#x0A;IF %ERR_LEVEL% NEQ 0 EXIT /b %ERR_LEVEL%&#x0D;&#x0A;&#x0D;&#x0A;EXIT /b %ERR_LEVEL%&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
