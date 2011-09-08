@@ -43,8 +43,7 @@ namespace Earlgrey
  			_txstring value1 = section.Read<_txstring>(_T("key1"));
  			ASSERT_TRUE(value1 == _T("value1"));
 
-			_txstring valueNotFound = section.Read<_txstring>(_T("nokey"));//, defaultValue);
-			ASSERT_TRUE(valueNotFound.empty());
+			ASSERT_THROW(section.Read<_txstring>(_T("nokey")), std::exception);
  		}
 
 		TEST(IniSectionTest, ReadLongString)
