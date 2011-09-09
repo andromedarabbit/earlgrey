@@ -14,7 +14,7 @@ namespace Earlgrey
 
 		TEST_F(DnsTest, GetHostAddressesWithHostName)
 		{
-			const _txstring hostNameOrAddress = _T("kaistizen.net");
+			const _txstring hostNameOrAddress = _T("AndromedaRabbit.net");
 
 			Dns::IPAddresses addresses;
 			Dns::GetHostAddresses(hostNameOrAddress, addresses);
@@ -25,8 +25,8 @@ namespace Earlgrey
 
 			ASSERT_EQ(bytes[0], 115);
 			ASSERT_EQ(bytes[1], 68);
-			ASSERT_EQ(bytes[2], 22);
-			ASSERT_EQ(bytes[3], 160);
+			ASSERT_EQ(bytes[2], 24);
+			ASSERT_EQ(bytes[3], 61);
 		}
 
 		TEST_F(DnsTest, GetHostAddressesWithYahoo)
