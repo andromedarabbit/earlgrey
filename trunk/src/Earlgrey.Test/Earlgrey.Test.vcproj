@@ -573,6 +573,10 @@
 					RelativePath=".\src\StackMemoryManagerTest.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\StlGreedyAllocatorTest.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="ProcessThread"
