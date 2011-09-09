@@ -19,6 +19,22 @@ namespace Earlgrey
 		typedef _SIZT size_type;
 		typedef _PDFT difference_type;
 
+		struct Deleter
+		{
+			//static void Delete(_Ty* p)
+			//{
+			//	StlGreedyAllocator allocator;
+			//	allocator.deallocate( p, sizeof(_Ty) );
+			//}
+
+			inline
+				void operator()(_Ty* p)
+			{
+				StlGreedyAllocator allocator;
+				allocator.deallocate( p, sizeof(_Ty) );
+			}
+		};
+
 		template<class _Other>
 		struct rebind
 		{	// convert an allocator<_Ty> to an allocator <_Other>

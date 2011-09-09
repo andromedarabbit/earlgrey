@@ -10,14 +10,15 @@ namespace Earlgrey {
 		static void Delete(T* p)
 		{
 			StlDefaultAllocator<T>::Type allocator;
-			allocator.deallocate( p, 0 );
+			allocator.deallocate( p, sizeof(T) );
 		}
 	};
 
 	template<typename T, template<class> class Deleter>
 	struct StlPrimitiveTypeDeleter
 	{
-		void operator()(T* p)
+		inline
+			void operator()(T* p)
 		{
 			Deleter<T>::Delete( p );
 		}
@@ -26,7 +27,8 @@ namespace Earlgrey {
 	template<typename T, template<class> class Deleter>
 	struct StlObjectTypeDeleter
 	{
-		void operator()(T* p)
+		inline
+			void operator()(T* p)
 		{
 			p->~T();
 			Deleter<T>::Delete( p );
@@ -39,8 +41,8 @@ namespace Earlgrey {
 	{
 		typedef typename mpl::if_<
 			std::numeric_limits<T>::is_specialized, 
-			StlPrimitiveTypeDeleter<T,Deleter>, 
-			StlObjectTypeDeleter<T,Deleter>
+			StlPrimitiveTypeDeleter<T, Deleter>, 
+			StlObjectTypeDeleter<T, Deleter>
 		>::type Type;
 	};
 
@@ -64,7 +66,8 @@ namespace Earlgrey {
 	//}
 
 	template<typename T>
-	std::tr1::shared_ptr<T> make_ptr(T* p)
+	inline 
+		std::tr1::shared_ptr<T> make_ptr(T* p)
 	{
 		// 세번째 파라미터인 custom memory manager는 counter의 alloc/dealloc에 사용된다.
 		// counter alloc/dealloc에 사용되는 custom memory manager는 counter type으로 rebind되서 사용되므로
@@ -74,16 +77,19 @@ namespace Earlgrey {
 		return std::tr1::shared_ptr<T>( 
 			p, 
 			StlCustomDeleter<T, DefaultDeleter>::Type(), 
-			StlDefaultAllocator<T>::Type() );
+			StlDefaultAllocator<T>::Type() 
+			);
 	}
 
 	template<typename T>
-	void reset_ptr(std::tr1::shared_ptr<T>& ptr, T* p)
+	inline
+		void reset_ptr(std::tr1::shared_ptr<T>& ptr, T* p)
 	{
 		ptr.reset( 
 			p, 
 			StlCustomDeleter<T, DefaultDeleter>::Type(), 
-			StlDefaultAllocator<T>::Type() );
+			StlDefaultAllocator<T>::Type() 
+			);
 	}
 }
 
