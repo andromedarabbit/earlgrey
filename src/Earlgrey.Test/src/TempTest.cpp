@@ -13,7 +13,7 @@ namespace Earlgrey
 		{
 			BOOL b = FALSE;
 			IsWow64Process(GetCurrentProcess(), &b);
-			ASSERT_TRUE(b);
+			ASSERT_TRUE2(b);
 		}
 		*/
 

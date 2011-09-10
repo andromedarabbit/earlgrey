@@ -67,7 +67,7 @@ namespace Earlgrey
 			const _txstring hostNameOrAddress = _T("69.147.114.224");
 			Dns::IPHostEntryPtr entry = Dns::GetHostEntry(hostNameOrAddress);
 			ASSERT_EQ(1, entry->AddressList().size());
-			ASSERT_TRUE(entry->HostName() == _T("b1.www.vip.re3.yahoo.com"));			
+			ASSERT_STREQ(_T("b1.www.vip.re3.yahoo.com"), entry->HostName().c_str());
 		}
 
 		TEST_F(DnsTest, GetHostName)

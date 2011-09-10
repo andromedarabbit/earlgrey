@@ -18,7 +18,7 @@ namespace Earlgrey
 
 			if( File::Exists(dumpFilePath.c_str()) )
 			{
-				ASSERT_TRUE(File::Delete(dumpFilePath));
+				ASSERT_TRUE2(File::Delete(dumpFilePath));
 			}
 
 			const MINIDUMP_TYPE dumpType = MiniDumpNormal;
@@ -31,7 +31,7 @@ namespace Earlgrey
 
 			miniDump.HandleException(exceptionPtr);	
 
-			ASSERT_TRUE( File::Exists(dumpFilePath) );
+			ASSERT_TRUE2( File::Exists(dumpFilePath) );
 		}
 
 		void WriteSummary(LPEXCEPTION_POINTERS exceptionPtr)
@@ -48,7 +48,7 @@ namespace Earlgrey
 			StackWriter sw(dumpFilePath.c_str(), StackWalker::OptionsAll);
 			sw.HandleException(exceptionPtr);	
 
-			ASSERT_TRUE( File::Exists(dumpFilePath) );
+			ASSERT_TRUE2( File::Exists(dumpFilePath) );
 		}
 
 

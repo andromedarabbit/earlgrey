@@ -23,7 +23,7 @@ namespace Earlgrey
 
 			// \todo WaitThread에서 Connector를 참조하기 때문에 연결되기 전에 Connector를 제거하면 안된다.
 			// 나중에 수정해야 함
-			//ASSERT_TRUE( connector.Connect(server, port) );
+			//ASSERT_TRUE2( connector.Connect(server, port) );
 		}
 	}
 }

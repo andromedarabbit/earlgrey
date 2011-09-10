@@ -20,28 +20,28 @@ namespace Earlgrey
 
 			BUFFER_T buf(128);
 			BinaryWriter<BUFFER_T> writer(buf);
-			ASSERT_TRUE(writer.Write(largeTrue));
-			ASSERT_TRUE(writer.Write(largeFalse));
-			ASSERT_TRUE(writer.Write(smallTrue));
-			ASSERT_TRUE(writer.Write(smallFalse));
+			ASSERT_TRUE2(writer.Write(largeTrue));
+			ASSERT_TRUE2(writer.Write(largeFalse));
+			ASSERT_TRUE2(writer.Write(smallTrue));
+			ASSERT_TRUE2(writer.Write(smallFalse));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 
 			BOOL largeRetValue = FALSE;
-			ASSERT_TRUE(reader.Read(largeRetValue));
+			ASSERT_TRUE2(reader.Read(largeRetValue));
 			ASSERT_EQ(largeTrue, largeRetValue);
 
-			ASSERT_TRUE(reader.Read(largeRetValue));
+			ASSERT_TRUE2(reader.Read(largeRetValue));
 			ASSERT_EQ(largeFalse, largeRetValue);
 
 			bool smallRetValue = false;
-			ASSERT_TRUE(reader.Read(smallRetValue));
+			ASSERT_TRUE2(reader.Read(smallRetValue));
 			ASSERT_EQ(smallTrue, smallRetValue);
 
-			ASSERT_TRUE(reader.Read(smallRetValue));
+			ASSERT_TRUE2(reader.Read(smallRetValue));
 			ASSERT_EQ(smallFalse, smallRetValue);
-			ASSERT_FALSE(reader.Read(largeTrue));
+			ASSERT_FALSE2(reader.Read(largeTrue));
 		}
 
 
@@ -53,21 +53,21 @@ namespace Earlgrey
 			BinaryWriter<BUFFER_T> writer(buf);
 
 			int intMaxValue = INT_MAX;
-			ASSERT_TRUE(writer.Write(intMaxValue));	
+			ASSERT_TRUE2(writer.Write(intMaxValue));	
 
 			int intMinValue = INT_MIN;
-			ASSERT_TRUE(writer.Write(intMinValue));
+			ASSERT_TRUE2(writer.Write(intMinValue));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
 
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(intMinValue, retValue);
 
-			ASSERT_FALSE(reader.Read(retValue));
+			ASSERT_FALSE2(reader.Read(retValue));
 		}
 
 		TEST(BinaryWriterTest, WriteInt32UsingChainBuffer)
@@ -78,21 +78,21 @@ namespace Earlgrey
 			BinaryWriter<BUFFER_T> writer(buf);
 
 			int intMaxValue = INT_MAX;
-			ASSERT_TRUE(writer.Write(intMaxValue));
+			ASSERT_TRUE2(writer.Write(intMaxValue));
 
 			int intMinValue = INT_MIN;
-			ASSERT_TRUE(writer.Write(intMinValue));
+			ASSERT_TRUE2(writer.Write(intMinValue));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			INT32 retValue = 0;
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(intMaxValue, retValue);
 
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(intMinValue, retValue);
 
-			ASSERT_FALSE(reader.Read(retValue));
+			ASSERT_FALSE2(reader.Read(retValue));
 		}
 
 		TEST(BinaryWriterTest, WriteFloatUsingChainBuffer)
@@ -103,21 +103,21 @@ namespace Earlgrey
 			BinaryWriter<BUFFER_T> writer(buf);
 
 			float maxValue = std::numeric_limits<float>::max() / 2;
-			ASSERT_TRUE(writer.Write(maxValue));
+			ASSERT_TRUE2(writer.Write(maxValue));
 
 			float minValue = std::numeric_limits<float>::min() / 3;
-			ASSERT_TRUE(writer.Write(minValue));
+			ASSERT_TRUE2(writer.Write(minValue));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			FLOAT retValue = 0;
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(maxValue, retValue);
 
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(minValue, retValue);
 
-			ASSERT_FALSE(reader.Read(retValue));
+			ASSERT_FALSE2(reader.Read(retValue));
 		}
 
 		TEST(BinaryWriterTest, WriteDoubleUsingChainBuffer)
@@ -128,21 +128,21 @@ namespace Earlgrey
 			BinaryWriter<BUFFER_T> writer(buf);
 
 			double maxValue = std::numeric_limits<double>::max() / 4;
-			ASSERT_TRUE(writer.Write(maxValue));
+			ASSERT_TRUE2(writer.Write(maxValue));
 
 			double minValue = std::numeric_limits<double>::min() / 5;
-			ASSERT_TRUE(writer.Write(minValue));
+			ASSERT_TRUE2(writer.Write(minValue));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			double retValue = 0;
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(maxValue, retValue);
 
-			ASSERT_TRUE(reader.Read(retValue));
+			ASSERT_TRUE2(reader.Read(retValue));
 			ASSERT_EQ(minValue, retValue);
 
-			ASSERT_FALSE(reader.Read(retValue));
+			ASSERT_FALSE2(reader.Read(retValue));
 		}
 
 // 		TEST(BinaryWriterTest, WriteInt32Pointer)
@@ -153,20 +153,20 @@ namespace Earlgrey
 // 			BinaryWriter<BUFFER_T> writer(buf);
 // 
 // 			std::auto_ptr<int> intMaxValue( new int(INT_MAX) );
-// 			ASSERT_TRUE(writer.Write(intMaxValue.get()));
+// 			ASSERT_TRUE2(writer.Write(intMaxValue.get()));
 // 
 // 			std::auto_ptr<int> intMinValue( new int(INT_MIN) );
-// 			ASSERT_TRUE(writer.Write(intMinValue.get()));
+// 			ASSERT_TRUE2(writer.Write(intMinValue.get()));
 // 
 // 			BinaryReader<BUFFER_T> reader(buf);
 // 			INT32 * retValue = NULL;
-// 			ASSERT_TRUE(reader.Read(retValue));
+// 			ASSERT_TRUE2(reader.Read(retValue));
 // 			ASSERT_EQ(*intMaxValue, *retValue);
 // 
-// 			ASSERT_TRUE(reader.Read(retValue));
+// 			ASSERT_TRUE2(reader.Read(retValue));
 // 			ASSERT_EQ(*intMinValue, *retValue);
 // 
-// 			ASSERT_FALSE(reader.Read(retValue));
+// 			ASSERT_FALSE2(reader.Read(retValue));
 // 		}
 
 		TEST(BinaryWriterTest, WriteString)
@@ -180,12 +180,12 @@ namespace Earlgrey
 			BUFFER_T buf(128);
 			BinaryWriter<BUFFER_T> writer(buf);
 
-			ASSERT_TRUE(writer.Write(tempStr, _countof(tempStr)));
+			ASSERT_TRUE2(writer.Write(tempStr, _countof(tempStr)));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			TCHAR retValue[128];
-			ASSERT_TRUE(reader.Read(retValue, _countof(retValue), _countof(tempStr)));
+			ASSERT_TRUE2(reader.Read(retValue, _countof(retValue), _countof(tempStr)));
 			ASSERT_TRUE( _txstring(retValue) == ABCD );
 		}
 
@@ -199,12 +199,12 @@ namespace Earlgrey
 			BUFFER_T buf(128);
 			BinaryWriter<BUFFER_T> writer(buf);
 
-			ASSERT_TRUE(writer.Write(emptyStr, _countof(emptyStr)));
+			ASSERT_TRUE2(writer.Write(emptyStr, _countof(emptyStr)));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			TCHAR retValue[128];
-			ASSERT_TRUE(reader.Read(retValue, _countof(retValue), _countof(emptyStr)));
+			ASSERT_TRUE2(reader.Read(retValue, _countof(retValue), _countof(emptyStr)));
 			ASSERT_TRUE( _txstring(retValue) == emptyStr );
 		}
 
@@ -222,12 +222,12 @@ namespace Earlgrey
 			ABCD[3] = static_cast<BYTE>(7);
 			ABCD[4] = static_cast<BYTE>(9);
 
-			ASSERT_TRUE(writer.WriteBytes(ABCD, _countof(ABCD)));
+			ASSERT_TRUE2(writer.WriteBytes(ABCD, _countof(ABCD)));
 
 
 			BinaryReader<BUFFER_T> reader(buf);
 			BYTE retValue[128];
-			ASSERT_TRUE(reader.ReadBytes(retValue, _countof(retValue), _countof(ABCD)));
+			ASSERT_TRUE2(reader.ReadBytes(retValue, _countof(retValue), _countof(ABCD)));
 
 			for(int i=0; i<_countof(ABCD); i++)
 			{
@@ -249,7 +249,7 @@ namespace Earlgrey
 			ABCD[3] = 7;
 			ABCD[4] = 9;
 
-			ASSERT_TRUE(writer.Write(ABCD, _countof(ABCD)));
+			ASSERT_TRUE2(writer.Write(ABCD, _countof(ABCD)));
 		}
 
 		TEST(BinaryWriterTest, BufferIsFull)
@@ -266,7 +266,7 @@ namespace Earlgrey
 			ABCD[3] = 7;
 			ABCD[4] = 9;
 
-			ASSERT_FALSE(writer.Write(ABCD, _countof(ABCD)));
+			ASSERT_FALSE2(writer.Write(ABCD, _countof(ABCD)));
 			ASSERT_FALSE(writer.good());
 			ASSERT_FALSE(writer.eof());
 			ASSERT_TRUE(writer.bad());

@@ -16,7 +16,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			ASSERT_THROW(reader.Open(), std::exception);
 		}
@@ -27,7 +27,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			const IniReader::SectionNameContainer& names = reader.SectionNames();
 			ASSERT_GT(names.size(), static_cast<size_t>(0));
@@ -39,7 +39,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			size_t count = 0;
 			while(reader.MoveNextSection())
@@ -59,7 +59,7 @@ namespace Earlgrey
 			IniReader reader(filePath);
 			EXPECT_FALSE(reader.Open());
 
-			ASSERT_FALSE(reader.MoveNextSection());
+			ASSERT_FALSE2(reader.MoveNextSection());
 		}
 
 		TEST(IniReaderTest, MoveSection)
@@ -68,9 +68,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveSection(_T("test4")));
+			ASSERT_TRUE2(reader.MoveSection(_T("test4")));
 			
 			IniSection section = reader.CurrentSection();
 
@@ -85,9 +85,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveSection(_T("test5")));
+			ASSERT_TRUE2(reader.MoveSection(_T("test5")));
 
 			IniSection section = reader.CurrentSection();
 
@@ -102,7 +102,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			IniSection section = reader[_T("test5")];
 
@@ -118,11 +118,11 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_FALSE(reader.Open());
+			ASSERT_FALSE2(reader.Open());
 
 // 			IniSection section1 = reader[_T("한글 섹션 1")];
 // 			const _tstring value1 = section1.Read<_tstring>(_T("한글 키 1"));
-// 			ASSERT_TRUE(_T("한글 값") == value1);
+// 			ASSERT_TRUE2(_T("한글 값") == value1);
 		}
 
 		TEST(IniReaderTest, HandleCommentedItems)
@@ -131,7 +131,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			IniSection section1 = reader[_T("Section1")];
 
@@ -140,10 +140,10 @@ namespace Earlgrey
 			ASSERT_THROW(section1.Read<_tstring>(_T(";CommentedKey1")), std::exception);
 
 			const _tstring value2 = section1.Read<_tstring>(_T("Key2"));
-			ASSERT_TRUE(_T(";InlineCommentDelimiterIsNotTreatedAsComment") == value2);
+			ASSERT_STREQ(_T(";InlineCommentDelimiterIsNotTreatedAsComment"), value2.c_str());
 
 			const _tstring value3 = section1.Read<_tstring>(_T("Key3"));
-			ASSERT_TRUE(_T("Value3") == value3);
+			ASSERT_STREQ(_T("Value3"), value3.c_str());
 
 
 			// Section 2
@@ -153,13 +153,13 @@ namespace Earlgrey
 			ASSERT_THROW(section1.Read<_tstring>(_T("Key4")), std::exception);
 
 			const _tstring value4 = section2.Read<_tstring>(_T("//Key4"));
-			ASSERT_TRUE(_T("Value4") == value4);
+			ASSERT_STREQ(_T("Value4"), value4.c_str());
 
 			// "#" is not treated as a comment delimiter
 			ASSERT_THROW(section1.Read<_tstring>(_T("Key5")), std::exception);
 
 			const _tstring value5 = section2.Read<_tstring>(_T("#Key5"));
-			ASSERT_TRUE(_T("Value5") == value5);
+			ASSERT_STREQ(_T("Value5"), value5.c_str());
 		}
 		
 		TEST(IniReaderTest, ReadSectionKeyValueWithBlanks)
@@ -170,19 +170,19 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			// able to read a section with a blank
 			const TCHAR * section3Name = _T("Section 3");
 			IniSection section3 = reader[section3Name];
-			ASSERT_TRUE(section3Name == section3.Name());
+			ASSERT_STREQ(section3Name, section3.Name().c_str());
 
 			// able to read a key and value with a blank
 			_txstring valueWithBlanks = section3.Read<_txstring>(_T("Key with blanks"));
-			ASSERT_TRUE(_T("value	with	blanks") == valueWithBlanks);
+			ASSERT_STREQ(_T("value	with	blanks"), valueWithBlanks.c_str());
 
 			_txstring valueWithBlanksInKorean = section3.Read<_txstring>(_T("한글 키"));
-			ASSERT_TRUE(_T("한글 값") == valueWithBlanksInKorean);
+			ASSERT_STREQ(_T("한글 값"), valueWithBlanksInKorean.c_str());
 		}
 
 

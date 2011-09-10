@@ -24,8 +24,8 @@ namespace Test {
 			DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		const _txstring cmdText = _T("select * from simple_table_1");
 		Command cmd(cmdText, connection);
@@ -91,8 +91,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		const _txstring cmdText = _T("select top 1 name from simple_table_1");
 		Command cmd(cmdText, connection);
@@ -107,8 +107,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
 		Command selectCmd(selectText, connection);
@@ -138,8 +138,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		const _txstring cmdText = _T("select invalid_column from simple_table_1");
 		Command cmd(cmdText, connection);
@@ -152,15 +152,15 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		const _txstring cmdText = _T("select * from simple_table_1");
 		Command cmd(cmdText, connection);
 
 		std::tr1::shared_ptr<DataReader> reader = cmd.ExecuteReader();
 
-		ASSERT_TRUE(reader->Read());
+		ASSERT_TRUE2(reader->Read());
 
 		long uniqueKey = 0;
 		_txstring name;

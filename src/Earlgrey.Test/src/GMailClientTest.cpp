@@ -43,16 +43,16 @@ namespace Earlgrey
 
 
 						BOOL succeeded = File::Exists(srcFile);
-						// ASSERT_TRUE(succeeded);
+						// ASSERT_TRUE2(succeeded);
 
 						if( File::Exists(dstFile.c_str()) )
 						{
 							succeeded = File::Delete(dstFile);
-							// ASSERT_TRUE(succeeded);
+							// ASSERT_TRUE2(succeeded);
 						}
 
 						succeeded = File::Copy(srcFile, dstFile, TRUE);
-						// ASSERT_TRUE(succeeded);
+						// ASSERT_TRUE2(succeeded);
 
 						return dstFile;
 					}

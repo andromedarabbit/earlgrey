@@ -64,7 +64,7 @@ namespace Earlgrey
 // 		TEST(TimerTest, TwoTimers)
 // 		{
 // 			ThreadIdType * stateValue = new ThreadIdType(WIN_MAIN_THREAD_ID); // 아래 StatePtr 이 스마트 포인터임
-// 			ASSERT_TRUE(stateValue != NULL);
+// 			ASSERT_TRUE2(stateValue != NULL);
 // 			StatePtr state(stateValue);
 // 
 // 			TimerCallback callback(&IncrementStateValueTest);
@@ -103,7 +103,7 @@ namespace Earlgrey
 // 		TEST(TimerTest, TwoTimers)
 //  		{
 //  			ThreadIdType * stateValue = new ThreadIdType(WIN_MAIN_THREAD_ID); // 아래 StatePtr 이 스마트 포인터임
-//  			ASSERT_TRUE(stateValue != NULL);
+//  			ASSERT_TRUE2(stateValue != NULL);
 //  			StatePtr state(stateValue);
 //  
 //  			TimerCallback callback(&IncrementStateValueTest);

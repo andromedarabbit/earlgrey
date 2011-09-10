@@ -12,7 +12,7 @@ namespace Earlgrey
 		{
 			const _txstring thisFilePath = Process::MainModuleFileName().c_str();
 
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				File::Exists(thisFilePath)
 				);
 		}
@@ -22,7 +22,7 @@ namespace Earlgrey
 			_txstring thisFilePath = Process::MainModuleFileName().c_str();
 			thisFilePath += _T("NOWHERE.exe");
 
-			ASSERT_FALSE(
+			ASSERT_FALSE2(
 				File::Exists(thisFilePath)
 				);
 		}
@@ -32,7 +32,7 @@ namespace Earlgrey
 			_txstring thisFilePath = Process::MainModuleFileName().c_str();
 			thisFilePath += _T("NOWHERE.exe");
 
-			ASSERT_FALSE(
+			ASSERT_FALSE2(
 				File::Delete(thisFilePath)
 				);
 		}
@@ -46,18 +46,18 @@ namespace Earlgrey
 			newFileName = _T("Copy-") + newFileName;
 
 			if(File::Exists(newFileName))
-				ASSERT_TRUE( File::Delete(newFileName) );
+				ASSERT_TRUE2( File::Delete(newFileName) );
 
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				File::Copy(fileName, newFileName, FALSE)
 				);
 
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				File::Copy(fileName, newFileName, TRUE)
 				);
 			
-			ASSERT_TRUE(File::Delete(newFileName));
-			ASSERT_FALSE(File::Exists(newFileName));
+			ASSERT_TRUE2(File::Delete(newFileName));
+			ASSERT_FALSE2(File::Exists(newFileName));
 		}
 	}
 }

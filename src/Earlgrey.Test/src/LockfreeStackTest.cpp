@@ -89,7 +89,7 @@ namespace Earlgrey
 
 			int pointerSize = sizeof(Pointer<int>);
 
-			ASSERT_TRUE(pointerSize == 8);
+			ASSERT_EQ(8, pointerSize);
 
 			pointer1.p(test);
 
@@ -97,14 +97,14 @@ namespace Earlgrey
 
 			pointer2 = pointer1;
 	
-			ASSERT_TRUE(pointer1.p() == pointer2.p());
-			ASSERT_TRUE(pointer1.Count() == pointer2.Count());
-			ASSERT_TRUE(pointer1.val64 == pointer2.val64);
+			ASSERT_EQ(pointer1.p(), pointer2.p());
+			ASSERT_EQ(pointer1.Count(), pointer2.Count());
+			ASSERT_NE(pointer1.val64, pointer2.val64);
 
 			pointer1.Count(pointer1.Count() + 1);
-			ASSERT_TRUE(pointer1.p() == pointer2.p());
+			ASSERT_EQ(pointer1.p(), pointer2.p());
 			ASSERT_TRUE(pointer1.Count() > pointer2.Count());
-			ASSERT_TRUE(pointer1.val64 != pointer2.val64);
+			ASSERT_NE(pointer1.val64, pointer2.val64);
 
 		}
 

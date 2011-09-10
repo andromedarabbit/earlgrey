@@ -20,10 +20,10 @@ namespace Earlgrey
 // const _txstring msg = _com_error(hr).ErrorMessage();
 
 			/*ASSERT_EQ(S_OK, firewall.TurnOff());
-			ASSERT_FALSE(firewall.IsTurnedOn());*/
+			ASSERT_FALSE2(firewall.IsTurnedOn());*/
 
 			ASSERT_EQ(S_OK, firewall.TurnOn());
-			ASSERT_TRUE(firewall.IsTurnedOn());
+			ASSERT_TRUE2(firewall.IsTurnedOn());
 		}
 
 		TEST(WindowsFirewallTest, AddAppToExceptionList)
@@ -33,21 +33,21 @@ namespace Earlgrey
 
 
 			_txstring thisModuleName( Process::MainModuleFileName().c_str() );
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				File::Exists(thisModuleName)
 				);
 
 			_txstring newFile(thisModuleName);
 			newFile += _T(".unittest.exe");
 
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				File::Copy(thisModuleName, newFile, TRUE)
 				);
 
 			ASSERT_EQ(
 				S_OK, firewall.AddAppToExceptionList(newFile.c_str())
 				);
-			ASSERT_TRUE(
+			ASSERT_TRUE2(
 				firewall.IsAppEnabled(newFile.c_str())
 				);
 		}

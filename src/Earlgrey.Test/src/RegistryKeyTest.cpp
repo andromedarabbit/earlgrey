@@ -14,11 +14,11 @@ namespace Earlgrey
 
 			if( localMachine.KeyExists(keyPath) )
 			{
-				ASSERT_TRUE(localMachine.DeleteSubKeyTree(keyPath));
+				ASSERT_TRUE2(localMachine.DeleteSubKeyTree(keyPath));
 			}
 
-			ASSERT_TRUE(localMachine.CreateSubKey(keyPath));
-			ASSERT_TRUE(localMachine.DeleteSubKey(keyPath));
+			ASSERT_TRUE2(localMachine.CreateSubKey(keyPath));
+			ASSERT_TRUE2(localMachine.DeleteSubKey(keyPath));
 			
 		}
 	}

@@ -135,7 +135,7 @@ namespace Earlgrey
 				_txstring str = TEXT("가나다라마바사");
 				_txstring suffix = TEXT("마바사");
 
-				ASSERT_TRUE(EndsWith(str, suffix));
+				ASSERT_TRUE2(EndsWith(str, suffix));
 			}
 
 			TEST(StringHelperTest, EndsWith2) 
@@ -143,7 +143,7 @@ namespace Earlgrey
 				_txstring str = TEXT("가나다라마바사");
 				_txstring suffix = TEXT("마바사");
 
-				ASSERT_TRUE(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
+				ASSERT_TRUE2(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
 			}
 
 			TEST(StringHelperTest, EndsWith3) 
@@ -151,7 +151,7 @@ namespace Earlgrey
 				_txstring str = TEXT("가나다라마바사");
 				_txstring suffix = TEXT("마바");
 
-				ASSERT_FALSE(EndsWith(str, suffix));
+				ASSERT_FALSE2(EndsWith(str, suffix));
 			}
 
 			TEST(StringHelperTest, EndsWith4) 
@@ -159,7 +159,7 @@ namespace Earlgrey
 				_txstring str = TEXT("가나다라마바사");
 				_txstring suffix = TEXT("마바");
 
-				ASSERT_FALSE(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
+				ASSERT_FALSE2(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
 			}
 
 			TEST(StringHelperTest, EndsWith5) 
@@ -167,7 +167,7 @@ namespace Earlgrey
 				_txstring str = TEXT("ABCDEFG");
 				_txstring suffix = TEXT("EFG");
 
-				ASSERT_TRUE(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
+				ASSERT_TRUE2(EndsWith<STRCMP_CURRENT_CULTURE>(str, suffix));
 			}
 
 			TEST(StringHelperTest, EndsWith6) 
@@ -175,7 +175,7 @@ namespace Earlgrey
 				_txstring str = TEXT("ABCDEFG");
 				_txstring suffix = TEXT("EF");
 
-				ASSERT_FALSE(EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(str, suffix));
+				ASSERT_FALSE2(EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(str, suffix));
 			}
 
 			TEST(StringHelperTest, StartsWith1) 
@@ -183,17 +183,17 @@ namespace Earlgrey
 				_txstring str = TEXT("가나다라마바사");
 				_txstring suffix = TEXT("가나다");
 
-				ASSERT_TRUE(StartsWith(str, suffix));
+				ASSERT_TRUE2(StartsWith(str, suffix));
 			}
 
 			TEST(StringHelperTest, IsNullOrEmpty)
 			{
 				TCHAR * str = _T("");
-				ASSERT_TRUE(IsNullOrEmpty(str));
-				ASSERT_TRUE(IsNullOrEmpty(NULL));
+				ASSERT_TRUE2(IsNullOrEmpty(str));
+				ASSERT_TRUE2(IsNullOrEmpty(NULL));
 
 				str = _T(" ");
-				ASSERT_FALSE(IsNullOrEmpty(str));
+				ASSERT_FALSE2(IsNullOrEmpty(str));
 			}
 
 
@@ -207,7 +207,7 @@ namespace Earlgrey
 				const WCHAR * dst1 = String::ToUnicode(src1.c_str(), EARLGREY_NUMERIC_CAST<int>(src1.length()), CP_THREAD_ACP);
 				
 				ASSERT_TRUE(dst1 != NULL);
-				ASSERT_TRUE(expected1 == dst1);
+				ASSERT_EQ(expected1, dst1);
 
 				const std::string src2("ASDJL MLKMQWLEIOJFAS");
 				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
@@ -215,7 +215,7 @@ namespace Earlgrey
 				const WCHAR * dst2 = String::ToUnicode(src2.c_str(), EARLGREY_NUMERIC_CAST<int>(src2.length()), CP_THREAD_ACP);
 
 				ASSERT_TRUE(dst2 != NULL);
-				ASSERT_TRUE(expected2 == dst2);
+				ASSERT_EQ(expected2, dst2);
 			}
 
 			TEST(StringHelperTest, FromStringToUnicode)
@@ -226,7 +226,7 @@ namespace Earlgrey
 				const WCHAR * dst1 = String::ToUnicode(src1);
 
 				ASSERT_TRUE(dst1 != NULL);
-				ASSERT_TRUE(expected1 == dst1);
+				ASSERT_EQ(expected1, dst1);
 
 				const std::string src2("ASDJL MLKMQWLEIOJFAS");
 				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
@@ -234,7 +234,7 @@ namespace Earlgrey
 				const WCHAR * dst2 = String::ToUnicode(src2);
 
 				ASSERT_TRUE(dst2 != NULL);
-				ASSERT_TRUE(expected2 == dst2);
+				ASSERT_EQ(expected2, dst2);
 			}
 
 			TEST(StringHelperTest, EmptyStringToUnicode)
@@ -245,7 +245,7 @@ namespace Earlgrey
 				const WCHAR * dst = String::ToUnicode(src.c_str(), EARLGREY_NUMERIC_CAST<int>(src.length()), CP_THREAD_ACP);
 
 				ASSERT_TRUE(dst != NULL);
-				ASSERT_TRUE(expected == dst);
+				ASSERT_EQ(expected, dst);
 			}
 
 			TEST(StringHelperTest, FromUnicode)
@@ -260,7 +260,7 @@ namespace Earlgrey
 					);
 
 				ASSERT_TRUE(dst1 != NULL);
-				ASSERT_TRUE(expected1 == dst1);
+				ASSERT_EQ(expected1, dst1);
 
 				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
 				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
@@ -272,7 +272,7 @@ namespace Earlgrey
 					);
 
 				ASSERT_TRUE(dst2 != NULL);
-				ASSERT_TRUE(expected2 == dst2);
+				ASSERT_EQ(expected2, dst2);
 			}
 
 			TEST(StringHelperTest, FromWStringToAnsi)
@@ -283,7 +283,7 @@ namespace Earlgrey
 				const CHAR * dst1 = String::FromUnicode(src1);
 
 				ASSERT_TRUE(dst1 != NULL);
-				ASSERT_TRUE(expected1 == dst1);
+				ASSERT_EQ(expected1, dst1);
 
 				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
 				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
@@ -291,7 +291,7 @@ namespace Earlgrey
 				const CHAR * dst2 = String::FromUnicode(src2);
 
 				ASSERT_TRUE(dst2 != NULL);
-				ASSERT_TRUE(expected2 == dst2);
+				ASSERT_EQ(expected2, dst2);
 			}
 
 			TEST(StringHelperTest, FromUnicodeWithEmptyString)
@@ -306,7 +306,7 @@ namespace Earlgrey
 					);
 
 				ASSERT_TRUE(dst != NULL);
-				ASSERT_TRUE(expected == dst);
+				ASSERT_EQ(expected, dst);
 			}
 		}
 	}

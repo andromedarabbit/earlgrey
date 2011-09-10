@@ -34,7 +34,7 @@ namespace Earlgrey
 					thisProcessIsConsole = TRUE;
 				}
 			}
-			ASSERT_TRUE(thisProcessIsConsole);
+			ASSERT_TRUE2(thisProcessIsConsole);
 		}
 	}
 }
