@@ -36,8 +36,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 		
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 		connection.Close();
 		ASSERT_FALSE(connection.IsConnected());
 	}
@@ -48,7 +48,7 @@ namespace Test {
 		TimeSpan timeout(0, 0, 30);
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString, timeout));
+		ASSERT_TRUE2(connection.Open(connectionString, timeout));
 		ASSERT_EQ(timeout, connection.ConnectionTimeout());
 		connection.Close();
 		ASSERT_FALSE(connection.IsConnected());

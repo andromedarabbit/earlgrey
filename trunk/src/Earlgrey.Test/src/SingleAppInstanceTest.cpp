@@ -10,11 +10,11 @@ namespace Earlgrey
 		{
 			const TCHAR * appName = _T("Earlgrey.Test.exe");
 			
-			ASSERT_TRUE(gSingleAppInstance::Instance().RegisterThisApp(appName));
-			ASSERT_TRUE(gSingleAppInstance::Instance().RegisterThisApp(appName));
+			ASSERT_TRUE2(gSingleAppInstance::Instance().RegisterThisApp(appName));
+			ASSERT_TRUE2(gSingleAppInstance::Instance().RegisterThisApp(appName));
 			
 			const TCHAR * anotherAppName = _T("Another");
-			ASSERT_FALSE(gSingleAppInstance::Instance().RegisterThisApp(anotherAppName));
+			ASSERT_FALSE2(gSingleAppInstance::Instance().RegisterThisApp(anotherAppName));
 		}
 	}
 }

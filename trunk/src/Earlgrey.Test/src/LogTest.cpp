@@ -19,7 +19,7 @@ namespace Earlgrey
 			if(GetSystemDefaultLCID() == 1042) // 한국어
 			{
 				std::wcout <<_T("액세스가 거부되었습니다.") <<  msg.c_str() <<std::endl;
-				ASSERT_TRUE(
+				ASSERT_TRUE2(
 					StartsWith(msg.c_str(), _T("액세스가 거부되었습니다."))					
 					);
 			}

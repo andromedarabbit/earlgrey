@@ -63,7 +63,7 @@ namespace Earlgrey
 		{
 			const _txstring ipString = _T("115.68.22.160");
 			IPAddress2 address(0);
-			ASSERT_TRUE(IPAddress2::TryParse(ipString, address));
+			ASSERT_TRUE2(IPAddress2::TryParse(ipString, address));
 
 			IPAddress2::AddressBytes bytes;
 			address.GetAddressBytes(bytes);
@@ -78,7 +78,7 @@ namespace Earlgrey
 		{
 			const _txstring ipString = _T("1154.68.22.160");
 			IPAddress2 address(0);
-			ASSERT_FALSE(IPAddress2::TryParse(ipString, address));
+			ASSERT_FALSE2(IPAddress2::TryParse(ipString, address));
 		}
 
 		TEST_F(IPAddressTest, ToString)
@@ -87,7 +87,7 @@ namespace Earlgrey
 			IPAddress2 address = IPAddress2::Parse(ipString);
 
 			const _txstring ipStringSecond = address.ToString();
-			ASSERT_TRUE(ipString == ipStringSecond);
+			ASSERT_TRUE(ipString == ipStringSecond.c_str());
 		}
 	}
 }

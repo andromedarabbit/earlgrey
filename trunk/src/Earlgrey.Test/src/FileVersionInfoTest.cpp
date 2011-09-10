@@ -13,13 +13,13 @@ namespace Earlgrey
 
 			FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(fileName) );
 			_tstring fileVersion = versionInfo.FileVersion();
-			ASSERT_TRUE( fileVersion == _T("1.0.0.1") );
+			ASSERT_STREQ( _T("1.0.0.1"), fileVersion.c_str() );
 
 			_tstring productName = versionInfo.ProductName();
-			ASSERT_TRUE( productName ==  _T("ProductName: Earlgrey") );
+			ASSERT_STREQ( _T("ProductName: Earlgrey"), productName.c_str() );
 
 			_tstring fileDescription = versionInfo.FileDescription();
-			ASSERT_TRUE( fileDescription ==  _T("FileDescription: Earlgrey") );
+			ASSERT_STREQ( _T("FileDescription: Earlgrey"), fileDescription.c_str() );
 			
 		}
 

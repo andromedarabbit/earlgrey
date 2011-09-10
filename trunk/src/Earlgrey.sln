@@ -1,12 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B08500D-61AE-4583-BCF6-F385A93ECD17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{171E3F30-9CC2-4D17-A610-B3F30F4DD097}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestClientPackage", "TestClientPackage", "{6C45550A-6BF6-4199-B071-E54C32F3D116}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssemblies", "{6512708C-0CB1-427E-8489-9342403AAC68}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{6A2BF934-D0AE-488D-815C-F38BA671D80C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D2979E7E-F281-4417-A5E9-DD935C55256F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{4AC86211-7E51-47FB-B8BB-A4B446033BA2}"
+	ProjectSection(SolutionItems) = preProject
+		msbuild-ci.xml = msbuild-ci.xml
+		msbuild-symbol.xml = msbuild-symbol.xml
+		msbuild.xml = msbuild.xml
+		MSBuild_Win32.bat = MSBuild_Win32.bat
+		MSBuild_x64.bat = MSBuild_x64.bat
+		SetEnvironment_Win32.bat = SetEnvironment_Win32.bat
+		SetEnvironment_x64.bat = SetEnvironment_x64.bat
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey", "Earlgrey\Earlgrey.vcproj", "{97815F93-C18E-4749-BAB1-B1917C7CE375}"
 	ProjectSection(ProjectDependencies) = postProject
 		{89B2BD42-B130-4811-9043-71A8EBC40DE5} = {89B2BD42-B130-4811-9043-71A8EBC40DE5}
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1B08500D-61AE-4583-BCF6-F385A93ECD17}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Test", "Earlgrey.Test\Earlgrey.Test.vcproj", "{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -16,9 +37,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Test", "Earlgrey.T
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\vendor\gtest-1.3.0\msvc\gtest.vcproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestApps", "TestApps", "{171E3F30-9CC2-4D17-A610-B3F30F4DD097}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\vendor\gtest-1.6.0\msvc\gtest.vcproj", "{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "ServerClientTestApp\Client\Client.vcproj", "{8946A7CE-5C7D-4BDE-8429-C491FB198BAB}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -33,11 +52,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "ServerClientTestA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestClient", "TestClient\TestClient.csproj", "{180C41EF-CB5D-422E-92C0-2E797AE96845}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestClientPackage", "TestClientPackage", "{6C45550A-6BF6-4199-B071-E54C32F3D116}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "TestCommon\TestCommon.csproj", "{CF7B39FB-42D7-4A87-9D68-EB39FBC259A3}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestAssemblies", "TestAssemblies", "{6512708C-0CB1-427E-8489-9342403AAC68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EchoTest", "EchoTest\EchoTest.csproj", "{95B038F8-244E-441B-86C5-63D2D5AA4696}"
 EndProject
@@ -46,13 +61,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommonUnitTest", "TestC
 		{CF7B39FB-42D7-4A87-9D68-EB39FBC259A3} = {CF7B39FB-42D7-4A87-9D68-EB39FBC259A3}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{6A2BF934-D0AE-488D-815C-F38BA671D80C}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GmailClient", "GmailClient\GmailClient.vcproj", "{540889A0-C756-44A8-A1AB-536EE7276D70}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StackWalker_VC9", "..\vendor\StackWalker_2009-11-01\StackWalker\StackWalker_VC9.vcproj", "{89B2BD42-B130-4811-9043-71A8EBC40DE5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D2979E7E-F281-4417-A5E9-DD935C55256F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Database", "Earlgrey.Database\Earlgrey.Database.vcproj", "{EDE03948-20A1-46CF-AA94-DF7B87C00565}"
 EndProject
@@ -61,16 +72,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.Database.Test", "E
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{4AC86211-7E51-47FB-B8BB-A4B446033BA2}"
-	ProjectSection(SolutionItems) = preProject
-		msbuild-ci.xml = msbuild-ci.xml
-		msbuild-symbol.xml = msbuild-symbol.xml
-		msbuild.xml = msbuild.xml
-		MSBuild_Win32.bat = MSBuild_Win32.bat
-		MSBuild_x64.bat = MSBuild_x64.bat
-		SetEnvironment_Win32.bat = SetEnvironment_Win32.bat
-		SetEnvironment_x64.bat = SetEnvironment_x64.bat
-	EndProjectSection
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Earlgrey.GTest", "Earlgrey.GTest\Earlgrey.GTest.vcproj", "{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,16 +114,16 @@ Global
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|Win32.Build.0 = Release|Win32
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|x64.ActiveCfg = Release|x64
 		{B27C24EE-E32D-4EA4-9418-CE09BF9990E0}.Release|x64.Build.0 = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.ActiveCfg = Debug|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|Win32.Build.0 = Debug|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.ActiveCfg = Debug|x64
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Debug|x64.Build.0 = Debug|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Any CPU.ActiveCfg = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.ActiveCfg = Release|x64
-		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.Build.0 = Release|x64
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.ActiveCfg = Release|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|Win32.Build.0 = Release|Win32
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}.Release|x64.ActiveCfg = Release|x64
@@ -274,6 +276,20 @@ Global
 		{27AAF7AF-BF52-4797-B07B-1C807D599699}.Release|Win32.Build.0 = Release|Win32
 		{27AAF7AF-BF52-4797-B07B-1C807D599699}.Release|x64.ActiveCfg = Release|x64
 		{27AAF7AF-BF52-4797-B07B-1C807D599699}.Release|x64.Build.0 = Release|x64
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|Win32.ActiveCfg = Debug|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|Win32.Build.0 = Debug|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|x64.ActiveCfg = Debug|x64
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Debug|x64.Build.0 = Debug|x64
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|Any CPU.ActiveCfg = Release|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|Win32.ActiveCfg = Release|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|Win32.Build.0 = Release|Win32
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|x64.ActiveCfg = Release|x64
+		{29E9BAF5-E237-48DE-9B7A-1E03C69B7906}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -281,9 +297,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8946A7CE-5C7D-4BDE-8429-C491FB198BAB} = {171E3F30-9CC2-4D17-A610-B3F30F4DD097}
 		{39D97D39-26BD-4016-B8B6-6F594F7E9302} = {171E3F30-9CC2-4D17-A610-B3F30F4DD097}
+		{6512708C-0CB1-427E-8489-9342403AAC68} = {6C45550A-6BF6-4199-B071-E54C32F3D116}
 		{180C41EF-CB5D-422E-92C0-2E797AE96845} = {6C45550A-6BF6-4199-B071-E54C32F3D116}
 		{CF7B39FB-42D7-4A87-9D68-EB39FBC259A3} = {6C45550A-6BF6-4199-B071-E54C32F3D116}
-		{6512708C-0CB1-427E-8489-9342403AAC68} = {6C45550A-6BF6-4199-B071-E54C32F3D116}
 		{5D5D8968-9BE0-4FEA-BFBE-62887C41CFA1} = {6C45550A-6BF6-4199-B071-E54C32F3D116}
 		{95B038F8-244E-441B-86C5-63D2D5AA4696} = {6512708C-0CB1-427E-8489-9342403AAC68}
 		{540889A0-C756-44A8-A1AB-536EE7276D70} = {6A2BF934-D0AE-488D-815C-F38BA671D80C}

@@ -19,7 +19,7 @@ namespace Earlgrey
 			
 			Listener listener;
 			listener.ExclusiveAddressUse(false);
-			ASSERT_TRUE(listener.Listen(localEP));
+			ASSERT_TRUE2(listener.Listen(localEP));
 		}
 	}
 }

@@ -68,7 +68,7 @@ namespace Earlgrey
 			TLSTestThread testThread[10];
 			for (int i=0; i < 10; i++)
 			{
-				EXPECT_TRUE(testThread[i].Create());
+				EXPECT_TRUE2(testThread[i].Create());
 			}
 
 			Sleep( 1000 );

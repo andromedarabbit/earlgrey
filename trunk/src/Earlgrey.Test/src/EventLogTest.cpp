@@ -39,27 +39,27 @@ namespace Earlgrey
 
 		TEST_F(EventLogTest, Exists)
 		{
-			ASSERT_TRUE( EventLog::Exists(_T("Application")) );		
-			ASSERT_TRUE( EventLog::Exists(_T("application")) );	 // Case insensitive
-			ASSERT_TRUE( EventLog::Exists(_T("System")) );
-			ASSERT_FALSE( EventLog::Exists(_T("None")) );			
+			ASSERT_TRUE2( EventLog::Exists(_T("Application")) );		
+			ASSERT_TRUE2( EventLog::Exists(_T("application")) );	 // Case insensitive
+			ASSERT_TRUE2( EventLog::Exists(_T("System")) );
+			ASSERT_FALSE2( EventLog::Exists(_T("None")) );			
 		}
 
 		TEST_F(EventLogTest, SourceExists)
 		{
-			ASSERT_TRUE( EventLog::SourceExists(_T("COM")) );
-			ASSERT_TRUE( EventLog::SourceExists(_T("com")) ); // Case insensitive
-			ASSERT_FALSE( EventLog::SourceExists(_T("NONE-NONE")) );
+			ASSERT_TRUE2( EventLog::SourceExists(_T("COM")) );
+			ASSERT_TRUE2( EventLog::SourceExists(_T("com")) ); // Case insensitive
+			ASSERT_FALSE2( EventLog::SourceExists(_T("NONE-NONE")) );
 		}
 
 
 		TEST_F(EventLogTest, CreateEventSource)
 		{
-			ASSERT_FALSE( EventLog::SourceExists(source) );
+			ASSERT_FALSE2( EventLog::SourceExists(source) );
 			EventLog::CreateEventSource(source, _T("Application"));
-			ASSERT_TRUE( EventLog::SourceExists(source) );
+			ASSERT_TRUE2( EventLog::SourceExists(source) );
 			EventLog::DeleteEventSource(source);
-			ASSERT_FALSE( EventLog::SourceExists(source) );
+			ASSERT_FALSE2( EventLog::SourceExists(source) );
 		}
 
 
@@ -68,7 +68,7 @@ namespace Earlgrey
 			if(EventLog::SourceExists(source) == FALSE) {
 				EventLog::CreateEventSource(source, log);
 			}
-			ASSERT_TRUE( EventLog::SourceExists(source) );
+			ASSERT_TRUE2( EventLog::SourceExists(source) );
 
 			EventLog eventLog(log, source);
 			ASSERT_EQ(0, eventLog.NumberOfEventLogRecords());
@@ -80,7 +80,7 @@ namespace Earlgrey
 			ASSERT_EQ(0, eventLog.NumberOfEventLogRecords());
 
 			EventLog::DeleteEventSource(source);
-			ASSERT_FALSE( EventLog::SourceExists(source) );
+			ASSERT_FALSE2( EventLog::SourceExists(source) );
 		}
 	}
 }

@@ -44,22 +44,22 @@ namespace Earlgrey
 			_txstring fullPath = Environment::BaseDirectory();
 			fullPath = Path::Combine(fullPath, TEXT("..\\bin\\"));
 									
-			ASSERT_TRUE(Path::Exists(fullPath));
+			ASSERT_TRUE2(Path::Exists(fullPath));
 		}
 
 
 		TEST(PathTest, NotExists)
 		{
 			_txstring fullPath = TEXT("c:\\somewhereovertherainbow");
-			ASSERT_FALSE(Path::Exists(fullPath));
+			ASSERT_FALSE2(Path::Exists(fullPath));
 		}
 
 		TEST(PathTest, IsDirectorySeparator)
 		{
-			ASSERT_TRUE(Path::IsDirectorySeparator(TEXT('/')));
-			ASSERT_TRUE(Path::IsDirectorySeparator(TEXT('\\')));
+			ASSERT_TRUE2(Path::IsDirectorySeparator(TEXT('/')));
+			ASSERT_TRUE2(Path::IsDirectorySeparator(TEXT('\\')));
 
-			ASSERT_FALSE(Path::IsDirectorySeparator(TEXT('a')));
+			ASSERT_FALSE2(Path::IsDirectorySeparator(TEXT('a')));
 		}
 
 		TEST(PathTest, IsPathRooted)
@@ -69,10 +69,10 @@ namespace Earlgrey
 			_txstring relativePath = TEXT("mydir\\sudir\\");
 			_txstring relativePath2 = TEXT("..\\mydir\\subdir\\");
 
-			ASSERT_TRUE(Path::IsPathRooted(fileName));
-			ASSERT_TRUE(Path::IsPathRooted(uncPath));
-			ASSERT_FALSE(Path::IsPathRooted(relativePath));
-			ASSERT_FALSE(Path::IsPathRooted(relativePath2));
+			ASSERT_TRUE2(Path::IsPathRooted(fileName));
+			ASSERT_TRUE2(Path::IsPathRooted(uncPath));
+			ASSERT_FALSE2(Path::IsPathRooted(relativePath));
+			ASSERT_FALSE2(Path::IsPathRooted(relativePath2));
 		}
 
 		TEST(PathTest, GetFileNameWithTXString)

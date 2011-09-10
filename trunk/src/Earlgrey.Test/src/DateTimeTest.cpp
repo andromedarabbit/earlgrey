@@ -49,7 +49,8 @@ namespace Earlgrey
 			ss << dateTime;
 
 			_txstring str = ss.str();
-			ASSERT_TRUE(str == _T("2009-04-02 11:39:10.000213"));
+			// ASSERT_TRUE2(str == _T("2009-04-02 11:39:10.000213"));
+			ASSERT_STREQ(_T("2009-04-02 11:39:10.000213"), str.c_str());
 		}
 
 		TEST(DateTimeTest, Now)

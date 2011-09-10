@@ -15,7 +15,7 @@ namespace Earlgrey
  			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
  
  			IniReader reader(filePath);
- 			ASSERT_TRUE(reader.Open());
+ 			ASSERT_TRUE2(reader.Open());
  
  			const IniReader::SectionNameContainer& names = reader.SectionNames();
  
@@ -23,7 +23,7 @@ namespace Earlgrey
  			while(reader.MoveNextSection())
  			{
  				IniSection section = reader.CurrentSection();
- 				ASSERT_TRUE(section.Name() == names[count]);
+ 				ASSERT_STREQ(names[count].c_str(), section.Name().c_str());
  				
  				count++;
  			}
@@ -35,13 +35,13 @@ namespace Earlgrey
  			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
  
  			IniReader reader(filePath);
- 			ASSERT_TRUE(reader.Open());
+ 			ASSERT_TRUE2(reader.Open());
  
- 			ASSERT_TRUE(reader.MoveNextSection());
+ 			ASSERT_TRUE2(reader.MoveNextSection());
  			IniSection section = reader.CurrentSection();
  
  			_txstring value1 = section.Read<_txstring>(_T("key1"));
- 			ASSERT_TRUE(value1 == _T("value1"));
+ 			ASSERT_STREQ(_T("value1"), value1.c_str());
 
 			ASSERT_THROW(section.Read<_txstring>(_T("nokey")), std::exception);
  		}
@@ -52,7 +52,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			_txstring value1 = reader[_T("test5")][_T("connection_string")].GetValue<_txstring>();
 			ASSERT_TRUE(value1.length() > 100);
@@ -64,9 +64,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveNextSection());
+			ASSERT_TRUE2(reader.MoveNextSection());
 			IniSection section = reader.CurrentSection();
 
 			const int valueExpected = 12345;
@@ -80,9 +80,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveNextSection());
+			ASSERT_TRUE2(reader.MoveNextSection());
 			IniSection section = reader.CurrentSection();
 
 			const double valueExpected = 12.3456;
@@ -96,9 +96,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveNextSection());
+			ASSERT_TRUE2(reader.MoveNextSection());
 			IniSection section = reader.CurrentSection();
 
 			const float valueExpected = 12.34567f;
@@ -112,9 +112,9 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveNextSection());
+			ASSERT_TRUE2(reader.MoveNextSection());
 			IniSection section = reader.CurrentSection();
 
 			ASSERT_THROW(section.Read<float>(_T("~~~~")), std::exception);
@@ -126,14 +126,14 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
-			ASSERT_TRUE(reader.MoveNextSection());
+			ASSERT_TRUE2(reader.MoveNextSection());
 			IniSection section = reader.CurrentSection();
 
 			const _txstring valueExpected = _T("12.34567");
 			const _txstring valueStr = section[_T("keyFloat")].GetValue<_txstring>();
-			ASSERT_TRUE(valueExpected == valueStr);
+			ASSERT_STREQ( valueExpected.c_str(), valueStr.c_str() );
 		}
 
 		TEST(IniSectionTest, GetValueUsingSquareBracketOperator2)
@@ -142,7 +142,7 @@ namespace Earlgrey
 			const _txstring filePath = Path::Combine(Environment::BaseDirectory(), fileName);
 
 			IniReader reader(filePath);
-			ASSERT_TRUE(reader.Open());
+			ASSERT_TRUE2(reader.Open());
 
 			const INT64 valueExpected = 4300000000;
 			const INT64 valueInt64 = reader[_T("test4")][_T("keyInt64")].GetValue<INT64>();

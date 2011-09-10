@@ -131,18 +131,19 @@ namespace Earlgrey
 			ASSERT_EQ(32768, ret);
 		}
 
+
 		TEST(EarlgreyMathTest, IsPowerOf2)
 		{
-			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(0));
-			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1));
-			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(2));
-			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(64));
-			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(128));
-			ASSERT_TRUE(Earlgrey::Math::IsPowerOf2(1024));
+			ASSERT_FALSE2(Earlgrey::Math::IsPowerOf2(0));
+			ASSERT_EQ(TRUE, Earlgrey::Math::IsPowerOf2(1));
+			ASSERT_TRUE2(Earlgrey::Math::IsPowerOf2(2));
+			ASSERT_TRUE2(Earlgrey::Math::IsPowerOf2(64));
+			ASSERT_TRUE2(Earlgrey::Math::IsPowerOf2(128));
+			ASSERT_TRUE2(Earlgrey::Math::IsPowerOf2(1024));
 
-			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(3));
-			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(255));
-			ASSERT_FALSE(Earlgrey::Math::IsPowerOf2(2049));
+			ASSERT_EQ(FALSE, Earlgrey::Math::IsPowerOf2(3));
+			ASSERT_FALSE2(Earlgrey::Math::IsPowerOf2(255));
+			ASSERT_FALSE2(Earlgrey::Math::IsPowerOf2(2049));
 		}
 	}
 }

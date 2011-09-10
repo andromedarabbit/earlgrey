@@ -23,8 +23,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		// 기존 값 확인하기
 		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
@@ -69,8 +69,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		// 기존 값 확인하기
 		const _txstring selectText = _T("select top 1 unique_key from single_column_table");
@@ -116,8 +116,8 @@ namespace Test {
 		const _txstring& connectionString = DatabaseTestAppSettingsSingleton::Instance().ConnectionString();
 
 		Connection connection;
-		ASSERT_TRUE(connection.Open(connectionString));
-		ASSERT_TRUE(connection.IsConnected());
+		ASSERT_TRUE2(connection.Open(connectionString));
+		ASSERT_TRUE2(connection.IsConnected());
 
 		
 		// 기존 값 확인하기

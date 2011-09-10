@@ -21,7 +21,7 @@ namespace Earlgrey
 			_txstring suffix = value.substr(value.length() - suffixLength, suffixLength);
 
 			BOOL endsWith = EndsWith<STRCMP_CURRENT_CULTURE_IGNORECASE>(suffix, expected);
-			ASSERT_TRUE(endsWith);
+			ASSERT_TRUE2(endsWith);
 		}
 
 		inline void ASSERT_CONTAINS(const _txstring& longStr, const _txstring& shortStr)
@@ -32,7 +32,7 @@ namespace Earlgrey
 			ASSERT_GE(longLength, shortLength);
 
 			size_t found = longStr.find(shortStr);
-			ASSERT_TRUE(found != _txstring::npos);
+			ASSERT_NE(_txstring::npos, found);
 		}
 
 		//! \note 임시 조치
@@ -67,12 +67,12 @@ namespace Earlgrey
 			_txstring oldDirectory = Environment::CurrentDirectory();
 			_txstring newDirectory = Path::Combine(oldDirectory, TEXT(".."));
 
-			ASSERT_TRUE(Environment::CurrentDirectory(newDirectory));
+			ASSERT_TRUE2(Environment::CurrentDirectory(newDirectory));
 			_txstring changedDirectory = Environment::CurrentDirectory();
 			_txstring expected = TEXT("src");
 			ASSERT_CONTAINS(changedDirectory, expected);
 
-			ASSERT_TRUE(Environment::CurrentDirectory(oldDirectory));
+			ASSERT_TRUE2(Environment::CurrentDirectory(oldDirectory));
 			changedDirectory = Environment::CurrentDirectory();
 			expected = TEXT("src");
 			ASSERT_CONTAINS(changedDirectory, expected);
@@ -104,7 +104,7 @@ namespace Earlgrey
 		TEST(EnvironmentTest, IsLittleEndian)
 		{		
 			// currently only supports 80x86 CPUs
-			ASSERT_TRUE(Environment::IsLittleEndian());
+			ASSERT_TRUE2(Environment::IsLittleEndian());
 		}
 
 		TEST(EnvironmentTest, ProcessorCacheLineSize)
@@ -121,7 +121,7 @@ namespace Earlgrey
 
 		TEST(EnvironmentTest, UserInteractive)
 		{
-			ASSERT_TRUE( Environment::UserInteractive() );
+			ASSERT_TRUE2( Environment::UserInteractive() );
 		}
 
 		TEST(EnvironmentTest, TickCount)

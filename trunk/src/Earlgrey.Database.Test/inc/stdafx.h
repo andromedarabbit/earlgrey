@@ -9,8 +9,6 @@
 
 
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
-#define _CRT_SECURE_DEPRECATE_MEMORY
-
 #include <Winsock2.h>
 
 #define NOMINMAX
@@ -19,17 +17,7 @@
 #include <stdio.h>
 #include <tchar.h>
 
-#pragma warning( push )
-#pragma warning( disable : 4512 )
-#pragma warning( disable : 499 )
-#pragma warning( disable : 4127 )
-#if (_MSC_VER >= 1600)
-#	pragma warning(disable: 4996)
-#	include <gtest/gtest.h>
-#else
-#	include <gtest/gtest.h>
-#endif
-#pragma warning( pop )
+#include "EarlgreyGTest.h"
 
 #include "Uncopyable.h"
 #include "txstring.h"
