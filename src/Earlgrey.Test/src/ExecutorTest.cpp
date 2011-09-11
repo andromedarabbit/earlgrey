@@ -5,6 +5,13 @@
 #include "DefaultAppSettings.h"
 #include "Runnable.h"
 
+// GetRandomNo
+#define _CRT_RAND_S
+#include <stdlib.h>
+#include <time.h>
+
+
+
 namespace Earlgrey
 {
 	namespace Test
@@ -12,7 +19,12 @@ namespace Earlgrey
 		class ExecutorTaskRunnable : public IRunnable {
 
 		public:
-			ExecutorTaskRunnable(const long MaxRunningCount) : MaxRunningCount_(MaxRunningCount) {}
+			ExecutorTaskRunnable(const long MaxRunningCount) 
+				: MaxRunningCount_(MaxRunningCount) 
+			{
+
+			}
+
 			static long RunningCount;
 
 			virtual ~ExecutorTaskRunnable()
@@ -65,11 +77,18 @@ namespace Earlgrey
 			}
 		};
 
+		static long GetRandomNo()
+		{
+			srand( (unsigned)time( NULL ) );
+			return rand() % 100;
+		}
+
 		TEST_F(ExecutorTest, ExecuteBasic) 
 		{
+			
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 
-			const long maxCount = 100;
+			const long maxCount = GetRandomNo();
 			for (long i = 0; i < maxCount; i++) 
 			{
 				IocpExecutorSingleton::Instance().Execute(
@@ -78,7 +97,7 @@ namespace Earlgrey
 			}
 
 			ExecutorTaskRunnable::WaitFor();
-
+	
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::RunningCount);
 			ASSERT_EQ(maxCount, ExecutorTaskRunnable::DestructorCount_);
 		}
@@ -110,7 +129,7 @@ namespace Earlgrey
 
 			ASSERT_TRUE(ExecutorTaskRunnable::Waiter_ != INVALID_HANDLE_VALUE); // touch static values
 
-			const long maxCount = 100;
+			const long maxCount = GetRandomNo();
 			for (long i = 0; i < maxCount; i++) 
 			{
 				ThreadIdType tid = IO_THREAD_ID_BEGIN;

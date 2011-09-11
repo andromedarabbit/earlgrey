@@ -5,8 +5,11 @@
 #include "numeric_cast.hpp"
 #include "AppSettings.h"
 #include "CompletionHandler.h"
-#include <sstream>
 #include "NetworkBuffer.h"
+
+#include <sstream>
+// #include <memory>
+
 
 namespace Earlgrey
 {
@@ -91,8 +94,11 @@ namespace Earlgrey
 
 		EARLGREY_ASSERT( Overlapped );
 
-		// AsyncResult 객체는 AsyncStream 객체가 관리하므로 delete 하면 안된다.
-		AsyncResult* IOResult = reinterpret_cast<AsyncResult*>(Overlapped);
+		// \note AsyncResult 객체는 AsyncStream 객체가 관리하므로 delete 하면 안된다.
+		// \note Handler 를 누군가 지우기는 해야 한다.
+		std::auto_ptr<AsyncResult> IOResult(
+			reinterpret_cast<AsyncResult*>(Overlapped)
+			);
 		if(!Result)
 		{
 			IOResult->SetErrorCode( GetLastError() );
@@ -104,8 +110,9 @@ namespace Earlgrey
 			IOResult->SetBytesTransferred( Transferred );
 		}
 		
-		Handler->HandleEvent( IOResult );
+		Handler->HandleEvent( IOResult.get() );
 
+		
 		return Result;
 	}
 
@@ -206,6 +213,11 @@ namespace Earlgrey
 	{
 		EARLGREY_ASSERT( Handle != INVALID_SOCKET );
 		ZeroMemory( &_overlapped, sizeof(_overlapped) );
+	}
+
+	AsyncResult::~AsyncResult()
+	{
+		delete _Handler;
 	}
 
 	std::pair<WSABUF*,DWORD> AsyncResult::GetWriteBuffer()

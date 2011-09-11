@@ -99,7 +99,7 @@ namespace Earlgrey
 	
 			ASSERT_EQ(pointer1.p(), pointer2.p());
 			ASSERT_EQ(pointer1.Count(), pointer2.Count());
-			ASSERT_NE(pointer1.val64, pointer2.val64);
+			ASSERT_EQ(pointer1.val64, pointer2.val64);
 
 			pointer1.Count(pointer1.Count() + 1);
 			ASSERT_EQ(pointer1.p(), pointer2.p());
