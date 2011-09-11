@@ -91,6 +91,8 @@ namespace Earlgrey
 		//! Send Result 에만 사용하는 생성자
 		AsyncResult(SOCKET Handle, CompletionHandler* Handler, BufferPtr Buffer);
 
+		~AsyncResult();
+
 		DWORD GetBytesTransferred() const
 		{
 			return _BytesTransferred;

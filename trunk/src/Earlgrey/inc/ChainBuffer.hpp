@@ -323,7 +323,7 @@ namespace Earlgrey
 			buffer = &(*it);
 			if (buffer->size() > remainder)
 			{
-				size_t size_to_copy = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (set_remainder , buffer->size() - remainder);
+				size_t size_to_copy = std::min EARLGREY_PREVENT_MACRO_SUBSTITUTION (set_remainder , buffer->size() - remainder) * sizeof(T);
 				memcpy_s( &(*buffer)[remainder], buffer->size() - remainder, ptr, size_to_copy );
 				set_remainder -= size_to_copy;
 				continue;
