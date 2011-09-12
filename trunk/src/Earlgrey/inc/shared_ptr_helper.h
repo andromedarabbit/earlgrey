@@ -10,7 +10,7 @@ namespace Earlgrey {
 		static void Delete(T* p)
 		{
 			StlDefaultAllocator<T>::Type allocator;
-			allocator.deallocate( p, sizeof(T) );
+			allocator.deallocate( p, 0 );
 		}
 	};
 
