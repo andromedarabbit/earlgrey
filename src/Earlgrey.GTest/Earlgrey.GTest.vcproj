@@ -294,6 +294,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\src\stdafx.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="헤더 파일"
@@ -302,6 +306,14 @@
 			>
 			<File
 				RelativePath=".\inc\EarlgreyGTest.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\targetver.h"
 				>
 			</File>
 		</Filter>
