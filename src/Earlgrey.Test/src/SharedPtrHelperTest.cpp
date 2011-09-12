@@ -3,38 +3,40 @@
 #include "StlGreedyAllocator.hpp"
 #include "RAII.h" // ArrayDeleter
 
+#include "AsyncStream.h"
+
 namespace Earlgrey
 {
 	namespace Test
 	{
 		using std::tr1::shared_ptr;
 
-		TEST(SharedPtrTest, AllocInt)
+		class SimpleClass
 		{
-			shared_ptr<int> test = shared_ptr<int> (new int(3));
-		}
+		public:
+			explicit SimpleClass() 
+				: i(0) 
+			{
 
-		TEST(SharedPtrTest, UsingArrayDeleter)
-		{
-			shared_ptr<double> test = shared_ptr<double> (
-				new double[256]
-				, ArrayDeleter<double>()
-				);
-		}
+			}
+
+			~SimpleClass() 
+			{
+				i = 100;
+			}
+
+			int i;
+		};
+
+
+		//TEST(SharedPtrHelperTest, MakePtr)
+		//{
+		//	std::tr1::shared_ptr<SimpleClass> obj = make_ptr(new SimpleClass());
+		//	ASSERT_TRUE(obj != NULL);
+		//}
 
 		TEST(SharedPtrHelperTest, Basic)
-		{	
-			class A
-			{
-			public:
-				A() : i(0) {}
-				~A() 
-				{
-					i = 100;
-				}
-				int i;
-			};
-
+		{
 			Earlgrey::StlDefaultAllocator<int>::Type alloc;
 			shared_ptr<int> p = Earlgrey::make_ptr<int>( alloc.allocate(1) );
 			ASSERT_NE( p.get(), static_cast<int*>(NULL) );
@@ -43,10 +45,10 @@ namespace Earlgrey
 			shared_ptr<int> p2 = p;
 			Earlgrey::reset_ptr( p2, alloc.allocate(1) );
 
-			Earlgrey::StlDefaultAllocator<A>::Type alloc2;
-			A *a = alloc2.allocate(1);
-			a->A::A();
-			shared_ptr<A> pa = Earlgrey::make_ptr<A>( a );
+			Earlgrey::StlDefaultAllocator<SimpleClass>::Type alloc2;
+			SimpleClass *obj = alloc2.allocate(1);
+			obj->SimpleClass::SimpleClass();
+			shared_ptr<SimpleClass> pa = Earlgrey::make_ptr<SimpleClass>( obj );
 			ASSERT_EQ( pa->i, 0 );
 		}
 
