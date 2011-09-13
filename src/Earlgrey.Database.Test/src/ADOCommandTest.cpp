@@ -166,10 +166,11 @@ namespace Test {
 		_txstring name;
 		DateTime when(DateTime::Now());
 		TimeSpan interval;
+		long justNumber;
 		TimeSpan invalidColumn1;
 		TimeSpan invalidColumn2;
 
-		*reader >> uniqueKey >> name >> when >> interval >> invalidColumn1 >> invalidColumn2;
+		*reader >> uniqueKey >> name >> when >> interval >> justNumber >> invalidColumn1 >> invalidColumn2;
 		ASSERT_TRUE(reader->fail());
 
 		ASSERT_THROW(reader->GetValue<int>(32), std::exception);
