@@ -125,7 +125,7 @@ namespace Earlgrey {
 
 	NetworkBuffer::SharedPtr NetworkBuffer::Create()
 	{
-		return make_ptr(new NetworkBuffer());
+		return std::tr1::shared_ptr<NetworkBuffer>(new NetworkBuffer());
 	}
 
 	void NetworkBuffer::OnSent( DWORD Transferred )

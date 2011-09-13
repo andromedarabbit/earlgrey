@@ -121,7 +121,7 @@ namespace Earlgrey {
 		socket.SetReceiveBufferSize( 0 );
 		socket.SetSendBufferSize( 0 );
 
-		std::tr1::shared_ptr<Connection> connection = make_ptr(new Connection());
+		std::tr1::shared_ptr<Connection> connection = std::tr1::shared_ptr<Connection>(new Connection());
 		connection->Initialize( socket, _NetEvent, _PacketHandler );
 
 		_NetEvent->OnConnected( connection );

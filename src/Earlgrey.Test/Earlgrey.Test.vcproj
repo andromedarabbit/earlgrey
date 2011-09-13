@@ -363,6 +363,10 @@
 			ReferencedProjectIdentifier="{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
 			RelativePathToProject="..\vendor\gtest-1.6.0\msvc\gtest.vcproj"
 		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
+			RelativePathToProject=".\Earlgrey\Earlgrey.vcproj"
+		/>
 	</References>
 	<Files>
 		<Filter
