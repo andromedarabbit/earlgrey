@@ -70,11 +70,12 @@ namespace Earlgrey
 		// 			aiHints.ai_socktype = SOCK_STREAM;
 		// 			aiHints.ai_protocol = IPPROTO_TCP;
 
-		ADDRINFOT * aiList = NULL;
-		handle_t regKeyHandle(aiList, &FreeAddrInfo);
-
 		Socket::InitializeSockets(); // GetAddrInfo 호출 전에...
-		const int retVal = ::GetAddrInfo(hostNameOrAddress.c_str(), NULL, &aiHints, &aiList);		
+
+
+		ADDRINFOT * aiList = NULL;				
+		const int retVal = ::GetAddrInfo(hostNameOrAddress.c_str(), NULL, &aiHints, &aiList);
+		std::tr1::shared_ptr<ADDRINFOT> regKeyHandle(aiList, &FreeAddrInfo); // assure that linked list should be deleted
 		if (retVal != 0) {
 			throw std::exception("");
 		}
@@ -85,11 +86,13 @@ namespace Earlgrey
 		{
 			IPAddressPtr ipAddress(
 				new IPAddress2( 
-				*reinterpret_cast<SOCKADDR_STORAGE*>(current->ai_addr) 
-				)
+					*reinterpret_cast<SOCKADDR_STORAGE*>(current->ai_addr) 
+					)
 				);
 			addresses.push_back(ipAddress);
 		} while ( NULL != (current = current->ai_next) );
+
+		// ::FreeAddrInfo(aiList);
 	}
 
 	namespace
