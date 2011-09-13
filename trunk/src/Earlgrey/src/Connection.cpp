@@ -24,9 +24,9 @@ namespace Earlgrey {
 		std::tr1::shared_ptr<INetEvent> NetEvent, 
 		std::tr1::shared_ptr<IPacketHandler> PacketHandler)
 	{
-		_Stream = make_ptr( new AsyncStream() );
-		_Sender = make_ptr( new Sender( _Stream, NetEvent ) );
-		_Receiver = make_ptr( new Receiver( _Stream, NetEvent, PacketHandler ) );
+		_Stream = std::tr1::shared_ptr<AsyncStream>( new AsyncStream() );
+		_Sender = std::tr1::shared_ptr<Sender>( new Sender( _Stream, NetEvent ) );
+		_Receiver = std::tr1::shared_ptr<Receiver>( new Receiver( _Stream, NetEvent, PacketHandler ) );
 
 		_Stream->Initialize( socket, _Receiver.get(), _Sender.get(), &ProactorSingleton::Instance() );
 		_Stream->Read();

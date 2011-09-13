@@ -102,7 +102,10 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	const IPEndPoint localEP(localAddress, 9879);
 
 	m_server.ExclusiveAddressUse(false);
-	m_server.Initialize( make_ptr(new NetServerEvent()), make_ptr(new ServerPacketHandler()) );
+	m_server.Initialize( 
+		std::tr1::shared_ptr<NetServerEvent>(new NetServerEvent())
+		, std::tr1::shared_ptr<ServerPacketHandler>(new ServerPacketHandler()) 
+		);
 	if(m_server.Listen( localEP ) == FALSE)
 	{
 		throw std::exception("");

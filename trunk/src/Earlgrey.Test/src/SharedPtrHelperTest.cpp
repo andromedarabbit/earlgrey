@@ -38,7 +38,7 @@ namespace Earlgrey
 		TEST(SharedPtrHelperTest, Basic)
 		{
 			Earlgrey::StlDefaultAllocator<int>::Type alloc;
-			shared_ptr<int> p = Earlgrey::make_ptr<int>( alloc.allocate(1) );
+			shared_ptr<int> p = make_ptr<int>( alloc.allocate(1) );
 			ASSERT_NE( p.get(), static_cast<int*>(NULL) );
 
 
@@ -48,7 +48,7 @@ namespace Earlgrey
 			Earlgrey::StlDefaultAllocator<SimpleClass>::Type alloc2;
 			SimpleClass *obj = alloc2.allocate(1);
 			obj->SimpleClass::SimpleClass();
-			shared_ptr<SimpleClass> pa = Earlgrey::make_ptr<SimpleClass>( obj );
+			shared_ptr<SimpleClass> pa = Earlgrey::make_ptr( obj );
 			ASSERT_EQ( pa->i, 0 );
 		}
 

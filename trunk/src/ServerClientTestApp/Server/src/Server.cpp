@@ -153,7 +153,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	getArgs(args);
 
 	{
-		std::tr1::shared_ptr<int> i = make_ptr(new int());
+		std::tr1::shared_ptr<int> i(new int());
 	}
 
 	for(ArgContainerType::iterator it = args.begin(); it != args.end(); it++)

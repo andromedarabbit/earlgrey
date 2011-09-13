@@ -30,7 +30,7 @@ namespace Earlgrey
 			return true;
 		}
 
-		std::tr1::shared_ptr<Connection> connection = make_ptr(new Connection());
+		std::tr1::shared_ptr<Connection> connection = std::tr1::shared_ptr<Connection>(new Connection());
 		connection->Initialize( _Socket, _NetEvent, _PacketHandler );
 
 		_NetEvent->OnConnected( connection );

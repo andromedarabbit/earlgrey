@@ -37,7 +37,7 @@ bool ServerPacketHandler::Handle( std::tr1::shared_ptr<Earlgrey::AsyncStream> St
 			{
 				HandledSize = static_cast<size_t>( &(*iter) - &buf[0] + 1 );
 
-				std::tr1::shared_ptr<Earlgrey::NetworkBuffer> buffer = Earlgrey::make_ptr(new Earlgrey::NetworkBuffer());
+				std::tr1::shared_ptr<Earlgrey::NetworkBuffer> buffer = std::tr1::shared_ptr<Earlgrey::NetworkBuffer>(new Earlgrey::NetworkBuffer());
 				buffer->AppendValue( &buf[0], HandledSize );
 				Stream->Write( buffer );
 			}
