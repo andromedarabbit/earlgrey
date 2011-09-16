@@ -275,6 +275,19 @@ namespace Earlgrey
 				ASSERT_EQ(expected2, dst2);
 			}
 
+			TEST(StringHelperTest, FromUnicode2)
+			{
+				// 동일한 메모리를 재활용하기 때문에 반환 값을 복사하지 않으면 아래와 같이 잘못된 값이 나오기도 한다.
+				std::wstring wstr1 = L"얼그레이";
+				std::wstring wstr2 = L"plaintext";
+
+				const char * str1 = String::FromUnicode(wstr1);
+				const char * str2 = String::FromUnicode(wstr2);
+
+				ASSERT_STREQ("plaintext", str1);
+				ASSERT_STREQ("plaintext", str2);
+			}
+
 			TEST(StringHelperTest, FromWStringToAnsi)
 			{
 				const std::wstring src1(_T("가나 다라 마 바 사 "));
