@@ -23,9 +23,9 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
-			ManagedExtensions="1"
+			ManagedExtensions="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -45,8 +45,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
 				RuntimeLibrary="3"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -62,14 +64,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -79,9 +77,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -91,9 +86,9 @@
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
-			ManagedExtensions="1"
+			ManagedExtensions="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -114,8 +109,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
+				BasicRuntimeChecks="3"
+				SmallerTypeCheck="true"
 				RuntimeLibrary="3"
 				WarningLevel="4"
 				WarnAsError="true"
@@ -131,14 +128,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				TargetMachine="17"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -150,9 +143,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -160,9 +150,9 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
-			ManagedExtensions="1"
+			ManagedExtensions="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -182,9 +172,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
+				Optimization="2"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="4"
 				WarnAsError="true"
 				DebugInformationFormat="3"
@@ -199,14 +194,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				TargetMachine="1"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -218,9 +209,6 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -228,9 +216,9 @@
 			Name="Release|x64"
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
-			ConfigurationType="2"
+			ConfigurationType="4"
 			CharacterSet="1"
-			ManagedExtensions="1"
+			ManagedExtensions="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -251,9 +239,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0"
+				Optimization="2"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="4"
 				WarnAsError="true"
 				DebugInformationFormat="3"
@@ -268,14 +261,10 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLinkerTool"
-				TargetMachine="17"
+				Name="VCLibrarianTool"
 			/>
 			<Tool
 				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -285,9 +274,6 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -298,6 +284,10 @@
 		<ProjectReference
 			ReferencedProjectIdentifier="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
 			RelativePathToProject=".\Earlgrey\Earlgrey.vcproj"
+		/>
+		<ProjectReference
+			ReferencedProjectIdentifier="{567388CF-8BEC-4335-95D9-240F39622EB2}"
+			RelativePathToProject="..\vendor\CSmtp_v2_0_ssl\CSmtp.vs2008.vcproj"
 		/>
 	</References>
 	<Files>
@@ -318,10 +308,6 @@
 			>
 			<File
 				RelativePath=".\inc\GMailClient.h"
-				>
-			</File>
-			<File
-				RelativePath=".\inc\MarshalAs.h"
 				>
 			</File>
 			<File

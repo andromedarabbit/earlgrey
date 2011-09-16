@@ -17,14 +17,14 @@ namespace Earlgrey
 			{
 				using namespace Earlgrey::Mail;
 
-				MailMessage::MailAddressPtr from(new MailAddress(_T("kaistizen@gmail.com"), _T("최재훈")));
+				MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("최재훈")));
 				MailMessage::MailAddressPtr to1(new MailAddress(_T("earlgreyproject@googlegroups.com"), _T("얼그레이")));
 
 				Earlgrey::Mail::MailMessage msg(from, to1);
 				msg.Subject(_T("단위테스트 GMailClientTest::Send"));
 				msg.Body(_T("지메일 전송 테스트"));
 
-				GMailClient client(_T("buildmaster@kaistizen.net"), _T("dkswjsgkwldksgdmsdkagh"));
+				GMailClient client(_T("projectearlgrey@gmail.com"), _T("dkswjsgkwldksgdmsdkagh"));
 				ASSERT_NO_THROW(client.Send(msg));				
 			}
 
@@ -61,9 +61,9 @@ namespace Earlgrey
 
 				using namespace Earlgrey::Mail;
 
-				MailMessage::MailAddressPtr from(new MailAddress(_T("kaistizen@gmail.com"), _T("최재훈")));
+				MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("최재훈")));
 				MailMessage::MailAddressPtr to1(new MailAddress(_T("earlgreyproject@googlegroups.com"), _T("얼그레이")));
-				// MailMessage::MailAddressPtr to1(new MailAddress(_T("kaistizen@gmail.com"), _T("얼그레이")));
+				// MailMessage::MailAddressPtr to1(new MailAddress(_T("projectearlgrey@gmail.com"), _T("얼그레이")));
 
 				Earlgrey::Mail::MailMessage msg(from, to1);
 				msg.Subject(_T("GMailClientTest::SendFile"));
@@ -78,7 +78,7 @@ namespace Earlgrey
 					);
 				msg.Attachments().push_back(attachment);
 
-				GMailClient client(_T("buildmaster@kaistizen.net"), _T("dkswjsgkwldksgdmsdkagh"));
+				GMailClient client(_T("projectearlgrey@gmail.com"), _T("dkswjsgkwldksgdmsdkagh"));
 
 				ASSERT_NO_THROW(client.Send(msg));
 			}

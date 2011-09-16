@@ -54,10 +54,10 @@ namespace Earlgrey
 					const _txstring stackWriterClassName(_T("Earlgrey::StackWriter"));
 
 					// ¿”Ω√ ƒ⁄µÂ
-					const TCHAR * username = _T("buildmaster@kaistizen.net");
+					const TCHAR * username = _T("projectearlgrey@gmail.com");
 					const TCHAR * password = _T("dkswjsgkwldksgdmsdkagh");
-					MailMessage::MailAddressPtr from(new MailAddress(_T("buildmaster@kaistizen.net"), _T("∫ÙµÂ ∏∂Ω∫≈Õ")));
-					MailMessage::MailAddressPtr to1(new MailAddress(_T("kaistizen@gmail.com"), _T("√÷¿Á»∆")));
+					MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("∫ÙµÂ ∏∂Ω∫≈Õ")));
+					MailMessage::MailAddressPtr to1(new MailAddress(_T("projectearlgrey@gmail.com"), _T("√÷¿Á»∆")));
 					_txstring subject(_T("[MiniDump] "));
 					subject += appSettings.ShortName();
 					_txstring body(_T("Please see attachments!"));
