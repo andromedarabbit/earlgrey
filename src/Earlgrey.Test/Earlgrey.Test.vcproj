@@ -379,95 +379,7 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\src\ConsoleTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\DateTimeTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\EarlgreyMathTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\EnvironmentTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\EventProducerTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\FileTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\IniReaderTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\IniSectionTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LexicalCastTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LockfreeQueueTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\LockfreeStackTest.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\src\MacrosTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\NumericCastTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\PathTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\RAIITest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\RegistryKeyTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\RegistryTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SharedPtrHelperTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SharedPtrTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\SingleAppInstanceTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\StringHelperTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TaskQueueTest.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\TimeSpanTest.cpp"
 				>
 			</File>
 			<Filter
@@ -686,6 +598,14 @@
 				Name="StlCustom"
 				>
 				<File
+					RelativePath=".\src\SharedPtrHelperTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SharedPtrTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\VectorTest.cpp"
 					>
 				</File>
@@ -695,6 +615,102 @@
 				>
 				<File
 					RelativePath=".\src\ConvertTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="System"
+				>
+				<File
+					RelativePath=".\src\ConsoleTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\DateTimeTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\EnvironmentTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\EventProducerTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\FileTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\LexicalCastTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\PathTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\RAIITest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\RegistryKeyTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\RegistryTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\SingleAppInstanceTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StringHelperTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TimeSpanTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Math"
+				>
+				<File
+					RelativePath=".\src\EarlgreyMathTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\NumericCastTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Configuration"
+				>
+				<File
+					RelativePath=".\src\IniReaderTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\IniSectionTest.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Algorithm"
+				>
+				<File
+					RelativePath=".\src\LockfreeQueueTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\LockfreeStackTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\TaskQueueTest.cpp"
 					>
 				</File>
 			</Filter>

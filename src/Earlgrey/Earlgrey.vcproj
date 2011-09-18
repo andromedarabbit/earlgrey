@@ -1358,10 +1358,6 @@
 				>
 			</Filter>
 			<Filter
-				Name="IO"
-				>
-			</Filter>
-			<Filter
 				Name="Configuration"
 				>
 				<File
