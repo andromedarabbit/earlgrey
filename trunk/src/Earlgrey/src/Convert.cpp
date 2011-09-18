@@ -2,14 +2,14 @@
 #include "Convert.h"
 
 // #include <stdlib.h> 
-#include "txstring.h"
+
 
 namespace Earlgrey
 {
 	namespace
 	{
 		/*------ Base64 Encoding Table ------*/
-		static const char MimeBase64[] = {
+		/*static const char MimeBase64[] = {
 			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 			'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
 			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
@@ -18,7 +18,39 @@ namespace Earlgrey
 			'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
 			'w', 'x', 'y', 'z', '0', '1', '2', '3',
 			'4', '5', '6', '7', '8', '9', '+', '/'
-		};
+		};*/
+		/*static const char MimeBase64[] = 
+			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+			;*/
+
+		
+		//class MimeBase642 : private Uncopyable
+		//{
+		//private:
+		//	explicit MimeBase642();
+
+		//public:
+		//	const char operator[] (const int index);
+		//	const WCHAR operator[] (const int index);
+		//};
+
+
+		//const char MimeBase642::operator[] (const int index)
+		//{
+		//	static const char mimeBase64[] = 
+		//		"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+		//	return mimeBase64[index];
+		//}
+
+		//const WCHAR MimeBase642::operator[] (const int index)
+		//{
+		//	static const WCHAR mimeBase64[] = 
+		//		L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+		//	return mimeBase64[index];
+		//}
+		
 
 		/*------ Base64 Decoding Table ------*/
 		static int DecodeMimeBase64[256] = {
@@ -39,50 +71,124 @@ namespace Earlgrey
 			-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,  /* E0-EF */
 			-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1   /* F0-FF */
 		};
-	}
 
-	
-	int Convert::FromBase64(const char * const text, BYTE * bytes[], size_t& numBytes)
-	{
-		if(numBytes == 0)
+		size_t GetMinimumLengthForBase64Encoding(size_t numBytes)
 		{
-			// encode된 문자열을 decode하였을때 문자열의 길이 = ((<encode된 문자열의 길이> + 3) / 4) + 3 = ((len + 3) >> 2) + 3
-			numBytes = ((strlen(text) + 3) / 4) + 3 + 1000;
-			(*bytes) = new BYTE[numBytes];
-			//memset(*bytes, 0, numBytes);
+			return (4 * (numBytes / 3)) + (numBytes % 3 ? 4 : 0) + 1;
+			// return (4 * (numBytes / 3)) + (numBytes % 3 ? 4 : 0);
 		}
 
-		const char* cp;
-		int space_idx = 0, phase;
-		int d, prev_d = 0;
-		unsigned char c;
-		space_idx = 0;
-		phase = 0;
-		for ( cp = text; *cp != '\0'; ++cp ) {
-			d = DecodeMimeBase64[(int) *cp];
-			if ( d != -1 ) {
-				switch ( phase ) {
-	case 0:
-		++phase;
-		break;
-	case 1:
-		c = static_cast<unsigned char>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );
-		if ( space_idx < numBytes )
-			(*bytes)[space_idx++] = c;
-		++phase;
-		break;
-	case 2:
-		c = static_cast<unsigned char>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );
-		if ( space_idx < numBytes )
-			(*bytes)[space_idx++] = c;
-		++phase;
-		break;
-	case 3:
-		c = static_cast<unsigned char>( ( ( prev_d & 0x03 ) << 6 ) | d );
-		if ( space_idx < numBytes )
-			(*bytes)[space_idx++] = c;
-		phase = 0;
-		break;
+		template<typename TextContainerType>
+		size_t ToBase64String(const BYTE * const bytes, size_t numBytes, TextContainerType encodedText, size_t textLength)
+		{
+			static const char MimeBase64[] = 
+				"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+				;
+
+			if(textLength < 1)
+				throw std::exception();
+
+			if(numBytes == 0)
+			{
+				encodedText[0] = '\0'; //'\0'; 
+				return 0;
+			}
+
+			const size_t minimumTextLength = GetMinimumLengthForBase64Encoding(numBytes);
+			if(textLength < minimumTextLength)
+			{
+				throw std::exception();
+			}
+
+
+			unsigned char input[3]  = {0,0,0};
+			unsigned char output[4] = {0,0,0,0};
+
+			int i = 0;
+			int j = 0;
+			const BYTE * p = bytes;
+			const BYTE * plen = bytes + numBytes - 1;
+
+			for( ; p <= plen; i++, p++) 
+			{
+				int index = i % 3;
+				input[index] = *p;
+				if (index == 2 || p == plen) {
+					output[0] = ((input[0] & 0xFC) >> 2);
+					output[1] = ((input[0] & 0x3) << 4) | ((input[1] & 0xF0) >> 4);
+					output[2] = ((input[1] & 0xF) << 2) | ((input[2] & 0xC0) >> 6);
+					output[3] = (input[2] & 0x3F);
+					(encodedText)[j++] = MimeBase64[output[0]];
+					(encodedText)[j++] = MimeBase64[output[1]];
+					(encodedText)[j++] = index == 0? '=' : MimeBase64[output[2]];
+					(encodedText)[j++] = index <  2? '=' : MimeBase64[output[3]];
+					input[0] = input[1] = input[2] = 0;
+				}
+			}
+			(encodedText)[j] = '\0';
+			return j;
+		}
+	}
+
+	size_t Convert::GetMinimumBytesForDecode(size_t textLength)
+	{
+		/*MimeBase642 obj;
+		char a = obj[1];
+		DBG_UNREFERENCED_LOCAL_VARIABLE(a);*/
+		// return ((textLength + 3) / 4) * 3 + 1;
+		return ((textLength + 3) / 4) * 3;
+	}
+
+	size_t Convert::GetMinimumLengthForEncode(size_t numBytes)
+	{
+		return GetMinimumLengthForBase64Encoding(numBytes);
+	}
+
+	/*int Convert::FromBase64(const xstring& text, BYTE * bytes, size_t numBytes)
+	{
+		return FromBase64(text.c_str(), text.length(), bytes, numBytes);
+	}
+		*/
+
+	int Convert::FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	{
+		const size_t minimumBytes = GetMinimumBytesForDecode(textLength);
+		if(numBytes < minimumBytes)
+		{
+			throw std::exception();
+		}
+
+		int space_idx = 0;
+		int phase = 0;
+		int d = 0;
+		int prev_d = 0;
+
+		for(int i = 0; i < textLength; i++)
+		{
+			d = DecodeMimeBase64[(int) text[i]];
+			if ( d != -1 ) 
+			{
+				switch ( phase ) 
+				{
+				case 0:
+					++phase;
+					break;
+				case 1:
+					if ( space_idx < numBytes )
+						(bytes)[space_idx++] = static_cast<BYTE>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );;
+					++phase;
+					break;
+				case 2:
+					if ( space_idx < numBytes )
+						(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );;
+					++phase;
+					break;
+				case 3:
+					if ( space_idx < numBytes )
+						(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0x03 ) << 6 ) | d );;
+					phase = 0;
+					break;
+
 				}
 				prev_d = d;
 			}
@@ -90,37 +196,67 @@ namespace Earlgrey
 		return space_idx;
 	}
 
-	size_t Convert::ToBase64(BYTE * const bytes, size_t numBytes, char * encodedText[], size_t size)
-	{
-		unsigned char input[3]  = {0,0,0};
-		unsigned char output[4] = {0,0,0,0};
-		int   index, i, j;
-		BYTE *p, *plen;
-		plen           = bytes + numBytes - 1;
-		if(size == 0)
-		{
-			size = (4 * (numBytes / 3)) + (numBytes % 3? 4 : 0) + 1;			
-			// todo 메모리 할당 최적화, 스택 메모리
-			*encodedText = new char[size];
-		}
+	//int Convert::FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	//{
+	//	const size_t minimumBytes = GetMinimumBytesForDecode(textLength);
+	//	if(numBytes < minimumBytes)
+	//	{
+	//		throw std::exception();
+	//	}
 
-		j              = 0;
-		for  (i = 0, p = bytes;p <= plen; i++, p++) {
-			index = i % 3;
-			input[index] = *p;
-			if (index == 2 || p == plen) {
-				output[0] = ((input[0] & 0xFC) >> 2);
-				output[1] = ((input[0] & 0x3) << 4) | ((input[1] & 0xF0) >> 4);
-				output[2] = ((input[1] & 0xF) << 2) | ((input[2] & 0xC0) >> 6);
-				output[3] = (input[2] & 0x3F);
-				(*encodedText)[j++] = MimeBase64[output[0]];
-				(*encodedText)[j++] = MimeBase64[output[1]];
-				(*encodedText)[j++] = index == 0? '=' : MimeBase64[output[2]];
-				(*encodedText)[j++] = index <  2? '=' : MimeBase64[output[3]];
-				input[0] = input[1] = input[2] = 0;
-			}
-		}
-		(*encodedText)[j] = '\0';
-		return size;
+	//	const char* cp = text;
+	//	int space_idx = 0;
+	//	int phase = 0;
+	//	int d = 0;
+	//	int prev_d = 0;
+	//	// BYTE c;
+
+	//	for( ; *cp != '\0'; ++cp ) 
+	//	{
+	//		d = DecodeMimeBase64[(int) *cp];
+	//		if ( d != -1 ) 
+	//		{
+	//			switch ( phase ) 
+	//			{
+	//			case 0:
+	//				++phase;
+	//				break;
+	//			case 1:
+	//				if ( space_idx < numBytes )
+	//					(bytes)[space_idx++] = static_cast<BYTE>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );;
+	//				++phase;
+	//				break;
+	//			case 2:
+	//				if ( space_idx < numBytes )
+	//					(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );;
+	//				++phase;
+	//				break;
+	//			case 3:
+	//				if ( space_idx < numBytes )
+	//					(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0x03 ) << 6 ) | d );;
+	//				phase = 0;
+	//				break;
+
+	//			}
+	//			prev_d = d;
+	//		}
+	//	}
+	//	return space_idx;
+	//}
+
+
+
+	/*size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, xstring& encodedText)
+	{
+		size_t textLength = GetMinimumLengthForEncode(numBytes);
+		encodedText.reserve(textLength);
+		return ToBase64String(bytes, numBytes, encodedText, textLength);
+	}*/
+
+	
+
+	size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, char encodedText[], size_t textLength)
+	{
+		return ToBase64String(bytes, numBytes, encodedText, textLength);
 	}
 }
