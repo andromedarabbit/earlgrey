@@ -682,10 +682,6 @@
 			<Filter
 				Name="Text"
 				>
-				<File
-					RelativePath=".\src\Convert.cpp"
-					>
-				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1381,7 +1377,7 @@
 				Name="Text"
 				>
 				<File
-					RelativePath=".\inc\Convert.h"
+					RelativePath=".\inc\Convert.hpp"
 					>
 				</File>
 			</Filter>

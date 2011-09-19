@@ -1,8 +1,6 @@
-#include "stdafx.h"
-#include "Convert.h"
-
-// #include <stdlib.h> 
-
+#pragma once
+#include "Uncopyable.h"
+#include "txstring.h"
 
 namespace Earlgrey
 {
@@ -10,19 +8,15 @@ namespace Earlgrey
 	{
 		/*------ Base64 Encoding Table ------*/
 		/*static const char MimeBase64[] = {
-			'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-			'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-			'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
-			'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
-			'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-			'w', 'x', 'y', 'z', '0', '1', '2', '3',
-			'4', '5', '6', '7', '8', '9', '+', '/'
+		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
+		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+		'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+		'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f',
+		'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n',
+		'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
+		'w', 'x', 'y', 'z', '0', '1', '2', '3',
+		'4', '5', '6', '7', '8', '9', '+', '/'
 		};*/
-		/*static const char MimeBase64[] = 
-			"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-			;*/
-		
 
 		/*------ Base64 Decoding Table ------*/
 		static int DecodeMimeBase64[256] = {
@@ -44,25 +38,94 @@ namespace Earlgrey
 			-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1   /* F0-FF */
 		};
 
-		size_t GetMinimumLengthForEncoding(size_t numBytes)
+		inline
+			size_t GetMinimumLengthForEncoding(size_t numBytes)
 		{
 			return (4 * (numBytes / 3)) + (numBytes % 3 ? 4 : 0) + 1;
-			// return (4 * (numBytes / 3)) + (numBytes % 3 ? 4 : 0);
 		}
 
-		
-		size_t GetMinimumBytesForDecoding(size_t textLength)
+		inline
+			size_t GetMinimumBytesForDecoding(size_t textLength)
 		{
-			/*MimeBase642 obj;
-			char a = obj[1];
-			DBG_UNREFERENCED_LOCAL_VARIABLE(a);*/
 			// return ((textLength + 3) / 4) * 3 + 1;
 			return ((textLength + 3) / 4) * 3;
 		}
 
 		template<typename CharType>
+		CHAR ToMultiByte(CharType c);
+
+		template<>
+		inline CHAR ToMultiByte(CHAR c)
+		{
+			return c;
+		}
+
+		template<>
+		inline CHAR ToMultiByte(WCHAR c)
+		{
+			int retValue; // \note 이 값은 무슨 용도로 쓸까?
+			char mbChar;
+			errno_t err = wctomb_s(&retValue, &mbChar, sizeof(mbChar), c);
+			if(err != 0)
+			{
+				throw std::exception();
+			}
+			return mbChar;
+		}
+
+		template<typename CharType>
+		size_t FromBase64StringToBytes(const CharType * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+		{
+			const size_t minimumBytes = GetMinimumBytesForDecoding(textLength);
+			if(numBytes < minimumBytes)
+			{
+				throw std::exception();
+			}
+
+			size_t space_idx = 0;
+			int phase = 0;
+			int d = 0;
+			int prev_d = 0;
+
+			for(size_t i = 0; i < textLength; i++)
+			{
+				d = DecodeMimeBase64[(int) ToMultiByte(text[i])];
+				if ( d != -1 ) 
+				{
+					switch ( phase ) 
+					{
+					case 0:
+						++phase;
+						break;
+					case 1:
+						if ( space_idx < numBytes )
+							(bytes)[space_idx++] = static_cast<BYTE>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );;
+						++phase;
+						break;
+					case 2:
+						if ( space_idx < numBytes )
+							(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );;
+						++phase;
+						break;
+					case 3:
+						if ( space_idx < numBytes )
+							(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0x03 ) << 6 ) | d );;
+						phase = 0;
+						break;
+
+					}
+					prev_d = d;
+				}
+			}
+			return space_idx;
+		}
+
+		template<typename CharType>
 		class Base64
 		{
+		private:
+			explicit Base64();
+
 		public:
 			static
 				size_t FromString(const CharType * const text, size_t textLength, BYTE * bytes, size_t numBytes);
@@ -71,8 +134,6 @@ namespace Earlgrey
 			static 
 				size_t ToString(const BYTE * const bytes, size_t numBytes, TextContainerType& encodedText, size_t textLength);
 
-		private:
-			static CHAR ToMultiByte(CharType);
 		};
 
 		template<>
@@ -85,52 +146,10 @@ namespace Earlgrey
 			static 
 				size_t FromString(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
 			{
-				const size_t minimumBytes = GetMinimumBytesForDecoding(textLength);
-				if(numBytes < minimumBytes)
-				{
-					throw std::exception();
-				}
-
-				size_t space_idx = 0;
-				int phase = 0;
-				int d = 0;
-				int prev_d = 0;
-
-				for(size_t i = 0; i < textLength; i++)
-				{
-					d = DecodeMimeBase64[(int) text[i]];
-					if ( d != -1 ) 
-					{
-						switch ( phase ) 
-						{
-						case 0:
-							++phase;
-							break;
-						case 1:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );;
-							++phase;
-							break;
-						case 2:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );;
-							++phase;
-							break;
-						case 3:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0x03 ) << 6 ) | d );;
-							phase = 0;
-							break;
-
-						}
-						prev_d = d;
-					}
-				}
-				return space_idx;
+				return FromBase64StringToBytes(text, textLength, bytes, numBytes);
 			}
 
-
-
+			// \todo 이 함수의 중복 코드도 제거 가능하겠지만 뒤로 미룬다.
 			template<typename TextContainerType>
 			static 
 				size_t ToString(const BYTE * const bytes, size_t numBytes, TextContainerType& encodedText, size_t textLength)
@@ -183,7 +202,7 @@ namespace Earlgrey
 				(encodedText)[j] = '\0';
 				return j;
 			}
-		
+
 
 		};
 
@@ -197,60 +216,7 @@ namespace Earlgrey
 			static 
 				size_t FromString(const WCHAR * const text, size_t textLength, BYTE * bytes, size_t numBytes)
 			{
-				const size_t minimumBytes = GetMinimumBytesForDecoding(textLength);
-				if(numBytes < minimumBytes)
-				{
-					throw std::exception();
-				}
-
-				size_t space_idx = 0;
-				int phase = 0;
-				int d = 0;
-				int prev_d = 0;
-
-				for(size_t i = 0; i < textLength; i++)
-				{
-					int retValue;
-					char mbChar;
-					errno_t err = wctomb_s(&retValue, &mbChar, sizeof(mbChar), text[i]);
-					if(err != 0)
-					{
-						throw std::exception();
-					}
-
-
-
-
-
-					d = DecodeMimeBase64[(int) mbChar];
-					if ( d != -1 ) 
-					{
-						switch ( phase ) 
-						{
-						case 0:
-							++phase;
-							break;
-						case 1:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( prev_d << 2 ) | ( ( d & 0x30 ) >> 4 ) );;
-							++phase;
-							break;
-						case 2:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0xf ) << 4 ) | ( ( d & 0x3c ) >> 2 ) );;
-							++phase;
-							break;
-						case 3:
-							if ( space_idx < numBytes )
-								(bytes)[space_idx++] = static_cast<BYTE>( ( ( prev_d & 0x03 ) << 6 ) | d );;
-							phase = 0;
-							break;
-
-						}
-						prev_d = d;
-					}
-				}
-				return space_idx;
+				return FromBase64StringToBytes(text, textLength, bytes, numBytes);
 			}
 
 			template<typename TextContainerType>
@@ -310,11 +276,57 @@ namespace Earlgrey
 		};
 
 	}
-	
 
+
+	class Convert : private Uncopyable
+	{
+	private:
+		explicit Convert();
+
+	public:
+		// \ref http://www.iamcorean.net/130
+		// Decpde
+		static
+			size_t GetMinimumBytesForDecode(size_t textLength);
+
+		template<typename CharType>
+		static 
+			size_t FromBase64(const CharType * const text, size_t textLength, BYTE * bytes, size_t numBytes);
+
+		template<class _Elem, class _Traits, class _Ax>
+		static 
+			size_t FromBase64(const std::basic_string<_Elem, _Traits, _Ax> & text, BYTE * bytes, size_t numBytes);
+		
+	
+		// Encode
+		static
+			size_t GetMinimumLengthForEncode(size_t numBytes);
+
+		template<typename CharType>
+		static 
+			size_t ToBase64(const BYTE * const bytes, size_t numBytes, CharType encodedText[], size_t textLength);
+
+		template<class _Elem, class _Traits, class _Ax>
+		static 
+			size_t ToBase64(const BYTE * const bytes, size_t numBytes, std::basic_string<_Elem, _Traits, _Ax> & encodedText);
+	};
+	
 	size_t Convert::GetMinimumBytesForDecode(size_t textLength)
 	{
 		return GetMinimumBytesForDecoding(textLength);
+	}
+
+	template<typename CharType>
+	size_t Convert::FromBase64(const CharType * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	{
+		return Base64<CharType>::FromString(text, textLength, bytes, numBytes);
+	}
+
+
+	template<class _Elem, class _Traits, class _Ax>
+	size_t Convert::FromBase64(const std::basic_string<_Elem, _Traits, _Ax> & text, BYTE * bytes, size_t numBytes)
+	{
+		return FromBase64(text.c_str(), text.length(), bytes, numBytes);
 	}
 
 	size_t Convert::GetMinimumLengthForEncode(size_t numBytes)
@@ -322,28 +334,20 @@ namespace Earlgrey
 		return GetMinimumLengthForEncoding(numBytes);
 	}
 
-	
-
-	size_t Convert::FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	template<typename CharType>
+	size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, CharType encodedText[], size_t textLength)
 	{
-		return Base64<char>::FromString(text, textLength, bytes, numBytes);
+		return Base64<CharType>::ToString(bytes, numBytes, encodedText, textLength);
 	}
 
-	size_t Convert::FromBase64(const WCHAR * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	template<class _Elem, class _Traits, class _Ax>
+	size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, std::basic_string<_Elem, _Traits, _Ax> & encodedText)
 	{
-		return Base64<WCHAR>::FromString(text, textLength, bytes, numBytes);
-	}
-
-
-	
-
-	size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, char encodedText[], size_t textLength)
-	{
-		return Base64<char>::ToString(bytes, numBytes, encodedText, textLength);
-	}
-
-	size_t Convert::ToBase64(const BYTE * const bytes, size_t numBytes, WCHAR encodedText[], size_t textLength)
-	{
-		return Base64<WCHAR>::ToString(bytes, numBytes, encodedText, textLength);
+		const size_t textLength = GetMinimumLengthForEncode(numBytes);
+		if(encodedText.size() < textLength)
+		{
+			encodedText.resize(textLength);
+		}
+		return Base64<_Elem>::ToString(bytes, numBytes, encodedText, textLength);
 	}
 }
