@@ -150,7 +150,7 @@ namespace Earlgrey
 	}
 		*/
 
-	int Convert::FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
+	size_t Convert::FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes)
 	{
 		const size_t minimumBytes = GetMinimumBytesForDecode(textLength);
 		if(numBytes < minimumBytes)
@@ -158,12 +158,12 @@ namespace Earlgrey
 			throw std::exception();
 		}
 
-		int space_idx = 0;
+		size_t space_idx = 0;
 		int phase = 0;
 		int d = 0;
 		int prev_d = 0;
 
-		for(int i = 0; i < textLength; i++)
+		for(size_t i = 0; i < textLength; i++)
 		{
 			d = DecodeMimeBase64[(int) text[i]];
 			if ( d != -1 ) 

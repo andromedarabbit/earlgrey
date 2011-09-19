@@ -16,7 +16,7 @@ namespace Earlgrey
 			size_t GetMinimumBytesForDecode(size_t textLength);
 
 		static 
-			int FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes);
+			size_t FromBase64(const char * const text, size_t textLength, BYTE * bytes, size_t numBytes);
 	/*	static
 			int FromBase64(const xstring& text, BYTE * bytes, size_t numBytes);*/
 
@@ -29,11 +29,11 @@ namespace Earlgrey
 
 		template<class _Elem, class _Traits, class _Ax>
 		static 
-			int FromBase64(const std::basic_string<_Elem, _Traits, _Ax> & text, BYTE * bytes, size_t numBytes);
+			size_t FromBase64(const std::basic_string<_Elem, _Traits, _Ax> & text, BYTE * bytes, size_t numBytes);
 
 		template<class _Ax>
 		static 
-			int FromBase64(const std::basic_string<char, std::char_traits<char>, _Ax> & text, BYTE * bytes, size_t numBytes)
+			size_t FromBase64(const std::basic_string<char, std::char_traits<char>, _Ax> & text, BYTE * bytes, size_t numBytes)
 		{
 			return FromBase64(text.c_str(), text.length(), bytes, numBytes);
 		}
