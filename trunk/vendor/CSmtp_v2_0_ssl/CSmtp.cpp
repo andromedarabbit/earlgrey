@@ -39,7 +39,7 @@
 //     > Added fixes described here: http://www.codeproject.com/Messages/3587166/Re-Possible-Solution-To-Misc-EHLO-Errors.aspx
 //       - Thanks to Jakub Piwowarczyk!
 ////////////////////////////////////////////////////////////////////////////////
-
+#include "stdafx.h"
 #include "CSmtp.h"
 #include "base64.h"
 #include "openssl/err.h"
@@ -92,11 +92,11 @@ bool IsKeywordSupported(const char* response, const char* keyword)
 	assert(response != NULL && keyword != NULL);
 	if(response == NULL || keyword == NULL)
 		return false;
-	int res_len = strlen(response);
-	int key_len = strlen(keyword);
+	size_t res_len = strlen(response);
+	size_t key_len = strlen(keyword);
 	if(res_len < key_len)
 		return false;
-	int pos = 0;
+	size_t pos = 0;
 	for(; pos < res_len - key_len + 1; ++pos)
 	{
 		if(_strnicmp(keyword, response+pos, key_len) == 0)
@@ -132,7 +132,7 @@ unsigned char* CharToUnsignedChar(const char *strIn)
 {
 	unsigned char *strOut;
 
-	unsigned long length,
+	size_t length,
 		          i;
 
 
@@ -475,10 +475,10 @@ void CSmtp::ModMsgLine(unsigned int Line,const char* Text)
 ////////////////////////////////////////////////////////////////////////////////
 void CSmtp::Send()
 {
-	unsigned int i,rcpt_count,res,FileId;
+	size_t i,rcpt_count,res,FileId;
 	char *FileBuf = NULL, *FileName = NULL;
 	FILE* hFile = NULL;
-	unsigned long int FileSize,TotalSize,MsgPart;
+	size_t FileSize,TotalSize,MsgPart;
 
 	// ***** CONNECTING TO SMTP SERVER *****
 

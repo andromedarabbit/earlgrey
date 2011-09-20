@@ -44,7 +44,7 @@ documentation and/or software.
 
 
 
-
+#include "stdafx.h"
 #include "md5.h"
 
 #include <assert.h>
@@ -119,7 +119,7 @@ void MD5::update (uint1 *input, uint4 input_length) {
 void MD5::update(FILE *file){
 
   unsigned char buffer[1024];
-  int len;
+  size_t len;
 
   while (len=fread(buffer, 1, 1024, file))
     update(buffer, len);
@@ -139,7 +139,7 @@ void MD5::update(FILE *file){
 void MD5::update(istream& stream){
 
   unsigned char buffer[1024];
-  int len;
+  std::streamsize len;
 
   while (stream.good()){
     stream.read((char *)buffer, 1024); // note that return value of read is unusable.
