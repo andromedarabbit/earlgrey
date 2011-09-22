@@ -132,6 +132,9 @@ namespace Earlgrey
 			AddToMessageLog(TEXT("Service installed"), EVENTLOG_INFORMATION_TYPE);
 			*/
 
+			CloseServiceHandle(schService); 
+			CloseServiceHandle(scManager);
+
 			return TRUE;
 		}
 
@@ -179,7 +182,7 @@ namespace Earlgrey
 
 			Earlgrey::handle_t schServiceHandle(schService, &CloseServiceHandle);
 
-			if(scManager == NULL) {
+			if(schService == NULL) {
 				const DWORD errCode = GetLastError();
 				_tcout << TEXT("OpenService failed - ") << Log::ErrorMessage(errCode) << std::endl;
 				return FALSE;
@@ -226,6 +229,9 @@ namespace Earlgrey
 
 			// TODO: 이벤트 로그를 지우는 게 옳을까?
 			// DeregisterApplicationLog();
+
+			CloseServiceHandle(schService); 
+			CloseServiceHandle(scManager);
 
 			return TRUE;
 		}
