@@ -132,9 +132,6 @@ namespace Earlgrey
 			AddToMessageLog(TEXT("Service installed"), EVENTLOG_INFORMATION_TYPE);
 			*/
 
-			CloseServiceHandle(schService); 
-			CloseServiceHandle(scManager);
-
 			return TRUE;
 		}
 
@@ -229,9 +226,6 @@ namespace Earlgrey
 
 			// TODO: 이벤트 로그를 지우는 게 옳을까?
 			// DeregisterApplicationLog();
-
-			CloseServiceHandle(schService); 
-			CloseServiceHandle(scManager);
 
 			return TRUE;
 		}
