@@ -39,7 +39,7 @@
 #endif
 
 //Add "openssl-0.9.8l\inc32" to Additional Include Directories
-#include "openssl\ssl.h"
+#include <openssl/ssl.h>
 
 #include "md5.h"
 

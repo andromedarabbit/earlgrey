@@ -3,6 +3,9 @@
 
 #include <utility>
 
+#pragma comment(lib,"libeay32.lib")
+#pragma comment(lib,"ssleay32.lib")
+
 namespace Earlgrey
 {
 	namespace Test
@@ -76,6 +79,48 @@ namespace Earlgrey
 			}
 
 		}
+
+		//namespace
+		//{
+		//	void MessageDigest( const void *msg , size_t len ,void *msgout,int *outsize)
+		//	{
+		//		EVP_MD_CTX mdctx;
+		//		unsigned char md_result[EVP_MAX_MD_SIZE];
+		//		unsigned int md_length;
+
+		//		EVP_DigestInit(&mdctx, EVP_md5());
+		//		EVP_DigestUpdate(&mdctx, msg, len);
+		//		EVP_DigestFinal_ex(&mdctx, md_result, &md_length);
+		//		EVP_MD_CTX_cleanup(&mdctx);
+		//		memcpy( msgout, md_result, md_length);
+		//		*outsize= md_length;
+
+		//	}
+		//}
+
+		//TEST_F(MD5Test, Temp)
+		//{
+		//	for(ValueHashContainer::const_iterator it = m_Container.begin(); it != m_Container.end(); it++)
+		//	{
+		//		std::string sourceValue = (*it).first;
+
+		//		char output[EVP_MAX_MD_SIZE * 1024];
+		//		int len;
+
+		//		MessageDigest((const void *)sourceValue.c_str(), sourceValue.length(), output, &len);
+		//		output[len] = NULL;
+
+
+		//		for(int i = 0; i < len; i++)
+		//		{
+
+		//			printf ("%02x", output[i]&255);
+		//		}
+		//		printf("\r\n");
+
+		//		// delete hexDigest;
+		//	}
+		//}
 
 	}
 }

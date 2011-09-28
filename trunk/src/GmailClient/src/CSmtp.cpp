@@ -50,6 +50,14 @@
 #pragma comment(lib, "ssleay32.lib")
 #pragma comment(lib, "libeay32.lib")
 
+#pragma warning(push)
+#pragma warning(disable: 4996)
+#pragma warning(disable: 4267)
+#pragma warning(disable: 4127)
+#pragma warning(disable: 4244)
+#pragma warning(disable: 4706)
+#pragma warning(disable: 4701)
+
 
 Command_Entry command_list[] = 
 {
@@ -662,7 +670,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 	fd_set fdwrite,fdexcept;
 	timeval timeout;
 	int res = 0;
-	bool conected=false;
+	//bool conected=false;
 
 	try
 	{
@@ -877,7 +885,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				// if ustrPassword is longer than 64 bytes reset it to ustrPassword=MD5(ustrPassword)
 				int passwordLength=m_sPassword.size();
 				if(passwordLength > 64){
-					MD5 md5password;
+					Earlgrey::MD5 md5password;
 					md5password.update(ustrPassword, passwordLength);
 					md5password.finalize();
 					ustrPassword = md5password.raw_digest();
@@ -898,14 +906,14 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				}
 
 				//perform inner MD5
-				MD5 md5pass1;
+				Earlgrey::MD5 md5pass1;
 				md5pass1.update(ipad, 64);
 				md5pass1.update(ustrChallenge, decoded_challenge.size());
 				md5pass1.finalize();
 				unsigned char *ustrResult = md5pass1.raw_digest();
 
 				//perform outer MD5
-				MD5 md5pass2;
+				Earlgrey::MD5 md5pass2;
 				md5pass2.update(opad, 64);
 				md5pass2.update(ustrResult, 16);
 				md5pass2.finalize();
@@ -1014,7 +1022,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				if(!ustrRealm || !ustrUsername || !ustrPassword || !ustrNonce || !ustrCNonce || !ustrUri || !ustrNc || !ustrQop)
 					throw ECSmtp(ECSmtp::BAD_LOGIN_PASSWORD);
 
-				MD5 md5a1a;
+				Earlgrey::MD5 md5a1a;
 				md5a1a.update(ustrUsername, m_sLogin.size());
 				md5a1a.update((unsigned char*)":", 1);
 				md5a1a.update(ustrRealm, realm.size());
@@ -1023,7 +1031,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				md5a1a.finalize();
 				unsigned char *ua1 = md5a1a.raw_digest();
 
-				MD5 md5a1b;
+				Earlgrey::MD5 md5a1b;
 				md5a1b.update(ua1, 16);
 				md5a1b.update((unsigned char*)":", 1);
 				md5a1b.update(ustrNonce, nonce.size());
@@ -1033,7 +1041,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				md5a1b.finalize();
 				char *a1 = md5a1b.hex_digest();
 				
-				MD5 md5a2;
+				Earlgrey::MD5 md5a2;
 				md5a2.update((unsigned char*) "AUTHENTICATE:", 13);
 				md5a2.update(ustrUri, uri.size());
 				//authint and authconf add an additional line here	
@@ -1045,7 +1053,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 				unsigned char *ua2 = CharToUnsignedChar(a2);
 				
 				//compute KD
-				MD5 md5;
+				Earlgrey::MD5 md5;
 				md5.update(ua1, 32);
 				md5.update((unsigned char*)":", 1);
 				md5.update(ustrNonce, nonce.size());
@@ -1115,7 +1123,7 @@ bool CSmtp::ConnectRemoteServer(const char *szServer, const unsigned short nPort
 			m_bConnected=false;
 		DisconnectRemoteServer();
 		throw;
-		return false;
+		// return false;
 	}
 
 	return true;
@@ -2310,3 +2318,6 @@ void CSmtp::CleanupOpenSSL()
 		CRYPTO_cleanup_all_ex_data();
 	}
 }
+
+
+#pragma warning(pop)
