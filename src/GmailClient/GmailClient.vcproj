@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
-				AdditionalLibraryDirectories="&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -117,7 +117,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				BasicRuntimeChecks="3"
 				SmallerTypeCheck="true"
@@ -138,7 +138,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
-				AdditionalLibraryDirectories="&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -192,7 +192,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -212,7 +212,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
-				AdditionalLibraryDirectories="&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -267,7 +267,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\CSmtp_v2_0_ssl;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;;..\..\vendor\Optionals\boost_1_45_0"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -287,7 +287,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
-				AdditionalLibraryDirectories="&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -314,8 +314,8 @@
 	</Configurations>
 	<References>
 		<ProjectReference
-			ReferencedProjectIdentifier="{567388CF-8BEC-4335-95D9-240F39622EB2}"
-			RelativePathToProject="..\vendor\CSmtp_v2_0_ssl\CSmtp.vs2008.vcproj"
+			ReferencedProjectIdentifier="{97815F93-C18E-4749-BAB1-B1917C7CE375}"
+			RelativePathToProject=".\Earlgrey\Earlgrey.vcproj"
 		/>
 	</References>
 	<Files>
@@ -324,6 +324,14 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\src\base64.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\CSmtp.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\src\GmailClient.cpp"
 				>
@@ -334,6 +342,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\inc\base64.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\CSmtp.h"
+				>
+			</File>
 			<File
 				RelativePath=".\inc\GMailClient.h"
 				>

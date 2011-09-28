@@ -66,9 +66,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs;..\..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib"
+				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -145,9 +144,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs;..\..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib"
+				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -223,9 +221,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs;..\..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib"
+				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -304,9 +301,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs;..\..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib"
+				AdditionalLibraryDirectories="..\..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"

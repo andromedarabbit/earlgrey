@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -67,8 +67,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="ssleay32.lib"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -112,7 +111,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -135,8 +134,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="ssleay32.lib"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -183,7 +181,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -205,8 +203,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="ssleay32.lib"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -254,7 +251,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\include&quot;"
+				AdditionalIncludeDirectories="./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;&quot;..\..\vendor\gtest-1.6.0\include&quot;;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -275,8 +272,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalDependencies="ssleay32.lib"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\CSmtp_v2_0_ssl\\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(PlatformName)\$(ConfigurationName)&quot;;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"

@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0;&quot;..\..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -68,9 +68,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -125,7 +124,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0;&quot;..\..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -148,9 +147,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -208,7 +206,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0;&quot;..\..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -229,9 +227,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -292,7 +289,7 @@
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0"
+				AdditionalIncludeDirectories="inc;&quot;..\..\vendor\gtest-1.6.0\include&quot;;..\Earlgrey.Gtest\inc;..\Earlgrey\inc;..\Earlgrey.Database\inc;..\..\vendor\Optionals\boost_1_45_0;&quot;..\..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -313,9 +310,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ssleay32.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs;&quot;..\..\vendor\CSmtp_v2_0_ssl\openssl-0.9.8k_$(PlatformName)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\vendor\Optionals\boost_1_45_0\libs"
 				UACExecutionLevel="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
