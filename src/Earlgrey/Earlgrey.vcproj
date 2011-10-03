@@ -28,6 +28,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\bin\*.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -94,6 +95,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\bin\*.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -162,6 +164,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\bin\*.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -231,6 +234,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="xcopy /y &quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\bin\*.dll&quot; &quot;$(TargetDir)&quot;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
