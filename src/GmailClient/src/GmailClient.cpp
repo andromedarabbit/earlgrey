@@ -106,5 +106,6 @@ namespace Earlgrey
 		{
 			return m_Port;
 		}
-	} // !Extension
-} // !Earlgrey
+
+	} // end of namespace Extension
+} // end of namespace Earlgrey
