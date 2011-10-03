@@ -27,16 +27,22 @@ namespace Earlgrey
 			return base64Text;
 		}
 
-		std::string base64_decode(std::string const& encoded_string) 
+
+		template<class _Elem, class _Traits, class _Ax>
+		static 
+			std::basic_string<_Elem, _Traits, _Ax> base64_decode(std::basic_string<_Elem, _Traits, _Ax> const& encoded_string) 
 		{
 			size_t bytesNeeded = Earlgrey::Convert::GetMinimumBytesForDecode(encoded_string.length());
 			BYTE * bytes = new BYTE[bytesNeeded];
+			// BYTE * bytes = Malloca(bytesNeeded);
+			// std::tr1::shared_ptr<BYTE> bytes( new BYTE[bytesNeeded] );
+			
 
 			SIZE_T len = Earlgrey::Convert::FromBase64(encoded_string, bytes, bytesNeeded);
 			EARLGREY_ASSERT(len <= encoded_string.length());
 
 
-			std::string decodedText(reinterpret_cast<CHAR*>(bytes));
+			std::basic_string<_Elem, _Traits, _Ax> decodedText(reinterpret_cast<_Elem*>(bytes));
 			delete bytes;
 			return decodedText;
 		}

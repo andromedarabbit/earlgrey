@@ -50,7 +50,7 @@
 #pragma comment(lib, "libeay32.lib")
 
 #pragma warning(push)
-#pragma warning(disable: 4996)
+ #pragma warning(disable: 4996)
 #pragma warning(disable: 4127)
 #pragma warning(disable: 4244)
 
@@ -240,9 +240,7 @@ namespace Earlgrey
 
 			CleanupOpenSSL();
 
-		#ifndef LINUX
 			WSACleanup();
-		#endif
 		}
 
 		////////////////////////////////////////////////////////////////////////////////
@@ -505,7 +503,7 @@ namespace Earlgrey
 				if(!m_sMailFrom.size())
 					throw ECSmtp(ECSmtp::UNDEF_MAIL_FROM);
 				Command_Entry* pEntry = FindCommandEntry(command_MAILFROM);
-				sprintf(SendBuf, "MAIL FROM:<%s>\r\n", m_sMailFrom.c_str());
+				sprintf_s(SendBuf, BUFFER_SIZE, "MAIL FROM:<%s>\r\n", m_sMailFrom.c_str());
 				SendData(pEntry);
 				ReceiveResponse(pEntry);
 
@@ -515,28 +513,28 @@ namespace Earlgrey
 				pEntry = FindCommandEntry(command_RCPTTO);
 				for(i=0;i<Recipients.size();i++)
 				{
-					sprintf(SendBuf, "RCPT TO:<%s>\r\n", (Recipients.at(i).Mail).c_str());
+					sprintf_s(SendBuf, BUFFER_SIZE, "RCPT TO:<%s>\r\n", (Recipients.at(i).Mail).c_str());
 					SendData(pEntry);
 					ReceiveResponse(pEntry);
 				}
 
 				for(i=0;i<CCRecipients.size();i++)
 				{
-					sprintf(SendBuf, "RCPT TO:<%s>\r\n", (CCRecipients.at(i).Mail).c_str());
+					sprintf_s(SendBuf, BUFFER_SIZE, "RCPT TO:<%s>\r\n", (CCRecipients.at(i).Mail).c_str());
 					SendData(pEntry);
 					ReceiveResponse(pEntry);
 				}
 
 				for(i=0;i<BCCRecipients.size();i++)
 				{
-					sprintf(SendBuf, "RCPT TO:<%s>\r\n", (BCCRecipients.at(i).Mail).c_str());
+					sprintf_s(SendBuf, BUFFER_SIZE, "RCPT TO:<%s>\r\n", (BCCRecipients.at(i).Mail).c_str());
 					SendData(pEntry);
 					ReceiveResponse(pEntry);
 				}
 				
 				pEntry = FindCommandEntry(command_DATA);
 				// DATA <CRLF>
-				strcpy(SendBuf, "DATA\r\n");
+				strcpy_s(SendBuf, BUFFER_SIZE, "DATA\r\n");
 				SendData(pEntry);
 				ReceiveResponse(pEntry);
 				
@@ -550,13 +548,13 @@ namespace Earlgrey
 				{
 					for(i=0;i<GetMsgLines();i++)
 					{
-						sprintf(SendBuf,"%s\r\n",GetMsgLineText(i));
+						sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n",GetMsgLineText(i));
 						SendData(pEntry);
 					}
 				}
 				else
 				{
-					sprintf(SendBuf,"%s\r\n"," ");
+					sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n"," ");
 					SendData(pEntry);
 				}
 
@@ -572,7 +570,7 @@ namespace Earlgrey
 				{
 					strcpy(FileName,Attachments[FileId].c_str());
 
-					sprintf(SendBuf,"--%s\r\n",BOUNDARY_TEXT);
+					sprintf_s(SendBuf, BUFFER_SIZE, "--%s\r\n",BOUNDARY_TEXT);
 					strcat(SendBuf,"Content-Type: application/x-msdownload; name=\"");
 					strcat(SendBuf,&FileName[Attachments[FileId].find_last_of("\\") + 1]);
 					strcat(SendBuf,"\"\r\n");
@@ -629,13 +627,13 @@ namespace Earlgrey
 				// sending last message block (if there is one or more attachments)
 				if(Attachments.size())
 				{
-					sprintf(SendBuf,"\r\n--%s--\r\n",BOUNDARY_TEXT);
+					sprintf_s(SendBuf, BUFFER_SIZE, "\r\n--%s--\r\n",BOUNDARY_TEXT);
 					SendData(pEntry);
 				}
 				
 				pEntry = FindCommandEntry(command_DATAEND);
 				// <CRLF> . <CRLF>
-				strcpy(SendBuf, "\r\n.\r\n");
+				strcpy_s(SendBuf, BUFFER_SIZE, "\r\n.\r\n");
 				SendData(pEntry);
 				ReceiveResponse(pEntry);
 			}
@@ -813,28 +811,28 @@ namespace Earlgrey
 					if(IsKeywordSupported(RecvBuf, "LOGIN") == true)
 					{
 						pEntry = FindCommandEntry(command_AUTHLOGIN);
-						strcpy(SendBuf, "AUTH LOGIN\r\n");
+						strcpy_s(SendBuf, BUFFER_SIZE, "AUTH LOGIN\r\n");
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 
 						// send login:
 						std::string encoded_login = base64_encode(reinterpret_cast<const unsigned char*>(m_sLogin.c_str()),m_sLogin.size());
 						pEntry = FindCommandEntry(command_USER);
-						sprintf(SendBuf,"%s\r\n",encoded_login.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n",encoded_login.c_str());
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 						
 						// send password:
 						std::string encoded_password = base64_encode(reinterpret_cast<const unsigned char*>(m_sPassword.c_str()),m_sPassword.size());
 						pEntry = FindCommandEntry(command_PASSWORD);
-						sprintf(SendBuf,"%s\r\n",encoded_password.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n",encoded_password.c_str());
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 					}
 					else if(IsKeywordSupported(RecvBuf, "PLAIN") == true)
 					{
 						pEntry = FindCommandEntry(command_AUTHPLAIN);
-						sprintf(SendBuf, "^%s^%s", m_sLogin.c_str(), m_sPassword.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "^%s^%s", m_sLogin.c_str(), m_sPassword.c_str());
 						for(unsigned int i=0; i<strlen(SendBuf); i++)
 						{
 							if(SendBuf[i]=='^') SendBuf[i]='\0';
@@ -842,14 +840,14 @@ namespace Earlgrey
 						const unsigned char *ustrLogin = CharToUnsignedChar(SendBuf);
 						std::string encoded_login = base64_encode(ustrLogin, strlen(SendBuf));
 						delete[] ustrLogin;
-						sprintf(SendBuf, "AUTH PLAIN %s", encoded_login.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "AUTH PLAIN %s", encoded_login.c_str());
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 					}
 					else if(IsKeywordSupported(RecvBuf, "CRAM-MD5") == true)
 					{
 						pEntry = FindCommandEntry(command_AUTHCRAMMD5);
-						strcpy(SendBuf, "AUTH CRAM-MD5\r\n");
+						strcpy_s(SendBuf, BUFFER_SIZE, "AUTH CRAM-MD5\r\n");
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 
@@ -915,7 +913,7 @@ namespace Earlgrey
 						decoded_challenge = m_sLogin + " " + decoded_challenge;
 						encoded_challenge = base64_encode(reinterpret_cast<const unsigned char*>(decoded_challenge.c_str()),decoded_challenge.size());
 
-						sprintf(SendBuf, "%s\r\n", encoded_challenge.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n", encoded_challenge.c_str());
 						pEntry = FindCommandEntry(command_PASSWORD);
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
@@ -923,7 +921,7 @@ namespace Earlgrey
 					else if(IsKeywordSupported(RecvBuf, "DIGEST-MD5") == true)
 					{
 						pEntry = FindCommandEntry(command_DIGESTMD5);
-						strcpy(SendBuf, "AUTH DIGEST-MD5\r\n");
+						strcpy_s(SendBuf, BUFFER_SIZE, "AUTH DIGEST-MD5\r\n");
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 
@@ -960,10 +958,10 @@ namespace Earlgrey
 
 						//Create a cnonce
 						char cnonce[17], nc[9];
-						sprintf(cnonce, "%x", time(NULL));
+						sprintf_s(cnonce, "%x", time(NULL));
 
 						//Set nonce count
-						sprintf(nc, "%08d", 1);
+						sprintf_s(nc, "%08d", 1);
 
 						//Set QOP
 						std::string qop = "auth";
@@ -984,7 +982,7 @@ namespace Earlgrey
 						//test data from RFC 2831
 						//m_sLogin = "chris";
 						//m_sPassword = "secret";
-						//strcpy(cnonce, "OA6MHXh6VqTrRk");
+						//strcpy_s(cnonce, "OA6MHXh6VqTrRk");
 						//uri = "imap/elwood.innosoft.com";
 						//Should form the response:
 						//    charset=utf-8,username="chris",
@@ -1071,34 +1069,34 @@ namespace Earlgrey
 						delete[] a2;
 
 						//send the response
-						if(strstr(RecvBuf, "charset")>=0) sprintf(SendBuf, "charset=utf-8,username=\"%s\"", m_sLogin.c_str());
-						else sprintf(SendBuf, "username=\"%s\"", m_sLogin.c_str());
+						if(strstr(RecvBuf, "charset")>=0) sprintf_s(SendBuf, BUFFER_SIZE, "charset=utf-8,username=\"%s\"", m_sLogin.c_str());
+						else sprintf_s(SendBuf, BUFFER_SIZE, "username=\"%s\"", m_sLogin.c_str());
 						if(!realm.empty()){
-							sprintf(RecvBuf, ",realm=\"%s\"", realm.c_str());
+							sprintf_s(RecvBuf, BUFFER_SIZE, ",realm=\"%s\"", realm.c_str());
 							strcat(SendBuf, RecvBuf);
 						}
-						sprintf(RecvBuf, ",nonce=\"%s\"", nonce.c_str());
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",nonce=\"%s\"", nonce.c_str());
 						strcat(SendBuf, RecvBuf);
-						sprintf(RecvBuf, ",nc=%s", nc);
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",nc=%s", nc);
 						strcat(SendBuf, RecvBuf);
-						sprintf(RecvBuf, ",cnonce=\"%s\"", cnonce);
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",cnonce=\"%s\"", cnonce);
 						strcat(SendBuf, RecvBuf);
-						sprintf(RecvBuf, ",digest-uri=\"%s\"", uri.c_str());
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",digest-uri=\"%s\"", uri.c_str());
 						strcat(SendBuf, RecvBuf);
-						sprintf(RecvBuf, ",response=%s", decoded_challenge.c_str());
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",response=%s", decoded_challenge.c_str());
 						strcat(SendBuf, RecvBuf);
-						sprintf(RecvBuf, ",qop=%s", qop.c_str());
+						sprintf_s(RecvBuf, BUFFER_SIZE, ",qop=%s", qop.c_str());
 						strcat(SendBuf, RecvBuf);
 						unsigned char *ustrDigest = CharToUnsignedChar(SendBuf);
 						encoded_challenge = base64_encode(ustrDigest, strlen(SendBuf));
 						delete[] ustrDigest;
-						sprintf(SendBuf, "%s\r\n", encoded_challenge.c_str());
+						sprintf_s(SendBuf, BUFFER_SIZE, "%s\r\n", encoded_challenge.c_str());
 						pEntry = FindCommandEntry(command_DIGESTMD5);
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
 
 						//Send completion carraige return
-						sprintf(SendBuf, "\r\n");				
+						sprintf_s(SendBuf, BUFFER_SIZE, "\r\n");				
 						pEntry = FindCommandEntry(command_PASSWORD);
 						SendData(pEntry);
 						ReceiveResponse(pEntry);
@@ -1230,7 +1228,7 @@ namespace Earlgrey
 			}
 			
 			// Date: <SP> <dd> <SP> <mon> <SP> <yy> <SP> <hh> ":" <mm> ":" <ss> <SP> <zone> <CRLF>
-			sprintf(header,"Date: %d %s %d %d:%d:%d\r\n",	timeinfo->tm_mday,
+			sprintf(header, "Date: %d %s %d %d:%d:%d\r\n",	timeinfo->tm_mday,
 																										month[timeinfo->tm_mon],
 																										timeinfo->tm_year+1900,
 																										timeinfo->tm_hour,
@@ -1914,7 +1912,7 @@ namespace Earlgrey
 		void CSmtp::SayHello()
 		{
 			Command_Entry* pEntry = FindCommandEntry(command_EHLO);
-			sprintf(SendBuf, "EHLO %s\r\n", GetLocalHostName()!=NULL ? m_sLocalHostName.c_str() : "domain");
+			sprintf_s(SendBuf, BUFFER_SIZE, "EHLO %s\r\n", GetLocalHostName()!=NULL ? m_sLocalHostName.c_str() : "domain");
 			SendData(pEntry);
 			ReceiveResponse(pEntry);
 			m_bConnected=true;
@@ -1926,7 +1924,7 @@ namespace Earlgrey
 			
 			Command_Entry* pEntry = FindCommandEntry(command_QUIT);
 			// QUIT <CRLF>
-			strcpy(SendBuf, "QUIT\r\n");
+			strcpy_s(SendBuf, BUFFER_SIZE, "QUIT\r\n");
 			SendData(pEntry);
 			ReceiveResponse(pEntry);
 			m_bConnected=false;
@@ -1939,8 +1937,8 @@ namespace Earlgrey
 				throw ECSmtp(ECSmtp::STARTTLS_NOT_SUPPORTED);
 			}
 			Command_Entry* pEntry = FindCommandEntry(command_STARTTLS);
-			//strcpy_s(SendBuf, BUFFER_SIZE, "STARTTLS\r\n");
-			strcpy(SendBuf, "STARTTLS\r\n");
+			//strcpy_s_s(SendBuf, BUFFER_SIZE, "STARTTLS\r\n");
+			strcpy_s(SendBuf, BUFFER_SIZE, "STARTTLS\r\n");
 			SendData(pEntry);
 			ReceiveResponse(pEntry);
 
@@ -2113,8 +2111,8 @@ namespace Earlgrey
 					}
 				}
 			}
-			//strcpy_s(RecvBuf, BUFFER_SIZE, line.c_str());
-			strcpy(RecvBuf, line.c_str());
+			//strcpy_s_s(RecvBuf, BUFFER_SIZE, line.c_str());
+			strcpy_s(RecvBuf, BUFFER_SIZE, line.c_str());
 			OutputDebugStringA(RecvBuf);
 			if(reply_code != pEntry->valid_reply_code)
 			{

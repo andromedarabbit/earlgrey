@@ -142,7 +142,7 @@ namespace Earlgrey
 		{
 		public:
 			CSmtp();
-			virtual ~CSmtp();
+			~CSmtp();
 
 			void AddRecipient(const char *email, const char *name=NULL);
 			void AddBCCRecipient(const char *email, const char *name=NULL);
