@@ -68,6 +68,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
 				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -141,6 +142,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
 				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -216,6 +218,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
 				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -292,6 +295,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="ssleay32.lib &quot;$(OutDir)\Earlgrey.lib&quot;"
 				AdditionalLibraryDirectories="&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib&quot;"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
