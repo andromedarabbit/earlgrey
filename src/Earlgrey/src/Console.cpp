@@ -13,7 +13,10 @@
 namespace Earlgrey
 {
 	Console::Console()
-		: m_stdoutHandle(INVALID_HANDLE_VALUE)
+		: m_previousStdOutLocale()
+		, m_previousStdInLocale()
+		, m_previousStdErrLocale()
+		, m_stdoutHandle(INVALID_HANDLE_VALUE)
 		, m_stdinHandle(INVALID_HANDLE_VALUE)
 		, m_stderrHandle(INVALID_HANDLE_VALUE)
 		, m_closed(TRUE)
@@ -28,8 +31,12 @@ namespace Earlgrey
 	//! \todo 하드 코딩한 로케일을 어떻게 고쳐야 한다.
 	BOOL Console::Open(BOOL attachExistingConsoleIfPossible)
 	{
-		_tcout.imbue( std::locale("kor") );
-		_tcin.imbue( std::locale("kor") );
+		if(m_closed == FALSE)
+			return FALSE;
+
+		m_previousStdOutLocale = _tcout.imbue( std::locale("kor") );
+		m_previousStdInLocale = _tcin.imbue( std::locale("kor") );
+		m_previousStdErrLocale = _tcerr.imbue( std::locale("kor") );
 
 		BOOL consoleAttached = FALSE;
 
@@ -68,16 +75,22 @@ namespace Earlgrey
 		m_closed = TRUE;
 
 		// \todo 아래 함수에서 오류가 나면 어찌할 방법이 없지 않나?
-		::FreeConsole();
 		
-		::CloseHandle(m_stdoutHandle);
+		
+		EARLGREY_VERIFY(::CloseHandle(m_stdoutHandle));
 		m_stdoutHandle = INVALID_HANDLE_VALUE;
 		
-		::CloseHandle(m_stdinHandle);
+		EARLGREY_VERIFY(::CloseHandle(m_stdinHandle));
 		m_stdinHandle = INVALID_HANDLE_VALUE;
 
-		::CloseHandle(m_stderrHandle);
+		EARLGREY_VERIFY(::CloseHandle(m_stderrHandle));
 		m_stderrHandle = INVALID_HANDLE_VALUE;
+
+		EARLGREY_VERIFY(::FreeConsole());
+
+		_tcerr.imbue( m_previousStdErrLocale );
+		_tcin.imbue( m_previousStdInLocale );
+		_tcout.imbue( m_previousStdOutLocale );
 	}
 
 	void Console::Write(const TCHAR * const msg)
@@ -229,11 +242,7 @@ namespace Earlgrey
 		RedirectStdIO(STD_ERROR_HANDLE);
 
 		// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog point to console as well
-#ifdef _UNICODE
-		std::wios::sync_with_stdio(true);
-#else
-		std::ios::sync_with_stdio(true);
-#endif
+		_tios::sync_with_stdio(true);
 
 		return TRUE;
 	}

@@ -6,6 +6,12 @@
 #include <Loki/Threads.h> // for Loki::SingleThreaded
 #include "NoLock.h"
 
+#pragma warning(push)
+#pragma warning(disable: 4996)
+#include <locale>
+#pragma warning(pop)
+
+
 namespace Earlgrey
 {
 	//! \ref http://serious-code.net/moin.cgi/WindowsConsoleApp
@@ -38,6 +44,9 @@ namespace Earlgrey
 
 
 	private:
+		std::locale m_previousStdOutLocale;
+		std::locale m_previousStdInLocale;
+		std::locale m_previousStdErrLocale;
 		HANDLE m_stdoutHandle;
 		HANDLE m_stdinHandle;
 		HANDLE m_stderrHandle;

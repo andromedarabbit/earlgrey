@@ -9,7 +9,9 @@ namespace Earlgrey
 	{
 		TEST(ConsoleTest, OpenFail)
 		{
-			ASSERT_FALSE2(gConsole::Instance().Open()); // GoogleTest already has a console.
+			ASSERT_FALSE2(gConsole::Instance().Open(TRUE)); // GoogleTest already has a console.
+			ASSERT_FALSE2(gConsole::Instance().Open(FALSE)); // GoogleTest already has a console.
 		}
+
 	}
 }
