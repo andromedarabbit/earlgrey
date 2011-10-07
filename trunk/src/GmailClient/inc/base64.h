@@ -3,10 +3,6 @@
 
 #include "Convert.hpp"
 
-//std::string base64_encode(BYTE const * , size_t len);
-//std::string base64_decode(std::string const& s);
-//
-//
 
 namespace Earlgrey
 {
