@@ -136,16 +136,16 @@ namespace Earlgrey
 				, this
 				);
 
-			if( m_serviceStatusHandle != 0 ) // report the status to the service control manager.
-			{			
-				if( ReportStatus(SERVICE_START_PENDING) ){
-					OnStart( dwArgc, lpszArgv );}
+			EARLGREY_VERIFY(m_serviceStatusHandle != 0);
+
+			// report the status to the service control manager.			
+			if( ReportStatus(SERVICE_START_PENDING) )
+			{
+				OnStart( dwArgc, lpszArgv );
 			}
 
-			if( m_serviceStatusHandle != 0 ) // try to report the stopped status to the service control manager.
-			{
-				ReportStatus(SERVICE_STOPPED);
-			}
+			// try to report the stopped status to the service control manager.
+			ReportStatus(SERVICE_STOPPED);		
 		}
 
 		DWORD WINAPI ServiceBase::ServiceCtrl(
