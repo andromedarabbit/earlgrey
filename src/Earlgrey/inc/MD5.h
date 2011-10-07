@@ -67,6 +67,7 @@ namespace Earlgrey
 		// methods to acquire finalized result
 		BYTE * raw_digest ();  // digest as a 16-byte binary array
 		char * hex_digest ();  // digest as a 33-byte ascii-hex string
+		// WCHAR * hex_digest ();  // digest as a 33-byte ascii-hex string
 
 	private:
 		EVP_MD_CTX mdctx;
@@ -77,6 +78,7 @@ namespace Earlgrey
 		BOOL finalized;
 
 	};
+
 }
 
 #endif // __MD5_H__

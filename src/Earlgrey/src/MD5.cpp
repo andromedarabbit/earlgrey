@@ -47,9 +47,7 @@ namespace Earlgrey
 		BYTE * s = new BYTE[EVP_MAX_MD_SIZE];
 
 		if (!finalized){
-			cerr << "MD5::raw_digest:  Can't get digest if you haven't "<<
-			  "finalized the digest!" << endl;
-			return ( (unsigned char*) "");
+			throw std::exception("MD5::raw_digest:  Can't get digest if you haven't finalized the digest!");
 		}
 
 		memcpy_s(s, EVP_MAX_MD_SIZE, buffer, EVP_MAX_MD_SIZE);
@@ -57,29 +55,43 @@ namespace Earlgrey
 	}
 
 
-
 	char * MD5::hex_digest()
 	{
+		char * s = new char[33];
 
-	  int i;
-	  char *s= new char[33];
+		if (!finalized){
+			throw std::exception("MD5::hex_digest:  Can't get digest if you haven't finalized the digest!");
+		}
 
-	  if (!finalized){
-		cerr << "MD5::hex_digest:  Can't get digest if you haven't "<<
-		  "finalized the digest!" <<endl;
-		return "";
-	  }
+		for (int i = 0; i < EVP_MAX_IV_LENGTH; i++)
+		{
+			// TODO: 하드 코딩 제거
+			sprintf_s(s + i * 2, 33 - i * 2, "%02x", buffer[i] & 255);
+		}		
 
-	  for (i = 0; i < EVP_MAX_IV_LENGTH; i++)
-	  {
-		  // TODO: 하드 코딩 제거
-		  sprintf_s(s + i * 2, 33 - i * 2, "%02x", buffer[i] & 255);
-	  }		
+		s[32] = '\0';
 
-	  s[32]='\0';
-
-	  return s;
+		return s;
 	}
+
+	//WCHAR * MD5::hex_digest()
+	//{
+	//  WCHAR * s = new WCHAR[33];
+
+	//  if (!finalized){
+	//	  throw std::exception("MD5::hex_digest:  Can't get digest if you haven't finalized the digest!");
+	//  }
+
+	//  for (int i = 0; i < EVP_MAX_IV_LENGTH; i++)
+	//  {
+	//	  // TODO: 하드 코딩 제거
+	//	  swprintf_s(s + i * 2, 33 - i * 2, L"%02x", buffer[i] & 255);
+	//  }		
+
+	//  s[32]='\0';
+
+	//  return s;
+	//}
 
 }
 
