@@ -43,7 +43,7 @@ ServerService::ServerService(const Win32ServiceSettings& settings, BOOL consoleM
 	// 핸들러를 Earlgrey::Console 클래스를 상속 받아 확장하는 식이 나을 것 같다.
 	if( SetConsoleCtrlHandler(&ServerService::ControlHandler, TRUE) == FALSE)
 	{
-		// TODO
+		throw std::exception("Couldn't register a service control handler.");
 	}
 
 	if( m_settings.AllowOnlyOneInstance()
@@ -58,7 +58,7 @@ ServerService::~ServerService()
 {
 	if( SetConsoleCtrlHandler(&ServerService::ControlHandler, FALSE) == FALSE)
 	{
-		// TODO
+		throw std::exception("Couldn't remove a console control handler!");
 	}
 
 	if(m_consoleMode)
@@ -184,7 +184,8 @@ BOOL WINAPI ServerService::ControlHandler(DWORD ctrlType)
 		case CTRL_LOGOFF_EVENT:
 		case CTRL_SHUTDOWN_EVENT:
 			instance->OnStop();
-			exit(EXIT_SUCCESS);
+			// exit(EXIT_SUCCESS);
+			return TRUE;
 	}
 	return FALSE;
 
