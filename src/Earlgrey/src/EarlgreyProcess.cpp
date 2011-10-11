@@ -42,9 +42,9 @@ namespace Earlgrey
 
 		if( GetModuleFileName( NULL, path, length ) == 0 ) {
 			// TODO: need new exception class supporting a unicode msg 
-			// const DWORD errCode = GetLastError();
-			// _tstring msg = Log::ErrorMessage(errCode)
-			throw std::exception("error occurs while retrieving name of main module.");
+			const DWORD errCode = GetLastError();
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
 		}
 	}
 

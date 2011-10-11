@@ -43,7 +43,7 @@ namespace Earlgrey
 				// \todo 뭔가 오류 처리가 필요하다.
 				DWORD errCode = GetLastError();
 
-				_txstring errMsg = Log::ErrorMessage(errCode);
+				const TCHAR * const errMsg = Log::ErrorMessage(errCode);
 				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
 				
 				return FALSE;
@@ -62,7 +62,7 @@ namespace Earlgrey
 				// \todo 뭔가 오류 처리가 필요하다.
 				DWORD errCode = GetLastError();
 
-				_txstring errMsg = Log::ErrorMessage(errCode);
+				const TCHAR * const errMsg = Log::ErrorMessage(errCode);
 				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
 
 				// 예외 발생....

@@ -70,10 +70,8 @@ namespace Earlgrey
 
 		if (retValue == SOCKET_ERROR) {
 			const DWORD errCode = WSAGetLastError();
-			const _txstring msg = Log::ErrorMessage(errCode);
-			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
-
-			throw std::exception("");
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
 		}
 
 		AddressBytes bytes;

@@ -267,8 +267,8 @@ namespace Earlgrey
 			
 			BOOL bRet = StartServiceCtrlDispatcher(dispatchTable);
 			if( ! bRet ) {
-				_txstring msg( Log::ErrorMessage(GetLastError()) );
-				throw std::exception("Couldn't start the service!");
+				const CHAR * const errMsg = Log::ErrorMessageA(GetLastError());
+				throw std::exception(errMsg);
 			}
 		}
 

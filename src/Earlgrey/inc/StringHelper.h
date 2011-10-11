@@ -218,10 +218,10 @@ namespace String {
 
 	// Encoding
 	// MultiByteToWideChar
-	const WCHAR * ToUnicode(const CHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
+	const WCHAR * const ToUnicode(const CHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
 
 	template<class _Ax>
-	inline const WCHAR * ToUnicode(
+	inline const WCHAR * const ToUnicode(
 		const std::basic_string<char, std::char_traits<char>, _Ax>& src
 		, UINT codePage = CP_THREAD_ACP
 		)
@@ -234,7 +234,7 @@ namespace String {
 	// _UNICODE의 정의 여부에 따라 #if를 쓰지 않으려고 만들었다. 
 	// _txstring의 경우를 생각하면 된다.
 	template<class _Ax>
-	inline const WCHAR * ToUnicode(
+	inline const WCHAR * const ToUnicode(
 		const std::basic_string<wchar_t, std::char_traits<wchar_t>, _Ax>& src
 		, UINT codePage = CP_THREAD_ACP
 		)
@@ -243,10 +243,10 @@ namespace String {
 	}
 
 
-	const CHAR * FromUnicode(const WCHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
+	const CHAR * const FromUnicode(const WCHAR * src, int srcBytes, UINT codePage = CP_THREAD_ACP);
 
 	template<class _Ax>
-	inline const CHAR * FromUnicode(
+	inline const CHAR * const FromUnicode(
 		const std::basic_string<wchar_t, std::char_traits<wchar_t>, _Ax>& src
 		, UINT codePage = CP_THREAD_ACP
 		)
@@ -259,7 +259,7 @@ namespace String {
 	// _UNICODE의 정의 여부에 따라 #if를 쓰지 않으려고 만들었다. 
 	// _txstring의 경우를 생각하면 된다.
 	template<class _Ax>
-	inline const CHAR * FromUnicode(
+	inline const CHAR * const FromUnicode(
 		const std::basic_string<char, std::char_traits<char>, _Ax>& src
 		, UINT /* codePage = CP_THREAD_ACP */
 		)

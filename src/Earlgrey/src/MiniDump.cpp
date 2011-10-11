@@ -129,7 +129,7 @@ namespace Earlgrey
 		EARLGREY_VERIFY(dumpSuccessfuly);
 	}
 
-	_txstring MiniDump::GetFaultReason(PEXCEPTION_POINTERS exPtrs)
+	const TCHAR * const MiniDump::GetFaultReason(PEXCEPTION_POINTERS exPtrs)
 	{
 		if (::IsBadReadPtr(exPtrs, sizeof(EXCEPTION_POINTERS))) 
 			return _T("bad exception pointers");

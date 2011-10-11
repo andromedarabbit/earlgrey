@@ -66,7 +66,7 @@ namespace Earlgrey
 		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg);
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);
 
-		static _txstring GetFaultReason(PEXCEPTION_POINTERS exPtrs);
+		static const TCHAR * const GetFaultReason(PEXCEPTION_POINTERS exPtrs);
 	private: // private methods
 		void Initialize();
 
