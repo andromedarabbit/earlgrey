@@ -202,7 +202,9 @@ namespace Earlgrey
 		LONG errCode = ::RegCreateKey(HKEY_LOCAL_MACHINE, szKey, &hKey);
 		if( errCode != ERROR_SUCCESS ) {
 			// TODO: Log::ErrorMessage(errCode);
-			throw std::exception("Creating an event source failed!");
+			// throw std::exception("Creating an event source failed!");
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
 		}
 	
 		errCode = ::RegSetValueEx(
@@ -216,7 +218,9 @@ namespace Earlgrey
 
 		if( errCode != ERROR_SUCCESS ) {
 			// TODO: Log::ErrorMessage(errCode);
-			throw std::exception("Creating an event source failed!");
+			// throw std::exception("Creating an event source failed!");
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
 		}
 
 		// Set the supported types flags.
@@ -232,7 +236,9 @@ namespace Earlgrey
 
 		if( errCode != ERROR_SUCCESS ) {
 			// TODO: Log::ErrorMessage(errCode);
-			throw std::exception("Creating an event source failed!");
+			// throw std::exception("Creating an event source failed!");
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
 		}
 	}
 

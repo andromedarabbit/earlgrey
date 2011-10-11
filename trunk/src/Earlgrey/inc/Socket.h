@@ -65,7 +65,7 @@ namespace Earlgrey
 
 			// TODO: 임시코드
 			const DWORD errCode = WSAGetLastError();
-			const _txstring msg = Log::ErrorMessage(errCode);
+			const TCHAR * const msg = Log::ErrorMessage(errCode);
 			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
 			return false;
 

@@ -1,38 +1,69 @@
 #include "stdafx.h"
 #include "Log.h"
 #include "EarlgreyAssert.h"
+#include "StringHelper.h"
 
 namespace Earlgrey
 {
-	_txstring Log::ErrorMessage(DWORD errorCode, HMODULE source)
+	namespace 
 	{
-		__declspec(thread) static TCHAR msgBuf[1024 * 2];
+		void GetErrorMessageW(DWORD errorCode, HMODULE source, WCHAR * msgBuffer, DWORD bufferLength)
+		{
+			DWORD flags = // FORMAT_MESSAGE_ALLOCATE_BUFFER |
+				FORMAT_MESSAGE_FROM_SYSTEM |
+				FORMAT_MESSAGE_IGNORE_INSERTS
+				;
 
-		DWORD flags = // FORMAT_MESSAGE_ALLOCATE_BUFFER |
-			FORMAT_MESSAGE_FROM_SYSTEM |
-			FORMAT_MESSAGE_IGNORE_INSERTS
-			;
+			if(source != NULL)
+				flags = FORMAT_MESSAGE_FROM_HMODULE | flags;
 
-		if(source != NULL)
-			flags = FORMAT_MESSAGE_FROM_HMODULE | flags;
+			DWORD retValue = FormatMessageW (
+				flags
+				, source
+				, errorCode
+				, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // Default language
+				, msgBuffer
+				, bufferLength - 1
+				, NULL
+				);
 
-		DWORD retValue = FormatMessage (
-			flags
-			, source
-			, errorCode
-			, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT) // Default language
-			, (LPTSTR) msgBuf
-			, _countof(msgBuf) - 1
-			, NULL
-			);
-
-		EARLGREY_VERIFY(retValue != 0);
-
-		return _txstring(msgBuf);
+			EARLGREY_VERIFY(retValue != 0);
+		}
 	}
 
-	_txstring Log::ErrorMessage(DWORD errorCode)
+	WCHAR Log::MSG_BUFFER[BUFFER_LENGTH];
+
+	/*xwstring Log::ErrorMessageW(DWORD errorCode, HMODULE source)
+	{		
+		GetErrorMessageW(errorCode, source, MSG_BUFFER, BUFFER_LENGTH);
+		return xwstring(MSG_BUFFER);
+	}
+
+	xwstring Log::ErrorMessageW(DWORD errorCode)
 	{
-		return ErrorMessage(errorCode, NULL);
+		return ErrorMessageW(errorCode, NULL);
+	}*/
+
+	const WCHAR * const Log::ErrorMessageW(DWORD errorCode, HMODULE source)	
+	{		
+		GetErrorMessageW(errorCode, source, MSG_BUFFER, BUFFER_LENGTH);
+		return MSG_BUFFER;
+	}
+
+	const WCHAR * const Log::ErrorMessageW(DWORD errorCode)
+	{
+		return ErrorMessageW(errorCode, NULL);
+	}
+
+
+	const CHAR * const Log::ErrorMessageA(DWORD errorCode, HMODULE source)
+	{
+		GetErrorMessageW(errorCode, source, MSG_BUFFER, BUFFER_LENGTH);
+		return String::FromUnicode(MSG_BUFFER, BUFFER_LENGTH * sizeof(WCHAR));
+	}
+
+	const CHAR * const Log::ErrorMessageA(DWORD errorCode)
+	{
+		return ErrorMessageA(errorCode, NULL);
 	}
 }
