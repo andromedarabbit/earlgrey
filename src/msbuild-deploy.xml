@@ -50,10 +50,9 @@
 
 <Target 
 	Name="Deploy" 
-	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployEngine"
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployEngine; TestAlone"
 	>
 	
-	<CallTarget Targets="TestAlone" />
 </Target>
 
 </Project>
