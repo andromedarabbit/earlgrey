@@ -13,7 +13,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
         [Test]
         public void StringToEncodingObject()
         {
-            Encoding encoding = System.Text.Encoding.GetEncoding("UTF8");
+            Encoding encoding = System.Text.Encoding.GetEncoding("UTF-8");
             Assert.IsNotNull(encoding);
         }
 
