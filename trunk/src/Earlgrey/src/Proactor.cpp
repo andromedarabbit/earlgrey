@@ -17,7 +17,7 @@ namespace Earlgrey
 	{
 		DWORD milliseconds = 0;
 		if(WaitTime == TimeSpan::MaxValue)
-			milliseconds = INFINITE;
+			milliseconds = INFINITE; // TODO: INFINITE is just too long, have to new definition EARLGREY_INFINITE
 		else
 			milliseconds = EARLGREY_NUMERIC_CAST<DWORD>(WaitTime.TotalMilliseconds());
 
@@ -39,8 +39,15 @@ namespace Earlgrey
 	{
 		// Completion port를 생성한다.
 		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, appSettings.NumberOfConcurrentIOThreads());
-		if(_IOCompletionPort == NULL) //TODO: 오류 코드는 확인 안 하나?
+		if(_IOCompletionPort == NULL)
+		{
+			// TODO: 오류 메시지는 어떻게 처리할까?
+			const DWORD errCode = GetLastError();
+			const char * const errMsg = Log::ErrorMessageA(errCode);
+			DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
+
 			return FALSE;
+		}
 		return TRUE;
 	}
 
