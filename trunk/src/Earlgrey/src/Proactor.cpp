@@ -35,10 +35,9 @@ namespace Earlgrey
 	{
 	}
 
-	BOOL WinProactor::Initialize(const AppSettings& appSettings)
+	BOOL WinProactor::Initialize(const DWORD numberOfConcurrentThreads)
 	{
-		// Completion port를 생성한다.
-		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, appSettings.NumberOfConcurrentIOThreads());
+		_IOCompletionPort = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, NULL, numberOfConcurrentThreads);
 		if(_IOCompletionPort == NULL)
 		{
 			// TODO: 오류 메시지는 어떻게 처리할까?
@@ -51,17 +50,24 @@ namespace Earlgrey
 		return TRUE;
 	}
 
+	BOOL WinProactor::Initialize(const AppSettings& appSettings)
+	{		
+		return Initialize(appSettings.NumberOfConcurrentIOThreads());		
+	}
+
 	BOOL WinProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
 	{
 		EARLGREY_ASSERT(Handle != NULL);
 		EARLGREY_ASSERT(CompleteHandler != NULL);
 
 		// Completion port에 특정 핸들을 적용한다. 
-		// TODO: 반환 받은 핸들은 아무짝에 쓸모가 없나? 오류 처리 외엔?
+		// 매개변수 HANDLE 이 NULL이 아니면 매개변수와 같은 핸들을 반환한다. 그러므로 반환 값을 달리 처리할 필요는 없다.
 		HANDLE ReturnHandle = CreateIoCompletionPort(Handle, _IOCompletionPort, (ULONG_PTR)CompleteHandler, 0);
 		if (ReturnHandle == NULL) 
 		{
 			//error
+			const DWORD errCode = GetLastError();
+			DBG_UNREFERENCED_LOCAL_VARIABLE(errCode);
 			return FALSE;
 		}
 
@@ -124,99 +130,32 @@ namespace Earlgrey
 	}
 
 
-	/*BOOL AcceptProactor::RegisterHandler(HANDLE Handle, CompletionHandler* CompleteHandler)
-	{
-		//lock? serializer?
-		EnterCriticalSection(&Lock_);
-
-		_Events.push_back((WSAEVENT)Handle);
-		_EventHandlerMap.insert( std::make_pair((WSAEVENT)Handle, static_cast<WaitEventHandler*>(CompleteHandler)) );
-
-		LeaveCriticalSection(&Lock_);
-		return TRUE;
-	}
-
-	BOOL AcceptProactor::DeregisterHandler(HANDLE Handle)
-	{
-		
-		EnterCriticalSection(&Lock_);
-		EventVectorType::iterator i = std::find( _Events.begin(), _Events.end(), (WSAEVENT)Handle );
-		if (i != _Events.end()) 
-		{
-			_Events.erase( i );
-		}
-		_EventHandlerMap.erase( (WSAEVENT)Handle );
-		LeaveCriticalSection(&Lock_);
-
-		return TRUE;
-	}
-
-	BOOL AcceptProactor::HandleEvent(TimeValueType WaitTime)
-	{
-		BOOL Result = FALSE;
-		DWORD WaitEventNumber = EARLGREY_NUMERIC_CAST<DWORD>( _Events.size() );
-
-		if (WaitEventNumber == 0)
-		{
-			Sleep(WaitTime);			
-			return TRUE;
-		}
-
-		EnterCriticalSection(&Lock_);
-
-		DWORD Index	= WaitForMultipleObjects(
-			WaitEventNumber,
-			&_Events[0],
-			FALSE,
-			WaitTime
-			);
-
-		if (WAIT_OBJECT_0 <= Index &&
-			Index < WAIT_OBJECT_0 + WaitEventNumber)
-		{
-			EventHandlerMapType::const_iterator i = _EventHandlerMap.find( _Events[Index] );
-			EARLGREY_ASSERT( i != _EventHandlerMap.end() );
-			if (i != _EventHandlerMap.end())
-			{
-				i->second->HandleEvent();
-			}			
-			Result = TRUE;
-		}
-		else if (Index == WAIT_TIMEOUT)
-		{
-			Result = TRUE;
-		}
-		else
-		{
-		}
-
-		LeaveCriticalSection(&Lock_);
-
-		return Result;
-	}*/
-
-	void AsyncResult::HandleEvent()
-	{
-		_Handler->HandleEvent( this );
-	}
-
-	AsyncResult::AsyncResult() : _Handle(INVALID_SOCKET), _Handler(NULL)
+	AsyncResult::AsyncResult() 
+		: _Handle(INVALID_SOCKET)
+		, _Handler(NULL)
 	{
 		ZeroMemory( &_overlapped, sizeof(_overlapped) );
 	}
 
-	AsyncResult::AsyncResult( CompletionHandler* Handler ) : _Handle(INVALID_SOCKET), _Handler(Handler)
+	AsyncResult::AsyncResult( CompletionHandler* Handler )
+		: _Handle(INVALID_SOCKET)
+		, _Handler(Handler)
 	{
 		ZeroMemory( &_overlapped, sizeof(_overlapped) );
 	}
 
-	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler ) : _Handle(Handle), _Handler(Handler)
+	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler ) 
+		: _Handle(Handle)
+		, _Handler(Handler)
 	{
 		EARLGREY_ASSERT( Handle != INVALID_SOCKET );
 		ZeroMemory( &_overlapped, sizeof(_overlapped) );
 	}
 
-	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler, BufferPtr Buffer ) : _Handle(Handle), _Handler(Handler), _Buffer(Buffer)
+	AsyncResult::AsyncResult( SOCKET Handle, CompletionHandler* Handler, BufferPtr Buffer ) 
+		: _Handle(Handle)
+		, _Handler(Handler)
+		, _Buffer(Buffer)
 	{
 		EARLGREY_ASSERT( Handle != INVALID_SOCKET );
 		ZeroMemory( &_overlapped, sizeof(_overlapped) );
@@ -225,6 +164,11 @@ namespace Earlgrey
 	AsyncResult::~AsyncResult()
 	{
 		delete _Handler;
+	}
+
+	void AsyncResult::HandleEvent()
+	{
+		_Handler->HandleEvent( this );
 	}
 
 	std::pair<WSABUF*,DWORD> AsyncResult::GetWriteBuffer()
