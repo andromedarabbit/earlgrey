@@ -18,7 +18,8 @@ namespace Earlgrey
 		_handle = handle;
 		_proactor = proactor;
 
-		_proactor->RegisterHandler( (HANDLE)_handle, this );
+		if(_proactor->RegisterHandler( (HANDLE)_handle, this ) == FALSE)
+			throw std::exception();
 	}
 
 	bool AsyncStream::Read()

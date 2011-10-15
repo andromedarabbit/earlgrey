@@ -40,6 +40,7 @@ namespace Earlgrey
 		explicit WinProactor();		
 		virtual ~WinProactor();
 
+		BOOL Initialize(const DWORD numberOfConcurrentThreads);
 		BOOL Initialize(const AppSettings& appSettings);
 		
 		// Proactor Pattern Interface
