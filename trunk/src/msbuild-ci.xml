@@ -7,7 +7,7 @@
 	<SvnUsername>plaintext@andromedarabbit.net</SvnUsername>
 	<SvnUsername Condition="'$(SvnUsername)' == ''">$(USERNAME)</SvnUsername>
 	<!-- <SvnPassword></SvnPassword> -->
-	<SvnLocalRootPath>..</SvnLocalRootPath>
+	<SvnLocalRootPath>$(TreeRootDir)</SvnLocalRootPath>
 </PropertyGroup>
 
 <!-- 공유 라이브러리의 로컬 경로 -->
@@ -73,15 +73,8 @@
 	
 
 <Target Name="SrcUpdate">
-	<!-- SvnUpdate 의 경로 찾는 로직에 문제가 있다.
-	<SvnUpdate Username="$(SvnUsername)"
-		Password="$(SvnPassword)" 
-		LocalPath="$(SvnLocalRootPath)">
-	</SvnUpdate>
-	-->
-	<Exec 
-		Command="svn.exe update $(QUOT)$(SvnLocalRootPath)(QUOT) --username $(SvnUsername) --non-interative --no-auth-cache"
-		/>
+	<SvnUpdate LocalPath="$(SvnLocalRootPath)" />
+
 </Target>
 
 <Target Name="CleanForCI" DependsOnTargets="Clean;">
