@@ -26,7 +26,7 @@
 	
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
-	<TreeRootDir>$(RootDir)\..</TreeRootDir>
+	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..'))</TreeRootDir>
 	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 	
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
