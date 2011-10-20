@@ -4,7 +4,7 @@
 
 <!-- 서브버전 -->
 <PropertyGroup>
-	<SvnUsername>kaistizen</SvnUsername>
+	<SvnUsername>plaintext@andromedarabbit.net</SvnUsername>
 	<SvnUsername Condition="'$(SvnUsername)' == ''">$(USERNAME)</SvnUsername>
 	<!-- <SvnPassword></SvnPassword> -->
 	<SvnLocalRootPath>..</SvnLocalRootPath>
@@ -13,7 +13,7 @@
 <!-- 공유 라이브러리의 로컬 경로 -->
 <ItemGroup>
 	<SharedLibrary Include="Item">
-		<LocalPath>..\vendor\gtest-1.3.0</LocalPath>
+		<LocalPath>..\vendor\gtest-1.6.0</LocalPath>
 		<EscapedLocalPath>gtest</EscapedLocalPath>
 	</SharedLibrary>
 	<SharedLibrary Include="Item">
@@ -73,10 +73,15 @@
 	
 
 <Target Name="SrcUpdate">
+	<!-- SvnUpdate 의 경로 찾는 로직에 문제가 있다.
 	<SvnUpdate Username="$(SvnUsername)"
 		Password="$(SvnPassword)" 
 		LocalPath="$(SvnLocalRootPath)">
 	</SvnUpdate>
+	-->
+	<Exec 
+		Command="svn.exe update $(QUOT)$(SvnLocalRootPath)(QUOT) --username $(SvnUsername) --non-interative --no-auth-cache"
+		/>
 </Target>
 
 <Target Name="CleanForCI" DependsOnTargets="Clean;">
