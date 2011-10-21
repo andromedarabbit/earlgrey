@@ -6,7 +6,7 @@
 
 <PropertyGroup>
 	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
-	<TreeRootDir>$(RootDir)\..\..</TreeRootDir>
+	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..\..'))</TreeRootDir>
 	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 </PropertyGroup>
 
@@ -46,6 +46,20 @@
 	<Quot>$(StraightQuotationMark)</Quot>
 	<Apostrophe>&apos;</Apostrophe>
 </PropertyGroup>  
+
+
+<!-- 서브버전 -->
+<PropertyGroup>
+	<DefaultSvnClientDir Condition="Exists('$(RootDir)\.svn') OR Exists('$(RootDir)\_svn')">$(VendorDir)\BuildTool\SubversionClient\v1.6.13\CollabNet\Subversion Client</DefaultSvnClientDir>
+	<DefaultSvnClientDir Condition="'$(DefaultSvnClientDir)' == ''">$(VendorDir)\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client</DefaultSvnClientDir>
+	
+	<SvnClientDir Condition="Exists('$(DefaultSvnClientDir)')">$(DefaultSvnClientDir)</SvnClientDir>
+	
+	<SvnClient Condition="'$(SvnClientDir)' == ''">svn.exe</SvnClient>
+	<SvnClient Condition="'$(SvnClientDir)' != ''">$(SvnClientDir)\svn.exe</SvnClient>
+	
+	<SvnLocalRootPath>$(TreeRootDir)</SvnLocalRootPath>
+</PropertyGroup>
 
   
 <!-- 비주얼 스튜디오 2005 등 도구 바이너리 -->  

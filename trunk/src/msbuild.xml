@@ -23,7 +23,7 @@
 		</PropertyGroup>
 	</Otherwise>
 </Choose>
-	
+
 <PropertyGroup>
 	<RootDir>$(MSBuildProjectDirectory)</RootDir>
 	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..'))</TreeRootDir>
@@ -38,6 +38,27 @@
 	
 	<BuildConfigurationFilePath>$(RootDir)\Earlgrey\inc\BuildConfiguration.h</BuildConfigurationFilePath>
 	<UseBoost Condition=" '$(UseBoost)' == '' ">false</UseBoost>
+</PropertyGroup>
+
+<!-- 서브버전 -->
+<PropertyGroup>
+	<!--
+	<SvnUsername>plaintext@andromedarabbit.net</SvnUsername>
+	<SvnUsername Condition="'$(SvnUsername)' == ''">$(USERNAME)</SvnUsername>
+	<SvnPassword></SvnPassword> 
+	-->
+	
+	<!-- Subversion -->		
+	<DefaultSvnClientDir Condition="Exists('$(RootDir)\.svn') OR Exists('$(RootDir)\_svn')">$(VendorDir)\BuildTool\SubversionClient\v1.6.13\CollabNet\Subversion Client</DefaultSvnClientDir>
+	<DefaultSvnClientDir Condition="'$(DefaultSvnClientDir)' == ''">$(VendorDir)\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client</DefaultSvnClientDir>
+	
+	<SvnClientDir Condition="Exists('$(DefaultSvnClientDir)')">$(DefaultSvnClientDir)</SvnClientDir>
+	
+	<SvnClient Condition="'$(SvnClientDir)' == ''">svn.exe</SvnClient>
+	<SvnClient Condition="'$(SvnClientDir)' != ''">$(SvnClientDir)\svn.exe</SvnClient>
+	
+	<SvnLocalRootPath>$(TreeRootDir)</SvnLocalRootPath>
+	
 </PropertyGroup>
 
 <!-- 특별한 문자열 --> 

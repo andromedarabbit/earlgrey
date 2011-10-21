@@ -3,11 +3,6 @@
 
 <Import Project="msbuild.xml"/>
 
-<!-- 서브버전 -->
-<PropertyGroup>
-	<SvnLocalRootPath>.</SvnLocalRootPath>
-</PropertyGroup>
-
 <!-- C# 코드는 컴파일이 빠르니 안전하게 다시 빌드하자 -->
 <Target Name="DetermineBuildConditionForCI">
 	<CreateProperty Value="Rebuild" Condition="'$(BuildConditionForCI)' == ''">
@@ -18,7 +13,12 @@
 </Target>
 	
 <Target Name="SrcUpdate">
-	<SvnUpdate LocalPath="$(SvnLocalRootPath)" />
+	<SvnUpdate 
+		ToolPath="$(SvnClientDir)"
+		Username="$(SvnUserName)" 
+		Password="$(SvnPassword)" 
+		LocalPath="$(SvnLocalRootPath)" 
+		/>
 </Target>
 
 <Target Name="CleanForCI" DependsOnTargets="Clean;">
@@ -30,7 +30,7 @@
 	
 	<MSBuild 
 		Projects="msbuild-deploy.xml" 
-		Properties="Configuration=$(Configuration);BuildCondition=$(BuildConditionForCI); SvnUsername=$(SvnUsername);SvnLocalRootPath=$(SvnLocalRootPath)"/>
+		Properties="Configuration=$(Configuration);BuildCondition=$(BuildConditionForCI)"/>
 
 </Target>
 

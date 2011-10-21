@@ -37,7 +37,12 @@
 
 <Target Name="GetVersion">
 	
-	<SvnInfo LocalPath="$(RootDir)">
+	<SvnInfo 
+		ToolPath="$(SvnClientDir)"
+		Username="$(SvnUserName)" 
+		Password="$(SvnPassword)" 
+		LocalPath="$(SvnLocalRootPath)"
+		>
 		<Output TaskParameter="Revision" PropertyName="WorkingCopyRevision" />
 	</SvnInfo>
 	
