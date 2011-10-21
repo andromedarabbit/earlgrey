@@ -50,7 +50,7 @@
 
 <!-- 서브버전 -->
 <PropertyGroup>
-	<DefaultSvnClientDir Condition="Exists('$(RootDir)\.svn') OR Exists('$(RootDir)\_svn')">$(VendorDir)\BuildTool\SubversionClient\v1.6.13\CollabNet\Subversion Client</DefaultSvnClientDir>
+	<DefaultSvnClientDir Condition="Exists('$(VendorDir)\.svn') OR Exists('$(VendorDir)\_svn')">$(VendorDir)\BuildTool\SubversionClient\v1.6.13\CollabNet\Subversion Client</DefaultSvnClientDir>
 	<DefaultSvnClientDir Condition="'$(DefaultSvnClientDir)' == ''">$(VendorDir)\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client</DefaultSvnClientDir>
 	
 	<SvnClientDir Condition="Exists('$(DefaultSvnClientDir)')">$(DefaultSvnClientDir)</SvnClientDir>
