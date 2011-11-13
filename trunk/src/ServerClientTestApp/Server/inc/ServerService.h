@@ -53,5 +53,5 @@ private:
 	BOOL m_consoleMode;
 	std::tr1::shared_ptr<Earlgrey::Thread> m_serverThread;
 	UserInputHandlerConainter m_userInputHandlers;
-	Earlgrey::Server m_server;
+	//Earlgrey::Server m_server;
 };

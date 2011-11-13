@@ -28,9 +28,42 @@ namespace Earlgrey
 				ASSERT_EQ(expectedChar, charArray[0]);
 				ASSERT_EQ(expectedChar, charArray[count - 1]);
 			
+				alloc.free(charArray);
 			}
 
 			ASSERT_EQ(UINT_MAX, charArray[0]);
+		}
+
+		TEST(StackAllocatorTest, AllocTwoObjectsInLIFOWay)
+		{
+			StackAllocator alloc;				
+			char * char1 = static_cast<char*>( 
+				alloc.malloc(1)
+				);
+			*char1 = 'A';
+
+			char * char2 = static_cast<char*>( 
+				alloc.malloc(1)
+				);
+			*char2 = 'B';
+			
+			alloc.free(char2);
+			alloc.free(char1);
+		}
+
+		TEST(StackAllocatorTest, AllocTwoObjectsInFIFOWay)
+		{
+			StackAllocator alloc;				
+			char * char1 = static_cast<char*>( 
+				alloc.malloc(1)
+				);
+
+			char * char2 = static_cast<char*>( 
+				alloc.malloc(1)
+				);
+
+			alloc.free(char1, 1);
+			alloc.free(char2, 1);			
 		}
 #endif
 	//}

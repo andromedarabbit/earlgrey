@@ -8,13 +8,14 @@ namespace Earlgrey
 	IPAddress2::IPAddress2(const AddressBytes& address)
 		// : m_AddressBytes()
 		: m_AddressStorage()
+		, m_AddressFamily(AddressFamily::InterNetwork)
 	{
 		EARLGREY_ASSERT(address.size() == 4); 
 
 		// std::copy(address.begin(), address.end(), m_AddressBytes.begin());
 		memset(&m_AddressStorage, 0, sizeof(SOCKADDR_STORAGE));
 
-		m_AddressStorage.ss_family = AF_INET;
+		m_AddressStorage.ss_family = EARLGREY_NUMERIC_CAST<short>(m_AddressFamily);
 		m_AddressStorage.__ss_pad1[2] = address[0];
 		m_AddressStorage.__ss_pad1[3] = address[1];
 		m_AddressStorage.__ss_pad1[4] = address[2];
@@ -23,11 +24,12 @@ namespace Earlgrey
 	}
 
 	IPAddress2::IPAddress2(const INT64 address)
+		: m_AddressFamily(AddressFamily::InterNetwork)
 	{
 		const WORD lowWord = LOWORD(address);
 		const WORD highWord = HIWORD(address);
 
-		m_AddressStorage.ss_family = AF_INET;
+		m_AddressStorage.ss_family = EARLGREY_NUMERIC_CAST<short>(m_AddressFamily);
 		//  			m_AddressBytes.push_back(LOBYTE(lowWord));
 		//  			m_AddressBytes.push_back(HIBYTE(lowWord));
 		//  			m_AddressBytes.push_back(LOBYTE(highWord));

@@ -17,24 +17,9 @@ namespace Earlgrey
 	public: // class methods 
 		//! \todo 임시 구현
 		//! \ref http://recoverlee.tistory.com/9
-		static const TCHAR * const ErrorMessage(DWORD errorCode, HMODULE source)
-		{
-#ifdef _UNICODE
-			return ErrorMessageW(errorCode, source);
-#else
-			return ErrorMessageA(errorCode, source);
-#endif
-		}
+		static const TCHAR * const ErrorMessage(DWORD errorCode, HMODULE source);
 
-		static const TCHAR * const ErrorMessage(DWORD errorCode)
-		{
-#ifdef _UNICODE
-			return ErrorMessageW(errorCode);
-#else
-			return ErrorMessageA(errorCode);
-#endif
-		}
-
+		static const TCHAR * const ErrorMessage(DWORD errorCode);
 
 		static const WCHAR * const ErrorMessageW(DWORD errorCode, HMODULE source);
 		static const WCHAR * const ErrorMessageW(DWORD errorCode);

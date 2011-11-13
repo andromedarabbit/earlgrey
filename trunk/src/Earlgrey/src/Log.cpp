@@ -33,6 +33,25 @@ namespace Earlgrey
 
 	WCHAR Log::MSG_BUFFER[BUFFER_LENGTH];
 
+
+	const TCHAR * const Log::ErrorMessage(DWORD errorCode, HMODULE source)
+	{
+#ifdef _UNICODE
+		return ErrorMessageW(errorCode, source);
+#else
+		return ErrorMessageA(errorCode, source);
+#endif
+	}
+
+	const TCHAR * const Log::ErrorMessage(DWORD errorCode)
+	{
+#ifdef _UNICODE
+		return ErrorMessageW(errorCode);
+#else
+		return ErrorMessageA(errorCode);
+#endif
+	}
+
 	/*xwstring Log::ErrorMessageW(DWORD errorCode, HMODULE source)
 	{		
 		GetErrorMessageW(errorCode, source, MSG_BUFFER, BUFFER_LENGTH);

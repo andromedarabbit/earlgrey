@@ -2,6 +2,7 @@
 #include "Uncopyable.h"
 #include "txstring.h"
 #include "Macros.h"
+#include "Log.h"
 
 namespace Earlgrey
 {
@@ -50,8 +51,10 @@ namespace Earlgrey
 			int retValue = CompareString(Locale(), ComparisonFlags(), str1, cchCount1, str2, cchCount2);
 			if(retValue == 0)
 			{
-				//! \todo 坷幅 贸府
-				// GetLastError - ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
+				// ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
+				const DWORD errCode = GetLastError();
+				const char * const errMsg = Log::ErrorMessageA(errCode);
+				throw std::exception(errMsg);
 			}
 			return retValue;
 		}
@@ -93,8 +96,10 @@ namespace Earlgrey
 			int retValue = CompareString(Locale(), ComparisonFlags(), str1, cchCount1, str2, cchCount2);
 			if(retValue == 0)
 			{
-				//! \todo 坷幅 贸府
-				// GetLastError - ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
+				// ERROR_INVALID_FLAGS, ERROR_INVALID_PARAMETER
+				const DWORD errCode = GetLastError();
+				const char * const errMsg = Log::ErrorMessageA(errCode);
+				throw std::exception(errMsg);
 			}
 			return retValue;
 		}

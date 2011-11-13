@@ -2,9 +2,11 @@
 #include "xvector.h"
 // #include <array>
 #include "Log.h"
+#include "AddressFamily.h"
 
 namespace Earlgrey
 {
+
 
 	class IPAddress
 	{
@@ -60,6 +62,11 @@ namespace Earlgrey
 // 
 // 		}
 
+		AddressFamily::E GetAddressFamily() const
+		{
+			return m_AddressFamily;
+		}
+
 		_txstring ToString() const;
 
 		// IPv4의 경우 점 구분 네 자리 표기법으로 표현된 IP 주소를 포함하는 문자열이고,
@@ -88,9 +95,19 @@ namespace Earlgrey
 		}
 
 	private:
+		inline
+			const SOCKADDR_STORAGE & AddressStorage() const
+		{
+			return m_AddressStorage;
+		}
+
+	private:
 		// AddressBytes m_AddressBytes;
+
+		friend class Socket; // TODO: 임시
 		friend class Socket;
 		friend class Connector;
 		SOCKADDR_STORAGE m_AddressStorage;
+		AddressFamily::E m_AddressFamily;
 	};
 }

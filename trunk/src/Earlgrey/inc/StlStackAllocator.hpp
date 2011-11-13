@@ -65,9 +65,8 @@ namespace Earlgrey
 		{	// deallocate object at _Ptr, ignore size
 			
 			// ::operator delete(_Ptr);
-			UNREFERENCED_PARAMETER(_Count);
 			// gStackAllocator::Instance().free(_Ptr);
-			m_allocator.free(_Ptr);
+			m_allocator.free(_Ptr, _Count * sizeof (_Ty));
 		}
 
 		pointer allocate(size_type _Count)

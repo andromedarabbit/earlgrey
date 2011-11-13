@@ -18,6 +18,7 @@ namespace Earlgrey
 
 	class Thread : private Uncopyable
 	{
+		friend class Application;
 		friend class ThreadHolder;
 	private:
 		// #define MS_VC_EXCEPTION 0x406D1388

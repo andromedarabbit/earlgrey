@@ -28,6 +28,7 @@ namespace Earlgrey
 
 		StackAllocator(const StackAllocator& allocator)
 			: m_stack_pos(gStackMemoryManager::Instance().m_current_pos)
+			// : m_stack_pos(allocator.m_stack_pos)
 		{
 			UNREFERENCED_PARAMETER(allocator);
 			EARLGREY_ASSERT(allocator.m_stack_pos <= this->m_stack_pos);
@@ -47,14 +48,19 @@ namespace Earlgrey
 			Pop();
 		}
 
-		inline void * malloc(size_type size, size_type alignment = StackMemoryManager::DEFAULT_ALIGNMENT)
+		inline void * malloc(size_type size)
 		{
-			return gStackMemoryManager::Instance().malloc(size, alignment);			
+			return gStackMemoryManager::Instance().malloc(size);			
 		}
 
 		inline void free(void * memblock)
 		{
 			gStackMemoryManager::Instance().free(memblock);
+		}
+
+		inline void free(void * memblock, size_t bytes)
+		{
+			gStackMemoryManager::Instance().free(memblock, bytes);
 		}
 
 	private:
@@ -75,8 +81,41 @@ namespace Earlgrey
 	// #define EARLGREY_ALLOA(bytes) \
 	//	Earlgrey::StackAllocator stackAlloc; 
 
-	void *Malloca(const size_t size);
-	void Freea(void *memblock);
+	//void *Malloca(const size_t size);
+	//void Freea(void *memblock);
 
+
+	template<typename T>
+	inline 
+		T * Malloca(const size_t length)
+	{
+		return reinterpret_cast<T*>(
+			gStackMemoryManager::Instance().malloc(length * sizeof(T))
+			);
+	}
+
+
+	inline 
+		void * Malloca(const size_t size)
+	{
+		// gStackMemoryManager::Instance().Mark();
+		return gStackMemoryManager::Instance().malloc(size);
+	}
+
+	template<typename T>
+	inline 
+		void Freea(T * memblock)
+	{
+		// gStackMemoryManager::Instance().Unmark();
+		gStackMemoryManager::Instance().free(memblock);
+	}
+
+
+	inline 
+		void Freea(void * memblock)
+	{
+		// gStackMemoryManager::Instance().Unmark();
+		gStackMemoryManager::Instance().free(memblock);
+	}
 
 }

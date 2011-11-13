@@ -17,16 +17,22 @@ namespace Earlgrey
 	{
 		// friend struct Loki::CreateUsingNew<StackMemoryManager>;
 		friend class StackAllocator;
+		
 		friend void *Malloca(const size_t size);
+		template<typename T> 
+			friend T * Malloca(const size_t length);
+		template<typename T> 
+			friend void Freea(T * memblock);
 		friend void Freea(void *memblock);
 
 #ifdef EARLGREY_UNIT_TEST
 		friend class StackMemoryManagerTest;
 		FRIEND_TEST(StackMemoryManagerTest, Alloc);
+		FRIEND_TEST(StackMemoryManagerTest, AllocByteAndByte);
 		FRIEND_TEST(StackMemoryManagerTest, AllocNotWithAlignmentSize);
 		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory);
 		FRIEND_TEST(StackMemoryManagerTest, UseEveryBitOfInternalMemory2);
-		FRIEND_TEST(StackMemoryManagerTest, ZeroSizeAllocation);
+		FRIEND_TEST(StackMemoryManagerTest, ZeroSizeAllocation);		
 #endif
 
 	public:
@@ -64,55 +70,16 @@ namespace Earlgrey
 		};
 
 	private:
-		explicit StackMemoryManager(size_type bytes)
-			: m_buffer_begin( static_cast<pointer>(_aligned_malloc(bytes, DEFAULT_ALIGNMENT)) )
-			, m_buffer_end(m_buffer_begin + bytes)
-			, m_current_pos(0)
-			, m_marking_count(BOTTOM_NO_OF_MARKING_COUNT)
-		{
-			EARLGREY_ASSERT(bytes > 0);
-			EARLGREY_ASSERT(m_buffer_begin != 0);
-			EARLGREY_ASSERT(m_buffer_begin < m_buffer_end);
+		explicit StackMemoryManager(size_type bytes, size_type alignment = DEFAULT_ALIGNMENT);
 
-#ifdef _DEBUG
-			SetDebugBit();
-#endif
-		}
+		~StackMemoryManager();
 
-		~StackMemoryManager()
-		{
-			EARLGREY_ASSERT(m_marking_count == BOTTOM_NO_OF_MARKING_COUNT);
-			_aligned_free(m_buffer_begin);
-		}
+		void * malloc(size_type size);
 
-		inline void * malloc(size_type size, size_type alignment = DEFAULT_ALIGNMENT)
-		{
-			EARLGREY_ASSERT(size >= 0);
-			EARLGREY_ASSERT(alignment <= DEFAULT_ALIGNMENT);
-			EARLGREY_ASSERT( Math::IsPowerOf2(alignment) == TRUE );
-			EARLGREY_ASSERT(m_marking_count > BOTTOM_NO_OF_MARKING_COUNT);
-			
-			EARLGREY_ASSERT(m_current_pos == Math::NewMemoryAligmentOffset(alignment, m_current_pos));
+		void free(void * memblock);
+		void free(void * memblock, size_type bytes);
 
-			pointer memblock = static_cast<pointer> (m_buffer_begin + m_current_pos);
-
-			size_type sizeNeeded = size;
-			if(size == 0)
-				sizeNeeded = 1;
-			m_current_pos = Math::NewMemoryAligmentOffset(alignment, m_current_pos + sizeNeeded);
-
-			EARLGREY_ASSERT((m_buffer_begin + m_current_pos) <= m_buffer_end);
-
-			return memblock;
-		}
-
-		inline void free(void * memblock)
-		{
-			UNREFERENCED_PARAMETER(memblock);
-			// do nothing
-		}
-
-		inline void Mark() // StackMemMark를 생성해야 메모리 할당 및 해제 권한을 얻는다.
+		inline void Mark() // 메모리 할당 및 해제 권한을 얻는다.
 		{
 			EARLGREY_ASSERT(m_marking_count >= BOTTOM_NO_OF_MARKING_COUNT);
 
@@ -153,9 +120,10 @@ namespace Earlgrey
 	private:
 		enum { BOTTOM_NO_OF_MARKING_COUNT = -1};
 
-		pointer m_buffer_begin;
-		pointer m_buffer_end;
+		const pointer m_buffer_begin;
+		const pointer m_buffer_end;
 		size_type m_current_pos;
+		size_type m_alignment;
 
 		INT32 m_marking_count;
 	};

@@ -1,5 +1,6 @@
 #pragma once
 #include "Uncopyable.h"
+#include "IPAddress.h"
 
 namespace Earlgrey
 {
@@ -38,6 +39,11 @@ namespace Earlgrey
 		inline USHORT Port() const
 		{
 			return m_Port;
+		}
+
+		AddressFamily::E GetAddressFamily() const
+		{
+			return m_IpAddress.GetAddressFamily();
 		}
 
 

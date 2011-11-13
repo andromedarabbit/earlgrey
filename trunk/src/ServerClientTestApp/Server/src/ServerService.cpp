@@ -11,6 +11,7 @@
 #include "NetServerEvent.h"
 #include "ServerPacketHandler.h"
 #include "shared_ptr_helper.h"
+#include "IPEndPoint.h"
 
 using namespace Earlgrey;
 using namespace Earlgrey::ServiceProcess;
@@ -101,17 +102,18 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 	const IPAddress2 localAddress(IPAddress2::Any());
 	const IPEndPoint localEP(localAddress, 9879);
 
-	m_server.ExclusiveAddressUse(false);
-	m_server.Initialize( 
-		std::tr1::shared_ptr<NetServerEvent>(new NetServerEvent())
-		, std::tr1::shared_ptr<ServerPacketHandler>(new ServerPacketHandler()) 
-		);
-	if(m_server.Listen( localEP ) == FALSE)
-	{
-		throw std::exception("");
-	}
+	//m_server.ExclusiveAddressUse(false);
+	//m_server.Initialize( 
+	//	std::tr1::shared_ptr<NetServerEvent>(new NetServerEvent())
+	//	, std::tr1::shared_ptr<ServerPacketHandler>(new ServerPacketHandler()) 
+	//	);
+	//if(m_server.Listen( localEP ) == FALSE)
+	//{
+	//	throw std::exception("");
+	//}
 
 
+	// TODO: 스레드 생성 없이 주 스레드를 대신 쓰게 하자.
 	std::tr1::shared_ptr<ThreadRunnable> runnable( static_cast<ThreadRunnable*>( new Win32ServiceRunnable() ));
 	EARLGREY_ASSERT(m_serverThread == NULL);
 	m_serverThread = Thread::CreateThread( 
@@ -122,7 +124,7 @@ void ServerService::OnStart(DWORD argc, LPTSTR * argv)
 
 	EARLGREY_ASSERT(ReportStatus(SERVICE_RUNNING));
 
-	m_serverThread->Join();
+	m_serverThread->Join(); // TODO: 이래도 되나?
 
 }
 

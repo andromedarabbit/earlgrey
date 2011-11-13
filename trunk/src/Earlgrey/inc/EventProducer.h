@@ -1,6 +1,8 @@
 
 namespace Earlgrey {
 
+	// http://www.unionplatform.com/docs/union/api/net/user1/union/core/event/EventProducer.html 
+	// 에 있는 것과 비슷한 건가?
 	template<class _Fty>
 	class EventProducer
 	{

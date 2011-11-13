@@ -15,7 +15,7 @@ namespace Earlgrey
 		Listen 또는 Connect를 여러 개 하더라도 Accept 이벤트는 이 스레드에서만 기다린다.
 		
 	*/
-	class AcceptorRunnable : public ThreadRunnable
+	/*class AcceptorRunnable : public ThreadRunnable
 	{
 	public:
 		AcceptorRunnable() : _IsRunning(0L)
@@ -50,22 +50,7 @@ namespace Earlgrey
 
 	private:
 		volatile LONG _IsRunning;
-	};
+	};*/
 
-	//class Acceptor : public CompletionHandler
-	//{
-	//public:
-	//	BOOL SetProactor(Proactor* InProactor);
 
-	//	// CompletionHandler Interface
-	//	virtual void HandleEvent(AsyncResult* Result);
-
-	//	BOOL Listen(USHORT Port, bool ReuseAddress = true);
-	//	SOCKET CreateAcceptSocket(AsyncStream* InStream);
-
-	//private:
-	//	Socket _ListenSocket;		
-	//	Socket _AcceptSocket;
-	//	Proactor* _Proactor;
-	//};
 }

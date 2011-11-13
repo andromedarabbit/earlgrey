@@ -71,11 +71,11 @@ namespace Earlgrey
 
 		explicit SuperMemoryBlock(size_type chunkSize, size_type blockSize)
 			: m_InternalBlockSize( 
-				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
+				Math::NewMemoryAlignmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
 				, sizeof(MemoryBlock) + blockSize) 
 				)
 			, m_ChunkSize( 
-				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) 
+				Math::NewMemoryAlignmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, chunkSize) 
 				)
 			, m_BlockHead(
 				)
@@ -87,11 +87,11 @@ namespace Earlgrey
 		
 		explicit SuperMemoryBlock(size_type blockSize, unsigned short numberOfBlocks)
 			: m_InternalBlockSize( 
-				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
+				Math::NewMemoryAlignmentOffset<size_type>(EARLGREY_DEFAULT_ALLOCATION_ALIGNMENT
 				, sizeof(MemoryBlock) + blockSize) 
 				)
 			, m_ChunkSize( 
-				Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_InternalBlockSize * numberOfBlocks) 
+				Math::NewMemoryAlignmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_InternalBlockSize * numberOfBlocks) 
 				)
 			, m_BlockHead(
 				)
@@ -172,7 +172,7 @@ namespace Earlgrey
 
 		inline void * AllocChunk()
 		{
-			size_type bytes = Math::NewMemoryAligmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_ChunkSize);
+			size_type bytes = Math::NewMemoryAlignmentOffset<size_type>(EARLGREY_DEFAULT_PAGE_ALIGNMENT, m_ChunkSize);
 
 			void * chunk  = VirtualAlloc(NULL, bytes, MEM_COMMIT | MEM_TOP_DOWN, PAGE_READWRITE); 
 			EARLGREY_ASSERT(chunk != NULL);
