@@ -227,7 +227,7 @@ namespace Earlgrey
 		else
 		{
 			// TODO(initialjk@googlewave.com): Large memory 성능 이슈 생기면 이것도 RB tree써서 대강 pooling. 실은 pool size를 이까지 키우는 게 맞겠지만.
-			size_type AlignedSize = Math::NewMemoryAligmentOffset(Size + sizeof(SimpleMemoryBlock), (size_type)GetSystemPageSize()); 
+			size_type AlignedSize = Math::NewMemoryAlignmentOffset(Size + sizeof(SimpleMemoryBlock), (size_type)GetSystemPageSize()); 
 			Free = (SimpleMemoryBlock*)VirtualAlloc( NULL, AlignedSize, MEM_COMMIT, PAGE_READWRITE ); 
 			if( NULL == Free )
 			{

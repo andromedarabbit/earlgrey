@@ -13,7 +13,7 @@ namespace Earlgrey
 				size_t align = 64;
 				size_t offset = 0;
 
-				size_t newOffset = Earlgrey::Math::NewMemoryAligmentOffset(align, offset);
+				size_t newOffset = Earlgrey::Math::NewMemoryAlignmentOffset(align, offset);
 				ASSERT_EQ(0, newOffset);
 			}
 
@@ -22,7 +22,7 @@ namespace Earlgrey
 				size_t align = 64;
 				size_t offset = 64;
 
-				size_t newOffset = Earlgrey::Math::NewMemoryAligmentOffset(align, offset);
+				size_t newOffset = Earlgrey::Math::NewMemoryAlignmentOffset(align, offset);
 				ASSERT_EQ(64, newOffset);
 			}
 
@@ -31,7 +31,7 @@ namespace Earlgrey
 				size_t align = 64;
 				size_t offset = 65;
 
-				size_t newOffset = Earlgrey::Math::NewMemoryAligmentOffset(align, offset);
+				size_t newOffset = Earlgrey::Math::NewMemoryAlignmentOffset(align, offset);
 				ASSERT_EQ(128, newOffset);
 			}
 		}

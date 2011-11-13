@@ -8,7 +8,7 @@
 namespace Earlgrey {
 
 
-	void SocketHelper::SetAddress(IPAddress& Address, LPCSTR Server, int Port)
+	/*void SocketHelper::SetAddress(IPAddress& Address, LPCSTR Server, int Port)
 	{
 		Dns::GetHostByName( Server, Address );
 		Address.SetPort( Port );
@@ -33,6 +33,6 @@ namespace Earlgrey {
 		}
 
 		return true;
-	}
+	}*/
 
 }

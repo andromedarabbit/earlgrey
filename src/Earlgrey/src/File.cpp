@@ -22,6 +22,7 @@ namespace Earlgrey
 			errno_t errCode = errno;
 			if(errCode == ENOENT) // the filename or path could not be found
 			{
+				return FALSE;
 			}
 
 			EARLGREY_ASSERT(errCode != EINVAL); // invalid parameters
@@ -42,7 +43,7 @@ namespace Earlgrey
 
 		if( ::DeleteFile(path.c_str()) == 0 ) // zero indicates failure
 		{
-			// TODO 
+			// TODO 坷幅 贸府
 			// GetLastError
 			return FALSE;
 		}
@@ -61,7 +62,7 @@ namespace Earlgrey
 
 		if( ::CopyFile(sourceFileName.c_str(), destFileName.c_str(), !overwrite) == 0 ) // zero indicates failure
 		{
-			// TODO 
+			// TODO 坷幅 贸府
 			// GetLastError
 			return FALSE;
 		}

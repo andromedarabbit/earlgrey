@@ -634,7 +634,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\OperationSystemTest.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\PathTest.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\ProcessorTest.cpp"
 					>
 				</File>
 				<File

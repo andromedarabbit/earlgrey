@@ -2,7 +2,7 @@
 
 namespace Earlgrey {
 
-	class IPAdress;
+	/*class IPAdress;
 	class Socket;
 
 	class SocketHelper
@@ -11,6 +11,6 @@ namespace Earlgrey {
 		static void SetAddress(IPAddress& Address, LPCSTR Server, int Port);
 
 		static bool SetUpNonBlockingSocket(Socket& socket);
-	};
+	};*/
 
 }

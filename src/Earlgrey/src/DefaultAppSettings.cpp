@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DefaultAppSettings.h"
 #include "Environment.h"
+#include "Processor.h"
 #include "EarlgreyProcess.h"
 #include "Path.h"
 #include "File.h"
@@ -90,7 +91,7 @@ namespace Earlgrey
 
 	DWORD DefaultAppSettings::NumberOfIOThreads() const
 	{
-		return Environment::ProcessorCount();
+		return Processor::ProcessorCount();
 	}
 
 	DWORD DefaultAppSettings::NumberOfConcurrentIOThreads() const

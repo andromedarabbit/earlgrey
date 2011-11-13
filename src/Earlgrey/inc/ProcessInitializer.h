@@ -40,11 +40,13 @@ namespace Earlgrey
 		{
 			if(!SetPriorityClass(GetCurrentProcess(), priorityClass))
 			{
-				// \todo 뭔가 오류 처리가 필요하다.
-				DWORD errCode = GetLastError();
+				// \todo 오류 처리 어떻게 할까?
+				// ERROR_PROCESS_MODE_ALREADY_BACKGROUND
 
-				const TCHAR * const errMsg = Log::ErrorMessage(errCode);
-				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
+				/*const DWORD errCode = GetLastError();
+
+				const TCHAR * const errMsg = Log::ErrorMessageA(errCode);
+				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);*/
 				
 				return FALSE;
 			}
@@ -57,15 +59,10 @@ namespace Earlgrey
 		inline DWORD CurrentProrityClass() const
 		{
 			DWORD priorityClass = GetPriorityClass(GetCurrentProcess());
-			if( priorityClass != 0)
-			{
-				// \todo 뭔가 오류 처리가 필요하다.
-				DWORD errCode = GetLastError();
-
-				const TCHAR * const errMsg = Log::ErrorMessage(errCode);
-				DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
-
-				// 예외 발생....
+			if( priorityClass == 0)
+			{	const DWORD errCode = GetLastError();
+				const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+				throw std::exception(errMsg);
 			}
 			return priorityClass;
 		}

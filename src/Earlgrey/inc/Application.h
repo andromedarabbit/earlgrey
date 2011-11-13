@@ -1,7 +1,9 @@
 #pragma once
 #include "EarlgreyAssert.h"
 #include "Uncopyable.h"
+
 #include <vector>
+#include <functional>
 
 namespace Earlgrey
 {
@@ -19,6 +21,18 @@ namespace Earlgrey
 		
 		BOOL InitInstance();
 
+	/*	const std::tr1::shared_ptr<Thread> MainThread() const
+		{
+			return m_MainThread;
+		}*/
+
+		// void Join();
+
+		int Run();
+		int Run(std::tr1::function<int()> mainFunc);
+
+		int RunOnce(std::tr1::function<int()> mainFunc);
+
 	private: // Methods
 		inline const AppSettings & GetAppSettings() const
 		{
@@ -34,7 +48,7 @@ namespace Earlgrey
 		const AppSettings& m_AppSettings;
 		ThreadContainer m_IOThreads;
 		ThreadContainer m_WaitThreads;
-		ThreadContainer m_MainThreads;
+		std::tr1::shared_ptr<Thread> m_MainThread;
 
 	};
 }

@@ -9,6 +9,7 @@ namespace Earlgrey
 	class IPAddress;
 	class IPAddress2;
 
+	// TODO: 비동기 메서드 지원하기
 	class Dns : private Uncopyable
 	{
 	private:

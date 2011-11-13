@@ -9,6 +9,7 @@
 #pragma warning( disable : 499 )
 #pragma warning( disable : 4127 )
 #pragma warning( disable : 4512 )
+#pragma warning( disable : 4996 )
 
 #if (_MSC_VER >= 1600)
 #	pragma warning(disable: 4996)
@@ -29,3 +30,16 @@
 	ASSERT_EQ(TRUE, condition)
 #define ASSERT_FALSE2(condition) \
 	ASSERT_EQ(FALSE, condition)
+
+
+
+#define EARLGREY_UNIT_TEST
+#include "txstring.h"
+
+namespace Earlgrey
+{
+
+	void ASSERT_ENDS_WITH(const _txstring& expected, const _txstring& value);
+	void ASSERT_CONTAINS(const _txstring& longStr, const _txstring& shortStr);
+
+}

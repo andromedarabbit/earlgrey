@@ -470,6 +470,14 @@
 					RelativePath=".\src\SlabAllocator.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\StackAllocator.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\StackMemoryManager.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="Network"
@@ -555,6 +563,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\TcpListener.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\WaitEvent.cpp"
 					>
 				</File>
@@ -611,11 +623,19 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\OperatingSystem.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\Path.cpp"
 					>
 				</File>
 				<File
 					RelativePath=".\src\ProcessInitializer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Processor.cpp"
 					>
 				</File>
 				<File
@@ -977,10 +997,6 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\StackAllocator.cpp"
-					>
-				</File>
-				<File
 					RelativePath=".\inc\StackAllocator.h"
 					>
 				</File>
@@ -1053,7 +1069,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\OperatingSystem.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Path.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\Processor.h"
 					>
 				</File>
 				<File
@@ -1122,6 +1146,10 @@
 				>
 				<File
 					RelativePath=".\inc\Acceptor.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\AddressFamily.h"
 					>
 				</File>
 				<File
@@ -1201,6 +1229,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\ProtocolType.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\Receiver.h"
 					>
 				</File>
@@ -1217,7 +1249,15 @@
 					>
 				</File>
 				<File
+					RelativePath=".\inc\SocketType.h"
+					>
+				</File>
+				<File
 					RelativePath=".\inc\SystemTcpStatistics.h"
+					>
+				</File>
+				<File
+					RelativePath=".\inc\TcpListener.h"
 					>
 				</File>
 				<File

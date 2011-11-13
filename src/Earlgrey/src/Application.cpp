@@ -7,10 +7,13 @@
 #include "ProcessInitializer.h"
 #include "Acceptor.h"
 #include "Environment.h" // Environment
+#include "Processor.h"
 #include "Thread.h" // Thread
 #include "IOCP.h" // IOCPRunnable
 
 #include "GlobalExceptionHandler.h"
+#include "OperatingSystem.h"
+
 
 namespace Earlgrey
 {
@@ -18,7 +21,7 @@ namespace Earlgrey
 		: m_AppSettings(appSettings)
 		, m_IOThreads()
 		, m_WaitThreads()
-		, m_MainThreads()
+		, m_MainThread()
 	{
 	}
 
@@ -30,6 +33,7 @@ namespace Earlgrey
 			return FALSE;
 		}
 
+		// Diagnosis
 		GlobalExceptionHandlerSingleton::Instance().Initialize();
 
 		AppSettings::UnhandledExceptionCollectionPtr handlers = m_AppSettings.UnhandledExceptions();
@@ -43,6 +47,12 @@ namespace Earlgrey
 		// \todo DoRtcTermination 은 어디서, 언제 부르나?
 		DoRtcInitialization(); 
 
+
+		// Opearting system
+		OperatingSystem::Initialize();
+
+		Processor::Initialize();
+
 		// 프로세스 우선순위
 		ProcessInitializer processInitializer;
 		if( !processInitializer.Run() )
@@ -52,8 +62,9 @@ namespace Earlgrey
 		if( !ProactorSingleton::Instance().Initialize(m_AppSettings) )
 			return FALSE;
 
-		std::tr1::shared_ptr<Thread> mainThread = Thread::AttachThread("MainThread", WIN_MAIN_THREAD_ID);
-		m_MainThreads.push_back(mainThread);
+		/*std::tr1::shared_ptr<Thread> mainThread = Thread::AttachThread("MainThread", WIN_MAIN_THREAD_ID);
+		m_MainThreads.push_back(mainThread);*/
+		m_MainThread = Thread::AttachThread("MainThread", WIN_MAIN_THREAD_ID);
 
 		// Create IO Thread
 		// 일단 스레드가 블록되지 않는다고 가정하고 프로세스 개수만큼 스레드를 생성한다. 
@@ -79,32 +90,35 @@ namespace Earlgrey
 			thread->SetPriority(THREAD_PRIORITY_HIGHEST);			
 		}
 
-		std::tr1::shared_ptr<ThreadRunnable> acceptorThread(
-			new AcceptorRunnable()
-			);
+		//std::tr1::shared_ptr<ThreadRunnable> acceptorThread(
+		//	new AcceptorRunnable()
+		//	);
 
-		// Wait thread ID 정의 필요
-		std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable", 0 );
-		m_WaitThreads.push_back(thread);
+		//// Wait thread ID 정의 필요
+		//std::tr1::shared_ptr<Thread> thread = Thread::CreateThread( acceptorThread, "AcceptorRunnable", 0 );
+		//m_WaitThreads.push_back(thread);
 
 		return TRUE;
 	}
 
 	Application::~Application()
 	{
-		for (ThreadContainer::const_iterator i = m_IOThreads.begin();  i != m_IOThreads.end(); i++ ){
+		for (ThreadContainer::const_iterator i = m_IOThreads.begin();  i != m_IOThreads.end(); i++ )
+		{
 			std::tr1::shared_ptr<Thread> thread = *i;
 
 			thread->Stop();
 			thread->Join();
 		}
 		m_IOThreads.clear();
+
 		for (ThreadContainer::const_iterator i = m_WaitThreads.begin(); i != m_WaitThreads.end(); i++)
 		{
 			(*i)->Stop();
 			(*i)->Join();
 		}
 		m_WaitThreads.clear();
+		
 		GlobalExceptionHandlerSingleton::Instance().UnregisterAll();
 	}
 
@@ -130,5 +144,39 @@ namespace Earlgrey
 		return FALSE;
 	}
 
+	//void Application::Join()
+	//{
+	//	m_MainThread->Run()
+	//	m_MainThread->Join();
+	//}
 
+	int Application::Run()
+	{
+		StackAllocator allocator;
+
+		return EARLGREY_NUMERIC_CAST<int>(
+			m_MainThread->Run()
+			);
+	}
+
+
+	int Application::Run(std::tr1::function<int()> mainFunc)
+	{
+		StackAllocator allocator;
+
+		int exitCode = mainFunc();
+		if(exitCode != EXIT_SUCCESS)
+			return exitCode;
+
+		return EARLGREY_NUMERIC_CAST<int>(
+			m_MainThread->Run()
+			);
+	}
+
+	int Application::RunOnce(std::tr1::function<int()> mainFunc)
+	{
+		StackAllocator allocator;
+
+		return mainFunc();
+	}
 }

@@ -93,14 +93,14 @@ namespace Earlgrey
 
 		ReleaseMutex(CreatedLock_);
 
-		DWORD exitCode = Runnable_->Run();
+		const DWORD exitCode = Runnable_->Run();
 
 		IsRunning_ = FALSE;
 		Runnable_->Exit();
 		CurrentThread_.Get().reset();
 
 		// _endthread()는 thread handle(object)를 close하지만, _endthreadex()는 close하지 않는다. 따라서, CloseHandle()은 따로 호출해야 한다.
-		_endthreadex( 0 );
+		_endthreadex( exitCode );
 
 		
 		return exitCode;

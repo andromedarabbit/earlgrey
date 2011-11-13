@@ -26,7 +26,7 @@ namespace Earlgrey
 
 	HRESULT WindowsFirewall::Initialize() // (OUT INetFwProfile*& m_fwProfile)
 	{
-		EARLGREY_ASSERT(COMHelper::Initialize());
+		EARLGREY_VERIFY(COMHelper::Initialize());
 
 		HRESULT hr = S_OK;
 		CComPtr<INetFwMgr> fwMgr = NULL;
@@ -102,8 +102,9 @@ namespace Earlgrey
 	{
 		EARLGREY_ASSERT(m_fwProfile != NULL);
 
-		_txstring osVersion( Environment::OSVersion() );
-DBG_UNREFERENCED_LOCAL_VARIABLE(osVersion);
+		// _txstring osVersion( Environment::OSVersion() );
+		// DBG_UNREFERENCED_LOCAL_VARIABLE(osVersion);
+
 		// Check to see if the firewall is off.
 		if (IsTurnedOn() == FALSE)
 			return S_OK; 

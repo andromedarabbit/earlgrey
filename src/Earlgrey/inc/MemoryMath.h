@@ -8,7 +8,7 @@ namespace Earlgrey
 	{
 		//! \todo 메모리 구현과 관련된 수학 연산. 나중에 별도의 파일로 옮긴다.
 		template<typename IntType>
-		inline IntType NewMemoryAligmentOffset(IntType alignment, IntType offset)
+		inline IntType NewMemoryAlignmentOffset(IntType alignment, IntType offset)
 		{
 			EARLGREY_ASSERT(offset >= 0);
 			EARLGREY_ASSERT(std::numeric_limits<IntType>::is_integer == true);
@@ -21,7 +21,7 @@ namespace Earlgrey
 		template<typename IntType>
 		inline IntType NewMemoryAligmentPadding(IntType alignment, IntType offset)
 		{
-			IntType newOffset = NewMemoryAligmentOffset(alignment, offset);
+			IntType newOffset = NewMemoryAlignmentOffset(alignment, offset);
 			return newOffset - offset;
 		}
 		

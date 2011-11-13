@@ -94,6 +94,7 @@ namespace Earlgrey
 			errno_t errCode = errno;
 			if(errCode == ENOENT) // the filename or path could not be found
 			{
+				return FALSE;
 			}
 
 			EARLGREY_ASSERT(errCode != EINVAL); // invalid parameters
