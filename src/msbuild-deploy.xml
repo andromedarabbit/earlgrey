@@ -23,7 +23,7 @@
 	<MSBuild 
 		Projects="$(RootDir)\msbuild-deploy-engine.xml" 
 		Targets="CopyFiles" 
-		Properties="DeploymentDir=$(MSBuildExtensionDeploymentDir);BinDir=$(BinDir)"
+		Properties="DeploymentDir=$(DeploymentDir);BinDir=$(BinDir)"
 	/>
 </Target>
 
