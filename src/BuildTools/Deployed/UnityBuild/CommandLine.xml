@@ -4,154 +4,6 @@
         <name>CommandLine</name>
     </assembly>
     <members>
-        <member name="T:CommandLine.Text.FormatOptionHelpTextEventArgs">
-            <summary>
-            Provides data for the FormatOptionHelpText event.
-            </summary>
-        </member>
-        <member name="M:CommandLine.Text.FormatOptionHelpTextEventArgs.#ctor(CommandLine.BaseOptionAttribute)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.Text.FormatOptionHelpTextEventArgs"/> class.
-            </summary>
-            <param name="option">Option to format.</param>
-        </member>
-        <member name="P:CommandLine.Text.FormatOptionHelpTextEventArgs.Option">
-            <summary>
-            Gets the option to format.
-            </summary>
-        </member>
-        <member name="T:CommandLine.CommandLineParserSettings">
-            <summary>
-            Specifies a set of features to configure a <see cref="T:CommandLine.CommandLineParser"/> behavior.
-            </summary>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class.
-            </summary>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
-            setting the case comparison behavior.
-            </summary>
-            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.IO.TextWriter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
-            setting the <see cref="T:System.IO.TextWriter"/> used for help method output.
-            </summary>
-            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
-            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.IO.TextWriter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
-            setting case comparison and help output options.
-            </summary>
-            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
-            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
-            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
-            setting case comparison and mutually exclusive behaviors.
-            </summary>
-            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
-            <param name="mutuallyExclusive">If set to true, enable mutually exclusive behavior.</param>
-        </member>
-        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.Boolean,System.IO.TextWriter)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
-            setting case comparison, mutually exclusive behavior and help output option.
-            </summary>
-            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
-            <param name="mutuallyExclusive">If set to true, enable mutually exclusive behavior.</param>
-            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
-            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
-        </member>
-        <member name="P:CommandLine.CommandLineParserSettings.CaseSensitive">
-            <summary>
-            Gets or sets the case comparison behavior.
-            Default is set to true.
-            </summary>
-        </member>
-        <member name="P:CommandLine.CommandLineParserSettings.MutuallyExclusive">
-            <summary>
-            Gets or sets the mutually exclusive behavior.
-            Default is set to false.
-            </summary>
-        </member>
-        <member name="P:CommandLine.CommandLineParserSettings.HelpWriter">
-            <summary>
-            Gets or sets the <see cref="T:System.IO.TextWriter"/> used for help method output.
-            Setting this property to null, will disable help screen.
-            </summary>
-        </member>
-        <member name="T:CommandLine.Text.HeadingInfo">
-            <summary>
-            Models the heading informations part of an help text.
-            You can assign it where you assign any <see cref="T:System.String"/> instance.
-            </summary>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.Text.HeadingInfo"/> class
-            specifying program name.
-            </summary>
-            <param name="programName">The name of the program.</param>
-            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="programName"/> is null or empty string.</exception>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.Text.HeadingInfo"/> class
-            specifying program name and version.
-            </summary>
-            <param name="programName">The name of the program.</param>
-            <param name="version">The version of the program.</param>
-            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="programName"/> is null or empty string.</exception>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.ToString">
-            <summary>
-            Returns the heading informations as a <see cref="T:System.String"/>.
-            </summary>
-            <returns>The <see cref="T:System.String"/> that contains the heading informations.</returns>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.op_Implicit(CommandLine.Text.HeadingInfo)~System.String">
-            <summary>
-            Converts the heading informations to a <see cref="T:System.String"/>.
-            </summary>
-            <param name="info">This <see cref="T:CommandLine.Text.HeadingInfo"/> instance.</param>
-            <returns>The <see cref="T:System.String"/> that contains the heading informations.</returns>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.WriteMessage(System.String,System.IO.TextWriter)">
-            <summary>
-            Writes out a string and a new line using the program name specified in the constructor
-            and <paramref name="message"/> parameter.
-            </summary>
-            <param name="message">The <see cref="T:System.String"/> message to write.</param>
-            <param name="writer">The target <see cref="T:System.IO.TextWriter"/> derived type.</param>
-            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
-            <exception cref="T:System.ArgumentNullException">Thrown when parameter <paramref name="writer"/> is null.</exception>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.WriteMessage(System.String)">
-            <summary>
-            Writes out a string and a new line using the program name specified in the constructor
-            and <paramref name="message"/> parameter to standard output stream.
-            </summary>
-            <param name="message">The <see cref="T:System.String"/> message to write.</param>
-            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
-        </member>
-        <member name="M:CommandLine.Text.HeadingInfo.WriteError(System.String)">
-            <summary>
-            Writes out a string and a new line using the program name specified in the constructor
-            and <paramref name="message"/> parameter to standard error stream.
-            </summary>
-            <param name="message">The <see cref="T:System.String"/> message to write.</param>
-            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
-        </member>
         <member name="T:CommandLine.HelpOptionAttribute">
             <summary>
             Indicates the instance method that must be invoked when it becomes necessary show your help screen.
@@ -202,50 +54,6 @@
             Returns always false for this kind of option.
             This behaviour can't be changed by design; if you try set <see cref="P:CommandLine.HelpOptionAttribute.Required"/>
             an <see cref="T:System.InvalidOperationException"/> will be thrown.
-            </summary>
-        </member>
-        <member name="T:CommandLine.OptionListAttribute">
-            <summary>
-            Models an option that can accept multiple values.
-            Must be applied to a field compatible with an <see cref="T:System.Collections.Generic.IList`1"/> interface
-            of <see cref="T:System.String"/> instances.
-            </summary>
-        </member>
-        <member name="T:CommandLine.OptionAttribute">
-            <summary>
-            Models an option specification.
-            </summary>
-        </member>
-        <member name="M:CommandLine.OptionAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.OptionAttribute"/> class.
-            </summary>
-            <param name="shortName">The short name of the option or null if not used.</param>
-            <param name="longName">The long name of the option or null if not used.</param>
-        </member>
-        <member name="P:CommandLine.OptionAttribute.MutuallyExclusiveSet">
-            <summary>
-            Gets or sets the option's mutually exclusive set.
-            </summary>
-        </member>
-        <member name="M:CommandLine.OptionListAttribute.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.OptionListAttribute"/> class.
-            </summary>
-            <param name="shortName">The short name of the option or null if not used.</param>
-            <param name="longName">The long name of the option or null if not used.</param>
-        </member>
-        <member name="M:CommandLine.OptionListAttribute.#ctor(System.String,System.String,System.Char)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.OptionListAttribute"/> class.
-            </summary>
-            <param name="shortName">The short name of the option or null if not used.</param>
-            <param name="longName">The long name of the option or null if not used.</param>
-            <param name="separator">Values separator character.</param>
-        </member>
-        <member name="P:CommandLine.OptionListAttribute.Separator">
-            <summary>
-            Gets or sets the values separator character.
             </summary>
         </member>
         <member name="T:CommandLine.Text.HelpText">
@@ -367,25 +175,130 @@
             Gets or sets whether to add an additional line after the description of the option.
             </summary>
         </member>
-        <member name="T:CommandLine.ValueListAttribute">
+        <member name="T:CommandLine.OptionListAttribute">
             <summary>
-            Models a list of command line arguments that are not options.
+            Models an option that can accept multiple values.
             Must be applied to a field compatible with an <see cref="T:System.Collections.Generic.IList`1"/> interface
             of <see cref="T:System.String"/> instances.
             </summary>
         </member>
-        <member name="M:CommandLine.ValueListAttribute.#ctor(System.Type)">
+        <member name="T:CommandLine.OptionAttribute">
             <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.ValueListAttribute"/> class.
+            Models an option specification.
             </summary>
-            <param name="concreteType">A type that implements <see cref="T:System.Collections.Generic.IList`1"/>.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="concreteType"/> is null.</exception>
         </member>
-        <member name="P:CommandLine.ValueListAttribute.MaximumElements">
+        <member name="M:CommandLine.OptionAttribute.#ctor(System.String,System.String)">
             <summary>
-            Gets or sets the maximum element allow for the list managed by <see cref="T:CommandLine.ValueListAttribute"/> type.
-            If lesser than 0, no upper bound is fixed.
-            If equal to 0, no elements are allowed.
+            Initializes a new instance of the <see cref="T:CommandLine.OptionAttribute"/> class.
+            </summary>
+            <param name="shortName">The short name of the option or null if not used.</param>
+            <param name="longName">The long name of the option or null if not used.</param>
+        </member>
+        <member name="P:CommandLine.OptionAttribute.MutuallyExclusiveSet">
+            <summary>
+            Gets or sets the option's mutually exclusive set.
+            </summary>
+        </member>
+        <member name="M:CommandLine.OptionListAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.OptionListAttribute"/> class.
+            </summary>
+            <param name="shortName">The short name of the option or null if not used.</param>
+            <param name="longName">The long name of the option or null if not used.</param>
+        </member>
+        <member name="M:CommandLine.OptionListAttribute.#ctor(System.String,System.String,System.Char)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.OptionListAttribute"/> class.
+            </summary>
+            <param name="shortName">The short name of the option or null if not used.</param>
+            <param name="longName">The long name of the option or null if not used.</param>
+            <param name="separator">Values separator character.</param>
+        </member>
+        <member name="P:CommandLine.OptionListAttribute.Separator">
+            <summary>
+            Gets or sets the values separator character.
+            </summary>
+        </member>
+        <member name="T:CommandLine.OptionArrayAttribute">
+            <summary>
+            Models an option that can accept multiple values as separated arguments.
+            </summary>
+        </member>
+        <member name="M:CommandLine.OptionArrayAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.OptionArrayAttribute"/> class.
+            </summary>
+            <param name="shortName">The short name of the option or null if not used.</param>
+            <param name="longName">The long name of the option or null if not used.</param>
+        </member>
+        <member name="T:CommandLine.CommandLineParserSettings">
+            <summary>
+            Specifies a set of features to configure a <see cref="T:CommandLine.CommandLineParser"/> behavior.
+            </summary>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class.
+            </summary>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
+            setting the case comparison behavior.
+            </summary>
+            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.IO.TextWriter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
+            setting the <see cref="T:System.IO.TextWriter"/> used for help method output.
+            </summary>
+            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
+            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.IO.TextWriter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
+            setting case comparison and help output options.
+            </summary>
+            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
+            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
+            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
+            setting case comparison and mutually exclusive behaviors.
+            </summary>
+            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
+            <param name="mutuallyExclusive">If set to true, enable mutually exclusive behavior.</param>
+        </member>
+        <member name="M:CommandLine.CommandLineParserSettings.#ctor(System.Boolean,System.Boolean,System.IO.TextWriter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.CommandLineParserSettings"/> class,
+            setting case comparison, mutually exclusive behavior and help output option.
+            </summary>
+            <param name="caseSensitive">If set to true, parsing will be case sensitive.</param>
+            <param name="mutuallyExclusive">If set to true, enable mutually exclusive behavior.</param>
+            <param name="helpWriter">Any instance derived from <see cref="T:System.IO.TextWriter"/>,
+            default <see cref="P:System.Console.Error"/>. Setting this argument to null, will disable help screen.</param>
+        </member>
+        <member name="P:CommandLine.CommandLineParserSettings.CaseSensitive">
+            <summary>
+            Gets or sets the case comparison behavior.
+            Default is set to true.
+            </summary>
+        </member>
+        <member name="P:CommandLine.CommandLineParserSettings.MutuallyExclusive">
+            <summary>
+            Gets or sets the mutually exclusive behavior.
+            Default is set to false.
+            </summary>
+        </member>
+        <member name="P:CommandLine.CommandLineParserSettings.HelpWriter">
+            <summary>
+            Gets or sets the <see cref="T:System.IO.TextWriter"/> used for help method output.
+            Setting this property to null, will disable help screen.
             </summary>
         </member>
         <member name="T:CommandLine.ICommandLineParser">
@@ -420,17 +333,67 @@
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="args"/> is null.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="options"/> is null.</exception>
         </member>
-        <member name="T:CommandLine.OptionArrayAttribute">
+        <member name="T:CommandLine.Text.HeadingInfo">
             <summary>
-            Models an option that can accept multiple values as separated arguments.
+            Models the heading informations part of an help text.
+            You can assign it where you assign any <see cref="T:System.String"/> instance.
             </summary>
         </member>
-        <member name="M:CommandLine.OptionArrayAttribute.#ctor(System.String,System.String)">
+        <member name="M:CommandLine.Text.HeadingInfo.#ctor(System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:CommandLine.OptionArrayAttribute"/> class.
+            Initializes a new instance of the <see cref="T:CommandLine.Text.HeadingInfo"/> class
+            specifying program name.
             </summary>
-            <param name="shortName">The short name of the option or null if not used.</param>
-            <param name="longName">The long name of the option or null if not used.</param>
+            <param name="programName">The name of the program.</param>
+            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="programName"/> is null or empty string.</exception>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.Text.HeadingInfo"/> class
+            specifying program name and version.
+            </summary>
+            <param name="programName">The name of the program.</param>
+            <param name="version">The version of the program.</param>
+            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="programName"/> is null or empty string.</exception>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.ToString">
+            <summary>
+            Returns the heading informations as a <see cref="T:System.String"/>.
+            </summary>
+            <returns>The <see cref="T:System.String"/> that contains the heading informations.</returns>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.op_Implicit(CommandLine.Text.HeadingInfo)~System.String">
+            <summary>
+            Converts the heading informations to a <see cref="T:System.String"/>.
+            </summary>
+            <param name="info">This <see cref="T:CommandLine.Text.HeadingInfo"/> instance.</param>
+            <returns>The <see cref="T:System.String"/> that contains the heading informations.</returns>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.WriteMessage(System.String,System.IO.TextWriter)">
+            <summary>
+            Writes out a string and a new line using the program name specified in the constructor
+            and <paramref name="message"/> parameter.
+            </summary>
+            <param name="message">The <see cref="T:System.String"/> message to write.</param>
+            <param name="writer">The target <see cref="T:System.IO.TextWriter"/> derived type.</param>
+            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when parameter <paramref name="writer"/> is null.</exception>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.WriteMessage(System.String)">
+            <summary>
+            Writes out a string and a new line using the program name specified in the constructor
+            and <paramref name="message"/> parameter to standard output stream.
+            </summary>
+            <param name="message">The <see cref="T:System.String"/> message to write.</param>
+            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
+        </member>
+        <member name="M:CommandLine.Text.HeadingInfo.WriteError(System.String)">
+            <summary>
+            Writes out a string and a new line using the program name specified in the constructor
+            and <paramref name="message"/> parameter to standard error stream.
+            </summary>
+            <param name="message">The <see cref="T:System.String"/> message to write.</param>
+            <exception cref="T:System.ArgumentException">Thrown when parameter <paramref name="message"/> is null or empty string.</exception>
         </member>
         <member name="T:CommandLine.Text.CopyrightInfo">
             <summary>
@@ -499,11 +462,6 @@
             When overridden in a derived class, allows to specify a different copyright word.
             </summary>
         </member>
-        <member name="T:CommandLine.CommandLineParserException">
-            <summary>
-            This exception is thrown when a generic parsing error occurs.
-            </summary>
-        </member>
         <member name="T:CommandLine.CommandLineParser">
             <summary>
             Provides methods to parse command line arguments.
@@ -549,6 +507,48 @@
             <returns>True if parsing process succeed.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="args"/> is null.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="options"/> is null.</exception>
+        </member>
+        <member name="T:CommandLine.CommandLineParserException">
+            <summary>
+            This exception is thrown when a generic parsing error occurs.
+            </summary>
+        </member>
+        <member name="T:CommandLine.ValueListAttribute">
+            <summary>
+            Models a list of command line arguments that are not options.
+            Must be applied to a field compatible with an <see cref="T:System.Collections.Generic.IList`1"/> interface
+            of <see cref="T:System.String"/> instances.
+            </summary>
+        </member>
+        <member name="M:CommandLine.ValueListAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.ValueListAttribute"/> class.
+            </summary>
+            <param name="concreteType">A type that implements <see cref="T:System.Collections.Generic.IList`1"/>.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="concreteType"/> is null.</exception>
+        </member>
+        <member name="P:CommandLine.ValueListAttribute.MaximumElements">
+            <summary>
+            Gets or sets the maximum element allow for the list managed by <see cref="T:CommandLine.ValueListAttribute"/> type.
+            If lesser than 0, no upper bound is fixed.
+            If equal to 0, no elements are allowed.
+            </summary>
+        </member>
+        <member name="T:CommandLine.Text.FormatOptionHelpTextEventArgs">
+            <summary>
+            Provides data for the FormatOptionHelpText event.
+            </summary>
+        </member>
+        <member name="M:CommandLine.Text.FormatOptionHelpTextEventArgs.#ctor(CommandLine.BaseOptionAttribute)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandLine.Text.FormatOptionHelpTextEventArgs"/> class.
+            </summary>
+            <param name="option">Option to format.</param>
+        </member>
+        <member name="P:CommandLine.Text.FormatOptionHelpTextEventArgs.Option">
+            <summary>
+            Gets the option to format.
+            </summary>
         </member>
     </members>
 </doc>
