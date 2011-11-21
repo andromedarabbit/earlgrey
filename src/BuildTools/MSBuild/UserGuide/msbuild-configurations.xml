@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets=""
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<PropertyGroup>
+	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
+	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..'))</TreeRootDir>
+	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
+	
+	<EarlgreyExtensionDir>$(TreeRootDir)\BuildTools\Deployed\MSBuildExtension</EarlgreyExtensionDir>
+	
+	<TempDir>$(RootDir)\Temp</TempDir>
+</PropertyGroup>
+
+<!-- 플랫폼 판단 -->
+<Choose> 
+	<When Condition=" '$(MSBuildBinPath)'=='$(WINDIR)\Microsoft.NET\Framework64\v2.0.50727' ">
+		<PropertyGroup>
+			<Is64Bit>true</Is64Bit>
+			<Platform>Any CPU</Platform>
+		</PropertyGroup>
+	</When>
+	<Otherwise>
+		<PropertyGroup>
+			<Is64Bit>false</Is64Bit>
+			<Platform>Any CPU</Platform>
+		</PropertyGroup>
+	</Otherwise>
+</Choose>
+	
+<!-- 특별한 문자열 -->  
+<PropertyGroup>  
+	<Semicolon>%3b</Semicolon>  
+	 
+	<Ampersand>&amp;</Ampersand>
+	<LeftAngleBracket>&lt;</LeftAngleBracket>
+	<RightAngleBracket>&gt;</RightAngleBracket>
+	<StraightQuotationMark>&quot;</StraightQuotationMark>
+	<Quot>$(StraightQuotationMark)</Quot>
+	<Apostrophe>&apos;</Apostrophe>
+</PropertyGroup>  
+
+
+<Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.Targets" />
+<!--
+<Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.SqlServer2005.Targets" />
+<Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.SqlServer2008.Targets" />
+-->
+
+</Project>
+
+		
