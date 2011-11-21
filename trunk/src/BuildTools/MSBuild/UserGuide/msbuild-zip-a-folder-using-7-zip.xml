@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project 
-	InitialTargets="RunTest-ZipAFolder"
+	InitialTargets="RunTest-ZipAFolderUsing7Zip"
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
 <Import Project="msbuild-configurations.xml" />
 	
 <!--
-MSBuild.Earlgrey.Tasks.IO.Compression.Zip.Pack
+MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip.Pack
 
 Required
-* SrcFolder: The source folder to be compressed.
+* SrcFolder (*.zip, *.7z and others): The source folder to be compressed.
 * ZipFilePath: The destination file.
 
 
@@ -20,6 +20,8 @@ Optional
 * ZipLevel (0, 1, ... ,8 ,9): Higher number, higher compression rate.
 * Password
 * ContainsRootDir (default: true): If true, the root folder of SrcFolder will also be compressed into ZipFilePath.
+
+* UseLargePages (default: true): Turn on -slp switch of 7za.exe. See 7-zip user guide if you want details.
 -->
 <Target Name="ZipAFolder">
 	<Delete Files="$(TempDir)\ZipAFolder.zip" />
@@ -27,7 +29,7 @@ Optional
 	<!-- 
 	Compress SrcFolder into ZipAFolder.zip, which contains all the sub-files and sub-folders except SrcFolder itself 
 	-->
-	<Zip.Pack 
+	<SevenZip.Pack 
 		SrcFolder="$(RootDir)\Data" 
 		ZipFilePath="$(TempDir)\ZipAFolder.zip" 
 		ContainsRootDir="false"
@@ -36,10 +38,10 @@ Optional
 
 
 <!--
-MSBuild.Earlgrey.Tasks.IO.Compression.Zip.Unpack
+MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip.Unpack
 
 Required
-* ZipFilePath (*.zip): The source zip file. 
+* ZipFilePath: The source zip file.
 * TargetDir: The folder where ZipFilePath will be decompressed into.
 
 Optional
@@ -52,7 +54,7 @@ Optional
 	<!-- 
 	Decompress all the files and folders into TargetDir. Overwrite an old file/folder with new one if the same file/folder exists. 
 	-->
-	<Zip.Unpack 
+	<SevenZip.Unpack 
 		ZipFilePath="$(TempDir)\ZipAFolder.zip" 
 		TargetDir="$(TempDir)\DstDir" 
 		Overwrite="true"
@@ -67,7 +69,7 @@ Optional
 	
 </Target>
 
-<Target Name="RunTest-ZipAFolder" DependsOnTargets="ZipAFolder; UnzipAFolder">
+<Target Name="RunTest-ZipAFolderUsing7Zip" DependsOnTargets="ZipAFolder; UnzipAFolder">
 </Target>
 
 </Project>
