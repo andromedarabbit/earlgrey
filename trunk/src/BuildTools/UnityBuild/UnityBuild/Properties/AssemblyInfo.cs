@@ -36,6 +36,6 @@ using System.Runtime.InteropServices;
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.730")]
-[assembly: AssemblyFileVersion("1.0.0.730")]
+[assembly: AssemblyVersion("1.0.0.811")]
+[assembly: AssemblyFileVersion("1.0.0.811")]
 [assembly: InternalsVisibleTo("UnityBuild.Tests")]
