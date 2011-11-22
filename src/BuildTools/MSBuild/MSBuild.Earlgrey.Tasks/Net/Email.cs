@@ -7,10 +7,17 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
-    // TODO: Earlgrey 의 GmailClient와 겹치는 코드가 많다. 
-    /// <remarks>Modified MSBuild.Community.Tasks</remarks>
+
+    /// <summary>
+    /// Sends an e-mail using a SMTP server. For example, using Gmail.
+    /// </summary>
+    /// <remarks></remarks>
     public class Email : Task
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        /// <remarks></remarks>
         public Email()
         {
             _priority = MailPriority.Normal;
@@ -21,57 +28,75 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
         #region Properties
 
-        string[] _attachments;
+        private string[] _attachments;
 
         /// <summary>
         /// List of files to attach to message
         /// </summary>
+        /// <value>The attachments.</value>
+        /// <remarks></remarks>
         public string[] Attachments
         {
             get { return _attachments; }
             set { _attachments = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private string[] _bcc;
 
         /// <summary>
-        /// List of addresss that contains the blind carbon copy (BCC) recipients for this e-mail message
+        /// List of addresses that contains the blind carbon copy (BCC) recipients for this e-mail message
         /// </summary>
+        /// <value>The BCC.</value>
+        /// <remarks></remarks>
         public string[] Bcc
         {
             get { return _bcc; }
             set { _bcc = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         string[] _cc;
 
         /// <summary>
-        /// List of addresss that contains the carbon copy (CC) recipients for this e-mail message
+        /// List of addresses that contains the carbon copy (CC) recipients for this e-mail message
         /// </summary>
+        /// <value>The cc.</value>
+        /// <remarks></remarks>
         public string[] Cc
         {
             get { return _cc; }
             set { _cc = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         string _body;
 
         /// <summary>
         /// The email message body
         /// </summary>
+        /// <value>Plain text or HTML.</value>
+        /// <remarks></remarks>
         public string Body
         {
             get { return _body; }
             set { _body = value; }
         }
 
-        string _from;
+
+        private string _from;
+
         /// <summary>
         /// The from address for this e-mail message
         /// </summary>
-        /// <remarks>
-        /// This property is required.
-        /// </remarks>
+        /// <value>From.</value>
+        /// <remarks>This property is required.</remarks>
         [Required]
         public string From
         {
@@ -79,36 +104,42 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _from = value; }
         }
 
+
         bool _isBodyHtml;
+
         /// <summary>
         /// A value indicating whether the mail message body is in Html
         /// </summary>
+        /// <value><c>true</c> if this instance is body HTML; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
         public bool IsBodyHtml
         {
             get { return _isBodyHtml; }
             set { _isBodyHtml = value; }
         }
 
-        MailPriority _priority;
+
+        private MailPriority _priority;
+
         /// <summary>
         /// The priority of this e-mail message
         /// </summary>
-        /// <remarks>
-        /// Possible values are High, Normal, and Low
-        /// </remarks>
+        /// <value>The priority.</value>
+        /// <remarks>Possible values are High, Normal, and Low</remarks>
         public string Priority
         {
             get { return Enum.GetName(typeof(MailPriority), _priority); }
             set { _priority = (MailPriority)Enum.Parse(typeof(MailPriority), value); }
         }
 
+
         string _subject;
+
         /// <summary>
         /// The subject line for this e-mail message
         /// </summary>
-        /// <remarks>
-        /// This property is required.
-        /// </remarks>
+        /// <value>The subject.</value>
+        /// <remarks>This property is required.</remarks>
         [Required]
         public string Subject
         {
@@ -116,13 +147,14 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _subject = value; }
         }
 
-        string _smtpServer;
+
+        private string _smtpServer;
+
         /// <summary>
         /// The name or IP address of the host used for SMTP transactions
         /// </summary>
-        /// <remarks>
-        /// This property is required.
-        /// </remarks>
+        /// <value>The SMTP server.</value>
+        /// <remarks>This property is required.</remarks>
         [Required]
         public string SmtpServer
         {
@@ -130,21 +162,28 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _smtpServer = value; }
         }
 
+
         private int _smtpPort;
 
+        /// <summary>
+        /// Gets or sets the SMTP port.
+        /// </summary>
+        /// <value>The SMTP port.</value>
+        /// <remarks></remarks>
         public int SmtpPort
         {
             get { return _smtpPort; }
             set { _smtpPort = value; }
         }
 
+
         string[] _to;
+
         /// <summary>
         /// List of addresss that contains the recipients of this e-mail message
         /// </summary>
-        /// <remarks>
-        /// This property is required.
-        /// </remarks>
+        /// <value>To.</value>
+        /// <remarks>This property is required.</remarks>
         [Required]
         public string[] To
         {
@@ -152,17 +191,20 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _to = value; }
         }
 
+
         private string _username;
 
         /// <summary>
         /// Gets or sets the username.
         /// </summary>
         /// <value>The username.</value>
+        /// <remarks></remarks>
         public string Username
         {
             get { return _username; }
             set { _username = value; }
         }
+
 
         private string _password;
 
@@ -170,22 +212,35 @@ namespace MSBuild.Earlgrey.Tasks.Net
         /// Gets or sets the password.
         /// </summary>
         /// <value>The password.</value>
+        /// <remarks></remarks>
         public string Password
         {
             get { return _password; }
             set { _password = value; }
         }
 
+
         private bool _useSsl;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [use SSL].
+        /// </summary>
+        /// <value><c>true</c> if [use SSL]; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
         public bool UseSsl
         {
             get { return _useSsl; }
             set { _useSsl = value; }
         }
 
+
         private Encoding _encoding;
 
+        /// <summary>
+        /// Gets or sets the text encoding.
+        /// </summary>
+        /// <value>The text encoding.</value>
+        /// <remarks></remarks>
         public string TextEncoding
         {
             get { return _encoding.EncodingName; }
@@ -195,6 +250,11 @@ namespace MSBuild.Earlgrey.Tasks.Net
         #endregion
 
 
+        /// <summary>
+        /// Creates the mail message.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
         private MailMessage CreateMailMessage()
         {
             MailMessage message = new MailMessage();
@@ -241,11 +301,21 @@ namespace MSBuild.Earlgrey.Tasks.Net
             return message;
         }
 
+        /// <summary>
+        /// Creates the SMTP client.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
         private SmtpClient CreateSmtpClient()
         {
             return SmtpClientFactory.CreateInstance(this);
         }
 
+        /// <summary>
+        /// When overridden in a derived class, executes the task.
+        /// </summary>
+        /// <returns>true if the task successfully executed; otherwise, false.</returns>
+        /// <remarks></remarks>
         public override bool Execute()
         {
             try
