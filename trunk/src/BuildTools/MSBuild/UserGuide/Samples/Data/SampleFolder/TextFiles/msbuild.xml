@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	DefaultTargets="Build" 
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-initialize.xml" />
+
+	<!-- 빌드 대상 -->
+	<ItemGroup>
+		<ProjectReferences Include="Earlgrey.BuildTools.sln">
+			<Configuration>$(Configuration)</Configuration>
+			<Platform>$(Platform)</Platform>
+		</ProjectReferences>
+	</ItemGroup>
+			
+
+	<Target Name="Clean">
+		<Message Text="타겟: Clean" />  
+		   
+		<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Clean &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+		
+		<RemoveDir Directories="$(OutputDir)" />  
+	</Target>  
+
+	<Target Name="Build">
+		<Message Text="타겟: Build " />
+		<Message Text="빌드 조건: '$(BuildConfiguration)'" Importance="high" />
+			
+		<Exec Command="$(DevEnv) &quot;%(ProjectReferences.FullPath)&quot; /Build &quot;%(ProjectReferences.Configuration)|%(ProjectReferences.Platform)&quot;" ContinueOnError="false" IgnoreExitCode="false" /> 
+		
+	</Target>
+
+	<Target Name="Rebuild" DependsOnTargets="Clean; Build">
+		<Message Text="타겟: Rebuild" />
+	</Target>
+
+	<Import Project="$(RootDir)\msbuild-unittests.xml" />
+
+</Project>
+
+		

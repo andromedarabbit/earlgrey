@@ -5,7 +5,10 @@
 
 <!-- 배포 파일 -->
 <ItemGroup>
-	<MSBuildExtensionFile Include="$(RootDir)\MSBuild\UserGuide\**\*">
+	<MSBuildExtensionFile 
+		Include="$(RootDir)\MSBuild\UserGuide\**\*"
+		Exclude="$(RootDir)\MSBuild\UserGuide\*.shfbproj;$(RootDir)\MSBuild\UserGuide\Help\*.log"
+	>
 		<DstDir>$(DeploymentDir)\UserGuide</DstDir>
 	</MSBuildExtensionFile>
 	

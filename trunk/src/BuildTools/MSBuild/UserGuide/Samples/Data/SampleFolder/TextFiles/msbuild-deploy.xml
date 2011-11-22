@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<PropertyGroup>
+	<BuildCondition Condition=" '$(BuildCondition)' == '' ">Rebuild</BuildCondition>
+</PropertyGroup>
+
+<Import Project="msbuild.xml"/>
+
+<!-- 배포 폴더 -->
+<PropertyGroup>
+	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\Deployment</DeploymentDir>
+	<MSBuildExtensionDeploymentDir>$(DeploymentDir)\MSBuildExtension</MSBuildExtensionDeploymentDir>
+	<UnityBuildDeploymentDir>$(DeploymentDir)\UnityBuild</UnityBuildDeploymentDir>
+</PropertyGroup>
+
+<PropertyGroup>
+	<VersioningToolDir>$(VendorDir)\BuildTool\Versioning Controlled Build</VersioningToolDir>
+	<VersioningTool>$(VersioningToolDir)\AutoVer.exe</VersioningTool>
+</PropertyGroup>
+
+<Target Name="DeployMSBuildExtensions">
+	<MSBuild 
+		Projects="$(RootDir)\msbuild-deploy-msbuildextensions.xml" 
+		Targets="CopyFiles" 
+		Properties="RootDir=$(RootDir);DeploymentDir=$(MSBuildExtensionDeploymentDir);BinDir=$(BinDir)"
+	/>
+</Target>
+
+<Target Name="DeployUnityBuild">
+		<MSBuild 
+		Projects="$(RootDir)\msbuild-deploy-unitybuild.xml" 
+		Targets="CopyFiles" 
+		Properties="RootDir=$(RootDir);DeploymentDir=$(UnityBuildDeploymentDir);BinDir=$(BinDir)"
+	/>
+</Target>
+
+<Target Name="GetVersion">
+	
+	<SvnInfo 
+		ToolPath="$(SvnClientDir)"
+		Username="$(SvnUserName)" 
+		Password="$(SvnPassword)" 
+		LocalPath="$(SvnLocalRootPath)"
+		>
+		<Output TaskParameter="Revision" PropertyName="WorkingCopyRevision" />
+	</SvnInfo>
+	
+	<CreateProperty Value="1.0.0.$(WorkingCopyRevision)">
+		<Output TaskParameter="Value" PropertyName="Version" />
+	</CreateProperty>
+	
+</Target>
+
+<Target Name="UpdateVersions" DependsOnTargets="GetVersion">	
+	<Exec
+		Command="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.BuildTools.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S"
+		WorkingDirectory="$(VersioningToolDir)"
+		/> 
+</Target>
+
+
+<Target 
+	Name="Deploy" 
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild"
+	>
+	
+	<!-- <CallTarget Targets="TestAlone" />-->
+</Target>
+
+</Project>
