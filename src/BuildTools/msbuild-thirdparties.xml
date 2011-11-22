@@ -4,6 +4,8 @@
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
+<Import Project="$(RootDir)\Deployed\MSBuildExtension\MSBuild.Earlgrey.Tasks.Targets" />
+
 <PropertyGroup>
 	<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
 	
@@ -14,7 +16,9 @@
 	
 	
 	<MSBuildCommunityTasksPath>$(MSBuildCommunityTasksDir)-bin\$(Configuration)</MSBuildCommunityTasksPath>
+	<!--
 	<MSBuildCommunityTasksTargets>$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets</MSBuildCommunityTasksTargets>
+	-->
 </PropertyGroup>
 
 <!-- 선택적 라이브러리 -->
@@ -30,8 +34,9 @@
 	<DeployFiles Include="$(MSBuildCommunityTasksBin)\MSBuild.Community.Tasks.xsd" />
 </ItemGroup>
 
-
+<!--
 <Import Project="$(MSBuildCommunityTasksTargets)"/>
+-->
 
 <Target Name="BuildMSBuildCommunityTasks">
 	<Copy 
@@ -60,8 +65,16 @@
 		Command="xcopy /y $(Quot)%(DeployFiles.FullPath)$(Quot) $(Quot)$(BinDir)\$(Quot) " />
 </Target>
 
+<Target Name="DeploySandcastle">
+	<SevenZip.Unpack 
+		ZipFilePath="$(VendorDir)\SandCastle\SandCastle.zip" 
+		TargetDir="$(VendorDir)\SandCastle" 
+		Overwrite="true"
+		Condition="!Exists('$(VendorDir)\SandCastle\SandCastle')"
+	/>
+</Target>
 
-<Target Name="PrepareThirdParties" DependsOnTargets="DeployMSBuildCommunityTasks">
+<Target Name="PrepareThirdParties" DependsOnTargets="DeployMSBuildCommunityTasks; DeploySandcastle">
 </Target>
 
 </Project>
