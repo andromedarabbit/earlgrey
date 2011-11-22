@@ -8,13 +8,26 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
 {
+    /// <summary>
+    /// Decompress a zip file.
+    /// </summary>
+    /// <remarks>Implemented by using  http://dotnetzip.codeplex.com</remarks>
     public class Unpack : AbstractTask, IUnpack
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        /// <remarks></remarks>
         public Unpack()
         {
             Overwrite = false;
         }
 
+        /// <summary>
+        /// Validates the parameters.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
         protected override bool ValidateParameters()
         {
             if (TaskItemHelper.FileExists(ZipFilePath) == false)
@@ -35,7 +48,12 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
             
             return true;
         }
-        
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
         protected override bool ExecuteCommand()
         {
             using(ZipFile zip = ZipFile.Read(InternalZipFilePath))
@@ -50,16 +68,26 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
             return true;
         }
 
+        /// <inheritdoc />
         [Required]
         public ITaskItem TargetDir { get; set; }
 
+        /// <summary>
+        /// Gets the internal target dir.
+        /// </summary>
+        /// <remarks></remarks>
         private string InternalTargetDir
         {
             get { return TaskItemHelper.GetFullPath(TargetDir); }
         }
 
-        public bool Overwrite { get; set; }
+        /// <inheritdoc />
+        public virtual bool Overwrite { get; set; }
 
+        /// <summary>
+        /// Gets the overwrite policy.
+        /// </summary>
+        /// <remarks></remarks>
         private ExtractExistingFileAction OverwritePolicy
         {
             get
@@ -70,12 +98,18 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
             }
         }
 
+        /// <inheritdoc />
         public virtual string Password { get; set; }
 
         // TODO: 중복 코드 제거하기 (Pack 확인)
+        /// <inheritdoc />
         [Required]
-        public ITaskItem ZipFilePath { get; set; }
+        public virtual ITaskItem ZipFilePath { get; set; }
 
+        /// <summary>
+        /// Gets the internal zip file path.
+        /// </summary>
+        /// <remarks></remarks>
         private string InternalZipFilePath
         {
             get { return TaskItemHelper.GetFullPath(ZipFilePath); }

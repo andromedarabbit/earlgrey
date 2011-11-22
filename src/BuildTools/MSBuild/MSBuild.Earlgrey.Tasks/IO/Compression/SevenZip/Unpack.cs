@@ -9,13 +9,26 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
 {
+    /// <summary>
+    /// Decompress a zip file by using 7-zip.
+    /// </summary>
+    /// <remarks></remarks>
     public class Unpack : AbstractToolTask, IUnpack
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        /// <remarks></remarks>
         public Unpack()
         {
             Overwrite = false;
         }
 
+        /// <summary>
+        /// Indicates whether all task paratmeters are valid.
+        /// </summary>
+        /// <returns>true if all task parameters are valid; otherwise, false.</returns>
+        /// <remarks></remarks>
         protected override bool ValidateParameters()
         {
             if (base.ValidateParameters() == false)
@@ -24,6 +37,11 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
             return true;
         }
 
+        /// <summary>
+        /// Returns a string value containing the command line arguments to pass directly to the executable file.
+        /// </summary>
+        /// <returns>A string value containing the command line arguments to pass directly to the executable file.</returns>
+        /// <remarks></remarks>
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder builder = new CommandLineBuilder();
@@ -44,21 +62,38 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Gets the name of the executable file to run.
+        /// </summary>
+        /// <returns>
+        /// The name of the executable file to run.
+        ///   </returns>
+        /// <remarks></remarks>
         protected override string ToolName
         {
             get { return @"7za.exe"; }
         }
 
+        /// <summary>
+        /// Gets the internal target dir.
+        /// </summary>
+        /// <remarks></remarks>
         private string InternalTargetDir
         {
             get { return TaskItemHelper.GetFullPath(TargetDir); }
         }
 
+        /// <inheritdoc />
         [Required]
         public virtual ITaskItem TargetDir { get; set; }
 
+        /// <inheritdoc />
         public virtual bool Overwrite { get; set; }
 
+        /// <summary>
+        /// Gets the overwrite policy.
+        /// </summary>
+        /// <remarks></remarks>
         private ExtractExistingFileAction OverwritePolicy
         {
             get
@@ -69,6 +104,10 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
             }
         }
 
+        /// <summary>
+        /// Gets the overwrite switch.
+        /// </summary>
+        /// <remarks></remarks>
         private string OverwriteSwitch
         {
             get
@@ -85,16 +124,23 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
                 throw new Exception();
             }
         }
+
         // TODO: 중복 코드 제거하기 (Pack 확인)
+        /// <inheritdoc />
         [Required]
         public virtual ITaskItem ZipFilePath { get; set; }
 
+        /// <summary>
+        /// Gets the internal zip file path.
+        /// </summary>
+        /// <remarks></remarks>
         private string InternalZipFilePath
         {
             get { return TaskItemHelper.GetFullPath(ZipFilePath); }
         }
 
 
+        /// <inheritdoc />
         public virtual string Password { get; set; }
     }
 
