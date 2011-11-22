@@ -12,6 +12,15 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
     /// <summary>
     /// Decompress a zip file by using 7-zip.
     /// </summary>
+    /// <example>
+    /// <code>
+    /// <SevenZip.Unpack 
+	/// 	ZipFilePath="$(TempDir)\ZipAFolder.zip" 
+	/// 	TargetDir="$(TempDir)\DstDir" 
+	/// 	Overwrite="true"
+	/// />
+    /// </code>
+    /// </example>
     /// <remarks></remarks>
     public class Unpack : AbstractToolTask, IUnpack
     {

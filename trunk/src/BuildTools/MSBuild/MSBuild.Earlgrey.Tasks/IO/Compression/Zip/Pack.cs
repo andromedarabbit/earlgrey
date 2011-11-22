@@ -14,6 +14,15 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
     /// <summary>
     /// Compress a folder and its sub-folders and sub-files.
     /// </summary>
+    /// /// <example>
+    /// <code>
+    /// <Zip.Pack 
+	/// 	SrcFolder="$(RootDir)\Data" 
+	/// 	ZipFilePath="$(TempDir)\ZipAFolder.zip" 
+    ///		ContainsRootDir="false"
+    /// />
+    /// </code>
+    /// </example>
     /// <remarks>Implemented by using  http://dotnetzip.codeplex.com</remarks>
     public class Pack : AbstractTask, IPack
     {
