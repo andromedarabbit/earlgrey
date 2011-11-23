@@ -10,6 +10,7 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
+
     public class WinScp : AbstractWinScp
     {
         public string ScriptText { get; set; }

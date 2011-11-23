@@ -8,7 +8,7 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.IO.Compression
 {
-    public abstract class AbstractUnpack : AbstractTask
+    internal abstract class AbstractUnpack : AbstractTask
     {
         protected AbstractUnpack()
         {

@@ -17,13 +17,15 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        /// /// <example>
-        /// <code>
+        /// <example>
+        /// <code lang="xml">
+        /// <![CDATA[
         /// <Zip.Unpack 
         ///     ZipFilePath="$(TempDir)\ZipAFolder.zip" 
 		///     TargetDir="$(TempDir)\DstDir" 
 		///     Overwrite="true"
 	    /// />
+        /// ]]>
         /// </code>
         /// </example>
         /// <remarks></remarks>

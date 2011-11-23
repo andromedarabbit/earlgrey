@@ -12,12 +12,14 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
     /// Compress a folder and its sub-folders and sub-files by using 7-zip.
     /// </summary>
     /// <example>
-    /// <code>
+    /// <code lang="xml">
+    /// <![CDATA[
     /// <SevenZip.Pack 
 	/// 	SrcFolder="$(RootDir)\Data" 
 	/// 	ZipFilePath="$(TempDir)\ZipAFolder.zip" 
 	/// 	ContainsRootDir="false"
 	/// />
+    /// ]]>
     /// </code>
     /// </example>
     /// <remarks></remarks>

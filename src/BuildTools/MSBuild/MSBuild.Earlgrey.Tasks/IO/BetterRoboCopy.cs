@@ -7,6 +7,21 @@ using Earlgrey;
 
 namespace MSBuild.Earlgrey.Tasks.IO
 {
+    /// <summary>
+    /// Task wrapping the Window Resource Kit Robocopy.exe command.
+    /// </summary>
+    /// <example>
+    /// <code lang="xml" title="Deploy website to web server."><![CDATA[
+    /// <BetterRoboCopy 
+    ///     SourceFolder="$(MSBuildProjectDirectory)" 
+    ///     DestinationFolder="\\server\webroot\" 
+    ///     Mirror="true"
+    ///     ExcludeFolders=".svn;obj;Test"
+    ///     ExcludeFiles="*.cs;*.resx;*.csproj;*.webinfo;*.log"
+    ///     NoJobHeader="true"
+    /// />  
+    /// ]]></code>
+    /// </example>
     public class BetterRoboCopy : MSBuild.Community.Tasks.RoboCopy
     {
         /*  
@@ -31,30 +46,58 @@ namespace MSBuild.Earlgrey.Tasks.IO
 
         private int _numberOfRetries;
 
+        /// <summary>
+        /// MAXimum file AGE - exclude files older than n days/date.
+        /// </summary>
+        /// <value>Gets or sets the max age. </value>
+        /// <remarks>/MAXAGE:n switch.</remarks>
         public string MaxAge
         {
             get { return _maxAgeString; }
             set { _maxAgeString = value; }
         }
 
+        /// <summary>
+        /// MINimum file AGE - exclude files older than n days/date. 
+        /// (If n < 1900 then n = no of days, else n = YYYYMMDD date).
+        /// </summary>
+        /// <value>Gets or sets the min age. </value>
+        /// <remarks>/MINAGE:n switch.</remarks>
         public string MinAge
         {
             get { return _minAgeString; }
             set { _minAgeString = value; }
         }
 
+        /// <summary>
+        /// MAXimum Last Access Date - exclude files unused since n.
+        /// </summary>
+        /// <value>Gets or sets the max lad.</value>
+        /// <remarks>/MAXLAD:n switch.</remarks>
         public string MaxLad
         {
             get { return _maxLadString; }
             set { _maxLadString = value; }
         }
 
+        /// <summary>
+        /// MINimum Last Access Date - exclude files used since n.
+        /// (If n < 1900 then n = n days, else n = YYYYMMDD date).
+        /// </summary>
+        /// <value>Gets or sets the max lad.</value>
+        /// <remarks>/MINLAD:n switch.</remarks>
         public string MinLad
         {
             get { return _minLadString; }
             set { _minLadString = value; }
         }
 
+
+        /// <summary>
+        /// Number of Retries on failed copies - default is 1 million.
+        /// </summary>
+        /// <value>Gets or sets the number of retries.</value>
+        /// <remarks>/R:n switch.</remarks>
         public int NumberOfRetries
         {
             get { return _numberOfRetries; }
@@ -62,10 +105,32 @@ namespace MSBuild.Earlgrey.Tasks.IO
         }
 
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude hidden files/folders. Default value is <c>true</c>.
+        /// </summary>
+        /// <value>If <c>true</c>, hidden files/folders will not be copied.</value>
+        /// <remarks></remarks>
         public bool ExcludeHidden { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude system files/folders. Default value is <c>true</c>.
+        /// </summary>
+        /// <value>If <c>true</c>, system files/folders will not be copied.</value>
+        /// <remarks></remarks>
+        /// 
         public bool ExcludeSystem { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to exclude temporary files/folders. Default value is <c>true</c>.
+        /// </summary>
+        /// <value>If <c>true</c>, temporary files/folders will not be copied.</value>
+        /// <remarks></remarks>
         public bool ExcludeTemporary { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BetterRoboCopy"/> class.
+        /// </summary>
+        /// <remarks></remarks>
         public BetterRoboCopy()
             : base()
         {
@@ -76,6 +141,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             this.ExcludeTemporary = true;
         }
 
+        /// <inheritdoc />
         protected override string GenerateCommandLineCommands()
         {
             CommandLineBuilder builder = new CommandLineBuilder();
@@ -106,7 +172,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             return commands + " " + builder.ToString();
         }
 
-
+        /// <inheritdoc />
         protected override string GenerateFullPathToTool()
         {
             string fullPathToTool = base.GenerateFullPathToTool();
@@ -136,6 +202,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
         }
 
         //! \todo 사용자가 원한다면 일부 종료 코드를 오류 처리하게 하자.
+        /// <inheritdoc />
         protected override int ExecuteTool(string pathToTool, string responseFileCommands, string commandLineCommands)
         {
             Log.LogMessage("Running " + pathToTool + " " + commandLineCommands);
