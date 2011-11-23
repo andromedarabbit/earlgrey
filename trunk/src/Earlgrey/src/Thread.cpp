@@ -75,7 +75,7 @@ namespace Earlgrey
 		info.dwFlags = 0;
 
 		__try
-		{boost::asio
+		{
 			RaiseException( MS_VC_EXCEPTION, 0, sizeof(info)/sizeof(DWORD), (DWORD_PTR*)&info );
 		}
 		__except(EXCEPTION_CONTINUE_EXECUTION)
