@@ -6,21 +6,6 @@
 
 <Import Project="msbuild-configurations.xml" />
 	
-<!--
-MSBuild.Earlgrey.Tasks.IO.Compression.Zip.Pack
-
-Required
-* SrcFolder: The source folder to be compressed.
-* ZipFilePath: The destination file.
-
-
-Optional
-* Excludes: Pattern strings. For instance, Excludes="*.txt; *.log".
-* Overwrite (true/false, default: false): If true, overwrite an old file with new one if the file named ZipFilePath exists.
-* ZipLevel (0, 1, ... ,8 ,9): Higher number, higher compression rate.
-* Password
-* ContainsRootDir (default: true): If true, the root folder of SrcFolder will also be compressed into ZipFilePath.
--->
 <Target Name="ZipAFolder">
 	<Delete Files="$(TempDir)\ZipAFolder.zip" />
 	
@@ -34,18 +19,6 @@ Optional
 		/>
 </Target>
 
-
-<!--
-MSBuild.Earlgrey.Tasks.IO.Compression.Zip.Unpack
-
-Required
-* ZipFilePath (*.zip): The source zip file. 
-* TargetDir: The folder where ZipFilePath will be decompressed into.
-
-Optional
-* Overwrite (true/false, default: false): If true, overwrite an old file/folder with new one if the same file/folder exists.
-* Password
--->
 <Target Name="UnzipAFolder">
 	<RemoveDir Directories="$(TempDir)\Data" />
 	

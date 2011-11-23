@@ -14,32 +14,8 @@ namespace MSBuild.Earlgrey.Tasks.IO
     /// Using Windows command forfiles.exe, selects a file (or set of files) and executes a command on that file. This is helpful for batch jobs.
     /// </summary>
     /// <example> 
-    /// <code lang="xml" title="In this next example the forfiles command would list any file that is older than 30 days.">
-    /// <![CDATA[
-    /// <ForFiles
-	///		PathName="$(RootDir)"
-	///		Command="CMD /C ECHO @path"
-	///		Date="-30"
-	///		Recursive="false"
-	///	>
-	///	    <Output TaskParameter="FilesFound" ItemName="FilesOlderThan30Days" />
-    /// </ForFiles>
-    /// ]]>
-    /// </code>
-    /// </example>
-    /// <example> 
-    /// <code lang="xml" title="Next, this command will remove the extensions of all files that end with .zip.">
-    /// <![CDATA[
-    /// <ForFiles
-    ///		PathName="$(RootDir)"
-    ///		Command="CMD /C move @file @fname"
-    ///		SearchMask="*.zip"
-    ///		Recursive="false"
-    ///	>
-    ///	    <Output TaskParameter="FilesFound" ItemName="FilesOlderThan30Days" />
-    /// </ForFiles>
-    /// ]]>
-    /// </code>
+    /// <code lang="xml" title="In this next example the forfiles command would list any file that is older than 30 days." source=".\Samples\msbuild-forfiles-order-than-30-days.xml"/>
+    /// <code lang="xml" title="Next, this command will remove the extensions of all files that end with .zip." source=".\Samples\msbuild-forfiles-remote-file-extension-zip.xml" />
     /// </example>
     /// <remarks></remarks>
     public class ForFiles : AbstractToolTask

@@ -5,24 +5,6 @@
 	>
 
 <Import Project="msbuild-configurations.xml" />
-	
-<Target Name="OlderThan30Days">
-	<ForFiles
-			PathName="$(RootDir)"
-			Command="CMD /C ECHO @path"
-			Date="-30"
-			Recursive="true"
-			ContinueOnError="true"
-		>
-		<Output TaskParameter="FilesFound" ItemName="FilesOlderThan30Days" />
-	</ForFiles>
-	
-	<Message 
-		Text="Files older than 30 days are: @(FilesOlderThan30Days)"
-		Condition="'@(FilesOlderThan30Days)' != ''"
-		/>
-</Target>
-
 
 <Target Name="RemoteFileExtensionZip">
 	<ForFiles
@@ -39,11 +21,9 @@
 		Text="Files removed its extension .zip: @(FilesRemovedExtensionZip)"
 		Condition="'@(FilesRemovedExtensionZip)' != ''"
 		/>
-		
-
 </Target>
 
-<Target Name="RunTest" DependsOnTargets="OlderThan30Days; RemoteFileExtensionZip">
+<Target Name="RunTest" DependsOnTargets="RemoteFileExtensionZip">
 </Target>
 
 </Project>

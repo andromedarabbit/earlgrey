@@ -11,7 +11,8 @@ namespace MSBuild.Earlgrey.Tasks.IO
     /// Task wrapping the Window Resource Kit Robocopy.exe command.
     /// </summary>
     /// <example>
-    /// <code lang="xml" title="Deploy website to web server."><![CDATA[
+    /// <code lang="xml" title="Deploy website to web server.">
+    /// <![CDATA[
     /// <BetterRoboCopy 
     ///     SourceFolder="$(MSBuildProjectDirectory)" 
     ///     DestinationFolder="\\server\webroot\" 
@@ -20,8 +21,33 @@ namespace MSBuild.Earlgrey.Tasks.IO
     ///     ExcludeFiles="*.cs;*.resx;*.csproj;*.webinfo;*.log"
     ///     NoJobHeader="true"
     /// />  
-    /// ]]></code>
+    /// ]]>
+    /// </code>
+    /// <code lang="xml" title="Copy a source folder with all sub items into a desination one." source=".\Samples\msbuild-betterrobocopy.xml" />
     /// </example>
+    /// <remarks>
+    /// The difference between <see cref="MSBuild.Community.Tasks.RoboCopy"/> and <see cref="BetterRoboCopy"/> is the way <see cref="BetterRoboCopy"/> handles exit code. Following exit codes are handled as success.
+    /// <list type="bullet">
+    /// <item>
+    /// <description>Return Code 0. No errors occurred, and no copying was done. The source and destination directory trees are completely synchronized.</description>
+    /// </item>
+    /// <item>
+    /// <description>Return Code 1. One or more files were copied successfully (that is, new files have arrived).</description>
+    /// </item>
+    /// <item>
+    /// <description>Return Code 2. Some Extra files or directories were detected. Examine the output log. Some housekeeping may be needed.</description>
+    /// </item>
+    /// <item>
+    /// <description>Return Code 4. Some Mismatched files or directories were detected. Examine the output log. Housekeeping is probably necessary.</description>
+    /// </item>
+    /// <item>
+    /// <description>Return Code 8. Some files or directories could not be copied (copy errors occurred and the retry limit was exceeded). Check these errors further.</description>
+    /// </item>
+    /// <item>
+    /// <description>Return Code 16. Serious error. RoboCopy did not copy any files. This is either a usage error or an error due to insufficient access privileges on the source or destination directories.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
     public class BetterRoboCopy : MSBuild.Community.Tasks.RoboCopy
     {
         /*  
@@ -58,8 +84,10 @@ namespace MSBuild.Earlgrey.Tasks.IO
         }
 
         /// <summary>
+        /// <![CDATA[
         /// MINimum file AGE - exclude files older than n days/date. 
         /// (If n < 1900 then n = no of days, else n = YYYYMMDD date).
+        /// ]]>
         /// </summary>
         /// <value>Gets or sets the min age. </value>
         /// <remarks>/MINAGE:n switch.</remarks>
@@ -81,8 +109,10 @@ namespace MSBuild.Earlgrey.Tasks.IO
         }
 
         /// <summary>
+        /// <![CDATA[
         /// MINimum Last Access Date - exclude files used since n.
         /// (If n < 1900 then n = n days, else n = YYYYMMDD date).
+        /// ]]>
         /// </summary>
         /// <value>Gets or sets the max lad.</value>
         /// <remarks>/MINLAD:n switch.</remarks>

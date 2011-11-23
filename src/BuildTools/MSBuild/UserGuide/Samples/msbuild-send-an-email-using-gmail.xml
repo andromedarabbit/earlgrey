@@ -6,7 +6,6 @@
 
 <Import Project="msbuild-configurations.xml" />
 	
-	
 <Target Name="SendEmail">
 	 <Email SmtpServer="smtp.gmail.com"
 			SmtpPort="587"

@@ -9,7 +9,7 @@ namespace MSBuild.Earlgrey.Tasks
     /// <summary>
     /// Build Engine Used for Testing Tasks
     /// </summary>
-    public class MockBuildEngine : IBuildEngine
+    internal class MockBuildEngine : IBuildEngine
     {
         public MockBuildEngine()
         {

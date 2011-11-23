@@ -19,6 +19,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             _parser = new AdvancedFileIniDataParser();
         }
 
+        /// <inheritdoc />
         protected override bool ExecuteCommand()
         {
             _parsedData = _parser.LoadFile(FullPath);
@@ -26,6 +27,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             return true;
         }
 
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if(File.Exists(FullPath) == false)

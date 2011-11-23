@@ -63,19 +63,26 @@
     <Compile Include="AbstractTask.cs" />
     <Compile Include="AbstractToolTask.cs" />
     <Compile Include="BetterMessage.cs" />
-    <Compile Include="IO\Compression\AbstracUnpack.cs" />
     <Compile Include="IO\Compression\IPack.cs" />
     <Compile Include="IO\Compression\IUnpack.cs" />
+    <Compile Include="IO\Compression\NamespaceDoc.cs" />
     <Compile Include="IO\Compression\SevenZip\CompressionLevel.cs" />
     <Compile Include="IO\Compression\SevenZip\ExitCode.cs" />
     <Compile Include="IO\Compression\SevenZip\ExtractExistingFileAction.cs" />
+    <Compile Include="IO\Compression\SevenZip\NamespaceDoc.cs" />
     <Compile Include="IO\Compression\SevenZip\Pack.cs" />
     <Compile Include="IO\Compression\SevenZip\Unpack.cs" />
+    <Compile Include="IO\Compression\Zip\NamespaceDoc.cs" />
     <Compile Include="IO\ForFiles.cs" />
+    <Compile Include="IO\IniFile\NamespaceDoc.cs" />
+    <Compile Include="IO\NamespaceDoc.cs" />
     <Compile Include="IO\PathHelper.cs" />
     <Compile Include="IO\Where.cs" />
+    <Compile Include="ItemGroup\NamespaceDoc.cs" />
     <Compile Include="ItemGroup\SetMetadata.cs" />
+    <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Net\AbstractWinScp.cs" />
+    <Compile Include="Net\NamespaceDoc.cs" />
     <Compile Include="Net\WinScp.cs" />
     <Compile Include="Net\WinScpMkDir.cs" />
     <Compile Include="Net\WinScpUpload.cs" />
@@ -84,7 +91,7 @@
     <Compile Include="Sql\AbstractGetId.cs" />
     <Compile Include="Sql\GetObjectId.cs" />
     <Compile Include="Sql\GetUserId.cs" />
-    <Compile Include="Str\Replace.cs" />
+    <Compile Include="Sql\NamespaceDoc.cs" />
     <Compile Include="Subversion\BetterSvnDiff.cs" />
     <Compile Include="IO\DeleteSharedFolder.cs" />
     <Compile Include="IO\IniFile\AbstractIniFile.cs" />
@@ -121,6 +128,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiffXmlSummary.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Subversion\NamespaceDoc.cs" />
     <Compile Include="Subversion\SvnDelete.cs" />
     <Compile Include="Subversion\SvnDiff.cs">
       <SubType>Code</SubType>
