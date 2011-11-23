@@ -11,25 +11,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
     /// Sends an e-mail using a SMTP server. For example, using Gmail.
     /// </summary>
     /// <example> 
-    /// <code lang="xml" title="This is an example using a Gmail account to send an e-mail.">
-    /// <![CDATA[
-    /// <Email SmtpServer="smtp.gmail.com"
-    /// 	SmtpPort="587"
-    /// 	Username="projectearlgrey@gmail.com"
-    /// 	Password="$(SmtpPassword)"
-    /// 	UseSsl="true"
-    /// 	TextEncoding="UTF-8"
-    /// 	From="projectearlgrey@gmail.com"
-    /// 	To="earlgreyproject@googlegroups.com"
-    /// 	Cc=""
-    /// 	Bcc=""
-    /// 	Subject="[MSBuild.Earlgrey.Tasks] msbuild-send-an-email-using-gmail"
-    /// 	IsBodyHtml="false"
-    /// 	Body="This is just a test!"
-    /// 	Attachments="$(MSBuildProjectFullPath)"
-    /// />
-    /// ]]>
-    /// </code>
+    /// <code lang="xml" title="This is an example using a Gmail account to send an e-mail." source=".\Samples\msbuild-send-an-email-using-gmail.xml" />
     /// </example>
     /// <remarks></remarks>
     public class Email : Task
@@ -324,11 +306,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
             return SmtpClientFactory.CreateInstance(this);
         }
 
-        /// <summary>
-        /// When overridden in a derived class, executes the task.
-        /// </summary>
-        /// <returns>true if the task successfully executed; otherwise, false.</returns>
-        /// <remarks></remarks>
+        /// <inheritdoc />
         public override bool Execute()
         {
             try

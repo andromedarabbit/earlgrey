@@ -11,23 +11,15 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
     /// <summary>
     /// Decompress a zip file.
     /// </summary>
+    /// <example>
+    /// <code lang="xml" title="Compress a folder and unzip it into the other path." source=".\Samples\msbuild-zip-a-folder.xml" />
+    /// </example>
     /// <remarks>Implemented by using  http://dotnetzip.codeplex.com</remarks>
     public class Unpack : AbstractTask, IUnpack
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:System.Object"/> class.
         /// </summary>
-        /// <example>
-        /// <code lang="xml">
-        /// <![CDATA[
-        /// <Zip.Unpack 
-        ///     ZipFilePath="$(TempDir)\ZipAFolder.zip" 
-		///     TargetDir="$(TempDir)\DstDir" 
-		///     Overwrite="true"
-	    /// />
-        /// ]]>
-        /// </code>
-        /// </example>
         /// <remarks></remarks>
         public Unpack()
         {
