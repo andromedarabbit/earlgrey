@@ -17,7 +17,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression
     public interface IPack
     {
         /// <summary>
-        /// Gets or sets the source folder. 
+        /// [Required] Gets or sets the source folder. 
         /// </summary>
         /// <value>The source folder to be compressed.</value>
         /// <remarks>Here are some of supported compression algorithms
@@ -41,7 +41,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression
         string[] Excludes { get; set; }
 
         /// <summary>
-        /// Gets or sets the zip file path.
+        /// [Required] Gets or sets the zip file path.
         /// </summary>
         /// <value>The destination file path.</value>
         /// <remarks></remarks>

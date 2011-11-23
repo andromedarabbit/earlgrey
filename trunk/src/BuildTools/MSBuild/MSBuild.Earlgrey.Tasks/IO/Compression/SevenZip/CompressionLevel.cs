@@ -8,7 +8,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
     /// <summary>
     /// Describes the compression rate.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>Higher number, higher compression rate.</remarks>
     public enum CompressionLevel
     {
         Level0 = 0,

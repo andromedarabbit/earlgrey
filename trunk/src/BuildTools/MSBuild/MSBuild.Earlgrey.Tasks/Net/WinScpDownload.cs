@@ -126,6 +126,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
                 }
             }
             return base.Execute();                        
-        }
+        }
+
     }
 }

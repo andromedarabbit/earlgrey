@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="OlderThan30Days">
+	<ForFiles
+			PathName="$(RootDir)"
+			Command="CMD /C ECHO @path"
+			Date="-30"
+			Recursive="true"
+			ContinueOnError="true"
+		>
+		<Output TaskParameter="FilesFound" ItemName="FilesOlderThan30Days" />
+	</ForFiles>
+	
+	<Message 
+		Text="Files older than 30 days are: @(FilesOlderThan30Days)"
+		Condition="'@(FilesOlderThan30Days)' != ''"
+		/>
+</Target>
+
+
+<Target Name="RemoteFileExtensionZip">
+	<ForFiles
+			PathName="$(RootDir)"
+			Command="CMD /C move @file @fname"
+			SearchMask="*.zip"
+			Recursive="false"
+			ContinueOnError="true"
+		>
+		<Output TaskParameter="FilesFound" ItemName="FilesRemovedExtensionZip" />
+	</ForFiles>
+	
+	<Message 
+		Text="Files removed its extension .zip: @(FilesRemovedExtensionZip)"
+		Condition="'@(FilesRemovedExtensionZip)' != ''"
+		/>
+		
+
+</Target>
+
+<Target Name="RunTest" DependsOnTargets="OlderThan30Days; RemoteFileExtensionZip">
+</Target>
+
+</Project>
+
+		

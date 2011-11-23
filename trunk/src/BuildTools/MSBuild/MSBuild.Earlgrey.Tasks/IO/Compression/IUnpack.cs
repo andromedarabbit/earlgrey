@@ -14,7 +14,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression
     interface IUnpack
     {
         /// <summary>
-        /// Gets or sets the target dir.
+        /// [Required] Gets or sets the target dir.
         /// </summary>
         /// <value>The folder where <see cref="ZipFilePath"/> will be decompressed into.</value>
         /// <remarks></remarks>
@@ -29,7 +29,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression
         bool Overwrite { get; set; }
 
         /// <summary>
-        /// Gets or sets the zip file path.
+        /// [Required] Gets or sets the zip file path.
         /// </summary>
         /// <value>The zip file path.</value>
         /// <remarks></remarks>

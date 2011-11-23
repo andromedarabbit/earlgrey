@@ -7,10 +7,30 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
-
     /// <summary>
     /// Sends an e-mail using a SMTP server. For example, using Gmail.
     /// </summary>
+    /// <example> 
+    /// <code lang="xml" title="This is an example using a Gmail account to send an e-mail.">
+    /// <![CDATA[
+    /// <Email SmtpServer="smtp.gmail.com"
+    /// 	SmtpPort="587"
+    /// 	Username="projectearlgrey@gmail.com"
+    /// 	Password="$(SmtpPassword)"
+    /// 	UseSsl="true"
+    /// 	TextEncoding="UTF-8"
+    /// 	From="projectearlgrey@gmail.com"
+    /// 	To="earlgreyproject@googlegroups.com"
+    /// 	Cc=""
+    /// 	Bcc=""
+    /// 	Subject="[MSBuild.Earlgrey.Tasks] msbuild-send-an-email-using-gmail"
+    /// 	IsBodyHtml="false"
+    /// 	Body="This is just a test!"
+    /// 	Attachments="$(MSBuildProjectFullPath)"
+    /// />
+    /// ]]>
+    /// </code>
+    /// </example>
     /// <remarks></remarks>
     public class Email : Task
     {
@@ -22,7 +42,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         {
             _priority = MailPriority.Normal;
             _useSsl = false;
-            _encoding = Encoding.Unicode;
+            _encoding = Encoding.UTF8;
             _smtpPort = 25;
         }
 
@@ -33,7 +53,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         /// <summary>
         /// List of files to attach to message
         /// </summary>
-        /// <value>The attachments.</value>
+        /// <value>Full path.</value>
         /// <remarks></remarks>
         public string[] Attachments
         {
@@ -41,9 +61,6 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _attachments = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         private string[] _bcc;
 
         /// <summary>
@@ -57,10 +74,8 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _bcc = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        string[] _cc;
+
+        private string[] _cc;
 
         /// <summary>
         /// List of addresses that contains the carbon copy (CC) recipients for this e-mail message
@@ -73,10 +88,8 @@ namespace MSBuild.Earlgrey.Tasks.Net
             set { _cc = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        string _body;
+
+        private string _body;
 
         /// <summary>
         /// The email message body
@@ -93,7 +106,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         private string _from;
 
         /// <summary>
-        /// The from address for this e-mail message
+        /// [Required] The from address for this e-mail message
         /// </summary>
         /// <value>From.</value>
         /// <remarks>This property is required.</remarks>
@@ -105,12 +118,12 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
-        bool _isBodyHtml;
+        private bool _isBodyHtml;
 
         /// <summary>
         /// A value indicating whether the mail message body is in Html
         /// </summary>
-        /// <value><c>true</c> if this instance is body HTML; otherwise, <c>false</c>.</value>
+        /// <value><c>true</c> if this e-mail body is described as HTML; otherwise, <c>false</c>.</value>
         /// <remarks></remarks>
         public bool IsBodyHtml
         {
@@ -133,10 +146,10 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
-        string _subject;
+        private string _subject;
 
         /// <summary>
-        /// The subject line for this e-mail message
+        /// [Required] The subject line for this e-mail message
         /// </summary>
         /// <value>The subject.</value>
         /// <remarks>This property is required.</remarks>
@@ -151,7 +164,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         private string _smtpServer;
 
         /// <summary>
-        /// The name or IP address of the host used for SMTP transactions
+        /// [Required] The name or IP address of the host used for SMTP transactions
         /// </summary>
         /// <value>The SMTP server.</value>
         /// <remarks>This property is required.</remarks>
@@ -169,7 +182,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         /// Gets or sets the SMTP port.
         /// </summary>
         /// <value>The SMTP port.</value>
-        /// <remarks></remarks>
+        /// <remarks>If not specified explicitly, default port 25 will be used.</remarks>
         public int SmtpPort
         {
             get { return _smtpPort; }
@@ -177,10 +190,10 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
-        string[] _to;
+        private string[] _to;
 
         /// <summary>
-        /// List of addresss that contains the recipients of this e-mail message
+        /// [Required] List of addresses that contains the recipients of this e-mail message
         /// </summary>
         /// <value>To.</value>
         /// <remarks>This property is required.</remarks>
@@ -240,7 +253,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         /// Gets or sets the text encoding.
         /// </summary>
         /// <value>The text encoding.</value>
-        /// <remarks></remarks>
+        /// <remarks>If not specified explicitly, default encoding UTF-8 will be used.</remarks>
         public string TextEncoding
         {
             get { return _encoding.EncodingName; }
