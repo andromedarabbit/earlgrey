@@ -6,15 +6,24 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.ItemGroup
 {
+    /// <summary>
+    /// Using an ItemGroup A as new metadata values of the other ItemGroup B, create new ItemGroup C with new metadata.
+    /// </summary>
+    /// <example>
+    /// <code title="Examples" source=".\Samples\msbuild-SetMetadata.xml" />
+    /// </example>
+    /// <remarks></remarks>
     public class SetMetadata : AbstractTask
     {
         private readonly List<ITaskItem> _outputTasks;
 
+        /// <inheritdoc />
         public SetMetadata()
         {
             _outputTasks = new List<ITaskItem>();
         }
 
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if(Items.Length != Values.Length)
@@ -39,6 +48,7 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
             return true;
         }
 
+        /// <inheritdoc />
         protected override bool ExecuteCommand()
         {
             int count = Items.Length;
@@ -55,15 +65,34 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
             return true;
         }
 
+        /// <summary>
+        /// [Required] The source ItemGroup, whose all of internal values will be preserved.
+        /// </summary>
+        /// <value>Gets or sets the items.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem[] Items { get; set; }
 
+        /// <summary>
+        /// [Required] The key name of the new metadata.
+        /// </summary>
+        /// <value>Gets or sets the name of the key.</value>
+        /// <remarks></remarks>
         [Required]
         public string KeyName { get; set; }
 
+        /// <summary>
+        /// [Required] The ItemGroup to be used as metadata values of newly-created ItemGroup.
+        /// </summary>
+        /// <value>Gets or sets the new metadata values.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem[] Values { get; set; }
 
+        /// <summary>
+        /// [Output] Newly-created ItemGroup with new metadata.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem[] OutputTasks
         {

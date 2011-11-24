@@ -12,7 +12,7 @@
 	<EarlgreyExtensionDir>$(TreeRootDir)\BuildTools\Deployed\MSBuildExtension</EarlgreyExtensionDir>
 	
 	<TempDir>$(RootDir)\Temp</TempDir>
-	<SampleDataDir>$(RootDir)\Data</SampleDataDirm>
+	<SampleDataDir>$(RootDir)\Data</SampleDataDir>
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->

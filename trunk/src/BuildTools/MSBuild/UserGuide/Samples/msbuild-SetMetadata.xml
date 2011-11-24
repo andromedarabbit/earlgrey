@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<ItemGroup>
+	<SourceItem Include="E">
+		<FirstMetadata>5</FirstMetadata>
+	</SourceItem>
+	<SourceItem Include="B">
+		<FirstMetadata>2</FirstMetadata>
+	</SourceItem>
+	<SourceItem Include="A">
+		<FirstMetadata>1</FirstMetadata>
+	</SourceItem>
+	<SourceItem Include="C">
+		<FirstMetadata>3</FirstMetadata>
+	</SourceItem>
+	<SourceItem Include="C">
+		<FirstMetadata>3</FirstMetadata>
+	</SourceItem>
+	<SourceItem Include="D">
+		<FirstMetadata>4</FirstMetadata>
+	</SourceItem>
+</ItemGroup>
+
+<ItemGroup>
+	<SourceMetadata Include="a" />
+	<SourceMetadata Include="b" />
+	<SourceMetadata Include="c" />
+	<SourceMetadata Include="d" />
+	<SourceMetadata Include="e" />
+	<SourceMetadata Include="f" />
+</ItemGroup>
+
+<Target Name="RunTest">
+	<SetMetadata Items="@(SourceItem)" KeyName="SecondMetadata" Values="@(SourceMetadata)" >
+		<Output ItemName="NewItems" TaskParameter="OutputTasks" />
+	</SetMetadata>
+	
+	<ItemGroup>
+		<SecondMetadataItem Include="%(NewItems.SecondMetadata)" />
+	</ItemGroup>
+
+	<Error Text="Something is very wrong!" Condition="'@(SecondMetadataItem)' != 'a;b;c;d;e;f'" />
+</Target>
+
+</Project>
+
+		

@@ -8,28 +8,51 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Sql
 {
+    /// <summary>
+    /// Defines the interface for the classes to retrieve some identity numbers from SQL Server.
+    /// </summary>
+    /// <remarks></remarks>
     public abstract class AbstractGetId : AbstractTask
     {
         private readonly List<ITaskItem> _identities;
 
 
+        /// <summary>
+        /// [Required] Gets or sets the connection string.
+        /// </summary>
+        /// <value>The connection string.</value>
+        /// <remarks></remarks>
         [Required]
         public string ConnectionString { get; set; }
 
+        /// <summary>
+        /// [Required] The names of the target objects or users.
+        /// </summary>
+        /// <value>Gets or sets the names.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem[] Names { get; set; }
 
+        /// <summary>
+        /// [Output] Gets the identity values of the <see cref="Names"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem[] Ids
         {
             get { return _identities.ToArray(); }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:System.Object"/> class.
+        /// </summary>
+        /// <remarks></remarks>
         protected AbstractGetId()
         {
             _identities = new List<ITaskItem>();
         }
 
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if (Names.Any(item => string.IsNullOrEmpty(item.ItemSpec) == true))
@@ -42,11 +65,16 @@ namespace MSBuild.Earlgrey.Tasks.Sql
         }
 
 
+        /// <summary>
+        /// Gets the command string.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
         protected abstract string GetCommandString(ITaskItem item);
-        
-            // return string.Format("SELECT OBJECT_ID(N'{0}')", name.ItemSpec);
-        
 
+
+        /// <inheritdoc />
         protected override bool ExecuteCommand()
         {
             try
