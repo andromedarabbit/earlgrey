@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<ItemGroup>
+	<SampleItem Include="E" />
+	<SampleItem Include="B" />
+	<SampleItem Include="A" />
+	<SampleItem Include="C" />
+	<SampleItem Include="C" />
+	<SampleItem Include="D" />	
+</ItemGroup>
+
+<Target Name="Count">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output PropertyName="NumberOfItems" TaskParameter="Count" />
+	</ItemsHelper>
+	
+	<Error Text="The number of items should be 6, but $(NumberOfItems)!" Condition="'$(NumberOfItems)' != '6'" />
+</Target>
+
+<Target Name="First">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output ItemName="FirstValue" TaskParameter="First" />
+	</ItemsHelper>
+	
+	<Error Text="First value should be 'E', but '@(FirstValue)'!" Condition="'@(FirstValue)' != 'E'" />
+</Target>
+
+<Target Name="Last">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output ItemName="LastValue" TaskParameter="Last" />
+	</ItemsHelper>
+	
+	<Error Text="Last value should be 'D', but '@(LastValue)'!" Condition="'@(LastValue)' != 'D'" />
+</Target>
+
+<Target Name="Min">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output ItemName="MinimumValue" TaskParameter="Min" />
+	</ItemsHelper>
+	
+	<Error Text="Minimum value should be 'A', but '@(MinimumValue)'!" Condition="'@(MinimumValue)' != 'A'" />
+</Target>
+
+<Target Name="Max">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output ItemName="MaximumValue" TaskParameter="Max" />
+	</ItemsHelper>
+	
+	<Error Text="MaximumValue value should be 'E', but '@(MaximumValue)'!" Condition="'@(MaximumValue)' != 'E'" />
+</Target>
+
+<Target Name="Distinct">
+	<ItemsHelper Items="@(SampleItem)">
+		<Output ItemName="DistinctItems" TaskParameter="Distinct" />
+	</ItemsHelper>
+	
+	<ItemsHelper Items="@(DistinctItems)">
+		<Output PropertyName="NumberOfDistinctItems" TaskParameter="Count" />
+	</ItemsHelper>
+	
+	<Error Text="The number of distict items should be 5, but $(NumberOfDistinctItems)!" Condition="'$(NumberOfDistinctItems)' != '5'" />
+</Target>
+
+<Target Name="RunTest" DependsOnTargets="Count; First; Last; Min; Max; Distinct">	
+</Target>
+
+</Project>
+
+		

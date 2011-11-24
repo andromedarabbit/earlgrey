@@ -6,39 +6,69 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.ItemGroup
 {
+    /// <summary>
+    /// <see cref="ItemsHelper"/> consists of basic grouping functionalities for an ItemGroup. For instance, it can get the first item of the ItemGroup list.
+    /// </summary>
+    /// <example>
+    /// <code source=".\Samples\msbuild-itemshelper.xml" title="Examples" />
+    /// </example>
+    /// <remarks></remarks>
     public class ItemsHelper : AbstractTask
     {
+        /// <inheritdoc />
         protected override bool ExecuteCommand()
         {
             return true;
         }
 
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             return true;
         }
 
+        /// <summary>
+        /// [Required] Gets or sets the items.
+        /// </summary>
+        /// <value>The items.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem[] Items { get; set; }
 
+        /// <summary>
+        /// [Output] Gets the first item of <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem First
         {
             get { return Items.First(); }
         }
 
+        /// <summary>
+        /// [Output] Gets the last item of <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem Last
         {
             get { return Items.Last(); }
         }
 
+        /// <summary>
+        /// [Output] Gets the number of <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public int Count
         {
             get { return Items.Count(); }
         }
 
+        /// <summary>
+        /// [Output] Gets the item with maximum value in <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem[] Max
         {
@@ -53,6 +83,10 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
             }
         }
 
+        /// <summary>
+        /// [Output] Gets the item with minimum value in <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem[] Min
         {
@@ -67,6 +101,10 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
             }
         }
 
+        /// <summary>
+        /// [Output] Gets the distinct items among <see cref="Items"/>.
+        /// </summary>
+        /// <remarks></remarks>
         [Output]
         public ITaskItem[] Distinct
         {

@@ -22,9 +22,10 @@
     <SandcastlePath>..\..\..\..\vendor\Sandcastle\Sandcastle\</SandcastlePath>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" />
+    </DocumentationSources>
     <HelpTitle>MSBuild.Earlgrey.Tasks Documentation</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <CopyrightHref>http://www.opensource.org/licenses/mit-license.php</CopyrightHref>
@@ -43,27 +44,28 @@
     <PresentationStyle>vs2005</PresentationStyle>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="(global)" isDocumented="False" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.AspNet" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Ftp" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Fusion" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.HtmlHelp" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.IIS" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Install" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.JavaScript" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Math" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Net" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Oracle" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Sandcastle" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Schema" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Services" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.SourceSafe" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.SourceServer" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.SqlServer" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Subversion" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.SymbolServer" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Tfs" isDocumented="True" />
-<NamespaceSummaryItem name="MSBuild.Community.Tasks.Xml" isDocumented="True" /></NamespaceSummaries>
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.AspNet" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Ftp" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Fusion" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.HtmlHelp" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.IIS" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Install" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.JavaScript" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Math" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Net" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Oracle" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Sandcastle" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Schema" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Services" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.SourceSafe" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.SourceServer" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.SqlServer" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Subversion" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.SymbolServer" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Tfs" isDocumented="True" />
+      <NamespaceSummaryItem name="MSBuild.Community.Tasks.Xml" isDocumented="True" />
+    </NamespaceSummaries>
     <RootNamespaceTitle>MSBuild.Earlgrey.Tasks</RootNamespaceTitle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <ProjectSummary>MSBuild.Earlgrey.Tasks project began to provide required functionalities for automating build process of &amp;lt%3ba href=&amp;quot%3bhttp://code.google.com/p/earlgrey&amp;quot%3b&amp;gt%3bProject Earlgrey&amp;lt%3b/a&amp;gt%3b, which is experimental online game server engine under development. MSBuild.Earlgrey.Tasks now grow to be a full-featured msbuild extensions library. Compare it with alternative ones like &amp;lt%3ba href=&amp;quot%3bhttp://msbuildtasks.tigris.org/&amp;quot%3b&amp;gt%3bMSBuild Community Tasks&amp;lt%3b/a&amp;gt%3b or &amp;lt%3ba href=&amp;quot%3bhttp://www.msbuildextensionpack.com/&amp;quot%3b&amp;gt%3bMSBuild Extension Pack&amp;lt%3b/a&amp;gt%3b.</ProjectSummary>
@@ -92,23 +94,36 @@
 <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Subversion" isExposed="False" />
 <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SymbolServer" isExposed="False" />
 <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Tfs" isExposed="False" />
-<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Xml" isExposed="False" /></ApiFilter>
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Xml" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Earlgrey.Tasks.Subversion" isExposed="False">
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.AbstractSvnDiff" filterName="AbstractSvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.BetterSvnDiff" filterName="BetterSvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDelete" filterName="SvnDelete" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" filterName="SvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiffWithPlainSummary" filterName="SvnDiffWithPlainSummary" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiffWithXmlSummary" filterName="SvnDiffWithXmlSummary" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnPathResolver" filterName="SvnPathResolver" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnRevert" filterName="SvnRevert" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" filterName="SvnSwitch" isExposed="True" />
+</Filter></ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="API Token Resolution" enabled="True" xmlns="">
         <component id="API Token Resolution" type="Microsoft.Ddue.Tools.SharedContentComponent" assembly="{@SandcastlePath}ProductionTools\BuildComponents.dll">
 
         {@TokenFiles}
-        <replace elements="/*//token" item="string(.)" />
-</component>
+        <replace elements="/*//token" item="string(.)" /></component>
       </ComponentConfig>
-<ComponentConfig id="Code Block Component" enabled="True" xmlns=""><component id="Code Block Component" type="SandcastleBuilder.Components.CodeBlockComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
-  <basePath value="{@HtmlEncProjectFolder}" />
-  <languageFilter value="true" />
-  <allowMissingSource value="false" />
-  <removeRegionMarkers value="false" />
-  <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" copyImageUrl="../icons/CopyCode.gif" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
-</component></ComponentConfig></ComponentConfigurations>
-    <Preliminary>True</Preliminary>
+      <ComponentConfig id="Code Block Component" enabled="True" xmlns="">
+        <component id="Code Block Component" type="SandcastleBuilder.Components.CodeBlockComponent" assembly="{@SHFBFolder}SandcastleBuilder.Components.dll">
+          <basePath value="{@HtmlEncProjectFolder}" />
+          <languageFilter value="true" />
+          <allowMissingSource value="false" />
+          <removeRegionMarkers value="false" />
+          <colorizer syntaxFile="{@SHFBFolder}Colorizer\highlight.xml" styleFile="{@SHFBFolder}Colorizer\highlight.xsl" copyImageUrl="../icons/CopyCode.gif" language="cs" tabSize="0" numberLines="false" outlining="false" keepSeeTags="false" defaultTitle="true" />
+        </component>
+      </ComponentConfig>
+    </ComponentConfigurations>
+    <Preliminary>False</Preliminary>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional
