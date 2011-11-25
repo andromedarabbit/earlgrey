@@ -9,6 +9,9 @@ namespace MSBuild.Earlgrey.Tasks
     /// <summary>
     /// Show the text message on the console window. You can also color the message.
     /// </summary>
+    /// <example>
+    /// <code title="Examples" lang="xml" source=".\Samples\msbuild-bettermessage.xml" />
+    /// </example>
     /// <remarks></remarks>
     public class BetterMessage : AbstractTask
     {
@@ -20,7 +23,7 @@ namespace MSBuild.Earlgrey.Tasks
         public ITaskItem[] Text { get; set; }
    
         /// <summary>
-        /// The color of <see cref="Text"/>.
+        /// The color of <see cref="Text"/>. For example, 'Red', 'Grean', 'Blue' and etc.
         /// </summary>
         /// <value>Gets or sets the color.</value>
         /// <remarks></remarks>

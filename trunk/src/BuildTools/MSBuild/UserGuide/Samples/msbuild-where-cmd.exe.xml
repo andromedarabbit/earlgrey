@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<Target Name="RunTest">
+	<Where FileName="cmd.exe">
+		<Output ItemName="Paths" TaskParameter="PathsFound" />
+	</Where>
+	
+
+	<Message Importance="high" Text="@(Paths)" />
+	<Message Importance="high" Text="- %(Paths.Identity)" />
+	
+	<ItemsHelper Items="@(Paths)">
+		<Output PropertyName="NumberOfItems" TaskParameter="Count" />
+	</ItemsHelper>
+	
+	<Error Text="The number of items should be 1, but $(NumberOfItems)!" Condition="'$(NumberOfItems)' != '1'" />
+	
+	<Error Text="Full path to cmd.exe was expected as '$(ComSpec)', but actually it was '@(Paths)'!" Condition="'@(Paths)' != '$(ComSpec)'" />
+</Target>
+
+</Project>

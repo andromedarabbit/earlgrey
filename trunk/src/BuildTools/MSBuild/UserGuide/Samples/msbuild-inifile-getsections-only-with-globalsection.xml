@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="RunTest">
+	<IniFile.GetSections FilePath="$(RootDir)\Data\GolobalSectionOnly.ini">
+		<Output ItemName="SectionsNames" TaskParameter="Sections" />
+	</IniFile.GetSections>
+	
+	<Error 
+		Text="A global section name should be '[]', but @(SectionsNames)!" 
+		Condition="'@(SectionsNames)' != '[]'" />
+	
+	<Error 
+		Text="A global section should have 2 key/value pairs, but it has %(SectionsNames.NumberOfKeys) pairs!" 
+		Condition="'%(SectionsNames.NumberOfKeys)' != '2'" />
+</Target>
+
+</Project>

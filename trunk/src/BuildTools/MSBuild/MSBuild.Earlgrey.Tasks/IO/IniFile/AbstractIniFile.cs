@@ -9,11 +9,17 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.IO.IniFile
 {
+
+    /// <summary>
+    /// A class which provides basic functionalities to manipulate an .ini file.
+    /// </summary>
+    /// <remarks></remarks>
     public abstract class AbstractIniFile : AbstractTask
     {
         private readonly AdvancedFileIniDataParser _parser;
         private IniData _parsedData;
 
+        /// <inheritdoc />
         protected AbstractIniFile()
         {
             _parser = new AdvancedFileIniDataParser();
@@ -27,7 +33,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             return true;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override bool ValidateParameters()
         {
             if(File.Exists(FullPath) == false)
@@ -41,6 +47,10 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             return true;
         }
 
+        /// <summary>
+        /// Gets the parser for .ini file.
+        /// </summary>
+        /// <remarks></remarks>
         protected FileIniDataParser Parser
         {
             get
@@ -50,6 +60,10 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             }
         }
 
+        /// <summary>
+        /// Gets the data representing .ini file.
+        /// </summary>
+        /// <remarks></remarks>
         protected IniData Data
         {
             get
@@ -59,14 +73,27 @@ namespace MSBuild.Earlgrey.Tasks.IO.IniFile
             }
         }
 
+        /// <summary>
+        /// Gets the name of the global section.
+        /// </summary>
+        /// <remarks></remarks>
         protected string GlobalSectionName
         {
             get { return "[]"; }
         }
 
+        /// <summary>
+        /// [Required] Gets or sets the target .ini file path.
+        /// </summary>
+        /// <value>The file path.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem FilePath { get; set; }
 
+        /// <summary>
+        /// Gets the full path of the target .ini file.
+        /// </summary>
+        /// <remarks></remarks>
         protected string FullPath
         {
             get { return FilePath.GetMetadata("FullPath"); }

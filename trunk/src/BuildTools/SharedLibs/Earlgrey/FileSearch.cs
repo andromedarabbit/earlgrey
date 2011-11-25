@@ -84,7 +84,8 @@ namespace Earlgrey
                 files.Add(file);
             }
 
-            foreach (string dir in Directory.GetDirectories(rootDir)){
+            foreach (string dir in Directory.GetDirectories(rootDir))
+            {
                 
                 Search(dir, pattern, files);
             }

@@ -12,7 +12,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip
     /// Compress a folder and its sub-folders and sub-files by using 7-zip.
     /// </summary>
     /// <example>
-    /// <code lang="xml" title="Compress a folder and unzip it into the other path." source=".\Samples\msbuild-zip-a-folder-using-7-zip.xml" />
+    /// <code title="Compress a folder and unzip it into the other path." lang="xml" source=".\Samples\msbuild-zip-a-folder-using-7-zip.xml" />
     /// </example>
     /// <remarks></remarks>
     public class Pack : AbstractToolTask, IPack

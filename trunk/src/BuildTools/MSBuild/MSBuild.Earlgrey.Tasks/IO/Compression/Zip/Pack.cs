@@ -15,7 +15,7 @@ namespace MSBuild.Earlgrey.Tasks.IO.Compression.Zip
     /// Compress a folder and its sub-folders and sub-files.
     /// </summary>
     /// <example>
-    /// <code lang="xml" title="Compress a folder and unzip it into the other path." source=".\Samples\msbuild-zip-a-folder.xml" />
+    /// <code title="Compress a folder and unzip it into the other path." lang="xml" source=".\Samples\msbuild-zip-a-folder.xml" />
     /// </example>
     /// <remarks>Implemented by using  http://dotnetzip.codeplex.com</remarks>
     public class Pack : AbstractTask, IPack

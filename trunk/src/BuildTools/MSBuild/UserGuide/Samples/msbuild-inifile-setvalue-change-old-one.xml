@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<PropertyGroup>
+	<OldIniFile>$(RootDir)\Data\Sections.ini</OldIniFile>
+	<NewIniFile>$(TempDir)\Sections.ini</NewIniFile>
+</PropertyGroup>
+	
+<Target Name="CopyIniFile">
+	<Delete Files="$(NewIniFile)" />
+	
+	<Copy SourceFiles="$(OldIniFile)" DestinationFiles="$(NewIniFile)" />
+</Target>
+	
+<Target Name="RunTest" DependsOnTargets="CopyIniFile">
+	<IniFile.SetValue 
+		FilePath="$(NewIniFile)" 
+		Section="[]" 
+		Key="FirstKeyInGlobalSection" 
+		Value="NewValue"
+		/>
+	
+	<IniFile.GetValue FilePath="$(NewIniFile)" Section="[]" Key="FirstKeyInGlobalSection">
+		<Output PropertyName="ValueRead" TaskParameter="Value" />
+	</IniFile.GetValue>
+	
+	<Error 
+		Text="The target key should have value 'NewValue', but it has '$(ValueRead)'!" 
+		Condition="'$(ValueRead)' != 'NewValue'" />
+</Target>
+
+</Project>
