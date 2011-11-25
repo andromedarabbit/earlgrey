@@ -10,7 +10,7 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
     /// <see cref="ItemsHelper"/> consists of basic grouping functionalities for an ItemGroup. For instance, it can get the first item of the ItemGroup list.
     /// </summary>
     /// <example>
-    /// <code source=".\Samples\msbuild-itemshelper.xml" title="Examples" />
+    /// <code title="Examples" lang="xml" source=".\Samples\msbuild-itemshelper.xml" />
     /// </example>
     /// <remarks></remarks>
     public class ItemsHelper : AbstractTask

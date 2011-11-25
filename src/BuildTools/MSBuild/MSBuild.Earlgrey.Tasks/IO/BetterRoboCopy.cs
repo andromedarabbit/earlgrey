@@ -23,7 +23,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
     /// />  
     /// ]]>
     /// </code>
-    /// <code lang="xml" title="Copy a source folder with all sub items into a desination one." source=".\Samples\msbuild-betterrobocopy.xml" />
+    /// <code title="Copy a source folder with all sub items into a desination one." lang="xml" source=".\Samples\msbuild-betterrobocopy.xml" />
     /// </example>
     /// <remarks>
     /// The difference between <see cref="MSBuild.Community.Tasks.RoboCopy"/> and <see cref="BetterRoboCopy"/> is the way <see cref="BetterRoboCopy"/> handles exit code. Following exit codes are handled as success.

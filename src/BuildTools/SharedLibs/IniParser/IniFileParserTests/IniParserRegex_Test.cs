@@ -19,7 +19,7 @@ namespace IniFileParserTests
         [Test, Description("Test a regular expression for matching a comment in an INI file")]
         public void TestCommentRegex()
         {
-            Console.WriteLine("Regular expresion for comments: {0}", _iniParser.CommentRegexString);
+            Console.WriteLine("Regular expression for comments: {0}", _iniParser.CommentRegexString);
 
             const string strGoodTest1 = ";comment Test";
             const string strGoodTest2 = "   ; comment Test";

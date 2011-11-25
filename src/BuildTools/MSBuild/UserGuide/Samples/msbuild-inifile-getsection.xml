@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="RunTest">
+	<IniFile.GetSection FilePath="$(RootDir)\Data\Sections.ini" Section="SecondSection">
+		<Output ItemName="KeyValuePairs" TaskParameter="KeyValues" />
+	</IniFile.GetSection>
+	
+	<Error 
+		Text="The target section should have two keys 'FirstKeyInSecondSection;SecondKeyInSecondSection', but it has @(KeyValuePairs)!" 
+		Condition="'@(KeyValuePairs)' != 'FirstKeyInSecondSection;SecondKeyInSecondSection'" />
+	
+
+	<Error 
+		Text="The first key should have a value with 'abcdefg', but it has %(KeyValuePairs.Value)!" 
+		Condition="'%(KeyValuePairs.Identity)' == 'FirstKeyInSecondSection' AND '%(KeyValuePairs.Value)' != 'abcdefg'" />
+		
+	<!-- still has a bug processing the comment
+	<Error 
+		Text="The first key should have the comment with 'comment~', but it has %(KeyValuePairs.Comments)!" 
+		Condition="'%(KeyValuePairs.Identity)' == 'FirstKeyInSecondSection' AND '%(KeyValuePairs.Comments)' != 'comment~'" />
+	-->
+		
+	<Error 
+		Text="The second key should have a value with 'abcdefg123', but it has %(KeyValuePairs.Value)!" 
+		Condition="'%(KeyValuePairs.Identity)' == 'SecondKeyInSecondSection' AND '%(KeyValuePairs.Value)' != 'abcdefg123'" />
+	
+	<!-- still has a bug processing the comment
+	<Error 
+		Text="The first key should have no comment, but it has %(KeyValuePairs.Comments)!" 
+		Condition="'%(KeyValuePairs.Identity)' == 'SecondKeyInSecondSection' AND '%(KeyValuePairs.Comments)' != ''" />
+	-->
+</Target>
+
+</Project>

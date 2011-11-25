@@ -10,7 +10,7 @@ namespace MSBuild.Earlgrey.Tasks.ItemGroup
     /// Using an ItemGroup A as new metadata values of the other ItemGroup B, create new ItemGroup C with new metadata.
     /// </summary>
     /// <example>
-    /// <code title="Examples" source=".\Samples\msbuild-SetMetadata.xml" />
+    /// <code title="Examples" lang="xml" source=".\Samples\msbuild-SetMetadata.xml" />
     /// </example>
     /// <remarks></remarks>
     public class SetMetadata : AbstractTask

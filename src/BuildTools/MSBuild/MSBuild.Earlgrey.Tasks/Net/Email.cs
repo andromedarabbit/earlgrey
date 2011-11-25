@@ -11,7 +11,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
     /// Sends an e-mail using a SMTP server. For example, using Gmail.
     /// </summary>
     /// <example> 
-    /// <code lang="xml" title="This is an example using a Gmail account to send an e-mail." source=".\Samples\msbuild-send-an-email-using-gmail.xml" />
+    /// <code title="This is an example using a Gmail account to send an e-mail." lang="xml" source=".\Samples\msbuild-send-an-email-using-gmail.xml" />
     /// </example>
     /// <remarks></remarks>
     public class Email : Task
