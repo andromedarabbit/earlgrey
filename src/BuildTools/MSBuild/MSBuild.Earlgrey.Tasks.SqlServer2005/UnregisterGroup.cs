@@ -8,12 +8,19 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
-
+    /// <summary>
+    /// Unregister a server group from SQL Server Management Studio 2005.
+    /// </summary>
+    /// <example>
+    /// <code title="Register and unregister the target server group in SQL Server Management Studio 2005." lang="xml" source=".\Samples\msbuild-RegisterGroup-UnregisterGroup.xml" />
+    /// </example>
+    /// <remarks></remarks>
     public class UnregisterGroup : AutoResolveTask
     {
         private string _name;
         private string _path;
 
+        /// <inheritdoc />
         public UnregisterGroup()
         {
             _name = null;
@@ -60,7 +67,11 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             group.Drop();
         }
 
-      
+        /// <summary>
+        /// [Required] Gets or sets the name of the server group.
+        /// </summary>
+        /// <value>The server group name.</value>
+        /// <remarks></remarks>
         [Required]
         public string Name
         {
@@ -68,6 +79,15 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             set { _name = value.Trim(); }
         }
 
+        /// <summary>
+        /// Gets or sets the path where the target group <see cref="Name"/> is on.
+        /// </summary>
+        /// <value>If you do not set <see cref="Path"/>, the target server group will be assumed as the root.</value>
+        /// <example>
+        /// <code>ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']</code>
+        /// </example>
+        /// <remarks>
+        /// </remarks>
         public string Path
         {
             get { return _name; }
