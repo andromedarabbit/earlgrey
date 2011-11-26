@@ -12,12 +12,29 @@ using MSBuild.Community.Tasks.Services;
 namespace MSBuild.Earlgrey.Tasks.IO
 {
     /// <summary>
-    /// 
+    /// An alternative version of Where.exe in Windows, but implemented and works in totally different way.
     /// </summary>
     /// <example>
     /// <code title="" lang="xml" source=".\Samples\msbuild-where-cmd.exe.xml" />
     /// </example>        
-    /// <remarks></remarks>
+    /// <remarks>
+    /// This searches the file you wand to find using <see cref="FileName"/> and let you know where you can find it. 
+    /// Search paths are:
+    /// <list type="bullet">
+    /// <item>
+    /// <description>Base directory.</description>
+    /// </item>
+    /// <item>
+    /// <description>System directory (ex. C:\Windows\system32).</description>
+    /// </item>
+    /// <item>
+    /// <description>Windows directory (ex. C:\Windows).</description>
+    /// </item>
+    /// <item>
+    /// <description>All the paths described in the environment variable PATH.</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
     public class Where : AbstractTask
     {
         private readonly List<ITaskItem> _pathsFound;
@@ -49,11 +66,7 @@ namespace MSBuild.Earlgrey.Tasks.IO
             get { return _pathsFound.ToArray(); }
         }
 
-        /// <summary>
-        /// Validates the parameters.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if (string.IsNullOrEmpty(FileName))
@@ -64,14 +77,10 @@ namespace MSBuild.Earlgrey.Tasks.IO
             return true;
         }
 
-        /// <summary>
-        /// Executes the command.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <inheritdoc />
         protected override bool ExecuteCommand()
         {
-            IEnumerable<string> pathsFound = FileSearch.FindAll(FileName).Distinct(StringComparer.CurrentCultureIgnoreCase);
+            IEnumerable<string> pathsFound = FileSearch.FindAll(FileName);
             foreach (var path in pathsFound)
             {
                 Debug.Assert(string.IsNullOrEmpty(path) == false);
