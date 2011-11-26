@@ -21,13 +21,13 @@ namespace Earlgrey
                     folders.Add(winDir);
 
                 string pathFromEnv = Environment.GetEnvironmentVariable("PATH");
-                if (string.IsNullOrEmpty(pathFromEnv))
-                    return folders;
+                if (string.IsNullOrEmpty(pathFromEnv) == false)
+                {
+                    string[] paths = pathFromEnv.Split(';');
+                    folders.AddRange(paths);   
+                }
 
-                string[] paths = pathFromEnv.Split(';');
-                folders.AddRange(paths);
-                
-                return folders;
+                return folders.Distinct(StringComparer.OrdinalIgnoreCase);
             }
         }
 

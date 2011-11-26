@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
-using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 

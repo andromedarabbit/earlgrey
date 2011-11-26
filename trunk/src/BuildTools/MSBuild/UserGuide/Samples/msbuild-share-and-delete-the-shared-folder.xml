@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="Del">
+	<DeleteSharedFolder
+		Name="Earlgrey Doc"
+		TreatAsErrorWhenNotExist="false"
+		DeleteLocalFolder="true"
+		/>
+</Target>
+
+<Target Name="Create">
+	<ShareFolder 
+		LocalFolder="$(TempDir)"
+		Description="Created with the purpose of testing"
+		Name="Earlgrey Doc"
+		ResetExistingOne="true"
+		MakeFolderWhenNotExist="true"
+		Privilege="Full"
+		/>
+</Target>
+
+<Target Name="RunTest" DependsOnTargets="Del; Create; Del">
+</Target>
+
+</Project>
