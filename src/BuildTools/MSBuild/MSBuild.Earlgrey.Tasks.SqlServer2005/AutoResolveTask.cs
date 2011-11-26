@@ -8,6 +8,10 @@ using Earlgrey;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
+    /// <summary>
+    /// Resolve the necessary assembly files when Microsoft SQL Server 2005 Management Objects is installed in GAC.
+    /// </summary>
+    /// <remarks></remarks>
     public abstract class AutoResolveTask : AbstractTask
     {
         static AutoResolveTask()
@@ -16,6 +20,10 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         }
 
         // TODO: Earlgrey.TaskUtility 와 중복 코드
+        /// <summary>
+        /// Gets the directory where this assembly resides in.
+        /// </summary>
+        /// <remarks></remarks>
         private static string ThisAssemblyDirectory
         {
             get
@@ -26,21 +34,9 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             }
         }
 
-        //private static string OSBitnessKeyword
-        //{
-        //    get
-        //    {
-        //        if (EnvironmentHelper.Is64BitOperatingSystem() == true)
-        //            return "x64";
-        //        return "x86";
-        //    }
-        //}
-
         private static Assembly MyResolveEventHandler(object sender, ResolveEventArgs args)
         {
-            //This handler is called only when the common language runtime tries to bind to the assembly and fails.
-
-
+            // This handler is called only when the common language runtime tries to bind to the assembly and fails.
             string assemblyNameMissing = args.Name.Substring(0, args.Name.IndexOf(","));
 
             string assemblyPath = Path.Combine(ThisAssemblyDirectory, @"ExternalLibs\Microsoft SQL Server 2005 Management Objects\x64");
@@ -50,10 +46,10 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             if (File.Exists(assemblyPath) == false)
                 return null;
 
-            //Load the assembly from the specified path. 					
+            // Load the assembly from the specified path. 					
             Assembly assemblyFound = Assembly.LoadFrom(assemblyPath);
 
-            //Return the loaded assembly.
+            // Return the loaded assembly.
             return assemblyFound;
         }
     }

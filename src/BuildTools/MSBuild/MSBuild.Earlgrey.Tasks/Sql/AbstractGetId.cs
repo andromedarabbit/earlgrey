@@ -11,11 +11,22 @@ namespace MSBuild.Earlgrey.Tasks.Sql
     /// <summary>
     /// Defines the interface for the classes to retrieve some identity numbers from SQL Server.
     /// </summary>
-    /// <remarks></remarks>
+    /// <remarks>
+    /// Identity numbers are provided as metadata named 'Id'.
+    /// <list type="bullet">
+    /// <item>
+    /// <term>%(Identity)</term>
+    /// <description>Identity name which is the same with <see cref="Names"/>.</description>
+    /// </item>
+    /// <item>
+    /// <term>%(Id)</term>
+    /// <description>Identity number of %(Id).</description>
+    /// </item>
+    /// </list>
+    /// </remarks>
     public abstract class AbstractGetId : AbstractTask
     {
         private readonly List<ITaskItem> _identities;
-
 
         /// <summary>
         /// [Required] Gets or sets the connection string.

@@ -66,7 +66,7 @@
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks.SqlServer2008\MSBuild.Earlgrey.Tasks.SqlServer2008.csproj">
       <Project>{8F67C848-DAD6-4FC3-BDEB-B740EA575130}</Project>
-      <Name>MSBuild.Earlgrey.Tasks.Sql2008</Name>
+      <Name>MSBuild.Earlgrey.Tasks.SqlServer2008</Name>
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
       <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>

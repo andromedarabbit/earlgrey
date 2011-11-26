@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-configurations.xml" />
+
+	<PropertyGroup>
+		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
+	</PropertyGroup>
+	
+	<Target Name="RunTest">
+		<SqlServer2005.SqlCmd			
+			Server=".\SQLEXPRESS"
+			DbName="earlgrey_test"
+			TrustedConnection="true"
+			Query="
+IF OBJECT_ID('dbo.SqlCmdTestTable') IS NOT NULL BEGIN
+	DROP TABLE dbo.SqlCmdTestTable
+END
+GO
+
+CREATE TABLE [dbo].SqlCmdTestTable(
+	[unique_key] [int] NOT NULL,
+)
+GO
+"
+		/>
+
+		<!-- Verify -->
+		<GetObjectId
+			ConnectionString="$(ConnectionString)"
+			Names="earlgrey_test.dbo.SqlCmdTestTable"
+			>
+			<Output TaskParameter="Ids" ItemName="ObjectIds" />
+		</GetObjectId>
+
+		<Error Text="Not found!" Condition="'@(ObjectIds)' == ''" />
+		
+		<Message Text="%(ObjectIds.Identity) - %(ObjectIds.Id)" />
+		
+		<!-- Clean up -->
+		<SqlServer2005.SqlCmd			
+			Server=".\SQLEXPRESS"
+			DbName="earlgrey_test"
+			TrustedConnection="true"
+			Query="
+DROP TABLE dbo.SqlCmdTestTable
+GO			
+			"
+		/>
+	</Target>
+</Project>
