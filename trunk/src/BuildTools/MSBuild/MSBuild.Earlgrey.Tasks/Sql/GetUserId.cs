@@ -9,7 +9,10 @@ namespace MSBuild.Earlgrey.Tasks.Sql
     /// <summary>
     /// Getting the user ids from SQL Server. 
     /// </summary>
-    /// <remarks></remarks>
+    /// <example>
+    /// <code title="Getting user identiy numbers from 'master' database." lang="xml" source=".\Samples\msbuild-GetUserId.xml" />
+    /// </example>
+    /// <inheritdoc />
     public class GetUserId : AbstractGetId
     {
         /// <inheritdoc />

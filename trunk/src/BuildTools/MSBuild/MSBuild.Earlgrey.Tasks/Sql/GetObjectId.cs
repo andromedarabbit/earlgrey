@@ -10,7 +10,10 @@ namespace MSBuild.Earlgrey.Tasks.Sql
     /// <summary>
     /// Getting the object ids from SQL Server. 
     /// </summary>
-    /// <remarks></remarks>
+    /// <example>
+    /// <code title="Getting object identiy numbers from 'master' database." lang="xml" source=".\Samples\msbuild-GetObjectId.xml" />
+    /// </example>
+    /// <inheritdoc />
     public class GetObjectId : AbstractGetId
     {
         /// <inheritdoc />

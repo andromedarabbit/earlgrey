@@ -36,7 +36,7 @@
     <Reference Include="Microsoft.Build.Framework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Build.Utilities" />
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-     <Reference Include="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.SqlServer.Smo, Version=9.0.242.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>True</SpecificVersion>
       <HintPath>..\..\..\..\vendor\Microsoft SQL Server 2005 Management Objects\x64\Program Files (x86)\Microsoft SQL Server\90\GAC\Microsoft.SqlServer.Smo.dll</HintPath>
       <Private>False</Private>
@@ -81,7 +81,7 @@
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks.SqlServer2005\MSBuild.Earlgrey.Tasks.SqlServer2005.csproj">
       <Project>{6A06EBD9-298C-4ACA-A117-670C7D6CEC2C}</Project>
-      <Name>MSBuild.Earlgrey.Tasks.Sql2005</Name>
+      <Name>MSBuild.Earlgrey.Tasks.SqlServer2005</Name>
     </ProjectReference>
     <ProjectReference Include="..\MSBuild.Earlgrey.Tasks\MSBuild.Earlgrey.Tasks.csproj">
       <Project>{72CE6E28-4C07-4377-B01B-CBEC887CE918}</Project>

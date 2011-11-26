@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-configurations.xml" />
+
+	<PropertyGroup>
+		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
+	</PropertyGroup>
+
+	<!-- User identity numbers are provided as metadata named 'Id'. -->
+	<Target Name="RunTest">
+		<GetUserId
+			ConnectionString="$(ConnectionString)"
+			Names="dbo; guest; sys"
+			>
+			<Output TaskParameter="Ids" ItemName="UserIds" />
+		</GetUserId>
+
+		<Error Text="Not found!" Condition="'@(UserIds)' == ''" />
+		
+		<Message Text="%(UserIds.Identity) - %(UserIds.Id)" />
+	</Target>
+
+</Project>

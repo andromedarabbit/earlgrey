@@ -3,15 +3,15 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">.</MSBuildEarlgreyTasksPath>
-    <MSBuildEarlgreyTasksLib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2005.dll</MSBuildEarlgreyTasksLib>
+		<MSBuildEarlgreyTasksSqlServer2005Lib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2005.dll</MSBuildEarlgreyTasksSqlServer2005Lib>
     <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
   </PropertyGroup>
 
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.GetRegisteredGroups" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterGroup" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterGroup" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterServer" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterServer" />
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.SqlCmd" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.GetRegisteredGroups" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterGroup" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterGroup" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.RegisterServer" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.UnregisterServer" />
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2005Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2005.SqlCmd" />
   
 </Project>

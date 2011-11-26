@@ -45,10 +45,8 @@
 
 
 <Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.Targets" />
-<!--
 <Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.SqlServer2005.Targets" />
 <Import Project="$(EarlgreyExtensionDir)\MSBuild.Earlgrey.Tasks.SqlServer2008.Targets" />
--->
 
 </Project>
 

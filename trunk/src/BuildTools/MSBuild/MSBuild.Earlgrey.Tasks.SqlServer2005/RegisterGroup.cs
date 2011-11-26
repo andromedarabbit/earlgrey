@@ -9,6 +9,10 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks></remarks>
     public class RegisterGroup : AutoResolveTask
     {
         private string _name;
@@ -130,6 +134,11 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             group.Create();
         }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
+        /// <remarks></remarks>
         [Required]
         public string Name
         {
@@ -137,18 +146,33 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
             set { _name = value.Trim(); }
         }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>The description.</value>
+        /// <remarks></remarks>
         public string Description 
         {
             get { return _description; }
             set { _description = value.Trim(); }
         }
 
+        /// <summary>
+        /// Gets or sets the path.
+        /// </summary>
+        /// <value>The path.</value>
+        /// <remarks></remarks>
         public string Path
         {
             get { return _name; }
             set { _path = value.Trim(); }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [create recursively].
+        /// </summary>
+        /// <value><c>true</c> if [create recursively]; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
         public bool CreateRecursively
         {
             get { return _createRecursively; }

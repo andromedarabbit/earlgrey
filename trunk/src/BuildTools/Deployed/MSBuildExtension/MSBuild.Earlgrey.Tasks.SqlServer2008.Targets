@@ -3,11 +3,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">.</MSBuildEarlgreyTasksPath>
-    <MSBuildEarlgreyTasksLib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2008.dll</MSBuildEarlgreyTasksLib>
+    <MSBuildEarlgreyTasksSqlServer2008Lib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2008.dll</MSBuildEarlgreyTasksSqlServer2008Lib>
     <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
   </PropertyGroup>
 
  
-  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksLib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2008.GenerateSqlScripts" />
-  
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2008Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2008.GenerateSqlScripts" />
 </Project>
