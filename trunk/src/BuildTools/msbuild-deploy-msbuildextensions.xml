@@ -7,7 +7,7 @@
 <ItemGroup>
 	<MSBuildExtensionFile 
 		Include="$(RootDir)\MSBuild\UserGuide\**\*"
-		Exclude="$(RootDir)\MSBuild\UserGuide\*.shfbproj;$(RootDir)\MSBuild\UserGuide\Help\*.log"
+		Exclude="$(RootDir)\MSBuild\Temp;$(RootDir)\MSBuild\UserGuide\*.shfbproj;$(RootDir)\MSBuild\UserGuide\Help\*.log"
 	>
 		<DstDir>$(DeploymentDir)\UserGuide</DstDir>
 	</MSBuildExtensionFile>

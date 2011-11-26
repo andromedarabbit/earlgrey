@@ -11,6 +11,7 @@
 	</PropertyGroup>
 	
 	<Target Name="RunTest">
+		<!-- Create a sample table. -->
 		<SqlServer2005.SqlCmd			
 			Server=".\SQLEXPRESS"
 			DbName="earlgrey_test"

@@ -10,8 +10,11 @@ using Microsoft.SqlServer.Management.Smo.RegisteredServers;
 namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 {
     /// <summary>
-    /// 
+    /// Register a server group into SQL Server Management Studio 2005.
     /// </summary>
+    /// <example>
+    /// <code title="Register and unregister the target server group in SQL Server Management Studio 2005." lang="xml" source=".\Samples\msbuild-RegisterGroup-UnregisterGroup.xml" />
+    /// </example>
     /// <remarks></remarks>
     public class RegisterGroup : AutoResolveTask
     {
@@ -21,6 +24,7 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
 
         private bool _createRecursively;
 
+        /// <inheritdoc />
         public RegisterGroup()
         {
             _name = null;
@@ -135,9 +139,9 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         }
 
         /// <summary>
-        /// Gets or sets the name.
+        /// [Required] Gets or sets the name of the server group.
         /// </summary>
-        /// <value>The name.</value>
+        /// <value>The server group name.</value>
         /// <remarks></remarks>
         [Required]
         public string Name
@@ -158,10 +162,14 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         }
 
         /// <summary>
-        /// Gets or sets the path.
+        /// Gets or sets the path where the target group <see cref="Name"/> is on.
         /// </summary>
-        /// <value>The path.</value>
-        /// <remarks></remarks>
+        /// <value>If you do not set <see cref="Path"/>, the target server group will be created on the root.</value>
+        /// <example>
+        /// <code>ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']</code>
+        /// </example>
+        /// <remarks>        
+        /// </remarks>
         public string Path
         {
             get { return _name; }
@@ -169,9 +177,9 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2005
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether [create recursively].
+        /// Gets or sets a value indicating whether to create recursively.
         /// </summary>
-        /// <value><c>true</c> if [create recursively]; otherwise, <c>false</c>.</value>
+        /// <value>Set <c>true</c> if you want to create the server group <see cref="Name"/> recursively; otherwise, <c>false</c>.</value>
         /// <remarks></remarks>
         public bool CreateRecursively
         {
