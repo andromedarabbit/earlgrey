@@ -10,38 +10,172 @@ using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
+    /// <summary>
+    /// Provides the interface for classes which operates on <a href="http://winscp.net">WinSCP</a>.
+    /// </summary>
+    /// <remarks>
+    /// <a href="http://winscp.net">WinSCP</a> is the famous and featureful FTP/SFTP client for Windows. 
+    /// It has an advantage of automation scripting over FileZila, which is also the well-known open-source one.
+    /// </remarks>
     public abstract class AbstractWinScp : AbstractToolTask
     {
+        /// <summary>
+        /// Gets or sets the name of the destination FTP host.
+        /// </summary>
+        /// <value>The name of the host.</value>
+        /// <remarks></remarks>
         [Required]
         public string HostName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the port.
+        /// </summary>
+        /// <value>The port.</value>
+        /// <remarks></remarks>
         public int Port { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the protocol FTP.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to connect to the <see cref="HostName"/> using the protocol FTP; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/protocols">Supported Transfer Protocols</a> for more details.
+        /// </remarks>
         public bool ProtocolFtp { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the protocol SFTP.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to connect to the <see cref="HostName"/> using the protocol SFTP; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/protocols">Supported Transfer Protocols</a> for more details.
+        /// </remarks>
         public bool ProtocolSFtp { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the protocol SCP.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to connect to the <see cref="HostName"/> using the protocol SCP; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/protocols">Supported Transfer Protocols</a> for more details.
+        /// </remarks>
         public bool ProtocolScp { get; set; }
 
         // [/implicit|explicitssl|explicittls]
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the [implicit] invocation method.
+        /// </summary>
+        /// <value>Set <c>true</c> if you need [implicit] invocation method; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/ftps">FTPS</a> for more details of the difference between two invocation methods 'implicit'/'explicit'.
+        /// </remarks>
         public bool Implicit { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the [explicit SSL] invocation method.
+        /// </summary>
+        /// <value>Set <c>true</c> if you need [explicit SSL] invocation method; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/ftps">FTPS</a> for more details of the difference between two invocation methods 'implicit'/'explicit'.
+        /// </remarks>
         public bool ExplicitSsl { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the [explicit TLS] invocation method.
+        /// </summary>
+        /// <value>Set <c>true</c> if you need [explicit TLS] invocation method; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/ftps">FTPS</a> for more details of the difference between two invocation methods 'implicit'/'explicit'.
+        /// </remarks>
         public bool ExplicitTls { get; set; }
 
+        /// <summary>
+        /// [Required] Gets or sets the name of the user.
+        /// </summary>
+        /// <value>The name of the user.</value>
+        /// <remarks></remarks>
         [Required]
         public string UserName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
+        /// <value>The password.</value>
+        /// <remarks></remarks>
         public string Password { get; set; }
 
+        /// <summary>
+        /// Gets or sets the host key.
+        /// </summary>
+        /// <value>The host key.</value>
+        /// <remarks></remarks>
         public string HostKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to use the passive transfer mode.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to use the passive transfer mode; otherwise, <c>false</c>.</value>
+        /// <remarks>FTP protocol only</remarks>
         public bool Passive { get; set; }
 
+        /// <summary>
+        /// Gets or sets the timeout in seconds.
+        /// </summary>
+        /// <value>The timeout in seconds.</value>
+        /// <remarks></remarks>
         public int TimeoutSeconds { get; set; }
-        // public string LogFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to enable echoing of command being executed.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to enable echoing of command being executed; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/scriptcommand_option">Script Commands - option</a> for more details.
+        /// </remarks>
         public bool Echo { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to toggle confirmations for overwrite, etc.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to toggle confirmations; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// See <a href="http://winscp.net/eng/docs/scriptcommand_option">Script Commands - option</a> for more details.
+        /// </remarks>
         public bool Confirm { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether to enable the batch mode.
+        /// </summary>
+        /// <value>Set <c>true</c> if you want to enable the batch mode; otherwise, <c>false</c>.</value>
+        /// <remarks>
+        /// In batch mode, any choice prompt is automatically replied and any input prompt is cancelled (after short time interval). 
+        /// 
+        /// <list type="bullet">
+        /// <listheader>
+        /// <term>off</term>
+        /// <description>In batch mode, it is recommended to set confirm to off to allow overwrites. </description>
+        /// </listheader>
+        /// <item>
+        /// <term>on</term>
+        /// <description>When batch mode is set to on any choice prompt is automatically replied negatively. Unless the prompt has different default answer (such as default “Reconnect” answer for reconnect prompt), in what case the default answer is used (after short time interval). </description>
+        /// </item>
+        /// <item>
+        /// <term>abort</term>
+        /// <description>Value abort is like on. In addition, the script is aborted, when any script command fails or any choice prompt is replied with “Abort” answer (or similar). </description>
+        /// </item>
+        /// <item>
+        /// <term>continue</term>
+        /// <description>When set to continue any choice prompt is automatically replied with “Skip”, “Ignore” or similar answer. </description>
+        /// </item>        
+        /// </list>
+        /// 
+        /// See <a href="http://winscp.net/eng/docs/scriptcommand_option">Script Commands - option</a> for more details.
+        /// </remarks>
         public string Batch { get; set; }
-        
+
         private string _internalScriptFile;
+
         private string _options;
 
         private string UrlPrefix
@@ -139,6 +273,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
             }
         }
 
+        /// <inheritdoc />
         protected AbstractWinScp()
         {
             this.Echo = true;
@@ -150,6 +285,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
             get { return ProtocolFtp && (Implicit || ExplicitSsl || ExplicitTls) == true; }
         }
 
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if (ProtocolFtp == false && ProtocolScp == false && ProtocolSFtp == false)
@@ -205,11 +341,13 @@ namespace MSBuild.Earlgrey.Tasks.Net
             return base.ValidateParameters();
         }
 
+        /// <inheritdoc />
         protected override string ToolName
         {
             get { return "WinSCP.com"; }
         }
 
+        /// <inheritdoc />
         protected override string GenerateCommandLineCommands()
         {
             Debug.Assert(string.IsNullOrEmpty(InternalScriptFile) == false);
@@ -226,6 +364,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
+        /// <inheritdoc />
         protected override string GenerateFullPathToTool()
         {
             string fullPathToTool = base.GenerateFullPathToTool();
@@ -299,6 +438,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
             }
         }
 
+        /// <inheritdoc />
         public override bool Execute()
         {
             Log.LogMessage(MessageImportance.High, InternalScriptText);
@@ -306,6 +446,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
+        /// <inheritdoc />
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
         {
             singleLine = singleLine.Replace("Error", "Failure");

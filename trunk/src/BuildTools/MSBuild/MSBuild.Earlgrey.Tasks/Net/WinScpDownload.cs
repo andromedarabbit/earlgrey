@@ -4,20 +4,34 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
     // \ref http://winscp.net/eng/docs/script_commands
+
+
+    /// <summary>
+    /// Download files from the remote FTP server by using WinSCP.
+    /// </summary>
+    /// <example>
+    /// <code title="Download a file from the remote FTP server and place it in into this directory." lang="xml" source=".\Samples\msbuild-WinScpDownload-download-a-file.xml" />
+    /// <code title="Download files from the remote FTP server and place those in into sub-directories." lang="xml" source=".\Samples\msbuild-WinScpDownload-download-files-into-sub-directories.xml" />
+    /// </example>
+    /// <inheritdoc />
     public class WinScpDownload : AbstractWinScp
     {
-        public const string LocalDirKeyName = "LocalDir";
-        public const string SwitchesKeyName = "Switches";
-        public const string CreateLocalFolderKeyName = "CreateLocalFolder";
+        internal const string LocalDirKeyName = "LocalDir";
+        internal const string SwitchesKeyName = "Switches";
+        internal const string CreateLocalFolderKeyName = "CreateLocalFolder";
 
         private readonly WinScp _winScp;
         private ITaskItem[] _files;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WinScpDownload"/> class.
+        /// </summary>
+        /// <inheritdoc/>
+        /// <remarks></remarks>
         public WinScpDownload()
         {
             _winScp = new WinScp();
@@ -25,6 +39,24 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
+        /// <summary>
+        /// [Required] Gets or sets the files to download from the remote server.
+        /// </summary>
+        /// <value>The files to download.</value>
+        /// <remarks>
+        /// There are two different metadata you can use:
+        /// 
+        /// <list type="bullet">
+        /// <listheader>
+        /// <term>LocalDir</term>
+        /// <description>The local directory where the file to be placed.</description>
+        /// </listheader>
+        /// <item>
+        /// <term>CreateLocalFolder</term>
+        /// <description>If <c>true</c>, create 'LocalDir' when it is not found!</description>
+        /// </item>
+        /// </list>
+        /// </remarks>
         [Required]
         public ITaskItem[] Files
         {
@@ -61,9 +93,10 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
         private static string GetLocalDirectory(ITaskItem file)
         {
-            return file.GetMetadata(LocalDirKeyName);
+            return file.GetMetadata(LocalDirKeyName).TrimEnd('\\');
         }
 
+        /// <inheritdoc />
         protected override string Scripts
         {
             get
@@ -88,7 +121,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
             string dstDir = GetLocalDirectory(file);
             builder.Append(
-                string.Format("get \"{0}\" \"{1}\" ", srcPath, dstDir)
+                string.Format("get \"{0}\" \"{1}\\\" ", srcPath, dstDir)
                 );
 
             if (string.IsNullOrEmpty(putSwitches))
@@ -99,6 +132,12 @@ namespace MSBuild.Earlgrey.Tasks.Net
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Validates the parameters.
+        /// </summary>
+        /// <returns></returns>
+        /// <inheritdoc/>
+        /// <remarks></remarks>
         protected override bool ValidateParameters()
         {
             bool hasInvalidRemotePath = Files.Any(
@@ -115,13 +154,19 @@ namespace MSBuild.Earlgrey.Tasks.Net
         }
 
 
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <inheritdoc/>
+        /// <remarks></remarks>
         public override bool Execute()
         {
             foreach (var file in _files)
             {
                 if (NeedToCreateLocalFolder(file) == true)
                 {
-                    string dstDir = GetRemoteDirectory(file);
+                    string dstDir = GetLocalDirectory(file);
                     Directory.CreateDirectory(dstDir);                    
                 }
             }

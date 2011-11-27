@@ -7,8 +7,20 @@ using Microsoft.Build.Framework;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
-    internal class WinScpRmDir : AbstractWinScp
-    {        
+    /// <summary>
+    /// Remove the remote directory by using WinSCP.
+    /// </summary>
+    /// <example>
+    /// <code title="Create the remote directory and delete it." lang="xml" source=".\Samples\msbuild-WinScpMkDir-WindScpRmDir.xml" />
+    /// </example>
+    /// <remarks></remarks>
+    public class WinScpRmDir : AbstractWinScp
+    {
+        /// <summary>
+        /// [Required] Gets or sets the remote directories to remove.
+        /// </summary>
+        /// <value>The remote directories to remove.</value>
+        /// <remarks></remarks>
         [Required]
         public ITaskItem[] Directories { get; set; }
 
