@@ -7,10 +7,6 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
 {
     public class BetterSvnDiff : SvnDiff
     {
-        public BetterSvnDiff()
-        {
-        }
-
         public override bool Execute()
         {
             if(base.Execute() == false)

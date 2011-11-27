@@ -4,27 +4,57 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Microsoft.Build.Framework;
-using Microsoft.Build.Utilities;
 
 namespace MSBuild.Earlgrey.Tasks.Net
 {
     // \ref http://winscp.net/eng/docs/script_commands
+
+    /// <summary>
+    /// Uploads files into the remote FTP server by using WinSCP.
+    /// </summary>
+    /// <example>
+    /// <code title="Upload a file to the remote FTP server and place it in into the root directory." lang="xml" source=".\Samples\msbuild-WinScpUpload-upload-a-file.xml" />
+    /// <code title="Upload files to the remote FTP server and place those in into sub-directories." lang="xml" source=".\Samples\msbuild-WinScpUpload-upload-files-into-sub-directories.xml" />
+    /// </example>
+    /// <inheritdoc />
     public class WinScpUpload : AbstractWinScp
     {
-        public const string RemoteDirKeyName = "RemoteDir";
-        public const string SwitchesKeyName = "Switches";
-        public const string CreateRemoteFolderKeyName = "CreateRemoteFolder";
+        internal const string RemoteDirKeyName = "RemoteDir";
+        internal const string SwitchesKeyName = "Switches";
+        internal const string CreateRemoteFolderKeyName = "CreateRemoteFolder";
 
         private readonly WinScp _winScp;
         private ITaskItem[] _files;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WinScpUpload"/> class.
+        /// </summary>
+        /// <inheritdoc/>
+        /// <remarks></remarks>
         public WinScpUpload()
         {
             _winScp = new WinScp();
             _winScp.BuildEngine = this.BuildEngine;
         }
 
-        
+        /// <summary>
+        /// [Required] Gets or sets the files to upload into the remote server.
+        /// </summary>
+        /// <value>The files to upload.</value>
+        /// <remarks>
+        /// There are two different metadata you can use:
+        /// 
+        /// <list type="bullet">
+        /// <listheader>
+        /// <term>RemoteDir</term>
+        /// <description>The remote directory where the file to be placed.</description>
+        /// </listheader>
+        /// <item>
+        /// <term>CreateRemoteFolder</term>
+        /// <description>If <c>true</c>, create 'RemoteDir' when it is not found!</description>
+        /// </item>
+        /// </list>
+        /// </remarks>
         [Required]
         public ITaskItem[] Files
         {
@@ -56,7 +86,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
         private static string GetRemoteDirectory(ITaskItem file)
         {
-            return file.GetMetadata(RemoteDirKeyName);
+            return file.GetMetadata(RemoteDirKeyName).TrimEnd('/');
         }
 
         private static string GetLocalDirectory(ITaskItem file)
@@ -97,7 +127,7 @@ namespace MSBuild.Earlgrey.Tasks.Net
 
             string dstDir = GetRemoteDirectory(file);
             builder.Append(
-                string.Format("put \"{0}\" \"{1}\" ", srcPath, dstDir)
+                string.Format("put \"{0}\" \"{1}/\" ", srcPath, dstDir)
                 );
 
             if (string.IsNullOrEmpty(putSwitches))

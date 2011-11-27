@@ -11,9 +11,29 @@ using Microsoft.Build.Utilities;
 namespace MSBuild.Earlgrey.Tasks.Net
 {
 
+    /// <summary>
+    /// Run scripting commands against the remote FTP server by using WinSCP.
+    /// </summary>
+    /// <example>
+    /// <code title="Run scripting commands embedded in the the build script itself against the remote FTP server." lang="xml" source=".\Samples\msbuild-WinScp-using-embeded-script-text.xml" />
+    /// <code title="Run scripting commands using a text file against the remote FTP server." lang="xml" source=".\Samples\msbuild-WinScp-using-script-file.xml" />
+    /// </example>
+    /// <remarks></remarks>
+    /// <inheritdoc />
     public class WinScp : AbstractWinScp
     {
+        /// <summary>
+        /// Gets or sets the script text.
+        /// </summary>
+        /// <value>The script text.</value>
+        /// <remarks></remarks>
         public string ScriptText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the script file.
+        /// </summary>
+        /// <value>The script file.</value>
+        /// <remarks></remarks>
         public string ScriptFile { get; set; }
 
         protected override bool ValidateParameters()
