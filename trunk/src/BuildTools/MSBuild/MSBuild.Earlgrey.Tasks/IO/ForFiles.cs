@@ -124,12 +124,6 @@ namespace MSBuild.Earlgrey.Tasks.IO
         }
 
         /// <inheritdoc />
-        protected override bool ValidateParameters()
-        {
-            return base.ValidateParameters();
-        }
-
-        /// <inheritdoc />
         protected override string GenerateCommandLineCommands()
         {
             if (FileVersion.FileMajorPart == 1)

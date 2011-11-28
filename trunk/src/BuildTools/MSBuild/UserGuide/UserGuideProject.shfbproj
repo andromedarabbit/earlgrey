@@ -22,13 +22,14 @@
     <SandcastlePath>..\..\..\..\vendor\Sandcastle\Sandcastle\</SandcastlePath>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" />
+    </DocumentationSources>
     <HelpTitle>MSBuild.Earlgrey.Tasks Documentation</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <CopyrightHref>http://www.opensource.org/licenses/mit-license.php</CopyrightHref>
@@ -76,40 +77,38 @@
     <IncludeFavorites>True</IncludeFavorites>
     <ApiFilter>
       <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks" isExposed="False">
-        <Filter entryType="Class" fullName="MSBuild.Community.Tasks.RoboCopy" filterName="RoboCopy" isExposed="True" />
-      </Filter>
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.AspNet" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Ftp" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Fusion" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.HtmlHelp" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.IIS" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Install" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.JavaScript" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Math" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Net" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Oracle" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Sandcastle" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Schema" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Services" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SourceSafe" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SourceServer" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SqlServer" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Subversion" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SymbolServer" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Tfs" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Xml" isExposed="False" />
-      <Filter entryType="Namespace" fullName="MSBuild.Earlgrey.Tasks.Subversion" isExposed="False">
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.AbstractSvnDiff" filterName="AbstractSvnDiff" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.BetterSvnDiff" filterName="BetterSvnDiff" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDelete" filterName="SvnDelete" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" filterName="SvnDiff" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiffWithPlainSummary" filterName="SvnDiffWithPlainSummary" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiffWithXmlSummary" filterName="SvnDiffWithXmlSummary" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnPathResolver" filterName="SvnPathResolver" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnRevert" filterName="SvnRevert" isExposed="True" />
-        <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" filterName="SvnSwitch" isExposed="True" />
-      </Filter>
-    </ApiFilter>
+  <Filter entryType="Class" fullName="MSBuild.Community.Tasks.RoboCopy" filterName="RoboCopy" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.AspNet" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Ftp" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Fusion" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.HtmlHelp" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.IIS" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Install" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.JavaScript" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Math" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Net" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Oracle" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Sandcastle" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Schema" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Services" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SourceSafe" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SourceServer" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SqlServer" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Subversion" isExposed="False">
+  <Filter entryType="Class" fullName="MSBuild.Community.Tasks.Subversion.SvnClient" filterName="SvnClient" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.SymbolServer" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Tfs" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Community.Tasks.Xml" isExposed="False" />
+<Filter entryType="Namespace" fullName="MSBuild.Earlgrey.Tasks.Subversion" isExposed="False">
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.AbstractSvnDiff" filterName="AbstractSvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.BetterSvnDiff" filterName="BetterSvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDelete" filterName="SvnDelete" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnDiff" filterName="SvnDiff" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnRevert" filterName="SvnRevert" isExposed="True" />
+  <Filter entryType="Class" fullName="MSBuild.Earlgrey.Tasks.Subversion.SvnSwitch" filterName="SvnSwitch" isExposed="True" />
+</Filter></ApiFilter>
     <ComponentConfigurations>
       <ComponentConfig id="API Token Resolution" enabled="True" xmlns="">
         <component id="API Token Resolution" type="Microsoft.Ddue.Tools.SharedContentComponent" assembly="{@SandcastlePath}ProductionTools\BuildComponents.dll">

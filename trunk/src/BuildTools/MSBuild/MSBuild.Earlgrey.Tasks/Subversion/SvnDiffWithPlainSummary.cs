@@ -5,7 +5,7 @@ using System.IO;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
-    public class SvnDiffWithPlainSummary : AbstractSvnDiff
+    internal class SvnDiffWithPlainSummary : AbstractSvnDiff
     {
         private List<ItemChanged> _itemsChanged;
 
