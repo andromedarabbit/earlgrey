@@ -5,8 +5,24 @@ using System.Text;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
+    /// <summary>
+    /// This is a better version of <see cref="SvnDiff"/>. 
+    /// <see cref="BetterSvnDiff"/> handles everything more delicately especially when you use "svn:externals" to retrieve source codes from other repositories.
+    /// One shortcoming is that <see cref="BetterSvnDiff"/> is slower than <see cref="SvnDiff"/>.
+    /// </summary>
+    /// <example>
+    /// <code title="Display the differences between two paths." lang="xml" source=".\Samples\msbuild-BetterSvnDiff.xml" />
+    /// </example>
+    /// <remarks></remarks>
+    /// <inheritdoc/>
     public class BetterSvnDiff : SvnDiff
     {
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
+        /// <returns></returns>
+        /// <inheritdoc/>
+        /// <remarks></remarks>
         public override bool Execute()
         {
             if(base.Execute() == false)
@@ -32,6 +48,11 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             return true;
         }
 
+        /// <summary>
+        /// Creates the path resolver.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
         private SvnPathResolver CreatePathResolver()
         {
             SvnPathResolver pathResolver = new SvnPathResolver();

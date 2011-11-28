@@ -9,7 +9,7 @@ using MSBuild.Community.Tasks.Subversion;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
-    public class SvnPathResolver 
+    internal class SvnPathResolver 
         : Microsoft.Build.Utilities.ToolTask 
     {
         private readonly List<string> _repositoryPaths;

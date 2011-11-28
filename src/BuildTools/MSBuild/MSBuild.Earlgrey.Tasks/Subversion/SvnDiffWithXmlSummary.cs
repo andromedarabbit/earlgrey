@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
-    public class SvnDiffWithXmlSummary : AbstractSvnDiff
+    internal class SvnDiffWithXmlSummary : AbstractSvnDiff
     {
         private diff _diffObj;
         private List<ItemChanged> _itemsChanged;

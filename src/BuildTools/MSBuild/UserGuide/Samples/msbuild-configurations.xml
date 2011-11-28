@@ -6,10 +6,10 @@
 
 <PropertyGroup>
 	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
-	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..'))</TreeRootDir>
+	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..\..'))</TreeRootDir>
 	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 	
-	<EarlgreyExtensionDir>$(TreeRootDir)\BuildTools\Deployed\MSBuildExtension</EarlgreyExtensionDir>
+	<EarlgreyExtensionDir>$(TreeRootDir)\src\BuildTools\Deployed\MSBuildExtension</EarlgreyExtensionDir>
 	
 	<TempDir>$(RootDir)\Temp</TempDir>
 	<SampleDataDir>$(RootDir)\Data</SampleDataDir>

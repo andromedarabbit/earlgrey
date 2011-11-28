@@ -5,6 +5,10 @@ using MSBuild.Community.Tasks.Subversion;
 
 namespace MSBuild.Earlgrey.Tasks.Subversion
 {
+    /// <summary>
+    /// Gives functionality of "svn diff", which displays the differences between two paths.
+    /// </summary>
+    /// <remarks></remarks>
     public abstract class AbstractSvnDiff : SvnClient
     {
         private const string SwitchBooleanFormat = " --{0}";
@@ -18,6 +22,8 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
         /// <summary>
         /// Initializes a new instance of the <see cref="T:AbstractSvnDiff"/> class.
         /// </summary>
+        /// <param name="withXmlOption"><c>true</c> if you want to display the result with XML format (--xml); <c>false</c> if you need the summary (--summary).</param>
+        /// <inheritdoc />
         protected AbstractSvnDiff(bool withXmlOption)
         {
             base.Command = "diff";
@@ -32,12 +38,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             ResetMemberVariables();
         }
 
-        /// <summary>
-        /// Indicates whether all task paratmeters are valid.
-        /// </summary>
-        /// <returns>
-        /// true if all task parameters are valid; otherwise, false.
-        /// </returns>
+        /// <inheritdoc />
         protected override bool ValidateParameters()
         {
             if (string.IsNullOrEmpty(this._old))
@@ -67,6 +68,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             return base.ValidateParameters();
         }
 
+        /// <inheritdoc />
         protected override string GenerateSvnCommand()
         {
             StringBuilder builder = new StringBuilder();
@@ -86,11 +88,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             return builder.ToString();
         }
 
-        /// <summary>
-        /// Logs the events from text output.
-        /// </summary>
-        /// <param name="singleLine">The single line.</param>
-        /// <param name="messageImportance">The message importanZce.</param>
+        /// <inheritdoc />
         protected override void LogEventsFromTextOutput(string singleLine, MessageImportance messageImportance)
         {
             if (messageImportance == MessageImportance.High)
@@ -100,10 +98,7 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             _outputBuffer.AppendLine(singleLine);
         }
 
-        /// <summary>
-        /// Execute the task.
-        /// </summary>
-        /// <returns>true if execution is successful, false if not.</returns>
+        /// <inheritdoc />
         public override bool Execute()
         {
             if (base.Execute() == false)
@@ -115,9 +110,6 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             return true;
         }
 
-        /// <summary>
-        /// Reset all instance variables to their default (unset) state.
-        /// </summary>
         private void ResetMemberVariables()
         {
             RepositoryPath = string.Empty;
@@ -133,19 +125,36 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 return _outputBuffer.ToString();
             }
         }
-      
+
+        /// <summary>
+        /// [Required] Gets or sets the old target.
+        /// </summary>
+        /// <value>The old target.</value>
+        /// <remarks></remarks>
+        [Required]
         public string Old
         {
             get { return _old; }
             set { _old = value; }
         }
 
+        /// <summary>
+        /// [Required] Gets or sets the new target.
+        /// </summary>
+        /// <value>The new target.</value>
+        /// <remarks></remarks>
+        [Required]
         public string New
         {
             get { return _new; }
             set { _new = value; }
         }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the local working copy is old one.
+        /// </summary>
+        /// <value>Set <c>true</c> if the local working copy is old one; otherwise, <c>false</c>.</value>
+        /// <remarks></remarks>
         public bool OldIsBasePath
         {
             get;
