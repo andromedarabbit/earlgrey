@@ -22,7 +22,7 @@
          If using <autoOutline />, add an address attribute to identify it
          and specify a title so that it can be jumped to with a hyperlink. -->
     <section address="Code License">
-      <title>Code license - <a href="http://www.opensource.org/licenses/mit-license.php">Open Source Initiative OSI - The MIT License (MIT)</a></title>
+	<title>Code license - Open Source Initiative OSI - The MIT License (MIT)</title>
       
       <content>
           <para>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</para>
@@ -40,7 +40,7 @@
 	</section>
   
       <section address="Documentation License">
-          <title>Documentation license - <a href="http://creativecommons.org/licenses/by-sa/3.0/">Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)</a></title>
+          <title>Documentation license - Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)</title>
           <content>
               <autoOutline />
           </content>

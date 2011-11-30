@@ -169,6 +169,10 @@
     <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Img\Logo.jpg">
+      <ImageId>Logo</ImageId>
+      <AlternateText>Logo</AlternateText>
+    </Image>
     <Image Include="Img\UnityBuild.ConsoleUi.exe_에_-e_옵션을_준_경우에.png">
       <ImageId>UnityBuild.ConsoleUi.exe_에_-e_옵션을_준_경우에</ImageId>
       <AlternateText>Unity Build.Console Ui.exe 에 -e 옵션을 준 경우에</AlternateText>
@@ -181,6 +185,9 @@
       <ImageId>OSI-Approved-License-100x137</ImageId>
       <AlternateText>OSI-Approved-License-100x137</AlternateText>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Tokens Include="Tokens.tokens" />
   </ItemGroup>
   <!-- Import the SHFB build targets -->
   <Import Project="$(SHFBROOT)\SandcastleHelpFileBuilder.targets" />
