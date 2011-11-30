@@ -17,34 +17,35 @@
     <!-- Add one or more top-level section elements.  These are collapsible.
          If using <autoOutline />, add an address attribute to identify it
          and specify a title so that it can be jumped to with a hyperlink. -->
-    <section address="Project owners">
-      <title>Project owners</title>
-      <content>
-        <!-- Uncomment this to create a sub-section outline
-        <autoOutline /> -->
-        <para>Add one or more sections with content</para>
-      </content>
-      <!-- If a section contains a sections element, its content creates
-           sub-sections.  These are not collapsible.
-      <sections>
-          <section address="SubSection1">
-              <title>Sub-section 1</title>
-              <content>
-                  <para>Sub-section content.</para>
-              </content>
-          </section>
-          <section address="SubSection2">
-              <title>Sub-section 2</title>
-              <content>
-                  <para>Sub-section content.</para>
-              </content>
-          </section>
-      </sections> -->
+	<section address="Project owners">
+		<title>Project Owners</title>
+		<content>
+			<!-- Uncomment this to create a sub-section outline
+			<autoOutline /> -->
+			
+			<list class="bullet">
+			<listItem><para>banyaji</para></listItem>
+			<listItem><para>gwkang</para></listItem>
+			<listItem><para>initialjk</para></listItem>
+			<listItem><para>joe.joey</para></listItem>
+			<listItem><para>plaintext</para></listItem>
+			</list>
+		</content>
     </section>
 	
-	<section address="Tools">
-      <title>We are using</title>
+	<section>
+		<title>Comitters</title>
+		<content>
+			<list class="bullet">
+			<listItem><para>moseys</para></listItem>
+			</list>
+		</content>
+    </section>
+	
+	<section>
+      <title>We Are Using</title>
       <content>
+		<para>Some companies let us to use their products for our project. We are appreciated for their faith on us.</para>
       
 		<table>
 			<title>Commercial Softwares</title>

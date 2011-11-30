@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<content xml:space="preserve" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <item id="SHFB"><ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <ddue:linkText>Sandcastle Help File Builder</ddue:linkText>
+    <ddue:linkUri>http://SHFB.CodePlex.com</ddue:linkUri>
+    </ddue:externalLink></item>
+  <item id="Earlgrey"><ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <ddue:linkText>Earlgrey project</ddue:linkText>
+    <ddue:linkUri>http://code.google.com/p/earlgrey/</ddue:linkUri>
+    </ddue:externalLink></item>
+  <item id="EarlgreyMailing"><ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <ddue:linkText>Earlgrey mailing list</ddue:linkText>
+    <ddue:linkUri>http://groups.google.com/group/project-earlgrey</ddue:linkUri>
+    </ddue:externalLink></item>
+  <item id="CommunityTasks"><ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <ddue:linkText>MSBuild Community Tasks</ddue:linkText>
+    <ddue:linkUri>http://msbuildtasks.tigris.org/</ddue:linkUri>
+    </ddue:externalLink></item>
+</content>
