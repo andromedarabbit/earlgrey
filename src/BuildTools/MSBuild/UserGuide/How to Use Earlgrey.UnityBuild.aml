@@ -9,15 +9,26 @@
     </summary>
     -->
     <introduction>
-      <para>Required introduction</para>
+      <para>UnityBuild is </para>
+	  
+	  <autoOutline />
     </introduction>
-    <!-- Optional procedures followed by optional code example but must have
-         at least one procedure or code example -->
-		se
-	<section address="Project owners">
+	
+	<prerequisites>
 		<content>
-			<title>Usage</title>
-			
+			<title>Supported environment</title>
+		
+			<list class="bullet">
+			<listItem><para>Visual Studio 2008</para></listItem>
+			</list>
+		</content>
+	</prerequisites>
+	
+    
+	<section address="Project owners">
+		<title>Usage</title>
+		
+		<content>
 			<para>Execute <command>UnityBuild.ConsoleUi.exe</command>, then you will see usages:</para>
 			
 			<code lang="none">
@@ -39,7 +50,13 @@ How to use!
 C:\>
 ]]>
 			</code>
-			
+		</content>
+	</section>
+	
+	<section>
+		<title>Summary of usages</title>
+		
+		<content>
 			<table>
 				<title>Switches</title>
 				<tableHeader>
@@ -81,26 +98,83 @@ C:\>
 		</content>
 	</section>
 	
-	<section address="">
-		<title>How to build a solution using Earlgrey.UnityBuild</title>
+	<section>
+		<title>How to build a solution</title>
 		
-		<procedure>
-			<title>Backup</title>
-				<steps class="ordered">
-				<step>
-				  <content>
-					<para>First step</para>
-				  </content>
-				</step>
-				<step>
-				  <content>
-					<para>Second step</para>
-				  </content>
-				</step>
-			</steps>
-		<!-- <conclusion>Optional conclusion</conclusion> -->
-		</procedure>
+		<sections>
+			<section>
+				<title>Backup your solution and its project files.</title>
+				
+				<content>
+					<para><command>UnityBuild.ConsoleUi.exe</command> might modify the solution (.sln) file, so we recommend you to have a backup plan to restore everything when things messed up.</para>
+					
+					<alert class="note">
+						<para>Running <command>UnityBuild.ConsoleUi.exe</command> with the switch <system>-c</system> is the better way to build your solution. This switch copies every involved solution/project files and use those to build.  </para>
+					</alert>
+				</content>
+			</section>
+			<section>
+				<title>Convert your solution and its project files.</title>
+				
+				<content>
+					<para><system>-i</system> is the most important switch for <command>UnityBuild.ConsoleUi.exe</command>. <system>-i</system> is used for specifying the target solution file path:</para>
+					
+					<code lang="none">
+					<![CDATA[
+C:\Workspace\trunk\src\BuildTools\Any CPU-Debug\bin>UnityBuild.ConsoleUi.exe -i "..\..\..\Earlgrey.sln"
+
+working ...
+done!
+ 
+C:\>
+					]]>
+					</code>
+					
+					<para>After running <command>UnityBuild.ConsoleUi.exe</command> with <system>-i</system> switch, you will see the some files are actually changed. For instance, with installed <application>TortoiseSVN</application>,  local copy of trunk folder is going to look like:</para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="UnityBuild.ConsoleUi.exe_를_사용한_후" />
+					</mediaLink>
+					
+					<para>Red overlay icons mean that some files, actually some .vcproj files were modified by <command>UnityBuild.ConsoleUi.exe</command>. The target solution specified with <system>-i</system> switch has .vcproj and .csproj altogether. But you do not have to worry about that, <command>UnityBuild.ConsoleUi.exe</command> can handle a mixed solution like this. Only .vcproj are affected in the solution converting process.</para>
+					
+					<para>You can also exclude some of .vcproj from conversion with <system>-e</system> switch. <system>Earlgrey.sln</system> includes some extenal open source projects. For example, <newTerm>gtest</newTerm> (Google Test) and StackWalker_VC9 (StackWalker) are there. Usually not touching the external libraries is the rule of thumbs and <system>-e</system> switch is helpful for cases like this.</para>
+					
+					<code lang="none">
+<![CDATA[					
+C:\Workspace\trunk\src\BuildTools\Any CPU-Debug\bin>UnityBuild.ConsoleUi.exe -i "..\..\..\Earlgrey.sln" -e "gtest;StackWalker_VC9"
+
+working ...
+done!
+ 
+C:\>
+					]]>
+					</code>
+					
+					<para>Now, exclude two projects above from conversion with <system>-e</system> switch. Look at your local copy folders 'vendor' and 'src' after running <command>UnityBuild.ConsoleUi.exe</command>, then you will notice that two projects in 'vendor' folder are not changed at all (see the next screenshot).   </para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="UnityBuild.ConsoleUi.exe_에_-e_옵션을_준_경우에" />
+					</mediaLink>
+					
+					<para><system>-c</system> switch do a simple thing. With this switch, <command>UnityBuild.ConsoleUi.exe</command> copy <system>Earlgrey.sln</system> and its projects into new ones and build this new solution file. This is very useful when you do not want your original files not to be changed. </para>
+					
+					<para><system>-o</system> switch describes the optimization level. Details are hidden because the algorithms under the hood can be changed at any time.</para>
+				</content>
+			</section>
+			<section>
+				<title>Build your new solution file.</title>
+				
+				<content>
+					<para>Open your new solution file with Visual Studio IDE. Build and enjoy!</para>
+				</content>
+			</section>
+		</sections>
+		
+		
+	
 	</section>
+
     <!-- <codeExample>Optional code example</codeExample> -->
     <!-- <buildInstructions>Optional instructions for building a
          code example.</buildInstructions> -->
