@@ -22,13 +22,14 @@
     <SandcastlePath>..\..\..\..\vendor\Sandcastle\Sandcastle\</SandcastlePath>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
-<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" /></DocumentationSources>
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
+      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" />
+    </DocumentationSources>
     <HelpTitle>MSBuild Build Tools Documentation</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <CopyrightHref>http://www.opensource.org/licenses/mit-license.php</CopyrightHref>
@@ -168,9 +169,17 @@
     <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Img\UnityBuild.ConsoleUi.exe_에_-e_옵션을_준_경우에.png">
+      <ImageId>UnityBuild.ConsoleUi.exe_에_-e_옵션을_준_경우에</ImageId>
+      <AlternateText>Unity Build.Console Ui.exe 에 -e 옵션을 준 경우에</AlternateText>
+    </Image>
+    <Image Include="Img\UnityBuild.ConsoleUi.exe_를_사용한_후.png">
+      <ImageId>UnityBuild.ConsoleUi.exe_를_사용한_후</ImageId>
+      <AlternateText>Unity Build.Console Ui.exe 를 사용한 후</AlternateText>
+    </Image>
     <Image Include="Img\OSI-Approved-License-100x137.png">
       <ImageId>OSI-Approved-License-100x137</ImageId>
-      <AlternateText>OSI-Approved-License-100x 137</AlternateText>
+      <AlternateText>OSI-Approved-License-100x137</AlternateText>
     </Image>
   </ItemGroup>
   <!-- Import the SHFB build targets -->
