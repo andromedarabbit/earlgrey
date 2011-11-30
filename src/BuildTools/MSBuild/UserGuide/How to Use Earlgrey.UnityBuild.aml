@@ -9,7 +9,9 @@
     </summary>
     -->
     <introduction>
-      <para>UnityBuild is </para>
+      <para>UnityBuild is a compilation technique for C++ language. It is known that boosts compliation speed up dramatically in some cases, and especially most of large-scale projects. This technique can drag impressive performance out if combined with distibuted build tools like <a href="http://www.xoreax.com/">Xoreax <application>Incredibuild</application></a>.</para>
+	  
+	  <para><application>Earlgrey.UnityBuild</application> provides a convenient way to convert your legacy Visual C++ project to new one with UnityBuild capability. It is simple and easy-to-use.</para>
 	  
 	  <autoOutline />
     </introduction>
@@ -182,6 +184,16 @@ C:\>
          issues related to writing solid code.</robustProgramming> -->
     <!-- <security>Optional discussion of security issues.</security> -->
     <relatedTopics>
+		<link xlink:href="UnityBuild resources">Link text</link>
+		<externalLink>
+			<linkText>The Magic of Unity Builds</linkText>
+			<linkUri>http://buffered.io/2007/12/10/the-magic-of-unity-builds/</linkUri>
+		</externalLink>
+		<externalLink>
+			<linkText>송창규, unity build로 빌드타임 반토막내기, NDC2010
+</linkText>
+			<linkUri>http://www.slideshare.net/devcatpublications/ndc2010-unity-build</linkUri>
+		</externalLink>
       <!-- One or more of the following:
            - A local link
            - An external link
