@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="f6541081-794f-4de1-b0fc-d75aae6fb957" revisionNumber="1">
+  <developerWalkthroughDocument
+    xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!--
+    <summary>
+      <para>Optional summary abstract</para>
+    </summary>
+    -->
+    <introduction>
+      <para>Required introduction</para>
+    </introduction>
+    <!-- Optional procedures followed by optional code example but must have
+         at least one procedure or code example -->
+		se
+	<section address="Project owners">
+		<content>
+			<title>Usage</title>
+			
+			<para>Execute <command>UnityBuild.ConsoleUi.exe</command>, then you will see usages:</para>
+			
+			<code lang="none">
+<![CDATA[
+C:\Workspace\trunk\src\BuildTools\Any CPU-Debug\bin>UnityBuild.ConsoleUi.exe
+
+How to use!
+ -i, --input (Required)
+   Solution file path.
+ -e, --exclude (Not Required)
+   Visual C++ project names you want to exclude. Separated by a ';'. For instance, -e"Earlgrey";"Earlgrey.Test"
+ -c, --copy (Not Required)
+   Copy the solution/projects and use them.
+ -o, --optimization (Not Required)
+   Possible values are 'Normal' and 'Best'.
+ -v, --verbose (Not Required)
+   Print details during execution.
+ 
+C:\>
+]]>
+			</code>
+			
+			<table>
+				<title>Switches</title>
+				<tableHeader>
+				  <row>
+					<entry><para>Switch</para></entry>
+					<entry><para>Required or Not?</para></entry>
+					<entry><para>Example</para></entry>
+					<entry><para>Descriptiop</para></entry>
+				  </row>
+				</tableHeader>
+				<row>
+					<entry><para><system>-i</system></para></entry>
+					<entry><para>Required</para></entry>
+					<entry><para><system>-i"C:\Earlgrey.sln" </system></para></entry>
+					<entry><para>The path of the solution file to convert. This will create the copy of the solution and its project files.</para></entry>
+				</row>
+				<row>
+					<entry><para><system>-e</system></para></entry>
+					<entry><para>Optional</para></entry>
+					<entry><para><system>-e"gtest;Earlgrey.Tests"</system></para></entry>
+					<entry><para>The projects you do not want to unity-build. Each project name is separated with ';'.</para></entry>
+				</row>
+				<row>
+					<entry><para><system>-o</system></para></entry>
+					<entry><para>Optional</para></entry>
+					<entry><para><system>-o"Normal"</system></para></entry>
+					<entry>
+						<para>Specify optimization level. Possible values are:</para>
+						
+						<list class="bullet">
+						<listItem><para><system>Normal</system></para></listItem>
+						<listItem><para><system>Best</system></para></listItem>
+						</list>
+					
+					</entry>
+				</row>
+				</table>
+
+		</content>
+	</section>
+	
+	<section address="">
+		<title>How to build a solution using Earlgrey.UnityBuild</title>
+		
+		<procedure>
+			<title>Backup</title>
+				<steps class="ordered">
+				<step>
+				  <content>
+					<para>First step</para>
+				  </content>
+				</step>
+				<step>
+				  <content>
+					<para>Second step</para>
+				  </content>
+				</step>
+			</steps>
+		<!-- <conclusion>Optional conclusion</conclusion> -->
+		</procedure>
+	</section>
+    <!-- <codeExample>Optional code example</codeExample> -->
+    <!-- <buildInstructions>Optional instructions for building a
+         code example.</buildInstructions> -->
+    <!-- <robustProgramming>Optional discussion of error handling and other
+         issues related to writing solid code.</robustProgramming> -->
+    <!-- <security>Optional discussion of security issues.</security> -->
+    <relatedTopics>
+      <!-- One or more of the following:
+           - A local link
+           - An external link
+           - A code entity reference
+
+      <link xlink:href="Other Topic's ID">Link text</link>
+      <externalLink>
+          <linkText>Link text</linkText>
+          <linkAlternateText>Optional alternate link text</linkAlternateText>
+          <linkUri>URI</linkUri>
+      </externalLink>
+      <codeEntityReference>API member ID</codeEntityReference>
+
+      Examples:
+
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+      <externalLink>
+          <linkText>SHFB on CodePlex</linkText>
+          <linkAlternateText>Go to CodePlex</linkAlternateText>
+          <linkUri>http://shfb.codeplex.com</linkUri>
+      </externalLink>
+
+      <codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+      <codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+      -->
+    </relatedTopics>
+  </developerWalkthroughDocument>
+</topic>

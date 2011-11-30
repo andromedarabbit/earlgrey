@@ -5,11 +5,12 @@
 
 <!-- 배포 파일 -->
 <ItemGroup>
-	<MSBuildExtensionFile 
-		Include="$(RootDir)\MSBuild\UserGuide\**\*"
-		Exclude="$(RootDir)\MSBuild\Temp;$(RootDir)\MSBuild\UserGuide\*.shfbproj;$(RootDir)\MSBuild\UserGuide\Help\*.log"
-	>
-		<DstDir>$(DeploymentDir)\UserGuide</DstDir>
+	<MSBuildExtensionFile Include="$(RootDir)\MSBuild\UserGuide\Help\*.chm">
+		<DstDir>$(DeploymentDir)\UserGuide\Help</DstDir>
+	</MSBuildExtensionFile>
+	
+	<MSBuildExtensionFile Include="$(RootDir)\MSBuild\UserGuide\Samples\**\*">
+		<DstDir>$(DeploymentDir)\UserGuide\Samples</DstDir>
 	</MSBuildExtensionFile>
 	
 	<MSBuildExtensionFile Include="$(BinDir)\ExternalTools\**\*">

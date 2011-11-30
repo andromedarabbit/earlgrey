@@ -17,8 +17,8 @@
     <!-- Add one or more top-level section elements.  These are collapsible.
          If using <autoOutline />, add an address attribute to identify it
          and specify a title so that it can be jumped to with a hyperlink. -->
-    <section address="Commiters">
-      <title>Commiters</title>
+    <section address="Project owners">
+      <title>Project owners</title>
       <content>
         <!-- Uncomment this to create a sub-section outline
         <autoOutline /> -->
@@ -57,12 +57,22 @@
 			</tableHeader>
 			<row>
 				<entry><para>Resharper</para></entry>
-				<entry><para><a href="http://www.jetbrains.com/resharper">http://www.jetbrains.com/resharper</a></para></entry>
+				<entry>
+					<externalLink>
+						<linkText>http://www.jetbrains.com/resharper</linkText>
+						<linkUri>http://www.jetbrains.com/resharper</linkUri>
+					</externalLink>
+				</entry>
 				<entry><para>Open source project</para></entry>
 			</row>
 			<row>
 				<entry><para>VisualSVN</para></entry>
-				<entry><para><a href="http://www.visualsvn.com">http://www.visualsvn.com</a></para></entry>
+				<entry>
+					<externalLink>
+						<linkText>http://www.visualsvn.com</linkText>
+						<linkUri>http://www.visualsvn.com</linkUri>
+					</externalLink>
+				</entry>
 				<entry><para>Open source project</para></entry>
 			</row>
 		</table>
@@ -71,7 +81,7 @@
     </section>
 	
     <relatedTopics>
-     
+
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

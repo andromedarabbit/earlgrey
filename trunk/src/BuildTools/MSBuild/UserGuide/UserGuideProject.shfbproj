@@ -16,21 +16,20 @@
     <Name>Documentation</Name>
     <!-- SHFB properties -->
     <OutputPath>.\Help\</OutputPath>
-    <HtmlHelpName>MSBuild.Earlgrey.Tasks</HtmlHelpName>
+    <HtmlHelpName>Earlgrey.Build.Tools</HtmlHelpName>
     <Language>en-US</Language>
     <HtmlHelp2xCompilerPath>..\..\..\..\vendor\Sandcastle\Help 2.0 Compiler\</HtmlHelp2xCompilerPath>
     <SandcastlePath>..\..\..\..\vendor\Sandcastle\Sandcastle\</SandcastlePath>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.dll" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
-      <DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" />
-    </DocumentationSources>
-    <HelpTitle>MSBuild.Earlgrey.Tasks Documentation</HelpTitle>
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Community.Tasks.xml" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.dll" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.dll" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2005.xml" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.dll" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.SqlServer2008.xml" />
+<DocumentationSource sourceFile="..\..\Any CPU-Release\bin\MSBuild.Earlgrey.Tasks.xml" /></DocumentationSources>
+    <HelpTitle>MSBuild Build Tools Documentation</HelpTitle>
     <NamingMethod>MemberName</NamingMethod>
     <CopyrightHref>http://www.opensource.org/licenses/mit-license.php</CopyrightHref>
     <CopyrightText>MIT License</CopyrightText>
@@ -70,7 +69,7 @@
       <NamespaceSummaryItem name="MSBuild.Community.Tasks.Tfs" isDocumented="True" />
       <NamespaceSummaryItem name="MSBuild.Community.Tasks.Xml" isDocumented="True" />
     </NamespaceSummaries>
-    <RootNamespaceTitle>MSBuild.Earlgrey.Tasks</RootNamespaceTitle>
+    <RootNamespaceTitle>Class documentation</RootNamespaceTitle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <ProjectSummary>MSBuild.Earlgrey.Tasks project began to provide required functionalities for automating build process of &amp;lt%3ba href=&amp;quot%3bhttp://code.google.com/p/earlgrey&amp;quot%3b&amp;gt%3bProject Earlgrey&amp;lt%3b/a&amp;gt%3b, which is experimental online game server engine under development. MSBuild.Earlgrey.Tasks now grow to be a full-featured msbuild extensions library. Compare it with alternative ones like &amp;lt%3ba href=&amp;quot%3bhttp://msbuildtasks.tigris.org/&amp;quot%3b&amp;gt%3bMSBuild Community Tasks&amp;lt%3b/a&amp;gt%3b or &amp;lt%3ba href=&amp;quot%3bhttp://www.msbuildextensionpack.com/&amp;quot%3b&amp;gt%3bMSBuild Extension Pack&amp;lt%3b/a&amp;gt%3b.</ProjectSummary>
     <SyntaxFilters>CSharp</SyntaxFilters>
@@ -158,6 +157,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Contributions.aml" />
+    <None Include="How to Use Earlgrey.UnityBuild.aml" />
+    <None Include="How to Use MSbuild.Earlgrey.Tasks.aml" />
+    <None Include="How to Use.aml" />
+    <None Include="How to Use.aml" />
+    <None Include="Welcome.aml" />
     <None Include="License Agreement.aml" />
   </ItemGroup>
   <ItemGroup>

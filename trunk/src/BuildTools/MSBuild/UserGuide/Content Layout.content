@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
+  <Topic id="66326241-d7bf-4cc8-a0dc-f42be453a0e7" visible="True" />
   <Topic id="00000000-0000-0000-0000-000000000000" visible="True" title="License Agreement" />
   <Topic id="3a12fd65-e55a-4286-af0a-a2e42427b997" visible="True" />
+  <Topic id="7620bed4-0e57-48c5-963d-824837cd061d" visible="True" noFile="true" title="MSBuild Extension">
+    <Topic id="a2fcccd0-8796-4b09-8443-9891f91cf806" visible="True" />
+  </Topic>
+  <Topic id="93834be8-54b9-466d-8982-3070b4aee79c" visible="True" noFile="true" title="UnityBuild">
+    <Topic id="f6541081-794f-4de1-b0fc-d75aae6fb957" visible="True" />
+  </Topic>
 </Topics>
