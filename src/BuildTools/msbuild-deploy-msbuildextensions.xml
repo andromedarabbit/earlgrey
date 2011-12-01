@@ -4,15 +4,7 @@
 <Import Project="msbuild-initialize.xml"/>
 
 <!-- 배포 파일 -->
-<ItemGroup>
-	<MSBuildExtensionFile Include="$(RootDir)\MSBuild\UserGuide\Help\*.chm">
-		<DstDir>$(DeploymentDir)\UserGuide\Help</DstDir>
-	</MSBuildExtensionFile>
-	
-	<MSBuildExtensionFile Include="$(RootDir)\MSBuild\UserGuide\Samples\**\*">
-		<DstDir>$(DeploymentDir)\UserGuide\Samples</DstDir>
-	</MSBuildExtensionFile>
-	
+<ItemGroup>	
 	<MSBuildExtensionFile Include="$(BinDir)\ExternalTools\**\*">
 		<DstDir>$(DeploymentDir)\ExternalTools</DstDir>
 	</MSBuildExtensionFile>
