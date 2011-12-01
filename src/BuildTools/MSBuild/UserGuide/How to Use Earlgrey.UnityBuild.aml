@@ -27,7 +27,7 @@
 	</prerequisites>
 	
     
-	<section address="Project owners">
+	<section address="Usage">
 		<title>Usage</title>
 		
 		<content>
@@ -55,8 +55,8 @@ C:\>
 		</content>
 	</section>
 	
-	<section>
-		<title>Summary of usages</title>
+	<section address="Command Switches">
+		<title>Command Switches</title>
 		
 		<content>
 			<table>
@@ -100,7 +100,7 @@ C:\>
 		</content>
 	</section>
 	
-	<section>
+	<section address="How to build a solution">
 		<title>How to build a solution</title>
 		
 		<sections>
@@ -176,7 +176,31 @@ C:\>
 		
 	
 	</section>
-
+	
+	<section address="External Resources">
+		<title>External Resources</title>
+		
+		<sections>
+			<section>
+				<title>The Magic of Unity Builds</title>
+				
+				<content>
+					<markup><a href="http://buffered.io/2007/12/10/the-magic-of-unity-builds/">The Magic of Unity Builds</a></markup> is probably the most famous reference of UnityBuild theory. Most web pages refer to this. Very long, but there is <externalLink>
+					<linkText>a tutorial video</linkText>
+					<linkUri>http://oj.blackapache.net.s3.amazonaws.com/UnityBuilds.html</linkUri>
+					</externalLink> so you can learn easily.
+				</content>
+			</section>
+			
+			<section>
+				<title>송창규, unity build로 빌드타임 반토막내기, NDC2010</title>
+				
+				<content>
+					<markup><a href="http://www.slideshare.net/devcatpublications/ndc2010-unity-build">송창규, unity build로 빌드타임 반토막내기, NDC2010</a></markup> is the most well known Korean documentation for UnityBuild.
+				</content>
+			</section>
+		</sections>
+	</section>
     <!-- <codeExample>Optional code example</codeExample> -->
     <!-- <buildInstructions>Optional instructions for building a
          code example.</buildInstructions> -->
@@ -184,16 +208,8 @@ C:\>
          issues related to writing solid code.</robustProgramming> -->
     <!-- <security>Optional discussion of security issues.</security> -->
     <relatedTopics>
-		<link xlink:href="UnityBuild resources">Link text</link>
-		<externalLink>
-			<linkText>The Magic of Unity Builds</linkText>
-			<linkUri>http://buffered.io/2007/12/10/the-magic-of-unity-builds/</linkUri>
-		</externalLink>
-		<externalLink>
-			<linkText>송창규, unity build로 빌드타임 반토막내기, NDC2010
-</linkText>
-			<linkUri>http://www.slideshare.net/devcatpublications/ndc2010-unity-build</linkUri>
-		</externalLink>
+		
+		
       <!-- One or more of the following:
            - A local link
            - An external link

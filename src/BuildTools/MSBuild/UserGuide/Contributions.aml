@@ -33,7 +33,7 @@
 		</content>
     </section>
 	
-	<section>
+	<section address="Comitters">
 		<title>Comitters</title>
 		<content>
 			<list class="bullet">
@@ -42,7 +42,7 @@
 		</content>
     </section>
 	
-	<section>
+	<section address="We Are Using">
       <title>We Are Using</title>
       <content>
 		<para>Some companies let us to use their products for our project. We are appreciated for their faith on us.</para>

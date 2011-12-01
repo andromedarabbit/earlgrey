@@ -6,27 +6,68 @@
       <para>Optional summary abstract</para>
     </summary>
     -->
-    <introduction>
-      <para>Required introduction</para>
-    </introduction>
-    <!-- Optional procedures followed by optional code example but must have
-         at least one procedure or code example -->
-    <procedure>
-      <title>Procedure title</title>
-      <steps class="ordered">
-        <step>
-          <content>
-            <para>First step</para>
-          </content>
-        </step>
-        <step>
-          <content>
-            <para>Second step</para>
-          </content>
-        </step>
-      </steps>
-      <!-- <conclusion>Optional conclusion</conclusion> -->
-    </procedure>
+	<introduction>
+		<para>The name of MSBuild Earlgrey.Tasks describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks does. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other open source communities' efforts. </para>
+
+		<autoOutline /> 
+	</introduction>
+    
+	<section address="How to Use MSBuild.Earlgrey.Tasks">
+		<title>How to Use MSBuild.Earlgrey.Tasks</title>
+		
+		<content>
+			<para>Steps are described in the following sample code. </para>
+			
+			<code language="xml">
+<![CDATA[
+<?xml version="1.0" encoding="utf-8" ?>
+ 
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+ 
+		<!-- 
+		First thing you need to do is to define $(MSBuildEarlgreyTasksPath),
+		which represents deployment directory path of MSBuild.Earlgrey.Tasks. 
+		-->
+		<MSBuildEarlgreyTasksPath>BuildTools\Any CPU-Release\MSBuildExtension</MSBuildEarlgreyTasksPath>
+	</PropertyGroup>
+ 
+	<!-- Second, import MSBuild.Earlgrey.Tasks. -->
+	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+ 
+	<!-- Usage example of MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy -->
+	<Target Name="RoboCopyUsageExample">
+		<BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+ 
+		<!-- You can also use the full name of a task -->
+		<MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+	</Target>
+</Project>	
+]]>
+			</code>
+			
+			<para><newTerm>MSBuild.Community.Tasks</newTerm> is automatically imported when <codeInline>MSBuild.Earlgrey.Tasks.Targets</codeInline> is included. So you can use every feature of two extensions with single <codeInline>Import</codeInline> statement.  </para>
+	
+		</content>
+	</section>
+	
+	<section address="How to Use Custom Tasks">
+		<title>How to Use Custom Tasks</title>
+		
+		<content>
+			<para>Every detail of a custom task and its samples are described in the class documentation section. Hope that you can get everything you need for improving your build.</para>
+		</content>
+	</section>
+	
     <!-- <codeExample>Optional code example</codeExample> -->
     <!-- <buildInstructions>Optional instructions for building a
          code example.</buildInstructions> -->
@@ -34,6 +75,10 @@
          issues related to writing solid code.</robustProgramming> -->
     <!-- <security>Optional discussion of security issues.</security> -->
     <relatedTopics>
+		<externalLink>
+			<linkText>MSBuild Community Tasks</linkText>
+			<linkUri>http://msbuildtasks.tigris.org/</linkUri>
+		</externalLink>
       <!-- One or more of the following:
            - A local link
            - An external link

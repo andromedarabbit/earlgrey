@@ -16,7 +16,7 @@
     
     </introduction>
 	
-	<section>
+	<section address="Engine">
 		<title>Engine</title>
 		
 		<content>
@@ -24,7 +24,7 @@
 		</content>
 	</section>
 	
-	<section>
+	<section address="Build Tools">
 		<title>Build Tools</title>
 		
 		<content>
