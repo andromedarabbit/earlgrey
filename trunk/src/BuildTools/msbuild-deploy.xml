@@ -12,6 +12,7 @@
 	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\Deployment</DeploymentDir>
 	<MSBuildExtensionDeploymentDir>$(DeploymentDir)\MSBuildExtension</MSBuildExtensionDeploymentDir>
 	<UnityBuildDeploymentDir>$(DeploymentDir)\UnityBuild</UnityBuildDeploymentDir>
+	<UserGuideDeploymentDir>$(DeploymentDir)\UserGuide</UserGuideDeploymentDir>
 </PropertyGroup>
 
 <PropertyGroup>
@@ -32,6 +33,14 @@
 		Projects="$(RootDir)\msbuild-deploy-unitybuild.xml" 
 		Targets="CopyFiles" 
 		Properties="RootDir=$(RootDir);DeploymentDir=$(UnityBuildDeploymentDir);BinDir=$(BinDir)"
+	/>
+</Target>
+
+<Target Name="DeployUserGuide">
+		<MSBuild 
+		Projects="$(RootDir)\msbuild-deploy-userguide.xml" 
+		Targets="CopyFiles" 
+		Properties="RootDir=$(RootDir);DeploymentDir=$(UserGuideDeploymentDir);BinDir=$(BinDir)"
 	/>
 </Target>
 
@@ -62,7 +71,7 @@
 
 <Target 
 	Name="Deploy" 
-	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild"
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployMSBuildExtensions; DeployUnityBuild; DeployUserGuide"
 	>
 	
 	<!-- <CallTarget Targets="TestAlone" />-->
