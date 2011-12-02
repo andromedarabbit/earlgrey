@@ -5,11 +5,11 @@
 
 <!-- 배포 파일 -->
 <ItemGroup>
-	<UserGuideFile Include="$(RootDir)\MSBuild\UserGuide\Help\*.chm">
+	<UserGuideFile Include="$(RootDir)\UserGuide\Help\*.chm">
 		<DstDir>$(DeploymentDir)\Help</DstDir>
 	</UserGuideFile>
 	
-	<UserGuideFile Include="$(RootDir)\MSBuild\UserGuide\Samples\**\*">
+	<UserGuideFile Include="$(RootDir)\UserGuide\Samples\**\*">
 		<DstDir>$(DeploymentDir)\Samples</DstDir>
 	</UserGuideFile>
 </ItemGroup>
@@ -20,7 +20,7 @@
 		DestinationFolder="%(UserGuideFile.DstDir)\%(RecursiveDir)"
 	/>
 	
-	<RemoveDir Directories="$(RootDir)\MSBuild\UserGuide\Samples\Temp" />
+	<RemoveDir Directories="$(DeploymentDir)\Samples\Temp" />
 </Target>
 
 </Project>

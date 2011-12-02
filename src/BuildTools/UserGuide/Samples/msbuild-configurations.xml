@@ -12,8 +12,8 @@
 	<SampleDataDir>$(RootDir)\Data</SampleDataDir>
 </PropertyGroup>
 
-<PropertyGroup Condition="Exists('$(RootDir)\..\..\..\..\..\vendor')">
-	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..\..'))</TreeRootDir>
+<PropertyGroup Condition="Exists('$(RootDir)\..\..\..\..\vendor')">
+	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..'))</TreeRootDir>
 	
 	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 	
@@ -22,8 +22,8 @@
 	<SubversionDir>$(VendorDir)\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client</SubversionDir>
 </PropertyGroup>
 
-<PropertyGroup Condition="!Exists('$(RootDir)\..\..\..\..\..\vendor')">
-	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..\..'))</TreeRootDir>
+<PropertyGroup Condition="!Exists('$(RootDir)\..\..\..\..\vendor')">
+	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..'))</TreeRootDir>
 	
 	<EarlgreyExtensionDir>$(TreeRootDir)\MSBuildExtension</EarlgreyExtensionDir>
 	
