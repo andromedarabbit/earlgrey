@@ -4,15 +4,30 @@
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
+	
 <PropertyGroup>
 	<RootDir Condition=" '$(RootDir)' == '' ">$(MSBuildProjectDirectory)</RootDir>
-	<TreeRootDir>$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..\..'))</TreeRootDir>
+	
+	<TempDir>$(RootDir)\Temp</TempDir>
+	<SampleDataDir>$(RootDir)\Data</SampleDataDir>
+</PropertyGroup>
+
+<PropertyGroup Condition="Exists('$(RootDir)\..\..\..\..\..\vendor')">
+	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..\..\..\..\..'))</TreeRootDir>
+	
 	<VendorDir>$(TreeRootDir)\vendor</VendorDir>
 	
 	<EarlgreyExtensionDir>$(TreeRootDir)\src\BuildTools\Deployed\MSBuildExtension</EarlgreyExtensionDir>
 	
-	<TempDir>$(RootDir)\Temp</TempDir>
-	<SampleDataDir>$(RootDir)\Data</SampleDataDir>
+	<SubversionDir>$(VendorDir)\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client</SubversionDir>
+</PropertyGroup>
+
+<PropertyGroup Condition="!Exists('$(RootDir)\..\..\..\..\..\vendor')">
+	<TreeRootDir >$([System.IO.Path]::GetFullPath('$(RootDir)\..\..'))</TreeRootDir>
+	
+	<EarlgreyExtensionDir>$(TreeRootDir)\MSBuildExtension</EarlgreyExtensionDir>
+	
+	<SubversionDir></SubversionDir>
 </PropertyGroup>
 
 <!-- 플랫폼 판단 -->

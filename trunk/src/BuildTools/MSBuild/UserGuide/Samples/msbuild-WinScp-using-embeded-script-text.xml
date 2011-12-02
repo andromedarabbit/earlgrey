@@ -4,9 +4,10 @@
 	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
 	>
 
-<Import Project="msbuild-configurations.xml" Condition="false"/>
-	
-<Target Name="RunTest">
+<Import Project="msbuild-configurations.xml"/>
+
+<!-- Delete the next condition statement if you want to run this test! -->
+<Target Name="RunTest" Condition="false">
 	<WinScp 
 		HostName = "ftp.secureftp-test.com"
 		ProtocolFtp = "true"

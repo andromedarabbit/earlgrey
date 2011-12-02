@@ -6,12 +6,13 @@
 
 <Import Project="msbuild-configurations.xml" />
 	
+<!-- Delete the next condition statement if you want to run this test! -->
 <Target Name="RunTest" Condition="false">
 	<SvnDiff 
 		Old="http://earlgrey.googlecode.com/svn/trunk/src@810"
 		New="http://earlgrey.googlecode.com/svn/trunk/src@827"
 		OldIsBasePath="true"
-		ToolPath="$(TreeRootDir)\vendor\BuildTool\SubversionClient\v1.7.0\CollabNet\Subversion Client"
+		ToolPath="(SubversionDir)"
 	>
 		<Output TaskParameter="Items" ItemName="Items" />
 	
