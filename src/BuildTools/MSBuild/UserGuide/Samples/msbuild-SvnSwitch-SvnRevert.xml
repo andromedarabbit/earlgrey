@@ -5,7 +5,8 @@
 	>
 
 <Import Project="msbuild-configurations.xml" />
-	
+
+<!-- Delete the next condition statement if you want to run this test! -->
 <Target Name="RunTest" Condition="false">
 	<SvnSwitch
 		RepositoryPath="https://earlgrey.googlecode.com/svn/branches/unitybuildsample/src/BuildTools/Earlgrey.BuildTools.sln"

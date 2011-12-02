@@ -11,7 +11,8 @@
 	<OutputDir>$(TempDir)\GenerateSqlScriptsTest\OnlyForSchemas</OutputDir>
 </PropertyGroup>
 
-<Target Name="RunTest">
+<!-- Delete the next condition statement if you want to run this test! -->
+<Target Name="RunTest" Condition="false">
 	<RemoveDir Directories="$(OutputDir)" />
 	
 	<!-- scripts just schemas without table records. -->

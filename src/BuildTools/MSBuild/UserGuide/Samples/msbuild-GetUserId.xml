@@ -8,10 +8,11 @@
 
 	<PropertyGroup>
 		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
-	</PropertyGroup>
-
-	<!-- User identity numbers are provided as metadata named 'Id'. -->
-	<Target Name="RunTest">
+	</PropertyGroup>	
+	
+	<!-- Delete the next condition statement if you want to run this test! -->
+	<Target Name="RunTest" Condition="false">
+		<!-- User identity numbers are provided as metadata named 'Id'. -->
 		<GetUserId
 			ConnectionString="$(ConnectionString)"
 			Names="dbo; guest; sys"

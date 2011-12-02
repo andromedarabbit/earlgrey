@@ -10,7 +10,8 @@
 		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
 	</PropertyGroup>
 	
-	<Target Name="RunTest">
+	<!-- Delete the next condition statement if you want to run this test! -->
+	<Target Name="RunTest" Condition="false">
 		<!-- Create a sample table. -->
 		<SqlServer2005.SqlCmd			
 			Server=".\SQLEXPRESS"
