@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a2fcccd0-8796-4b09-8443-9891f91cf806" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!--
+    <summary>
+      <para>Optional summary abstract</para>
+    </summary>
+    -->
+	<introduction>
+		<para>The name of MSBuild Earlgrey.Tasks describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks does. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other open source communities' efforts. </para>
+
+		<autoOutline /> 
+	</introduction>
+    
+	<section address="How to Use MSBuild.Earlgrey.Tasks">
+		<title>How to Use MSBuild.Earlgrey.Tasks</title>
+		
+		<content>
+			<para>Steps are described in the following sample code. </para>
+			
+			<code language="xml">
+<![CDATA[
+<?xml version="1.0" encoding="utf-8" ?>
+ 
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+ 
+		<!-- 
+		First thing you need to do is to define $(MSBuildEarlgreyTasksPath),
+		which represents deployment directory path of MSBuild.Earlgrey.Tasks. 
+		-->
+		<MSBuildEarlgreyTasksPath>BuildTools\Any CPU-Release\MSBuildExtension</MSBuildEarlgreyTasksPath>
+	</PropertyGroup>
+ 
+	<!-- Second, import MSBuild.Earlgrey.Tasks. -->
+	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+ 
+	<!-- Usage example of MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy -->
+	<Target Name="RoboCopyUsageExample">
+		<BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+ 
+		<!-- You can also use the full name of a task -->
+		<MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+	</Target>
+</Project>	
+]]>
+			</code>
+			
+			<para><newTerm>MSBuild.Community.Tasks</newTerm> is automatically imported when <codeInline>MSBuild.Earlgrey.Tasks.Targets</codeInline> is included. So you can use every feature of two extensions with single <codeInline>Import</codeInline> statement.  </para>
+	
+		</content>
+	</section>
+	
+	<section address="How to Use Custom Tasks">
+		<title>How to Use Custom Tasks</title>
+		
+		<content>
+			<para>Every detail of a custom task and its samples are described in the class documentation section. Hope that you can get everything you need for improving your build.</para>
+		</content>
+	</section>
+	
+    <!-- <codeExample>Optional code example</codeExample> -->
+    <!-- <buildInstructions>Optional instructions for building a
+         code example.</buildInstructions> -->
+    <!-- <robustProgramming>Optional discussion of error handling and other
+         issues related to writing solid code.</robustProgramming> -->
+    <!-- <security>Optional discussion of security issues.</security> -->
+    <relatedTopics>
+		<externalLink>
+			<linkText>MSBuild Community Tasks</linkText>
+			<linkUri>http://msbuildtasks.tigris.org/</linkUri>
+		</externalLink>
+      <!-- One or more of the following:
+           - A local link
+           - An external link
+           - A code entity reference
+
+      <link xlink:href="Other Topic's ID">Link text</link>
+      <externalLink>
+          <linkText>Link text</linkText>
+          <linkAlternateText>Optional alternate link text</linkAlternateText>
+          <linkUri>URI</linkUri>
+      </externalLink>
+      <codeEntityReference>API member ID</codeEntityReference>
+
+      Examples:
+
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+      <externalLink>
+          <linkText>SHFB on CodePlex</linkText>
+          <linkAlternateText>Go to CodePlex</linkAlternateText>
+          <linkUri>http://shfb.codeplex.com</linkUri>
+      </externalLink>
+
+      <codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+      <codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+      -->
+    </relatedTopics>
+  </developerHowToDocument>
+</topic>

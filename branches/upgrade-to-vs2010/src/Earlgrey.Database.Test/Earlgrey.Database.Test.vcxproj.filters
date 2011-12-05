@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\ADO">
+      <UniqueIdentifier>{e7b3a297-760f-40b0-97d5-549759318643}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ADO\Temp">
+      <UniqueIdentifier>{57ad15a9-cc45-4de4-8341-5b750f9fa9b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Main">
+      <UniqueIdentifier>{1163579f-cbee-4033-90bc-07dd974732ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일\Main">
+      <UniqueIdentifier>{b7bfbe1f-3b52-4e99-ad87-1cdcbe54d6b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\ADO">
+      <UniqueIdentifier>{da54f7ee-3b97-47c1-95bd-bf0175c74305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOCastTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOCommandTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOConnectionTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOEnvironmentTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOParameterTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOTransactionTest.cpp">
+      <Filter>소스 파일\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOTimeSpanTest.cpp">
+      <Filter>소스 파일\ADO\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DatabaseTestAppSettings.cpp">
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Program.cpp">
+      <Filter>소스 파일\Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DatabaseTestAppSettings.h">
+      <Filter>헤더 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ADOEnvironmentTest.h">
+      <Filter>헤더 파일\ADO</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Earlgrey.Database.Test.ini">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="MSSQL-Tables.sql">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

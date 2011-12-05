@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<ItemGroup>
+	<FileToUpload Include="$(RootDir)\MSBuild_x64.bat">
+		<CreateRemoteFolder>true</CreateRemoteFolder>
+		<RemoteDir>./public_html/Sub1</RemoteDir>
+	</FileToUpload>
+	<FileToUpload Include="$(RootDir)\MSBuild_Win32.bat">
+		<CreateRemoteFolder>true</CreateRemoteFolder>
+		<RemoteDir>./public_html/Sub2</RemoteDir>
+	</FileToUpload>
+</ItemGroup>
+
+<!-- Delete the next condition statement if you want to run this test! -->
+<Target Name="RunTest" Condition="false">
+	<WinScpUpload
+		HostName = "ftpsomewhere.net"
+		ProtocolSFtp = "true"
+        UserName = "me"
+        Password = "pwd"
+		HostKey = "ssh-rsa 2048 89:1d:d7:21:ca:54:ad:af:3f:3f:a6:e5:f4:a0:e0:2d"
+        Files = "@(FileToUpload)"
+        TimeoutSeconds = "20"
+	/>
+</Target>
+
+</Project>

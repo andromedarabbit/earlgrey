@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="RunTest">
+	<IniFile.GetValue FilePath="$(RootDir)\Data\Sections.ini" Section="SecondSection" Key="SecondKeyInSecondSection">
+		<Output PropertyName="ValueRead" TaskParameter="Value" />
+	</IniFile.GetValue>
+	
+	<Error 
+		Text="The target key should have value 'abcdefg123', but it has '$(ValueRead)'!" 
+		Condition="'$(ValueRead)' != 'abcdefg123'" />
+</Target>
+
+</Project>

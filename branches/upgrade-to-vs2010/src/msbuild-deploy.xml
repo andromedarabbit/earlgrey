@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<PropertyGroup>
+	<BuildCondition Condition=" '$(BuildCondition)' == '' ">Rebuild</BuildCondition>
+</PropertyGroup>
+
+<Import Project="msbuild.xml"/>
+
+<!-- 배포 폴더 -->
+<PropertyGroup>
+	<DeploymentDir Condition="'$(DeploymentDir)' == ''">$(OutputDir)\Deployment</DeploymentDir>
+	<EngineDeploymentDir>$(DeploymentDir)\Engine</EngineDeploymentDir>
+	
+</PropertyGroup>
+
+<PropertyGroup>
+	<VersioningToolDir>$(VendorDir)\BuildTool\Versioning Controlled Build</VersioningToolDir>
+	<VersioningTool>$(VersioningToolDir)\AutoVer.exe</VersioningTool>
+</PropertyGroup>
+
+<Target Name="DeployEngine">
+	<MSBuild 
+		Projects="$(RootDir)\msbuild-deploy-engine.xml" 
+		Targets="CopyFiles" 
+		Properties="DeploymentDir=$(DeploymentDir);BinDir=$(BinDir)"
+	/>
+</Target>
+
+
+<Target Name="GetVersion">
+	
+	<SvnInfo 
+		ToolPath="$(SvnClientDir)"
+		Username="$(SvnUsername)"
+		Password="$(SvnPassword)" 
+		LocalPath="$(RootDir)">
+		<Output TaskParameter="Revision" PropertyName="WorkingCopyRevision" />
+	</SvnInfo>
+	
+	<CreateProperty Value="1.0.0.$(WorkingCopyRevision)">
+		<Output TaskParameter="Value" PropertyName="Version" />
+	</CreateProperty>
+	
+</Target>
+
+<Target Name="UpdateVersions" DependsOnTargets="GetVersion">	
+	<Exec
+		Command="$(Quot)$(VersioningTool)$(Quot) $(Quot)$(RootDir)\Earlgrey.sln$(Quot) $(Quot)$(Version)$(Quot) /V:* /S:S"
+		WorkingDirectory="$(VersioningToolDir)"
+		/> 
+</Target>
+
+
+<Target 
+	Name="Deploy" 
+	DependsOnTargets="UpdateVersions; $(BuildCondition); DeployEngine; TestAlone"
+	>
+	
+</Target>
+
+</Project>

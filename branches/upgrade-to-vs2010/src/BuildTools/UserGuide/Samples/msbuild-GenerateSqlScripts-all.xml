@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<PropertyGroup>
+	<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI</ConnectionString>
+	<OutputDir>$(TempDir)\GenerateSqlScriptsTest\All</OutputDir>
+</PropertyGroup>
+
+<!-- Delete the next condition statement if you want to run this test! -->
+<Target Name="RunTest" Condition="false">
+	<RemoveDir Directories="$(OutputDir)" />
+	
+	<!-- scripts all the schemas with table records. -->
+	<GenerateSqlScripts
+		ConnectionString="$(ConnectionString)"
+		Database="earlgrey_test"
+		ExtendedProperties="true"
+		FullTextIndexes="true"
+		IncludeDatabaseContext="true"
+		IncludeIfNotExists="false"
+		Indexes="true"
+		NoCollation="true"
+		NoFileGroup="true"
+		Permissions="true"
+		SchemaQualify="true"
+		ScriptTriggers="true"
+		
+		CopyData="true"
+		ScriptSchemas="true"
+		
+		Overwrite="true"
+		OutputDir="$(OutputDir)"
+		/>		
+</Target>
+
+</Project>

@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+	<assembly>
+		<name>Microsoft.ExceptionMessageBox</name>
+	</assembly>
+	<members>
+		<member name="N:Microsoft.SqlServer.MessageBox">
+			<summary>The exception message box is a programmatic interface that is installed with and used by Microsoft SQL Server 2005 graphical components. The exception message box is a supported interface that you can use in your custom applications to provide significantly more control over the messaging experience than is provided by the <see cref="T:System.Windows.Forms.MessageBox"></see> class. It also gives your users the options to save error message content for later reference and to get help on messages. </summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs">
+			<summary>Returns information when the <see cref="E:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.OnCopyToClipboard"></see> event occurs.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs.#ctor">
+			<summary>Creates a new instance of <see cref="T:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs"></see> with the default properties.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs.#ctor(System.String)">
+			<summary>Creates a new instance of <see cref="T:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs"></see> with the specified copied text.</summary>
+			<param name="clipboardText">Error message information being copied.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs.ClipboardText">
+			<summary>Gets the error message information being copied.</summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.CopyToClipboardEventArgs.EventHandled">
+			<summary>Gets or sets whether the <see cref="E:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.OnCopyToClipboard"></see> event is handled.</summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.CopyToClipboardEventHandler">
+			<summary>Delegate that handles the <see cref="E:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.OnCopyToClipboard"></see> event that occurs when error information is copied to the Clipboard.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox">
+			<summary>Displays a message box that can be customized with text, buttons, and symbols to improve the customer experience with a Microsoft Windows .NET Framework-based application. </summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the default properties.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.Exception)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> by using information from the specified <see cref="T:System.Exception"></see>.</summary>
+			<param name="exception"><see cref="T:System.Exception"></see> that contains the top-level text, inner exception text, caption, data, help link, and optional additional information to display in the exception message box.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.String)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the supplied top-level error message text.</summary>
+			<param name="text">Error text of the top-level message.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.Exception,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> by using information from the specified <see cref="T:System.Exception"></see> and by specifying the buttons to display in the message box.</summary>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the message box. </param>
+			<param name="exception"><see cref="T:System.Exception"></see> that contains the top-level text, inner exception text, caption, data, help link, and optional additional information to display in the exception message box.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.String,System.String)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the supplied top-level error message text and the dialog box caption of the exception message box.</summary>
+			<param name="caption">Caption of the exception message box. </param>
+			<param name="text">Error text of the top-level message.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.Exception,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> by using information from the specified <see cref="T:System.Exception"></see> and by specifying the buttons and symbol to display in the message box.</summary>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="symbol"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> enumeration that specifies the symbol to display in the exception message box. </param>
+			<param name="exception"><see cref="T:System.Exception"></see> that contains the top-level text, inner exception text, caption, data, help link, and optional additional information to display in the exception message box.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.String,System.String,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the supplied top-level error message text and the dialog box caption of the exception message box. The method also specifies buttons to display in the exception message box. </summary>
+			<param name="caption">Caption of the exception message box. </param>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="text">Error text of the top-level message.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.Exception,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> by using information from the specified <see cref="T:System.Exception"></see> and by specifying the buttons, symbol, and default button to display in the exception message box. .</summary>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="defaultButton"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton"></see> enumeration that specifies the default button for the exception message box. </param>
+			<param name="symbol"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> enumeration that specifies the symbol to display in the exception message box. </param>
+			<param name="exception"><see cref="T:System.Exception"></see> that contains the top-level text, inner exception text, caption, data, help link, and optional additional information to display in the exception message box. </param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.String,System.String,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the supplied top-level error message text and dialog box caption of the exception message box. The method also specifies the buttons and symbol to display in the exception message box. </summary>
+			<param name="symbol"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> enumeration that specifies the symbol to display in the exception message box.</param>
+			<param name="caption">Dialog box caption of the exception message box. </param>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="text">Error text of the top-level message.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.Exception,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> by using information from the specified <see cref="T:System.Exception"></see> and by specifying the buttons, symbol, default button, and other properties to display in the exception message box.</summary>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="defaultButton"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton"></see> enumeration that specifies the default button for the exception message box.</param>
+			<param name="symbol"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> enumeration that specifies the symbol to display in the exception message box.</param>
+			<param name="options">The <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions"></see> enumeration that controls other behaviors of the exception message box.</param>
+			<param name="exception"><see cref="T:System.Exception"></see> that contains the top-level text, inner exception text, caption, data, help link, and optional additional information to display in the exception message box.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.#ctor(System.String,System.String,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol,Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton)">
+			<summary>Creates an instance of <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBox"></see> with the supplied top-level error message text and dialog box caption of the message box. The method also specifies the buttons, symbol, and default button to display in the exception message box. </summary>
+			<param name="defaultButton"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton"></see> enumeration that specifies the default button for the exception message box.</param>
+			<param name="symbol"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> enumeration that specifies the symbol to display in the exception message box.</param>
+			<param name="caption">Dialog box caption of the exception message box. </param>
+			<param name="buttons"><see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> enumeration that specifies the buttons to display in the exception message box. </param>
+			<param name="text">Error text of the top-level message.</param>
+		</member>
+		<member name="E:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.OnCopyToClipboard">
+			<summary>Occurs when exception message text is copied from the message box to the Clipboard.</summary>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.GetMessageText(System.Exception)">
+			<summary>Returns the string that a user can copy to the clipboard when the exception is displayed in an exception message box. </summary>
+			<returns><see cref="T:System.String"></see> that contains the full content of the message.</returns>
+			<param name="exception">An <see cref="T:System.Exception"></see> object.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.SetButtonText(System.String)">
+			<summary>Sets the text for the custom text button when only one button is displayed in the exception message box.</summary>
+			<param name="button1Text">Text for the first custom button.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.SetButtonText(System.String,System.String)">
+			<summary>Sets the text for the custom text buttons when only two buttons are displayed in the exception message box.</summary>
+			<param name="button2Text">Text for the second custom button.</param>
+			<param name="button1Text">Text for the first custom button.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.SetButtonText(System.String,System.String,System.String)">
+			<summary>Sets the text for the custom text buttons when only three buttons are displayed in the exception message box.</summary>
+			<param name="button3Text">Text for the third custom button.</param>
+			<param name="button2Text">Text for the second custom button.</param>
+			<param name="button1Text">Text for the first custom button.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.SetButtonText(System.String,System.String,System.String,System.String)">
+			<summary>Sets the text for the custom text buttons when only four buttons are displayed in the exception message box.</summary>
+			<param name="button4Text">Text for the fourth custom button.</param>
+			<param name="button3Text">Text for the third custom button.</param>
+			<param name="button2Text">Text for the second custom button.</param>
+			<param name="button1Text">Text for the first custom button.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.SetButtonText(System.String,System.String,System.String,System.String,System.String)">
+			<summary>Sets the text for the custom text buttons when only five buttons are displayed in the exception message box.</summary>
+			<param name="button4Text">Text for the fourth custom button.</param>
+			<param name="button3Text">Text for the third custom button.</param>
+			<param name="button2Text">Text for the second custom button.</param>
+			<param name="button5Text">Text for the fifth custom button.</param>
+			<param name="button1Text">Text for the first custom button.</param>
+		</member>
+		<member name="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Show(System.Windows.Forms.IWin32Window)">
+			<summary>Shows the exception message box as a modal dialog box centered on the parent window.</summary>
+			<returns>The <see cref="T:System.Windows.Forms.DialogResult"></see> of the button clicked by the user. </returns>
+			<param name="Owner">Parent window for the exception message box.</param>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.AbortButtonText">
+			<summary>Gets the default text for the Abort button.</summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Beep">
+			<summary>Specifies whether to play an audible sound when the message is displayed. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Buttons">
+			<summary>Gets or sets the buttons to display in the message box. </summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons"></see> value. </returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CancelButtonText">
+			<summary>Gets the default text for the Cancel button. </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Caption">
+			<summary>Gets or sets the dialog box caption of the exception message box. </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxRegistryKey">
+			<summary>Sets an opened <see cref="T:Microsoft.Win32.RegistryKey"></see> that controls the check box that is displayed on the exception message box when <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowCheckbox"></see> is true. </summary>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxRegistryMeansDoNotShowDialog">
+			<summary>Determines whether the registry value content specified by <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxRegistryKey"></see> and <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxRegistryValue"></see> indicates a previous user decision not to view this message. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxRegistryValue">
+			<summary>Gets or sets the registry value name that controls the check box on the exception message box when <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowCheckbox"></see> is true. </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CheckBoxText">
+			<summary>Gets or sets the text to display in the check box on the exception message box when <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowCheckbox"></see> is true. </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CustomDialogResult">
+			<summary>Gets the clicked custom text dialog button. </summary>
+			<returns>A <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.CustomSymbol">
+			<summary>Gets or sets a custom bitmap to use as the symbol on the exception message box. </summary>
+			<returns>A <see cref="T:System.Drawing.Bitmap"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Data">
+			<summary>Gets the <see cref="T:System.Collections.IDictionary"></see> interface that stores help link and advanced information associated with the top-level message. </summary>
+			<returns>An <see cref="T:System.Collections.IDictionary"></see> interface.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.DefaultButton">
+			<summary>Gets or sets the default button on the message box. </summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.DefaultDialogResult">
+			<summary>Gets or sets the value returned by the <see cref="M:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Show(System.Windows.Forms.IWin32Window)"></see> method when the user has previously indicated not to show a given message again. </summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.FailButtonText">
+			<summary>Gets the default text for the Fail button.</summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Font">
+			<summary>Gets or sets the font used in the message box. </summary>
+			<returns>A <see cref="T:System.Drawing.Font"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.HelpLink">
+			<summary>Gets or sets the link to the help file or help Web page associated with the top-level message. </summary>
+			<returns>A <see cref="T:System.String"></see> URL value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.IgnoreButtonText">
+			<summary>Gets the default text for the Ignore button. </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.InnerException">
+			<summary>Gets or sets the <see cref="T:System.Exception"></see> instance associated with the lower-level message(s). </summary>
+			<returns>An <see cref="T:System.Exception"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.IsCheckBoxChecked">
+			<summary>Specifies whether the check box is selected when <see cref="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowCheckbox"></see> is true. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Message">
+			<summary>Gets or sets the <see cref="T:System.Exception"></see> that contains the message to display. </summary>
+			<returns>An <see cref="T:System.Exception"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.MessageLevelDefault">
+			<summary>Gets or sets the number of message levels to display in the message box. </summary>
+			<returns>An <see cref="T:System.Int32"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.NoButtonText">
+			<summary>Gets the default text for the No button </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.OKButtonText">
+			<summary>Gets the default text for the OK button </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Options">
+			<summary>Gets or sets miscellaneous display options for the message box </summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.RetryButtonText">
+			<summary>Gets the default text for the Retry button.</summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowCheckBox">
+			<summary>Specifies whether to show the check box in the exception message box. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.ShowToolBar">
+			<summary>Specifies whether to show the command button toolbar on the exception message box. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Symbol">
+			<summary>Gets or sets the symbol to display in the exception message box. </summary>
+			<returns>An <see cref="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol"></see> object.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.Text">
+			<summary>Gets or sets the text of the top-level message to display in the exception message box </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.UseOwnerFont">
+			<summary>Specifies whether to retrieve the font of the owner window and use it as the font for the exception message box. </summary>
+			<returns>A <see cref="T:System.Boolean"></see> value.</returns>
+		</member>
+		<member name="P:Microsoft.SqlServer.MessageBox.ExceptionMessageBox.YesButtonText">
+			<summary>Gets the default text for the Yes button </summary>
+			<returns>A <see cref="T:System.String"></see> value.</returns>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons">
+			<summary>Specifies the button to display in the exception message box. </summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.AbortRetryIgnore">
+			<summary>Display the Abort, Retry, and Ignore buttons.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.Custom">
+			<summary>Display buttons with custom button text.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.OK">
+			<summary>Display the OK button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.OKCancel">
+			<summary>Display the OK and Cancel buttons.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.RetryCancel">
+			<summary>Display the Retry and Cancel buttons.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.YesNo">
+			<summary>Display Yes and No buttons.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxButtons.YesNoCancel">
+			<summary>Display Yes, No, and Cancel buttons.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton">
+			<summary>Sets the default button in the exception message box.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton.Button1">
+			<summary>The first button is the default button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton.Button2">
+			<summary>The second button is the default button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton.Button3">
+			<summary>The third button is the default button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton.Button4">
+			<summary>The fourth button is the default button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDefaultButton.Button5">
+			<summary>The fifth button is the default button.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult">
+			<summary>Identifies the button that the user clicked to close the exception message box when custom text buttons are used.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.Button1">
+			<summary>The first custom text button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.Button2">
+			<summary>The second custom text button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.Button3">
+			<summary>The third custom text button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.Button4">
+			<summary>The fourth custom text button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.Button5">
+			<summary>The fifth custom text button.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxDialogResult.None">
+			<summary>Custom text buttons are not used.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions">
+			<summary>Specifies miscellaneous display options for the exception message box.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions.None">
+			<summary>No other behaviors are required.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions.RightAlign">
+			<summary>Display text with right-hand alignment. </summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxOptions.RtlReading">
+			<summary>Display text reading right-to-left.</summary>
+		</member>
+		<member name="T:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol">
+			<summary>Specifies the symbol that is displayed in the exception message box.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Asterisk">
+			<summary>The system asterisk symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Error">
+			<summary>The system error symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Exclamation">
+			<summary>The system exclamation point symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Hand">
+			<summary>The system hand symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Information">
+			<summary>The system information symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.None">
+			<summary>No symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Question">
+			<summary>The system question mark symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Stop">
+			<summary>The system stop sign symbol.</summary>
+		</member>
+		<member name="F:Microsoft.SqlServer.MessageBox.ExceptionMessageBoxSymbol.Warning">
+			<summary>The system warning symbol.</summary>
+		</member>
+	</members>
+</doc>

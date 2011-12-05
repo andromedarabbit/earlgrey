@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+	<RootDir>$(MSBuildProjectDirectory)</RootDir>
+	<MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+	<Target Name="TestCase-WhereTest-ExpectTrue">
+		<Where FileName="cmd.exe">
+			<Output TaskParameter="PathsFound" ItemName="CmdPaths" />
+		</Where>
+		
+		<Error
+			Text="Paths not found! @(CmdPaths)"
+			Condition="'@(CmdPaths)' == ''" 
+			/>
+	</Target> 
+</Project>

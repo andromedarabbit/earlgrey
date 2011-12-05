@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest-ZipAFolder"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+<Target Name="ZipAFolder">
+	<Delete Files="$(TempDir)\ZipAFolder.zip" />
+	
+	<!-- 
+	Compress SrcFolder into ZipAFolder.zip, which contains all the sub-files and sub-folders except SrcFolder itself 
+	-->
+	<Zip.Pack 
+		SrcFolder="$(RootDir)\Data" 
+		ZipFilePath="$(TempDir)\ZipAFolder.zip" 
+		ContainsRootDir="false"
+		/>
+</Target>
+
+<Target Name="UnzipAFolder">
+	<RemoveDir Directories="$(TempDir)\Data" />
+	
+	<!-- 
+	Decompress all the files and folders into TargetDir. Overwrite an old file/folder with new one if the same file/folder exists. 
+	-->
+	<Zip.Unpack 
+		ZipFilePath="$(TempDir)\ZipAFolder.zip" 
+		TargetDir="$(TempDir)\DstDir" 
+		Overwrite="true"
+	/>
+
+	<Error 
+		Text="A folder '$(TempDir)\DstDir' not found!" 
+		Condition="!Exists('$(TempDir)\DstDir')"
+		/>
+	
+	<RemoveDir Directories="$(TempDir)\Data" />
+	
+</Target>
+
+<Target Name="RunTest-ZipAFolder" DependsOnTargets="ZipAFolder; UnzipAFolder">
+</Target>
+
+</Project>
+
+		

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+	
+
+<Target Name="RunTest">
+	<RemoveDir Directories="$(TempDir)" />
+	
+	<BetterRoboCopy
+		SourceFolder="$(SampleDataDir)"
+		DestinationFolder="$(TempDir)"
+		Subdirectories="true"
+	/>
+	
+	<Error
+		Text="Not successful!"
+		Condition="!Exists('$(TempDir)\SampleFolder\TextFiles\msbuild.xml')"
+		/>
+		
+	<RemoveDir Directories="$(TempDir)" />
+</Target>
+
+</Project>
+
+		

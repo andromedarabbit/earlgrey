@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-configurations.xml" />
+
+	<PropertyGroup>
+		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
+	</PropertyGroup>
+
+	<!-- Delete the next condition statement if you want to run this test! -->
+	<Target Name="RunTest" Condition="false">
+		<!-- Object identity numbers are provided as metadata named 'Id'. -->
+		<GetObjectId
+			ConnectionString="$(ConnectionString)"
+			Names="INFORMATION_SCHEMA.VIEWS; INFORMATION_SCHEMA.TABLES"
+			>
+			<Output TaskParameter="Ids" ItemName="ObjectIds" />
+		</GetObjectId>
+
+		<Error Text="Not found!" Condition="'@(ObjectIds)' == ''" />
+		
+		<Message Text="%(ObjectIds.Identity) - %(ObjectIds.Id)" />
+	</Target>
+
+</Project>

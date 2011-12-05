@@ -1,0 +1,2 @@
+
+(function($){$.tablesorter.addWidget({id:'statusDisplay',format:function(table){$("tr.buildStatus",table.tBodies[0]).each(function(){var row=$(this);var id=row.attr('id');var linkedId='projectData'+id.substring(4);var parent=$('#'+linkedId);row.insertAfter(parent);});}});$.fn.initialiseProjectGrid=function(config){var defaultConfig={widgets:['statusDisplay'],sortList:[[0,0]],textExtraction:function(node){var t=$(node).text();return t;}};config=$.extend(defaultConfig,config||{});this.tablesorter(config);return this;};})(jQuery);

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <Target Name="TestCase-GetFullPaths-ExpectTrue">
+		<ForFiles
+			PathName="$(RootDir)"
+			Command="CMD /C ECHO @path"
+			Recursive="true"
+		>
+			<Output TaskParameter="FilesFound" ItemName="FilesFound" />
+		</ForFiles>
+
+    <Error
+      Text="File Not Found!"
+      Condition="'@(FilesFound)' == ''" />
+  </Target> 
+</Project>

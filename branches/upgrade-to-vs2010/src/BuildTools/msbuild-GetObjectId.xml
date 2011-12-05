@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-configurations.xml" />
+
+	<PropertyGroup>
+		<ConnectionString>Data Source=.\SQLEXPRESS;Integrated Security=SSPI;Initial Catalog=master</ConnectionString>
+	</PropertyGroup>
+
+	<Target Name="RunTest">
+		<GetObjectId
+			ConnectionString="$(ConnectionString)"
+			Names="INFORMATION_SCHEMA.VIEWS; INFORMATION_SCHEMA.TABLES"
+			>
+			<Output TaskParameter="ObjectIds" ItemName="Ids" />
+		</GetObjectId>
+
+		<Error Text="Not found!" Condition="'@(ObjectIds)' == ''" />
+	</Target>
+
+</Project>

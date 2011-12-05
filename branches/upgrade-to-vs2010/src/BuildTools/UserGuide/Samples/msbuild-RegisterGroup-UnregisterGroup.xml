@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+	<Import Project="msbuild-configurations.xml" />
+
+	<Target Name="Clean">
+		<!-- Unregister the root server group. -->
+		<SqlServer2005.UnregisterGroup
+			Name="Local Instances"
+			ContinueOnError="true"
+		/>
+	</Target>
+	
+	<Target Name="RunTest" DependsOnTargets="Clean">
+		<!-- Register the target group. -->
+		<SqlServer2005.RegisterGroup
+			Path="ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']"
+			Name="Group3"
+			Description="Group3 description"
+			CreateRecursively="true"
+		/>
+		
+		<!-- Unregister the target group. -->
+		<SqlServer2005.UnregisterGroup
+			Path="ServerGroup[@Name=''Local Instances'']/ServerGroup[@Name=''Group2'']"
+			Name="Group3"
+		/>
+		
+		<CallTarget Targets="Clean" />
+	</Target>
+</Project>

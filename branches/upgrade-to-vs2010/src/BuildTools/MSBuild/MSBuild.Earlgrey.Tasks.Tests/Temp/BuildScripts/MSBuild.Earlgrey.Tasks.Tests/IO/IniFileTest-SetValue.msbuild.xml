@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  
+  <PropertyGroup>
+    <TempIniFile>Copy-$(IniFile)</TempIniFile>
+  </PropertyGroup>
+  
+  <Target Name="SetValue">
+    <Delete Files="$(TempIniFile)" />
+
+    <Copy SourceFiles="$(IniFile)" DestinationFiles="$(TempIniFile)" />
+
+    <IniFIle.SetValue FilePath="$(TempIniFile)"
+                      Section="$(Section)"
+                      Key="$(Key)"
+                      Value="$(Value)"
+                      />
+
+    <IniFile.GetValue FilePath="$(TempIniFile)"
+                      Section="$(Section)"
+                      Key="$(Key)">
+      <Output TaskParameter="Value" PropertyName="OutputValue" />
+    </IniFile.GetValue>
+
+    <Error Text="Value '$(Value)' expected, but '$(OutputValue)'." Condition="'$(OutputValue)' != '$(Value)'" />
+
+  </Target>
+</Project>

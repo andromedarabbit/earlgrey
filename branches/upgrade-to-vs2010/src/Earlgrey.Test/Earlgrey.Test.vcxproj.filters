@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\Temp">
+      <UniqueIdentifier>{d6d1ed8a-1d3a-4cab-bd5e-1cdfc1e2e018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Network">
+      <UniqueIdentifier>{5f5a471a-8a6c-4106-b9b1-8b9c6c53871b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Network\Mail">
+      <UniqueIdentifier>{b9fee284-4de0-4e26-ab5d-c5d3b1039e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Memory">
+      <UniqueIdentifier>{4c25d5db-6011-4ce0-b6b4-a6fc6157e145}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ProcessThread">
+      <UniqueIdentifier>{fd33df76-6478-46d0-b818-0ef275c6cbc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Diagnostics">
+      <UniqueIdentifier>{15a55cf2-31b0-42cb-bfa6-1380496d3584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Diagnostics\UnhandledExceptionHandler">
+      <UniqueIdentifier>{93602fa5-e444-46d9-a18f-b22f07f387c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Diagnostics\Log">
+      <UniqueIdentifier>{579d0118-24ff-4d92-874b-da23a4cf6f8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StlCustom">
+      <UniqueIdentifier>{d359e4e0-c2f7-44ea-9181-bfebe556f1ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일\Main">
+      <UniqueIdentifier>{09711c91-fc83-468d-ba0b-e2a155787c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Network">
+      <UniqueIdentifier>{2369a4aa-64a1-4cd3-8303-46fc7ebbb3f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Memory">
+      <UniqueIdentifier>{9214186a-5dfa-4d22-a578-7cb6c8550a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ConsoleTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DateTimeTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyMathTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnvironmentTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventProducerTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniReaderTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniSectionTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LexicalCastTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeQueueTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeStackTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MacrosTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NumericCastTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RAIITest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryKeyTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharedPtrHelperTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SingleAppInstanceTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringHelperTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskQueueTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeSpanTest.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SampleTest.cpp">
+      <Filter>소스 파일\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TempTest.cpp">
+      <Filter>소스 파일\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConnectionTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DNSTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPAddressTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ListenerTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemTcpStatisticsTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsFirewallTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GMailClientTest.cpp">
+      <Filter>소스 파일\Network\Mail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicBufferTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BinaryReaderTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BinaryWriterTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ChainBufferTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CircularBufferTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GreedyAllocatorTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryBlockTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryMathTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkReaderTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkWriterTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackAllocatorTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyProcessTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExecutorTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StlStackAllocatorTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadGroup.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadLocalTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadMessageTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimerTest.cpp">
+      <Filter>소스 파일\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyAssertTest.cpp">
+      <Filter>소스 파일\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileVersionInfoTest.cpp">
+      <Filter>소스 파일\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StaticAssertTest.cpp">
+      <Filter>소스 파일\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UserDefinedCompilerMessageTest.cpp">
+      <Filter>소스 파일\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExceptionEmailerTest.cpp">
+      <Filter>소스 파일\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniDumpTest.cpp">
+      <Filter>소스 파일\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventLogTest.cpp">
+      <Filter>소스 파일\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LoggerTest.cpp">
+      <Filter>소스 파일\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LogTest.cpp">
+      <Filter>소스 파일\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VectorTest.cpp">
+      <Filter>소스 파일\StlCustom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Earlgrey.Test.cpp">
+      <Filter>헤더 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>헤더 파일\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackMemoryManagerTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputStreamTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkBufferTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OutputStreamTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx.h">
+      <Filter>헤더 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\targetver.h">
+      <Filter>헤더 파일\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SocketTest.h">
+      <Filter>헤더 파일\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkWriterTest.h">
+      <Filter>헤더 파일\Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Earlgrey.Test.Comments.ini">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Earlgrey.Test.Empty.ini">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Earlgrey.Test.In.Unicode.ini">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Earlgrey.Test.ini">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="Earlgrey.Test.txt">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EarlgreyTestResources.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

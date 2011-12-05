@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <RootDir>$(MSBuildProjectDirectory)</RootDir>
+    <MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..</MSBuildEarlgreyTasksPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+  <Target Name="TestCase-ConsoleWithColor-ExpectTrue">
+		<BetterMessage Text="ConsoleWithColor Test" Color="Green" />
+  </Target>
+
+	<Target Name="TestCase-ConsoleWithoutColor-ExpectTrue">
+		<BetterMessage Text="ConsoleWithoutColor Test" Color="" />
+		<BetterMessage Text="ConsoleWithoutColor Test" />
+	</Target>
+
+	<Target Name="TestCase-ConsoleWithoutText-ExpectTrue">
+		<BetterMessage Text="ConsoleWithoutText Test" />
+		<BetterMessage Text="" Color="Red" />
+		<BetterMessage Text="" />
+		<BetterMessage Text="ConsoleWithoutText Test" />
+	</Target>
+</Project>

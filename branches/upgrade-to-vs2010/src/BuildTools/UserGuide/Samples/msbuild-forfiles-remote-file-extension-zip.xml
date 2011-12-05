@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project 
+	InitialTargets="RunTest"
+	xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+
+<Import Project="msbuild-configurations.xml" />
+
+<Target Name="RemoteFileExtensionZip">
+	<ForFiles
+			PathName="$(RootDir)"
+			Command="CMD /C move @file @fname"
+			SearchMask="*.zip"
+			Recursive="false"
+			ContinueOnError="true"
+		>
+		<Output TaskParameter="FilesFound" ItemName="FilesRemovedExtensionZip" />
+	</ForFiles>
+	
+	<Message 
+		Text="Files removed its extension .zip: @(FilesRemovedExtensionZip)"
+		Condition="'@(FilesRemovedExtensionZip)' != ''"
+		/>
+</Target>
+
+<Target Name="RunTest" DependsOnTargets="RemoteFileExtensionZip">
+</Target>
+
+</Project>
+
+		

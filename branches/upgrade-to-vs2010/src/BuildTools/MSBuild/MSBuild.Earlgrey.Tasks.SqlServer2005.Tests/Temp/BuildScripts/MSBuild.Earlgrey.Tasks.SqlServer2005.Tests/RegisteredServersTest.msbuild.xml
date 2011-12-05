@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+		<MSBuildEarlgreyTasksPath>$(RootDir)\..\..\..</MSBuildEarlgreyTasksPath>
+	</PropertyGroup>
+
+	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+  <Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2005.Targets"/>
+
+	<Target Name="TestCase-RegisterGroupUnderRootPath-ExpectTrue">
+		<RegisterGroup  Name="EarlgreyTestGroup" />			
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
+	</Target>
+
+	<Target Name="TestCase-RegisterServerRecursively-ExpectTrue">
+		<RegisterServer  
+			Name="Server1" 
+			Path="ServerGroup[@Name=''EarlgreyTestGroup'']/ServerGroup[@Name=''Group1'']"
+			ServerInstance=".\SQLEXPRESS"
+			CreateRecursively="true"
+			/>
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
+	</Target>
+	
+	<Target Name="TestCase-RegisterGroupRecursively-ExpectTrue">
+		<RegisterGroup  
+			Name="Group2" 
+			Path="ServerGroup[@Name=''EarlgreyTestGroup'']/ServerGroup[@Name=''Group1'']"
+			CreateRecursively="true"
+			/>
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
+	</Target>
+
+	<Target Name="TestCase-RegisterGroupRecursivelyWithDetails-ExpectTrue">
+		<SqlServer2005.RegisterServer
+			Name="Dev-KR"
+			ServerInstance="CombatDevDbKr.nexon.dev"
+			Description=""
+			Path="ServerGroup[@Name=''EarlgreyTestGroup'']"
+			Login="combat_admin"
+			LoginSecure="false"
+			Password="fx01gdb"
+			CreateRecursively="true"
+		/>
+		<UnregisterGroup  Name="EarlgreyTestGroup" />	
+	</Target>
+</Project>

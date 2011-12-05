@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildEarlgreyTasksPath Condition="'$(MSBuildEarlgreyTasksPath)' == ''">.</MSBuildEarlgreyTasksPath>
+    <MSBuildEarlgreyTasksSqlServer2008Lib>$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.SqlServer2008.dll</MSBuildEarlgreyTasksSqlServer2008Lib>
+    <MSBuildCommunityTasksPath>$(MSBuildEarlgreyTasksPath)</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+
+ 
+  <UsingTask AssemblyFile="$(MSBuildEarlgreyTasksSqlServer2008Lib)" TaskName="MSBuild.Earlgrey.Tasks.SqlServer2008.GenerateSqlScripts" />
+</Project>

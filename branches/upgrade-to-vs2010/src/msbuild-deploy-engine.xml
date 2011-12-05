@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="CopyFiles" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+<Import Project="msbuild.xml"/>
+
+<!-- 배포 파일 -->
+<ItemGroup>
+	<EngineFile 
+		Include="$(BinDir)\Earlgrey.lib;;$(BinDir)\GmailClient*;;$(BinDir)\Server*;;$(BinDir)\Client*"
+		Exclude="$(BinDir)\UnityBuild*Test*;$(BinDir)\*vshost*"
+	>
+		<DstDir>$(DeploymentDir)</DstDir>
+	</EngineFile>
+</ItemGroup>
+
+<Target Name="CopyFiles">
+	<Copy            
+		SourceFiles="%(EngineFile.FullPath)"
+		DestinationFolder="%(EngineFile.DstDir)\%(RecursiveDir)"
+	/>
+</Target>
+
+</Project>
