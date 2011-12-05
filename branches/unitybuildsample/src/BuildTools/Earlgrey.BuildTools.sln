@@ -13,12 +13,26 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLNTools.Tests", "UnityBuil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{8C57DDC2-1BC9-4CAB-9DA4-E2C629348D8C}"
 	ProjectSection(SolutionItems) = preProject
+		BuildTools-AnyCPU-Debug-Deploy.bat = BuildTools-AnyCPU-Debug-Deploy.bat
+		BuildTools-AnyCPU-Debug.bat = BuildTools-AnyCPU-Debug.bat
+		BuildTools-AnyCPU-Release-Deploy.bat = BuildTools-AnyCPU-Release-Deploy.bat
+		BuildTools-AnyCPU-Release.bat = BuildTools-AnyCPU-Release.bat
 		msbuild-ci.xml = msbuild-ci.xml
 		msbuild-deploy-internal.xml = msbuild-deploy-internal.xml
+		msbuild-deploy-msbuildextensions.xml = msbuild-deploy-msbuildextensions.xml
+		msbuild-deploy-unitybuild.xml = msbuild-deploy-unitybuild.xml
+		msbuild-deploy-userguide.xml = msbuild-deploy-userguide.xml
 		msbuild-deploy.xml = msbuild-deploy.xml
+		msbuild-GetObjectId.xml = msbuild-GetObjectId.xml
+		msbuild-initialize.xml = msbuild-initialize.xml
+		msbuild-symbol.xml = msbuild-symbol.xml
+		msbuild-thirdparties.xml = msbuild-thirdparties.xml
+		msbuild-unittests.xml = msbuild-unittests.xml
 		msbuild.xml = msbuild.xml
 		..\MSBuild_Win32.bat = ..\MSBuild_Win32.bat
 		..\MSBuild_x64.bat = ..\MSBuild_x64.bat
+		..\SetEnvironment_Win32.bat = ..\SetEnvironment_Win32.bat
+		..\SetEnvironment_x64.bat = ..\SetEnvironment_x64.bat
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSBuild.Earlgrey.Scripts", "MSBuild\MSBuild.Earlgrey.Scripts\MSBuild.Earlgrey.Scripts.csproj", "{7D7CF82B-B8B3-4D66-A066-0704B45CBF60}"
