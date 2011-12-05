@@ -11,7 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{D2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildScripts", "BuildScripts", "{4AC86211-7E51-47FB-B8BB-A4B446033BA2}"
 	ProjectSection(SolutionItems) = preProject
+		Engine-Win32-Debug.bat = Engine-Win32-Debug.bat
+		Engine-Win32-Release-Deploy.bat = Engine-Win32-Release-Deploy.bat
+		Engine-Win32-Release.bat = Engine-Win32-Release.bat
+		Engine-x64-Debug.bat = Engine-x64-Debug.bat
+		Engine-x64-Release-Deploy.bat = Engine-x64-Release-Deploy.bat
+		Engine-x64-Release.bat = Engine-x64-Release.bat
 		msbuild-ci.xml = msbuild-ci.xml
+		msbuild-deploy-engine.xml = msbuild-deploy-engine.xml
+		msbuild-deploy.xml = msbuild-deploy.xml
 		msbuild-symbol.xml = msbuild-symbol.xml
 		msbuild.xml = msbuild.xml
 		MSBuild_Win32.bat = MSBuild_Win32.bat
