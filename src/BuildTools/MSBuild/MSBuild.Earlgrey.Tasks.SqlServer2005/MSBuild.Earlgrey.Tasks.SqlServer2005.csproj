@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MSBuild.Earlgrey.Tasks.SqlServer2005</RootNamespace>
     <AssemblyName>MSBuild.Earlgrey.Tasks.SqlServer2005</AssemblyName>
-    <TargetFrameworkVersion>v2.0.50727</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
