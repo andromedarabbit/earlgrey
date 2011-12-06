@@ -357,7 +357,7 @@
 		/>
 		<ProjectReference
 			ReferencedProjectIdentifier="{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7}"
-			RelativePathToProject="..\vendor\gtest-1.6.0\msvc\gtest.vcproj"
+			RelativePathToProject="..\vendor\gtest-1.6.0\msvc\gtest.vs2010.vcxproj"
 		/>
 	</References>
 	<Files>

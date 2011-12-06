@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 1,0,0,839
+ PRODUCTVERSION 1,0,0,839
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -70,12 +70,12 @@ BEGIN
         BLOCK "041204b0"
         BEGIN
             VALUE "FileDescription", "Earlgrey"
-            VALUE "FileVersion", "1, 0, 0, 1"
+            VALUE "FileVersion", "1,0,0,839"
             VALUE "InternalName", "Earlgrey"
             VALUE "LegalCopyright", "Copyright (C) 2010"
             VALUE "OriginalFilename", "Earlgrey.Database.Test"
             VALUE "ProductName", "Earlgrey"
-            VALUE "ProductVersion", "1, 0, 0, 1"
+            VALUE "ProductVersion", "1,0,0,839"
         END
     END
     BLOCK "VarFileInfo"
