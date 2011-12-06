@@ -180,10 +180,18 @@ namespace Earlgrey
 
 			TEST(StringHelperTest, StartsWith1) 
 			{
-				_txstring str = TEXT("가나다라마바사");
-				_txstring suffix = TEXT("가나다");
+				const _txstring str = TEXT("가나다라마바사");
+				const _txstring prefix = TEXT("가나다");
 
-				ASSERT_TRUE2(StartsWith(str, suffix));
+				ASSERT_TRUE2(StartsWith(str, prefix));
+			}
+
+			TEST(StringHelperTest, StartsWith2) 
+			{
+				const _txstring str = TEXT("1.0.0.930");
+				const _txstring prefix = TEXT("1.0.0.");
+
+				ASSERT_TRUE2(StartsWith(str, prefix));
 			}
 
 			TEST(StringHelperTest, IsNullOrEmpty)
