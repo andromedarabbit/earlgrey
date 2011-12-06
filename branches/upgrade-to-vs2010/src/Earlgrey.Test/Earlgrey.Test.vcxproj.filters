@@ -6,44 +6,65 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="소스 파일\Temp">
-      <UniqueIdentifier>{d6d1ed8a-1d3a-4cab-bd5e-1cdfc1e2e018}</UniqueIdentifier>
+      <UniqueIdentifier>{53a5183a-97cf-4210-8351-e71a110dbee1}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Network">
-      <UniqueIdentifier>{5f5a471a-8a6c-4106-b9b1-8b9c6c53871b}</UniqueIdentifier>
+      <UniqueIdentifier>{0d6c0164-5c04-42ff-857a-0351b0f7cd93}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Network\Mail">
-      <UniqueIdentifier>{b9fee284-4de0-4e26-ab5d-c5d3b1039e52}</UniqueIdentifier>
+      <UniqueIdentifier>{e849cd30-2d3a-447c-a6af-676c5b01bd50}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Memory">
-      <UniqueIdentifier>{4c25d5db-6011-4ce0-b6b4-a6fc6157e145}</UniqueIdentifier>
+      <UniqueIdentifier>{29ac8a43-f91f-43ff-8f2c-d08c85a0f633}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\ProcessThread">
-      <UniqueIdentifier>{fd33df76-6478-46d0-b818-0ef275c6cbc4}</UniqueIdentifier>
+      <UniqueIdentifier>{49842e1a-ca8c-48c8-9cd7-072c25f2e565}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Diagnostics">
-      <UniqueIdentifier>{15a55cf2-31b0-42cb-bfa6-1380496d3584}</UniqueIdentifier>
+      <UniqueIdentifier>{9e72b071-7ed6-4ae8-a9dd-f8b83c8e2a49}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Diagnostics\UnhandledExceptionHandler">
-      <UniqueIdentifier>{93602fa5-e444-46d9-a18f-b22f07f387c5}</UniqueIdentifier>
+      <UniqueIdentifier>{3c1b7dc0-5b0f-4a17-97ac-0c948d356aef}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\Diagnostics\Log">
-      <UniqueIdentifier>{579d0118-24ff-4d92-874b-da23a4cf6f8a}</UniqueIdentifier>
+      <UniqueIdentifier>{e3bd4b06-fa24-4a83-8f9b-f3f82b12e379}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\StlCustom">
-      <UniqueIdentifier>{d359e4e0-c2f7-44ea-9181-bfebe556f1ea}</UniqueIdentifier>
+      <UniqueIdentifier>{9f94c8f7-44c7-4f58-b9dc-c5d4252d1438}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Text">
+      <UniqueIdentifier>{cd9880ff-79d1-4812-8c21-2adc3a47adc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\System">
+      <UniqueIdentifier>{cc044466-88d3-4780-beae-ba7f7afbb5a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Math">
+      <UniqueIdentifier>{6b673c1c-e016-499d-a63a-8b1f8f1f7cf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Configuration">
+      <UniqueIdentifier>{406a27f2-019e-4ced-910d-e4339d9a6f8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Algorithm">
+      <UniqueIdentifier>{8aeb2aed-f131-4296-93cc-8e1d1cc3d033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Main">
+      <UniqueIdentifier>{ae36e8a0-b343-425e-8c0a-88e8541453e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Security">
+      <UniqueIdentifier>{f13f48ad-c192-4a97-a57a-cc448368375a}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="헤더 파일\Main">
-      <UniqueIdentifier>{09711c91-fc83-468d-ba0b-e2a155787c3d}</UniqueIdentifier>
+      <UniqueIdentifier>{b895295c-54ae-4fe1-a249-fbc05205fe2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Network">
-      <UniqueIdentifier>{2369a4aa-64a1-4cd3-8303-46fc7ebbb3f9}</UniqueIdentifier>
+      <UniqueIdentifier>{49c81004-e436-4a36-ae79-20d8f2b09d46}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일\Memory">
-      <UniqueIdentifier>{9214186a-5dfa-4d22-a578-7cb6c8550a37}</UniqueIdentifier>
+      <UniqueIdentifier>{6f23847e-bb71-4a18-a18a-3b179ce2a00d}</UniqueIdentifier>
     </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -51,70 +72,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ConsoleTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\DateTimeTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EarlgreyMathTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EnvironmentTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EventProducerTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\FileTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IniReaderTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\IniSectionTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LexicalCastTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LockfreeQueueTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\LockfreeStackTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="src\MacrosTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\NumericCastTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\PathTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RAIITest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RegistryKeyTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RegistryTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SharedPtrHelperTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SingleAppInstanceTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\StringHelperTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TaskQueueTest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TimeSpanTest.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\SampleTest.cpp">
@@ -129,10 +87,19 @@
     <ClCompile Include="src\DNSTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
+    <ClCompile Include="src\InputStreamTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
     <ClCompile Include="src\IPAddressTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
     <ClCompile Include="src\ListenerTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkBufferTest.cpp">
+      <Filter>소스 파일\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OutputStreamTest.cpp">
       <Filter>소스 파일\Network</Filter>
     </ClCompile>
     <ClCompile Include="src\SocketTest.cpp">
@@ -186,6 +153,12 @@
     <ClCompile Include="src\StackAllocatorTest.cpp">
       <Filter>소스 파일\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="src\StackMemoryManagerTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StlGreedyAllocatorTest.cpp">
+      <Filter>소스 파일\Memory</Filter>
+    </ClCompile>
     <ClCompile Include="src\EarlgreyProcessTest.cpp">
       <Filter>소스 파일\ProcessThread</Filter>
     </ClCompile>
@@ -237,26 +210,92 @@
     <ClCompile Include="src\LogTest.cpp">
       <Filter>소스 파일\Diagnostics\Log</Filter>
     </ClCompile>
+    <ClCompile Include="src\SharedPtrHelperTest.cpp">
+      <Filter>소스 파일\StlCustom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharedPtrTest.cpp">
+      <Filter>소스 파일\StlCustom</Filter>
+    </ClCompile>
     <ClCompile Include="src\VectorTest.cpp">
       <Filter>소스 파일\StlCustom</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConvertTest.cpp">
+      <Filter>소스 파일\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConsoleTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DateTimeTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnvironmentTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventProducerTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LexicalCastTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\OperationSystemTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessorTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RAIITest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryKeyTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SingleAppInstanceTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringHelperTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeSpanTest.cpp">
+      <Filter>소스 파일\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyMathTest.cpp">
+      <Filter>소스 파일\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NumericCastTest.cpp">
+      <Filter>소스 파일\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniReaderTest.cpp">
+      <Filter>소스 파일\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniSectionTest.cpp">
+      <Filter>소스 파일\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeQueueTest.cpp">
+      <Filter>소스 파일\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeStackTest.cpp">
+      <Filter>소스 파일\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskQueueTest.cpp">
+      <Filter>소스 파일\Algorithm</Filter>
+    </ClCompile>
     <ClCompile Include="src\Earlgrey.Test.cpp">
-      <Filter>헤더 파일\Main</Filter>
+      <Filter>소스 파일\Main</Filter>
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp">
-      <Filter>헤더 파일\Main</Filter>
+      <Filter>소스 파일\Main</Filter>
     </ClCompile>
-    <ClCompile Include="src\StackMemoryManagerTest.cpp">
-      <Filter>소스 파일\Memory</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InputStreamTest.cpp">
-      <Filter>소스 파일\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\NetworkBufferTest.cpp">
-      <Filter>소스 파일\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\OutputStreamTest.cpp">
-      <Filter>소스 파일\Network</Filter>
+    <ClCompile Include="src\MD5Test.cpp">
+      <Filter>소스 파일\Security</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
