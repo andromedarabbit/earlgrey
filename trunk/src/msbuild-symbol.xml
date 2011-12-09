@@ -44,7 +44,7 @@
 		
 	<Exec
 		Command="$(Quot)$(DebuggingToolsDir)\srcsrv\svnindex.cmd$(Quot) /debug /source=$(Quot)$(TreeRootDir)$(Quot) /symbols=$(Quot)$(RootDir)\$(BinDir)$(Quot)"
-		WorkingDirectory="$(TreeRootDir)"
+		WorkingDirectory="$(DebuggingToolsDir)\srcsrv"
 		ContinueOnError="false" 
 		IgnoreExitCode="false"
 		/>
