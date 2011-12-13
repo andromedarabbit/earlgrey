@@ -81,6 +81,8 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
             if (!string.IsNullOrEmpty(_new))
                 builder.AppendFormat(SwitchOldNewFormat, "new", _new);
 
+            builder.AppendFormat(SwitchBooleanFormat, "notice-ancestry");
+
             builder.AppendFormat(SwitchBooleanFormat, "summarize");
             // TODO: xml 옵션을 쓰면 버그가 있어서 한글 문자열이 깨진다.
             // builder.AppendFormat(_switchBooleanFormat, "xml");
