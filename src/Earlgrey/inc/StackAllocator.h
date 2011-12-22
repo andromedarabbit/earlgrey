@@ -45,7 +45,7 @@ namespace Earlgrey
 
 		~StackAllocator()
 		{
-			Pop();
+			// Pop();
 		}
 
 		inline void * malloc(size_type size)
