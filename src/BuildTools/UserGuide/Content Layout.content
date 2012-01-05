@@ -8,4 +8,8 @@
     <Topic id="a2fcccd0-8796-4b09-8443-9891f91cf806" visible="True" />
     <Topic id="f0fb2cc1-d8f8-4405-b487-3966b6587e94" visible="True" />
   </Topic>
+  <Topic id="447d5472-feec-493b-94b1-9c396fb320b2" visible="True" noFile="true" title="Examples">
+    <Topic id="a53c7c75-38bc-4c3c-b65b-fd9b679cb0fd" visible="True" title="How to Backup Folders" />
+    <Topic id="d99fb7a8-faa6-486c-b91f-ea1732da33c7" visible="True" title="How to Sync Two Folders" />
+  </Topic>
 </Topics>
