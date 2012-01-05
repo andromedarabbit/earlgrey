@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="a53c7c75-38bc-4c3c-b65b-fd9b679cb0fd" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!--
+    <summary>
+      <para>Optional summary abstract</para>
+    </summary>
+    -->
+    <introduction>
+		<para>The following example shows how to backup important folders and place a zipped file into the target remote folder. </para>
+      <!-- Uncomment this to generate an outline of the section and sub-section
+           titles.  Specify a numeric value as the inner text to limit it to
+           a specific number of sub-topics when creating the outline.  Specify
+           zero (0) to limit it to top-level sections only.  -->
+      <!-- <autoOutline /> -->
+      
+    </introduction>
+    <!-- Add one or more top-level section elements.  These are collapsible.
+         If using <autoOutline />, add an address attribute to identify it
+         and specify a title so that it can be jumped to with a hyperlink. -->
+    <section address="Section1">
+      <title>Summary</title>
+      <content>
+        <!-- Uncomment this to create a sub-section outline
+        <autoOutline /> -->
+		<para>There are many possible backup scenarios. You can use a commercial software to backup resources of your team. However, you can do it without any additional cost. Just implement a simple MSBuild script using MSBuild.Earlgrey.Tasks.</para>
+
+		<para>One of the common backup scenarios can be described like this:</para>
+
+		<list class="ordered">
+		<listItem><para>Run the backup script automatically using Windows Task Scheduler.</para></listItem>
+		<listItem><para>Script compresses the source local folders into a zipped file.</para></listItem>
+		<listItem><para>Script copies the zipped file into the remote shared folder.</para></listItem>
+		<listItem><para>Administrator should be notified when it is done.
+</para></listItem>
+		</list>
+      </content>
+	</section>
+	  
+	<section>
+		<title>Implementation</title>
+		<content>
+		<autoOutline />
+		</content>
+		<sections>
+			  <section address="SubSection1">
+				  <title>Local Backup</title>
+				  <content>
+					  <code lang="xml">
+	<![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Project
+		ToolsVersion="3.5"
+		InitialTargets=""
+		DefaultTargets="LocalBackup"
+		xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+		<!-- Special characters -->
+		<PropertyGroup>
+			<Semicolon>%3b</Semicolon> 
+
+			<Ampersand>&</Ampersand>
+			<LeftAngleBracket><&lt;/LeftAngleBracket>
+			<RightAngleBracket>></RightAngleBracket>
+			<StraightQuotationMark>"</StraightQuotationMark>
+			<Quot>$(StraightQuotationMark)</Quot>
+			<Apostrophe>'</Apostrophe>
+		</PropertyGroup> 
+
+		<PropertyGroup>
+			<RootDir>$(MSBuildProjectDirectory)</RootDir>
+		</PropertyGroup> 
+
+		<!-- Using MSBuild.Earlgrey.Task -->
+		<Import Project="$(RootDir)\MSBuildExtension\MSBuild.Earlgrey.Tasks.Targets"/>
+
+		<!-- Source folders to be backuped. -->
+		<ItemGroup>
+			<SrcDir Include="C:\Important Folder">
+				<IgnoreWarning>false</IgnoreWarning>
+			</SrcDir>
+		</ItemGroup>
+
+		<!-- The local folder where backup files to be placed into. ==>
+		<PropertyGroup>
+			<LocalBackupDir>f:\Backups</LocalBackupDir>
+		</PropertyGroup> 
+
+		<!-- Delete old backup files in order to get enough hard disk space. -->
+		<Target Name="DeleteOldBackups">
+			<!-- Get the list of backup files which are created more than 9 days. -->
+			<ForFiles
+				PathName="$(LocalBackupDir)"
+				Command="CMD /C ECHO @path"
+				Date="-10"
+				Recursive="true"
+				ContinueOnError="true"
+			>
+				<Output TaskParameter="FilesFound" ItemName="FilesFound" />
+			</ForFiles>
+
+			<Warning
+				Text="$(QUOT)@(FilesFound)$(QUOT) will be deleted!"
+				Condition="'@(FilesFound)' != ''"
+				/>
+
+			<!-- Delete outdated files. -->
+			<Delete Files="@(FilesWillBeDeleted)" />
+		</Target>
+
+		<!-- Compress and backup the target local folders. -->
+		<Target Name="LocalBackup" DependsOnTargets="DeleteOldBackups">
+			<!-- Since we are going to backup once a day, name the zipped file using the date.  -->
+			<Time>
+				<Output TaskParameter="Month" PropertyName="Month" />
+				<Output TaskParameter="Day" PropertyName="Day"  />
+				<Output TaskParameter="Year" PropertyName="Year" />
+			</Time>
+
+			<!-- Compress source folders and place the resulting zipped files into the target backup folder. -->
+			<MSBuild.Earlgrey.Tasks.IO.Compression.SevenZip.Pack
+				ContainsRootDir="true"
+				Overwrite="true"
+				SrcFolder="%(SrcDir.FullPath)"
+				ZipFilePath="$(LocalBackupDir)\%(SrcDir.Filename)-$(Year)-$(Month)-$(Day).7z"
+				IgnoreWarning="%(SrcDir.IgnoreWarning)"
+			/>
+
+		</Target>
+
+	</Project>
+	]]>
+					  </code>
+				  </content>
+			  </section>
+			  <section address="SubSection2">
+				  <title>Remote Backup</title>
+				  <content>
+					  <code lang="xml">
+	<![CDATA[
+	<?xml version="1.0" encoding="UTF-8"?>
+	<Project
+		ToolsVersion="3.5"
+		InitialTargets=""
+		DefaultTargets="RemoteBackup"
+		xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+	>
+		<Import Project="msbuild-localbackup.xml" />
+
+		<!-- The target remote folder where the backup files to be placed into. -->
+		<PropertyGroup>
+			<RemoteBackupDir>\\Remote Machine\Backup Folder</RemoteBackupDir>
+		</PropertyGroup>
+
+		<Target Name="RemoteBackup" DependsOnTargets="LocalBackup">
+			<!-- Copy zipped backup files into the remote folder using RoboCopy. -->
+			<BetterRoboCopy
+				SourceFolder="$(LocalBackupDir)"
+				DestinationFolder="$(RemoteBackupDir)"
+				SourceFiles="*"
+				AllSubdirectories="true"
+				Options="/R:3"
+			/>
+
+			<!-- Notify the administrator when backup is done. -->
+			<Email SmtpServer="cas.nexon.corp"
+				TextEncoding="UTF-8"
+				From="noreply@andromedarabbit.net"
+				To="no-reply@andromedarabbit.net"
+				Subject="[Backup] $(Year)-$(Month)-$(Day)"
+				IsBodyHtml="false"
+				Body="Done!"
+			/>
+		</Target>
+
+	</Project>
+	]]>
+					</code>
+				</content>
+			</section>
+		</sections> 
+	</section>
+	
+    <relatedTopics>
+
+		<externalLink>
+			<linkText>백업 스크립트</linkText>
+			<linkUri>http://andromedarabbit.net/wp/백업-스크립트</linkUri>
+		</externalLink>
+	  
+      <!-- One or more of the following:
+           - A local link
+           - An external link
+           - A code entity reference
+
+      <link xlink:href="Other Topic's ID"/>
+      <link xlink:href="Other Topic's ID">Link inner text</link>
+
+      <externalLink>
+          <linkText>Link text</linkText>
+          <linkAlternateText>Optional alternate link text</linkAlternateText>
+          <linkUri>URI</linkUri>
+      </externalLink>
+
+      <codeEntityReference>API member ID</codeEntityReference>
+
+      Examples:
+
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8270" />
+      <link xlink:href="00e97994-e9e6-46e0-b420-5be86b2f8278">Some other topic</link>
+
+      <externalLink>
+          <linkText>SHFB on CodePlex</linkText>
+          <linkAlternateText>Go to CodePlex</linkAlternateText>
+          <linkUri>http://shfb.codeplex.com</linkUri>
+      </externalLink>
+
+      <codeEntityReference>T:TestDoc.TestClass</codeEntityReference>
+      <codeEntityReference>P:TestDoc.TestClass.SomeProperty</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.#ctor(System.String,System.Int32)</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.ToString</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.FirstMethod</codeEntityReference>
+      <codeEntityReference>M:TestDoc.TestClass.SecondMethod(System.Int32,System.String)</codeEntityReference>
+      -->
+    </relatedTopics>
+  </developerConceptualDocument>
+</topic>
