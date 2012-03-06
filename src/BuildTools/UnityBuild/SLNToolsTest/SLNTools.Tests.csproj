@@ -72,9 +72,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SolutionFileReaderTest.cs" />
+    <Compile Include="AbstractSolutionFileReaderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SolutionFileWriterTest.cs" />
+    <Compile Include="AbstractSolutionFileWriterTest.cs" />
+    <Compile Include="VS2008SolutionFileReaderTest.cs" />
+    <Compile Include="VS2010SolutionFileReaderTest.cs" />
+    <Compile Include="VS2008SolutionFileWriterTest.cs" />
+    <Compile Include="VS2010SolutionFileWriterTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\vendor\SLNTools\src\Main\CWDev.SLNTools.Core.dll\CWDev.SLNTools.Core.dll.csproj">
