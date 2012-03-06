@@ -8,7 +8,7 @@
 #include "targetver.h"
 
 // TODO: reference additional headers your program requires here
-#define _CRT_SECURE_DEPRECATE_MEMORY
+// #define _CRT_SECURE_DEPRECATE_MEMORY
 
 #include <stdio.h>
 #include <stdlib.h>

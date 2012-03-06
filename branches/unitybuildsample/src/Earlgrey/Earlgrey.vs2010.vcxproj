@@ -1,0 +1,452 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Earlgrey</ProjectName>
+    <ProjectGuid>{97815F93-C18E-4749-BAB1-B1917C7CE375}</ProjectGuid>
+    <RootNamespace>Earlgrey</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <SmallerTypeCheck>true</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <SmallerTypeCheck>true</SmallerTypeCheck>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <TargetEnvironment>X64</TargetEnvironment>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Connection.cpp" />
+    <ClCompile Include="src\Listener.cpp" />
+    <ClCompile Include="src\MD5.cpp" />
+    <ClCompile Include="src\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\stdafx2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <ClCompile Include="src\Loki\Singleton.cpp" />
+    <ClCompile Include="src\EarlgreyProcess.cpp" />
+    <ClCompile Include="src\Executor.cpp" />
+    <ClCompile Include="src\NoLock.cpp" />
+    <ClCompile Include="src\ProcessModule.cpp" />
+    <ClCompile Include="src\Thread.cpp" />
+    <ClCompile Include="src\ThreadId.cpp" />
+    <ClCompile Include="src\ThreadLocal.cpp" />
+    <ClCompile Include="src\ThreadRunnable.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
+    <ClCompile Include="src\TimerManager.cpp" />
+    <ClCompile Include="src\TimerRunnable.cpp" />
+    <ClCompile Include="src\EarlgreyAssert.cpp" />
+    <ClCompile Include="src\FileVersionInfo.cpp" />
+    <ClCompile Include="src\RuntimeCheck.cpp" />
+    <ClCompile Include="src\ExceptionEMailer.cpp" />
+    <ClCompile Include="src\GlobalExceptionHandler.cpp" />
+    <ClCompile Include="src\MiniDump.cpp" />
+    <ClCompile Include="src\StackWriter.cpp" />
+    <ClCompile Include="src\EventLog.cpp" />
+    <ClCompile Include="src\Log.cpp" />
+    <ClCompile Include="src\Logger.cpp" />
+    <ClCompile Include="src\MemoryBlock.cpp" />
+    <ClCompile Include="src\SlabAllocator.cpp" />
+    <ClCompile Include="src\Acceptor.cpp" />
+    <ClCompile Include="src\AsyncStream.cpp" />
+    <ClCompile Include="src\Connector.cpp" />
+    <ClCompile Include="src\Disconnector.cpp" />
+    <ClCompile Include="src\Dns.cpp" />
+    <ClCompile Include="src\IOCP.cpp" />
+    <ClCompile Include="src\IPAddress.cpp" />
+    <ClCompile Include="src\IPGlobalProperties.cpp" />
+    <ClCompile Include="src\IPHostEntry.cpp" />
+    <ClCompile Include="src\PacketHandler.cpp" />
+    <ClCompile Include="src\Proactor.cpp" />
+    <ClCompile Include="src\Receiver.cpp" />
+    <ClCompile Include="src\Sender.cpp" />
+    <ClCompile Include="src\SmtpClient.cpp" />
+    <ClCompile Include="src\Socket.cpp" />
+    <ClCompile Include="src\SystemTcpStatistics.cpp" />
+    <ClCompile Include="src\WaitEvent.cpp" />
+    <ClCompile Include="src\WindowsFirewall.cpp" />
+    <ClCompile Include="src\lockfree.cpp" />
+    <ClCompile Include="src\SinglyLinkedList.cpp" />
+    <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\COMHelper.cpp" />
+    <ClCompile Include="src\Console.cpp" />
+    <ClCompile Include="src\DateTime.cpp" />
+    <ClCompile Include="src\Environment.cpp" />
+    <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\Path.cpp" />
+    <ClCompile Include="src\ProcessInitializer.cpp" />
+    <ClCompile Include="src\Registry.cpp" />
+    <ClCompile Include="src\RegistryKey.cpp" />
+    <ClCompile Include="src\SingleAppInstance.cpp" />
+    <ClCompile Include="src\StringHelper.cpp" />
+    <ClCompile Include="src\TimeSpan.cpp" />
+    <ClCompile Include="src\ServiceBase.cpp" />
+    <ClCompile Include="src\ServiceHelper.cpp" />
+    <ClCompile Include="src\ServiceInstaller.cpp" />
+    <ClCompile Include="src\ServiceSettings.cpp" />
+    <ClCompile Include="src\tiostream.cpp" />
+    <ClCompile Include="src\DefaultAppSettings.cpp" />
+    <ClCompile Include="src\IniReader.cpp" />
+    <ClCompile Include="src\IniSection.cpp" />
+    <ClCompile Include="src\ThrowError.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="src\UnityBuildTest-SubDir1\Dummy.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx2.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName)2.pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <ClCompile Include="src\NoPrecompiledHeader.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\Convert.hpp" />
+    <ClInclude Include="inc\MD5.h" />
+    <ClInclude Include="inc\xlist.h" />
+    <ClInclude Include="inc\BuildConfiguration.h" />
+    <ClInclude Include="inc\Earlgrey.h" />
+    <ClInclude Include="inc\EarlgreyPrivate.h" />
+    <ClInclude Include="inc\Macros.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="inc\stdafx.h" />
+    <ClInclude Include="inc\stdafx2.h" />
+    <ClInclude Include="inc\targetver.h" />
+    <ClInclude Include="inc\Uncopyable.h" />
+    <ClInclude Include="inc\ThreadLocalSingleton.hpp" />
+    <ClInclude Include="inc\loki\LokiExport.h" />
+    <ClInclude Include="inc\loki\Singleton.h" />
+    <ClInclude Include="inc\loki\Threads.h" />
+    <ClInclude Include="inc\EarlgreyProcess.h" />
+    <ClInclude Include="inc\Executor.h" />
+    <ClInclude Include="inc\Lock.h" />
+    <ClInclude Include="inc\Mutex.h" />
+    <ClInclude Include="inc\NoLock.h" />
+    <ClInclude Include="inc\ProcessInitializer.h" />
+    <ClInclude Include="inc\ProcessModule.h" />
+    <ClInclude Include="inc\Runnable.h" />
+    <ClInclude Include="inc\ScopedLock.h" />
+    <ClInclude Include="inc\Thread.h" />
+    <ClInclude Include="inc\ThreadGroup.h" />
+    <ClInclude Include="inc\ThreadId.h" />
+    <ClInclude Include="inc\ThreadLocal.hpp" />
+    <ClInclude Include="inc\ThreadMessage.h" />
+    <ClInclude Include="inc\ThreadRunnable.h" />
+    <ClInclude Include="inc\Timer.h" />
+    <ClInclude Include="inc\TimerCallback.h" />
+    <ClInclude Include="inc\TimerManager.h" />
+    <ClInclude Include="inc\TimerRunnable.h" />
+    <ClInclude Include="inc\EarlgreyAssert.h" />
+    <ClInclude Include="inc\FileVersionInfo.h" />
+    <ClInclude Include="inc\RuntimeCheck.h" />
+    <ClInclude Include="inc\StaticAssert.h" />
+    <ClInclude Include="inc\UserDefinedCompilerMessage.h" />
+    <ClInclude Include="inc\ExceptionEMailer.h" />
+    <ClInclude Include="inc\GlobalExceptionHandler.h" />
+    <ClInclude Include="inc\MiniDump.h" />
+    <ClInclude Include="inc\StackWriter.h" />
+    <ClInclude Include="inc\UnhandledExceptionHandler.h" />
+    <ClInclude Include="inc\EventLog.h" />
+    <ClInclude Include="inc\Log.h" />
+    <ClInclude Include="inc\Logger.h" />
+    <ClInclude Include="inc\BasicBuffer.hpp" />
+    <ClInclude Include="inc\BasicBufferIterator.hpp" />
+    <ClInclude Include="inc\BinaryReader.hpp" />
+    <ClInclude Include="inc\BinaryWriter.hpp" />
+    <ClInclude Include="inc\ChainBuffer.hpp" />
+    <ClInclude Include="inc\CircularBuffer.hpp" />
+    <ClInclude Include="inc\GreedyAllocator.h" />
+    <ClInclude Include="inc\LFHAllocator.h" />
+    <ClInclude Include="inc\MemoryAllocator.h" />
+    <ClInclude Include="inc\MemoryAllocatorBase.h" />
+    <ClInclude Include="inc\MemoryBlock.h" />
+    <ClInclude Include="inc\MemoryConfig.h" />
+    <ClInclude Include="inc\MemoryMath.h" />
+    <ClInclude Include="inc\NetworkReader.hpp" />
+    <ClInclude Include="inc\NetworkWriter.hpp" />
+    <ClInclude Include="inc\SimpleBuffer.hpp" />
+    <ClInclude Include="inc\SinglyList.h" />
+    <ClInclude Include="inc\SlabAllocator.h" />
+    <ClInclude Include="inc\StackAllocator.h" />
+    <ClInclude Include="inc\StackMemoryManager.h" />
+    <ClInclude Include="inc\StlCustomAllocator.hpp" />
+    <ClInclude Include="inc\StlGreedyAllocator.hpp" />
+    <ClInclude Include="inc\StlStackAllocator.hpp" />
+    <ClInclude Include="inc\TBBAllocator.h" />
+    <ClInclude Include="inc\ThreadLocalAllocator.h" />
+    <ClInclude Include="inc\Application.h" />
+    <ClInclude Include="inc\COMHelper.h" />
+    <ClInclude Include="inc\Console.h" />
+    <ClInclude Include="inc\DateTime.h" />
+    <ClInclude Include="inc\DateTimeKind.h" />
+    <ClInclude Include="inc\DayOfWeek.h" />
+    <ClInclude Include="inc\Environment.h" />
+    <ClInclude Include="inc\EventProducer.h" />
+    <ClInclude Include="inc\File.h" />
+    <ClInclude Include="inc\lexical_cast.hpp" />
+    <ClInclude Include="inc\Path.h" />
+    <ClInclude Include="inc\RAII.h" />
+    <ClInclude Include="inc\Registry.h" />
+    <ClInclude Include="inc\RegistryKey.h" />
+    <ClInclude Include="inc\SingleAppInstance.h" />
+    <ClInclude Include="inc\StringComparison.hpp" />
+    <ClInclude Include="inc\StringHelper.h" />
+    <ClInclude Include="inc\TimeSpan.h" />
+    <ClInclude Include="inc\PowerBroadcastStatus.h" />
+    <ClInclude Include="inc\ServiceBase.h" />
+    <ClInclude Include="inc\ServiceHelper.h" />
+    <ClInclude Include="inc\ServiceInstaller.h" />
+    <ClInclude Include="inc\ServiceSettings.h" />
+    <ClInclude Include="inc\PAL_Windows.h" />
+    <ClInclude Include="inc\Acceptor.h" />
+    <ClInclude Include="inc\AsyncStream.h" />
+    <ClInclude Include="inc\CompletionHandler.h" />
+    <ClInclude Include="inc\Connection.h" />
+    <ClInclude Include="inc\Connector.h" />
+    <ClInclude Include="inc\Disconnector.h" />
+    <ClInclude Include="inc\Dns.h" />
+    <ClInclude Include="inc\IOCP.h" />
+    <ClInclude Include="inc\IPAddress.h" />
+    <ClInclude Include="inc\IPEndPoint.h" />
+    <ClInclude Include="inc\IPGlobalProperties.h" />
+    <ClInclude Include="inc\IPHostEntry.h" />
+    <ClInclude Include="inc\Listener.h" />
+    <ClInclude Include="inc\NetworkBuffer.h" />
+    <ClInclude Include="inc\NetworkStream.h" />
+    <ClInclude Include="inc\PacketHandler.h" />
+    <ClInclude Include="inc\Proactor.h" />
+    <ClInclude Include="inc\Receiver.h" />
+    <ClInclude Include="inc\Sender.h" />
+    <ClInclude Include="inc\Socket.h" />
+    <ClInclude Include="inc\SystemTcpStatistics.h" />
+    <ClInclude Include="inc\WaitEvent.h" />
+    <ClInclude Include="inc\WindowsFirewall.h" />
+    <ClInclude Include="inc\Attachment.h" />
+    <ClInclude Include="inc\MailAddress.h" />
+    <ClInclude Include="inc\MailMessage.h" />
+    <ClInclude Include="inc\SmtpClient.h" />
+    <ClInclude Include="inc\lockfree.h" />
+    <ClInclude Include="inc\LockfreePointer.h" />
+    <ClInclude Include="inc\LockfreeQueue.hpp" />
+    <ClInclude Include="inc\LockfreeStack.hpp" />
+    <ClInclude Include="inc\taskqueue.h" />
+    <ClInclude Include="inc\if_.hpp" />
+    <ClInclude Include="inc\EarlgreyMath.h" />
+    <ClInclude Include="inc\numeric_cast.hpp" />
+    <ClInclude Include="inc\shared_ptr_helper.h" />
+    <ClInclude Include="inc\tios.h" />
+    <ClInclude Include="inc\tiostream.h" />
+    <ClInclude Include="inc\tsstream.h" />
+    <ClInclude Include="inc\tstring.h" />
+    <ClInclude Include="inc\txsstream.h" />
+    <ClInclude Include="inc\txstring.h" />
+    <ClInclude Include="inc\xdeque.h" />
+    <ClInclude Include="inc\xmap.h" />
+    <ClInclude Include="inc\xqueue.h" />
+    <ClInclude Include="inc\xset.h" />
+    <ClInclude Include="inc\xstack.h" />
+    <ClInclude Include="inc\xvector.h" />
+    <ClInclude Include="inc\AppSettings.h" />
+    <ClInclude Include="inc\DefaultAppSettings.h" />
+    <ClInclude Include="inc\IniReader.h" />
+    <ClInclude Include="inc\IniSection.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EargreyResources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\vendor\StackWalker_2009-11-01\StackWalker\StackWalker.vs2010.vcxproj">
+      <Project>{89b2bd42-b130-4811-9043-71a8ebc40de5}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Temp">
+      <UniqueIdentifier>{efc2af35-b769-4b53-aa35-20bf3275c915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{e00eb428-0d7b-4fe5-b48a-d1d6ec41da45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Mail">
+      <UniqueIdentifier>{f66ef6a5-a301-47b0-9ba2-32fa60e7d17e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{0e3c895e-7e53-427f-a52f-fa27280a3c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProcessThread">
+      <UniqueIdentifier>{77a3d462-ca1a-4451-9d4b-635c4fd68d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics">
+      <UniqueIdentifier>{b9816d94-0ae7-4cb5-ba98-1b76066a6624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics\UnhandledExceptionHandler">
+      <UniqueIdentifier>{2564bd23-46a8-4504-b77f-ff325f30be16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics\Log">
+      <UniqueIdentifier>{4b56c79b-6a3e-4d49-a79a-95a901d4a963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StlCustom">
+      <UniqueIdentifier>{03383c31-9cb1-4738-a037-1949f54f2b14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Main">
+      <UniqueIdentifier>{209717a2-ef13-4bbb-9fe7-f0599d78546a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{c6c6dbd7-e92d-41c3-aa25-96768b6d9e53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{789272b5-c309-4f6f-b195-d4e8756a28a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ConsoleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DateTimeTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyMathTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EnvironmentTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventProducerTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniReaderTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniSectionTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LexicalCastTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeQueueTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LockfreeStackTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MacrosTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NumericCastTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PathTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RAIITest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryKeyTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SharedPtrHelperTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SingleAppInstanceTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringHelperTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TaskQueueTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeSpanTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SampleTest.cpp">
+      <Filter>Source Files\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TempTest.cpp">
+      <Filter>Source Files\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConnectionTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DNSTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPAddressTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ListenerTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SocketTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemTcpStatisticsTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsFirewallTest.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GMailClientTest.cpp">
+      <Filter>Source Files\Network\Mail</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BasicBufferTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BinaryReaderTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\BinaryWriterTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ChainBufferTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CircularBufferTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GreedyAllocatorTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryBlockTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryMathTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkReaderTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkStreamTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NetworkWriterTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServerTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackAllocatorTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackMemoryManagerTest.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyProcessTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExecutorTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StlStackAllocatorTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadGroup.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadLocalTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadMessageTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimerTest.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyAssertTest.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileVersionInfoTest.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StaticAssertTest.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UserDefinedCompilerMessageTest.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExceptionEmailerTest.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniDumpTest.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventLogTest.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LoggerTest.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LogTest.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VectorTest.cpp">
+      <Filter>Source Files\StlCustom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Earlgrey.Test.cpp">
+      <Filter>Header Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>Header Files\Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\targetver.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SocketTest.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkWriterTest.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Earlgrey.Test.Comments.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Earlgrey.Test.Empty.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Earlgrey.Test.In.Unicode.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Earlgrey.Test.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Earlgrey.Test.txt">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EarlgreyTestResources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
