@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ADO">
+      <UniqueIdentifier>{08262dcb-556b-4618-b4f4-da9ff21979bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ADO\Temp">
+      <UniqueIdentifier>{fc92b010-4516-4bc1-9c1d-ce3da9639f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main">
+      <UniqueIdentifier>{f062e1c0-5c0d-4b20-bce5-ae994a65c9c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Main">
+      <UniqueIdentifier>{e2a5a6e4-b491-42e3-8a1a-93527941d969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ADO">
+      <UniqueIdentifier>{7966236e-64c8-485a-adc0-e3038f192f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOCastTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOCommandTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOConnectionTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOEnvironmentTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOParameterTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOTransactionTest.cpp">
+      <Filter>Source Files\ADO</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ADOTimeSpanTest.cpp">
+      <Filter>Source Files\ADO\Temp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DatabaseTestAppSettings.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Program.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DatabaseTestAppSettings.h">
+      <Filter>Header Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ADOEnvironmentTest.h">
+      <Filter>Header Files\ADO</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Earlgrey.Database.Test.ini">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MySQL-CreateTables.bat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="MySQL-Tables.sql">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

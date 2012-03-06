@@ -1,9 +1,11 @@
 #include "GMailClient.h"
-#include "MarshalAs.h"
 
-using namespace System;
-using namespace System::Net::Mail;
-using namespace msclr::interop;
+#include "CSmtp.h"
+
+// Earlgrey
+#include "StringHelper.h"
+#include "txsstream.h"
+#include "MailMessage.h"
 
 namespace Earlgrey
 {
@@ -26,34 +28,62 @@ namespace Earlgrey
 
 		void GMailClient::Send(const Earlgrey::Mail::MailMessage& msg)
 		{
+		
 			try
 			{
-				String^ smtpServerAddress = marshal_as<String^>(m_Host.c_str());
-				String^ username = marshal_as<String^>(m_UserName.c_str());
-				String^ password = marshal_as<String^>(m_Password.c_str());
+				CSmtp mail;
+
+				mail.SetSMTPServer(
+					String::FromUnicode(m_Host)
+					, EARLGREY_NUMERIC_CAST<unsigned short>(m_Port)
+					);
+				mail.SetSecurityType(USE_TLS);
 
 
-				System::Net::Mail::SmtpClient^ client = gcnew System::Net::Mail::SmtpClient(smtpServerAddress, m_Port);
-				client->UseDefaultCredentials = false; // 시스템에 설정된 인증 정보를 사용하지 않는다.
-				client->EnableSsl = true;  // SSL을 사용한다.
-				client->DeliveryMethod = SmtpDeliveryMethod::Network; // 이걸 하지 않으면 Gmail에 인증을 받지 못한다.
-				client->Credentials = gcnew System::Net::NetworkCredential(username, password);
+				mail.SetLogin(String::FromUnicode(m_UserName));
+				mail.SetPassword(String::FromUnicode(m_Password));
 
-				MailMessage^ message = marshal_as<MailMessage^>(msg);
-				message->BodyEncoding = System::Text::Encoding::UTF8;
-				message->SubjectEncoding = System::Text::Encoding::UTF8;
+				
 
-				// 동기로 메일을 보낸다.
-				client->Send(message);
+				mail.SetSenderName(String::FromUnicode(msg.From()->DisplayName()));
+				mail.SetSenderMail(String::FromUnicode(msg.From()->Address()));
+				mail.SetReplyTo(String::FromUnicode(msg.From()->Address()));
+				mail.SetSubject(String::FromUnicode(msg.Subject()));
 
-				// Clean up.
-				delete message; // Dispose
+				Mail::MailMessage::MailAddressCollection::const_iterator it;
+				for(it = msg.To().begin(); it != msg.To().end(); it++)
+				{
+					Mail::MailMessage::MailAddressPtr to = *it;
+					const xstring email = String::FromUnicode(to->Address());
+					const xstring displayName = String::FromUnicode(to->DisplayName());
+					mail.AddRecipient(email.c_str(), displayName.c_str());
+				}
+				
+				mail.SetXPriority(XPRIORITY_NORMAL);
+				mail.SetXMailer("EarlGrey Sample Smtp Client");
+				
+				
+				_txistringstream ss(msg.Body());
+				_txstring line;
+
+				while(getline(ss, line))
+				{
+					mail.AddMsgLine(String::FromUnicode(line));
+				}
+
+				Mail::MailMessage::AttachmentCollection::const_iterator a_it;
+				for(a_it = msg.Attachments().begin(); a_it != msg.Attachments().end(); a_it++)
+				{
+					Mail::MailMessage::AttachmentPtr attachment = *a_it;
+					mail.AddAttachment(String::FromUnicode(attachment->FileName()));
+				}
+				
+				mail.Send();
 			}
-			catch (Exception^ ex)
-			{
-				marshal_context context;		
-				const char * exceptionMsg = context.marshal_as<const char *>(ex->Message);
-				throw std::exception(exceptionMsg);
+			catch(const ECSmtp& e)
+			{				
+				const char * errorMsg = e.GetErrorText().c_str();
+				throw std::exception(errorMsg);
 			}
 		}
 
@@ -76,5 +106,6 @@ namespace Earlgrey
 		{
 			return m_Port;
 		}
-	} // !Extension
-} // !Earlgrey
+
+	} // end of namespace Extension
+} // end of namespace Earlgrey

@@ -45,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -63,6 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -113,7 +114,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
 				WarningLevel="4"
@@ -131,6 +132,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -180,7 +182,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -198,6 +200,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -248,7 +251,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0"
+				AdditionalIncludeDirectories=".\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;&quot;..\..\vendor\openssl\0.9.8k_$(PlatformName)\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
 				WarningLevel="4"
@@ -266,6 +269,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalLibraryDirectories="..\..\vendor\openssl\0.9.8k_$(PlatformName)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -308,6 +312,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\src\CSmtp.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\GmailClient.cpp"
 				>
 			</File>
@@ -318,11 +326,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\inc\GMailClient.h"
+				RelativePath=".\inc\base64.h"
 				>
 			</File>
 			<File
-				RelativePath=".\inc\MarshalAs.h"
+				RelativePath=".\inc\CSmtp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\inc\GMailClient.h"
 				>
 			</File>
 			<File

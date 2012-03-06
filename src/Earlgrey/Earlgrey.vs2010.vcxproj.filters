@@ -1,0 +1,815 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ExternalLib">
+      <UniqueIdentifier>{f8dfad67-4203-40c0-9ede-70500e41d128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ExternalLib\Loki">
+      <UniqueIdentifier>{f7ba334e-bac4-45df-918b-8aae2dcb8eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProcessThread">
+      <UniqueIdentifier>{32e84f6b-493c-48a1-9485-a72de8cc6d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics">
+      <UniqueIdentifier>{8be7addb-9c9d-4f65-8a7a-72cc48a4e619}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics\UnhandledExceptionHandler">
+      <UniqueIdentifier>{46c7585a-f978-4a01-b923-234447d66e01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Diagnostics\Log">
+      <UniqueIdentifier>{00a547b5-7fec-4096-b6c7-7fce8d2f0b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{b54225e1-a28b-47b2-a86c-03181bd3ddc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{cee90a5c-96e0-4870-99c6-5e3acbb4f285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Network\Mail">
+      <UniqueIdentifier>{a988ff62-73fd-43c1-a0e5-01ed3fc4892a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RTTI">
+      <UniqueIdentifier>{629aec20-ff8f-436b-aa0d-2a3b6276bb1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Algorithm">
+      <UniqueIdentifier>{b3312b72-9924-4746-b12d-f64c99843daf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{69fde3ab-87e5-4708-95c8-94525535524d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\System\Win32Service">
+      <UniqueIdentifier>{acc6c95e-7fc1-4e45-94a9-3deb12299275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\StlCustom">
+      <UniqueIdentifier>{2857e755-ae03-4535-bf03-57cfc5318aef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Configuration">
+      <UniqueIdentifier>{375d19bf-bd50-48a7-aa72-297b6926f426}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UnityBuildTest-Excluded">
+      <UniqueIdentifier>{267280cd-3896-4bec-8315-bd4154851bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UnityBuildTest-SubDir1">
+      <UniqueIdentifier>{ec308dfa-f6c9-4216-989a-c190522f4728}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\ExternalLib">
+      <UniqueIdentifier>{5c3b90b0-9ecb-41b1-ad13-e45845cb970b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ExternalLib\Loki">
+      <UniqueIdentifier>{b2663256-90f4-45d7-b193-4aea8c39bea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ProcessThread">
+      <UniqueIdentifier>{929bc6bd-2fc2-4ba1-b43f-2c024dbe2aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Diagnostics">
+      <UniqueIdentifier>{0c5443fd-7846-4218-9215-48db706fdaf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Diagnostics\UnhandledExceptionHandler">
+      <UniqueIdentifier>{58dffd5b-2731-4721-8296-4a22023d50e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Diagnostics\Log">
+      <UniqueIdentifier>{90f3a3aa-87b0-4374-ae29-290b75c946ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Memory">
+      <UniqueIdentifier>{74319a2a-d55e-4cde-9dee-bedb65a165c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System">
+      <UniqueIdentifier>{092ff736-3f9a-44c7-9223-aca97605c5d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\System\Win32Service">
+      <UniqueIdentifier>{45a529d8-38f9-45de-a35f-354146dbf062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\PAL">
+      <UniqueIdentifier>{e98349fc-1ba4-453e-a763-8b62e6db60a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{751f8740-0ef9-4d44-98bd-41c8b663c32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Network\Mail">
+      <UniqueIdentifier>{ed21ec35-1540-4303-bb41-43a0ecb3f02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RTTI">
+      <UniqueIdentifier>{a6c59444-cc65-4a18-8ba4-18c42b910b0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Algorithm">
+      <UniqueIdentifier>{4aae98ac-64cc-4cba-a3a1-a2dccda296e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Metaprogramming">
+      <UniqueIdentifier>{28e9276c-e345-413c-a2cb-b33092a5e2dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Math">
+      <UniqueIdentifier>{6b76543d-523c-4f2b-b49a-ca77048aa2bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StlCustom">
+      <UniqueIdentifier>{e2ab00bd-7f78-4e0a-988b-322e07266124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{07b99d7c-2b21-4c87-9298-0aae647f6d0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\IO">
+      <UniqueIdentifier>{ef846631-a283-4ee2-9500-b7f9561de02b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Configuration">
+      <UniqueIdentifier>{6aaefd16-75f6-4dcf-9c71-dd2d15e6216a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Security">
+      <UniqueIdentifier>{4a49644e-d015-48c0-a02d-f8aa922c038b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Security">
+      <UniqueIdentifier>{0bf02601-0a29-4b59-bb5b-b20278b40a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Text">
+      <UniqueIdentifier>{1ce32a9c-7272-4bfe-aad2-340257ac2b0c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Listener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdafx2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Loki\Singleton.cpp">
+      <Filter>Source Files\ExternalLib\Loki</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyProcess.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Executor.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NoLock.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessModule.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Thread.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadId.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadLocal.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThreadRunnable.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimerManager.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimerRunnable.cpp">
+      <Filter>Source Files\ProcessThread</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EarlgreyAssert.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FileVersionInfo.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RuntimeCheck.cpp">
+      <Filter>Source Files\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ExceptionEMailer.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GlobalExceptionHandler.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MiniDump.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackWriter.cpp">
+      <Filter>Source Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventLog.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Log.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logger.cpp">
+      <Filter>Source Files\Diagnostics\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MemoryBlock.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SlabAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Acceptor.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AsyncStream.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Connector.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Disconnector.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Dns.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IOCP.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPAddress.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPGlobalProperties.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IPHostEntry.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PacketHandler.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Proactor.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Receiver.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sender.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SmtpClient.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Socket.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SystemTcpStatistics.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WaitEvent.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WindowsFirewall.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lockfree.cpp">
+      <Filter>Source Files\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SinglyLinkedList.cpp">
+      <Filter>Source Files\Algorithm</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\COMHelper.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Console.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DateTime.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Environment.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\File.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Path.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProcessInitializer.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Registry.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RegistryKey.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SingleAppInstance.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StringHelper.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TimeSpan.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServiceBase.cpp">
+      <Filter>Source Files\System\Win32Service</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServiceHelper.cpp">
+      <Filter>Source Files\System\Win32Service</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServiceInstaller.cpp">
+      <Filter>Source Files\System\Win32Service</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ServiceSettings.cpp">
+      <Filter>Source Files\System\Win32Service</Filter>
+    </ClCompile>
+    <ClCompile Include="src\tiostream.cpp">
+      <Filter>Source Files\StlCustom</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DefaultAppSettings.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniReader.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IniSection.cpp">
+      <Filter>Source Files\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ThrowError.cpp">
+      <Filter>Source Files\UnityBuildTest-Excluded</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UnityBuildTest-SubDir1\Dummy.cpp">
+      <Filter>Source Files\UnityBuildTest-SubDir1</Filter>
+    </ClCompile>
+    <ClCompile Include="src\NoPrecompiledHeader.cpp">
+      <Filter>Source Files\UnityBuildTest-SubDir1</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MD5.cpp">
+      <Filter>Source Files\Security</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\xlist.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BuildConfiguration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Earlgrey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EarlgreyPrivate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Macros.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\stdafx2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Uncopyable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadLocalSingleton.hpp">
+      <Filter>Header Files\ExternalLib</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\loki\LokiExport.h">
+      <Filter>Header Files\ExternalLib\Loki</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\loki\Singleton.h">
+      <Filter>Header Files\ExternalLib\Loki</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\loki\Threads.h">
+      <Filter>Header Files\ExternalLib\Loki</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EarlgreyProcess.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Executor.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Lock.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Mutex.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NoLock.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ProcessInitializer.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ProcessModule.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Runnable.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ScopedLock.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Thread.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadGroup.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadId.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadLocal.hpp">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadMessage.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadRunnable.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Timer.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimerCallback.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimerManager.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimerRunnable.h">
+      <Filter>Header Files\ProcessThread</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EarlgreyAssert.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\FileVersionInfo.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RuntimeCheck.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StaticAssert.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UserDefinedCompilerMessage.h">
+      <Filter>Header Files\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ExceptionEMailer.h">
+      <Filter>Header Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GlobalExceptionHandler.h">
+      <Filter>Header Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MiniDump.h">
+      <Filter>Header Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StackWriter.h">
+      <Filter>Header Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\UnhandledExceptionHandler.h">
+      <Filter>Header Files\Diagnostics\UnhandledExceptionHandler</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EventLog.h">
+      <Filter>Header Files\Diagnostics\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Log.h">
+      <Filter>Header Files\Diagnostics\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Logger.h">
+      <Filter>Header Files\Diagnostics\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BasicBuffer.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BasicBufferIterator.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BinaryReader.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\BinaryWriter.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ChainBuffer.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CircularBuffer.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\GreedyAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\LFHAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryAllocatorBase.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryBlock.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryConfig.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MemoryMath.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkReader.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkWriter.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SimpleBuffer.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SinglyList.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SlabAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StackAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StackMemoryManager.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StlCustomAllocator.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StlGreedyAllocator.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StlStackAllocator.hpp">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TBBAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ThreadLocalAllocator.h">
+      <Filter>Header Files\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Application.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\COMHelper.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Console.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DateTime.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DateTimeKind.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DayOfWeek.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Environment.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EventProducer.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\File.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\lexical_cast.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Path.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RAII.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Registry.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\RegistryKey.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SingleAppInstance.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StringComparison.hpp">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\StringHelper.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TimeSpan.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PowerBroadcastStatus.h">
+      <Filter>Header Files\System\Win32Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ServiceBase.h">
+      <Filter>Header Files\System\Win32Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ServiceHelper.h">
+      <Filter>Header Files\System\Win32Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ServiceInstaller.h">
+      <Filter>Header Files\System\Win32Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\ServiceSettings.h">
+      <Filter>Header Files\System\Win32Service</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PAL_Windows.h">
+      <Filter>Header Files\PAL</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Acceptor.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AsyncStream.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\CompletionHandler.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Connection.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Connector.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Disconnector.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Dns.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IOCP.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IPAddress.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IPEndPoint.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IPGlobalProperties.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IPHostEntry.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Listener.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkBuffer.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\NetworkStream.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\PacketHandler.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Proactor.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Receiver.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Sender.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Socket.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SystemTcpStatistics.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\WaitEvent.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\WindowsFirewall.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Attachment.h">
+      <Filter>Header Files\Network\Mail</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MailAddress.h">
+      <Filter>Header Files\Network\Mail</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MailMessage.h">
+      <Filter>Header Files\Network\Mail</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SmtpClient.h">
+      <Filter>Header Files\Network\Mail</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\lockfree.h">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\LockfreePointer.h">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\LockfreeQueue.hpp">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\LockfreeStack.hpp">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\taskqueue.h">
+      <Filter>Header Files\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\if_.hpp">
+      <Filter>Header Files\Metaprogramming</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\EarlgreyMath.h">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\numeric_cast.hpp">
+      <Filter>Header Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\shared_ptr_helper.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\tios.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\tiostream.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\tsstream.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\tstring.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\txsstream.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\txstring.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xdeque.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xmap.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xqueue.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xset.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xstack.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\xvector.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AppSettings.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\DefaultAppSettings.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IniReader.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\IniSection.h">
+      <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MD5.h">
+      <Filter>Header Files\Security</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Convert.hpp">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EargreyResources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>
