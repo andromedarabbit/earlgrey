@@ -21,7 +21,7 @@ namespace UnityBuild.Tests
             }
         }
 
-        private static string[] MergedSourceFiles
+        private string[] MergedSourceFiles
         {
             get
             {

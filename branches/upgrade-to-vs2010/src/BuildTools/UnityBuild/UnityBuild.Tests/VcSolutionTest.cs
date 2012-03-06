@@ -62,6 +62,23 @@ namespace UnityBuild.Tests
             configurationPlatforms.Add(dstPlatformConfiguration);
         }
 
+		[Test]
+		public void GetVisualStudionVersion()
+		{
+			var vcSolution = new VcSolution(SolutionFilePath);
+            vcSolution.Load();
+
+			if(this.SolutionFileName.EndsWith(".vcproj"))
+			{
+				Assert.AreEqual(VisualStudioVersions.V2008, vcSolution.Version);
+			}
+
+			if (this.SolutionFileName.EndsWith(".vcxproj"))
+			{
+				Assert.AreEqual(VisualStudioVersions.V2010, vcSolution.Version);
+			}
+		}
+
     }
 }
 
