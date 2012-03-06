@@ -10,18 +10,17 @@ namespace SLNTools.Tests
     using NUnit.Framework;
     using CWDev.SLNTools.Core;
 
-    [TestFixtureAttribute]
-    public class SolutionFileReaderTest
+    // [TestFixtureAttribute]
+    public abstract class AbstractSolutionFileReaderTest
     {
-        private static readonly string SolutionFileFullPath;
-
-        static SolutionFileReaderTest()
+        protected abstract string SolutionFileFullPath
         {
-            SolutionFileFullPath = Path.Combine(
-                TaskUtility.ThisAssemblyDirectory // AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey.sln"
-            );
-            SolutionFileFullPath = Path.GetFullPath(SolutionFileFullPath);
+            get;
+        }
+
+        protected abstract string VcProjectFileExtension
+        {
+            get;
         }
 
         [Test]
@@ -44,7 +43,7 @@ namespace SLNTools.Tests
                 SolutionFile slnFile = reader.ReadSolutionFile();
 
                 var projectNames = from project in slnFile.Projects
-                            where project.RelativePath.EndsWith(".vcproj") == true
+                            where project.RelativePath.EndsWith(VcProjectFileExtension) == true
                             select project.ProjectName
                     ;
 
