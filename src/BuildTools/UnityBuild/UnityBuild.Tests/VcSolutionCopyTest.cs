@@ -16,7 +16,7 @@ namespace UnityBuild.Tests
 
             const string dstConfigurationPlatformName = "Debug-UnityBuild|Win32";
 
-            CopySolutionConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
+			CopySolutionConfigurationPlatform(srcSolutionConfigurationName, srcSolutionPlatformName);
 
             VcProject vcProject = GetEarlgreyVcProject();
 
@@ -34,14 +34,19 @@ namespace UnityBuild.Tests
             {
                 foreach (string platformName in srcSolutionPlatformNames)
                 {
-                    CopySolutionConfigurationPlatform(configurationName, platformName);
+					CopySolutionConfigurationPlatform(configurationName, platformName);
                 }
             }
         }
 
-        private static void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName, string srcSolutionPlatformName)
+		private void CopySolutionConfigurationPlatform(string srcSolutionConfigurationName, string srcSolutionPlatformName)
+		{
+			CopySolutionConfigurationPlatform(SolutionFilePath, srcSolutionConfigurationName, srcSolutionPlatformName);
+		}
+
+		private static void CopySolutionConfigurationPlatform(string solutionFilePath, string srcSolutionConfigurationName, string srcSolutionPlatformName)
         {
-            var vcSolution = new VcSolution(SolutionFilePath);
+            var vcSolution = new VcSolution(solutionFilePath);
             vcSolution.Load();
 
             VcSolutionCopy copy = new VcSolutionCopy(vcSolution);

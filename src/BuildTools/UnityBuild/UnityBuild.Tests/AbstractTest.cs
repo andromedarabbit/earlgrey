@@ -15,70 +15,68 @@ namespace UnityBuild.Tests
 {
     public class AbstractTest
     {
-        private static readonly string _TempDir;
-        private static readonly string _ThisDir;
-        private static readonly string _SolutionFilePath;
-        private static readonly string _SolutionFileDir;
-        private static readonly string _SampleVcProjFilePath;
-        private static readonly string _TrunkFolderPath;
-        private static readonly string _VendorFolderPath;
+        private readonly string _tempDir;
+        private readonly string _thisDir;
+        private readonly string _solutionFileDir;
+        private readonly string _sampleVcProjFilePath;
+        private readonly string _trunkFolderPath;
+        private readonly string _vendorFolderPath;
 
-        private static readonly string _EarlgreyProjectFIlePath;
+        private readonly string _earlgreyProjectFIlePath;
 
 
-        static AbstractTest()
+        protected AbstractTest()
         {
-            _ThisDir = Path.Combine(
+            _thisDir = Path.Combine(
                 TaskUtility.ThisAssemblyDirectory
                 , @"Temp\UnityBuildTestResources"
                 );
 
-            _TempDir = Path.Combine(_ThisDir, "Temp");
+            _tempDir = Path.Combine(_thisDir, "Temp");
 
-            _SolutionFileDir = Path.Combine(
+            _solutionFileDir = Path.Combine(
                 TaskUtility.BaseDirectory
                 , @"..\..\UnityBuild\UnitTestSample\src"
             );
-            _SolutionFileDir = Path.GetFullPath(_SolutionFileDir);
+            _solutionFileDir = Path.GetFullPath(_solutionFileDir);
 
-            _SolutionFilePath = Path.Combine(
-                _SolutionFileDir
-                , "Earlgrey.sln"
-            );
-            // _SolutionFilePath = Path.GetFullPath(_SolutionFilePath);
+			//_solutionFilePath = Path.Combine(
+			//    _solutionFileDir
+			//    , SolutionFileName
+			//);
+            // _solutionFilePath = Path.GetFullPath(_solutionFilePath);
 
-            _SampleVcProjFilePath = Path.Combine(
+            _sampleVcProjFilePath = Path.Combine(
                TaskUtility.BaseDirectory
-               , @"..\..\UnityBuild\UnitTestSample\src\Earlgrey\Earlgrey.vcproj"
+               , @"..\..\UnityBuild\UnitTestSample\src\Earlgrey\"
            );
-            _SampleVcProjFilePath = Path.GetFullPath(_SampleVcProjFilePath);
+        	_sampleVcProjFilePath = Path.Combine(_sampleVcProjFilePath, SampleVcProjFileName);
+            _sampleVcProjFilePath = Path.GetFullPath(_sampleVcProjFilePath);
 
-            _TrunkFolderPath = Path.Combine(_SolutionFilePath, @"..\");
-            _TrunkFolderPath = Path.GetFullPath(_TrunkFolderPath);
+            _trunkFolderPath = Path.Combine(_solutionFileDir, @"..\");
+            _trunkFolderPath = Path.GetFullPath(_trunkFolderPath);
 
-            _VendorFolderPath = Path.Combine(_TrunkFolderPath, @"vendor");
-            // _VendorFolderPath = Path.GetFullPath(_VendorFolderPath);
+            _vendorFolderPath = Path.Combine(_trunkFolderPath, @"vendor");
+            // _vendorFolderPath = Path.GetFullPath(_vendorFolderPath);
 
-            Project earlgreyProject = GetEarlgreyProject();
-            _EarlgreyProjectFIlePath = Path.Combine(_SolutionFileDir, earlgreyProject.RelativePath);
+			Project earlgreyProject = GetEarlgreyProject(SolutionFilePath);
+            _earlgreyProjectFIlePath = Path.Combine(_solutionFileDir, earlgreyProject.RelativePath);
         }
 
         [SetUp]
         public virtual void SetUp()
         {
-            // Revert();
+            if (Directory.Exists(_tempDir))
+                Directory.Delete(_tempDir, true);
 
-            if (Directory.Exists(_TempDir))
-                Directory.Delete(_TempDir, true);
-
-            Directory.CreateDirectory(_TempDir);
+            Directory.CreateDirectory(_tempDir);
         }
 
         [TearDown]
         public virtual void TearDown()
         {
-            if (Directory.Exists(_TempDir))
-                Directory.Delete(_TempDir, true);
+            if (Directory.Exists(_tempDir))
+                Directory.Delete(_tempDir, true);
 
             Revert();
         }
@@ -112,9 +110,9 @@ namespace UnityBuild.Tests
         }
 
 
-        protected static Project GetProject(string projectName)
+		protected static Project GetProject(string solutionFilePath, string projectName)
         {
-            SolutionFile slnFile = SolutionFile.FromFile(SolutionFilePath);
+            SolutionFile slnFile = SolutionFile.FromFile(solutionFilePath);
 
             var result = from project in slnFile.Projects
                          where project.ProjectName.Equals(projectName, StringComparison.CurrentCultureIgnoreCase)
@@ -126,119 +124,103 @@ namespace UnityBuild.Tests
             return earlgreyProject;
         }
 
-        protected static VcProject GetVcProject(string projectName)
+		protected VcProject GetVcProject(string projectName)
         {
-            VcProject vcProject = new VcProject(GetProject(projectName));
+			return GetVcProject(SolutionFilePath, projectName);
+        }
+
+		protected static VcProject GetVcProject(string solutionFilePath, string projectName)
+        {
+			VcProject vcProject = new VcProject(GetProject(solutionFilePath, projectName));
             vcProject.Load();
             return vcProject;
         }
 
-        protected static Project GetEarlgreyProject()
+		protected Project GetEarlgreyProject()
+		{
+			return GetProject(SolutionFilePath, "Earlgrey");
+		}
+
+        protected static Project GetEarlgreyProject(string solutionFilePath)
         {
-            return GetProject("Earlgrey");
+			return GetProject(solutionFilePath, "Earlgrey");
         }
 
-        protected static VcProject GetEarlgreyVcProject()
+        protected VcProject GetEarlgreyVcProject()
         {
-            return GetVcProject("Earlgrey");
+            return GetVcProject(SolutionFilePath, "Earlgrey");
         }
 
 
         protected static FileType FindFile(VcProject vcProject, string fileName)
         {
-            return FindFile(vcProject.Details.Files, fileName);
-        }
-
-        private static FileType FindFile(IEnumerable<object> items, string fileName)
-        {
-            foreach(object item in items)
-            {
-                if(item is FileType)
-                {
-                    FileType file = (FileType) item;
-                    if(file.FileName.Equals(fileName, StringComparison.CurrentCultureIgnoreCase) == true)
-                        return file;
-                }
-
-                if(item is FilterType)
-                {
-                    FilterType filter = (FilterType) item;
-                    FileType fileFound = FindFile(filter.Items, fileName);
-                    if (fileFound != null)
-                        return fileFound;
-                }
-            }
-
-            return null;
+			return vcProject.FindFile(fileName);
         }
 
         protected static FilterType FindFilter(VcProject vcProject, string fileName)
         {
-            return FindFilter(vcProject.Details.Files, fileName);
+			return vcProject.FindFilter(fileName);
         }
 
-        private static FilterType FindFilter(IEnumerable<object> items, string filterName)
+        public string TempDir
         {
-            foreach (object item in items)
-            {            
-                if (item is FilterType)
-                {
-                    FilterType filter = (FilterType)item;
-                    if(filter.Name.Equals(filterName, StringComparison.CurrentCultureIgnoreCase) == true)
-                        return filter;
+            get { return _tempDir; }
+        }
 
-                    FilterType filterFound = FindFilter(filter.Items, filterName);
-                    if (filterFound != null)
-                        return filterFound;
-                }
+        public string ThisDir
+        {
+            get { return _thisDir; }
+        }
+
+        public string SolutionFileDir
+        {
+            get { return _solutionFileDir; }
+        }
+
+    	public string SolutionFileName
+    	{
+			get 
+			{ 
+				return "Earlgrey.sln";
+			}
+    	}
+
+        public string SolutionFilePath
+        {
+            get
+            {
+				return Path.Combine(SolutionFileDir, SolutionFileName);
             }
-
-            return null;
         }
 
-        public static string TempDir
+        public string EarlgreySolutionFileText
         {
-            get { return _TempDir; }
+            get { return File.ReadAllText(SolutionFilePath); }
+        }
+		
+		public string SampleVcProjFileName
+		{
+			get { return "Earlgrey.vcproj"; }
+		}
+
+        public string SampleVcProjFilePath
+        {
+            get { return _sampleVcProjFilePath; }
         }
 
-        public static string ThisDir
+        public string TrunkFolderPath
         {
-            get { return _ThisDir; }
+            get { return _trunkFolderPath; }
         }
 
-        public static string SolutionFileDir
+        public string VendorFolderPath
         {
-            get { return _SolutionFileDir; }
+            get { return _vendorFolderPath; }
         }
 
-        public static string SolutionFilePath
+        public string EarlgreyProjectFileText
         {
-            get { return _SolutionFilePath;  }
-        }
-
-        public static string EarlgreySolutionFileText
-        {
-            get { return File.ReadAllText(_SolutionFilePath); }
-        }
-
-        public static string SampleVcProjFilePath
-        {
-            get { return _SampleVcProjFilePath; }
-        }
-
-        public static string TrunkFolderPath
-        {
-            get { return _TrunkFolderPath; }
-        }
-
-        public static string VendorFolderPath
-        {
-            get { return _VendorFolderPath; }
-        }
-
-        public static string EarlgreyProjectFileText
-        {
-            get { return File.ReadAllText(_EarlgreyProjectFIlePath); }
+            get { return File.ReadAllText(_earlgreyProjectFIlePath); }
         }
 
     }
