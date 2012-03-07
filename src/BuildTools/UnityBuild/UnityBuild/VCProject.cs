@@ -121,5 +121,57 @@ namespace UnityBuild
         {
             _projectDetails.ExcludeFromBuild(projectConverter);
         }
+
+        public FileType FindFile(string fileName)
+        {
+            return FindFile(this.Details.Files, fileName);
+        }
+
+        private static FileType FindFile(IEnumerable<object> items, string fileName)
+        {
+            foreach (object item in items)
+            {
+                if (item is FileType)
+                {
+                    FileType file = (FileType)item;
+                    if (file.FileName.Equals(fileName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        return file;
+                }
+
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    FileType fileFound = FindFile(filter.Items, fileName);
+                    if (fileFound != null)
+                        return fileFound;
+                }
+            }
+
+            return null;
+        }
+
+        public FilterType FindFilter(VcProject vcProject, string fileName)
+        {
+            return FindFilter(this.Details.Files, fileName);
+        }
+
+        private static FilterType FindFilter(IEnumerable<object> items, string filterName)
+        {
+            foreach (object item in items)
+            {
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    if (filter.Name.Equals(filterName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        return filter;
+
+                    FilterType filterFound = FindFilter(filter.Items, filterName);
+                    if (filterFound != null)
+                        return filterFound;
+                }
+            }
+
+            return null;
+        }
     }
 }

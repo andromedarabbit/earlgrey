@@ -159,6 +159,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Contributions.aml" />
+    <None Include="Example-Sync.aml" />
+    <None Include="Example-Sync.aml" />
     <None Include="Example-Backup.aml" />
     <None Include="Example-Backup.aml" />
     <None Include="Examples.aml" />

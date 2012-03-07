@@ -108,8 +108,7 @@ namespace UnityBuild
 
             // TODO: 하드코딩  
             List<FileType> files = GetAllSrcFiles();
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations,
-                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
+            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
             List<FileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count == 0)

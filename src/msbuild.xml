@@ -108,11 +108,11 @@
 
 <!-- 빌드 대상 -->
 <ItemGroup>
-	<ProjectReferences Include="Earlgrey.sln" Condition="'$(UseUnityBuild)' != 'true'">
+	<ProjectReferences Include="Earlgrey.vs2010.sln" Condition="'$(UseUnityBuild)' != 'true'">
 		<Configuration>$(Configuration)</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
-	<ProjectReferences Include="Earlgrey-UnityBuild.sln" Condition="'$(UseUnityBuild)' == 'true'">
+	<ProjectReferences Include="Earlgrey-UnityBuild.vs2010.sln" Condition="'$(UseUnityBuild)' == 'true'">
 		<Configuration>$(Configuration)-UnityBuild</Configuration>
 		<Platform>$(Platform)</Platform>
 	</ProjectReferences>
@@ -217,7 +217,7 @@
 
 <Target Name="PrepareUnityBuild" Condition="'$(UseUnityBuild)' == 'true'">
 	<Exec 
-		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;Earlgrey.sln&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
+		Command="&quot;$(RootDir)\BuildTools\Deployed\UnityBuild\UnityBuild.ConsoleUi.exe&quot; -i&quot;%(ProjectReferences.FullPath)&quot; -c -o&quot;BEST&quot; -m&quot;5&quot;"
 		WorkingDirectory="$(RootDir)"
 		/>
 </Target>
