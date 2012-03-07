@@ -115,6 +115,7 @@
       <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
     </Compile>
     <Compile Include="VisualStudioProjectType.designer.cs" />
+    <Compile Include="VisualStudioVersions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

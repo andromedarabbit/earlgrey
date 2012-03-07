@@ -72,7 +72,7 @@ namespace UnityBuild
 
             foreach (Project project in solution.Projects)
             {
-                if (project.RelativePath.EndsWith(".vcproj", StringComparison.CurrentCultureIgnoreCase) == false)
+                if (project.IsVcProjectRelated == false)
                     continue;
 
                 string newRelativePath = _projectFileNameConverter.GetNewName(project.RelativePath);

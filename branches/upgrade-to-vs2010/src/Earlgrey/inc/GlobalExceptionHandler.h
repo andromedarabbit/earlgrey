@@ -17,7 +17,7 @@ namespace Earlgrey
 		void Initialize();
 		void Register(HandlerPtrType handler);
 		void UnregisterAll();
-		void InvokeAllHandler(LPEXCEPTION_POINTERS exceptionPtr);
+		void InvokeAllHandlers(LPEXCEPTION_POINTERS exceptionPtr);
 
 	private: // private methods
 		static LONG WINAPI HandleException(LPEXCEPTION_POINTERS exceptionPtr);
