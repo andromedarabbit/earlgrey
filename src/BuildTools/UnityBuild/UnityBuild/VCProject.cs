@@ -150,7 +150,7 @@ namespace UnityBuild
             return null;
         }
 
-        public FilterType FindFilter(VcProject vcProject, string fileName)
+        public FilterType FindFilter(string fileName)
         {
             return FindFilter(this.Details.Files, fileName);
         }
