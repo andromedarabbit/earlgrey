@@ -20,7 +20,7 @@ namespace UnityBuild.Tests
 
             VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
+            IFileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
         }
 

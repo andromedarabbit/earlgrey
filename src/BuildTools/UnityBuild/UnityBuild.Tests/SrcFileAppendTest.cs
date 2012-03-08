@@ -16,11 +16,10 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            Assert.IsNotNull(vcProject.Summary);
+            // Assert.IsNotNull(vcProject.Summary);
 
-            Assert.IsNotNull(vcProject.Details);
-            Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
-            Assert.AreEqual(4, vcProject.Details.Configurations.Count);
+            Assert.AreEqual(2, vcProject.Platforms.Count()); // WIN32, x64
+            Assert.AreEqual(4, vcProject.Configurations.Count());
         }
 
     }

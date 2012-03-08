@@ -81,7 +81,7 @@ namespace UnityBuild
         {
             Debug.Assert(project != null);
 
-            IEnumerable<VcProject> result = _vcProjects.FindAll(item => item.Summary == project);
+            IEnumerable<VcProject> result = _vcProjects.FindAll(item => item.Guid == project.ProjectGuid);
             Debug.Assert(result.Count() == 1);
 
             return result.First();

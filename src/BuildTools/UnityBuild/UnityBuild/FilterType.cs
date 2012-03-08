@@ -5,7 +5,7 @@ using System.Text;
 
 namespace UnityBuild
 {
-    public partial class FilterType : IFilterOrFile
+    public partial class FilterType : IFilterType
     {
         #region IFilterOrFile member impletations
 

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace UnityBuild
 {
-    internal interface IText
+    public interface IFilterType : IFilterOrFile
     {
-        TextReader GetTextReader();
+        List<object> Items
+        {
+            get;
+        }
     }
 }

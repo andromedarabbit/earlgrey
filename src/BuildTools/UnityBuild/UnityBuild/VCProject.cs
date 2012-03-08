@@ -40,21 +40,67 @@ namespace UnityBuild
             _projectDetails.SaveToFile(_projectSummary.FullPath, Encoding.UTF8);
         }
 
-        public VisualStudioProjectType Details
+        public IEnumerable<IPlatform> Platforms
         {
             get
             {
                 Debug.Assert(_projectDetails != null);
-                return _projectDetails;
+                return _projectDetails.Platforms.Cast<IPlatform>();
             }
         }
 
-        public Project Summary
+        public List<ConfigurationType> Configurations
+        {
+            get
+            {
+                Debug.Assert(_projectDetails != null);
+                return _projectDetails.Configurations;
+            }
+        }
+
+        public List<object> Files
+        {
+            get
+            {
+                Debug.Assert(_projectDetails != null);
+                return _projectDetails.Files;
+            }
+        }
+
+
+        //public Project Summary
+        //{
+        //    get
+        //    {
+        //        Debug.Assert(_projectSummary != null);
+        //        return _projectSummary;
+        //    }
+        //}
+
+        public string Name
         {
             get
             {
                 Debug.Assert(_projectSummary != null);
-                return _projectSummary;
+                return _projectSummary.ProjectName;
+            }
+        }
+
+        public string Guid
+        {
+            get
+            {
+                Debug.Assert(_projectSummary != null);
+                return _projectSummary.ProjectGuid;
+            }
+        }
+
+        public string FullPath
+        {
+            get
+            {
+                Debug.Assert(_projectSummary != null);
+                return _projectSummary.FullPath;
             }
         }
 
@@ -65,12 +111,12 @@ namespace UnityBuild
 
         public PropertyLineHashList ConfigurationPlatforms
         {
-            get { return this.Summary.ProjectConfigurationPlatformsLines; }
+            get { return _projectSummary.ProjectConfigurationPlatformsLines; }
         }
 
         public IEnumerable<string> ConfigurationPlatformNames
         {
-            get { return this.Details.ConfigurationPlatformNames; }
+            get { return _projectDetails.ConfigurationPlatformNames; }
         }
 
         public bool HasConfigurationPlatform(string configurationPlatformName)
@@ -90,13 +136,13 @@ namespace UnityBuild
             return _projectDetails.GetPrecompiledHeaderOption(configurationPlatform);
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, FileType file)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, IFileType file)
         {
             return _projectDetails.GetPrecompiledHeaderOption(configurationPlatform, file);
         }
 
         // 이름은 Headers 인데 실제론 /Yc 옵션이 적용된 .cpp 파일을 반환한다.
-        public IEnumerable<FileType> GetPrecompiledHeaders(string configurationPlatform)
+        public IEnumerable<IFileType> GetPrecompiledHeaders(string configurationPlatform)
         {
             return _projectDetails.GetPrecompiledHeaders(configurationPlatform);
         }
@@ -124,7 +170,7 @@ namespace UnityBuild
 
         public FileType FindFile(string fileName)
         {
-            return FindFile(this.Details.Files, fileName);
+            return FindFile(this.Files, fileName) as FileType;
         }
 
         private static FileType FindFile(IEnumerable<object> items, string fileName)
@@ -150,9 +196,9 @@ namespace UnityBuild
             return null;
         }
 
-        public FilterType FindFilter(string fileName)
+        public IFilterType FindFilter(string fileName)
         {
-            return FindFilter(this.Details.Files, fileName);
+            return FindFilter(this.Files, fileName) as IFilterType;
         }
 
         private static FilterType FindFilter(IEnumerable<object> items, string filterName)
