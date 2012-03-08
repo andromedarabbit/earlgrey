@@ -64,7 +64,7 @@ namespace UnityBuild
 
         private bool IsExcluded(VcProject project)
         {
-            string projectName = project.Summary.ProjectName;
+            string projectName = project.Name;
             return _options.IsExcluded(projectName);
         }
 

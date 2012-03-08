@@ -41,7 +41,7 @@ namespace UnityBuild.Tests
             List<IFilterOrFile> filterOrFiles = instance.Merge();
 
 
-            string dir = Path.GetDirectoryName(vcProject.Summary.FullPath);
+            string dir = Path.GetDirectoryName(vcProject.FullPath);
             string[] filesFound = Directory.GetFiles(dir, "UnityBuild-*cpp", SearchOption.AllDirectories);
 
             Assert.IsNotNull(filesFound);

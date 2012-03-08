@@ -16,13 +16,13 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
+            IFileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
             FilesMergeKey keyUsingStdAfx2 = new FilesMergeKey(fileUsingStdAfx2);
 
             Assert.AreNotEqual(keyUsingStdAfx2, null);
             Assert.AreEqual(keyUsingStdAfx2, keyUsingStdAfx2);
 
-            FileType fileUsingStdAfx2_2 = FindFile(vcProject, "Dummy.cpp");
+            IFileType fileUsingStdAfx2_2 = FindFile(vcProject, "Dummy.cpp");
             FilesMergeKey keyUsingStdAfx2_2 = new FilesMergeKey(fileUsingStdAfx2_2);
 
             Assert.AreEqual(keyUsingStdAfx2_2, keyUsingStdAfx2);
@@ -33,10 +33,10 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
+            IFileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
             FilesMergeKey keyUsingStdAfx2 = new FilesMergeKey(fileUsingStdAfx2);
-            
-            FileType fileUsingNoStdAfx = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+
+            IFileType fileUsingNoStdAfx = FindFile(vcProject, "NoPrecompiledHeader.cpp");
             FilesMergeKey keyUsingNoStdAfx = new FilesMergeKey(fileUsingNoStdAfx);
 
             Assert.AreNotEqual(keyUsingStdAfx2, keyUsingNoStdAfx);
@@ -45,22 +45,22 @@ namespace UnityBuild.Tests
         [Test]
         public void GroupBy()
         {
-            VcProject vcProject = GetEarlgreyVcProject();            
+            VcProject vcProject = GetEarlgreyVcProject();
 
-            FileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
+            IFileType fileUsingStdAfx2 = FindFile(vcProject, "Dummy.cpp");
             FilesMergeKey keyUsingStdAfx2 = new FilesMergeKey(fileUsingStdAfx2);
-            KeyValuePair<FilesMergeKey, FileType> pairUsingStdAfx = new KeyValuePair<FilesMergeKey, FileType>(keyUsingStdAfx2, fileUsingStdAfx2);
+            KeyValuePair<FilesMergeKey, IFileType> pairUsingStdAfx = new KeyValuePair<FilesMergeKey, IFileType>(keyUsingStdAfx2, fileUsingStdAfx2);
 
 
-            FileType fileUsingNoStdAfx = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+            IFileType fileUsingNoStdAfx = FindFile(vcProject, "NoPrecompiledHeader.cpp");
             FilesMergeKey keyUsingNoStdAfx = new FilesMergeKey(fileUsingNoStdAfx);
-            KeyValuePair<FilesMergeKey, FileType> pairUsingNoStdAfx = new KeyValuePair<FilesMergeKey, FileType>(keyUsingNoStdAfx, fileUsingNoStdAfx);
+            KeyValuePair<FilesMergeKey, IFileType> pairUsingNoStdAfx = new KeyValuePair<FilesMergeKey, IFileType>(keyUsingNoStdAfx, fileUsingNoStdAfx);
 
-            List<KeyValuePair<FilesMergeKey, FileType>> pairs = new List<KeyValuePair<FilesMergeKey, FileType>>();
+            List<KeyValuePair<FilesMergeKey, IFileType>> pairs = new List<KeyValuePair<FilesMergeKey, IFileType>>();
             pairs.Add(pairUsingStdAfx);
             pairs.Add(pairUsingNoStdAfx);
 
-            IEnumerable<IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>>> result = pairs.GroupBy(pair => pair.Key);
+            IEnumerable<IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, IFileType>>> result = pairs.GroupBy(pair => pair.Key);
             Assert.AreEqual(2, result.Count());
             Assert.IsTrue(result.All(grouping => grouping.Count() == 1));
         }

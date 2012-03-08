@@ -152,12 +152,12 @@ namespace UnityBuild.Tests
         }
 
 
-        protected static FileType FindFile(VcProject vcProject, string fileName)
+        protected static IFileType FindFile(VcProject vcProject, string fileName)
         {
 			return vcProject.FindFile(fileName);
         }
 
-        protected static FilterType FindFilter(VcProject vcProject, string fileName)
+        protected static IFilterType FindFilter(VcProject vcProject, string fileName)
         {
 			return vcProject.FindFilter(fileName);
         }

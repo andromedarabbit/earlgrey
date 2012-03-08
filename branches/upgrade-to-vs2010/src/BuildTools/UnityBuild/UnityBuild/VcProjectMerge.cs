@@ -57,7 +57,7 @@ namespace UnityBuild
 
         private void ExcludeFromBuild()
         {
-            foreach (ConfigurationType configuration in _project.Details.Configurations)
+            foreach (ConfigurationType configuration in _project.Configurations)
             {
                 string configurationName = AbstractConfigurationNameConverter.GetConfiguration(configuration.Name);
                 if (_projectConverter.IsNewName(configurationName) == true)
@@ -71,7 +71,7 @@ namespace UnityBuild
         {
             get
             {
-                IEnumerable<FilterType> filters = from item in _project.Details.Files
+                IEnumerable<FilterType> filters = from item in _project.Files
                                                   where item is FilterType
                                                   select (FilterType) item
                     ;
@@ -79,13 +79,13 @@ namespace UnityBuild
             }
         }
 
-        private IEnumerable<FileType> Files
+        private IEnumerable<IFileType> Files
         {
             get
             {
-                IEnumerable<FileType> files = from item in _project.Details.Files
-                                              where item is FileType
-                                              select (FileType) item
+                IEnumerable<IFileType> files = from item in _project.Files
+                                               where item is IFileType
+                                               select (IFileType)item
                     ;
                 return files;
             }
@@ -107,16 +107,16 @@ namespace UnityBuild
             List<IFilterOrFile> itemsAdded = new List<IFilterOrFile>();
 
             // TODO: 하드코딩  
-            List<FileType> files = GetAllSrcFiles();
+            List<IFileType> files = GetAllSrcFiles();
             FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
-            List<FileType> filesAdded = filesMerge.Merge();
+            List<IFileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count == 0)
                 return itemsAdded;
 
-            if (_project.Details.Files.Contains(_unityBuildFilter) == false)
+            if (_project.Files.Contains(_unityBuildFilter) == false)
             {
-                _project.Details.Files.Add(_unityBuildFilter);
+                _project.Files.Add(_unityBuildFilter);
             }
             _unityBuildFilter.Items.AddRange(filesAdded.ToArray());
             itemsAdded.AddRange(filesAdded.ToArray());
@@ -124,30 +124,30 @@ namespace UnityBuild
             return itemsAdded;
         }
 
-        private List<FileType> GetAllSrcFiles()
+        private List<IFileType> GetAllSrcFiles()
         {
-            List<FileType> files = new List<FileType>();
-            GetAllSrcFiles(_project.Details.Files, files);
+            List<IFileType> files = new List<IFileType>();
+            GetAllSrcFiles(_project.Files, files);
             return files;
         }
 
-        private void GetAllSrcFiles(IEnumerable<object> items, List<FileType> files)
+        private void GetAllSrcFiles(IEnumerable<object> items, List<IFileType> files)
         {
             Debug.Assert(items != null);
             Debug.Assert(files != null);
 
             foreach (object item in items)
             {
-                if (item is FileType)
+                if (item is IFileType)
                 {
-                    FileType file = (FileType) item;
+                    IFileType file = (IFileType)item;
                     if (file.IsSrcFile)
                         files.Add(file);
                 }
 
-                if (item is FilterType)
+                if (item is IFilterType)
                 {
-                    FilterType filter = item as FilterType;
+                    IFilterType filter = item as IFilterType;
                     GetAllSrcFiles(filter.Items, files);
                 }
             }
@@ -169,12 +169,12 @@ namespace UnityBuild
                                                    _buildConfigurationsExcluded, _maxFilesPerFile);
 
 
-            List<FileType> filesAdded = filesMerge.Merge();
+            List<IFileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
-                if (_project.Details.Files.Contains(_unityBuildFilter) == false)
+                if (_project.Files.Contains(_unityBuildFilter) == false)
                 {
-                    _project.Details.Files.Add(_unityBuildFilter);
+                    _project.Files.Add(_unityBuildFilter);
                 }
                 itemsAdded.AddRange(filesAdded.ToArray());
             }

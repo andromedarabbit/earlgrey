@@ -14,7 +14,7 @@ namespace UnityBuild
         private readonly string _dstFilePath;
         private readonly string _projectDir;
 
-        private readonly List<FileType> _srcFiles;
+        private readonly List<IFileType> _srcFiles;
 
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
@@ -38,7 +38,7 @@ namespace UnityBuild
 
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
-            _srcFiles = new List<FileType>();
+            _srcFiles = new List<IFileType>();
 
 
             _buildConfigurations = new List<string>();
@@ -114,7 +114,7 @@ namespace UnityBuild
 
         #endregion
 
-        public void AddSrcFile(FileType file)
+        public void AddSrcFile(IFileType file)
         {
             Debug.Assert(file != null);
             Debug.Assert(file.IsSrcFile);

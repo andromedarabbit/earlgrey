@@ -29,12 +29,12 @@ namespace UnityBuild
             if (configuration == null)
                 throw new ArgumentException();       
 
-            if(_vcProject.Details.Configurations.Remove(configuration) == false)
+            if(_vcProject.Configurations.Remove(configuration) == false)
                 throw new ApplicationException();
 
-            DeleteConfigurationPlatformInFiles(_vcProject.Details.Files);
+            DeleteConfigurationPlatformInFiles(_vcProject.Files);
 
-            DeleteUnityBuildFilters(_vcProject.Details.Files);
+            DeleteUnityBuildFilters(_vcProject.Files);
 
             // _vcProject.Save();
         }

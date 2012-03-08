@@ -7,7 +7,7 @@ using System.Text;
 
 namespace UnityBuild
 {
-    public partial class FileType : IFilterOrFile
+    public partial class FileType : IFileType
     {
         private Dictionary<string, PrecompiledHeaderOptions> _precompiledHeaderOptions;
 
@@ -39,7 +39,8 @@ namespace UnityBuild
             get { return Properties.UnityBuild.Default.IsSourceFile(this.RelativePath); }
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
+        public 
+            PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
         {
             if (IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
@@ -60,7 +61,7 @@ namespace UnityBuild
             return PrecompiledHeaderOptions.CreateInstance(tool);
         }
 
-        internal
+        public
             void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options)
         {
             if (IsSrcFile == false)

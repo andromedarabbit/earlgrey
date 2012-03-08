@@ -106,7 +106,7 @@ namespace UnityBuild
             return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, FileType file)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, IFileType file)
         {
             if (file.IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
@@ -131,17 +131,17 @@ namespace UnityBuild
         }
 
         // 이름은 Headers 인데 실제론 /Yc 옵션이 적용된 .cpp 파일을 반환한다.
-        public IEnumerable<FileType> GetPrecompiledHeaders(string configurationPlatform)
+        public IEnumerable<IFileType> GetPrecompiledHeaders(string configurationPlatform)
         {
             Debug.Assert(string.IsNullOrEmpty(configurationPlatform) == false);
 
-            List<FileType> filesFound = new List<FileType>();
+            List<IFileType> filesFound = new List<IFileType>();
             GetPrecompiledHeaders(configurationPlatform, this.Files, filesFound);
             return filesFound;
         }
 
         private void GetPrecompiledHeaders(string configurationPlatform, IEnumerable<object> items,
-                                           List<FileType> filesFound)
+                                           List<IFileType> filesFound)
         {
             Debug.Assert(filesFound != null);
 
@@ -150,10 +150,10 @@ namespace UnityBuild
 
             foreach (object item in items)
             {
-                Debug.Assert((item is FileType) || (item is FilterType));
-                if (item is FileType)
+                Debug.Assert((item is IFileType) || (item is FilterType));
+                if (item is IFileType)
                 {
-                    FileType file = (FileType) item;
+                    IFileType file = (IFileType)item;
                     PrecompiledHeaderOptions options = GetPrecompiledHeaderOption(configurationPlatform, file);
                     if (options.UsePrecompiledHeader != UsePrecompiledHeaderOptions.Create)
                         continue;
@@ -181,7 +181,7 @@ namespace UnityBuild
 
             foreach (object item in srcFiles)
             {
-                Debug.Assert(item is FileType || item is FilterType);
+                Debug.Assert(item is IFileType || item is FilterType);
 
                 if (item is FilterType)
                 {
@@ -190,7 +190,7 @@ namespace UnityBuild
                     continue;
                 }
 
-                FileType file = (FileType) item;
+                IFileType file = (IFileType)item;
 
                 foreach (string configurationPlatform in ConfigurationPlatformNames)
                 {
@@ -206,10 +206,10 @@ namespace UnityBuild
         {
             foreach (object item in items)
             {
-                Debug.Assert((item is FileType) || (item is FilterType));
-                if (item is FileType)
+                Debug.Assert((item is IFileType) || (item is FilterType));
+                if (item is IFileType)
                 {
-                    FileType file = (FileType) item;
+                    IFileType file = (IFileType)item;
                     if (file.IsSrcFile == false)
                         continue;
 
@@ -274,7 +274,7 @@ namespace UnityBuild
         {
             foreach (object item in items)
             {
-                Debug.Assert((item is FileType) || (item is FilterType));
+                Debug.Assert((item is IFileType) || (item is FilterType));
                 if (item is FileType)
                 {
                     FileType file = (FileType) item;

@@ -50,10 +50,10 @@ namespace UnityBuild
                 AddPreprocessorDefinitions(newConfiguration);
 
 
-            _vcProject.Details.Configurations.Add(newConfiguration);
+            _vcProject.Configurations.Add(newConfiguration);
 
             // 개별 파일 속성
-            CopyConfigurationPlatformInFiles(_vcProject.Details.Files);
+            CopyConfigurationPlatformInFiles(_vcProject.Files);
         }
 
         private void AddPreprocessorDefinitions(ConfigurationType newConfiguration)

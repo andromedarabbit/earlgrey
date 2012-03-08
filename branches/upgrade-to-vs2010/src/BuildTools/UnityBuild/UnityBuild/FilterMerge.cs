@@ -10,7 +10,7 @@ namespace UnityBuild
     internal class FilterMerge
     {
         private readonly string _projectDirectory;
-        private readonly FilterType _filter;
+        private readonly IFilterType _filter;
 
         private readonly List<string> _buildConfigurationsExcluded;
         private readonly List<string> _buildConfigurations;
@@ -19,7 +19,7 @@ namespace UnityBuild
 
         public FilterMerge(
             string projectDirectory
-            , FilterType filter
+            , IFilterType filter
             , IEnumerable<string> buildConfigurations
             )
             : this(projectDirectory, filter, buildConfigurations, new List<string>(), 0)
@@ -28,7 +28,7 @@ namespace UnityBuild
 
         public FilterMerge(
             string projectDirectory
-            , FilterType filter
+            , IFilterType filter
             , IEnumerable<string> buildConfigurations
             , IEnumerable<string> buildConfigurationsExcluded
             , int maxFilesPerFile
@@ -49,25 +49,25 @@ namespace UnityBuild
             _maxFilesPerFile = maxFilesPerFile;
         }
 
-        private IEnumerable<FilterType> Filters
+        private IEnumerable<IFilterType> Filters
         {
             get
             {
-                IEnumerable<FilterType> filters = from item in _filter.Items
-                                                  where item is FilterType
-                                                  select (FilterType) item
+                IEnumerable<IFilterType> filters = from item in _filter.Items
+                                                   where item is IFilterType
+                                                   select (IFilterType)item
                     ;
                 return filters;
             }
         }
 
-        private IEnumerable<FileType> Files
+        private IEnumerable<IFileType> Files
         {
             get
             {
-                IEnumerable<FileType> files = from item in _filter.Items
-                                              where item is FileType
-                                              select (FileType) item
+                IEnumerable<IFileType> files = from item in _filter.Items
+                                               where item is IFileType
+                                               select (IFileType)item
                     ;
                 return files;
             }
@@ -88,10 +88,10 @@ namespace UnityBuild
             FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations,
                                                    _buildConfigurationsExcluded, _maxFilesPerFile);
 
-            List<FileType> filesAdded = filesMerge.Merge();
+            List<IFileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
-                FilterType parentFilter = GetParentFilter(filesOrFiltersAdded);
+                IFilterType parentFilter = GetParentFilter(filesOrFiltersAdded);
                 parentFilter.Items.AddRange(filesAdded.ToArray());
                 filesOrFiltersAdded.AddRange(filesAdded.ToArray());
             }

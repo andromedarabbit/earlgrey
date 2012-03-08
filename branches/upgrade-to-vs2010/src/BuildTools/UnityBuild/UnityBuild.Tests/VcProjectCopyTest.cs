@@ -31,7 +31,7 @@ namespace UnityBuild.Tests
 
             Assert.GreaterOrEqual(EarlgreyProjectFileText.IndexOf(dstConfigurationPlatformName, StringComparison.CurrentCultureIgnoreCase), 0);
 
-            FileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
+            IFileType throwErrorCpp = FindFile(vcProject, "ThrowError.cpp");
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(srcConfigurationPlatformName));
             Assert.IsTrue(throwErrorCpp.ExcludedFromBuild(dstConfigurationPlatformName));
         }
