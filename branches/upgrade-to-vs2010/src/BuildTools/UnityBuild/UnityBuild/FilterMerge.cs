@@ -9,6 +9,7 @@ namespace UnityBuild
 {
     internal class FilterMerge
     {
+        private readonly VisualStudioVersions _version;
         private readonly string _projectDirectory;
         private readonly IFilterType _filter;
 
@@ -17,26 +18,47 @@ namespace UnityBuild
 
         private readonly int _maxFilesPerFile;
 
+        public FilterMerge(VcProject project, IFilterType filter)
+            : this(project.Version, project.Directory, filter, project.ConfigurationPlatformNames)
+        {
+            
+        }
+
         public FilterMerge(
-            string projectDirectory
+            VisualStudioVersions version
+            , string projectDirectory
             , IFilterType filter
             , IEnumerable<string> buildConfigurations
             )
-            : this(projectDirectory, filter, buildConfigurations, new List<string>(), 0)
+            : this(version, projectDirectory, filter, buildConfigurations, new List<string>(), 0)
         {
         }
 
         public FilterMerge(
-            string projectDirectory
+            VcProject project            
+            , IFilterType filter
+            , IEnumerable<string> buildConfigurationsExcluded
+            , int maxFilesPerFile
+            )
+            : this(project.Version, project.Directory, filter, project.ConfigurationPlatformNames, new List<string>(), 0)
+        {
+
+        }
+
+        public FilterMerge(
+            VisualStudioVersions version
+            , string projectDirectory
             , IFilterType filter
             , IEnumerable<string> buildConfigurations
             , IEnumerable<string> buildConfigurationsExcluded
             , int maxFilesPerFile
             )
         {
+            Debug.Assert(version != VisualStudioVersions.None);
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(filter != null);
 
+            _version = version;
             _projectDirectory = projectDirectory;
             _filter = filter;
 
@@ -79,32 +101,30 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_projectDirectory, filter, _buildConfigurations,
-                                                          _buildConfigurationsExcluded, _maxFilesPerFile);
+                FilterMerge filterMerge = new FilterMerge(_version, _projectDirectory, filter, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
                 filesOrFiltersAdded.AddRange(filterMerge.Merge());
             }
 
             // TODO: 하드코딩
-            FilesMerge filesMerge = new FilesMerge(_projectDirectory, Files.ToList(), _buildConfigurations,
-                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
+            FilesMerge filesMerge = new FilesMerge(_version, _projectDirectory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
             List<IFileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count > 0)
             {
-                IFilterType parentFilter = GetParentFilter(filesOrFiltersAdded);
+				IFilterType parentFilter = GetParentFilter(filesOrFiltersAdded);
                 parentFilter.Items.AddRange(filesAdded.ToArray());
                 filesOrFiltersAdded.AddRange(filesAdded.ToArray());
             }
             return filesOrFiltersAdded;
         }
 
-        private FilterType GetParentFilter(List<IFilterOrFile> filesOrFiltersAdded)
+        private IFilterType GetParentFilter(List<IFilterOrFile> filesOrFiltersAdded)
         {
-            FilterType newFilter = null;
+			IFilterType newFilter = null;
 
             var result = _filter.Items
-                .Where(item => item is FilterType && ((FilterType) item).Name.Equals("UnityBuild") == true)
-                .Select(item => (FilterType) item);
+				.Where(item => item is IFilterType && ((IFilterType)item).Name.Equals("UnityBuild") == true)
+				.Select(item => (IFilterType)item);
             if (result.Count() > 0)
             {
                 Debug.Assert(result.Count() == 1);
@@ -113,10 +133,11 @@ namespace UnityBuild
 
             if (newFilter == null)
             {
-                newFilter = new FilterType();
-                newFilter.Name = "UnityBuild";
-                newFilter.NameSpecified = true;
-                newFilter.ItemsSpecified = true;
+                newFilter = FilterTypeFactory.CreateInstance(_version, "UnityBuild");
+                // newFilter = new FilterType();
+                // newFilter.Name = "UnityBuild";
+                // newFilter.NameSpecified = true;
+                // newFilter.ItemsSpecified = true;
 
                 _filter.Items.Add(newFilter);
                 filesOrFiltersAdded.Add(newFilter);

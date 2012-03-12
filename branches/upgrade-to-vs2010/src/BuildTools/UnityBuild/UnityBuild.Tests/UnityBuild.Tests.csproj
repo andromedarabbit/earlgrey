@@ -99,7 +99,7 @@
     <Compile Include="VcSolutionCopyTest.cs" />
     <Compile Include="VcSolutionFileCopyTest.cs" />
     <Compile Include="VcSolutionTest.cs" />
-    <Compile Include="VisualStudioProjectTypeTest.cs" />
+    <Compile Include="VS2008\VisualStudioProjectTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\vendor\BuildTool\MSBuildCommunityTasks\v1.3.0.504\Source\MSBuild.Community.Tasks\MSBuild.Community.Tasks.csproj">

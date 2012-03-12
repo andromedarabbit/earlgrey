@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace UnityBuild
+namespace UnityBuild.VS2008
 {
     public partial class ConfigurationTypeTool
     {
@@ -246,5 +246,44 @@ namespace UnityBuild
                 AddPreprocessorDefinition(definition);
             }
         }
+
+        public static PrecompiledHeaderOptions CreatePrecompiledHeaderOptions(ConfigurationTypeTool tool)
+        {
+            Debug.Assert(tool.Name == "VCCLCompilerTool");
+            Debug.Assert(tool.NameSpecified == true);
+            Debug.Assert(tool.AnyAttr != null);
+
+            if (tool.UsePrecompiledHeaderSpecified == false)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
+
+            PrecompiledHeaderOptions options = new PrecompiledHeaderOptions();
+            options.UsePrecompiledHeader =
+                (UsePrecompiledHeaderOptions)
+                Enum.Parse(typeof(UsePrecompiledHeaderOptions), tool.UsePrecompiledHeader);
+            options.PrecompiledHeaderThrough = tool.PrecompiledHeaderThrough;
+            options.PrecompiledHeaderFile = tool.PrecompiledHeaderFile;
+
+            return options;
+        }
+        /*
+        public static PrecompiledHeaderOptions CreateInstance(ConfigurationTypeTool tool)
+        {
+            Debug.Assert(tool.Name == "VCCLCompilerTool");
+            Debug.Assert(tool.NameSpecified == true);
+            Debug.Assert(tool.AnyAttr != null);
+
+            if (tool.UsePrecompiledHeaderSpecified == false)
+                return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.InheritFromProject);
+
+            PrecompiledHeaderOptions options = new PrecompiledHeaderOptions();
+            options.UsePrecompiledHeader =
+                (UsePrecompiledHeaderOptions)
+                Enum.Parse(typeof(UsePrecompiledHeaderOptions), tool.UsePrecompiledHeader);
+            options.PrecompiledHeaderThrough = tool.PrecompiledHeaderThrough;
+            options.PrecompiledHeaderFile = tool.PrecompiledHeaderFile;
+
+            return options;
+        }
+        */
     }
 }

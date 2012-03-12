@@ -42,11 +42,11 @@ namespace UnityBuild.Tests
             Assert.IsNotNull(MergedSourceFiles);
             Assert.Greater(MergedSourceFiles.Length, 3);
 
-            IEnumerable<FilterType> filtersAdded
-               = filterOrFiles.Where(item => item is FilterType).Select(item => (FilterType)item);
+            IEnumerable<IFilterType> filtersAdded
+               = filterOrFiles.Where(item => item is IFilterType).Select(item => (IFilterType)item);
 
-            IEnumerable<FileType> filesAdded
-                = filterOrFiles.Where(item => item is FileType).Select(item => (FileType)item);
+            IEnumerable<IFileType> filesAdded
+                = filterOrFiles.Where(item => item is IFileType).Select(item => (IFileType)item);
 
             Assert.Greater(filterOrFiles.Count, 3);
 
@@ -57,7 +57,7 @@ namespace UnityBuild.Tests
             CollectionAssert.AllItemsAreUnique(filesAdded);
 
             Assert.IsTrue(
-               filesAdded.All(file => file.FileName.StartsWith("UnityBuild-"))
+               filesAdded.All(file => file.Name.StartsWith("UnityBuild-"))
                );
             Assert.IsTrue(
                 filesAdded.All(file => file.IsSrcFile == true)

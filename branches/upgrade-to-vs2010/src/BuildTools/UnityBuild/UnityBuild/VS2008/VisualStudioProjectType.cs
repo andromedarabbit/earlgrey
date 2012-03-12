@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace UnityBuild
+namespace UnityBuild.VS2008
 {
     public partial class VisualStudioProjectType
     {
@@ -91,7 +91,7 @@ namespace UnityBuild
 
             ConfigurationTypeTool tool = tools.First();
 
-            PrecompiledHeaderOptions options = PrecompiledHeaderOptions.CreateInstance(tool);
+            PrecompiledHeaderOptions options = ConfigurationTypeTool.CreatePrecompiledHeaderOptions(tool);
             if (options.UsePrecompiledHeader != UsePrecompiledHeaderOptions.InheritFromProject)
             {
                 if (string.IsNullOrEmpty(options.PrecompiledHeaderFile))

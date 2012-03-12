@@ -9,13 +9,13 @@ namespace UnityBuild
 {
     internal class VcProjectMerge
     {
-        private readonly bool _groupByFilter;
+        private readonly bool _groupByFilter;       
         private readonly VcProject _project;
         private readonly AbstractProjectConfigurationNameConverter _projectConverter;
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
 
-        private readonly FilterType _unityBuildFilter;
+        private readonly IFilterType _unityBuildFilter;
 
         private readonly int _maxFilesPerFile;
 
@@ -27,7 +27,7 @@ namespace UnityBuild
         {
         }
 
-        public VcProjectMerge(
+        public VcProjectMerge(            
             VcProject project
             , AbstractProjectConfigurationNameConverter projectConverter
             , bool groupByFilter
@@ -45,10 +45,10 @@ namespace UnityBuild
             _projectConverter = projectConverter;
             _groupByFilter = groupByFilter;
 
-            _unityBuildFilter = new FilterType();
-            _unityBuildFilter.Name = "UnityBuild";
-            _unityBuildFilter.NameSpecified = true;
-            _unityBuildFilter.ItemsSpecified = true;
+			_unityBuildFilter = FilterTypeFactory.CreateInstance(_project.Version, "UnityBuild");
+            // _unityBuildFilter.Name = "UnityBuild";
+            // _unityBuildFilter.NameSpecified = true;
+            // _unityBuildFilter.ItemsSpecified = true;
 
             ExcludeFromBuild();
 
@@ -57,7 +57,7 @@ namespace UnityBuild
 
         private void ExcludeFromBuild()
         {
-            foreach (ConfigurationType configuration in _project.Configurations)
+            foreach (IConfigurationType configuration in _project.Configurations)
             {
                 string configurationName = AbstractConfigurationNameConverter.GetConfiguration(configuration.Name);
                 if (_projectConverter.IsNewName(configurationName) == true)
@@ -67,13 +67,13 @@ namespace UnityBuild
             }
         }
 
-        private IEnumerable<FilterType> Filters
+        private IEnumerable<IFilterType> Filters
         {
             get
             {
-                IEnumerable<FilterType> filters = from item in _project.Files
-                                                  where item is FilterType
-                                                  select (FilterType) item
+				IEnumerable<IFilterType> filters = from item in _project.Files
+												   where item is IFilterType
+												   select (IFilterType)item
                     ;
                 return filters;
             }
@@ -108,7 +108,7 @@ namespace UnityBuild
 
             // TODO: 하드코딩  
             List<IFileType> files = GetAllSrcFiles();
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
+            FilesMerge filesMerge = new FilesMerge(_project.Version, _project.Directory, files, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
             List<IFileType> filesAdded = filesMerge.Merge();
             if (filesAdded.Count == 0)
@@ -131,7 +131,7 @@ namespace UnityBuild
             return files;
         }
 
-        private void GetAllSrcFiles(IEnumerable<object> items, List<IFileType> files)
+        private static void GetAllSrcFiles(IEnumerable<object> items, List<IFileType> files)
         {
             Debug.Assert(items != null);
             Debug.Assert(files != null);
@@ -159,14 +159,12 @@ namespace UnityBuild
 
             foreach (var filter in Filters)
             {
-                FilterMerge filterMerge = new FilterMerge(_project.Directory, filter, _buildConfigurations,
-                                                          _buildConfigurationsExcluded, _maxFilesPerFile);
+                FilterMerge filterMerge = new FilterMerge(_project.Version, _project.Directory, filter, _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
                 itemsAdded.AddRange(filterMerge.Merge());
             }
 
             // TODO: 하드코딩  
-            FilesMerge filesMerge = new FilesMerge(_project.Directory, Files.ToList(), _buildConfigurations,
-                                                   _buildConfigurationsExcluded, _maxFilesPerFile);
+            FilesMerge filesMerge = new FilesMerge(_project.Version, _project.Directory, Files.ToList(), _buildConfigurations, _buildConfigurationsExcluded, _maxFilesPerFile);
 
 
             List<IFileType> filesAdded = filesMerge.Merge();

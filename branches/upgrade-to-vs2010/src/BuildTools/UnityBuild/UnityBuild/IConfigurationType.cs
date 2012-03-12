@@ -5,8 +5,9 @@ using System.Text;
 
 namespace UnityBuild
 {
-    public partial class VisualStudioProjectTypePlatform : IPlatform
-    {
-
-    }
+	public interface IConfigurationType
+	{
+        string Name { get; set; }
+        IConfigurationType Copy();
+	}
 }

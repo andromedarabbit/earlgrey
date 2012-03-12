@@ -10,6 +10,7 @@ namespace UnityBuild
 {
     internal class FilesMerge
     {
+        private readonly VisualStudioVersions _version;
         private readonly string _projectDirectory;
         private readonly ICollection<IFileType> _files;
 
@@ -19,25 +20,28 @@ namespace UnityBuild
         private readonly int _maxFilesPerFile;
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
             ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations
             )
-            : this(projectDirectory, files, buildConfigurations, new List<string>(), 0)
+            : this(version, projectDirectory, files, buildConfigurations, new List<string>(), 0)
         {
         }
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
             ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations,
             IEnumerable<string> buildConfigurationsExcluded
             )
-            : this(projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
+            : this(version, projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
         {
         }
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
             ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations,
@@ -45,10 +49,12 @@ namespace UnityBuild
             int maxFilesPerFile
             )
         {
+            Debug.Assert(version != VisualStudioVersions.None);
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(files != null);
             Debug.Assert(maxFilesPerFile >= 0);
 
+            _version = version;
             _projectDirectory = projectDirectory;
             _files = files;
 
@@ -123,9 +129,7 @@ namespace UnityBuild
 
             string absolutePath = GetAbsolutePath(newFile.RelativePath);
             using (
-                SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath,
-                                                         _projectDirectory, _buildConfigurations,
-                                                         _buildConfigurationsExcluded)
+                SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded)
                 )
             {
                 merger.Open();
@@ -176,12 +180,12 @@ namespace UnityBuild
             }
         }
 
-        private FileType GetNewFile(string relativeDir,
-                                    IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> options)
+        private IFileType GetNewFile(string relativeDir, IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> options)
         {
-            FileType newFile = new FileType();
-            newFile.RelativePath = GetNextFilePath(relativeDir);
-            newFile.RelativePathSpecified = true;
+            // FileType newFile = new FileType();
+            // newFile.RelativePath = GetNextFilePath(relativeDir);
+            // newFile.RelativePathSpecified = true;
+            IFileType newFile = FileTypeFactory.CreateInstance(_version, GetNextFilePath(relativeDir));
 
             foreach (string buildConfigurationExcluded in _buildConfigurationsExcluded)
             {

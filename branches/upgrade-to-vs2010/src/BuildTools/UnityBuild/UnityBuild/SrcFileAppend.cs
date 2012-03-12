@@ -150,7 +150,7 @@ namespace UnityBuild
                     sw.WriteLine("#include \"" + stdAfxFileNames.First() + "\"");
                 }
 
-                foreach (FileType srcFile in _srcFiles)
+                foreach (IFileType srcFile in _srcFiles)
                 {
                     WriteInclude(sw, srcFile);
                 }
@@ -159,7 +159,7 @@ namespace UnityBuild
             return true;
         }
 
-        private void WriteInclude(TextWriter sw, FileType srcFile)
+        private void WriteInclude(TextWriter sw, IFileType srcFile)
         {
             // IEnumerable<string> configurationsExcluded = srcFile.BuildConfigurationsWhenExcludedFromBuild; // Unity
             // build - all
@@ -176,7 +176,7 @@ namespace UnityBuild
 
             if (configurationsExcluded.Count() == 0)
             {
-                sw.WriteLine("#include \"" + srcFile.FileName + "\"");
+                sw.WriteLine("#include \"" + srcFile.Name + "\"");
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace UnityBuild
             {
                 bool exclude =
                     configurationsExcluded.Contains(configurationPlatform, StringComparer.CurrentCultureIgnoreCase);
-                WriteInclude(sw, configurationPlatform, srcFile.FileName, exclude);
+                WriteInclude(sw, configurationPlatform, srcFile.Name, exclude);
             }
         }
 
