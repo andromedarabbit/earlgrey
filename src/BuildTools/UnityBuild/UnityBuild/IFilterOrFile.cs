@@ -9,5 +9,13 @@ namespace UnityBuild
     {
         bool IsFilter { get; }
         bool IsFile { get; }
+
+        string Name { get; }
+
+		List<object> Items
+		{
+			get;
+			set;
+		}
     }
 }

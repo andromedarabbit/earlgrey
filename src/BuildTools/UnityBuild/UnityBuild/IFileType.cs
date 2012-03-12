@@ -7,6 +7,9 @@ namespace UnityBuild
 {
     public interface IFileType : IFilterOrFile
     {
+        // static IFileType CreateInstance();
+
+
         bool ExcludedFromBuild(string buildConfigurationName);
 
         bool IsSrcFile
@@ -22,10 +25,10 @@ namespace UnityBuild
 
         void IncludeInBuild(string buildConfigurationName);
 
-        string FileName
-        {
-            get;
-        }
+        //string Name
+        //{
+        //    get;
+        //}
 
         string RelativePath
         {
@@ -33,6 +36,11 @@ namespace UnityBuild
         }
 
         string RelativeDir
+        {
+            get;
+        }
+
+        IEnumerable<string> BuildConfigurationsWhenExcludedFromBuild
         {
             get;
         }

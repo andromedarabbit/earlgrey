@@ -25,13 +25,13 @@ namespace UnityBuild.Tests
                               ;
             
             // FilesMerge instance = new FilesMerge(vcProject.Summary, newFilter, sourceFiles.ToList());
-            FilesMerge instance = new FilesMerge(vcProject.Directory, sourceFiles.ToList(), vcProject.ConfigurationPlatformNames);
+            FilesMerge instance = new FilesMerge(vcProject.Version, vcProject.Directory, sourceFiles.ToList(), vcProject.ConfigurationPlatformNames);
             List<IFileType> filesAdded = instance.Merge();
 
             Assert.GreaterOrEqual(filesAdded.Count, 1);
             CollectionAssert.AllItemsAreUnique(filesAdded);
             Assert.IsTrue(
-                filesAdded.All(file => file.FileName.StartsWith("UnityBuild-"))
+                filesAdded.All(file => file.Name.StartsWith("UnityBuild-"))
                 );
             Assert.IsTrue(
                 filesAdded.All(file => file.IsSrcFile == true)

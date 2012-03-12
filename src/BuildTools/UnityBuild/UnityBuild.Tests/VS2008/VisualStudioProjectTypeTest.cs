@@ -6,8 +6,9 @@ using System.Text;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
-namespace UnityBuild.Tests
+namespace UnityBuild.VS2008.Tests
 {
+    using UnityBuild.Tests;
     using NUnit.Framework;
 
     [TestFixture]

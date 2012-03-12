@@ -7,6 +7,8 @@ using System.Text;
 using System.Xml;
 using CWDev.SLNTools.Core;
 
+using UnityBuild.VS2008; // 임시
+
 namespace UnityBuild
 {
     public class VcProject
@@ -49,14 +51,26 @@ namespace UnityBuild
             }
         }
 
-        public List<ConfigurationType> Configurations
+		public IEnumerable<IConfigurationType> Configurations
         {
             get
             {
                 Debug.Assert(_projectDetails != null);
-                return _projectDetails.Configurations;
+				return _projectDetails.Configurations.Cast<IConfigurationType>();
             }
         }
+
+		public void AddConfiguration(IConfigurationType configurationType)
+		{
+			Debug.Assert(_projectDetails != null);
+			_projectDetails.Configurations.Add(configurationType as ConfigurationType);
+		}
+
+		public bool RemoveConfiguration(IConfigurationType configurationType)
+		{
+			Debug.Assert(_projectDetails != null);
+			return _projectDetails.Configurations.Remove(configurationType as ConfigurationType);
+		}
 
         public List<object> Files
         {
@@ -66,16 +80,6 @@ namespace UnityBuild
                 return _projectDetails.Files;
             }
         }
-
-
-        //public Project Summary
-        //{
-        //    get
-        //    {
-        //        Debug.Assert(_projectSummary != null);
-        //        return _projectSummary;
-        //    }
-        //}
 
         public string Name
         {
@@ -173,21 +177,21 @@ namespace UnityBuild
             return FindFile(this.Files, fileName) as FileType;
         }
 
-        private static FileType FindFile(IEnumerable<object> items, string fileName)
+        private static IFileType FindFile(IEnumerable<object> items, string fileName)
         {
             foreach (object item in items)
             {
-                if (item is FileType)
+                if (item is IFileType)
                 {
-                    FileType file = (FileType)item;
-                    if (file.FileName.Equals(fileName, StringComparison.CurrentCultureIgnoreCase) == true)
+                    IFileType file = (IFileType)item;
+                    if (file.Name.Equals(fileName, StringComparison.CurrentCultureIgnoreCase) == true)
                         return file;
                 }
 
-                if (item is FilterType)
+                if (item is IFilterType)
                 {
-                    FilterType filter = (FilterType)item;
-                    FileType fileFound = FindFile(filter.Items, fileName);
+                    IFilterType filter = (IFilterType)item;
+                    IFileType fileFound = FindFile(filter.Items, fileName);
                     if (fileFound != null)
                         return fileFound;
                 }
@@ -219,5 +223,26 @@ namespace UnityBuild
 
             return null;
         }
+
+		public VisualStudioVersions Version
+		{
+			get
+			{
+				// TODO: 나중에 정교하게 고쳐야 함
+				if (this._projectSummary.FullPath.EndsWith(".vcproj") == true)
+				{
+					return VisualStudioVersions.V2008;
+				}
+
+				if (this._projectSummary.FullPath.EndsWith(".vcxproj") == true)
+				{
+					return VisualStudioVersions.V2010;
+				}
+
+				throw new ApplicationException(
+                    string.Format("Could not identify the version of this solution file: {0}", _projectSummary.FullPath)
+					);
+			}
+		}
     }
 }

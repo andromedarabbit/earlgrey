@@ -120,10 +120,10 @@ namespace UnityBuild.Tests
             Assert.AreEqual(2, headers.Count());
 
 
-            IFileType stdafxCpp = headers.First(item => item.FileName.Equals("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase));
+            IFileType stdafxCpp = headers.First(item => item.Name.Equals("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase));
             Assert.IsNotNull(stdafxCpp);
 
-            IFileType stdafx2Cpp = headers.First(item => item.FileName.Equals("stdafx2.cpp", StringComparison.CurrentCultureIgnoreCase));
+            IFileType stdafx2Cpp = headers.First(item => item.Name.Equals("stdafx2.cpp", StringComparison.CurrentCultureIgnoreCase));
             Assert.IsNotNull(stdafx2Cpp);
         }
     }

@@ -70,21 +70,27 @@
   <ItemGroup>
     <Compile Include="AbstractVcSolutionModify.cs" />
     <Compile Include="BuilderOptions.cs" />
+    <Compile Include="FileTypeFactory.cs" />
+    <Compile Include="FilterTypeFactory.cs" />
+    <Compile Include="IBuildConfigurationType.cs" />
+    <Compile Include="IConfigurationType.cs" />
     <Compile Include="IFileType.cs" />
     <Compile Include="IFilterType.cs" />
     <Compile Include="IProjectFileNameConverter.cs" />
     <Compile Include="Builder.cs" />
-    <Compile Include="ConfigurationTypeTool.cs" />
+    <Compile Include="MyExtension.cs" />
+    <Compile Include="VS2008\BuildConfigurationType.cs" />
+    <Compile Include="VS2008\ConfigurationType.cs" />
+    <Compile Include="VS2008\ConfigurationTypeTool.cs" />
     <Compile Include="FilesMerge.cs" />
     <Compile Include="FilesMergeKey.cs" />
-    <Compile Include="FileType.cs" />
+    <Compile Include="VS2008\FileType.cs" />
     <Compile Include="AbstractConfigurationNameConverter.cs" />
     <Compile Include="AbstractProjectConfigurationNameConverter.cs" />
     <Compile Include="AbstractSolutionConfigurationNameConverter.cs" />
     <Compile Include="FilterMerge.cs" />
-    <Compile Include="FilterType.cs" />
+    <Compile Include="VS2008\FilterType.cs" />
     <Compile Include="IFilterOrFile.cs" />
-    <Compile Include="IText.cs" />
     <Compile Include="NumberProvider.cs" />
     <Compile Include="IPlatform.cs" />
     <Compile Include="PrecompiledHeaderOptions.cs" />
@@ -109,11 +115,11 @@
     <Compile Include="VcSolutionCopy.cs" />
     <Compile Include="VcSolutionDelete.cs" />
     <Compile Include="VcSolutionFileCopy.cs" />
-    <Compile Include="VisualStudioProjectType.cs">
+    <Compile Include="VS2008\VisualStudioProjectType.cs">
       <DependentUpon>VisualStudioProjectType.xsd</DependentUpon>
     </Compile>
-    <Compile Include="VisualStudioProjectType.designer.cs" />
-    <Compile Include="VisualStudioProjectTypePlatform.cs" />
+    <Compile Include="VS2008\VisualStudioProjectType.designer.cs" />
+    <Compile Include="VS2008\VisualStudioProjectTypePlatform.cs" />
     <Compile Include="VisualStudioVersions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -122,7 +128,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UnityBuild.Designer.cs</LastGenOutput>
     </None>
-    <None Include="VisualStudioProjectType.xsd" />
+    <None Include="VS2008\VisualStudioProjectType.xsd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\vendor\SLNTools\src\Main\CWDev.SLNTools.Core.dll\CWDev.SLNTools.Core.dll.csproj">
@@ -150,6 +156,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="VS2010\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

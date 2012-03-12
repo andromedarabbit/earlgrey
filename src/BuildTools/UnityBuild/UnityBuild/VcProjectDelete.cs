@@ -25,11 +25,11 @@ namespace UnityBuild
 
         public void DeleteConfigurationPlatform()
         {
-            ConfigurationType configuration = _vcProject.GetConfiguration(_configurationPlatform);
+            IConfigurationType configuration = _vcProject.GetConfiguration(_configurationPlatform);
             if (configuration == null)
-                throw new ArgumentException();       
+                throw new ArgumentException();
 
-            if(_vcProject.Configurations.Remove(configuration) == false)
+			if (_vcProject.RemoveConfiguration(configuration) == false)
                 throw new ApplicationException();
 
             DeleteConfigurationPlatformInFiles(_vcProject.Files);
@@ -41,19 +41,19 @@ namespace UnityBuild
 
 
         private static void DeleteUnityBuildFilters(List<object> items)
-        {            
-            var result = items.Where(item => item is FilterType)
-                .Select(item => (FilterType)item)
+        {
+			var result = items.Where(item => item is IFilterType)
+				.Select(item => (IFilterType)item)
                 .Where(item => item.Name == "UnityBuild").ToList();
-            foreach (FilterType filter in result)
+			foreach (IFilterType filter in result)
             {
                 items.Remove(filter);
             }
 
-            var filters = items.Where(item => item is FilterType)
-                .Select(item => (FilterType)item)
+			var filters = items.Where(item => item is IFilterType)
+                .Select(item => (IFilterType)item)
                 ;
-            foreach (FilterType filterType in filters)
+			foreach (IFilterType filterType in filters)
             {
                 DeleteUnityBuildFilters(filterType.Items);
             }
@@ -67,37 +67,37 @@ namespace UnityBuild
             {
                 object item = items[i];
 
-                Debug.Assert((item is FileType) || (item is FilterType));
-                if (item is FileType)
+				Debug.Assert((item is IFileType) || (item is IFilterType));
+                if (item is IFileType)
                 {
-                    FileType file = (FileType)item;
+                    IFileType file = (IFileType)item;
                     DeleteConfigurationPlatformoInFileBuildConfiguration(file);
                 }
 
-                if (item is FilterType)
+                if (item is IFilterType)
                 {
-                    FilterType filter = (FilterType)item;
+                    IFilterType filter = (IFilterType)item;
                     DeleteConfigurationPlatformInFiles(filter.Items);                    
                 }
             }
         }
 
-        private void DeleteConfigurationPlatformoInFileBuildConfiguration(FileType file)
+        private void DeleteConfigurationPlatformoInFileBuildConfiguration(IFileType file)
         {
-            List<BuildConfigurationType> buildConfigurations = 
+            List<IBuildConfigurationType> buildConfigurations = 
                 file.Items
-                .Where(item => item is BuildConfigurationType)
-                .Select(item => item as BuildConfigurationType)
+				.Where(item => item is IBuildConfigurationType)
+				.Select(item => item as IBuildConfigurationType)
                 .ToList();
 
-            IEnumerable<BuildConfigurationType> result = 
+			IEnumerable<IBuildConfigurationType> result = 
                 buildConfigurations.Where(
                     item => _projectConverter.IsNewName(
                         AbstractConfigurationNameConverter.GetConfiguration(item.Name)
                                 ) == true
                 );
 
-            foreach (BuildConfigurationType buildConfiguration in result)
+			foreach (IBuildConfigurationType buildConfiguration in result)
             {
                 file.Items.Remove(buildConfiguration);    
             }

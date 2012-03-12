@@ -8,6 +8,7 @@ using CWDev.SLNTools.Core;
 
 namespace UnityBuild
 {
+
     internal class VcSolutionFileCopy
     {
         // private readonly VcSolution _solution;
@@ -72,7 +73,7 @@ namespace UnityBuild
 
             foreach (Project project in solution.Projects)
             {
-                if (project.IsVcProjectRelated == false)
+                if (project.IsVcProjectRelated() == false)
                     continue;
 
                 string newRelativePath = _projectFileNameConverter.GetNewName(project.RelativePath);

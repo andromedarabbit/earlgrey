@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace UnityBuild
+namespace UnityBuild.VS2008
 {
-    public interface IFilterType : IFilterOrFile
+    public partial class VisualStudioProjectTypePlatform : IPlatform
     {
+
     }
 }
