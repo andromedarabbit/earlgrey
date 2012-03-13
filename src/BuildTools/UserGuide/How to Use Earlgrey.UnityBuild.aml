@@ -77,7 +77,13 @@ C:\>
 					<entry><para><system>-i</system></para></entry>
 					<entry><para>Required</para></entry>
 					<entry><para><system>-i"C:\Earlgrey.sln" </system></para></entry>
-					<entry><para>The path of the solution file to convert. This will create the copy of the solution and its project files.</para></entry>
+					<entry><para>The path of the solution file to convert.</para></entry>
+				</row>
+				<row>
+					<entry><para><system>-c</system></para></entry>
+					<entry><para>Optional</para></entry>
+					<entry><para><system>-c</system></para></entry>
+					<entry><para>This will create the copy of the solution and its project files.</para></entry>
 				</row>
 				<row>
 					<entry><para><system>-e</system></para></entry>
