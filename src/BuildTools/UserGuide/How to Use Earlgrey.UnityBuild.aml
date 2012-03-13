@@ -16,15 +16,19 @@
 	  <autoOutline />
     </introduction>
 	
-	<prerequisites>
-		<content>
-			<title>Supported environment</title>
+	<section address="">
+		<title>Supported Environment</title>
 		
+		<content>
 			<list class="bullet">
 			<listItem><para>Visual Studio 2008</para></listItem>
 			</list>
+			
+			<alert class="note">
+				<para>Visual Studio 2010/2011 will be supported in the near future.</para>
+			</alert>
 		</content>
-	</prerequisites>
+	</section>
 	
     
 	<section address="Usage">
@@ -177,6 +181,99 @@ C:\>
 	
 	</section>
 	
+	<section address="StepByStep">
+		<title>Step by Step</title>
+		
+		<sections>
+			
+			<section>
+				<title>Download the sample.</title>
+				
+				<content>
+					<para><markup><a href="http://beta.codeproject.com/KB/IP/smtp_ssl.aspx?msg=3998177">SMTP Client with SSL/TLS</a></markup> will be used for this tutorial. Download and unzip the file. Convert the solution using Visual Studo 2008.
+					</para>
+					
+					<para>Two different configurations <codeInline>DEBUG</codeInline>/<codeInline>RELEASE</codeInline> are going to be found like:</para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="CSmpt-Configurations" />
+					</mediaLink>
+				</content>
+			</section>
+			
+			<section>
+				<title>Run <application>UnityBuild.ConsoleUi.exe</application>.</title>
+				
+				<content>
+					<para>Run <application>UnityBuild.ConsoleUi.exe</application> and convert the solution into the UnityBulid version of it.</para>
+					
+					<code lang="none">
+<![CDATA[
+f:\Downloads\Sample>UnityBuild\UnityBuild.ConsoleUi.exe -i CSmtp_v2_0_ssl\CSmtp.
+sln -c -v
+[Switches]
+ * Input file path is "CSmtp_v2_0_ssl\CSmtp.sln", its copied version will be con
+verted and used
+.
+ * Verbose mode is turned on.
+ * Current optimization level is 'Normal'.
+
+working ...
+converted!
+
+f:\Downloads\Sample>
+]]>
+					</code>
+					
+					<para>With a switch <system>-c</system>, the new solution file <localUri>f:\Downloads\Sample\CSmtp_v2_0_ssl\CSmtp-UnityBuild.sln</localUri> will be created.</para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="NewSolutionFileForUnityBuild" />
+					</mediaLink>
+					
+				</content>
+			</section>
+			
+			<section>
+				<title>Explore the new solution.</title>
+				
+				<content>
+					<para>There must be <legacyBold>UnityBuild</legacyBold> filters. These filters contains new source files used when UnityBuilding. Source files in these filters are excluded from <codeInline>DEBUG</codeInline>/<codeInline>RELEASE</codeInline> configurations.</para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="NewSolutionWithDebug" />
+					</mediaLink>
+					
+					<para>There will be two more configurations other than <codeInline>DEBUG</codeInline>/<codeInline>RELEASE</codeInline>:</para>
+					
+					<list class="bullet">
+					<listItem><para><codeInline>Debug-UnityBuild</codeInline></para></listItem>
+					<listItem><para><codeInline>Release-UnityBuild</codeInline></para></listItem>
+					</list>
+
+					<para>Source files in the <legacyBold>UnityBuild</legacyBold> filters are activated when you select one of the aboves and you will be able to UnityBuild the solution. </para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="NewSolutionWithDebugUnityBuild" />
+					</mediaLink>
+				</content>
+			</section>
+			
+			<section>
+				<title>Build!</title>
+				
+				<content>
+					<para>Build the converted solution and you will get what you want!</para>
+					
+					<mediaLink>
+					<image placement="right" xlink:href="UnityBuild" />
+					</mediaLink>
+				</content>
+			</section>
+		</sections>
+		
+	</section>
+	
 	<section address="External Resources">
 		<title>External Resources</title>
 		
@@ -185,10 +282,10 @@ C:\>
 				<title>The Magic of Unity Builds</title>
 				
 				<content>
-					<markup><a href="http://buffered.io/2007/12/10/the-magic-of-unity-builds/">The Magic of Unity Builds</a></markup> is probably the most famous reference of UnityBuild theory. Most web pages refer to this. Very long, but there is <externalLink>
+					<para><markup><a href="http://buffered.io/2007/12/10/the-magic-of-unity-builds/">The Magic of Unity Builds</a></markup> is probably the most famous reference of UnityBuild theory. Most web pages refer to this. Very long, but there is <externalLink>
 					<linkText>a tutorial video</linkText>
 					<linkUri>http://oj.blackapache.net.s3.amazonaws.com/UnityBuilds.html</linkUri>
-					</externalLink> so you can learn easily.
+					</externalLink> so you can learn easily.</para>
 				</content>
 			</section>
 			
@@ -196,7 +293,16 @@ C:\>
 				<title>송창규, unity build로 빌드타임 반토막내기, NDC2010</title>
 				
 				<content>
-					<markup><a href="http://www.slideshare.net/devcatpublications/ndc2010-unity-build">송창규, unity build로 빌드타임 반토막내기, NDC2010</a></markup> is the most well known Korean documentation for UnityBuild.
+					<para><markup><a href="http://www.slideshare.net/devcatpublications/ndc2010-unity-build">송창규, unity build로 빌드타임 반토막내기, NDC2010</a></markup> is the most well known Korean documentation describing UnityBuild.</para>
+				</content>
+			</section>
+			
+			<section>
+				<title>C/C++ 프로젝트 빌드 속도 개선 - UnityBuild 를 아세요?</title>
+				
+				<content>
+					<para><markup><a href="http://sysnet.pe.kr/2/0/1250">C/C++ 프로젝트 빌드 속도 개선 - UnityBuild 를 아세요?</a></markup> is another tutorial explaining how to use <application>Earlgrey.UnityBuild</application>.</para>
+					
 				</content>
 			</section>
 		</sections>
