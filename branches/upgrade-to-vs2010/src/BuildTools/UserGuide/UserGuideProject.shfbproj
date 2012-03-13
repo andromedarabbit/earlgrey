@@ -176,6 +176,34 @@
     <Folder Include="Img\" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Img\UnityBuild.png">
+      <ImageId>UnityBuild</ImageId>
+      <AlternateText>Unity Build</AlternateText>
+    </Image>
+    <Image Include="Img\NewSolutionWithDebugUnityBuild.png">
+      <ImageId>NewSolutionWithDebugUnityBuild</ImageId>
+      <AlternateText>New Solution With Debug Unity Build</AlternateText>
+    </Image>
+    <Image Include="Img\NewSolutionWithDebug.png">
+      <ImageId>NewSolutionWithDebug</ImageId>
+      <AlternateText>New Solution With Debug</AlternateText>
+    </Image>
+    <Image Include="Img\NewSolutionFileForUnityBuild.png">
+      <ImageId>NewSolutionFileForUnityBuild</ImageId>
+      <AlternateText>New Solution File For Unity Build</AlternateText>
+    </Image>
+    <Image Include="Img\NewSolutionFileForUnityBuild.png">
+      <ImageId>NewSolutionFileForUnityBuild</ImageId>
+      <AlternateText>New Solution File For Unity Build</AlternateText>
+    </Image>
+    <Image Include="Img\CSmpt-Configurations.png">
+      <ImageId>CSmpt-Configurations</ImageId>
+      <AlternateText>CSmpt-Configurations</AlternateText>
+    </Image>
+    <Image Include="Img\CSmpt-Configurations.png">
+      <ImageId>CSmpt-Configurations</ImageId>
+      <AlternateText>CSmpt-Configurations</AlternateText>
+    </Image>
     <Image Include="Img\Logo.jpg">
       <ImageId>Logo</ImageId>
       <AlternateText>Logo</AlternateText>
