@@ -73,9 +73,14 @@
 <Import Project="$(RootDir)\msbuild-thirdparties.xml" />
 
 <!-- Targets begin -->
-<Target Name="Initialize" DependsOnTargets="PrepareThirdParties">
+<Target Name="ShowConfigurations">
+	<Message 
+		Text="BuildConfiguration = $(BuildConfiguration)" 
+		Importance="high"
+		/>
+</Target>
 
-	
+<Target Name="Initialize" DependsOnTargets="ShowConfigurations; PrepareThirdParties">
 </Target>
 
 

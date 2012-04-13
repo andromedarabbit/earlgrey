@@ -123,7 +123,8 @@ namespace MSBuild.Earlgrey.Tasks.Subversion
                 if(plainItem.StateMarked != xmlItem.StateMarked)
                     throw new Exception("Svn diff comparison failed!");
 
-                ITaskItem item = new TaskItem(plainItem.Path);
+                string urlDecodedPath = System.Web.HttpUtility.UrlDecode(plainItem.Path);
+                ITaskItem item = new TaskItem(urlDecodedPath);
                 item.SetMetadata(
                     "State"
                     , Enum.GetName(typeof (AbstractSvnDiff.State), plainItem.StateMarked)
