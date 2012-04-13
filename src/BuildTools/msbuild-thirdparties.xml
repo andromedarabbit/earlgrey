@@ -46,7 +46,7 @@
 	
 	<!-- MSBuild 태스크는 쓰지 말 것: 경로가 꼬인다. -->
 	<Exec 
-		Command="$(Quot)$(MSBuildExeWrapper)$(Quot) MSBuildTasks.proj /t:Build /p:Configuration=$(Configuration)"
+		Command="$(Quot)$(MSBuildExeWrapper)$(Quot) MSBuildTasks.proj /t:Build /p:Configuration=$(Configuration);Platform=AnyCPU"
 		WorkingDirectory="$(MSBuildCommunityTasksDir)"
 	/>
 </Target>

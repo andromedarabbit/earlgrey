@@ -7,6 +7,8 @@ using System.Text;
 using System.Xml;
 using CWDev.SLNTools.Core;
 
+using UnityBuild.VS2008; // 임시
+
 namespace UnityBuild
 {
     public class VcProject
@@ -40,21 +42,69 @@ namespace UnityBuild
             _projectDetails.SaveToFile(_projectSummary.FullPath, Encoding.UTF8);
         }
 
-        public VisualStudioProjectType Details
+        public IEnumerable<IPlatform> Platforms
         {
             get
             {
                 Debug.Assert(_projectDetails != null);
-                return _projectDetails;
+                return _projectDetails.Platforms.Cast<IPlatform>();
             }
         }
 
-        public Project Summary
+		public IEnumerable<IConfigurationType> Configurations
+        {
+            get
+            {
+                Debug.Assert(_projectDetails != null);
+				return _projectDetails.Configurations.Cast<IConfigurationType>();
+            }
+        }
+
+		public void AddConfiguration(IConfigurationType configurationType)
+		{
+			Debug.Assert(_projectDetails != null);
+			_projectDetails.Configurations.Add(configurationType as ConfigurationType);
+		}
+
+		public bool RemoveConfiguration(IConfigurationType configurationType)
+		{
+			Debug.Assert(_projectDetails != null);
+			return _projectDetails.Configurations.Remove(configurationType as ConfigurationType);
+		}
+
+        public List<object> Files
+        {
+            get
+            {
+                Debug.Assert(_projectDetails != null);
+                return _projectDetails.Files;
+            }
+        }
+
+        public string Name
         {
             get
             {
                 Debug.Assert(_projectSummary != null);
-                return _projectSummary;
+                return _projectSummary.ProjectName;
+            }
+        }
+
+        public string Guid
+        {
+            get
+            {
+                Debug.Assert(_projectSummary != null);
+                return _projectSummary.ProjectGuid;
+            }
+        }
+
+        public string FullPath
+        {
+            get
+            {
+                Debug.Assert(_projectSummary != null);
+                return _projectSummary.FullPath;
             }
         }
 
@@ -65,12 +115,12 @@ namespace UnityBuild
 
         public PropertyLineHashList ConfigurationPlatforms
         {
-            get { return this.Summary.ProjectConfigurationPlatformsLines; }
+            get { return _projectSummary.ProjectConfigurationPlatformsLines; }
         }
 
         public IEnumerable<string> ConfigurationPlatformNames
         {
-            get { return this.Details.ConfigurationPlatformNames; }
+            get { return _projectDetails.ConfigurationPlatformNames; }
         }
 
         public bool HasConfigurationPlatform(string configurationPlatformName)
@@ -90,13 +140,13 @@ namespace UnityBuild
             return _projectDetails.GetPrecompiledHeaderOption(configurationPlatform);
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, FileType file)
+        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform, IFileType file)
         {
             return _projectDetails.GetPrecompiledHeaderOption(configurationPlatform, file);
         }
 
         // 이름은 Headers 인데 실제론 /Yc 옵션이 적용된 .cpp 파일을 반환한다.
-        public IEnumerable<FileType> GetPrecompiledHeaders(string configurationPlatform)
+        public IEnumerable<IFileType> GetPrecompiledHeaders(string configurationPlatform)
         {
             return _projectDetails.GetPrecompiledHeaders(configurationPlatform);
         }
@@ -121,5 +171,78 @@ namespace UnityBuild
         {
             _projectDetails.ExcludeFromBuild(projectConverter);
         }
+
+        public FileType FindFile(string fileName)
+        {
+            return FindFile(this.Files, fileName) as FileType;
+        }
+
+        private static IFileType FindFile(IEnumerable<object> items, string fileName)
+        {
+            foreach (object item in items)
+            {
+                if (item is IFileType)
+                {
+                    IFileType file = (IFileType)item;
+                    if (file.Name.Equals(fileName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        return file;
+                }
+
+                if (item is IFilterType)
+                {
+                    IFilterType filter = (IFilterType)item;
+                    IFileType fileFound = FindFile(filter.Items, fileName);
+                    if (fileFound != null)
+                        return fileFound;
+                }
+            }
+
+            return null;
+        }
+
+        public IFilterType FindFilter(string fileName)
+        {
+            return FindFilter(this.Files, fileName) as IFilterType;
+        }
+
+        private static FilterType FindFilter(IEnumerable<object> items, string filterName)
+        {
+            foreach (object item in items)
+            {
+                if (item is FilterType)
+                {
+                    FilterType filter = (FilterType)item;
+                    if (filter.Name.Equals(filterName, StringComparison.CurrentCultureIgnoreCase) == true)
+                        return filter;
+
+                    FilterType filterFound = FindFilter(filter.Items, filterName);
+                    if (filterFound != null)
+                        return filterFound;
+                }
+            }
+
+            return null;
+        }
+
+		public VisualStudioVersions Version
+		{
+			get
+			{
+				// TODO: 나중에 정교하게 고쳐야 함
+				if (this._projectSummary.FullPath.EndsWith(".vcproj") == true)
+				{
+					return VisualStudioVersions.V2008;
+				}
+
+				if (this._projectSummary.FullPath.EndsWith(".vcxproj") == true)
+				{
+					return VisualStudioVersions.V2010;
+				}
+
+				throw new ApplicationException(
+                    string.Format("Could not identify the version of this solution file: {0}", _projectSummary.FullPath)
+					);
+			}
+		}
     }
 }

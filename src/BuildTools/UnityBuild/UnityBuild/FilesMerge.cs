@@ -10,8 +10,9 @@ namespace UnityBuild
 {
     internal class FilesMerge
     {
+        private readonly VisualStudioVersions _version;
         private readonly string _projectDirectory;
-        private readonly ICollection<FileType> _files;
+        private readonly ICollection<IFileType> _files;
 
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
@@ -19,36 +20,41 @@ namespace UnityBuild
         private readonly int _maxFilesPerFile;
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
-            ICollection<FileType> files,
+            ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations
             )
-            : this(projectDirectory, files, buildConfigurations, new List<string>(), 0)
+            : this(version, projectDirectory, files, buildConfigurations, new List<string>(), 0)
         {
         }
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
-            ICollection<FileType> files,
+            ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations,
             IEnumerable<string> buildConfigurationsExcluded
             )
-            : this(projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
+            : this(version, projectDirectory, files, buildConfigurations, buildConfigurationsExcluded, 0)
         {
         }
 
         public FilesMerge(
+            VisualStudioVersions version,
             string projectDirectory,
-            ICollection<FileType> files,
+            ICollection<IFileType> files,
             IEnumerable<string> buildConfigurations,
             IEnumerable<string> buildConfigurationsExcluded,
             int maxFilesPerFile
             )
         {
+            Debug.Assert(version != VisualStudioVersions.None);
             Debug.Assert(string.IsNullOrEmpty(projectDirectory) == false);
             Debug.Assert(files != null);
             Debug.Assert(maxFilesPerFile >= 0);
 
+            _version = version;
             _projectDirectory = projectDirectory;
             _files = files;
 
@@ -77,28 +83,28 @@ namespace UnityBuild
             return Path.GetFullPath(Path.Combine(_projectDirectory, relativePath));
         }
 
-        public List<FileType> Merge()
+        public List<IFileType> Merge()
         {
             if (_files.Count == 0)
-                return new List<FileType>();
+                return new List<IFileType>();
 
-            IEnumerable<KeyValuePair<FilesMergeKey, FileType>> keyValues
-                = _files.Select(file => new KeyValuePair<FilesMergeKey, FileType>(new FilesMergeKey(file), file));
+            IEnumerable<KeyValuePair<FilesMergeKey, IFileType>> keyValues
+                = _files.Select(file => new KeyValuePair<FilesMergeKey, IFileType>(new FilesMergeKey(file), file));
 
-            IEnumerable<IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>>> filesByPaths
+            IEnumerable<IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, IFileType>>> filesByPaths
                 = keyValues.GroupBy(pair => pair.Key);
 
 
-            List<FileType> newFiles = new List<FileType>();
+            List<IFileType> newFiles = new List<IFileType>();
 
-            foreach (IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, FileType>> filesByPath in filesByPaths)
+            foreach (IGrouping<FilesMergeKey, KeyValuePair<FilesMergeKey, IFileType>> filesByPath in filesByPaths)
             {
                 int numberOfFiles = _maxFilesPerFile;
                 if (_maxFilesPerFile == 0)
                     numberOfFiles = filesByPath.Count();
 
                 var fileGroup = GetEnumerableOfEnumerables(filesByPath, numberOfFiles);
-                foreach (IEnumerable<KeyValuePair<FilesMergeKey, FileType>> item in fileGroup)
+                foreach (IEnumerable<KeyValuePair<FilesMergeKey, IFileType>> item in fileGroup)
                 {
                     MergeFiles(item, newFiles);
                 }
@@ -112,27 +118,25 @@ namespace UnityBuild
             return newFiles;
         }
 
-        private void MergeFiles(IEnumerable<KeyValuePair<FilesMergeKey, FileType>> filesByPath, List<FileType> newFiles)
+        private void MergeFiles(IEnumerable<KeyValuePair<FilesMergeKey, IFileType>> filesByPath, List<IFileType> newFiles)
         {
             if (filesByPath.Count() == 0)
                 return;
 
             FilesMergeKey key = filesByPath.First().Key;
             string relativeDir = key.RelativeDir;
-            FileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
+            IFileType newFile = GetNewFile(relativeDir, key.PrecompiledHeaderOptions);
 
             string absolutePath = GetAbsolutePath(newFile.RelativePath);
             using (
-                SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath,
-                                                         _projectDirectory, _buildConfigurations,
-                                                         _buildConfigurationsExcluded)
+                SrcFileAppend merger = new SrcFileAppend(key.PrecompiledHeaderOptions, absolutePath, _projectDirectory, _buildConfigurations, _buildConfigurationsExcluded)
                 )
             {
                 merger.Open();
 
-                foreach (KeyValuePair<FilesMergeKey, FileType> fileByPath in filesByPath)
+                foreach (KeyValuePair<FilesMergeKey, IFileType> fileByPath in filesByPath)
                 {
-                    FileType file = fileByPath.Value;
+                    IFileType file = fileByPath.Value;
                     if (file.IsSrcFile == false)
                         continue;
 
@@ -146,8 +150,7 @@ namespace UnityBuild
             newFiles.Add(newFile);
         }
 
-        private static IEnumerable<IEnumerable<T>> GetEnumerableOfEnumerables<T>(IEnumerable<T> enumerable,
-                                                                                 int groupSize)
+        private static IEnumerable<IEnumerable<T>> GetEnumerableOfEnumerables<T>(IEnumerable<T> enumerable, int groupSize)
         {
             // The list to return.
             List<T> list = new List<T>(groupSize);
@@ -177,12 +180,12 @@ namespace UnityBuild
             }
         }
 
-        private FileType GetNewFile(string relativeDir,
-                                    IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> options)
+        private IFileType GetNewFile(string relativeDir, IEnumerable<KeyValuePair<string, PrecompiledHeaderOptions>> options)
         {
-            FileType newFile = new FileType();
-            newFile.RelativePath = GetNextFilePath(relativeDir);
-            newFile.RelativePathSpecified = true;
+            // FileType newFile = new FileType();
+            // newFile.RelativePath = GetNextFilePath(relativeDir);
+            // newFile.RelativePathSpecified = true;
+            IFileType newFile = FileTypeFactory.CreateInstance(_version, GetNextFilePath(relativeDir));
 
             foreach (string buildConfigurationExcluded in _buildConfigurationsExcluded)
             {

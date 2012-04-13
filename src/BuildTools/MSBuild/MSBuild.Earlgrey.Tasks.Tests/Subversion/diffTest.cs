@@ -30,6 +30,8 @@ namespace MSBuild.Earlgrey.Tasks.Tests.Subversion
                 XmlSerializer ser = new XmlSerializer(typeof(diff));
                 diff diffObj = ser.Deserialize(tr) as diff;
                 Assert.IsNotNull(diffObj);
+                Assert.AreEqual(1, diffObj.Items.Length);
+                Assert.AreEqual(28, diffObj.Items[0].path.Length);
             }
             
         }

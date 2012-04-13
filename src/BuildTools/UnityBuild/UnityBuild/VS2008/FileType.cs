@@ -5,11 +5,23 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace UnityBuild
+namespace UnityBuild.VS2008
 {
-    public partial class FileType : IFilterOrFile
+    public partial class FileType : IFileType
     {
         private Dictionary<string, PrecompiledHeaderOptions> _precompiledHeaderOptions;
+
+        //public static IFileType CreateInstance()
+        //{
+        //    return new FileType();
+        //}
+
+        public FileType(string relativePath)
+			: this()
+		{
+            this.RelativePath = relativePath;
+            this.RelativePathSpecified = !string.IsNullOrEmpty(relativePath);
+		}
 
         public IEnumerable<string> BuildConfigurationsWhenExcludedFromBuild
         {
@@ -39,7 +51,8 @@ namespace UnityBuild
             get { return Properties.UnityBuild.Default.IsSourceFile(this.RelativePath); }
         }
 
-        internal PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
+        public 
+            PrecompiledHeaderOptions GetPrecompiledHeaderOption(string configurationPlatform)
         {
             if (IsSrcFile == false)
                 return new PrecompiledHeaderOptions(UsePrecompiledHeaderOptions.None);
@@ -57,10 +70,10 @@ namespace UnityBuild
 
             ConfigurationTypeTool tool = tools.First();
 
-            return PrecompiledHeaderOptions.CreateInstance(tool);
+            return ConfigurationTypeTool.CreatePrecompiledHeaderOptions(tool);
         }
 
-        internal
+        public
             void SetPrecompiledHeaderOption(string configurationPlatform, PrecompiledHeaderOptions options)
         {
             if (IsSrcFile == false)
@@ -158,7 +171,7 @@ namespace UnityBuild
             ExcludeOrInclude(buildConfigurationName, false);
         }
 
-        public string FileName
+        public string Name
         {
             get { return Path.GetFileName(this.RelativePath); }
         }

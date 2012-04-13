@@ -14,7 +14,7 @@ namespace UnityBuild
         private readonly string _dstFilePath;
         private readonly string _projectDir;
 
-        private readonly List<FileType> _srcFiles;
+        private readonly List<IFileType> _srcFiles;
 
         private readonly List<string> _buildConfigurations;
         private readonly List<string> _buildConfigurationsExcluded;
@@ -38,7 +38,7 @@ namespace UnityBuild
 
             _dstFilePath = dstFilePath;
             _projectDir = projectDir;
-            _srcFiles = new List<FileType>();
+            _srcFiles = new List<IFileType>();
 
 
             _buildConfigurations = new List<string>();
@@ -114,7 +114,7 @@ namespace UnityBuild
 
         #endregion
 
-        public void AddSrcFile(FileType file)
+        public void AddSrcFile(IFileType file)
         {
             Debug.Assert(file != null);
             Debug.Assert(file.IsSrcFile);
@@ -150,7 +150,7 @@ namespace UnityBuild
                     sw.WriteLine("#include \"" + stdAfxFileNames.First() + "\"");
                 }
 
-                foreach (FileType srcFile in _srcFiles)
+                foreach (IFileType srcFile in _srcFiles)
                 {
                     WriteInclude(sw, srcFile);
                 }
@@ -159,7 +159,7 @@ namespace UnityBuild
             return true;
         }
 
-        private void WriteInclude(TextWriter sw, FileType srcFile)
+        private void WriteInclude(TextWriter sw, IFileType srcFile)
         {
             // IEnumerable<string> configurationsExcluded = srcFile.BuildConfigurationsWhenExcludedFromBuild; // Unity
             // build - all
@@ -176,7 +176,7 @@ namespace UnityBuild
 
             if (configurationsExcluded.Count() == 0)
             {
-                sw.WriteLine("#include \"" + srcFile.FileName + "\"");
+                sw.WriteLine("#include \"" + srcFile.Name + "\"");
                 return;
             }
 
@@ -184,7 +184,7 @@ namespace UnityBuild
             {
                 bool exclude =
                     configurationsExcluded.Contains(configurationPlatform, StringComparer.CurrentCultureIgnoreCase);
-                WriteInclude(sw, configurationPlatform, srcFile.FileName, exclude);
+                WriteInclude(sw, configurationPlatform, srcFile.Name, exclude);
             }
         }
 

@@ -20,6 +20,26 @@ namespace UnityBuild
             _vcProjects = new List<VcProject>();
         }
 
+    	public VisualStudioVersions Version
+    	{
+    		get
+    		{
+    			if(Summary.Headers.Exists(item => item.Trim().StartsWith("# Visual Studio 2008")) == true)
+    			{
+    				return VisualStudioVersions.V2008;
+    			}
+
+				if (Summary.Headers.Exists(item => item.Trim().StartsWith("# Visual Studio 2010")) == true)
+				{
+					return VisualStudioVersions.V2010;
+				}
+
+				throw new ApplicationException(
+					string.Format("Could not identify the version of this solution file: {0}", _solutionFilePath)
+					);
+    		}
+    	}
+ 
         public SolutionFile Summary
         {
             get
@@ -61,7 +81,7 @@ namespace UnityBuild
         {
             Debug.Assert(project != null);
 
-            IEnumerable<VcProject> result = _vcProjects.FindAll(item => item.Summary == project);
+            IEnumerable<VcProject> result = _vcProjects.FindAll(item => item.Guid == project.ProjectGuid);
             Debug.Assert(result.Count() == 1);
 
             return result.First();

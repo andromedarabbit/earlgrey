@@ -32,8 +32,8 @@ using System.Runtime.InteropServices;
 // 모든 값을 지정하거나 아래와 같이 '*'를 사용하여 빌드 번호 및 수정 버전이 자동으로
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.824")]
-[assembly: AssemblyFileVersion("1.0.0.824")]
+[assembly: AssemblyVersion("1.0.0.851")]
+[assembly: AssemblyFileVersion("1.0.0.851")]
 
 [assembly: InternalsVisibleTo("MSBuild.Earlgrey.Tasks.Tests")] //, PublicKey=0024000004800000940000000602000000240000525341310004000001000100cf82d03d9d827823ae8e4dc989a53a37a54029875ee9e45b08131024540a68d4a2130d82ffc1a35446c2cef805fefa179df6e99a5ec91d7cbf311605103a2b2f0002824b4bf68e36a5dd00a3d81af54408f7f53a66e2d6ab3866288cb2ef460e920f159176062a7d5a126fb5695e04738e1edfcb5b6e34557b1308aba9fda1dc")]
 [assembly: InternalsVisibleTo("MSBuild.Earlgrey.Tasks.SqlServer2005.Tests")]

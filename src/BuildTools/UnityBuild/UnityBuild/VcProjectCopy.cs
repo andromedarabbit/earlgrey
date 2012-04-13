@@ -4,8 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
+
 namespace UnityBuild
 {
+    using VS2008;
+
     internal class VcProjectCopy
     {
         private readonly VcProject _vcProject;
@@ -34,26 +37,26 @@ namespace UnityBuild
 
         public void CopyConfigurationPlatform()
         {
-            ConfigurationType configuration = _vcProject.GetConfiguration(_srcConfigurationPlatform);
+            IConfigurationType configuration = _vcProject.GetConfiguration(_srcConfigurationPlatform);
             if (configuration == null)
                 throw new ArgumentException();
 
-            ConfigurationType dstConfiguration = _vcProject.GetConfiguration(_dstConfigurationPlatform);
+            IConfigurationType dstConfiguration = _vcProject.GetConfiguration(_dstConfigurationPlatform);
             if (dstConfiguration != null)
                 throw new ArgumentException();
 
             // 공통 속성
-            ConfigurationType newConfiguration = configuration.Clone();
+            IConfigurationType newConfiguration = configuration.Copy();
             newConfiguration.Name = _dstConfigurationPlatform;
 
             if (_additionalPreprocessorDefinitions.Count > 0)
-                AddPreprocessorDefinitions(newConfiguration);
+                AddPreprocessorDefinitions(newConfiguration as ConfigurationType); // VS2008 전용 코드
 
 
-            _vcProject.Details.Configurations.Add(newConfiguration);
+            _vcProject.AddConfiguration(newConfiguration);
 
             // 개별 파일 속성
-            CopyConfigurationPlatformInFiles(_vcProject.Details.Files);
+            CopyConfigurationPlatformInFiles(_vcProject.Files);
         }
 
         private void AddPreprocessorDefinitions(ConfigurationType newConfiguration)
@@ -83,16 +86,16 @@ namespace UnityBuild
         {
             foreach (object item in items)
             {
-                Debug.Assert((item is FileType) || (item is FilterType));
-                if (item is FileType)
+                Debug.Assert((item is IFileType) || (item is IFilterType));
+                if (item is IFileType)
                 {
-                    FileType file = (FileType) item;
+                    IFileType file = (IFileType)item;
                     CopyConfigurationPlatformoInFileBuildConfiguration(file.Items);
                 }
 
-                if (item is FilterType)
+                if (item is IFilterType)
                 {
-                    FilterType filter = (FilterType) item;
+                    IFilterType filter = (IFilterType)item;
                     CopyConfigurationPlatformInFiles(filter.Items);
                 }
             }
@@ -105,15 +108,15 @@ namespace UnityBuild
 
             foreach (var item in fileBuildConfigurations)
             {
-                Debug.Assert(item is BuildConfigurationType);
+                Debug.Assert(item is IBuildConfigurationType);
 
-                BuildConfigurationType buildConfiguration = (BuildConfigurationType) (item);
+                IBuildConfigurationType buildConfiguration = (IBuildConfigurationType)(item);
                 if (
                     buildConfiguration.Name.Equals(_srcConfigurationPlatform, StringComparison.CurrentCultureIgnoreCase) ==
                     false)
                     continue;
 
-                BuildConfigurationType newBuildConfiguration = (BuildConfigurationType) buildConfiguration.Clone();
+                IBuildConfigurationType newBuildConfiguration = (IBuildConfigurationType)buildConfiguration.Copy();
                 newBuildConfiguration.Name = _dstConfigurationPlatform;
                 newBuildConfigurations.Add(newBuildConfiguration);
             }

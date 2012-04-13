@@ -9,25 +9,35 @@ namespace SLNTools.Tests
     using NUnit.Framework;
     using CWDev.SLNTools.Core;
 
-    [TestFixtureAttribute]
-    public class SolutionFileWriterTest
+    // [TestFixtureAttribute]
+    public abstract class AbstractSolutionFileWriterTest
     {
-        private static readonly string SolutionFileFullPath;
-        private static readonly string NewSolutionFileFullPath;
+        //private static readonly string SolutionFileFullPath;
+        //private static readonly string NewSolutionFileFullPath;
 
-        static SolutionFileWriterTest()
+        //static AbstractSolutionFileWriterTest()
+        //{
+        //    SolutionFileFullPath = Path.Combine(
+        //        AppDomain.CurrentDomain.BaseDirectory
+        //        , @"..\..\..\Earlgrey.sln"
+        //    );
+        //    SolutionFileFullPath = Path.GetFullPath(SolutionFileFullPath);
+
+        //    NewSolutionFileFullPath = Path.Combine(
+        //        AppDomain.CurrentDomain.BaseDirectory
+        //        , @"..\..\..\NewEarlgrey.sln"
+        //    );
+        //    NewSolutionFileFullPath = Path.GetFullPath(NewSolutionFileFullPath);
+        //}
+
+        protected abstract string SolutionFileFullPath
         {
-            SolutionFileFullPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\Earlgrey.sln"
-            );
-            SolutionFileFullPath = Path.GetFullPath(SolutionFileFullPath);
+            get;
+        }
 
-            NewSolutionFileFullPath = Path.Combine(
-                AppDomain.CurrentDomain.BaseDirectory
-                , @"..\..\..\NewEarlgrey.sln"
-            );
-            NewSolutionFileFullPath = Path.GetFullPath(NewSolutionFileFullPath);
+        protected abstract string NewSolutionFileFullPath
+        {
+            get;
         }
 
         [SetUp]
@@ -42,7 +52,7 @@ namespace SLNTools.Tests
             CleanNewSolutionFIle();
         }
 
-        private static void CleanNewSolutionFIle()
+        private void CleanNewSolutionFIle()
         {
             if(File.Exists(NewSolutionFileFullPath))
                 File.Delete(NewSolutionFileFullPath);

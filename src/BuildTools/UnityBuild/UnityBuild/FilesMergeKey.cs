@@ -11,7 +11,7 @@ namespace UnityBuild
         private readonly string _relativeDir;
         private readonly List<KeyValuePair<string, PrecompiledHeaderOptions>> _precompiledHeaderOptions;
 
-        public FilesMergeKey(FileType file)
+        public FilesMergeKey(IFileType file)
             : this(file.RelativeDir, file.GetPrecompiledHeaderOptions())
         {
         }

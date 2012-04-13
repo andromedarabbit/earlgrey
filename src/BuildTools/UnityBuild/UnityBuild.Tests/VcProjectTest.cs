@@ -15,11 +15,10 @@ namespace UnityBuild.Tests
         {
             VcProject vcProject = GetEarlgreyVcProject();
 
-            Assert.IsNotNull(vcProject.Summary);
+            // Assert.IsNotNull(vcProject.Summary);
 
-            Assert.IsNotNull(vcProject.Details);
-            Assert.AreEqual(2, vcProject.Details.Platforms.Count); // WIN32, x64
-            Assert.AreEqual(4, vcProject.Details.Configurations.Count);
+            Assert.AreEqual(2, vcProject.Platforms.Count()); // WIN32, x64
+            Assert.AreEqual(4, vcProject.Configurations.Count());
         }
         
         [Test]
@@ -73,36 +72,36 @@ namespace UnityBuild.Tests
             VcProject vcProject = GetEarlgreyVcProject();
 
             const string configurationPlatform = "Release|x64";
-            
-            FileType stdafxCpp = FindFile(vcProject, "stdafx.cpp");
+
+            IFileType stdafxCpp = FindFile(vcProject, "stdafx.cpp");
             PrecompiledHeaderOptions stdafxCppOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, stdafxCpp);
             Assert.AreEqual(
                 UsePrecompiledHeaderOptions.Create, stdafxCppOptions.UsePrecompiledHeader
                 );
             Assert.AreEqual("StdAfx.h", stdafxCppOptions.PrecompiledHeaderThrough);
 
-            FileType stdafx2Cpp = FindFile(vcProject, "stdafx2.cpp");
+            IFileType stdafx2Cpp = FindFile(vcProject, "stdafx2.cpp");
             PrecompiledHeaderOptions stdafx2CppOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, stdafx2Cpp);
             Assert.AreEqual(
                 UsePrecompiledHeaderOptions.Create, stdafx2CppOptions.UsePrecompiledHeader
                 );
             Assert.AreEqual("StdAfx2.h", stdafx2CppOptions.PrecompiledHeaderThrough);
 
-            FileType throwErrorCpp = FindFile(vcProject, "throwError.cpp");
+            IFileType throwErrorCpp = FindFile(vcProject, "throwError.cpp");
             PrecompiledHeaderOptions throwErrorCppOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, throwErrorCpp);
             Assert.AreEqual(
                 UsePrecompiledHeaderOptions.Use, throwErrorCppOptions.UsePrecompiledHeader
                 );
             Assert.AreEqual("StdAfx.h", throwErrorCppOptions.PrecompiledHeaderThrough);
 
-            FileType earlgreyH = FindFile(vcProject, "Earlgrey.h");
+            IFileType earlgreyH = FindFile(vcProject, "Earlgrey.h");
             PrecompiledHeaderOptions earlgreyHOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, earlgreyH);
             Assert.AreEqual(
                 UsePrecompiledHeaderOptions.None, earlgreyHOptions.UsePrecompiledHeader
                 );
             Assert.IsTrue(string.IsNullOrEmpty(earlgreyHOptions.PrecompiledHeaderThrough));
 
-            FileType noPrecompiledHeaderCpp = FindFile(vcProject, "NoPrecompiledHeader.cpp");
+            IFileType noPrecompiledHeaderCpp = FindFile(vcProject, "NoPrecompiledHeader.cpp");
             PrecompiledHeaderOptions noPrecompiledHeaderCppOptions = vcProject.GetPrecompiledHeaderOption(configurationPlatform, noPrecompiledHeaderCpp);
             Assert.AreEqual(
                UsePrecompiledHeaderOptions.None, noPrecompiledHeaderCppOptions.UsePrecompiledHeader
@@ -117,14 +116,14 @@ namespace UnityBuild.Tests
 
             const string configurationPlatform = "Debug|x64";
 
-            IEnumerable<FileType> headers = vcProject.GetPrecompiledHeaders(configurationPlatform);
+            IEnumerable<IFileType> headers = vcProject.GetPrecompiledHeaders(configurationPlatform);
             Assert.AreEqual(2, headers.Count());
 
 
-            FileType stdafxCpp = headers.First(item => item.FileName.Equals("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase));
+            IFileType stdafxCpp = headers.First(item => item.Name.Equals("stdafx.cpp", StringComparison.CurrentCultureIgnoreCase));
             Assert.IsNotNull(stdafxCpp);
 
-            FileType stdafx2Cpp = headers.First(item => item.FileName.Equals("stdafx2.cpp", StringComparison.CurrentCultureIgnoreCase));
+            IFileType stdafx2Cpp = headers.First(item => item.Name.Equals("stdafx2.cpp", StringComparison.CurrentCultureIgnoreCase));
             Assert.IsNotNull(stdafx2Cpp);
         }
     }
