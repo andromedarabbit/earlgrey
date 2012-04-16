@@ -26,7 +26,7 @@ namespace MSBuild.Earlgrey.Tasks.Tests.IO
             ShareFolder share = new ShareFolder();
             share.BuildEngine = new MockBuildEngine();
 
-            const string invalidLocalPath = @"\\KiddingMe";
+            const string invalidLocalPath = @"\\\KiddingMe";
             share.LocalFolder = new TaskItem(invalidLocalPath);
             share.Name = SharedFolderName;
             share.ResetExistingOne = false;
