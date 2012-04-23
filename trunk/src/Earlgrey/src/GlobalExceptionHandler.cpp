@@ -31,14 +31,20 @@ namespace Earlgrey
 
 	LONG WINAPI GlobalExceptionHandler::HandleException(LPEXCEPTION_POINTERS exceptionPtr)
 	{
-		GlobalExceptionHandlerSingleton::Instance().InvokeAllHandler( exceptionPtr );
+		if(::IsDebuggerPresent())
+		{
+			// 디버거가 실행 중이면 그냥 디버거에게 전달
+			return ::UnhandledExceptionFilter(exceptionPtr);
+		}
+
+		GlobalExceptionHandlerSingleton::Instance().InvokeAllHandlers( exceptionPtr );
 		
 		// Return from UnhandledExceptionFilter and execute the associated exception handler. 
 		// This usually results in process termination.
 		return EXCEPTION_EXECUTE_HANDLER; 
 	}
 
-	void GlobalExceptionHandler::InvokeAllHandler(LPEXCEPTION_POINTERS exceptionPtr)
+	void GlobalExceptionHandler::InvokeAllHandlers(LPEXCEPTION_POINTERS exceptionPtr)
 	{
 		HandlerCollectionType::const_iterator it = m_Handlers.begin();
 

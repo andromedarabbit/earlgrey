@@ -13,7 +13,7 @@ namespace Earlgrey
 
 			FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(fileName) );
 			_tstring fileVersion = versionInfo.FileVersion();
-			ASSERT_STREQ( _T("1.0.0.1"), fileVersion.c_str() );
+			ASSERT_STARTS_WITH( _T("1.0.0."), fileVersion.c_str() );
 
 			_tstring productName = versionInfo.ProductName();
 			ASSERT_STREQ( _T("ProductName: Earlgrey"), productName.c_str() );

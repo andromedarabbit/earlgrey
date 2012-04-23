@@ -43,7 +43,7 @@ namespace Earlgrey
 		}
 
 		StlStackAllocator(const StlStackAllocator<_Ty>& stlStackAllocator) _THROW0()
-			: m_allocator(stlStackAllocator.m_allocator)
+			: m_allocator(stlStackAllocator.stack_allocator())
 		{	// construct by copying (do nothing)
 			
 		}

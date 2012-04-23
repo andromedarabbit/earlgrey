@@ -6,113 +6,119 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\ExternalLib">
-      <UniqueIdentifier>{a322b4fc-3a8e-4b63-9f61-17701543cde5}</UniqueIdentifier>
+      <UniqueIdentifier>{818607af-e358-43fb-a747-480ec2ae5279}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ExternalLib\Loki">
-      <UniqueIdentifier>{bb210a8d-880b-4bf9-9c17-1254a15c7a22}</UniqueIdentifier>
+      <UniqueIdentifier>{21f9b236-a48b-4b59-9d19-aaae2ed078f6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ProcessThread">
-      <UniqueIdentifier>{17d96c28-8aae-44b6-bc54-0465af68d902}</UniqueIdentifier>
+      <UniqueIdentifier>{b7c900fb-1186-4f3b-b9a9-281dfba12fc7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Diagnostics">
-      <UniqueIdentifier>{5bfa6eb9-0768-4bce-8119-9295c0ee9df7}</UniqueIdentifier>
+      <UniqueIdentifier>{75074979-9754-4cbf-b1a9-8d60c8a4e05c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Diagnostics\UnhandledExceptionHandler">
-      <UniqueIdentifier>{f878651d-a03e-4950-aee1-e73ef6860b01}</UniqueIdentifier>
+      <UniqueIdentifier>{62d372bf-023d-4227-9d0e-ade758d1f5f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Diagnostics\Log">
-      <UniqueIdentifier>{4bf1ce79-2185-49b3-b143-a845cae97639}</UniqueIdentifier>
+      <UniqueIdentifier>{681b48af-f5c9-45f4-a6d2-92d2df56f556}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Memory">
-      <UniqueIdentifier>{7e1d71cc-d061-418d-a34a-5e3b6c31d07f}</UniqueIdentifier>
+      <UniqueIdentifier>{733ebcbf-76ed-4600-854b-80c46de8789c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Network">
-      <UniqueIdentifier>{1277f30e-e6fc-4a67-966e-8515c97e2d57}</UniqueIdentifier>
+      <UniqueIdentifier>{f8222b1f-a8db-4163-82c6-ee29fcdb075a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Network\Mail">
-      <UniqueIdentifier>{cb57f80b-87f5-43b8-ae33-1625697d86fc}</UniqueIdentifier>
+      <UniqueIdentifier>{8d6bc809-c214-4c22-bffa-ff87aab07c0e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\RTTI">
-      <UniqueIdentifier>{f3bcf052-27b0-422d-8705-cfe51b7202de}</UniqueIdentifier>
+      <UniqueIdentifier>{071304b6-8f7f-4c99-840c-2d586718b998}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Algorithm">
-      <UniqueIdentifier>{1b6a5f2b-9304-4d12-8c14-1b1e64471208}</UniqueIdentifier>
+      <UniqueIdentifier>{9a0eaf19-ebea-4348-8e8f-597cf1810f32}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\System">
-      <UniqueIdentifier>{eb61bcde-1ed1-418b-8289-bb76e3450737}</UniqueIdentifier>
+      <UniqueIdentifier>{fb56a3fe-ff1e-439b-86fc-13d2d97ce106}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\System\Win32Service">
-      <UniqueIdentifier>{8d507a00-4e7d-4793-a20a-60325196c968}</UniqueIdentifier>
+      <UniqueIdentifier>{d057a343-0404-4972-9b84-32d43ba799c2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\StlCustom">
-      <UniqueIdentifier>{18da1da9-e05b-4df2-b78f-8216b00d6604}</UniqueIdentifier>
+      <UniqueIdentifier>{41c7e225-2e0b-483d-9b97-58fdeb359d26}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Configuration">
-      <UniqueIdentifier>{1109d3be-f3ac-4742-8728-c1d586dc4d6c}</UniqueIdentifier>
+      <UniqueIdentifier>{a4c26f59-b89e-401c-8e8e-a13a993b379e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Text">
+      <UniqueIdentifier>{ed152ac3-3b22-4c7e-9bb1-99385dd0e706}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Security">
+      <UniqueIdentifier>{d7cf70c0-91e1-4d68-befd-de5f39f38167}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\ExternalLib">
-      <UniqueIdentifier>{35510707-aa45-4751-89a2-b270e40d6334}</UniqueIdentifier>
+      <UniqueIdentifier>{fe5259b9-315b-4236-91f5-764c78542125}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\ExternalLib\Loki">
-      <UniqueIdentifier>{35a66d68-84d7-4420-8d22-a0270eea858f}</UniqueIdentifier>
+      <UniqueIdentifier>{7d9951bd-09d1-48dd-b791-fc04ccb6928b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\ProcessThread">
-      <UniqueIdentifier>{af26295d-3dc9-4083-9d87-9c89518fa93f}</UniqueIdentifier>
+      <UniqueIdentifier>{89e0f785-8730-4133-89bf-f1bbae070389}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Diagnostics">
-      <UniqueIdentifier>{20a8127c-c11d-49ca-a4d9-4c60117e875a}</UniqueIdentifier>
+      <UniqueIdentifier>{c5b613c0-ded6-47df-8278-ae6811367110}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Diagnostics\UnhandledExceptionHandler">
-      <UniqueIdentifier>{70cd39f5-f0d4-4e1a-b835-4445df5bda15}</UniqueIdentifier>
+      <UniqueIdentifier>{4660f611-a14c-4332-8de6-deb73405a68f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Diagnostics\Log">
-      <UniqueIdentifier>{28320e19-2491-45bb-a021-1d7157d470f3}</UniqueIdentifier>
+      <UniqueIdentifier>{514a0b51-0cc4-479f-8463-c63f4b93bd7a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Memory">
-      <UniqueIdentifier>{857a7814-7225-452d-b3a5-fca8d3b609aa}</UniqueIdentifier>
+      <UniqueIdentifier>{1c7a4f0a-9b28-4cd4-9ce2-ed9a786cb92a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\System">
-      <UniqueIdentifier>{1e6fb698-2d3e-4fd2-9427-2e8354b65835}</UniqueIdentifier>
+      <UniqueIdentifier>{bdb118db-b29e-4c92-8214-b13223e31226}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\System\Win32Service">
-      <UniqueIdentifier>{211150ba-4710-4d90-ba62-7984e6bb3870}</UniqueIdentifier>
+      <UniqueIdentifier>{da7f63c0-b2d0-4f79-9d6c-29444819c6d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\PAL">
-      <UniqueIdentifier>{f63c2bf9-9875-4760-aae6-76562dd170db}</UniqueIdentifier>
+      <UniqueIdentifier>{0923ce20-8a98-41f4-b225-1421f5903129}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Network">
-      <UniqueIdentifier>{53fc4bbd-840d-4c37-ba73-962f7fa8ca1d}</UniqueIdentifier>
+      <UniqueIdentifier>{82e5f22d-d0e4-422b-a406-69165742e6b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Network\Mail">
-      <UniqueIdentifier>{17052645-efbe-4156-817b-104dd321df02}</UniqueIdentifier>
+      <UniqueIdentifier>{fe539649-47ce-423e-aba9-6c212b903d85}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\RTTI">
-      <UniqueIdentifier>{4bdf7ff1-a2e0-424f-b708-5ffcf13d9986}</UniqueIdentifier>
+      <UniqueIdentifier>{4a8d1922-87a2-46a4-85e2-da2e18e85141}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Algorithm">
-      <UniqueIdentifier>{c231c1c4-179e-497a-a83f-6a3973d6a94a}</UniqueIdentifier>
+      <UniqueIdentifier>{38a8c38b-3bb4-434b-a018-26ddb7e46544}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Metaprogramming">
-      <UniqueIdentifier>{1c840dc4-c139-4313-bebc-3edb3925f38c}</UniqueIdentifier>
+      <UniqueIdentifier>{9dd17bb2-e9c8-454e-98b5-c5e7dfd6d0b5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Math">
-      <UniqueIdentifier>{ad662ede-1f86-4d45-a022-2f453bc40bf1}</UniqueIdentifier>
+      <UniqueIdentifier>{80ba2a76-c398-464c-ad7f-1cf4d57c5e8c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\StlCustom">
-      <UniqueIdentifier>{01816cad-dbe0-4f93-8458-9589e5f90271}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Object">
-      <UniqueIdentifier>{a02e0a97-b322-4539-86c2-d284e49b9c28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\IO">
-      <UniqueIdentifier>{2a905261-a491-4895-9552-4c31642fb122}</UniqueIdentifier>
+      <UniqueIdentifier>{a5367c6b-8176-40d1-9282-27264536f683}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Configuration">
-      <UniqueIdentifier>{8ffdf3c3-d3e2-406f-9f40-9ca8cd708fcf}</UniqueIdentifier>
+      <UniqueIdentifier>{d47cdf42-1805-4198-bd3a-de2c1588da3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Text">
+      <UniqueIdentifier>{8281cb34-5cb6-44b2-8a1c-890c6b244ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Security">
+      <UniqueIdentifier>{0aea0fca-0d3e-488b-a50e-a0f8150e646d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -201,6 +207,12 @@
     <ClCompile Include="src\SlabAllocator.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="src\StackAllocator.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\StackMemoryManager.cpp">
+      <Filter>Source Files\Memory</Filter>
+    </ClCompile>
     <ClCompile Include="src\Acceptor.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -261,6 +273,9 @@
     <ClCompile Include="src\SystemTcpStatistics.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="src\TcpListener.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
     <ClCompile Include="src\WaitEvent.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
@@ -291,10 +306,16 @@
     <ClCompile Include="src\File.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\OperatingSystem.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
     <ClCompile Include="src\Path.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="src\ProcessInitializer.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Processor.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="src\Registry.cpp">
@@ -336,6 +357,9 @@
     <ClCompile Include="src\IniSection.cpp">
       <Filter>Source Files\Configuration</Filter>
     </ClCompile>
+    <ClCompile Include="src\MD5.cpp">
+      <Filter>Source Files\Security</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\BuildConfiguration.h">
@@ -351,9 +375,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\SocketHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\stdafx.h">
@@ -578,7 +599,13 @@
     <ClInclude Include="inc\lexical_cast.hpp">
       <Filter>Header Files\System</Filter>
     </ClInclude>
+    <ClInclude Include="inc\OperatingSystem.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
     <ClInclude Include="inc\Path.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Processor.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="inc\RAII.h">
@@ -621,6 +648,9 @@
       <Filter>Header Files\PAL</Filter>
     </ClInclude>
     <ClInclude Include="inc\Acceptor.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\AddressFamily.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="inc\AsyncStream.h">
@@ -680,6 +710,9 @@
     <ClInclude Include="inc\Proactor.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="inc\ProtocolType.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
     <ClInclude Include="inc\Receiver.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
@@ -689,7 +722,16 @@
     <ClInclude Include="inc\Socket.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="inc\SocketHelper.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\SocketType.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
     <ClInclude Include="inc\SystemTcpStatistics.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\TcpListener.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
     <ClInclude Include="inc\WaitEvent.h">
@@ -787,6 +829,12 @@
     </ClInclude>
     <ClInclude Include="inc\IniSection.h">
       <Filter>Header Files\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\Convert.hpp">
+      <Filter>Header Files\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\MD5.h">
+      <Filter>Header Files\Security</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
