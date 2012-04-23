@@ -14,10 +14,10 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="InterfaceImplement">
-      <UniqueIdentifier>{8d7d6593-7517-4034-a0ad-06108068fedc}</UniqueIdentifier>
+      <UniqueIdentifier>{e0a2eb10-26d0-40bd-bfd0-b89a15627257}</UniqueIdentifier>
     </Filter>
     <Filter Include="Containers">
-      <UniqueIdentifier>{70ec5e92-1527-44d2-a856-bec6a62cc3e5}</UniqueIdentifier>
+      <UniqueIdentifier>{9eccd28c-3ac9-48cd-a3ff-1252ae5be8ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

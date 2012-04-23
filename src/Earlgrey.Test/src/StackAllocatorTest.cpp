@@ -65,6 +65,92 @@ namespace Earlgrey
 			alloc.free(char1, 1);
 			alloc.free(char2, 1);			
 		}
+
+
+		TEST(StackAllocatorTest, CopyConstructor)
+		{
+			StackAllocator alloc1;
+			char * char1 = static_cast<char*>( 
+				alloc1.malloc(1)
+				);
+
+			{
+				StackAllocator alloc2(alloc1);
+				char * char2 = static_cast<char*>( 
+					alloc2.malloc(128)
+					);
+				alloc2.free(char2, 128);
+			}
+						
+			alloc1.free(char1, 1);
+			
+		}
+
+
+		TEST(StackAllocatorTest, CopyConstructor1)
+		{
+			StackAllocator alloc1;
+			char * char1 = static_cast<char*>( 
+				alloc1.malloc(1)
+				);
+
+			{
+				StackAllocator alloc2(alloc1);
+				char * char2 = static_cast<char*>( 
+					alloc1.malloc(128)
+					);
+				alloc1.free(char2, 128);
+			}
+			alloc1.free(char1, 1);
+		}
+
+
+		TEST(StackAllocatorTest, CopyConstructor2)
+		{
+			StackAllocator alloc1;
+			char * char1 = static_cast<char*>( 
+				alloc1.malloc(1)
+				);
+
+			{
+				StackAllocator alloc2(alloc1);
+				
+				{
+					StackAllocator alloc3(alloc2);
+
+					char * char2 = static_cast<char*>( 
+						alloc3.malloc(128)
+						);
+					alloc3.free(char2, 128);
+				}
+			}
+
+
+			alloc1.free(char1, 1);
+
+		}
+
+
+		TEST(StackAllocatorTest, CopyConstructor3)
+		{
+			StackAllocator alloc1;
+			char * char1 = static_cast<char*>( 
+				alloc1.malloc(1)
+				);
+
+			char *  char2 = NULL;
+			{
+				StackAllocator alloc2(alloc1);
+				char2 = static_cast<char*>( 
+					alloc1.malloc(128)
+					);
+				alloc1.free(char2, 128);
+			}
+
+			// alloc1.free(char2, 128);
+			alloc1.free(char1, 1);
+
+		}
 #endif
 	//}
 }

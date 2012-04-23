@@ -6,14 +6,14 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="소스 파일\ADO">
-      <UniqueIdentifier>{57f5f713-e360-4bb4-8b5d-60362487eb6e}</UniqueIdentifier>
+      <UniqueIdentifier>{05204a5e-6fa0-4efe-b6a5-14fe2ba0a310}</UniqueIdentifier>
     </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="헤더 파일\ADO">
-      <UniqueIdentifier>{e50d9264-372f-4749-8460-3585173564f0}</UniqueIdentifier>
+      <UniqueIdentifier>{45e9193b-c94f-47d1-91c0-bfb34b74de44}</UniqueIdentifier>
     </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>

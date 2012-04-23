@@ -59,7 +59,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
@@ -68,11 +68,26 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <PreBuildEvent>
+      <Command>xcopy /y "..\..\vendor\openssl\0.9.8k_$(Platform)\bin\*.dll" "$(TargetDir)"</Command>
+    </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.6.0\include;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -82,21 +97,23 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PreBuildEvent>
+      <Command>xcopy /y "..\..\vendor\openssl\0.9.8k_$(Platform)\bin\*.dll" "$(TargetDir)"</Command>
+    </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN64;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.6.0\include;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -105,20 +122,22 @@
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <PreBuildEvent>
+      <Command>xcopy /y "..\..\vendor\openssl\0.9.8k_$(Platform)\bin\*.dll" "$(TargetDir)"</Command>
+    </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.6.0\include;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -127,14 +146,16 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>Cdecl</CallingConvention>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX86</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PreBuildEvent>
+      <Command>xcopy /y "..\..\vendor\openssl\0.9.8k_$(Platform)\bin\*.dll" "$(TargetDir)"</Command>
+    </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
     </Midl>
@@ -143,18 +164,17 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\boost_1_42_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.3.0\include;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN64;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./inc;./inc/loki;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\ATL_Server_Source_and_Headers_9_0_70425_Alpha\include\;..\..\vendor\gtest-1.6.0\include;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\src\main\include;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Lib>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;..\..\vendor\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\Optionals\log4cxx\apache-log4cxx-0.10.0\projects\$(Platform)\$(Configuration);..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <TargetMachine>MachineX64</TargetMachine>
     </Lib>
   </ItemDefinitionGroup>
@@ -191,6 +211,8 @@
     <ClCompile Include="src\Logger.cpp" />
     <ClCompile Include="src\MemoryBlock.cpp" />
     <ClCompile Include="src\SlabAllocator.cpp" />
+    <ClCompile Include="src\StackAllocator.cpp" />
+    <ClCompile Include="src\StackMemoryManager.cpp" />
     <ClCompile Include="src\Acceptor.cpp" />
     <ClCompile Include="src\AsyncStream.cpp" />
     <ClCompile Include="src\Connection.cpp" />
@@ -211,6 +233,7 @@
     <ClCompile Include="src\SmtpClient.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\SystemTcpStatistics.cpp" />
+    <ClCompile Include="src\TcpListener.cpp" />
     <ClCompile Include="src\WaitEvent.cpp" />
     <ClCompile Include="src\WindowsFirewall.cpp" />
     <ClCompile Include="src\lockfree.cpp" />
@@ -221,8 +244,10 @@
     <ClCompile Include="src\DateTime.cpp" />
     <ClCompile Include="src\Environment.cpp" />
     <ClCompile Include="src\File.cpp" />
+    <ClCompile Include="src\OperatingSystem.cpp" />
     <ClCompile Include="src\Path.cpp" />
     <ClCompile Include="src\ProcessInitializer.cpp" />
+    <ClCompile Include="src\Processor.cpp" />
     <ClCompile Include="src\Registry.cpp" />
     <ClCompile Include="src\RegistryKey.cpp" />
     <ClCompile Include="src\SingleAppInstance.cpp" />
@@ -236,6 +261,7 @@
     <ClCompile Include="src\DefaultAppSettings.cpp" />
     <ClCompile Include="src\IniReader.cpp" />
     <ClCompile Include="src\IniSection.cpp" />
+    <ClCompile Include="src\MD5.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\BuildConfiguration.h" />
@@ -243,7 +269,6 @@
     <ClInclude Include="inc\EarlgreyPrivate.h" />
     <ClInclude Include="inc\Macros.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="inc\SocketHelper.h" />
     <ClInclude Include="inc\stdafx.h" />
     <ClInclude Include="inc\targetver.h" />
     <ClInclude Include="inc\Uncopyable.h" />
@@ -318,7 +343,9 @@
     <ClInclude Include="inc\EventProducer.h" />
     <ClInclude Include="inc\File.h" />
     <ClInclude Include="inc\lexical_cast.hpp" />
+    <ClInclude Include="inc\OperatingSystem.h" />
     <ClInclude Include="inc\Path.h" />
+    <ClInclude Include="inc\Processor.h" />
     <ClInclude Include="inc\RAII.h" />
     <ClInclude Include="inc\Registry.h" />
     <ClInclude Include="inc\RegistryKey.h" />
@@ -333,6 +360,7 @@
     <ClInclude Include="inc\ServiceSettings.h" />
     <ClInclude Include="inc\PAL_Windows.h" />
     <ClInclude Include="inc\Acceptor.h" />
+    <ClInclude Include="inc\AddressFamily.h" />
     <ClInclude Include="inc\AsyncStream.h" />
     <ClInclude Include="inc\CompletionHandler.h" />
     <ClInclude Include="inc\Connection.h" />
@@ -352,10 +380,14 @@
     <ClInclude Include="inc\OutputStream.h" />
     <ClInclude Include="inc\PacketHandler.h" />
     <ClInclude Include="inc\Proactor.h" />
+    <ClInclude Include="inc\ProtocolType.h" />
     <ClInclude Include="inc\Receiver.h" />
     <ClInclude Include="inc\Sender.h" />
     <ClInclude Include="inc\Socket.h" />
+    <ClInclude Include="inc\SocketHelper.h" />
+    <ClInclude Include="inc\SocketType.h" />
     <ClInclude Include="inc\SystemTcpStatistics.h" />
+    <ClInclude Include="inc\TcpListener.h" />
     <ClInclude Include="inc\WaitEvent.h" />
     <ClInclude Include="inc\WindowsFirewall.h" />
     <ClInclude Include="inc\Attachment.h" />
@@ -388,6 +420,8 @@
     <ClInclude Include="inc\DefaultAppSettings.h" />
     <ClInclude Include="inc\IniReader.h" />
     <ClInclude Include="inc\IniSection.h" />
+    <ClInclude Include="inc\Convert.hpp" />
+    <ClInclude Include="inc\MD5.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EargreyResources.rc" />
@@ -398,7 +432,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\vendor\StackWalker_2009-11-01\StackWalker\StackWalker_VC10.vcxproj">
       <Project>{89b2bd42-b130-4811-9043-71a8ebc40de5}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

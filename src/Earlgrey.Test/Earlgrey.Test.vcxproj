@@ -59,7 +59,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
@@ -72,6 +72,18 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\bin\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)$(Platform)-$(Configuration)\obj\$(ProjectName)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -81,7 +93,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.3.0\include;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.6.0\include;..\Earlgrey.Gtest\inc;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -91,11 +103,9 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GmailClient.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -114,7 +124,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.3.0\include;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.6.0\include;..\Earlgrey.Gtest\inc;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -124,17 +134,14 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GmailClient.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
       <TargetMachine>MachineX64</TargetMachine>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +155,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.3.0\include;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.6.0\include;..\Earlgrey.Gtest\inc;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -156,11 +163,9 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GmailClient.lib;Winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -184,7 +189,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.3.0\include;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\boost_1_42_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>inc;..\..\vendor\gtest-1.6.0\include;..\Earlgrey.Gtest\inc;..\GmailClient\inc;..\Earlgrey\inc;..\..\vendor\Optionals\boost_1_45_0;..\..\vendor\openssl\0.9.8k_$(Platform)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -192,11 +197,9 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <WarningLevel>Level4</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).vs2010.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(OutDir)GmailClient.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\..\vendor\boost_1_42_0\libs;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\vendor\Optionals\boost_1_45_0\libs;..\..\vendor\openssl\0.9.8k_$(Platform)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -207,48 +210,29 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\vendor\gtest-1.3.0\msvc\gtest.vcxproj">
+    <ProjectReference Include="..\..\vendor\gtest-1.6.0\msvc\gtest.vs2010.vcxproj">
       <Project>{c8f6c172-56f2-4e76-b5fa-c3b423b31be7}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\vendor\StackWalker_2009-11-01\StackWalker\StackWalker_VC10.vcxproj">
       <Project>{89b2bd42-b130-4811-9043-71a8ebc40de5}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\Earlgrey\Earlgrey.vcxproj">
       <Project>{97815f93-c18e-4749-bab1-b1917c7ce375}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\GmailClient\GmailClient.vcxproj">
       <Project>{540889a0-c756-44a8-a1ab-536ee7276d70}</Project>
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\Earlgrey.GTest\Earlgrey.GTest.vcxproj">
+      <Project>{29e9baf5-e237-48de-9b7a-1e03c69b7906}</Project>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ConsoleTest.cpp" />
-    <ClCompile Include="src\DateTimeTest.cpp" />
-    <ClCompile Include="src\EarlgreyMathTest.cpp" />
-    <ClCompile Include="src\EnvironmentTest.cpp" />
-    <ClCompile Include="src\EventProducerTest.cpp" />
-    <ClCompile Include="src\FileTest.cpp" />
-    <ClCompile Include="src\IniReaderTest.cpp" />
-    <ClCompile Include="src\IniSectionTest.cpp" />
-    <ClCompile Include="src\LexicalCastTest.cpp" />
-    <ClCompile Include="src\LockfreeQueueTest.cpp" />
-    <ClCompile Include="src\LockfreeStackTest.cpp" />
     <ClCompile Include="src\MacrosTest.cpp" />
-    <ClCompile Include="src\NumericCastTest.cpp" />
-    <ClCompile Include="src\PathTest.cpp" />
-    <ClCompile Include="src\RAIITest.cpp" />
-    <ClCompile Include="src\RegistryKeyTest.cpp" />
-    <ClCompile Include="src\RegistryTest.cpp" />
-    <ClCompile Include="src\SharedPtrHelperTest.cpp" />
-    <ClCompile Include="src\SingleAppInstanceTest.cpp" />
-    <ClCompile Include="src\StackMemoryManagerTest.cpp" />
-    <ClCompile Include="src\StringHelperTest.cpp" />
-    <ClCompile Include="src\TaskQueueTest.cpp" />
-    <ClCompile Include="src\TimeSpanTest.cpp" />
     <ClCompile Include="src\SampleTest.cpp" />
     <ClCompile Include="src\TempTest.cpp" />
     <ClCompile Include="src\ConnectionTest.cpp" />
@@ -275,6 +259,8 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     <ClCompile Include="src\NetworkWriterTest.cpp" />
     <ClCompile Include="src\ServerTest.cpp" />
     <ClCompile Include="src\StackAllocatorTest.cpp" />
+    <ClCompile Include="src\StackMemoryManagerTest.cpp" />
+    <ClCompile Include="src\StlGreedyAllocatorTest.cpp" />
     <ClCompile Include="src\EarlgreyProcessTest.cpp" />
     <ClCompile Include="src\ExecutorTest.cpp" />
     <ClCompile Include="src\StlStackAllocatorTest.cpp" />
@@ -292,7 +278,32 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
     <ClCompile Include="src\EventLogTest.cpp" />
     <ClCompile Include="src\LoggerTest.cpp" />
     <ClCompile Include="src\LogTest.cpp" />
+    <ClCompile Include="src\SharedPtrHelperTest.cpp" />
+    <ClCompile Include="src\SharedPtrTest.cpp" />
     <ClCompile Include="src\VectorTest.cpp" />
+    <ClCompile Include="src\ConvertTest.cpp" />
+    <ClCompile Include="src\ConsoleTest.cpp" />
+    <ClCompile Include="src\DateTimeTest.cpp" />
+    <ClCompile Include="src\EnvironmentTest.cpp" />
+    <ClCompile Include="src\EventProducerTest.cpp" />
+    <ClCompile Include="src\FileTest.cpp" />
+    <ClCompile Include="src\LexicalCastTest.cpp" />
+    <ClCompile Include="src\OperationSystemTest.cpp" />
+    <ClCompile Include="src\PathTest.cpp" />
+    <ClCompile Include="src\ProcessorTest.cpp" />
+    <ClCompile Include="src\RAIITest.cpp" />
+    <ClCompile Include="src\RegistryKeyTest.cpp" />
+    <ClCompile Include="src\RegistryTest.cpp" />
+    <ClCompile Include="src\SingleAppInstanceTest.cpp" />
+    <ClCompile Include="src\StringHelperTest.cpp" />
+    <ClCompile Include="src\TimeSpanTest.cpp" />
+    <ClCompile Include="src\EarlgreyMathTest.cpp" />
+    <ClCompile Include="src\NumericCastTest.cpp" />
+    <ClCompile Include="src\IniReaderTest.cpp" />
+    <ClCompile Include="src\IniSectionTest.cpp" />
+    <ClCompile Include="src\LockfreeQueueTest.cpp" />
+    <ClCompile Include="src\LockfreeStackTest.cpp" />
+    <ClCompile Include="src\TaskQueueTest.cpp" />
     <ClCompile Include="src\Earlgrey.Test.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -300,6 +311,7 @@ xcopy /y "$(ProjectDir)Earlgrey*.txt" "$(TargetDir)"
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\MD5Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h" />
