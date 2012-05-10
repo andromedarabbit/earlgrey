@@ -360,6 +360,9 @@
     <ClCompile Include="src\MD5.cpp">
       <Filter>Source Files\Security</Filter>
     </ClCompile>
+    <ClCompile Include="src\Convert.cpp">
+      <Filter>Source Files\Text</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\BuildConfiguration.h">

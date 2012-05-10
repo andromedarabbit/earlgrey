@@ -45,8 +45,8 @@ namespace String {
 		static _txstring ToUpper(_txstring str);
 		static _txstring ToUpper(_txstring str, _locale_t locale);
 
-		template<E_StringComparison flag>
-		static BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)
+		template<E_StringComparison flag, typename T>
+		static BOOL StartsWith(const T * str, const size_t strLength, const T * prefix, const size_t prefixLength)
 		{
 			StringComparison<flag> comparison;
 			if(prefix == 0)
@@ -63,8 +63,8 @@ namespace String {
 				);
 		}
 
-		template<E_StringComparison flag>
-		static BOOL StartsWith(const _txstring& str, const _txstring& prefix)
+		template<E_StringComparison flag, typename T>
+		static BOOL StartsWith(const T& str, const T& prefix)
 		{
 			return StartsWith<flag>(
 				str.c_str()
@@ -74,12 +74,13 @@ namespace String {
 				);
 		}
 
-		static BOOL StartsWith(const _txstring& str, const _txstring& prefix);
+		static BOOL StartsWith(const xwstring& str, const xwstring& prefix);
+		static BOOL StartsWith(const xstring& str, const xstring& prefix);
 
 
 
-		template<E_StringComparison flag>
-		static BOOL EndsWith(const TCHAR * str, const size_t strLength, const TCHAR * suffix, const size_t suffixLength)
+		template<E_StringComparison flag, typename T>
+		static BOOL EndsWith(const T * str, const size_t strLength, const T * suffix, const size_t suffixLength)
 		{
 			StringComparison<flag> comparison;
 			if(suffixLength == 0)
@@ -88,12 +89,12 @@ namespace String {
 			if(strLength < suffixLength)
 				return FALSE;
 
-			const TCHAR * strSuffix = str + (strLength - suffixLength);
+			const T * strSuffix = str + (strLength - suffixLength);
 			return comparison.Equals(strSuffix, suffix);
 		}
 
-		template<E_StringComparison flag>
-		static BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+		template<E_StringComparison flag, typename T>
+		static BOOL EndsWith(const T& str, const T& suffix)
 		{
 			return EndsWith<flag>(
 				str.c_str()
@@ -103,7 +104,8 @@ namespace String {
 				);
 		}
 
-		static BOOL EndsWith(const _txstring& str, const _txstring& suffix);
+		static BOOL EndsWith(const xwstring& str, const xwstring& suffix);
+		static BOOL EndsWith(const xstring& str, const xstring& suffix);
 	};
 
 
@@ -170,38 +172,48 @@ namespace String {
 		return StringHelper::ToUpper(str, locale);
 	}
 
-	template<E_StringComparison flag>
-	inline BOOL StartsWith(const TCHAR * str, const size_t strLength, const TCHAR * prefix, const size_t prefixLength)
+	template<E_StringComparison flag, typename T>
+	inline BOOL StartsWith(const T * str, const size_t strLength, const T * prefix, const size_t prefixLength)
 	{
 		return StringHelper::StartsWith<flag>(str, strLength, prefix, prefixLength);
 	}
 
-	template<E_StringComparison flag>
-	static BOOL StartsWith(const _txstring& str, const _txstring& prefix)
+	template<E_StringComparison flag, typename T>
+	static BOOL StartsWith(const T& str, const T& prefix)
 	{
 		return StringHelper::StartsWith<flag>(str, prefix);
 	}
 
-	inline BOOL StartsWith(const _txstring& str, const _txstring& prefix)
+	inline BOOL StartsWith(const xwstring& str, const xwstring& prefix)
+	{
+		return StringHelper::StartsWith(str, prefix);
+	}
+
+	inline BOOL StartsWith(const xstring& str, const xstring& prefix)
 	{
 		return StringHelper::StartsWith(str, prefix);
 	}
 
 
 
-	template<E_StringComparison flag>
-	inline BOOL EndsWith(const TCHAR * str, const size_t strLength, const TCHAR * suffix, const size_t suffixLength)
+	template<E_StringComparison flag, typename T>
+	inline BOOL EndsWith(const T * str, const size_t strLength, const T * suffix, const size_t suffixLength)
 	{
 		StringHelper::EndsWith<flag>(str, strLength, suffix, suffixLength);
 	}
 
-	template<E_StringComparison flag>
-	inline BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+	template<E_StringComparison flag, typename T>
+	inline BOOL EndsWith(const T& str, const T& suffix)
 	{
 		return StringHelper::EndsWith<flag>(str, suffix);
 	}
 
-	inline BOOL EndsWith(const _txstring& str, const _txstring& suffix)
+	inline BOOL EndsWith(const xwstring& str, const xwstring& suffix)
+	{
+		return StringHelper::EndsWith(str, suffix);
+	}
+
+	inline BOOL EndsWith(const xstring& str, const xstring& suffix)
 	{
 		return StringHelper::EndsWith(str, suffix);
 	}
@@ -251,7 +263,7 @@ namespace String {
 		, UINT codePage = CP_THREAD_ACP
 		)
 	{
-		const int bytes = EARLGREY_NUMERIC_CAST<int>(src.length() * sizeof(TCHAR));
+		const int bytes = EARLGREY_NUMERIC_CAST<int>(src.length() * sizeof(WCHAR));
 		return FromUnicode(src.c_str(), bytes, codePage);
 	}
 

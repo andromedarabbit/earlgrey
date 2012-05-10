@@ -10,7 +10,7 @@ namespace Earlgrey
 		{
 			RegistryKey localMachine( Registry::LocalMachine() );
 
-			const TCHAR * keyPath = _T("SOFTWARE\\EarlgreyTest");
+			const WCHAR * keyPath = L"SOFTWARE\\EarlgreyTest";
 
 			if( localMachine.KeyExists(keyPath) )
 			{

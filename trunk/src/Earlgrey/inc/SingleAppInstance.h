@@ -16,10 +16,10 @@ namespace Earlgrey
 		~SingleAppInstance();
 		
 	public:
-		BOOL RegisterThisApp(const TCHAR * appName);
+		BOOL RegisterThisApp(const WCHAR * const appName);
 
 	private:
-		_tstring m_thisAppName;
+		std::wstring m_thisAppName;
 		HANDLE m_thisAppMutex;
 	};
 

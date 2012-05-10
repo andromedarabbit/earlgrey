@@ -31,7 +31,7 @@ public:
 	explicit ServerService(const Win32ServiceSettings& settings, BOOL consoleMode);
 	virtual ~ServerService();
 
-	virtual void	OnStart(DWORD argc, LPTSTR * argv);
+	virtual void	OnStart(DWORD argc, LPWSTR * argv);
 	virtual void	OnStop();
 
 	void RegisterUserInputHandlers(UserInputHandlerPtr handler);

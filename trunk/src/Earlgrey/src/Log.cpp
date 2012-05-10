@@ -78,7 +78,8 @@ namespace Earlgrey
 	const CHAR * const Log::ErrorMessageA(DWORD errorCode, HMODULE source)
 	{
 		GetErrorMessageW(errorCode, source, MSG_BUFFER, BUFFER_LENGTH);
-		return String::FromUnicode(MSG_BUFFER, BUFFER_LENGTH * sizeof(WCHAR));
+		const int msgSize = EARLGREY_NUMERIC_CAST<int>(wcslen(MSG_BUFFER) * sizeof(WCHAR));
+		return String::FromUnicode(MSG_BUFFER, msgSize);
 	}
 
 	const CHAR * const Log::ErrorMessageA(DWORD errorCode)

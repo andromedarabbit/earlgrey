@@ -14,12 +14,12 @@ namespace Earlgrey
 		EARLGREY_ASSERT(m_rootKey != NULL);
 	}
 
-	HKEY RegistryKey::GetKey(const TCHAR * const keyPath, DWORD openOption)
+	HKEY RegistryKey::GetKey(const WCHAR * const keyPath, DWORD openOption)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 
 		HKEY hKey = NULL;
-		LONG errCode = ::RegOpenKeyEx(
+		LONG errCode = ::RegOpenKeyExW(
 			m_rootKey
 			, keyPath
 			, 0
@@ -30,14 +30,14 @@ namespace Earlgrey
 		if(errCode != ERROR_SUCCESS)
 		{
 			// TODO
-			_txstring msg = Log::ErrorMessage(errCode);
+			const xstring msg = Log::ErrorMessageA(errCode);
 			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
 			return NULL;
 		}
 		return hKey;
 	}
 
-	BOOL RegistryKey::KeyExists(const TCHAR * const keyPath)
+	BOOL RegistryKey::KeyExists(const WCHAR * const keyPath)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 
@@ -49,7 +49,7 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL RegistryKey::GetSubKeyNames(HKEY rootKey, xvector<_txstring>::Type& subKeys)
+	BOOL RegistryKey::GetSubKeyNames(HKEY rootKey, xvector<xwstring>::Type& subKeys)
 	{
 		EARLGREY_ASSERT(rootKey != NULL);
 		EARLGREY_ASSERT(subKeys.size() == 0);
@@ -57,9 +57,9 @@ namespace Earlgrey
 		const int MAX_VALUE_NAME = 16383;
 		const int MAX_KEY_LENGTH = 255;
 
-		TCHAR    achKey[MAX_VALUE_NAME];   // buffer for subkey name
+		WCHAR    achKey[MAX_VALUE_NAME];   // buffer for subkey name
 		DWORD    cbName;                   // size of name string 
-		TCHAR    achClass[MAX_PATH] = TEXT("");  // buffer for class name 
+		WCHAR    achClass[MAX_PATH] = L"";  // buffer for class name 
 		DWORD    cchClassName = MAX_PATH;  // size of class string 
 		DWORD    cSubKeys=0;               // number of subkeys 
 		DWORD    cbMaxSubKey;              // longest subkey size 
@@ -71,7 +71,7 @@ namespace Earlgrey
 		FILETIME ftLastWriteTime;      // last write time 
 
 		// Get the class name and the value count. 
-		DWORD retCode = RegQueryInfoKey(
+		DWORD retCode = RegQueryInfoKeyW(
 			rootKey,                    // key handle 
 			achClass,                // buffer for class name 
 			&cchClassName,           // size of class string 
@@ -91,7 +91,7 @@ namespace Earlgrey
 			return FALSE;
 		}
 
-		// Enumerate the subkeys, until RegEnumKeyEx fails.
+		// Enumerate the subkeys, until RegEnumKeyExW fails.
 		if (cSubKeys == 0)
 			return TRUE;
 
@@ -100,7 +100,7 @@ namespace Earlgrey
 		for (DWORD i=0; i<cSubKeys; i++) 
 		{ 
 			cbName = MAX_KEY_LENGTH;
-			retCode = RegEnumKeyEx(rootKey, i,
+			retCode = RegEnumKeyExW(rootKey, i,
 				achKey, 
 				&cbName, 
 				NULL, 
@@ -119,7 +119,7 @@ namespace Earlgrey
 	}
 
 
-	BOOL RegistryKey::GetSubKeyNames(const TCHAR * const keyPath, xvector<_txstring>::Type& subKeys)
+	BOOL RegistryKey::GetSubKeyNames(const WCHAR * const keyPath, xvector<xwstring>::Type& subKeys)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 		EARLGREY_ASSERT(subKeys.size() == 0);
@@ -129,14 +129,14 @@ namespace Earlgrey
 		return GetSubKeyNames(rootKey, subKeys);
 	}
 
-	BOOL RegistryKey::CreateSubKey(const TCHAR * const keyPath)
+	BOOL RegistryKey::CreateSubKey(const WCHAR * const keyPath)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 
 		HKEY hkey = NULL;
 		DWORD disposition  = 0;
 
-		LONG errCode = ::RegCreateKeyEx(
+		LONG errCode = ::RegCreateKeyExW(
 			m_rootKey
 			, keyPath
 			, 0
@@ -155,11 +155,11 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL RegistryKey::DeleteSubKey(const TCHAR * const keyPath)
+	BOOL RegistryKey::DeleteSubKey(const WCHAR * const keyPath)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 
-		LONG errCode = ::RegDeleteKey(m_rootKey, keyPath);
+		LONG errCode = ::RegDeleteKeyW(m_rootKey, keyPath);
 		if(errCode != ERROR_SUCCESS)
 		{
 			// TODO
@@ -168,12 +168,12 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	BOOL RegistryKey::DeleteSubKeyTree(const TCHAR * const keyPath)
+	BOOL RegistryKey::DeleteSubKeyTree(const WCHAR * const keyPath)
 	{
 		EARLGREY_ASSERT(keyPath != NULL);
 
 		// LONG errCode = ::RegDeleteTree(m_rootKey, keyPath);
-		LONG errCode = ::SHDeleteKey(m_rootKey, keyPath);
+		LONG errCode = ::SHDeleteKeyW(m_rootKey, keyPath);
 		if(errCode != ERROR_SUCCESS)
 		{
 			// TODO

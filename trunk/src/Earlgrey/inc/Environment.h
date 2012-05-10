@@ -20,8 +20,12 @@ namespace Earlgrey
 
 	public:
 		static const TCHAR* const NewLine();
+		static const CHAR* const NewLineA();
+		static const WCHAR* const NewLineW();
 
-		static _txstring BaseDirectory(); //! 응용프로그램의 바이너리 파일이 위치한 곳
+		static _txstring BaseDirectory();
+		static xwstring BaseDirectoryW(); //! 응용프로그램의 바이너리 파일이 위치한 곳
+		static xstring BaseDirectoryA(); //! 응용프로그램의 바이너리 파일이 위치한 곳
 
 		//! \todo Directory 클래스를 개발하게 되면 그 쪽에 옮기고 이곳 코드는 그 함수를 호출한다.
 		static _txstring CurrentDirectory(); 

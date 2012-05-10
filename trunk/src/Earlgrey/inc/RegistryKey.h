@@ -12,18 +12,18 @@ namespace Earlgrey
 		explicit RegistryKey(HKEY rootKey);
 
 	public:
-		HKEY GetKey(const TCHAR * const keyPath, DWORD openOption = KEY_READ);
+		HKEY GetKey(const WCHAR * const keyPath, DWORD openOption = KEY_READ);
 
-		BOOL KeyExists(const TCHAR * const keyPath);
+		BOOL KeyExists(const WCHAR * const keyPath);
 
-		BOOL GetSubKeyNames(HKEY rootKey, xvector<_txstring>::Type& subKeys);
+		BOOL GetSubKeyNames(HKEY rootKey, xvector<xwstring>::Type& subKeys);
 
-		BOOL GetSubKeyNames(const TCHAR * const keyPath, xvector<_txstring>::Type& subKeys);
+		BOOL GetSubKeyNames(const WCHAR * const keyPath, xvector<xwstring>::Type& subKeys);
 
-		BOOL CreateSubKey(const TCHAR * const keyPath);
+		BOOL CreateSubKey(const WCHAR * const keyPath);
 
-		BOOL DeleteSubKey(const TCHAR * const keyPath);
-		BOOL DeleteSubKeyTree(const TCHAR * const keyPath);
+		BOOL DeleteSubKey(const WCHAR * const keyPath);
+		BOOL DeleteSubKeyTree(const WCHAR * const keyPath);
 
 	private:
 		HKEY m_rootKey;

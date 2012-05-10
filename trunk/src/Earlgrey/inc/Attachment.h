@@ -1,4 +1,4 @@
-#pragma once
+#pragma once 
 #include "Uncopyable.h"
 #include "txstring.h"
 #include "xlist.h"
@@ -10,26 +10,26 @@ namespace Earlgrey
 		class Attachment : private Uncopyable
 		{
 		public:
-			explicit Attachment(const TCHAR * fileName, const TCHAR * mediaType)
+			explicit Attachment(const WCHAR * fileName, const WCHAR * mediaType)
 				: m_FileName(fileName)
 				, m_MediaType(mediaType)
 			{
 
 			}
 
-			inline const _txstring& FileName() const 
+			inline const xwstring& FileName() const 
 			{
 				return m_FileName;
 			}
 
-			inline const _txstring& MediaType() const 
+			inline const xwstring& MediaType() const 
 			{
 				return m_MediaType;
 			}
 
 		private:
-			_txstring m_FileName;
-			_txstring m_MediaType;
+			xwstring m_FileName;
+			xwstring m_MediaType;
 		};
 
 	} // !Mail

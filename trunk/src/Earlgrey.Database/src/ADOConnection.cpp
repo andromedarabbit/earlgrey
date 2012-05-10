@@ -38,9 +38,9 @@ namespace ADO {
 		catch(_com_error& e)
 		{
 			// TODO: 임시코드
-			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
+			const xstring msg( Log::FromSqlErrorA(m_Connection, e, TRUE) );
 			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
-			// throw std::exception( String::FromUnicode(msg) );
+			// throw std::exception(msg.c_str());
 		}
 		return FALSE;
 	} 
@@ -68,9 +68,8 @@ namespace ADO {
 		catch (_com_error &e)
 		{
 			// TODO: 임시코드
-			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
-			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
-			// throw std::exception( String::FromUnicode(msg) );
+			xstring msg( Log::FromSqlErrorA(m_Connection, e, TRUE) );
+			throw std::exception(msg.c_str());
 		}
 	}
 
@@ -90,9 +89,9 @@ namespace ADO {
 		catch (_com_error &e)
 		{
 			// TODO: 임시코드
-			_txstring msg( Log::FromSqlError(m_Connection, e, TRUE) );
+			xstring msg( Log::FromSqlErrorA(m_Connection, e, TRUE) );
 			DBG_UNREFERENCED_LOCAL_VARIABLE(msg);
-			// throw std::exception( String::FromUnicode(msg) );
+			// throw std::exception( msg.c_str() );
 		}
 		return FALSE;
 	}

@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "EarlgreyAssert.h"
 
-#include "tiostream.h"
-#include "GlobalExceptionHandler.h"
-
 namespace Earlgrey
 {
 	using namespace std;

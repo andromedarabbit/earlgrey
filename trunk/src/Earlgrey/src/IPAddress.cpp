@@ -2,6 +2,7 @@
 #include "IPAddress.h"
 
 #include "txsstream.h"
+#include "Convert.hpp"
 
 namespace Earlgrey
 {
@@ -110,13 +111,27 @@ namespace Earlgrey
 
 	_txstring IPAddress2::ToString() const
 	{
-		_txostringstream oss;
+		/*
+		_txostringstream oss;		
 		oss << static_cast<BYTE>(m_AddressStorage.__ss_pad1[2]) << _T(".")
 			<< static_cast<BYTE>(m_AddressStorage.__ss_pad1[3]) << _T(".")
 			<< static_cast<BYTE>(m_AddressStorage.__ss_pad1[4]) << _T(".")
 			<< static_cast<BYTE>(m_AddressStorage.__ss_pad1[5])
 		;
+		EARLGREY_ASSERT(oss.good());
 		return oss.str();
+		*/
+		TCHAR buffer[16]; // for IPv4
+		_stprintf_s(
+			buffer
+			, _T("%u.%u.%u.%u")
+			, Convert::ToInt32(m_AddressStorage.__ss_pad1[2])
+			, Convert::ToInt32(m_AddressStorage.__ss_pad1[3])
+			, Convert::ToInt32(m_AddressStorage.__ss_pad1[4])
+			, Convert::ToInt32(m_AddressStorage.__ss_pad1[5])
+			);
+
+		return buffer;
 	}
 
 	IPAddress2 IPAddress2::Any()

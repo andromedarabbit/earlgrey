@@ -18,9 +18,9 @@ namespace Earlgrey
 	{
 	}
 
-	const TCHAR * ExceptionEMailer::ClassName() const
+	const WCHAR * ExceptionEMailer::ClassName() const
 	{
-		return _T("Earlgrey::ExceptionEMailer");
+		return L"Earlgrey::ExceptionEMailer";
 	}
 
 

@@ -6,8 +6,10 @@ namespace Earlgrey
 {
 #ifdef _UNICODE
 	typedef std::wofstream _tofstream;
+	typedef std::wistream _tistream;
 #else
 	typedef	std::ofstream _tofstream;
+	typedef std::istream _tistream;
 #endif
 
 #ifdef _UNICODE
@@ -26,3 +28,4 @@ namespace Earlgrey
 	extern _tostream &_tclog;
 
 }
+

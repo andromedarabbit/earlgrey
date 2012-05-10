@@ -10,25 +10,25 @@ using namespace Earlgrey;
 using namespace Earlgrey::Mail;
 using namespace Earlgrey::Extension;
 
-const TCHAR * const Win32ServiceSettings::ShortName() const
+const WCHAR * const Win32ServiceSettings::ShortName() const
 {
-	return _T("EarlgreyServer");
+	return L"EarlgreyServer";
 }
 
 //! \todo 코드 정리 좀....
 std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExceptionEMailer() const
 {
-	const _txstring miniDumpClassName(_T("Earlgrey::MiniDump"));
-	const _txstring stackWriterClassName(_T("Earlgrey::StackWriter"));
+	const xwstring miniDumpClassName(L"Earlgrey::MiniDump");
+	const xwstring stackWriterClassName(L"Earlgrey::StackWriter");
 
 	// 임시 코드
-	const TCHAR * username = _T("buildmaster@kaistizen.net");
-	const TCHAR * password = _T("dkswjsgkwldksgdmsdkagh");
-	MailMessage::MailAddressPtr from(new MailAddress(_T("buildmaster@kaistizen.net"), _T("빌드 마스터")));
-	MailMessage::MailAddressPtr to1(new MailAddress(_T("kaistizen@gmail.com"), _T("최재훈")));
-	_txstring subject(_T("[MiniDump] "));
+	const WCHAR * username = L"buildmaster@kaistizen.net";
+	const WCHAR * password = L"dkswjsgkwldksgdmsdkagh";
+	MailMessage::MailAddressPtr from(new MailAddress(L"buildmaster@kaistizen.net", L"빌드 마스터"));
+	MailMessage::MailAddressPtr to1(new MailAddress(L"kaistizen@gmail.com", L"최재훈"));
+	xwstring subject(L"[MiniDump] ");
 	subject += this->ShortName();
-	_txstring body(_T("Please see attachments!"));
+	xwstring body(L"Please see attachments!");
 
 	//! TODO: 바로 아래 코드에서 스레드가 둘 정도 더 생성된다.
 	ExceptionEMailer::SmtpClientPtr smtpClient(new GMailClient(username, password));
@@ -59,7 +59,7 @@ std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExcepti
 			const MiniDump * miniDump = static_cast<MiniDump*>(handler.get());
 
 			MailMessage::AttachmentPtr attachment(
-				new Attachment(miniDump->FilePath().c_str(), _T(""))
+				new Attachment(miniDump->FilePath().c_str(), L"")
 				);
 			message->Attachments().push_back(attachment);
 		}
@@ -69,7 +69,7 @@ std::tr1::shared_ptr<UnhandledExceptionHandler> Win32ServiceSettings::GetExcepti
 			const StackWriter * stackWriter = static_cast<StackWriter*>(handler.get());
 
 			MailMessage::AttachmentPtr attachment(
-				new Attachment(stackWriter->FilePath().c_str(), _T(""))
+				new Attachment(stackWriter->FilePath().c_str(), L"")
 				);
 			message->Attachments().push_back(attachment);
 		}

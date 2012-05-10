@@ -2,6 +2,8 @@
 #include "EarlgreyAssert.h"
 
 #define EARLGREY_ENUM_TO_STRING(enumName) TEXT(#enumName)
+#define EARLGREY_ENUM_TO_STRING_A(enumName) #enumName
+#define EARLGREY_ENUM_TO_STRING_W(enumName) L#enumName
 
 
 //////////////////////////////////////////////////////////////////////////

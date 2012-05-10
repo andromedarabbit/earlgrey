@@ -10,7 +10,7 @@ namespace Earlgrey
 {
 	namespace ServiceProcess
 	{
-		const TCHAR * ServiceInstaller::REGISTRY_SERVICE_ROOT = _T("SYSTEM\\CurrentControlSet\\services");
+		const WCHAR * ServiceInstaller::REGISTRY_SERVICE_ROOT = L"SYSTEM\\CurrentControlSet\\services";
 
 		ServiceInstaller::ServiceInstaller(ServiceBase& service)
 			: m_service(service)
@@ -19,41 +19,41 @@ namespace Earlgrey
 
 		}
 
-		void ServiceInstaller::Description(const _txstring& description)
+		void ServiceInstaller::Description(const xwstring& description)
 		{
 			m_description = description;
 		}
 
-		_txstring ServiceInstaller::Description() 
+		xwstring ServiceInstaller::Description() 
 		{
 			return m_description;
 		}
 
-		const _txstring& ServiceInstaller::Description() const
+		const xwstring& ServiceInstaller::Description() const
 		{
 			return m_description;
 		}
 
 		BOOL ServiceInstaller::InstallService() 
 		{
-			_tstring serviceExecutable;
+			std::wstring serviceExecutable;
 			try
 			{
-				serviceExecutable = Process::MainModuleFileName();
+				serviceExecutable = Process::MainModuleFileNameW();
 				EARLGREY_ASSERT(serviceExecutable.length() > 0);
 			}
 			catch (std::exception& ex)
 			{
-				_tcout << TEXT("Couldn't get the executable file name - ")
+				std::cout << "Couldn't get the executable file name - "
 					<< ex.what()
 					<< std::endl
 					;
 				return FALSE;
 			}
 
-			SC_HANDLE scManager = ::OpenSCManager(
+			SC_HANDLE scManager = ::OpenSCManagerW(
 				NULL,						// machine (NULL == local)
-				SERVICES_ACTIVE_DATABASE,	// database (NULL == SERVICES_ACTIVE_DATABASE == default)
+				SERVICES_ACTIVE_DATABASEW,	// database (NULL == SERVICES_ACTIVE_DATABASE == default)
 				SC_MANAGER_ALL_ACCESS		// access required
 				);
 
@@ -61,11 +61,11 @@ namespace Earlgrey
 
 			if(scManager == NULL) {
 				const DWORD errCode = GetLastError();
-				_tcout << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
+				std::wcout << L"OpenSCManager failed - " << Log::ErrorMessageW(errCode) << std::endl;
 				return FALSE;
 			}
 
-			SC_HANDLE schService = ::CreateService(
+			SC_HANDLE schService = ::CreateServiceW(
 				scManager,
 				m_service.m_serviceName.c_str(),
 				m_service.m_displayName.c_str(),
@@ -89,22 +89,22 @@ namespace Earlgrey
 
 			if( schService == NULL) {
 				const DWORD errCode = GetLastError();
-				_tcout << TEXT("CreateService failed - ") << Log::ErrorMessage(errCode) << std::endl;;
+				std::wcout << L"CreateService failed - " << Log::ErrorMessage(errCode) << std::endl;;
 				return FALSE;
 			}
 
 			// Service description 
 			if(m_description.length() > 0)
 			{
-				TCHAR szKey[MAX_PATH];
-				_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_SERVICE_ROOT, m_service.ServiceName().c_str());
+				WCHAR szKey[MAX_PATH];
+				swprintf_s(szKey, L"%s\\%s", REGISTRY_SERVICE_ROOT, m_service.ServiceName().c_str());
 
 				HKEY hKey = m_localMachineKey.GetKey(szKey, KEY_WRITE);
 				Earlgrey::handle_t regKeyHandle(hKey, &RegCloseKey);
 				
-				LSTATUS errCode = ::RegSetValueEx(
+				LSTATUS errCode = ::RegSetValueExW(
 					hKey,						// handle of key to set value for
-					TEXT("Description"),	// address of value to set
+					L"Description",	// address of value to set
 					0,							// reserved
 					REG_EXPAND_SZ,				// flag for value type
 					(CONST BYTE*)m_description.c_str(),		// address of value data
@@ -114,12 +114,12 @@ namespace Earlgrey
 				if( errCode != ERROR_SUCCESS ) {
 					// TODO: Log::ErrorMessage(errCode);
 					// throw std::exception("Creating an event source failed!");
-					_tcout << "[WARNING] Writing a service description failed!" << std::endl;
+					std::wcout << L"[WARNING] Writing a service description failed!" << std::endl;
 				}
 			}
 
 
-			_tcout << m_service.m_displayName << TEXT(" installed.") << std::endl;
+			std::wcout << m_service.m_displayName << L" installed." << std::endl;
 
 			// installation succeeded. Now register the message file
 			// TODO: not yet implemented
@@ -166,12 +166,12 @@ namespace Earlgrey
 
 			if(scManager == NULL) {
 				const DWORD errCode = GetLastError();
-				_tcout << TEXT("OpenSCManager failed - ") << Log::ErrorMessage(errCode) << std::endl;
+				std::wcout << L"OpenSCManager failed - " << Log::ErrorMessageW(errCode) << std::endl;
 				return FALSE;
 			}
 
 
-			SC_HANDLE schService = OpenService(
+			SC_HANDLE schService = OpenServiceW(
 				scManager,
 				m_service.m_serviceName.c_str(),
 				SERVICE_ALL_ACCESS
@@ -181,7 +181,7 @@ namespace Earlgrey
 
 			if(schService == NULL) {
 				const DWORD errCode = GetLastError();
-				_tcout << TEXT("OpenService failed - ") << Log::ErrorMessage(errCode) << std::endl;
+				std::wcout << L"OpenService failed - " << Log::ErrorMessage(errCode) << std::endl;
 				return FALSE;
 			}
 
@@ -192,37 +192,37 @@ namespace Earlgrey
 				const DWORD errCode = GetLastError();
 				if(errCode != ERROR_SERVICE_NOT_ACTIVE)
 				{
-					_tcout << TEXT("Service couldn't be stopped - ") << Log::ErrorMessage(errCode) << std::endl;
+					std::wcout << L"Service couldn't be stopped - " << Log::ErrorMessageW(errCode) << std::endl;
 					return FALSE;
 				}
 			}
 
-			_tcout << TEXT("Stopping ") <<  m_service.m_displayName << _T(".") << std::endl;
+			std::wcout << L"Stopping " <<  m_service.m_displayName << L"." << std::endl;
 			Sleep(1000);
 
 			while( QueryServiceStatus(schService, &m_service.m_serviceStatus) ) {
 				if( m_service.m_serviceStatus.dwCurrentState == SERVICE_STOP_PENDING ) {
-					_tcout << TEXT(".");
+					std::wcout << L".";
 					Sleep( 1000 );
 				} else
 					break;
 			}
 
 			if( m_service.m_serviceStatus.dwCurrentState == SERVICE_STOPPED )
-				_tcout << std::endl << m_service.m_displayName << TEXT(" stopped.") << std::endl;
+				std::wcout << std::endl << m_service.m_displayName << L" stopped." << std::endl;
 			else
-				_tcout << std::endl << m_service.m_displayName << TEXT(" failed to stop.") << std::endl;
+				std::wcout << std::endl << m_service.m_displayName << L" failed to stop." << std::endl;
 		
 
 			// now remove the service
 			if( DeleteService(schService) == FALSE) 
 			{
 				const DWORD errCode = GetLastError();
-				_tcout << TEXT("DeleteService failed - ") << Log::ErrorMessage(errCode) << std::endl;
+				std::wcout << L"DeleteService failed - " << Log::ErrorMessageW(errCode) << std::endl;
 				return FALSE;
 			}
 		
-			_tcout << m_service.m_displayName << TEXT(" removed.") << std::endl;
+			std::wcout << m_service.m_displayName << L" removed." << std::endl;
 
 			// TODO: 이벤트 로그를 지우는 게 옳을까?
 			// DeregisterApplicationLog();

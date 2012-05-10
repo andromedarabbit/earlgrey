@@ -201,7 +201,7 @@ namespace Test {
 		_variant_t var(srcValue);
 
 		const xwstring dstValue( database_cast<const WCHAR *>(var) );
-		ASSERT_TRUE(dstValue == _T("가나다라"));
+		ASSERT_TRUE(dstValue == L"가나다라");
 
 		_variant_t var2 = database_cast<_variant_t>(srcValue);
 		ASSERT_TRUE(var == var2);

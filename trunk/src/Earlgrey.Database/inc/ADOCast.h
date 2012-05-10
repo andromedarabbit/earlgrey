@@ -81,6 +81,16 @@ namespace Earlgrey {
 			return static_cast<const WCHAR *>(_bstr_t(arg.bstrVal));
 		}
 
+		template<>
+		inline const CHAR * database_cast(const _bstr_t& arg)
+		{
+			const WCHAR* unicode = database_cast<const WCHAR *>(arg);
+			const int unicodeBytes = EARLGREY_NUMERIC_CAST<int>(
+				wcslen(unicode) * sizeof(WCHAR)
+				);
+			return String::FromUnicode(unicode, unicodeBytes);
+		}
+
 		// TODO: 다른 string도 함께 쓸 수 있게... 
 		template<>
 		inline xwstring database_cast(const _variant_t& arg)
@@ -89,19 +99,14 @@ namespace Earlgrey {
 			return xwstring(charArray);
 		}
 
+
 		template<>
 		inline const CHAR * database_cast(const _variant_t& arg)
 		{
 			EARLGREY_ASSERT(arg.vt != VT_EMPTY);
 			EARLGREY_ASSERT(arg.vt == VT_BSTR);
 
-			// TODO: 문서에 기술된 바와 다르 게 아래 코드가 작동 안 한다.
-			/// const CHAR * ansi = static_cast<const CHAR *>(_bstr_t(arg.bstrVal));
-			const WCHAR* unicode = database_cast<const WCHAR *>(arg);
-			const int unicodeBytes = EARLGREY_NUMERIC_CAST<int>(
-				wcslen(unicode) * sizeof(WCHAR)
-				);
-			return String::FromUnicode(unicode, unicodeBytes);
+			return database_cast<const CHAR*>(_bstr_t(arg.bstrVal));
 		}
 
 		// TODO: 다른 string도 함께 쓸 수 있게... 

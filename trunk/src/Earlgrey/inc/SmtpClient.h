@@ -27,7 +27,7 @@ namespace Earlgrey
 
 			virtual void Send(const MailMessage& message) = NULL;
 
-			inline void Send(const TCHAR * from, const TCHAR * recipient, const TCHAR * subject, const TCHAR * body)
+			inline void Send(const WCHAR * from, const WCHAR * recipient, const WCHAR * subject, const WCHAR * body)
 			{
 				MailMessage message(from, recipient);
 				message.Subject(subject);
@@ -36,8 +36,8 @@ namespace Earlgrey
 				return Send(message);
 			}
 
-			virtual void Host(const TCHAR * host) = NULL;
-			virtual const TCHAR * Host() = NULL;
+			virtual void Host(const WCHAR * host) = NULL;
+			virtual const WCHAR * Host() = NULL;
 
 			virtual void Port(int port) = NULL;
 			virtual const int Port() = NULL;

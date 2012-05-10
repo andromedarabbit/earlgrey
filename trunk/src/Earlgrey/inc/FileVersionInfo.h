@@ -12,58 +12,58 @@ namespace Earlgrey
 	{
 	private:
 		explicit FileVersionInfo(
-			const _tstring& fileVersion
-			, const _tstring& productName
-			, const _tstring& productVersion
-			, const _tstring& fileDescription
+			const std::wstring& fileVersion
+			, const std::wstring& productName
+			, const std::wstring& productVersion
+			, const std::wstring& fileDescription
 			);
 
 	public: // class methods
-		static FileVersionInfo GetVersionInfo(const _tstring& fileName);
+		static FileVersionInfo GetVersionInfo(const std::wstring& fileName);
 
 
 	public: // instance methods
-		inline _tstring& FileVersion() 
+		inline std::wstring& FileVersion() 
 		{
 			return m_fileVersion;
 		}
-		inline const _tstring& FileVersion() const 
+		inline const std::wstring& FileVersion() const 
 		{
 			return m_fileVersion;
 		}
 	
-		inline _tstring& ProductName() 
+		inline std::wstring& ProductName() 
 		{
 			return m_productName;
 		}
-		inline const _tstring& ProductName() const 
+		inline const std::wstring& ProductName() const 
 		{
 			return m_productName;
 		}
 
-		inline _tstring& ProductVersion() 
+		inline std::wstring& ProductVersion() 
 		{
 			return m_productVersion;
 		}
-		inline const _tstring& ProductVersion() const 
+		inline const std::wstring& ProductVersion() const 
 		{
 			return m_productVersion;
 		}
 
-		inline _tstring& FileDescription() 
+		inline std::wstring& FileDescription() 
 		{
 			return m_fileDescription;
 		}
-		inline const _tstring& FileDescription() const 
+		inline const std::wstring& FileDescription() const 
 		{
 			return m_fileDescription;
 		}
 
 	private:
-		_tstring m_fileVersion;
-		_tstring m_productName;
-		_tstring m_productVersion;
-		_tstring m_fileDescription;
+		std::wstring m_fileVersion;
+		std::wstring m_productName;
+		std::wstring m_productVersion;
+		std::wstring m_fileDescription;
 
 	};
 

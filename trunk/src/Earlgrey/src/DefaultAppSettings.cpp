@@ -16,11 +16,11 @@ namespace Earlgrey
 
 	namespace
 	{
-		std::tr1::shared_ptr<UnhandledExceptionHandler> GetMiniDump(const _txstring& appName)
+		std::tr1::shared_ptr<UnhandledExceptionHandler> GetMiniDump(const xwstring& appName)
 		{
-			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring fileName(appName + _T(".dmp"));
-			const _txstring filePath( Path::Combine(baseDir, fileName) );
+			const xwstring baseDir = Environment::BaseDirectoryW();
+			const xwstring fileName(appName + L".dmp");
+			const xwstring filePath( Path::Combine(baseDir, fileName) );
 
 			if( File::Exists(filePath) )
 			{
@@ -43,11 +43,11 @@ namespace Earlgrey
 			// GlobalExceptionHandler::Register(miniDump);
 		}
 
-		std::tr1::shared_ptr<UnhandledExceptionHandler> GetStackWriter(const _txstring& appName)
+		std::tr1::shared_ptr<UnhandledExceptionHandler> GetStackWriter(const xwstring& appName)
 		{
-			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring fileName(appName + _T(".StackWriter.txt.dmp"));
-			const _txstring filePath( Path::Combine(baseDir, fileName) );
+			const xwstring baseDir = Environment::BaseDirectoryW();
+			const xwstring fileName(appName + L".StackWriter.txt.dmp");
+			const xwstring filePath( Path::Combine(baseDir, fileName) );
 
 			if( File::Exists(filePath) )
 			{
@@ -63,14 +63,14 @@ namespace Earlgrey
 
 
 	DefaultAppSettings::DefaultAppSettings()
-		: m_executableName(Process::MainModuleFileName())
+		: m_executableName(Process::MainModuleFileNameW())
 		, m_shortName(Path::GetFileName(m_executableName))
 		, m_versionInfo( FileVersionInfo::GetVersionInfo(m_executableName) )
 		, m_UnhandledExceptions(new UnhandledExceptionCollection())
 	{
 		EARLGREY_ASSERT(m_executableName.length() > 0);
 
-		const _txstring appName(this->ShortName());
+		const xwstring appName(this->ShortName());
 
 		std::tr1::shared_ptr<UnhandledExceptionHandler> miniDump( GetMiniDump(appName) );
 		m_UnhandledExceptions->push_back(miniDump);
@@ -99,22 +99,22 @@ namespace Earlgrey
 		return NumberOfIOThreads();
 	}
 
-	const TCHAR * const DefaultAppSettings::ShortName() const
+	const WCHAR * const DefaultAppSettings::ShortName() const
 	{
 		return m_shortName.c_str();
 	}
 
-	const TCHAR * const DefaultAppSettings::LongName() const
+	const WCHAR * const DefaultAppSettings::LongName() const
 	{
 		return m_versionInfo.ProductName().c_str();
 	}
 
-	const TCHAR * const DefaultAppSettings::Description() const
+	const WCHAR * const DefaultAppSettings::Description() const
 	{	
 		return m_versionInfo.FileDescription().c_str();
 	}
 
-	const TCHAR * const DefaultAppSettings::Version() const
+	const WCHAR * const DefaultAppSettings::Version() const
 	{	
 		return m_versionInfo.ProductVersion().c_str();
 	}

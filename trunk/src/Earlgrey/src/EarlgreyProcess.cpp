@@ -35,12 +35,12 @@ namespace Earlgrey
 
 	}
 
-	void Process::MainModuleFileName(TCHAR* path, DWORD length)
+	void Process::MainModuleFileNameA(CHAR* path, DWORD length)
 	{
 		EARLGREY_ASSERT(path != NULL);
 		EARLGREY_ASSERT(length > 0);
 
-		if( GetModuleFileName( NULL, path, length ) == 0 ) {
+		if( GetModuleFileNameA( NULL, path, length ) == 0 ) {
 			// TODO: need new exception class supporting a unicode msg 
 			const DWORD errCode = GetLastError();
 			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
@@ -48,11 +48,31 @@ namespace Earlgrey
 		}
 	}
 
-	_tstring Process::MainModuleFileName()
+	void Process::MainModuleFileNameW(WCHAR* path, DWORD length)
 	{
-		TCHAR path[MAX_PATH];
-		MainModuleFileName(path, MAX_PATH);
-		return _tstring(path);
+		EARLGREY_ASSERT(path != NULL);
+		EARLGREY_ASSERT(length > 0);
+
+		if( GetModuleFileNameW( NULL, path, length ) == 0 ) {
+			// TODO: need new exception class supporting a unicode msg 
+			const DWORD errCode = GetLastError();
+			const CHAR * const errMsg = Log::ErrorMessageA(errCode);
+			throw std::exception(errMsg);
+		}
+	}
+
+	std::wstring Process::MainModuleFileNameW()
+	{
+		WCHAR path[MAX_PATH];
+		MainModuleFileNameW(path, MAX_PATH);
+		return std::wstring(path);
+	}
+
+	std::string Process::MainModuleFileNameA()
+	{
+		CHAR path[MAX_PATH];
+		MainModuleFileNameA(path, MAX_PATH);
+		return std::string(path);
 	}
 
 

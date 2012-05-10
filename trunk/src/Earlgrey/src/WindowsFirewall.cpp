@@ -117,13 +117,19 @@ namespace Earlgrey
 
 	BOOL WindowsFirewall::IsAppEnabled() const
 	{
-		_tstring thisModuleName(
-			Process::MainModuleFileName()
-			);
-		return IsAppEnabled(thisModuleName.c_str());
+		return IsAppEnabled(Process::MainModuleFileName().c_str());
 	}
 
-	BOOL WindowsFirewall::IsAppEnabled(IN const wchar_t* fwProcessImageFileName) const
+	BOOL WindowsFirewall::IsAppEnabled(IN const CHAR* fwProcessImageFileName) const
+	{
+		const xwstring processImageFileName(
+			String::ToUnicode(fwProcessImageFileName, EARLGREY_NUMERIC_CAST<int>(strlen(fwProcessImageFileName)))
+			);
+
+		return IsAppEnabled(processImageFileName.c_str());
+	}
+
+	BOOL WindowsFirewall::IsAppEnabled(IN const WCHAR* fwProcessImageFileName) const
 	{
 		EARLGREY_ASSERT(m_fwProfile != NULL);
 		EARLGREY_ASSERT(fwProcessImageFileName != NULL);
@@ -171,8 +177,8 @@ namespace Earlgrey
 
 	HRESULT WindowsFirewall::AddAppToExceptionList()
 	{
-		_tstring thisModuleName(
-			Process::MainModuleFileName()
+		const std::wstring thisModuleName(
+			Process::MainModuleFileNameW()
 			);
 
 		return AddAppToExceptionList(thisModuleName.c_str());
@@ -180,7 +186,7 @@ namespace Earlgrey
 
 	HRESULT WindowsFirewall::AddAppToExceptionList(IN const wchar_t* fwProcessImageFileName)
 	{
-		_tstring name(
+		const std::wstring name(
 			Path::GetFileName(fwProcessImageFileName)
 			);
 		return AddAppToExceptionList(fwProcessImageFileName, name.c_str());

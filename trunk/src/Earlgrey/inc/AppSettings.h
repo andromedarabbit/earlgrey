@@ -23,10 +23,10 @@ namespace Earlgrey
 		virtual BOOL AllowOnlyOneInstance() const = NULL;
 		virtual DWORD NumberOfIOThreads() const = NULL;
 		virtual DWORD NumberOfConcurrentIOThreads() const = NULL;
-		virtual const TCHAR * const ShortName() const = NULL;
-		virtual const TCHAR * const LongName() const = NULL;
-		virtual const TCHAR * const Description() const = NULL;
-		virtual const TCHAR * const Version() const = NULL;
+		virtual const WCHAR * const ShortName() const = NULL;
+		virtual const WCHAR * const LongName() const = NULL;
+		virtual const WCHAR * const Description() const = NULL;
+		virtual const WCHAR * const Version() const = NULL;
 		
 		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const = NULL;
 

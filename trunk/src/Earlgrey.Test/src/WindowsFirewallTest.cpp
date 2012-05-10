@@ -32,13 +32,13 @@ namespace Earlgrey
 			firewall.Initialize();
 
 
-			_txstring thisModuleName( Process::MainModuleFileName().c_str() );
+			xwstring thisModuleName( Process::MainModuleFileNameW().c_str() );
 			ASSERT_TRUE2(
 				File::Exists(thisModuleName)
 				);
 
-			_txstring newFile(thisModuleName);
-			newFile += _T(".unittest.exe");
+			xwstring newFile(thisModuleName);
+			newFile += L".unittest.exe";
 
 			ASSERT_TRUE2(
 				File::Copy(thisModuleName, newFile, TRUE)

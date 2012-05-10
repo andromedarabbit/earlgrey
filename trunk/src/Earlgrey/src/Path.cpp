@@ -12,25 +12,40 @@
 
 namespace Earlgrey
 {
-	BOOL Path::IsPathRooted(const _txstring& path)
+	namespace
 	{
-		// CheckInvalidPathChars(path);
-		size_t length = path.length();
-
-		if (length >= 1 )
+		template<typename T>
+		BOOL PathIsPathRooted(const T& path)
 		{
-			if(path[0] == DirectorySeparatorChar || path[0] == AltDirectorySeparatorChar)
+			// CheckInvalidPathChars(path);
+			size_t length = path.length();
+
+			if (length >= 1 )
+			{
+				if(path[0] == Path::SeparatorChar<T::value_type>::Directory || path[0] == Path::SeparatorChar<T::value_type>::AltDirectory)
+					return TRUE;
+			}
+
+			if (length >= 2 && path[1] == Path::SeparatorChar<T::value_type>::Volume)
+			{
 				return TRUE;
-		}
+			}
 
-		if (length >= 2 && path[1] == VolumeSeparatorChar)
-		{
-			return TRUE;
+			return FALSE;
 		}
-
-		return FALSE;
 	}
 
+	BOOL Path::IsPathRooted(const xstring& path)
+	{
+		return PathIsPathRooted(path);
+	}
+
+	BOOL Path::IsPathRooted(const xwstring& path)
+	{
+		return PathIsPathRooted(path);
+	}
+
+	
 
 	BOOL Path::IsDirectorySeparator(const TCHAR c)
 	{
@@ -41,46 +56,67 @@ namespace Earlgrey
 		return TRUE;
 	}
 
-	//! \todo 작업 중
-	 _txstring Path::Combine(const _txstring& path1, const _txstring& path2)
-	 {
-		 // CheckInvalidPathChars(path1);
-		 // CheckInvalidPathChars(path2);
-
-
-		if(path2.length() == 0)
-			return path1;
-
-		if(path1.length() == 0)
-			return path2;
-
-		if (IsPathRooted(path2))
+	namespace
+	{
+		template<typename T>
+		T CombinePaths(const T& path1, const T& path2)
 		{
-			return path2;
-		}
+			// CheckInvalidPathChars(path1);
+			// CheckInvalidPathChars(path2);
 
-		TCHAR ch = path1[path1.length() - 1];
-		if (((ch != DirectorySeparatorChar) && (ch != AltDirectorySeparatorChar)) && (ch != VolumeSeparatorChar))
-		{
-			return (path1 + DirectorySeparatorChar + path2);
+
+			if(path2.length() == 0)
+				return path1;
+
+			if(path1.length() == 0)
+				return path2;
+
+			if (PathIsPathRooted(path2))
+			{
+				return path2;
+			}
+
+			T::value_type ch = path1[path1.length() - 1];
+			if (((ch != Path::SeparatorChar<T::value_type>::Directory) && (ch != Path::SeparatorChar<T::value_type>::AltDirectory)) && (ch != Path::SeparatorChar<T::value_type>::Volume))
+			{
+				return (path1 + Path::SeparatorChar<T::value_type>::Directory + path2);
+			}
+			return (path1 + path2);		
 		}
-		return (path1 + path2);
-	 }
+	}
 
 	//! \todo 작업 중
-	BOOL Path::Exists(const _txstring& path)
+	xstring Path::Combine(const xstring& path1, const xstring& path2)
+	{
+		return CombinePaths(path1, path2);
+	}
+
+	xwstring Path::Combine(const xwstring& path1, const xwstring& path2)
+	{
+		return CombinePaths(path1, path2);
+	}
+
+
+
+	//! \todo 작업 중
+	BOOL Path::Exists(const xstring& path)
+	{		 
+		return Exists(String::ToUnicode(path));
+	}
+
+	BOOL Path::Exists(const xwstring& path)
 	{
 		EARLGREY_ASSERT(path.length() > 0);
 
-		if( _taccess( path.c_str(), 00 ) != 0 ) // Check existence only.
+		if( _waccess( path.c_str(), 00 ) != 0 ) // Check existence only.
 			return FALSE;
 		
 		//! \todo 오류 처리
 		// errno_t errCode = errno;
 
 		// _stati64 함수는 '\\'로 끝나는 경로를 제대로 인식 못 한다.
-		_txstring pathNotTerminatedWithPathSeparator;
-		if(path[path.length() - 1] == TEXT('\\'))
+		xwstring pathNotTerminatedWithPathSeparator;
+		if(path[path.length() - 1] == L'\\')
 			pathNotTerminatedWithPathSeparator = path.substr(0, path.length() - 1);
 		else
 			pathNotTerminatedWithPathSeparator = path;
@@ -88,7 +124,7 @@ namespace Earlgrey
 
 		struct _stati64 status;
 
-		if ( _tstati64(pathNotTerminatedWithPathSeparator.c_str(), &status) != 0 ) 
+		if ( _wstati64(pathNotTerminatedWithPathSeparator.c_str(), &status) != 0 ) 
 		{
 			//! \todo 오류 처리
 			errno_t errCode = errno;
@@ -112,26 +148,28 @@ namespace Earlgrey
 	}
 
 	//! \todo strict == TRUE 일 때 
-	_txstring Path::GetDirectoryName(const _txstring& fullPath, BOOL strict)
+	xwstring Path::GetDirectoryName(const xwstring& fullPath, BOOL strict)
 	{
 		EARLGREY_ASSERT(fullPath.length() > 0);
 
 		if(strict)
 		{
+			// TODO
+			throw std::exception("Not yet implemented!");
 		}
 
 		// if(fullPath[fullPath.length() - 1] != TEXT('\\'))
 		// return fullPath;
 
-		std::size_t found = fullPath.rfind(TEXT('\\'));
-		if (found != _txstring::npos)
+		std::size_t found = fullPath.rfind(L'\\');
+		if (found != xwstring::npos)
 		{
 			return fullPath.substr(0, found);
 		}
 		return fullPath;
 	}
 
-	_txstring Path::GetDirectoryName(const _txstring& fullPath)
+	xwstring Path::GetDirectoryName(const xwstring& fullPath)
 	{
 		return GetDirectoryName(fullPath, FALSE);
 	}
@@ -148,7 +186,7 @@ namespace Earlgrey
 				T::size_type num2 = length;
 				while (--num2 >= 0)
 				{
-					TCHAR ch = path[num2];
+					T::value_type ch = path[num2];
 					if (((ch == Path::DirectorySeparatorChar) || (ch == Path::AltDirectorySeparatorChar)) || (ch == Path::VolumeSeparatorChar))
 					{
 						return path.substr(num2 + 1, (length - num2) - 1);
@@ -160,15 +198,25 @@ namespace Earlgrey
 	}
 
 #ifndef EARLGREY_BUILD_STL_ALLOCATOR
-	_txstring Path::GetFileName(const _txstring& path)
+	xwstring Path::GetFileName(const xwstring& path)
 	{
-		return GetFileNameT<_txstring>(path);
+		return GetFileNameT<xwstring>(path);
+	}
+
+	xstring Path::GetFileName(const xstring& path)
+	{
+		return GetFileNameT<xstring>(path);
 	}
 #endif
 
-	_tstring Path::GetFileName(const _tstring& path)
+	std::wstring Path::GetFileName(const std::wstring& path)
 	{
-		return GetFileNameT<_tstring>(path);
+		return GetFileNameT<std::wstring>(path);
+	}
+
+	std::string Path::GetFileName(const std::string& path)
+	{
+		return GetFileNameT<std::string>(path);
 	}
 
 	namespace 

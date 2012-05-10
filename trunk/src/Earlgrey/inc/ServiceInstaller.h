@@ -12,20 +12,20 @@ namespace Earlgrey
 
 		class ServiceInstaller : private Uncopyable
 		{
-			const static TCHAR * REGISTRY_SERVICE_ROOT;
+			const static WCHAR * REGISTRY_SERVICE_ROOT;
 		public:
 			explicit ServiceInstaller(ServiceBase& service);
 
 			BOOL InstallService();
 			BOOL RemoveService();
 
-			void Description(const _txstring& description);		
-			_txstring Description();
-			const _txstring& Description() const;
+			void Description(const xwstring& description);		
+			xwstring Description();
+			const xwstring& Description() const;
 
 		private:
 			ServiceBase& m_service;
-			_txstring m_description;
+			xwstring m_description;
 			RegistryKey m_localMachineKey;
 
 		};

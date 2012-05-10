@@ -41,7 +41,7 @@ namespace Earlgrey
 
 		//! 응용프로그램 인스턴스가 이미 실행 중인지 확인한다.
 		BOOL CheckAppInstance();
-		BOOL CheckAppInstance(const TCHAR * appName);
+		BOOL CheckAppInstance(const WCHAR * appName);
 
 
 	private: // Fields

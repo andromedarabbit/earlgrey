@@ -11,14 +11,14 @@ namespace Earlgrey
 {
 
 	
-	const TCHAR * EventLog::REGISTRY_EVENTLOG_ROOT = _T("SYSTEM\\CurrentControlSet\\services\\eventlog");
+	const WCHAR * EventLog::REGISTRY_EVENTLOG_ROOT = L"SYSTEM\\CurrentControlSet\\services\\eventlog";
 
-	EventLog::EventLog(const TCHAR * const logName, const TCHAR * const source)
+	EventLog::EventLog(const WCHAR * const logName, const WCHAR * const source)
 		: m_logName(logName)
 		, m_source(source)
 		// , m_eventSource(NULL)
 		, m_eventSource(
-			::RegisterEventSource(0, m_source.c_str())
+			::RegisterEventSourceW(0, m_source.c_str())
 			, &DeregisterEventSource
 			)
 		, m_userSID(NULL) // TODO: get a real user sid
@@ -39,10 +39,10 @@ namespace Earlgrey
 		BYTE	security_identifier_buffer[ 4096 ];
 		DWORD	dwSizeSecurityIdBuffer = sizeof( security_identifier_buffer );
 
-		TCHAR sUserName[ 256 ];
+		WCHAR sUserName[ 256 ];
 		DWORD dwSizeUserName  =  255;
 
-		TCHAR sDomainName[ 256 ];
+		WCHAR sDomainName[ 256 ];
 		DWORD dwSizeDomainName = 255;
 
 		SID_NAME_USE sidTypeSecurityId;
@@ -51,9 +51,9 @@ namespace Earlgrey
 		::ZeroMemory( sDomainName, sizeof( sDomainName ) );
 		::ZeroMemory( security_identifier_buffer, dwSizeSecurityIdBuffer );
 
-		::GetUserName( sUserName, &dwSizeUserName );
+		::GetUserNameW( sUserName, &dwSizeUserName );
 
-		if( ::LookupAccountName(
+		if( ::LookupAccountNameW(
 			0,
 			sUserName,
 			&security_identifier_buffer,
@@ -79,7 +79,7 @@ namespace Earlgrey
 
 	//! \todo adds more overloading methods (ReportEvent function has a few parameters)
 	void EventLog::WriteEntry(
-		const TCHAR * message
+		const WCHAR * message
 		, WORD eventType
 		, DWORD eventID
 		, WORD category
@@ -88,7 +88,7 @@ namespace Earlgrey
 		// Use event logging to log the error.
 		// LPCTSTR lpszMessage = ;
 
-		BOOL successful = ::ReportEvent(
+		BOOL successful = ::ReportEventW(
 			m_eventSource.get(),	// handle of event source
 			eventType,		// event type
 			category,			// event category
@@ -135,42 +135,42 @@ namespace Earlgrey
 	/* Static methods                                                       */
 	/************************************************************************/
 
-	BOOL EventLog::Exists(const TCHAR * const logName)
+	BOOL EventLog::Exists(const WCHAR * const logName)
 	{
-		TCHAR szKey[MAX_PATH];
-		_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName);
+		WCHAR szKey[MAX_PATH];
+		swprintf_s(szKey, L"%s\\%s", REGISTRY_EVENTLOG_ROOT, logName);
 
 		RegistryKey localMachineKey(Registry::LocalMachine());
 		return localMachineKey.KeyExists(szKey);
 	}
 
-	BOOL EventLog::SourceExists(const TCHAR * const source)
+	BOOL EventLog::SourceExists(const WCHAR * const source)
 	{
 		RegistryKey localMachineKey(Registry::LocalMachine());
 
-		xvector<_txstring>::Type logNames;
+		xvector<xwstring>::Type logNames;
 		if(localMachineKey.GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
 			return FALSE;
 
 
 
 		StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> comparer;
-		TCHAR logPath[MAX_PATH];
+		WCHAR logPath[MAX_PATH];
 		
-		xvector<_txstring>::Type::const_iterator it = logNames.begin();
+		xvector<xwstring>::Type::const_iterator it = logNames.begin();
 		for( ; it != logNames.end(); it++)
 		{
-			const _txstring& logName = *it;
-			_stprintf_s(logPath, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName.c_str());
+			const xwstring& logName = *it;
+			swprintf_s(logPath, L"%s\\%s", REGISTRY_EVENTLOG_ROOT, logName.c_str());
 
-			xvector<_txstring>::Type sourceNames;
+			xvector<xwstring>::Type sourceNames;
 			if(localMachineKey.GetSubKeyNames(logPath, sourceNames) == FALSE)
 				continue;
 
-			xvector<_txstring>::Type::const_iterator it2 = sourceNames.begin();
+			xvector<xwstring>::Type::const_iterator it2 = sourceNames.begin();
 			for( ; it2 != sourceNames.end(); it2++)
 			{
-				const _txstring& sourceName = *it2;
+				const xwstring& sourceName = *it2;
 				if( comparer.Equals( sourceName.c_str(), source ) )
 				{
 					return TRUE;
@@ -180,18 +180,18 @@ namespace Earlgrey
 		return FALSE;
 	}
 	
-	void EventLog::CreateEventSource(const TCHAR * const source)
+	void EventLog::CreateEventSource(const WCHAR * const source)
 	{
-		CreateEventSource(source, _T("Application"));
+		CreateEventSource(source, L"Application");
 	}
 
 	//! \todo 내부에서 하는 레지스트리 조작 작업을 클래스 Registry에 위임한다.
-	void EventLog::CreateEventSource(const TCHAR * const source, const TCHAR * const logName)
+	void EventLog::CreateEventSource(const WCHAR * const source, const WCHAR * const logName)
 	{
 		_tstring mainModuleFileName = Process::MainModuleFileName();
 
-		TCHAR szKey[MAX_PATH];
-		_stprintf_s(szKey, TEXT("%s\\%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName, source);
+		WCHAR szKey[MAX_PATH];
+		swprintf_s(szKey, L"%s\\%s\\%s", REGISTRY_EVENTLOG_ROOT, logName, source);
 		
 		HKEY hKey = 0;
 		handle_t regKeyHandle(hKey, &RegCloseKey);
@@ -199,7 +199,7 @@ namespace Earlgrey
 
 		// Create a key for that application and insert values for
 		// "EventMessageFile" and "TypesSupported"
-		LONG errCode = ::RegCreateKey(HKEY_LOCAL_MACHINE, szKey, &hKey);
+		LONG errCode = ::RegCreateKeyW(HKEY_LOCAL_MACHINE, szKey, &hKey);
 		if( errCode != ERROR_SUCCESS ) {
 			// TODO: Log::ErrorMessage(errCode);
 			// throw std::exception("Creating an event source failed!");
@@ -207,13 +207,13 @@ namespace Earlgrey
 			throw std::exception(errMsg);
 		}
 	
-		errCode = ::RegSetValueEx(
+		errCode = ::RegSetValueExW(
 			hKey,						// handle of key to set value for
-			TEXT("EventMessageFile"),	// address of value to set
+			L"EventMessageFile",	// address of value to set
 			0,							// reserved
 			REG_EXPAND_SZ,				// flag for value type
 			(CONST BYTE*)mainModuleFileName.c_str(),		// address of value data
-			static_cast<DWORD>(mainModuleFileName.length() * sizeof(TCHAR))	// size of value data
+			static_cast<DWORD>(mainModuleFileName.length() * sizeof(WCHAR))	// size of value data
 			);
 
 		if( errCode != ERROR_SUCCESS ) {
@@ -224,9 +224,9 @@ namespace Earlgrey
 		}
 
 		// Set the supported types flags.
-		errCode = ::RegSetValueEx(
+		errCode = ::RegSetValueExW(
 			hKey,					// handle of key to set value for
-			TEXT("TypesSupported"),	// address of value to set
+			L"TypesSupported",	// address of value to set
 			0,						// reserved
 			REG_DWORD,				// flag for value type
 			(CONST BYTE*)&SUPPORTED_EVENT_TYPES,	// address of value data
@@ -242,10 +242,10 @@ namespace Earlgrey
 		}
 	}
 
-	void EventLog::Delete(const TCHAR * const logName)
+	void EventLog::Delete(const WCHAR * const logName)
 	{
-		TCHAR szKey[MAX_PATH];
-		_stprintf_s(szKey, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName);
+		WCHAR szKey[MAX_PATH];
+		swprintf_s(szKey, L"%s\\%s", REGISTRY_EVENTLOG_ROOT, logName);
 
 		RegistryKey localMachineKey(Registry::LocalMachine());
 		if(localMachineKey.DeleteSubKeyTree(szKey) == FALSE)
@@ -254,11 +254,11 @@ namespace Earlgrey
 		}
 	}
 
-	void EventLog::DeleteEventSource(const TCHAR * const source)
+	void EventLog::DeleteEventSource(const WCHAR * const source)
 	{
 		EARLGREY_ASSERT(source != NULL);
 
-		_txstring eventSourcePath(
+		xwstring eventSourcePath(
 			FindEventSource(source)
 			);
 
@@ -272,40 +272,40 @@ namespace Earlgrey
 		}
 	}
 
-	_txstring EventLog::FindEventSource(const TCHAR * const source)
+	xwstring EventLog::FindEventSource(const WCHAR * const source)
 	{
 		RegistryKey localMachineKey(Registry::LocalMachine());
 
-		xvector<_txstring>::Type logNames;
+		xvector<xwstring>::Type logNames;
 		if(localMachineKey.GetSubKeyNames(REGISTRY_EVENTLOG_ROOT, logNames) == FALSE)
 			return FALSE;
 
 
 		StringComparison<STRCMP_CURRENT_CULTURE_IGNORECASE> comparer;
-		TCHAR logPath[MAX_PATH];
+		WCHAR logPath[MAX_PATH];
 
-		xvector<_txstring>::Type::const_iterator it = logNames.begin();
+		xvector<xwstring>::Type::const_iterator it = logNames.begin();
 		for( ; it != logNames.end(); it++)
 		{
-			const _txstring& logName = *it;
-			_stprintf_s(logPath, TEXT("%s\\%s"), REGISTRY_EVENTLOG_ROOT, logName.c_str());
+			const xwstring& logName = *it;
+			swprintf_s(logPath, L"%s\\%s", REGISTRY_EVENTLOG_ROOT, logName.c_str());
 
-			xvector<_txstring>::Type sourceNames;
+			xvector<xwstring>::Type sourceNames;
 			if(localMachineKey.GetSubKeyNames(logPath, sourceNames) == FALSE)
 				continue;
 
-			xvector<_txstring>::Type::const_iterator it2 = sourceNames.begin();
+			xvector<xwstring>::Type::const_iterator it2 = sourceNames.begin();
 			for( ; it2 != sourceNames.end(); it2++)
 			{
-				const _txstring& sourceName = *it2;
+				const xwstring& sourceName = *it2;
 				if( comparer.Equals( sourceName.c_str(), source ) )
 				{
-					_stprintf_s(logPath, TEXT("%s\\%s"), logPath, sourceName.c_str());
-					return _txstring(logPath);
+					swprintf_s(logPath, L"%s\\%s", logPath, sourceName.c_str());
+					return xwstring(logPath);
 				}
 			}
 		}
-		return _txstring();
+		return xwstring();
 	}
 
 }

@@ -17,10 +17,10 @@ namespace Earlgrey
 		EARLGREY_VERIFY(::CloseHandle(m_thisAppMutex));
 	}
 
-	BOOL SingleAppInstance::RegisterThisApp(const TCHAR * appName)
+	BOOL SingleAppInstance::RegisterThisApp(const WCHAR * const appName)
 	{
 		EARLGREY_ASSERT(appName != NULL);
-		EARLGREY_ASSERT(_tcslen(appName) > 0);
+		EARLGREY_ASSERT(wcslen(appName) > 0);
 
 		if(m_thisAppName == appName) // 같은 응용프로그램이 이 메서드를 두 번 이상 호출했을 때
 			return TRUE;
@@ -29,7 +29,7 @@ namespace Earlgrey
 			return FALSE;
 
 
-		HANDLE mutex = CreateMutex(NULL, FALSE, appName);
+		HANDLE mutex = CreateMutexW(NULL, FALSE, appName);
 		const DWORD err = GetLastError();
 		EARLGREY_VERIFY(mutex != NULL);
 

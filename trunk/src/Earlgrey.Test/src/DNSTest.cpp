@@ -62,12 +62,13 @@ namespace Earlgrey
  			ASSERT_GT(entry->AddressList().size(), static_cast<size_t>(1));
 		}
 
+		// TODO: 네트워크가 차단되었을 때 entry->HostName() 의 값이 255.255.255.255 로 나오는데 이를 명시적으로 오류 처리하던가 해야겠다.
 		TEST_F(DnsTest, GetHostEntryWithIPAddress)
 		{
 			const _txstring hostNameOrAddress = _T("69.147.114.224");
 			Dns::IPHostEntryPtr entry = Dns::GetHostEntry(hostNameOrAddress);
 			ASSERT_EQ(1, entry->AddressList().size());
-			ASSERT_STREQ(_T("yahoo-wildcard.a05.yahoodns.net"), entry->HostName().c_str());
+			ASSERT_CONTAINS(entry->HostName(), _T("yahoo"));		
 		}
 
 		TEST_F(DnsTest, GetHostName)

@@ -2,6 +2,8 @@
 #include "Uncopyable.h"
 #include "txstring.h"
 
+// TODO: 헤더 파일의 확장자를 .h 로 바꾸자
+
 namespace Earlgrey
 {
 	namespace
@@ -309,12 +311,12 @@ namespace Earlgrey
 		template<class _Elem, class _Traits, class _Ax>
 		static 
 			size_t ToBase64(const BYTE * const bytes, size_t numBytes, std::basic_string<_Elem, _Traits, _Ax> & encodedText);
+
+		static 
+			int ToInt32(BYTE byteValue);
 	};
 	
-	size_t Convert::GetMinimumBytesForDecode(size_t textLength)
-	{
-		return GetMinimumBytesForDecoding(textLength);
-	}
+	
 
 	template<typename CharType>
 	size_t Convert::FromBase64(const CharType * const text, size_t textLength, BYTE * bytes, size_t numBytes)
@@ -322,16 +324,10 @@ namespace Earlgrey
 		return Base64<CharType>::FromString(text, textLength, bytes, numBytes);
 	}
 
-
 	template<class _Elem, class _Traits, class _Ax>
 	size_t Convert::FromBase64(const std::basic_string<_Elem, _Traits, _Ax> & text, BYTE * bytes, size_t numBytes)
 	{
 		return FromBase64(text.c_str(), text.length(), bytes, numBytes);
-	}
-
-	size_t Convert::GetMinimumLengthForEncode(size_t numBytes)
-	{
-		return GetMinimumLengthForEncoding(numBytes);
 	}
 
 	template<typename CharType>
@@ -350,4 +346,5 @@ namespace Earlgrey
 		}
 		return Base64<_Elem>::ToString(bytes, numBytes, encodedText, textLength);
 	}
+
 }

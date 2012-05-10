@@ -15,10 +15,10 @@ namespace Earlgrey
 		virtual BOOL AllowOnlyOneInstance() const;
 		virtual DWORD NumberOfIOThreads() const;
 		virtual DWORD NumberOfConcurrentIOThreads() const;
-		virtual const TCHAR * const ShortName() const;
-		virtual const TCHAR * const LongName() const;
-		virtual const TCHAR * const Description() const;
-		virtual const TCHAR * const Version() const;
+		virtual const WCHAR * const ShortName() const;
+		virtual const WCHAR * const LongName() const;
+		virtual const WCHAR * const Description() const;
+		virtual const WCHAR * const Version() const;
 
 		virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const;
 	
@@ -27,8 +27,8 @@ namespace Earlgrey
 		virtual TimeSpan LoggingFlushInterval() const;
 
 	private:
-		_tstring m_executableName;
-		_tstring m_shortName;
+		std::wstring m_executableName;
+		std::wstring m_shortName;
 		FileVersionInfo m_versionInfo;
 		UnhandledExceptionCollectionPtr m_UnhandledExceptions;
 	};

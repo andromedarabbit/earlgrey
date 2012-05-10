@@ -40,14 +40,14 @@ namespace
 
 namespace Earlgrey
 {
-	const TCHAR * StackWriter::ClassName() const
+	const WCHAR * StackWriter::ClassName() const
 	{
-		return _T("Earlgrey::StackWriter");
+		return L"Earlgrey::StackWriter";
 	}
 
 	void StackWriter::HandleException(LPEXCEPTION_POINTERS exceptionPtrs)
 	{
-		const TCHAR * logFilePath = m_LogFilePath.c_str();
+		const WCHAR * logFilePath = m_LogFilePath.c_str();
 		if( File::Exists(logFilePath) )
 		{
 			if( File::Delete(logFilePath) )

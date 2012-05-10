@@ -14,6 +14,7 @@ namespace Earlgrey
 		__declspec(thread) static WCHAR MSG_BUFFER[BUFFER_LENGTH]; // The output buffer cannot be larger than 64K bytes.
 
 
+
 	public: // class methods 
 		//! \todo 임시 구현
 		//! \ref http://recoverlee.tistory.com/9

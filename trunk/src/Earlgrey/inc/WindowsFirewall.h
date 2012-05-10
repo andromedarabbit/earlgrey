@@ -30,7 +30,8 @@ namespace Earlgrey
 		HRESULT TurnOff();
 
 		BOOL IsAppEnabled() const;
-		BOOL IsAppEnabled(IN const wchar_t* fwProcessImageFileName) const;
+		BOOL IsAppEnabled(IN const CHAR* fwProcessImageFileName) const;
+		BOOL IsAppEnabled(IN const WCHAR* fwProcessImageFileName) const;
 		
 		HRESULT AddAppToExceptionList();
 		HRESULT AddAppToExceptionList(IN const wchar_t* fwProcessImageFileName);

@@ -36,13 +36,13 @@ namespace Earlgrey
 		BOOL RedirectStdIO();
 		BOOL RestoreStdIO();
 
-		void Write(const TCHAR * const msg);
-		void Write(const TCHAR * const msg, size_t msgLen);
-		void WriteLine(const TCHAR * const msg);
-		void WriteLine(const TCHAR * const msg, size_t msgLen);
+		void Write(const WCHAR * const msg);
+		void Write(const WCHAR * const msg, size_t msgLen);
+		void WriteLine(const WCHAR * const msg);
+		void WriteLine(const WCHAR * const msg, size_t msgLen);
 
-		void WindowTitle(const TCHAR * const msg);
-		_txstring WindowTitle() const;
+		void WindowTitle(const WCHAR * const msg);
+		xwstring WindowTitle() const;
 
 		inline BOOL IsOpen() const 
 		{

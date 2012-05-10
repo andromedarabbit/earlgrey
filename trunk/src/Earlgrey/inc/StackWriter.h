@@ -19,18 +19,18 @@ namespace Earlgrey
 	private:
 		typedef StackWalker::StackWalkOptions StackWalkOptions;
 		StackWalkOptions m_StackWalkOptions;
-		_txstring m_LogFilePath;
+		xwstring m_LogFilePath;
 
 	public:
 		
-		explicit StackWriter(const TCHAR * const logFilePath, StackWalkOptions stackWalkOptions)
+		explicit StackWriter(const WCHAR * const logFilePath, StackWalkOptions stackWalkOptions)
 			: m_LogFilePath(logFilePath)
 			, m_StackWalkOptions(stackWalkOptions)
 		{
 
 		}
 
-		explicit StackWriter(const _txstring& logFilePath, StackWalkOptions stackWalkOptions)
+		explicit StackWriter(const xwstring& logFilePath, StackWalkOptions stackWalkOptions)
 			: m_LogFilePath(logFilePath)
 			, m_StackWalkOptions(stackWalkOptions)
 		{
@@ -41,9 +41,9 @@ namespace Earlgrey
 		{
 		}
 
-		const TCHAR * ClassName() const;
+		const WCHAR * ClassName() const;
 
-		const _txstring& FilePath() const 
+		const xwstring& FilePath() const 
 		{
 			return m_LogFilePath;
 		}

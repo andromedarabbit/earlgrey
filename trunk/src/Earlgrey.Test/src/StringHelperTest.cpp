@@ -210,7 +210,7 @@ namespace Earlgrey
 			TEST(StringHelperTest, ToUnicode)
 			{
 				const std::string src1("가나 다라 마 바 사 ");
-				const std::wstring expected1(_T("가나 다라 마 바 사 "));
+				const std::wstring expected1(L"가나 다라 마 바 사 ");
 
 				const WCHAR * dst1 = String::ToUnicode(src1.c_str(), EARLGREY_NUMERIC_CAST<int>(src1.length()), CP_THREAD_ACP);
 				
@@ -218,7 +218,7 @@ namespace Earlgrey
 				ASSERT_EQ(expected1, dst1);
 
 				const std::string src2("ASDJL MLKMQWLEIOJFAS");
-				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::wstring expected2(L"ASDJL MLKMQWLEIOJFAS");
 
 				const WCHAR * dst2 = String::ToUnicode(src2.c_str(), EARLGREY_NUMERIC_CAST<int>(src2.length()), CP_THREAD_ACP);
 
@@ -229,7 +229,7 @@ namespace Earlgrey
 			TEST(StringHelperTest, FromStringToUnicode)
 			{
 				const std::string src1("가나 다라 마 바 사 ");
-				const std::wstring expected1(_T("가나 다라 마 바 사 "));
+				const std::wstring expected1(L"가나 다라 마 바 사 ");
 
 				const WCHAR * dst1 = String::ToUnicode(src1);
 
@@ -237,7 +237,7 @@ namespace Earlgrey
 				ASSERT_EQ(expected1, dst1);
 
 				const std::string src2("ASDJL MLKMQWLEIOJFAS");
-				const std::wstring expected2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::wstring expected2(L"ASDJL MLKMQWLEIOJFAS");
 
 				const WCHAR * dst2 = String::ToUnicode(src2);
 
@@ -258,7 +258,7 @@ namespace Earlgrey
 
 			TEST(StringHelperTest, FromUnicode)
 			{
-				const std::wstring src1(_T("가나 다라 마 바 사 "));
+				const std::wstring src1(L"가나 다라 마 바 사 ");
 				const std::string expected1("가나 다라 마 바 사 ");
 
 				const CHAR * dst1 = String::FromUnicode(
@@ -270,7 +270,7 @@ namespace Earlgrey
 				ASSERT_TRUE(dst1 != NULL);
 				ASSERT_EQ(expected1, dst1);
 
-				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::wstring src2(L"ASDJL MLKMQWLEIOJFAS");
 				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
 
 				const CHAR * dst2 = String::FromUnicode(
@@ -298,7 +298,7 @@ namespace Earlgrey
 
 			TEST(StringHelperTest, FromWStringToAnsi)
 			{
-				const std::wstring src1(_T("가나 다라 마 바 사 "));
+				const std::wstring src1(L"가나 다라 마 바 사 ");
 				const std::string expected1("가나 다라 마 바 사 ");
 
 				const CHAR * dst1 = String::FromUnicode(src1);
@@ -306,7 +306,7 @@ namespace Earlgrey
 				ASSERT_TRUE(dst1 != NULL);
 				ASSERT_EQ(expected1, dst1);
 
-				const std::wstring src2(_T("ASDJL MLKMQWLEIOJFAS"));
+				const std::wstring src2(L"ASDJL MLKMQWLEIOJFAS");
 				const std::string expected2("ASDJL MLKMQWLEIOJFAS");
 
 				const CHAR * dst2 = String::FromUnicode(src2);

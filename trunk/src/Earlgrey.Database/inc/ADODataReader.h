@@ -89,8 +89,8 @@ namespace Earlgrey
 				catch(_com_error& e)
 				{
 					// FIXME: 임시 코드
-					const _txstring msg( Log::FromComError(e) );
-					throw std::exception( String::FromUnicode(msg) );
+					const xstring msg( Log::FromComErrorA(e) );
+					throw std::exception(msg.c_str());
 				}		
 			}
 

@@ -20,10 +20,6 @@ using namespace Earlgrey::ServiceProcess;
 
 namespace 
 {
-#ifndef UNICODE
-#error currently UNICODE should be defined!
-#endif
-
 	typedef vector<wstring> ArgContainerType;
 
 	void getArgs(ArgContainerType& args) 
@@ -66,7 +62,7 @@ namespace
 		try
 		{
 			service.OnStart(__argc, __wargv);
-			_tcout << service.ServiceName() << _T(" ends.") << std::endl;
+			std::wcout << service.ServiceName() << L" ends." << std::endl;
 			return EXIT_SUCCESS;
 		}
 		catch(std::exception&) // 예외 메시지를 어떻게 처리할까?
@@ -95,7 +91,7 @@ namespace
 			if(installer.InstallService() == FALSE)
 				return EXIT_FAILURE;
 
-			_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 설치했습니다.");
+			std::wcout << L"서비스 '" << service.ServiceName() << L"'를 설치했습니다.";
 			return EXIT_SUCCESS;
 		}
 
@@ -104,7 +100,7 @@ namespace
 			if(installer.RemoveService() == FALSE)
 				return EXIT_FAILURE;
 
-			_tcout << _T("서비스 '") << service.ServiceName() << _T("'를 제거했습니다.");
+			std::wcout << L"서비스 '" << service.ServiceName() << L"'를 제거했습니다.";
 			return EXIT_SUCCESS;
 		}
 
@@ -158,12 +154,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	for(ArgContainerType::iterator it = args.begin(); it != args.end(); it++)
 	{
-		_tstring arg = (*it);
+		std::wstring arg = (*it);
 
-		if(arg == _T("-i"))
+		if(arg == L"-i")
 			return InstallWin32Service(settings);
 
-		if(arg == _T("-u"))
+		if(arg == L"-u")
 			return UninstallWin32Service(settings);
 	}
 

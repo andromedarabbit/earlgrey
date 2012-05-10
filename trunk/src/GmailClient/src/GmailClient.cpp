@@ -12,8 +12,8 @@ namespace Earlgrey
 	namespace Extension
 	{
 
-		GMailClient::GMailClient(const TCHAR * username, const TCHAR * password)
-			: m_Host(_T("smtp.gmail.com"))
+		GMailClient::GMailClient(const WCHAR * username, const WCHAR * password)
+			: m_Host(L"smtp.gmail.com")
 			, m_Port(587)
 			, m_UserName(username)
 			, m_Password(password)
@@ -63,8 +63,8 @@ namespace Earlgrey
 				mail.SetXMailer("EarlGrey Sample Smtp Client");
 				
 				
-				_txistringstream ss(msg.Body());
-				_txstring line;
+				xwistringstream ss(msg.Body());
+				xwstring line;
 
 				while(getline(ss, line))
 				{
@@ -87,12 +87,12 @@ namespace Earlgrey
 			}
 		}
 
-		void GMailClient::Host(const TCHAR * host)
+		void GMailClient::Host(const WCHAR * host)
 		{
 			m_Host = host;
 		}
 
-		const TCHAR * GMailClient::Host()
+		const WCHAR * GMailClient::Host()
 		{
 			return m_Host.c_str();
 		}

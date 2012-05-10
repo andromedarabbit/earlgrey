@@ -39,8 +39,11 @@
 namespace Earlgrey
 {
 
-	void ASSERT_STARTS_WITH(const _txstring& expected, const _txstring& value);
-	void ASSERT_ENDS_WITH(const _txstring& expected, const _txstring& value);
-	void ASSERT_CONTAINS(const _txstring& longStr, const _txstring& shortStr);
+	void ASSERT_STARTS_WITH(const xwstring& expected, const xwstring& value);
+	void ASSERT_STARTS_WITH(const xstring& expected, const xstring& value);
+	void ASSERT_ENDS_WITH(const xwstring& expected, const xwstring& value);
+	void ASSERT_ENDS_WITH(const xstring& expected, const xstring& value);
+	void ASSERT_CONTAINS(const xwstring& longStr, const xwstring& shortStr);
+	void ASSERT_CONTAINS(const xstring& longStr, const xstring& shortStr);
 
 }

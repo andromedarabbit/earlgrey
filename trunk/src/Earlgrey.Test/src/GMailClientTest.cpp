@@ -17,14 +17,14 @@ namespace Earlgrey
 			{
 				using namespace Earlgrey::Mail;
 
-				MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("최재훈")));
-				MailMessage::MailAddressPtr to1(new MailAddress(_T("earlgreyproject@googlegroups.com"), _T("얼그레이")));
+				MailMessage::MailAddressPtr from(new MailAddress(L"projectearlgrey@gmail.com", L"최재훈"));
+				MailMessage::MailAddressPtr to1(new MailAddress(L"earlgreyproject@googlegroups.com", L"얼그레이"));
 
 				Earlgrey::Mail::MailMessage msg(from, to1);
-				msg.Subject(_T("단위테스트 GMailClientTest::Send"));
-				msg.Body(_T("지메일 전송 테스트"));
+				msg.Subject(L"단위테스트 GMailClientTest::Send");
+				msg.Body(L"지메일 전송 테스트");
 
-				GMailClient client(_T("projectearlgrey@gmail.com"), _T("dkswjsgkwldksgdmsdkagh"));
+				GMailClient client(L"projectearlgrey@gmail.com", L"dkswjsgkwldksgdmsdkagh");
 				ASSERT_NO_THROW(client.Send(msg));				
 			}
 
@@ -33,13 +33,13 @@ namespace Earlgrey
 			{
 				struct Anonymous
 				{
-					static _txstring CreateMockDumpFile()
+					static xwstring CreateMockDumpFile()
 					{
 						using namespace std;
 
-						const _txstring baseDir = Environment::BaseDirectory();
-						const _txstring srcFile( Path::Combine(baseDir, _T("Earlgrey.Test.txt")) );
-						_txstring dstFile( Path::Combine(baseDir, _T("GMailClientTest.cpp")) ); // __FILE__
+						const xwstring baseDir = Environment::BaseDirectoryW();
+						const xwstring srcFile( Path::Combine(baseDir, L"Earlgrey.Test.txt") );
+						xwstring dstFile( Path::Combine(baseDir, L"GMailClientTest.cpp") ); // __FILE__
 
 
 						BOOL succeeded = File::Exists(srcFile);
@@ -61,24 +61,24 @@ namespace Earlgrey
 
 				using namespace Earlgrey::Mail;
 
-				MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("최재훈")));
-				MailMessage::MailAddressPtr to1(new MailAddress(_T("earlgreyproject@googlegroups.com"), _T("얼그레이")));
-				// MailMessage::MailAddressPtr to1(new MailAddress(_T("projectearlgrey@gmail.com"), _T("얼그레이")));
+				MailMessage::MailAddressPtr from(new MailAddress(L"projectearlgrey@gmail.com", L"최재훈"));
+				MailMessage::MailAddressPtr to1(new MailAddress(L"earlgreyproject@googlegroups.com", L"얼그레이"));
+				// MailMessage::MailAddressPtr to1(new MailAddress(L"projectearlgrey@gmail.com", L"얼그레이"));
 
 				Earlgrey::Mail::MailMessage msg(from, to1);
-				msg.Subject(_T("GMailClientTest::SendFile"));
-				msg.Body(_T("지메일로 파일 보내기 테스트"));
+				msg.Subject(L"GMailClientTest::SendFile");
+				msg.Body(L"지메일로 파일 보내기 테스트");
 
 
-				_txstring filePath = Anonymous::CreateMockDumpFile();
+				xwstring filePath = Anonymous::CreateMockDumpFile();
 
 				MailMessage::AttachmentPtr attachment(
-					// new Attachment(filePath.c_str(), _T("text/plain"))
-					new Attachment(filePath.c_str(), _T(""))
+					// new Attachment(filePath.c_str(), L"text/plain")
+					new Attachment(filePath.c_str(), L"")
 					);
 				msg.Attachments().push_back(attachment);
 
-				GMailClient client(_T("projectearlgrey@gmail.com"), _T("dkswjsgkwldksgdmsdkagh"));
+				GMailClient client(L"projectearlgrey@gmail.com", L"dkswjsgkwldksgdmsdkagh");
 
 				ASSERT_NO_THROW(client.Send(msg));
 			}
