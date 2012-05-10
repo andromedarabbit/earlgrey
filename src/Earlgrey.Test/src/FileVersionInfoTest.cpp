@@ -9,23 +9,23 @@ namespace Earlgrey
 	{
 		TEST(FileVersionInfoTest, GetVersionInfo)
 		{
-			_tstring fileName( Process::MainModuleFileName() );
+			std::wstring fileName( Process::MainModuleFileNameW() );
 
 			FileVersionInfo versionInfo( FileVersionInfo::GetVersionInfo(fileName) );
-			_tstring fileVersion = versionInfo.FileVersion();
-			ASSERT_STARTS_WITH( _T("1.0.0."), fileVersion.c_str() );
+			std::wstring fileVersion = versionInfo.FileVersion();
+			ASSERT_STARTS_WITH( L"1.0.0.", fileVersion.c_str() );
 
-			_tstring productName = versionInfo.ProductName();
-			ASSERT_STREQ( _T("ProductName: Earlgrey"), productName.c_str() );
+			std::wstring productName = versionInfo.ProductName();
+			ASSERT_STREQ( L"ProductName: Earlgrey", productName.c_str() );
 
-			_tstring fileDescription = versionInfo.FileDescription();
-			ASSERT_STREQ( _T("FileDescription: Earlgrey"), fileDescription.c_str() );
+			std::wstring fileDescription = versionInfo.FileDescription();
+			ASSERT_STREQ( L"FileDescription: Earlgrey", fileDescription.c_str() );
 			
 		}
 
 		TEST(FileVersionInfoTest, GetVersionInfoFromNotExistingFile)
 		{
-			_tstring fileName( _T("") );
+			std::wstring fileName( L"" );
 
 			ASSERT_THROW(FileVersionInfo::GetVersionInfo(fileName), std::exception);
 		}

@@ -13,8 +13,9 @@ namespace Earlgrey
 		// friend _tostream& operator << (_tostream& stream, const TimeSpan& obj);
 		// friend _tistream& operator >> (_tistream& stream, TimeSpan& obj);
 
-		friend std::ostream& operator << (std::ostream& stream, const TimeSpan& obj);
-		friend std::wostream& operator << (std::wostream& stream, const TimeSpan& obj);
+		// friend std::ostream& operator << (std::ostream& stream, const TimeSpan& obj);
+		// friend std::wostream& operator << (std::wostream& stream, const TimeSpan& obj);
+		friend _tostream& operator << (_tostream& stream, const TimeSpan& obj);
 
 	public:
 		typedef INT64 TickType;
@@ -278,31 +279,10 @@ namespace Earlgrey
 		TickType m_Ticks;
 	};
 
-
-	/*
-	TimeSpan operator - (const TimeSpan& other)
-	{
-		if (other.m_Ticks == TimeSpan::MinTicks)
-		{
-			// throw new OverflowException(Environment.GetResourceString("Overflow_NegateTwosCompNum"));
-		}
-		return TimeSpan(-other.m_Ticks);
-	}
-	*/
-
-	// TODO: 임시 코드
-	inline std::ostream& operator << (std::ostream& stream, const TimeSpan& obj)
-	{
-		stream << obj.Ticks() << " ticks";
-		return stream;
-		// stream << obj.ToString();
-	}
-
-	inline std::wostream& operator << (std::wostream& stream, const TimeSpan& obj)
+	inline _tostream& operator << (_tostream& stream, const TimeSpan& obj)
 	{
 		stream << obj.ToString();
 		return stream;
 	}
-	// _tistream& operator >> (_tistream& stream, TimeSpan& obj);
 }
 

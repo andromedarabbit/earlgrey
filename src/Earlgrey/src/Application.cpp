@@ -127,7 +127,7 @@ namespace Earlgrey
 		return CheckAppInstance(m_AppSettings.ShortName());
 	}
 
-	BOOL Application::CheckAppInstance(const TCHAR * appName)
+	BOOL Application::CheckAppInstance(const WCHAR * appName)
 	{
 		if( m_AppSettings.AllowOnlyOneInstance() == FALSE
 			|| gSingleAppInstance::Instance().RegisterThisApp(appName) )
@@ -135,12 +135,12 @@ namespace Earlgrey
 			return TRUE;
 		}
 
-		_txstring msg(appName);
-		msg += TEXT(" has been already started!");
+		xwstring msg(appName);
+		msg += L" has been already started!";
 
 		BOOL needMsgBox = TRUE; // TODO: 임시 코드임
 		if( needMsgBox )
-			MessageBox(NULL, msg.c_str(), NULL, MB_OK);
+			MessageBoxW(NULL, msg.c_str(), NULL, MB_OK);
 		return FALSE;
 	}
 

@@ -36,7 +36,7 @@ namespace Earlgrey
 				m_ToAddresses.push_back(to);
 			}
 
-			explicit MailMessage(const TCHAR * from, const TCHAR * to)
+			explicit MailMessage(const WCHAR * from, const WCHAR * to)
 				: m_FromAddress()
 				, m_ToAddresses()
 				, m_Subject()
@@ -69,22 +69,22 @@ namespace Earlgrey
 				return m_FromAddress;
 			}
 
-			inline const _txstring& Subject() const 
+			inline const xwstring& Subject() const 
 			{
 				return m_Subject;
 			}
 
-			inline void Subject(const TCHAR * const subject)
+			inline void Subject(const WCHAR * const subject)
 			{
 				m_Subject = subject;
 			}
 
-			inline const _txstring& Body() const 
+			inline const xwstring& Body() const 
 			{
 				return m_Body;
 			}
 
-			inline void Body(const TCHAR * const body)
+			inline void Body(const WCHAR * const body)
 			{
 				m_Body = body;
 			}
@@ -102,8 +102,8 @@ namespace Earlgrey
 		private:
 			MailAddressPtr m_FromAddress;
 			MailAddressCollection m_ToAddresses;			
-			_txstring m_Subject;
-			_txstring m_Body;
+			xwstring m_Subject;
+			xwstring m_Body;
 			AttachmentCollection m_Attachments;
 
 		};

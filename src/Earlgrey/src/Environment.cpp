@@ -19,15 +19,34 @@ namespace Earlgrey
 		return TEXT("\r\n"); // 현재는 Windows만 지원하므로,
 	}
 
+	const CHAR* const Environment::NewLineA()
+	{
+		return "\r\n"; // 현재는 Windows만 지원하므로,
+	}
+
+	const WCHAR* const Environment::NewLineW()
+	{
+		return L"\r\n"; // 현재는 Windows만 지원하므로,
+	}
+
+
+	_txstring Environment::BaseDirectory()
+	{
+#ifdef _UNICODE
+		return BaseDirectoryW();
+#else
+		return BaseDirectoryA();
+#endif
+	}
 	
 	//! \ref http://www.tipssoft.com/bulletin/board.php?bo_table=QnA&wr_id=2395
-	_txstring Environment::BaseDirectory()
+	xwstring Environment::BaseDirectoryW()
 	{
 		// TODO: 버퍼 가변 사이즈로
 		const DWORD bufferSize = MAX_PATH + 1;
 
-		TCHAR modName[bufferSize];
-		if(GetModuleFileNameEx(GetCurrentProcess(), NULL, modName, _countof(modName)) == 0)
+		WCHAR modName[bufferSize];
+		if(GetModuleFileNameExW(GetCurrentProcess(), NULL, modName, _countof(modName)) == 0)
 		{
 			const DWORD errCode = GetLastError();
 			const char * errMsg = Log::ErrorMessageA(errCode);
@@ -37,6 +56,10 @@ namespace Earlgrey
 		return Path::GetDirectoryName(modName);
 	}
 
+	xstring Environment::BaseDirectoryA()
+	{
+		return String::FromUnicode(BaseDirectoryW());
+	}
 	/*
 
 	DWORD bufferSize = 1;

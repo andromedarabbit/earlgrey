@@ -20,13 +20,13 @@ namespace Earlgrey
 		{
 			struct Anonymous
 			{
-				static _txstring CreateMockDumpFile(const _txstring& dstFile)
+				static xwstring CreateMockDumpFile(const xwstring& dstFile)
 				{
 					using namespace std;
 
-					const _txstring baseDir = Environment::BaseDirectory();
-					const _txstring srcFile( Path::Combine(baseDir, _T("Earlgrey.Test.txt")) );
-					// _txstring dstFile( Path::Combine(baseDir, _T("GMailClientTest.cpp")) ); // __FILE__
+					const xwstring baseDir = Environment::BaseDirectoryW();
+					const xwstring srcFile( Path::Combine(baseDir, L"Earlgrey.Test.txt") );
+					// xwstring dstFile( Path::Combine(baseDir, L"GMailClientTest.cpp") ); // __FILE__
 
 
 					BOOL succeeded = File::Exists(srcFile);
@@ -38,7 +38,8 @@ namespace Earlgrey
 						// ASSERT_TRUE2(succeeded);
 					}
 
-					succeeded = ::CopyFile(srcFile.c_str(), dstFile.c_str(), true);
+					// succeeded = ::CopyFile(srcFile.c_str(), dstFile.c_str(), true);
+					succeeded = File::Copy(srcFile, dstFile, true);
 					// ASSERT_TRUE2(succeeded);
 
 					return dstFile;
@@ -50,17 +51,17 @@ namespace Earlgrey
 
 					DefaultAppSettings appSettings;
 
-					const _txstring miniDumpClassName(_T("Earlgrey::MiniDump"));
-					const _txstring stackWriterClassName(_T("Earlgrey::StackWriter"));
+					const xwstring miniDumpClassName(L"Earlgrey::MiniDump");
+					const xwstring stackWriterClassName(L"Earlgrey::StackWriter");
 
 					// ¿”Ω√ ƒ⁄µÂ
-					const TCHAR * username = _T("projectearlgrey@gmail.com");
-					const TCHAR * password = _T("dkswjsgkwldksgdmsdkagh");
-					MailMessage::MailAddressPtr from(new MailAddress(_T("projectearlgrey@gmail.com"), _T("∫ÙµÂ ∏∂Ω∫≈Õ")));
-					MailMessage::MailAddressPtr to1(new MailAddress(_T("projectearlgrey@gmail.com"), _T("√÷¿Á»∆")));
-					_txstring subject(_T("[MiniDump] "));
+					const WCHAR * username = L"projectearlgrey@gmail.com";
+					const WCHAR * password = L"dkswjsgkwldksgdmsdkagh";
+					MailMessage::MailAddressPtr from(new MailAddress(L"projectearlgrey@gmail.com", L"∫ÙµÂ ∏∂Ω∫≈Õ"));
+					MailMessage::MailAddressPtr to1(new MailAddress(L"projectearlgrey@gmail.com", L"√÷¿Á»∆"));
+					xwstring subject(L"[MiniDump] ");
 					subject += appSettings.ShortName();
-					_txstring body(_T("Please see attachments!"));
+					xwstring body(L"Please see attachments!");
 
 					ExceptionEMailer::SmtpClientPtr smtpClient(new GMailClient(username, password));
 
@@ -92,7 +93,7 @@ namespace Earlgrey
 							const MiniDump * miniDump = static_cast<MiniDump*>(handler.get());
 
 							MailMessage::AttachmentPtr attachment(
-								new Attachment(miniDump->FilePath().c_str(), _T(""))
+								new Attachment(miniDump->FilePath().c_str(), L"")
 								);
 							message->Attachments().push_back(attachment);
 
@@ -104,7 +105,7 @@ namespace Earlgrey
 							const StackWriter * stackWriter = static_cast<StackWriter*>(handler.get());
 
 							MailMessage::AttachmentPtr attachment(
-								new Attachment(stackWriter->FilePath().c_str(), _T(""))
+								new Attachment(stackWriter->FilePath().c_str(), L"")
 								);
 							message->Attachments().push_back(attachment);
 

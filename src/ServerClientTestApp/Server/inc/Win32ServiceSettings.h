@@ -4,7 +4,7 @@
 class Win32ServiceSettings : public Earlgrey::ServiceProcess::ServiceSettings
 {
 public:
-	virtual const TCHAR * const ShortName() const;
+	virtual const WCHAR * const ShortName() const;
 
 	virtual UnhandledExceptionCollectionPtr UnhandledExceptions() const;
 

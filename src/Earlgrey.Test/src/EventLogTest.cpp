@@ -16,8 +16,8 @@ namespace Earlgrey
 				DeleteEventSource();				
 			}
 
-			static const TCHAR * source;
-			static const TCHAR * log;
+			static const WCHAR * source;
+			static const WCHAR * log;
 		private:
 			void DeleteEventSource()
 			{
@@ -34,29 +34,29 @@ namespace Earlgrey
 			}
 		};
 
-		const TCHAR * EventLogTest::source = _T("EarlgreyTestSource");
-		const TCHAR * EventLogTest::log = _T("EarlgreyTestLog");
+		const WCHAR * EventLogTest::source = L"EarlgreyTestSource";
+		const WCHAR * EventLogTest::log = L"EarlgreyTestLog";
 
 		TEST_F(EventLogTest, Exists)
 		{
-			ASSERT_TRUE2( EventLog::Exists(_T("Application")) );		
-			ASSERT_TRUE2( EventLog::Exists(_T("application")) );	 // Case insensitive
-			ASSERT_TRUE2( EventLog::Exists(_T("System")) );
-			ASSERT_FALSE2( EventLog::Exists(_T("None")) );			
+			ASSERT_TRUE2( EventLog::Exists(L"Application") );		
+			ASSERT_TRUE2( EventLog::Exists(L"application") );	 // Case insensitive
+			ASSERT_TRUE2( EventLog::Exists(L"System") );
+			ASSERT_FALSE2( EventLog::Exists(L"None") );			
 		}
 
 		TEST_F(EventLogTest, SourceExists)
 		{
-			ASSERT_TRUE2( EventLog::SourceExists(_T("COM")) );
-			ASSERT_TRUE2( EventLog::SourceExists(_T("com")) ); // Case insensitive
-			ASSERT_FALSE2( EventLog::SourceExists(_T("NONE-NONE")) );
+			ASSERT_TRUE2( EventLog::SourceExists(L"COM") );
+			ASSERT_TRUE2( EventLog::SourceExists(L"com") ); // Case insensitive
+			ASSERT_FALSE2( EventLog::SourceExists(L"NONE-NONE") );
 		}
 
 
 		TEST_F(EventLogTest, CreateEventSource)
 		{
 			ASSERT_FALSE2( EventLog::SourceExists(source) );
-			EventLog::CreateEventSource(source, _T("Application"));
+			EventLog::CreateEventSource(source, L"Application");
 			ASSERT_TRUE2( EventLog::SourceExists(source) );
 			EventLog::DeleteEventSource(source);
 			ASSERT_FALSE2( EventLog::SourceExists(source) );
@@ -73,7 +73,7 @@ namespace Earlgrey
 			EventLog eventLog(log, source);
 			ASSERT_EQ(0, eventLog.NumberOfEventLogRecords());
 
-			eventLog.WriteEntry(_T("Test"), EVENTLOG_INFORMATION_TYPE);
+			eventLog.WriteEntry(L"Test", EVENTLOG_INFORMATION_TYPE);
 			ASSERT_EQ(1, eventLog.NumberOfEventLogRecords());
 			
 			eventLog.Clear();

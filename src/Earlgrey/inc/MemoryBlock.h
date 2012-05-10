@@ -6,7 +6,7 @@
 #include "Macros.h"
 #include "Lock.h"
 
-#include <Loki/Threads.h>
+#include "Loki/Threads.h"
 
 #include <limits>
 

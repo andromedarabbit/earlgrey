@@ -23,19 +23,19 @@ namespace Earlgrey
 
 		TEST(PathTest, GetDirectoryName)
 		{
-			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\EarlgreyTest.exe");
-			_txstring directory = Path::GetDirectoryName(fullPath);
+			xwstring fullPath = L"c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\EarlgreyTest.exe";
+			xwstring directory = Path::GetDirectoryName(fullPath);
 			
-			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
+			xwstring expected = L"c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin";
 			ASSERT_STREQ(expected.c_str(), directory.c_str());
 		}
 
 		TEST(PathTest, GetDirectoryName2)
 		{
-			_txstring fullPath = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\");
-			_txstring directory = Path::GetDirectoryName(fullPath);
+			xwstring fullPath = L"c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin\\";
+			xwstring directory = Path::GetDirectoryName(fullPath);
 
-			_txstring expected = TEXT("c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin");
+			xwstring expected = L"c:\\workspace\\earlgrey\\src\\Win32-Debug\\bin";
 			ASSERT_STREQ(expected.c_str(), directory.c_str());
 		}
 

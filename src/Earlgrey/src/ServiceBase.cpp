@@ -17,12 +17,12 @@ namespace Earlgrey
 		ServiceBase* ServiceBase::MAIN_SERVICE = NULL;
 
 		ServiceBase::ServiceBase(
-								 const TCHAR * serviceName
-								 , const TCHAR * displayName
+								 const WCHAR * serviceName
+								 , const WCHAR * displayName
 								 )
 			: m_serviceName(serviceName)
 			, m_displayName(displayName)
-			, m_eventLog(_T("Application"), serviceName)
+			, m_eventLog(L"Application", serviceName)
 			, m_serviceStatusHandle(0)
 			, m_checkPoint(0)
 			// parameters to the "CreateService()" function:
@@ -52,7 +52,7 @@ namespace Earlgrey
 
 		}
 
-		void ServiceBase::OnStart(DWORD argc, LPTSTR * argv)
+		void ServiceBase::OnStart(DWORD argc, LPWSTR * argv)
 		{
 			DBG_UNREFERENCED_PARAMETER(argc);
 			DBG_UNREFERENCED_PARAMETER(argv);
@@ -91,7 +91,7 @@ namespace Earlgrey
 		}
 
 		/*
-		void WINAPI Win32Service::ServiceMain(DWORD dwArgc, LPTSTR *lpszArgv) 
+		void WINAPI Win32Service::ServiceMain(DWORD dwArgc, LPWSTR *lpszArgv) 
 		{
 			// register our service control handler:
 			std::tr1::function<void (DWORD)> serviceCtrlBound = std::tr1::bind(
@@ -118,19 +118,19 @@ namespace Earlgrey
 			}
 		}*/
 
-		void WINAPI ServiceBase::ServiceMain(DWORD dwArgc, LPTSTR *lpszArgv) 
+		void WINAPI ServiceBase::ServiceMain(DWORD dwArgc, LPWSTR *lpszArgv) 
 		{
 			EARLGREY_ASSERT(MAIN_SERVICE != NULL);
 			MAIN_SERVICE->Start(dwArgc, lpszArgv);
 		}
 
-		void ServiceBase::Start(DWORD dwArgc, LPTSTR *lpszArgv) 
+		void ServiceBase::Start(DWORD dwArgc, LPWSTR *lpszArgv) 
 		{
 			// register our service control handler:
 			LPHANDLER_FUNCTION_EX serviceCtrlFunc = &ServiceBase::ServiceCtrl;
 			EARLGREY_ASSERT(serviceCtrlFunc != NULL);
 
-			m_serviceStatusHandle = ::RegisterServiceCtrlHandlerEx(
+			m_serviceStatusHandle = ::RegisterServiceCtrlHandlerExW(
 				m_serviceName.c_str()
 				, serviceCtrlFunc
 				, this
@@ -234,14 +234,14 @@ namespace Earlgrey
 			// Report the status of the service to the service control manager.
 			const BOOL succeeded = ::SetServiceStatus( m_serviceStatusHandle, &m_serviceStatus);
 			if (succeeded == FALSE) {
-				m_eventLog.WriteEntry(TEXT("SetServiceStatus() failed"), EVENTLOG_ERROR_TYPE);
+				m_eventLog.WriteEntry(L"SetServiceStatus() failed", EVENTLOG_ERROR_TYPE);
 				return FALSE;
 			}
 
 			return TRUE;
 		}
 
-		LPSERVICE_MAIN_FUNCTION ServiceBase::ServiceMainFunc() const
+		LPSERVICE_MAIN_FUNCTIONW ServiceBase::ServiceMainFunc() const
 		{
 			return &ServiceBase::ServiceMain;
 		}
@@ -256,16 +256,16 @@ namespace Earlgrey
 			// Default implementation creates a single threaded service.
 			// Override this method and provide more table entries for
 			// a multithreaded service (one entry for each thread).
-			LPSERVICE_MAIN_FUNCTION serviceMainFunc = &ServiceBase::ServiceMain;
+			LPSERVICE_MAIN_FUNCTIONW serviceMainFunc = &ServiceBase::ServiceMain;
 			EARLGREY_ASSERT(serviceMainFunc != NULL);
 
-			SERVICE_TABLE_ENTRY dispatchTable[] =
+			SERVICE_TABLE_ENTRYW dispatchTable[] =
 			{
-				{ const_cast<LPTSTR>(service.m_serviceName.c_str()), serviceMainFunc },
+				{ const_cast<LPWSTR>(service.m_serviceName.c_str()), serviceMainFunc },
 				{ 0, 0 }
 			};
 			
-			BOOL bRet = StartServiceCtrlDispatcher(dispatchTable);
+			BOOL bRet = ::StartServiceCtrlDispatcherW(dispatchTable);
 			if( ! bRet ) {
 				const CHAR * const errMsg = Log::ErrorMessageA(GetLastError());
 				throw std::exception(errMsg);
@@ -291,7 +291,7 @@ namespace Earlgrey
 					std::tr1::mem_fn(&Win32Service::ServiceMain), std::tr1::ref(*service), _1, _2
 					);
 
-				dispatchTable[i].lpServiceName = const_cast<LPTSTR>(service->m_serviceName.c_str());
+				dispatchTable[i].lpServiceName = const_cast<LPWSTR>(service->m_serviceName.c_str());
 				dispatchTable[i].lpServiceProc = (LPSERVICE_MAIN_FUNCTION)serviceMainBound.target<void ( DWORD, LPWSTR * )>( );
 				EARLGREY_ASSERT(dispatchTable[i].lpServiceProc != NULL);
 			}
@@ -305,7 +305,7 @@ namespace Earlgrey
 		}*/
 
 		void ServiceBase::WriteEventLog(
-			const TCHAR * message
+			const WCHAR * message
 			, WORD eventType
 			, DWORD eventID
 			, WORD category

@@ -10,30 +10,30 @@ namespace Earlgrey
 		class MailAddress : private Uncopyable
 		{
 		public:
-			explicit MailAddress(const TCHAR * const address);
-			explicit MailAddress(const TCHAR * const address, const TCHAR * displayName);
+			explicit MailAddress(const WCHAR * const address);
+			explicit MailAddress(const WCHAR * const address, const WCHAR * displayName);
 
 			~MailAddress();
 
-			const _txstring& Address() const; 
-			const _txstring& DisplayName() const;
+			const xwstring& Address() const; 
+			const xwstring& DisplayName() const;
 
 		private:
-			_txstring m_Address;
-			_txstring m_DisplayName;
+			xwstring m_Address;
+			xwstring m_DisplayName;
 		};
 
 		typedef std::tr1::shared_ptr<MailAddress> MailAddressPtr;
 
 
-		inline MailAddress::MailAddress(const TCHAR * const address)
+		inline MailAddress::MailAddress(const WCHAR * const address)
 			: m_Address(address)
 			, m_DisplayName(address)
 		{
 
 		}
 
-		inline MailAddress::MailAddress(const TCHAR * const address, const TCHAR * displayName)
+		inline MailAddress::MailAddress(const WCHAR * const address, const WCHAR * displayName)
 			: m_Address(address)
 			, m_DisplayName(displayName)
 		{
@@ -45,12 +45,12 @@ namespace Earlgrey
 
 		}
 
-		inline const _txstring& MailAddress::Address() const 
+		inline const xwstring& MailAddress::Address() const 
 		{
 			return m_Address;
 		}
 
-		inline const _txstring& MailAddress::DisplayName() const 
+		inline const xwstring& MailAddress::DisplayName() const 
 		{
 			return m_DisplayName;
 		}

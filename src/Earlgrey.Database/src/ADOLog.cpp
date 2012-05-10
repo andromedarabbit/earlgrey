@@ -2,118 +2,186 @@
 #include "ADOLog.h"
 
 #include "txstring.h"
+// #include "StlCustomAllocator.hpp"
 
 namespace Earlgrey
 {
 	namespace ADO
 	{
-		_txstring Log::FromSqlError(RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
+		namespace
 		{
-			_txostringstream ss;
-			FromSqlError(ss, command, e, clearErrors);
-			return _txstring(ss.str());
-		}
-
-		void Log::FromSqlError(_txostringstream& ss, RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
-		{
-			if(command->CommandType == RawADO::adCmdStoredProc)
-				ss << TEXT("Stored Procedure ");
-			else
-				ss << TEXT("Query ");
-
-			ss << _T("'") << command->CommandText << _T("' failed!") << std::endl;
-
-			FromSqlError(ss, command->ActiveConnection, e, clearErrors);
-		}
-
-		_txstring Log::FromSqlError(RawADO::_ConnectionPtr pConnection, const _com_error &e, BOOL clearErrors)
-		{
-			_txostringstream ss;
-			FromSqlError(ss, pConnection, e, clearErrors);
-			return _txstring(ss.str());
-		}
-
-		void Log::FromSqlError(_txostringstream& ss, RawADO::_ConnectionPtr pConnection, const _com_error &e, BOOL clearErrors)
-		{
-			FromProviderError(ss, pConnection, clearErrors);
-			FromComError(ss, e);
-		}
-
-		_txstring Log::FromProviderError(RawADO::_ConnectionPtr pConnection, BOOL clearErrors)
-		{
-			_txostringstream ss;
-			FromProviderError(ss, pConnection, clearErrors);
-			return _txstring(ss.str());
-		}
-
-		void Log::FromProviderError(_txostringstream& ss, RawADO::_ConnectionPtr pConnection, BOOL clearErrors)
-		{
-			if(pConnection == NULL)
-				return;
-
-			// Print Provider Errors from Connection object.
-			// pErr is a record object in the Connection's Error collection.
-			RawADO::ErrorPtr  pErr = NULL;
-
-			if( (pConnection->Errors->Count) > 0)
+			template<typename T>
+			void LogFromSqlError(std::basic_ostringstream<T, std::char_traits<T>, typename StlDefaultAllocator<T>::Type >& ss, RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
 			{
-				long nCount = pConnection->Errors->Count;
+				if(command->CommandType == RawADO::adCmdStoredProc)
+					ss << "Stored Procedure ";
+				else
+					ss << "Query ";
 
-				// Collection ranges from 0 to nCount -1.
-				for(long i = 0; i < nCount; i++)
-				{
-					pErr = pConnection->Errors->GetItem(i);
-					FromError(ss, pErr);
-				}
+				ss << "'" << command->CommandText << "' failed!" << std::endl;
+
+				Log::FromSqlError(ss, command->ActiveConnection, e, clearErrors);
 			}
 
-			if(clearErrors)
-				pConnection->Errors->Clear();
 		}
 
-		_txstring Log::FromComError(const _com_error &e)
+		void Log::FromSqlError(xwostringstream& ss, RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
 		{
-			_txostringstream ss;
+			LogFromSqlError(ss, command, e, clearErrors);
+		}
+
+		void Log::FromSqlError(xostringstream& ss, RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
+		{
+			LogFromSqlError(ss, command, e, clearErrors);
+		}
+
+		xwstring Log::FromSqlErrorW(RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
+		{
+			return FromSqlError<WCHAR>(command, e, clearErrors);
+		}
+		xstring Log::FromSqlErrorA(RawADO::_CommandPtr command, const _com_error &e, BOOL clearErrors)
+		{
+			return FromSqlError<CHAR>(command, e, clearErrors);
+		}
+
+
+
+		void Log::FromSqlError(xwostringstream& ss, RawADO::_ConnectionPtr connection, const _com_error &e, BOOL clearErrors)
+		{
+			FromProviderError(ss, connection, clearErrors);
 			FromComError(ss, e);
-			return _txstring(ss.str());
 		}
 
-		void Log::FromComError(_txostringstream& ss, const _com_error &e)
+		void Log::FromSqlError(xostringstream& ss, RawADO::_ConnectionPtr connection, const _com_error &e, BOOL clearErrors)
 		{
-			ss << _T("SQL ComError Code: ") << e.Error()
-				<< _T(", Meaning: '") << e.ErrorMessage() << _T("'")
-				;
-
-
-			_bstr_t bstrSource(e.Source());
-			const TCHAR* const source = (LPCTSTR)bstrSource; 
-
-			if(source != NULL)
-				ss << _T(", Source: '") << source << _T("'");
-
-
-			_bstr_t bstrDescription(e.Description());
-			const TCHAR* const description = (LPCTSTR)bstrDescription;
-
-			if(description != NULL)
-				ss << _T(", Desc: '") << source << _T("'");
-
-			ss << std::endl;
+			FromProviderError(ss, connection, clearErrors);
+			FromComError(ss, e);
 		}
 
-
-		_txstring Log::FromError(RawADO::ErrorPtr error)
+		xwstring Log::FromSqlErrorW(RawADO::_ConnectionPtr connection, const _com_error &e, BOOL clearErrors)
 		{
-			_txostringstream ss;
-			FromError(ss, error);
-			return _txstring(ss.str());
+			return FromSqlError<WCHAR>(connection, e, clearErrors);
 		}
 
-		void Log::FromError(_txostringstream& ss, RawADO::ErrorPtr error)
+		xstring Log::FromSqlErrorA(RawADO::_ConnectionPtr connection, const _com_error &e, BOOL clearErrors)
 		{
-			if(error)
-				ss << _T("SQL Error Number: " << error->Number << _T(", Desc: ") << (LPCTSTR)error->Description ) << std::endl;
+			return FromSqlError<CHAR>(connection, e, clearErrors);
 		}
 
+		namespace 
+		{
+			template<typename T>		
+			void LogFromProviderError(std::basic_ostringstream<T, std::char_traits<T>, typename StlDefaultAllocator<T>::Type >& ss, RawADO::_ConnectionPtr connection, BOOL clearErrors)
+			{
+				if(connection == NULL)
+					return;
+
+				// Print Provider Errors from Connection object.
+				// pErr is a record object in the Connection's Error collection.
+				RawADO::ErrorPtr  pErr = NULL;
+
+				if( (connection->Errors->Count) > 0)
+				{
+					long nCount = connection->Errors->Count;
+
+					// Collection ranges from 0 to nCount -1.
+					for(long i = 0; i < nCount; i++)
+					{
+						pErr = connection->Errors->GetItem(i);
+						Log::FromError(ss, pErr);
+					}
+				}
+
+				if(clearErrors)
+					connection->Errors->Clear();
+			}
+
+		}
+		
+		void Log::FromProviderError(xwostringstream& ss, RawADO::_ConnectionPtr connection, BOOL clearErrors)
+		{
+			LogFromProviderError(ss, connection, clearErrors);
+		}
+
+		void Log::FromProviderError(xostringstream& ss, RawADO::_ConnectionPtr connection, BOOL clearErrors)
+		{
+			LogFromProviderError(ss, connection, clearErrors);
+		}
+
+	
+
+		namespace
+		{
+			template<typename T>
+			void LogFromComError(
+				std::basic_ostringstream<T, std::char_traits<T>, typename StlDefaultAllocator<T>::Type >& ss
+				, const _com_error &e
+				)
+			{
+				ss << "SQL ComError Code: " << e.Error()
+					<< ", Meaning: '" << e.ErrorMessage() << "'"
+					;
+
+
+				const _bstr_t bstrSource(e.Source());
+				const T* const source = (const T*)bstrSource; 
+
+				if(source != NULL)
+					ss << ", Source: '" << source << "'"
+					;
+
+
+				const _bstr_t bstrDescription(e.Description());
+				const T* const description = (const T*)bstrDescription;
+
+				if(description != NULL)
+					ss << ", Desc: '" << source << "'"
+					;
+
+				ss << std::endl;
+			}
+
+		}
+
+		void Log::FromComError(xwostringstream& ss, const _com_error &e)
+		{
+			return LogFromComError(ss, e);
+		}
+
+		void Log::FromComError(xostringstream& ss, const _com_error &e)
+		{
+			return LogFromComError(ss, e);
+		}
+
+		xwstring Log::FromComErrorW(const _com_error& e)
+		{
+			return FromComError<WCHAR>(e);
+		}
+
+		xstring Log::FromComErrorA(const _com_error& e)
+		{
+			return FromComError<CHAR>(e);
+		}
+
+		namespace
+		{
+			template<typename T>
+			void LogFromError(std::basic_ostringstream<T, std::char_traits<T>, typename StlDefaultAllocator<T>::Type >& ss, RawADO::ErrorPtr error)
+			{
+				if(error)
+					ss << _T("SQL Error Number: " << error->Number << _T(", Desc: ") << (LPCTSTR)error->Description ) << std::endl;
+			}
+			
+		}
+
+		void Log::FromError(xwostringstream& ss, RawADO::ErrorPtr error)
+		{
+			LogFromError(ss, error);
+		}
+
+		void Log::FromError(xostringstream& ss, RawADO::ErrorPtr error)
+		{
+			LogFromError(ss, error);
+		}
 	}
 }

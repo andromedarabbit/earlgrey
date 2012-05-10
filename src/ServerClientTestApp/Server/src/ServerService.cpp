@@ -21,7 +21,7 @@ ServerService::ServerService(const Win32ServiceSettings& settings, BOOL consoleM
 	, m_settings(settings) 
 	, m_consoleMode(consoleMode)
 {
-	const TCHAR * serviceName = this->ServiceName().c_str();
+	const WCHAR * serviceName = this->ServiceName().c_str();
 
 	if(m_consoleMode == FALSE)
 	{
@@ -93,7 +93,7 @@ BOOL ServerService::ReportStatus(
 	return __super::ReportStatus(currentState, waitHint, errExit);
 }
 
-void ServerService::OnStart(DWORD argc, LPTSTR * argv)
+void ServerService::OnStart(DWORD argc, LPWSTR * argv)
 {
 	DBG_UNREFERENCED_PARAMETER(argc);
 	DBG_UNREFERENCED_PARAMETER(argv);

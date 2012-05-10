@@ -23,24 +23,24 @@ namespace Earlgrey
 			| EVENTLOG_AUDIT_FAILURE
 			;
 
-		static const TCHAR * REGISTRY_EVENTLOG_ROOT; 
+		static const WCHAR * REGISTRY_EVENTLOG_ROOT; 
 
 	public: // instance methods
-		explicit EventLog(const TCHAR * const logName, const TCHAR * const source);
+		explicit EventLog(const WCHAR * const logName, const WCHAR * const source);
 		~EventLog();
 
-		inline const TCHAR * const Log() const
+		inline const WCHAR * const Log() const
 		{
 			return m_logName.c_str();
 		}
 
-		inline const TCHAR * const Source() const
+		inline const WCHAR * const Source() const
 		{
 			return m_source.c_str();
 		}
 
 		void WriteEntry(
-			const TCHAR * message
+			const WCHAR * message
 			, WORD eventType = EVENTLOG_INFORMATION_TYPE
 			, DWORD eventID = 0
 			, WORD category = 0 
@@ -51,19 +51,19 @@ namespace Earlgrey
 		DWORD NumberOfEventLogRecords() const;
 
 	public: // static methods
-		static BOOL Exists(const TCHAR * const logName);
-		static BOOL SourceExists(const TCHAR * const source);
-		static void CreateEventSource(const TCHAR * const source);
-		static void CreateEventSource(const TCHAR * const source, const TCHAR * const logName);
+		static BOOL Exists(const WCHAR * const logName);
+		static BOOL SourceExists(const WCHAR * const source);
+		static void CreateEventSource(const WCHAR * const source);
+		static void CreateEventSource(const WCHAR * const source, const WCHAR * const logName);
 
-		static void Delete(const TCHAR * const logName);
-		static void DeleteEventSource(const TCHAR * const source);
+		static void Delete(const WCHAR * const logName);
+		static void DeleteEventSource(const WCHAR * const source);
 
-		static _txstring FindEventSource(const TCHAR * const source);
+		static xwstring FindEventSource(const WCHAR * const source);
 
 	private:
-		_txstring m_logName;
-		_txstring m_source;
+		xwstring m_logName;
+		xwstring m_source;
 
 		// Earlgrey::handle_t m_eventSource;
 		Earlgrey::handle_t m_eventSource;

@@ -21,15 +21,15 @@ namespace Earlgrey {
 			// construction/destruction
 			// If <DisplayName> is not set, then it defaults to <ServiceName>.
 			explicit ServiceBase(
-				const TCHAR * serviceName
-				, const TCHAR * displayName = NULL
+				const WCHAR * serviceName
+				, const WCHAR * displayName = NULL
 				);
 			virtual ~ServiceBase();
 
 			// TODO 나중에 돌려놓자
-			// virtual void	OnStart(DWORD argc, LPTSTR * argv) = 0;
+			// virtual void	OnStart(DWORD argc, LPWSTR * argv) = 0;
 			// virtual void	OnStop() = 0;
-			virtual void	OnStart(DWORD argc, LPTSTR * argv);
+			virtual void	OnStart(DWORD argc, LPWSTR * argv);
 			virtual void	OnStop();
 			virtual void	OnPause();
 			virtual void	OnContinue();
@@ -39,10 +39,10 @@ namespace Earlgrey {
 			virtual BOOL OnPowerEvent(PowerBroadcastStatus powerStatus);
 
 			// BOOL InstallService();
-			virtual LPSERVICE_MAIN_FUNCTION ServiceMainFunc() const;
+			virtual LPSERVICE_MAIN_FUNCTIONW ServiceMainFunc() const;
 			
 
-			inline const _txstring& ServiceName() const
+			inline const xwstring& ServiceName() const
 			{
 				return m_serviceName;
 			}
@@ -64,13 +64,13 @@ namespace Earlgrey {
 				);
 
 			void WriteEventLog(
-				const TCHAR * message
+				const WCHAR * message
 				, WORD eventType = EVENTLOG_INFORMATION_TYPE
 				, DWORD eventID = 0
 				, WORD category = 0 
 				);
 		private:
-			void Start(DWORD argc, LPTSTR * argv);
+			void Start(DWORD argc, LPWSTR * argv);
 			DWORD ControlHandler(
 				DWORD    dwControl,
 				DWORD    dwEventType,
@@ -87,26 +87,26 @@ namespace Earlgrey {
 				LPVOID   lpEventData,
 				LPVOID   lpContext
 				);
-			static void WINAPI	ServiceMain(DWORD argc, LPTSTR * argv);
+			static void WINAPI	ServiceMain(DWORD argc, LPWSTR * argv);
 			// BOOL WINAPI	ControlHandler(DWORD CtrlType);
 
 		private:
 			static ServiceBase* MAIN_SERVICE;
 			// Earlgrey::SingleAppInstance m_singleAppInstance;
 
-			Earlgrey::_txstring m_serviceName;
-			Earlgrey::_txstring m_displayName;
+			Earlgrey::xwstring m_serviceName;
+			Earlgrey::xwstring m_displayName;
 
 			// parameters to the "CreateService()" function:
 			DWORD			m_dwDesiredAccess;		// default: SERVICE_ALL_ACCESS
 			DWORD			m_dwServiceType;		// default: SERVICE_WIN32_OWN_PROCESS
 			DWORD			m_dwStartType;			// default: SERVICE_AUTO_START
 			DWORD			m_dwErrorControl;		// default: SERVICE_ERROR_NORMAL
-			LPCTSTR			m_pszLoadOrderGroup;	// default: NULL
+			LPCWSTR			m_pszLoadOrderGroup;	// default: NULL
 			DWORD			m_dwTagID;				// retrieves the tag identifier
-			LPCTSTR			m_pszDependencies;		// default: NULL
-			LPCTSTR			m_pszStartName;			// default: NULL
-			LPCTSTR			m_pszPassword;			// default: NULL
+			LPCWSTR			m_pszDependencies;		// default: NULL
+			LPCWSTR			m_pszStartName;			// default: NULL
+			LPCWSTR			m_pszPassword;			// default: NULL
 
 			EventLog m_eventLog;
 			SERVICE_STATUS_HANDLE m_serviceStatusHandle;

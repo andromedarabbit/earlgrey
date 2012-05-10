@@ -24,7 +24,7 @@
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -91,7 +91,7 @@
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -159,7 +159,7 @@
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -229,7 +229,7 @@
 			OutputDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\bin"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)-$(ConfigurationName)\obj\$(ProjectName)"
 			ConfigurationType="4"
-			CharacterSet="1"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool

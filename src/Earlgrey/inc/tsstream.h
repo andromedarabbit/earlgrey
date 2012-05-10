@@ -31,7 +31,7 @@ namespace Earlgrey
 #ifdef _UNICODE
 	typedef auto_wstringstream auto_tstringstream;
 #else
-	typedef auto_4545rt6y56stringstream auto_tstringstream;
+	typedef auto_stringstream auto_tstringstream;
 #endif
 
 }

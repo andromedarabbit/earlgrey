@@ -47,8 +47,8 @@ namespace ADO {
 		}
 		catch(_com_error& e)
 		{
-			const _txstring msg( Log::FromSqlError(m_Command, e, TRUE) );
-			throw std::exception( String::FromUnicode(msg) );
+			const xstring msg( Log::FromSqlErrorA(m_Command, e, TRUE) );
+			throw std::exception(msg.c_str());
 		}
 	}
 
@@ -65,8 +65,8 @@ namespace ADO {
 		}
 		catch(_com_error& e)
 		{
-			const _txstring msg( Log::FromSqlError(m_Command, e, TRUE) );
-			throw std::exception( String::FromUnicode(msg) );
+			const xstring msg( Log::FromSqlErrorA(m_Command, e, TRUE) );
+			throw std::exception(msg.c_str());
 		}
 	}
 

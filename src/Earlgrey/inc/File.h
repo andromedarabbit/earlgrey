@@ -10,12 +10,20 @@ namespace Earlgrey
 		explicit File();
 
 	public:
-		static BOOL Exists(const _txstring& path);
-		static BOOL Delete(const _txstring& path);
+		static BOOL Exists(const xstring& path);
+		static BOOL Exists(const xwstring& path);
+		static BOOL Delete(const xwstring& path);
+		static BOOL Delete(const xstring& path);
 
 		static BOOL Copy(
-			const _txstring& sourceFileName,
-			const _txstring& destFileName,
+			const xwstring& sourceFileName,
+			const xwstring& destFileName,
+			BOOL overwrite
+			);
+
+		static BOOL Copy(
+			const xstring& sourceFileName,
+			const xstring& destFileName,
 			BOOL overwrite
 			);
 	};

@@ -18,10 +18,10 @@ namespace Earlgrey
 		{
 		private:
 			MINIDUMP_STREAM_TYPE m_MsgType;
-			_txstring m_Msg;
+			xwstring m_Msg;
 
 		public:
-			explicit ExtendedMessage(const MINIDUMP_STREAM_TYPE msgType, const _txstring& msg)
+			explicit ExtendedMessage(const MINIDUMP_STREAM_TYPE msgType, const xwstring& msg)
 				: m_MsgType(msgType)
 				, m_Msg(msg)
 			{
@@ -39,34 +39,34 @@ namespace Earlgrey
 				return m_MsgType;
 			}
 
-			inline const _txstring& Msg() const
+			inline const xwstring& Msg() const
 			{
 				return m_Msg;
 			}		
 		};
 		
 	private: 
-		_txstring m_DumpFilePath;
+		xwstring m_DumpFilePath;
 		std::vector<ExtendedMessage*> m_ExtendedMessages;
-		_txstring::size_type m_MaxMsgLen;
+		xwstring::size_type m_MaxMsgLen;
 
 		MINIDUMP_TYPE m_DumpType;
 
 	public:
-		explicit MiniDump(const _txstring& dumpFilePath, MINIDUMP_TYPE dumpType);
+		explicit MiniDump(const xwstring& dumpFilePath, MINIDUMP_TYPE dumpType);
 		virtual ~MiniDump();
 
-		virtual const TCHAR * ClassName() const;
+		virtual const WCHAR * ClassName() const;
 
-		inline const _txstring& FilePath() const
+		inline const xwstring& FilePath() const
 		{
 			return m_DumpFilePath;
 		}
 
-		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const _txstring& msg);
+		void AddExtendedMessage(MINIDUMP_STREAM_TYPE msgType, const xwstring& msg);
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtrs);
 
-		static const TCHAR * const GetFaultReason(PEXCEPTION_POINTERS exPtrs);
+		static const WCHAR * const GetFaultReason(PEXCEPTION_POINTERS exPtrs);
 	private: // private methods
 		void Initialize();
 

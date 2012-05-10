@@ -8,12 +8,12 @@ namespace Earlgrey
 	{
 		TEST(SingleAppInstanceTest, IsRunning)
 		{
-			const TCHAR * appName = _T("Earlgrey.Test.exe");
+			const WCHAR * appName = L"Earlgrey.Test.exe";
 			
 			ASSERT_TRUE2(gSingleAppInstance::Instance().RegisterThisApp(appName));
 			ASSERT_TRUE2(gSingleAppInstance::Instance().RegisterThisApp(appName));
 			
-			const TCHAR * anotherAppName = _T("Another");
+			const WCHAR * anotherAppName = L"Another";
 			ASSERT_FALSE2(gSingleAppInstance::Instance().RegisterThisApp(anotherAppName));
 		}
 	}

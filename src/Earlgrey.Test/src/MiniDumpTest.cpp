@@ -13,8 +13,8 @@ namespace Earlgrey
 	{	
 		void Dump(LPEXCEPTION_POINTERS exceptionPtr)
 		{
-			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring dumpFilePath( Path::Combine(baseDir, _T("MiniDumpTest.dmp")) );
+			const xwstring baseDir = Environment::BaseDirectoryW();
+			const xwstring dumpFilePath( Path::Combine(baseDir, L"MiniDumpTest.dmp") );
 
 			if( File::Exists(dumpFilePath.c_str()) )
 			{
@@ -26,7 +26,7 @@ namespace Earlgrey
 			MiniDump miniDump(dumpFilePath.c_str(), dumpType);
 			miniDump.AddExtendedMessage(
 				static_cast<MINIDUMP_STREAM_TYPE>(LastReservedStream + 1)
-				, _T("사용자 정보 1")
+				, L"사용자 정보 1"
 				);
 
 			miniDump.HandleException(exceptionPtr);	
@@ -36,8 +36,8 @@ namespace Earlgrey
 
 		void WriteSummary(LPEXCEPTION_POINTERS exceptionPtr)
 		{
-			const _txstring baseDir = Environment::BaseDirectory();
-			const _txstring dumpFilePath( Path::Combine(baseDir, _T("MiniDumpTest.txt")) );
+			const xwstring baseDir = Environment::BaseDirectoryW();
+			const xwstring dumpFilePath( Path::Combine(baseDir, L"MiniDumpTest.txt") );
 
 			if( File::Exists(dumpFilePath.c_str()) )
 			{

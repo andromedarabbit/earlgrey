@@ -13,16 +13,16 @@ namespace Earlgrey
 {
 	namespace 
 	{
-		const TCHAR * GetMode(DWORD nStdHandle)
+		const WCHAR * GetMode(DWORD nStdHandle)
 		{
 			if(nStdHandle == STD_OUTPUT_HANDLE)
-				return _T("w");
+				return L"w";
 
 			if(nStdHandle == STD_INPUT_HANDLE)
-				return _T("r");
+				return L"r";
 
 			if(nStdHandle == STD_ERROR_HANDLE)
-				return _T("w");
+				return L"w";
 
 			// TODO
 			throw std::invalid_argument("");
@@ -121,14 +121,14 @@ namespace Earlgrey
 		{
 			EARLGREY_ASSERT(m_closed == TRUE);
 
-			const TCHAR * mode = GetMode(m_stdHandleType);
+			const WCHAR * mode = GetMode(m_stdHandleType);
 
 			long stdHandle = PtrToLong(m_stdHandle); // 콘솔 핸들
 			m_conHandle = _open_osfhandle(stdHandle, _O_TEXT);
 			EARLGREY_ASSERT(m_conHandle != -1);
 
 			// SetStdHandle(m_stdHandleType, 
-			FILE * fp = _tfdopen(m_conHandle, mode);
+			FILE * fp = _wfdopen(m_conHandle, mode);
 			EARLGREY_ASSERT(fp != NULL);
 
 			FILE * stdFile = GetStdFile(m_stdHandleType); // 원본 핸들
@@ -191,9 +191,9 @@ namespace Earlgrey
 		if(m_closed == FALSE)
 			return FALSE;
 
-		m_previousStdOutLocale = _tcout.imbue( std::locale("kor") );
-		m_previousStdInLocale = _tcin.imbue( std::locale("kor") );
-		m_previousStdErrLocale = _tcerr.imbue( std::locale("kor") );
+		m_previousStdOutLocale = std::wcout.imbue( std::locale("kor") );
+		m_previousStdInLocale = std::wcin.imbue( std::locale("kor") );
+		m_previousStdErrLocale = std::wcerr.imbue( std::locale("kor") );
 
 		BOOL consoleAttached = FALSE;
 
@@ -203,9 +203,9 @@ namespace Earlgrey
 		if (consoleAttached == FALSE && ::AllocConsole() == FALSE) 
 		{
 			// \todo 뭔가 오류 처리가 필요하다.
-			DWORD errCode = GetLastError();
+			const DWORD errCode = GetLastError();
 
-			_txstring errMsg = Log::ErrorMessage(errCode);
+			const xstring errMsg = Log::ErrorMessageA(errCode);
 			DBG_UNREFERENCED_LOCAL_VARIABLE(errMsg);
 
 			return FALSE;
@@ -247,19 +247,19 @@ namespace Earlgrey
 
 		EARLGREY_VERIFY(::FreeConsole());
 
-		_tcerr.imbue( m_previousStdErrLocale );
-		_tcin.imbue( m_previousStdInLocale );
-		_tcout.imbue( m_previousStdOutLocale );
+		std::wcerr.imbue( m_previousStdErrLocale );
+		std::wcin.imbue( m_previousStdInLocale );
+		std::wcout.imbue( m_previousStdOutLocale );
 
 		m_closed = TRUE;
 	}
 
-	void Console::Write(const TCHAR * const msg)
+	void Console::Write(const WCHAR * const msg)
 	{		
-		Write(msg, _tcslen(msg));
+		Write(msg, wcslen(msg));
 	}
 
-	void Console::Write(const TCHAR * const msg, size_t msgLen)
+	void Console::Write(const WCHAR * const msg, size_t msgLen)
 	{
 		EARLGREY_ASSERT(m_closed == FALSE);
 		EARLGREY_ASSERT(msg != NULL);
@@ -267,21 +267,21 @@ namespace Earlgrey
 
 		const DWORD numberOfCharsToWrite = EARLGREY_NUMERIC_CAST<DWORD>(msgLen);
 		DWORD numberOfCharsWritten = 0;
-		if(::WriteConsole(m_stdoutHandle, msg, numberOfCharsToWrite,  &numberOfCharsWritten, NULL) == FALSE)
+		if(::WriteConsoleW(m_stdoutHandle, msg, numberOfCharsToWrite,  &numberOfCharsWritten, NULL) == FALSE)
 		{
 			// TODO
 		}
 	}
 
-	void Console::WriteLine(const TCHAR * const msg)
+	void Console::WriteLine(const WCHAR * const msg)
 	{
-		WriteLine(msg, _tcslen(msg));
+		WriteLine(msg, wcslen(msg));
 	}
 
-	void Console::WriteLine(const TCHAR * const msg, size_t msgLen)
+	void Console::WriteLine(const WCHAR * const msg, size_t msgLen)
 	{
-		static const TCHAR * const newline = Environment::NewLine();
-		static const size_t newlineLength = _tcslen(newline);
+		static const WCHAR * const newline = Environment::NewLineW();
+		static const size_t newlineLength = wcslen(newline);
 
 		EARLGREY_ASSERT(m_closed == FALSE);
 		EARLGREY_ASSERT(msg != NULL);
@@ -291,12 +291,12 @@ namespace Earlgrey
 		Write(newline, newlineLength);
 	}
 
-	void Console::WindowTitle(const TCHAR * const msg)
+	void Console::WindowTitle(const WCHAR * const msg)
 	{
 		EARLGREY_ASSERT(m_closed == FALSE);
 		EARLGREY_ASSERT(msg != NULL);
 
-		if(::SetConsoleTitle(msg) == FALSE)
+		if(::SetConsoleTitleW(msg) == FALSE)
 		{
 			// TODO: GetLastError
 			// If the buffer is not large enough to store the title, the return value is zero and GetLastError returns ERROR_SUCCESS.
@@ -305,16 +305,16 @@ namespace Earlgrey
 		}
 	}
 
-	_txstring Console::WindowTitle() const
+	xwstring Console::WindowTitle() const
 	{
-		TCHAR title[MAX_PATH];
-		if(GetConsoleTitle(title, _countof(title)) == FALSE)
+		WCHAR title[MAX_PATH];
+		if(::GetConsoleTitleW(title, _countof(title)) == FALSE)
 		{
 			// TODO: GetLastError
 			throw std::exception("");
 		}
 
-		return _txstring(title);
+		return xwstring(title);
 	}
 
 	BOOL Console::RedirectStdIO()
@@ -334,7 +334,7 @@ namespace Earlgrey
 		m_redirected = TRUE;
 
 		// make cout, wcout, cin, wcin, wcerr, cerr, wclog and clog point to console as well
-		_tios::sync_with_stdio(true);
+		std::wios::sync_with_stdio(true);
 
 		return TRUE;
 	}

@@ -21,7 +21,7 @@ namespace Earlgrey
 			);
 		virtual ~ExceptionEMailer();
 
-		virtual const TCHAR * ClassName() const;
+		virtual const WCHAR * ClassName() const;
 
 		virtual void HandleException(LPEXCEPTION_POINTERS exceptionPtr);
 
