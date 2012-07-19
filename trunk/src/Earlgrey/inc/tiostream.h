@@ -5,17 +5,11 @@
 namespace Earlgrey
 {
 #ifdef _UNICODE
-	typedef std::wofstream _tofstream;
 	typedef std::wistream _tistream;
+	typedef std::wostream _tostream;
 #else
-	typedef	std::ofstream _tofstream;
-	typedef std::istream _tistream;
-#endif
-
-#ifdef _UNICODE
-	typedef std::wifstream _tifstream;
-#else
-	typedef	std::ifstream _tifstream;
+	typedef	std::istream _tistream;
+	typedef std::ostream _tostream;
 #endif
 	//! \ref http://www.gamedev.net/community/forums/topic.asp?topic_id=367500
 	typedef std::basic_ostream<TCHAR, std::char_traits<TCHAR> > _tostream;

@@ -839,6 +839,9 @@
     <ClInclude Include="inc\MD5.h">
       <Filter>Header Files\Security</Filter>
     </ClInclude>
+    <ClInclude Include="inc\tfstream.h">
+      <Filter>Header Files\StlCustom</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EargreyResources.rc">
