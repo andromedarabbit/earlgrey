@@ -436,6 +436,7 @@
     <ClInclude Include="inc\Earlgrey.h" />
     <ClInclude Include="inc\EarlgreyPrivate.h" />
     <ClInclude Include="inc\Macros.h" />
+    <ClInclude Include="inc\tfstream.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="inc\stdafx.h" />
     <ClInclude Include="inc\targetver.h" />
