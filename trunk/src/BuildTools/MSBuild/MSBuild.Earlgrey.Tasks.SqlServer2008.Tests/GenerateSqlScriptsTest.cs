@@ -15,14 +15,19 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
     {
         private static GenerateSqlScripts CreateInstance()
         {
+            return CreateInstanceWithDatabaseName("earlgrey_test");
+        }
+
+        private static GenerateSqlScripts CreateInstanceWithDatabaseName(string databaseName)
+        {
             GenerateSqlScripts instance = new GenerateSqlScripts();
             instance.BuildEngine = new MockBuildEngine();
             instance.Server = @"localhost\SQLEXPRESS";
-            
+
 
             // TODO: 임시
             // instance.Database = "model";
-            instance.Database = "earlgrey_test";
+            instance.Database = databaseName;
             // instance.Database = "COMBATARMS";
             return instance;
         }
@@ -212,6 +217,44 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008.Tests
 
             Assert.IsTrue(instance.Execute());
             Assert.IsTrue(File.Exists(instance.OutputFilePath));
+        }
+
+
+        [Test]
+        public void CombatArms()
+        {
+            GenerateSqlScripts instance = CreateInstance();
+            instance.Overwrite = true;
+
+            instance.CopyData = true;
+            instance.ExtendedProperties = true;
+            instance.FullTextIndexes = true;
+            instance.IncludeIfNotExists = true;
+            instance.Indexes = true;
+            instance.NoCollation = true;
+            instance.SchemaQualify = true;
+            instance.ScriptTriggers = true;
+
+            Assert.IsTrue(instance.Execute());
+        }
+
+
+        [Test]
+        public void DatabaseNotExists()
+        {
+            GenerateSqlScripts instance = CreateInstanceWithDatabaseName("Wow");
+            instance.Overwrite = true;
+
+            instance.CopyData = true;
+            instance.ExtendedProperties = true;
+            instance.FullTextIndexes = true;
+            instance.IncludeIfNotExists = true;
+            instance.Indexes = true;
+            instance.NoCollation = true;
+            instance.SchemaQualify = true;
+            instance.ScriptTriggers = true;
+
+            Assert.IsFalse(instance.Execute());
         }
     }
 }
