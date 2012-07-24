@@ -440,6 +440,13 @@ namespace MSBuild.Earlgrey.Tasks.SqlServer2008
             ServerConnection serverConnection = GetServerConnection();
             Server server = new Server(serverConnection);
             Database database = server.Databases[Database];
+            if (database == null)
+            {
+                Log.LogError(
+                    string.Format("Database '{0}' Not Found!", Database)
+                    );
+                return false;
+            }
 
 
             Scripter scripter = new Scripter(server);
