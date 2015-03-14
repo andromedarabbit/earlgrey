@@ -1,0 +1,76 @@
+# Introduction #
+**Earlgrey** has now two kinds of build tools.
+  * Third-party tools
+  * Custom tools
+
+# Third-party tools #
+Build tools developed by other open source communities are now placed in /trunk/vendor path. We are currently using **MSBuild Community Tasks** to provide extensive functionalities to MSBuild scripts. **CruiseControl .NET** is also being used to automate build processes and to get rapid feedbacks.
+
+# Custom tools #
+
+## MSBuild.Earlgrey.Tasks ##
+The name of **MSBuild Earlgrey.Tasks** describes itself. It provides some useful functionalities to MSBuild scripts, just as MSBuild Community Tasks does. Actually, some features of this library are based on MSBuild Community Tasks. Of course, MSBuild.Earlgrey has improved other open source communities' efforts.
+
+### How to build MSBuild.Earlgrey.Tasks ###
+#### Very simple way ####
+```
+D:\earlgrey> cd trunk\src
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml
+```
+
+That's it! All the files you need will be put into "trunk\src\BuildTools\Any CPU-Release\MSBuildExtension\".
+
+#### Change deployment directory ####
+```
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml /p:DeploymentDir="D:\earlgrey.tasks"
+```
+
+Now, files will be placed in "D:\earlgrey.tasks\".
+
+#### If you need 'DEBUG' version of files ####
+```
+D:\earlgrey\trunk\src> MSBuild_Win32.bat BuildTools\msbuild-deploy.xml /p:Configuration=Debug
+```
+
+That's it! Isn't it easy?
+
+### How to Use MSBuild.Earlgrey.Tasks ###
+Every step is described in the following sample code.
+
+```
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<RootDir>$(MSBuildProjectDirectory)</RootDir>
+		
+		<!-- 
+		First thing you need to do is to define $(MSBuildEarlgreyTasksPath),
+		which represents deployment directory path of MSBuild.Earlgrey.Tasks. 
+		-->
+		<MSBuildEarlgreyTasksPath>BuildTools\Any CPU-Release\MSBuildExtension</MSBuildEarlgreyTasksPath>
+	</PropertyGroup>
+
+	<!-- Second, import MSBuild.Earlgrey.Tasks. -->
+	<Import Project="$(MSBuildEarlgreyTasksPath)\MSBuild.Earlgrey.Tasks.Targets"/>
+
+	<!-- Usage example of MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy -->
+	<Target Name="RoboCopyUsageExample">
+		<BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+		
+		<!-- You can also use the full name of a task -->
+		<MSBuild.Earlgrey.Tasks.IO.BetterRoboCopy
+			SourceFolder="$(RootDir)\MSBuildExtension"
+			DestinationFolder="$(RootDir)\"
+			SourceFiles="FILE_NOT_EXISTS.txt"
+		/>
+	</Target>
+</Project>
+```
+
+## Earlgrey.UnityBuild ##
+This library is still under development, and not ready to be released.
